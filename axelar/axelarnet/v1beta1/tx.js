@@ -22,7 +22,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RetryIBCTransferResponse = exports.RetryIBCTransferRequest = exports.RegisterFeeCollectorResponse = exports.RegisterFeeCollectorRequest = exports.RouteIBCTransfersResponse = exports.RouteIBCTransfersRequest = exports.RegisterAssetResponse = exports.RegisterAssetRequest = exports.AddCosmosBasedChainResponse = exports.AddCosmosBasedChainRequest = exports.RegisterIBCPathResponse = exports.RegisterIBCPathRequest = exports.ExecutePendingTransfersResponse = exports.ExecutePendingTransfersRequest = exports.ConfirmDepositResponse = exports.ConfirmDepositRequest = exports.LinkResponse = exports.LinkRequest = exports.protobufPackage = void 0;
+exports.ExecuteGeneralMessageWithTokenResponse = exports.ExecuteGeneralMessageWithTokenRequest = exports.RetryIBCTransferResponse = exports.RetryIBCTransferRequest = exports.RegisterFeeCollectorResponse = exports.RegisterFeeCollectorRequest = exports.RouteIBCTransfersResponse = exports.RouteIBCTransfersRequest = exports.RegisterAssetResponse = exports.RegisterAssetRequest = exports.AddCosmosBasedChainResponse = exports.AddCosmosBasedChainRequest = exports.RegisterIBCPathResponse = exports.RegisterIBCPathRequest = exports.ExecutePendingTransfersResponse = exports.ExecutePendingTransfersRequest = exports.ConfirmDepositResponse = exports.ConfirmDepositRequest = exports.LinkResponse = exports.LinkRequest = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
@@ -939,6 +939,112 @@ exports.RetryIBCTransferResponse = {
     },
     fromPartial(_) {
         const message = createBaseRetryIBCTransferResponse();
+        return message;
+    },
+};
+function createBaseExecuteGeneralMessageWithTokenRequest() {
+    return { sender: new Uint8Array(), chain: "", id: "", payload: new Uint8Array() };
+}
+exports.ExecuteGeneralMessageWithTokenRequest = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.sender.length !== 0) {
+            writer.uint32(10).bytes(message.sender);
+        }
+        if (message.chain !== "") {
+            writer.uint32(18).string(message.chain);
+        }
+        if (message.id !== "") {
+            writer.uint32(26).string(message.id);
+        }
+        if (message.payload.length !== 0) {
+            writer.uint32(34).bytes(message.payload);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseExecuteGeneralMessageWithTokenRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.sender = reader.bytes();
+                    break;
+                case 2:
+                    message.chain = reader.string();
+                    break;
+                case 3:
+                    message.id = reader.string();
+                    break;
+                case 4:
+                    message.payload = reader.bytes();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+            chain: isSet(object.chain) ? String(object.chain) : "",
+            id: isSet(object.id) ? String(object.id) : "",
+            payload: isSet(object.payload) ? bytesFromBase64(object.payload) : new Uint8Array(),
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.sender !== undefined &&
+            (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+        message.chain !== undefined && (obj.chain = message.chain);
+        message.id !== undefined && (obj.id = message.id);
+        message.payload !== undefined &&
+            (obj.payload = base64FromBytes(message.payload !== undefined ? message.payload : new Uint8Array()));
+        return obj;
+    },
+    fromPartial(object) {
+        var _a, _b, _c, _d;
+        const message = createBaseExecuteGeneralMessageWithTokenRequest();
+        message.sender = (_a = object.sender) !== null && _a !== void 0 ? _a : new Uint8Array();
+        message.chain = (_b = object.chain) !== null && _b !== void 0 ? _b : "";
+        message.id = (_c = object.id) !== null && _c !== void 0 ? _c : "";
+        message.payload = (_d = object.payload) !== null && _d !== void 0 ? _d : new Uint8Array();
+        return message;
+    },
+};
+function createBaseExecuteGeneralMessageWithTokenResponse() {
+    return {};
+}
+exports.ExecuteGeneralMessageWithTokenResponse = {
+    encode(_, writer = _m0.Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseExecuteGeneralMessageWithTokenResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        return {};
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = createBaseExecuteGeneralMessageWithTokenResponse();
         return message;
     },
 };

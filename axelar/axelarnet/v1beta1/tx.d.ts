@@ -110,6 +110,14 @@ export interface RetryIBCTransferRequest {
 }
 export interface RetryIBCTransferResponse {
 }
+export interface ExecuteGeneralMessageWithTokenRequest {
+    sender: Uint8Array;
+    chain: string;
+    id: string;
+    payload: Uint8Array;
+}
+export interface ExecuteGeneralMessageWithTokenResponse {
+}
 export declare const LinkRequest: {
     encode(message: LinkRequest, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): LinkRequest;
@@ -475,6 +483,30 @@ export declare const RetryIBCTransferResponse: {
     fromJSON(_: any): RetryIBCTransferResponse;
     toJSON(_: RetryIBCTransferResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): RetryIBCTransferResponse;
+};
+export declare const ExecuteGeneralMessageWithTokenRequest: {
+    encode(message: ExecuteGeneralMessageWithTokenRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ExecuteGeneralMessageWithTokenRequest;
+    fromJSON(object: any): ExecuteGeneralMessageWithTokenRequest;
+    toJSON(message: ExecuteGeneralMessageWithTokenRequest): unknown;
+    fromPartial<I extends {
+        sender?: Uint8Array | undefined;
+        chain?: string | undefined;
+        id?: string | undefined;
+        payload?: Uint8Array | undefined;
+    } & {
+        sender?: Uint8Array | undefined;
+        chain?: string | undefined;
+        id?: string | undefined;
+        payload?: Uint8Array | undefined;
+    } & Record<Exclude<keyof I, keyof ExecuteGeneralMessageWithTokenRequest>, never>>(object: I): ExecuteGeneralMessageWithTokenRequest;
+};
+export declare const ExecuteGeneralMessageWithTokenResponse: {
+    encode(_: ExecuteGeneralMessageWithTokenResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ExecuteGeneralMessageWithTokenResponse;
+    fromJSON(_: any): ExecuteGeneralMessageWithTokenResponse;
+    toJSON(_: ExecuteGeneralMessageWithTokenResponse): unknown;
+    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): ExecuteGeneralMessageWithTokenResponse;
 };
 declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {

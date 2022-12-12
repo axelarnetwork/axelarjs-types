@@ -10,6 +10,7 @@ import {
   RouteIBCTransfersResponse,
   RegisterFeeCollectorResponse,
   RetryIBCTransferResponse,
+  ExecuteGeneralMessageWithTokenResponse,
   LinkRequest,
   ConfirmDepositRequest,
   ExecutePendingTransfersRequest,
@@ -18,6 +19,7 @@ import {
   RouteIBCTransfersRequest,
   RegisterFeeCollectorRequest,
   RetryIBCTransferRequest,
+  ExecuteGeneralMessageWithTokenRequest,
 } from "../../../axelar/axelarnet/v1beta1/tx";
 import {
   PendingIBCTransferCountResponse,
@@ -36,6 +38,9 @@ export interface MsgService {
   RouteIBCTransfers(request: RouteIBCTransfersRequest): Promise<RouteIBCTransfersResponse>;
   RegisterFeeCollector(request: RegisterFeeCollectorRequest): Promise<RegisterFeeCollectorResponse>;
   RetryIBCTransfer(request: RetryIBCTransferRequest): Promise<RetryIBCTransferResponse>;
+  ExecuteGeneralMessageWithToken(
+    request: ExecuteGeneralMessageWithTokenRequest,
+  ): Promise<ExecuteGeneralMessageWithTokenResponse>;
 }
 
 export class MsgServiceClientImpl implements MsgService {
@@ -50,6 +55,7 @@ export class MsgServiceClientImpl implements MsgService {
     this.RouteIBCTransfers = this.RouteIBCTransfers.bind(this);
     this.RegisterFeeCollector = this.RegisterFeeCollector.bind(this);
     this.RetryIBCTransfer = this.RetryIBCTransfer.bind(this);
+    this.ExecuteGeneralMessageWithToken = this.ExecuteGeneralMessageWithToken.bind(this);
   }
   Link(request: LinkRequest): Promise<LinkResponse> {
     const data = LinkRequest.encode(request).finish();
@@ -97,6 +103,18 @@ export class MsgServiceClientImpl implements MsgService {
     const data = RetryIBCTransferRequest.encode(request).finish();
     const promise = this.rpc.request("axelar.axelarnet.v1beta1.MsgService", "RetryIBCTransfer", data);
     return promise.then((data) => RetryIBCTransferResponse.decode(new _m0.Reader(data)));
+  }
+
+  ExecuteGeneralMessageWithToken(
+    request: ExecuteGeneralMessageWithTokenRequest,
+  ): Promise<ExecuteGeneralMessageWithTokenResponse> {
+    const data = ExecuteGeneralMessageWithTokenRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "axelar.axelarnet.v1beta1.MsgService",
+      "ExecuteGeneralMessageWithToken",
+      data,
+    );
+    return promise.then((data) => ExecuteGeneralMessageWithTokenResponse.decode(new _m0.Reader(data)));
   }
 }
 

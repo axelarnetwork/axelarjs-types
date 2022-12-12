@@ -123,6 +123,15 @@ export interface RetryIBCTransferRequest {
 
 export interface RetryIBCTransferResponse {}
 
+export interface ExecuteGeneralMessageWithTokenRequest {
+  sender: Uint8Array;
+  chain: string;
+  id: string;
+  payload: Uint8Array;
+}
+
+export interface ExecuteGeneralMessageWithTokenResponse {}
+
 function createBaseLinkRequest(): LinkRequest {
   return { sender: new Uint8Array(), recipientAddr: "", recipientChain: "", asset: "" };
 }
@@ -1147,6 +1156,130 @@ export const RetryIBCTransferResponse = {
 
   fromPartial<I extends Exact<DeepPartial<RetryIBCTransferResponse>, I>>(_: I): RetryIBCTransferResponse {
     const message = createBaseRetryIBCTransferResponse();
+    return message;
+  },
+};
+
+function createBaseExecuteGeneralMessageWithTokenRequest(): ExecuteGeneralMessageWithTokenRequest {
+  return { sender: new Uint8Array(), chain: "", id: "", payload: new Uint8Array() };
+}
+
+export const ExecuteGeneralMessageWithTokenRequest = {
+  encode(
+    message: ExecuteGeneralMessageWithTokenRequest,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.sender.length !== 0) {
+      writer.uint32(10).bytes(message.sender);
+    }
+    if (message.chain !== "") {
+      writer.uint32(18).string(message.chain);
+    }
+    if (message.id !== "") {
+      writer.uint32(26).string(message.id);
+    }
+    if (message.payload.length !== 0) {
+      writer.uint32(34).bytes(message.payload);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): ExecuteGeneralMessageWithTokenRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseExecuteGeneralMessageWithTokenRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.sender = reader.bytes();
+          break;
+        case 2:
+          message.chain = reader.string();
+          break;
+        case 3:
+          message.id = reader.string();
+          break;
+        case 4:
+          message.payload = reader.bytes();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): ExecuteGeneralMessageWithTokenRequest {
+    return {
+      sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+      chain: isSet(object.chain) ? String(object.chain) : "",
+      id: isSet(object.id) ? String(object.id) : "",
+      payload: isSet(object.payload) ? bytesFromBase64(object.payload) : new Uint8Array(),
+    };
+  },
+
+  toJSON(message: ExecuteGeneralMessageWithTokenRequest): unknown {
+    const obj: any = {};
+    message.sender !== undefined &&
+      (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+    message.chain !== undefined && (obj.chain = message.chain);
+    message.id !== undefined && (obj.id = message.id);
+    message.payload !== undefined &&
+      (obj.payload = base64FromBytes(message.payload !== undefined ? message.payload : new Uint8Array()));
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<ExecuteGeneralMessageWithTokenRequest>, I>>(
+    object: I,
+  ): ExecuteGeneralMessageWithTokenRequest {
+    const message = createBaseExecuteGeneralMessageWithTokenRequest();
+    message.sender = object.sender ?? new Uint8Array();
+    message.chain = object.chain ?? "";
+    message.id = object.id ?? "";
+    message.payload = object.payload ?? new Uint8Array();
+    return message;
+  },
+};
+
+function createBaseExecuteGeneralMessageWithTokenResponse(): ExecuteGeneralMessageWithTokenResponse {
+  return {};
+}
+
+export const ExecuteGeneralMessageWithTokenResponse = {
+  encode(_: ExecuteGeneralMessageWithTokenResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): ExecuteGeneralMessageWithTokenResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseExecuteGeneralMessageWithTokenResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): ExecuteGeneralMessageWithTokenResponse {
+    return {};
+  },
+
+  toJSON(_: ExecuteGeneralMessageWithTokenResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<ExecuteGeneralMessageWithTokenResponse>, I>>(
+    _: I,
+  ): ExecuteGeneralMessageWithTokenResponse {
+    const message = createBaseExecuteGeneralMessageWithTokenResponse();
     return message;
   },
 };

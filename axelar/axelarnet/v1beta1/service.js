@@ -40,6 +40,7 @@ class MsgServiceClientImpl {
         this.RouteIBCTransfers = this.RouteIBCTransfers.bind(this);
         this.RegisterFeeCollector = this.RegisterFeeCollector.bind(this);
         this.RetryIBCTransfer = this.RetryIBCTransfer.bind(this);
+        this.ExecuteGeneralMessageWithToken = this.ExecuteGeneralMessageWithToken.bind(this);
     }
     Link(request) {
         const data = tx_1.LinkRequest.encode(request).finish();
@@ -80,6 +81,11 @@ class MsgServiceClientImpl {
         const data = tx_1.RetryIBCTransferRequest.encode(request).finish();
         const promise = this.rpc.request("axelar.axelarnet.v1beta1.MsgService", "RetryIBCTransfer", data);
         return promise.then((data) => tx_1.RetryIBCTransferResponse.decode(new _m0.Reader(data)));
+    }
+    ExecuteGeneralMessageWithToken(request) {
+        const data = tx_1.ExecuteGeneralMessageWithTokenRequest.encode(request).finish();
+        const promise = this.rpc.request("axelar.axelarnet.v1beta1.MsgService", "ExecuteGeneralMessageWithToken", data);
+        return promise.then((data) => tx_1.ExecuteGeneralMessageWithTokenResponse.decode(new _m0.Reader(data)));
     }
 }
 exports.MsgServiceClientImpl = MsgServiceClientImpl;
