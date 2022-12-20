@@ -31,6 +31,7 @@ protoc \
   "$AXELAR_SDK_DIR/axelar/evm/v1beta1/service.proto" \
   "$AXELAR_SDK_DIR/axelar/evm/v1beta1/tx.proto" \
   "$AXELAR_SDK_DIR/axelar/evm/v1beta1/types.proto" \
+  "$AXELAR_SDK_DIR/axelar/evm/v1beta1/events.proto" \
   "$AXELAR_SDK_DIR/axelar/nexus/v1beta1/genesis.proto" \
   "$AXELAR_SDK_DIR/axelar/nexus/v1beta1/params.proto" \
   "$AXELAR_SDK_DIR/axelar/nexus/v1beta1/query.proto" \
