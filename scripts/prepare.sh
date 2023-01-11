@@ -2,7 +2,7 @@
 set -o errexit -o nounset -o pipefail
 command -v shellcheck >/dev/null && shellcheck "$0"
 
-DIRS="axelar cosmos google "
+DIRS="axelar cosmos google ibc"
 
 for dir in $DIRS; do
   rm -rf "$dir"
