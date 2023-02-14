@@ -54,7 +54,15 @@ export function chainStatusToJSON(object: ChainStatus): string {
   }
 }
 
-export interface QueryChainMaintainersResponse {
+/**
+ * ChainMaintainersRequest represents a message that queries
+ * the chain maintainers for the specified chain
+ */
+export interface ChainMaintainersRequest {
+  chain: string;
+}
+
+export interface ChainMaintainersResponse {
   maintainers: Uint8Array[];
 }
 
@@ -198,22 +206,71 @@ export interface TransferRateLimit {
   timeLeft?: Duration;
 }
 
-function createBaseQueryChainMaintainersResponse(): QueryChainMaintainersResponse {
+function createBaseChainMaintainersRequest(): ChainMaintainersRequest {
+  return { chain: "" };
+}
+
+export const ChainMaintainersRequest = {
+  encode(message: ChainMaintainersRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.chain !== "") {
+      writer.uint32(10).string(message.chain);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): ChainMaintainersRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseChainMaintainersRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.chain = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): ChainMaintainersRequest {
+    return {
+      chain: isSet(object.chain) ? String(object.chain) : "",
+    };
+  },
+
+  toJSON(message: ChainMaintainersRequest): unknown {
+    const obj: any = {};
+    message.chain !== undefined && (obj.chain = message.chain);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<ChainMaintainersRequest>, I>>(object: I): ChainMaintainersRequest {
+    const message = createBaseChainMaintainersRequest();
+    message.chain = object.chain ?? "";
+    return message;
+  },
+};
+
+function createBaseChainMaintainersResponse(): ChainMaintainersResponse {
   return { maintainers: [] };
 }
 
-export const QueryChainMaintainersResponse = {
-  encode(message: QueryChainMaintainersResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const ChainMaintainersResponse = {
+  encode(message: ChainMaintainersResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.maintainers) {
       writer.uint32(10).bytes(v!);
     }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryChainMaintainersResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): ChainMaintainersResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryChainMaintainersResponse();
+    const message = createBaseChainMaintainersResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -228,7 +285,7 @@ export const QueryChainMaintainersResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryChainMaintainersResponse {
+  fromJSON(object: any): ChainMaintainersResponse {
     return {
       maintainers: Array.isArray(object?.maintainers)
         ? object.maintainers.map((e: any) => bytesFromBase64(e))
@@ -236,7 +293,7 @@ export const QueryChainMaintainersResponse = {
     };
   },
 
-  toJSON(message: QueryChainMaintainersResponse): unknown {
+  toJSON(message: ChainMaintainersResponse): unknown {
     const obj: any = {};
     if (message.maintainers) {
       obj.maintainers = message.maintainers.map((e) =>
@@ -248,10 +305,10 @@ export const QueryChainMaintainersResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryChainMaintainersResponse>, I>>(
+  fromPartial<I extends Exact<DeepPartial<ChainMaintainersResponse>, I>>(
     object: I,
-  ): QueryChainMaintainersResponse {
-    const message = createBaseQueryChainMaintainersResponse();
+  ): ChainMaintainersResponse {
+    const message = createBaseChainMaintainersResponse();
     message.maintainers = object.maintainers?.map((e) => e) || [];
     return message;
   },

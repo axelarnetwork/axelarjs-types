@@ -96,6 +96,10 @@ export interface ContractCallApproved {
     contractAddress: string;
     payloadHash: Uint8Array;
 }
+export interface ContractCallFailed {
+    chain: string;
+    msgId: string;
+}
 export interface ContractCallWithMintApproved {
     chain: string;
     eventId: string;
@@ -1128,6 +1132,19 @@ export declare const ContractCallApproved: {
         contractAddress?: string | undefined;
         payloadHash?: Uint8Array | undefined;
     } & Record<Exclude<keyof I, keyof ContractCallApproved>, never>>(object: I): ContractCallApproved;
+};
+export declare const ContractCallFailed: {
+    encode(message: ContractCallFailed, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ContractCallFailed;
+    fromJSON(object: any): ContractCallFailed;
+    toJSON(message: ContractCallFailed): unknown;
+    fromPartial<I extends {
+        chain?: string | undefined;
+        msgId?: string | undefined;
+    } & {
+        chain?: string | undefined;
+        msgId?: string | undefined;
+    } & Record<Exclude<keyof I, keyof ContractCallFailed>, never>>(object: I): ContractCallFailed;
 };
 export declare const ContractCallWithMintApproved: {
     encode(message: ContractCallWithMintApproved, writer?: _m0.Writer): _m0.Writer;

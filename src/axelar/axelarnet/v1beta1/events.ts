@@ -54,14 +54,34 @@ export interface FeeCollected {
   fee?: Coin;
 }
 
-export interface GeneralMessageApprovedWithToken {
+export interface ContractCallSubmitted {
+  messageId: string;
+  sender: string;
+  sourceChain: string;
+  destinationChain: string;
+  contractAddress: string;
+  payload: Uint8Array;
+  payloadHash: Uint8Array;
+}
+
+export interface ContractCallWithTokenSubmitted {
+  messageId: string;
+  sender: string;
+  sourceChain: string;
+  destinationChain: string;
+  contractAddress: string;
+  payload: Uint8Array;
+  payloadHash: Uint8Array;
+  asset?: Coin;
+}
+
+export interface TokenSent {
+  transferId: Long;
   sender: string;
   sourceChain: string;
   destinationChain: string;
   destinationAddress: string;
-  payloadHash: Uint8Array;
-  payload: Uint8Array;
-  coin?: Coin;
+  asset?: Coin;
 }
 
 function createBaseIBCTransferSent(): IBCTransferSent {
@@ -590,71 +610,71 @@ export const FeeCollected = {
   },
 };
 
-function createBaseGeneralMessageApprovedWithToken(): GeneralMessageApprovedWithToken {
+function createBaseContractCallSubmitted(): ContractCallSubmitted {
   return {
+    messageId: "",
     sender: "",
     sourceChain: "",
     destinationChain: "",
-    destinationAddress: "",
-    payloadHash: new Uint8Array(),
+    contractAddress: "",
     payload: new Uint8Array(),
-    coin: undefined,
+    payloadHash: new Uint8Array(),
   };
 }
 
-export const GeneralMessageApprovedWithToken = {
-  encode(message: GeneralMessageApprovedWithToken, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const ContractCallSubmitted = {
+  encode(message: ContractCallSubmitted, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.messageId !== "") {
+      writer.uint32(10).string(message.messageId);
+    }
     if (message.sender !== "") {
-      writer.uint32(10).string(message.sender);
+      writer.uint32(18).string(message.sender);
     }
     if (message.sourceChain !== "") {
-      writer.uint32(18).string(message.sourceChain);
+      writer.uint32(26).string(message.sourceChain);
     }
     if (message.destinationChain !== "") {
-      writer.uint32(26).string(message.destinationChain);
+      writer.uint32(34).string(message.destinationChain);
     }
-    if (message.destinationAddress !== "") {
-      writer.uint32(34).string(message.destinationAddress);
-    }
-    if (message.payloadHash.length !== 0) {
-      writer.uint32(42).bytes(message.payloadHash);
+    if (message.contractAddress !== "") {
+      writer.uint32(42).string(message.contractAddress);
     }
     if (message.payload.length !== 0) {
       writer.uint32(50).bytes(message.payload);
     }
-    if (message.coin !== undefined) {
-      Coin.encode(message.coin, writer.uint32(58).fork()).ldelim();
+    if (message.payloadHash.length !== 0) {
+      writer.uint32(58).bytes(message.payloadHash);
     }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): GeneralMessageApprovedWithToken {
+  decode(input: _m0.Reader | Uint8Array, length?: number): ContractCallSubmitted {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseGeneralMessageApprovedWithToken();
+    const message = createBaseContractCallSubmitted();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.sender = reader.string();
+          message.messageId = reader.string();
           break;
         case 2:
-          message.sourceChain = reader.string();
+          message.sender = reader.string();
           break;
         case 3:
-          message.destinationChain = reader.string();
+          message.sourceChain = reader.string();
           break;
         case 4:
-          message.destinationAddress = reader.string();
+          message.destinationChain = reader.string();
           break;
         case 5:
-          message.payloadHash = reader.bytes();
+          message.contractAddress = reader.string();
           break;
         case 6:
           message.payload = reader.bytes();
           break;
         case 7:
-          message.coin = Coin.decode(reader, reader.uint32());
+          message.payloadHash = reader.bytes();
           break;
         default:
           reader.skipType(tag & 7);
@@ -664,46 +684,276 @@ export const GeneralMessageApprovedWithToken = {
     return message;
   },
 
-  fromJSON(object: any): GeneralMessageApprovedWithToken {
+  fromJSON(object: any): ContractCallSubmitted {
     return {
+      messageId: isSet(object.messageId) ? String(object.messageId) : "",
       sender: isSet(object.sender) ? String(object.sender) : "",
       sourceChain: isSet(object.sourceChain) ? String(object.sourceChain) : "",
       destinationChain: isSet(object.destinationChain) ? String(object.destinationChain) : "",
-      destinationAddress: isSet(object.destinationAddress) ? String(object.destinationAddress) : "",
-      payloadHash: isSet(object.payloadHash) ? bytesFromBase64(object.payloadHash) : new Uint8Array(),
+      contractAddress: isSet(object.contractAddress) ? String(object.contractAddress) : "",
       payload: isSet(object.payload) ? bytesFromBase64(object.payload) : new Uint8Array(),
-      coin: isSet(object.coin) ? Coin.fromJSON(object.coin) : undefined,
+      payloadHash: isSet(object.payloadHash) ? bytesFromBase64(object.payloadHash) : new Uint8Array(),
     };
   },
 
-  toJSON(message: GeneralMessageApprovedWithToken): unknown {
+  toJSON(message: ContractCallSubmitted): unknown {
     const obj: any = {};
+    message.messageId !== undefined && (obj.messageId = message.messageId);
     message.sender !== undefined && (obj.sender = message.sender);
     message.sourceChain !== undefined && (obj.sourceChain = message.sourceChain);
     message.destinationChain !== undefined && (obj.destinationChain = message.destinationChain);
-    message.destinationAddress !== undefined && (obj.destinationAddress = message.destinationAddress);
+    message.contractAddress !== undefined && (obj.contractAddress = message.contractAddress);
+    message.payload !== undefined &&
+      (obj.payload = base64FromBytes(message.payload !== undefined ? message.payload : new Uint8Array()));
     message.payloadHash !== undefined &&
       (obj.payloadHash = base64FromBytes(
         message.payloadHash !== undefined ? message.payloadHash : new Uint8Array(),
       ));
-    message.payload !== undefined &&
-      (obj.payload = base64FromBytes(message.payload !== undefined ? message.payload : new Uint8Array()));
-    message.coin !== undefined && (obj.coin = message.coin ? Coin.toJSON(message.coin) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<GeneralMessageApprovedWithToken>, I>>(
+  fromPartial<I extends Exact<DeepPartial<ContractCallSubmitted>, I>>(object: I): ContractCallSubmitted {
+    const message = createBaseContractCallSubmitted();
+    message.messageId = object.messageId ?? "";
+    message.sender = object.sender ?? "";
+    message.sourceChain = object.sourceChain ?? "";
+    message.destinationChain = object.destinationChain ?? "";
+    message.contractAddress = object.contractAddress ?? "";
+    message.payload = object.payload ?? new Uint8Array();
+    message.payloadHash = object.payloadHash ?? new Uint8Array();
+    return message;
+  },
+};
+
+function createBaseContractCallWithTokenSubmitted(): ContractCallWithTokenSubmitted {
+  return {
+    messageId: "",
+    sender: "",
+    sourceChain: "",
+    destinationChain: "",
+    contractAddress: "",
+    payload: new Uint8Array(),
+    payloadHash: new Uint8Array(),
+    asset: undefined,
+  };
+}
+
+export const ContractCallWithTokenSubmitted = {
+  encode(message: ContractCallWithTokenSubmitted, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.messageId !== "") {
+      writer.uint32(10).string(message.messageId);
+    }
+    if (message.sender !== "") {
+      writer.uint32(18).string(message.sender);
+    }
+    if (message.sourceChain !== "") {
+      writer.uint32(26).string(message.sourceChain);
+    }
+    if (message.destinationChain !== "") {
+      writer.uint32(34).string(message.destinationChain);
+    }
+    if (message.contractAddress !== "") {
+      writer.uint32(42).string(message.contractAddress);
+    }
+    if (message.payload.length !== 0) {
+      writer.uint32(50).bytes(message.payload);
+    }
+    if (message.payloadHash.length !== 0) {
+      writer.uint32(58).bytes(message.payloadHash);
+    }
+    if (message.asset !== undefined) {
+      Coin.encode(message.asset, writer.uint32(66).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): ContractCallWithTokenSubmitted {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseContractCallWithTokenSubmitted();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.messageId = reader.string();
+          break;
+        case 2:
+          message.sender = reader.string();
+          break;
+        case 3:
+          message.sourceChain = reader.string();
+          break;
+        case 4:
+          message.destinationChain = reader.string();
+          break;
+        case 5:
+          message.contractAddress = reader.string();
+          break;
+        case 6:
+          message.payload = reader.bytes();
+          break;
+        case 7:
+          message.payloadHash = reader.bytes();
+          break;
+        case 8:
+          message.asset = Coin.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): ContractCallWithTokenSubmitted {
+    return {
+      messageId: isSet(object.messageId) ? String(object.messageId) : "",
+      sender: isSet(object.sender) ? String(object.sender) : "",
+      sourceChain: isSet(object.sourceChain) ? String(object.sourceChain) : "",
+      destinationChain: isSet(object.destinationChain) ? String(object.destinationChain) : "",
+      contractAddress: isSet(object.contractAddress) ? String(object.contractAddress) : "",
+      payload: isSet(object.payload) ? bytesFromBase64(object.payload) : new Uint8Array(),
+      payloadHash: isSet(object.payloadHash) ? bytesFromBase64(object.payloadHash) : new Uint8Array(),
+      asset: isSet(object.asset) ? Coin.fromJSON(object.asset) : undefined,
+    };
+  },
+
+  toJSON(message: ContractCallWithTokenSubmitted): unknown {
+    const obj: any = {};
+    message.messageId !== undefined && (obj.messageId = message.messageId);
+    message.sender !== undefined && (obj.sender = message.sender);
+    message.sourceChain !== undefined && (obj.sourceChain = message.sourceChain);
+    message.destinationChain !== undefined && (obj.destinationChain = message.destinationChain);
+    message.contractAddress !== undefined && (obj.contractAddress = message.contractAddress);
+    message.payload !== undefined &&
+      (obj.payload = base64FromBytes(message.payload !== undefined ? message.payload : new Uint8Array()));
+    message.payloadHash !== undefined &&
+      (obj.payloadHash = base64FromBytes(
+        message.payloadHash !== undefined ? message.payloadHash : new Uint8Array(),
+      ));
+    message.asset !== undefined && (obj.asset = message.asset ? Coin.toJSON(message.asset) : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<ContractCallWithTokenSubmitted>, I>>(
     object: I,
-  ): GeneralMessageApprovedWithToken {
-    const message = createBaseGeneralMessageApprovedWithToken();
+  ): ContractCallWithTokenSubmitted {
+    const message = createBaseContractCallWithTokenSubmitted();
+    message.messageId = object.messageId ?? "";
+    message.sender = object.sender ?? "";
+    message.sourceChain = object.sourceChain ?? "";
+    message.destinationChain = object.destinationChain ?? "";
+    message.contractAddress = object.contractAddress ?? "";
+    message.payload = object.payload ?? new Uint8Array();
+    message.payloadHash = object.payloadHash ?? new Uint8Array();
+    message.asset =
+      object.asset !== undefined && object.asset !== null ? Coin.fromPartial(object.asset) : undefined;
+    return message;
+  },
+};
+
+function createBaseTokenSent(): TokenSent {
+  return {
+    transferId: Long.UZERO,
+    sender: "",
+    sourceChain: "",
+    destinationChain: "",
+    destinationAddress: "",
+    asset: undefined,
+  };
+}
+
+export const TokenSent = {
+  encode(message: TokenSent, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (!message.transferId.isZero()) {
+      writer.uint32(8).uint64(message.transferId);
+    }
+    if (message.sender !== "") {
+      writer.uint32(18).string(message.sender);
+    }
+    if (message.sourceChain !== "") {
+      writer.uint32(26).string(message.sourceChain);
+    }
+    if (message.destinationChain !== "") {
+      writer.uint32(34).string(message.destinationChain);
+    }
+    if (message.destinationAddress !== "") {
+      writer.uint32(42).string(message.destinationAddress);
+    }
+    if (message.asset !== undefined) {
+      Coin.encode(message.asset, writer.uint32(50).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): TokenSent {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseTokenSent();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.transferId = reader.uint64() as Long;
+          break;
+        case 2:
+          message.sender = reader.string();
+          break;
+        case 3:
+          message.sourceChain = reader.string();
+          break;
+        case 4:
+          message.destinationChain = reader.string();
+          break;
+        case 5:
+          message.destinationAddress = reader.string();
+          break;
+        case 6:
+          message.asset = Coin.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): TokenSent {
+    return {
+      transferId: isSet(object.transferId) ? Long.fromValue(object.transferId) : Long.UZERO,
+      sender: isSet(object.sender) ? String(object.sender) : "",
+      sourceChain: isSet(object.sourceChain) ? String(object.sourceChain) : "",
+      destinationChain: isSet(object.destinationChain) ? String(object.destinationChain) : "",
+      destinationAddress: isSet(object.destinationAddress) ? String(object.destinationAddress) : "",
+      asset: isSet(object.asset) ? Coin.fromJSON(object.asset) : undefined,
+    };
+  },
+
+  toJSON(message: TokenSent): unknown {
+    const obj: any = {};
+    message.transferId !== undefined && (obj.transferId = (message.transferId || Long.UZERO).toString());
+    message.sender !== undefined && (obj.sender = message.sender);
+    message.sourceChain !== undefined && (obj.sourceChain = message.sourceChain);
+    message.destinationChain !== undefined && (obj.destinationChain = message.destinationChain);
+    message.destinationAddress !== undefined && (obj.destinationAddress = message.destinationAddress);
+    message.asset !== undefined && (obj.asset = message.asset ? Coin.toJSON(message.asset) : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<TokenSent>, I>>(object: I): TokenSent {
+    const message = createBaseTokenSent();
+    message.transferId =
+      object.transferId !== undefined && object.transferId !== null
+        ? Long.fromValue(object.transferId)
+        : Long.UZERO;
     message.sender = object.sender ?? "";
     message.sourceChain = object.sourceChain ?? "";
     message.destinationChain = object.destinationChain ?? "";
     message.destinationAddress = object.destinationAddress ?? "";
-    message.payloadHash = object.payloadHash ?? new Uint8Array();
-    message.payload = object.payload ?? new Uint8Array();
-    message.coin =
-      object.coin !== undefined && object.coin !== null ? Coin.fromPartial(object.coin) : undefined;
+    message.asset =
+      object.asset !== undefined && object.asset !== null ? Coin.fromPartial(object.asset) : undefined;
     return message;
   },
 };

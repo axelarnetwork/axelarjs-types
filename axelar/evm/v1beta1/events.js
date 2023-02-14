@@ -22,7 +22,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BurnCommand = exports.MintCommand = exports.TokenSent = exports.ContractCallWithMintApproved = exports.ContractCallApproved = exports.EVMEventRetryFailed = exports.EVMEventFailed = exports.EVMEventCompleted = exports.EVMEventConfirmed = exports.CommandBatchAborted = exports.CommandBatchSigned = exports.ChainAdded = exports.ConfirmTokenStarted = exports.ConfirmDepositStarted = exports.ConfirmGatewayTxStarted = exports.ConfirmKeyTransferStarted = exports.NoEventsConfirmed = exports.PollCompleted = exports.PollExpired = exports.PollFailed = exports.protobufPackage = void 0;
+exports.BurnCommand = exports.MintCommand = exports.TokenSent = exports.ContractCallWithMintApproved = exports.ContractCallFailed = exports.ContractCallApproved = exports.EVMEventRetryFailed = exports.EVMEventFailed = exports.EVMEventCompleted = exports.EVMEventConfirmed = exports.CommandBatchAborted = exports.CommandBatchSigned = exports.ChainAdded = exports.ConfirmTokenStarted = exports.ConfirmDepositStarted = exports.ConfirmGatewayTxStarted = exports.ConfirmKeyTransferStarted = exports.NoEventsConfirmed = exports.PollCompleted = exports.PollExpired = exports.PollFailed = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
@@ -1241,6 +1241,59 @@ exports.ContractCallApproved = {
         message.destinationChain = (_e = object.destinationChain) !== null && _e !== void 0 ? _e : "";
         message.contractAddress = (_f = object.contractAddress) !== null && _f !== void 0 ? _f : "";
         message.payloadHash = (_g = object.payloadHash) !== null && _g !== void 0 ? _g : new Uint8Array();
+        return message;
+    },
+};
+function createBaseContractCallFailed() {
+    return { chain: "", msgId: "" };
+}
+exports.ContractCallFailed = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.chain !== "") {
+            writer.uint32(10).string(message.chain);
+        }
+        if (message.msgId !== "") {
+            writer.uint32(18).string(message.msgId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseContractCallFailed();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.chain = reader.string();
+                    break;
+                case 2:
+                    message.msgId = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            chain: isSet(object.chain) ? String(object.chain) : "",
+            msgId: isSet(object.msgId) ? String(object.msgId) : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.chain !== undefined && (obj.chain = message.chain);
+        message.msgId !== undefined && (obj.msgId = message.msgId);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a, _b;
+        const message = createBaseContractCallFailed();
+        message.chain = (_a = object.chain) !== null && _a !== void 0 ? _a : "";
+        message.msgId = (_b = object.msgId) !== null && _b !== void 0 ? _b : "";
         return message;
     },
 };

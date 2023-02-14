@@ -93,6 +93,23 @@ export interface ChainsRequest {
 export interface ChainsResponse {
     chains: string[];
 }
+export interface CommandRequest {
+    chain: string;
+    id: string;
+}
+export interface CommandResponse {
+    id: string;
+    type: string;
+    params: {
+        [key: string]: string;
+    };
+    keyId: string;
+    maxGasCost: number;
+}
+export interface CommandResponse_ParamsEntry {
+    key: string;
+    value: string;
+}
 export interface PendingCommandsRequest {
     chain: string;
 }
@@ -641,6 +658,57 @@ export declare const ChainsResponse: {
     } & {
         chains?: (string[] & string[] & Record<Exclude<keyof I["chains"], keyof string[]>, never>) | undefined;
     } & Record<Exclude<keyof I, "chains">, never>>(object: I): ChainsResponse;
+};
+export declare const CommandRequest: {
+    encode(message: CommandRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): CommandRequest;
+    fromJSON(object: any): CommandRequest;
+    toJSON(message: CommandRequest): unknown;
+    fromPartial<I extends {
+        chain?: string | undefined;
+        id?: string | undefined;
+    } & {
+        chain?: string | undefined;
+        id?: string | undefined;
+    } & Record<Exclude<keyof I, keyof CommandRequest>, never>>(object: I): CommandRequest;
+};
+export declare const CommandResponse: {
+    encode(message: CommandResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): CommandResponse;
+    fromJSON(object: any): CommandResponse;
+    toJSON(message: CommandResponse): unknown;
+    fromPartial<I extends {
+        id?: string | undefined;
+        type?: string | undefined;
+        params?: {
+            [x: string]: string | undefined;
+        } | undefined;
+        keyId?: string | undefined;
+        maxGasCost?: number | undefined;
+    } & {
+        id?: string | undefined;
+        type?: string | undefined;
+        params?: ({
+            [x: string]: string | undefined;
+        } & {
+            [x: string]: string | undefined;
+        } & Record<Exclude<keyof I["params"], string | number>, never>) | undefined;
+        keyId?: string | undefined;
+        maxGasCost?: number | undefined;
+    } & Record<Exclude<keyof I, keyof CommandResponse>, never>>(object: I): CommandResponse;
+};
+export declare const CommandResponse_ParamsEntry: {
+    encode(message: CommandResponse_ParamsEntry, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): CommandResponse_ParamsEntry;
+    fromJSON(object: any): CommandResponse_ParamsEntry;
+    toJSON(message: CommandResponse_ParamsEntry): unknown;
+    fromPartial<I extends {
+        key?: string | undefined;
+        value?: string | undefined;
+    } & {
+        key?: string | undefined;
+        value?: string | undefined;
+    } & Record<Exclude<keyof I, keyof CommandResponse_ParamsEntry>, never>>(object: I): CommandResponse_ParamsEntry;
 };
 export declare const PendingCommandsRequest: {
     encode(message: PendingCommandsRequest, writer?: _m0.Writer): _m0.Writer;

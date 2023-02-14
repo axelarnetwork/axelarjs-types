@@ -22,7 +22,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GeneralMessageApprovedWithToken = exports.FeeCollected = exports.AxelarTransferCompleted = exports.IBCTransferRetried = exports.IBCTransferFailed = exports.IBCTransferCompleted = exports.IBCTransferSent = exports.protobufPackage = void 0;
+exports.TokenSent = exports.ContractCallWithTokenSubmitted = exports.ContractCallSubmitted = exports.FeeCollected = exports.AxelarTransferCompleted = exports.IBCTransferRetried = exports.IBCTransferFailed = exports.IBCTransferCompleted = exports.IBCTransferSent = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
@@ -522,69 +522,69 @@ exports.FeeCollected = {
         return message;
     },
 };
-function createBaseGeneralMessageApprovedWithToken() {
+function createBaseContractCallSubmitted() {
     return {
+        messageId: "",
         sender: "",
         sourceChain: "",
         destinationChain: "",
-        destinationAddress: "",
-        payloadHash: new Uint8Array(),
+        contractAddress: "",
         payload: new Uint8Array(),
-        coin: undefined,
+        payloadHash: new Uint8Array(),
     };
 }
-exports.GeneralMessageApprovedWithToken = {
+exports.ContractCallSubmitted = {
     encode(message, writer = _m0.Writer.create()) {
+        if (message.messageId !== "") {
+            writer.uint32(10).string(message.messageId);
+        }
         if (message.sender !== "") {
-            writer.uint32(10).string(message.sender);
+            writer.uint32(18).string(message.sender);
         }
         if (message.sourceChain !== "") {
-            writer.uint32(18).string(message.sourceChain);
+            writer.uint32(26).string(message.sourceChain);
         }
         if (message.destinationChain !== "") {
-            writer.uint32(26).string(message.destinationChain);
+            writer.uint32(34).string(message.destinationChain);
         }
-        if (message.destinationAddress !== "") {
-            writer.uint32(34).string(message.destinationAddress);
-        }
-        if (message.payloadHash.length !== 0) {
-            writer.uint32(42).bytes(message.payloadHash);
+        if (message.contractAddress !== "") {
+            writer.uint32(42).string(message.contractAddress);
         }
         if (message.payload.length !== 0) {
             writer.uint32(50).bytes(message.payload);
         }
-        if (message.coin !== undefined) {
-            coin_1.Coin.encode(message.coin, writer.uint32(58).fork()).ldelim();
+        if (message.payloadHash.length !== 0) {
+            writer.uint32(58).bytes(message.payloadHash);
         }
         return writer;
     },
     decode(input, length) {
         const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseGeneralMessageApprovedWithToken();
+        const message = createBaseContractCallSubmitted();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.sender = reader.string();
+                    message.messageId = reader.string();
                     break;
                 case 2:
-                    message.sourceChain = reader.string();
+                    message.sender = reader.string();
                     break;
                 case 3:
-                    message.destinationChain = reader.string();
+                    message.sourceChain = reader.string();
                     break;
                 case 4:
-                    message.destinationAddress = reader.string();
+                    message.destinationChain = reader.string();
                     break;
                 case 5:
-                    message.payloadHash = reader.bytes();
+                    message.contractAddress = reader.string();
                     break;
                 case 6:
                     message.payload = reader.bytes();
                     break;
                 case 7:
-                    message.coin = coin_1.Coin.decode(reader, reader.uint32());
+                    message.payloadHash = reader.bytes();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -595,39 +595,257 @@ exports.GeneralMessageApprovedWithToken = {
     },
     fromJSON(object) {
         return {
+            messageId: isSet(object.messageId) ? String(object.messageId) : "",
             sender: isSet(object.sender) ? String(object.sender) : "",
             sourceChain: isSet(object.sourceChain) ? String(object.sourceChain) : "",
             destinationChain: isSet(object.destinationChain) ? String(object.destinationChain) : "",
-            destinationAddress: isSet(object.destinationAddress) ? String(object.destinationAddress) : "",
-            payloadHash: isSet(object.payloadHash) ? bytesFromBase64(object.payloadHash) : new Uint8Array(),
+            contractAddress: isSet(object.contractAddress) ? String(object.contractAddress) : "",
             payload: isSet(object.payload) ? bytesFromBase64(object.payload) : new Uint8Array(),
-            coin: isSet(object.coin) ? coin_1.Coin.fromJSON(object.coin) : undefined,
+            payloadHash: isSet(object.payloadHash) ? bytesFromBase64(object.payloadHash) : new Uint8Array(),
         };
     },
     toJSON(message) {
         const obj = {};
+        message.messageId !== undefined && (obj.messageId = message.messageId);
+        message.sender !== undefined && (obj.sender = message.sender);
+        message.sourceChain !== undefined && (obj.sourceChain = message.sourceChain);
+        message.destinationChain !== undefined && (obj.destinationChain = message.destinationChain);
+        message.contractAddress !== undefined && (obj.contractAddress = message.contractAddress);
+        message.payload !== undefined &&
+            (obj.payload = base64FromBytes(message.payload !== undefined ? message.payload : new Uint8Array()));
+        message.payloadHash !== undefined &&
+            (obj.payloadHash = base64FromBytes(message.payloadHash !== undefined ? message.payloadHash : new Uint8Array()));
+        return obj;
+    },
+    fromPartial(object) {
+        var _a, _b, _c, _d, _e, _f, _g;
+        const message = createBaseContractCallSubmitted();
+        message.messageId = (_a = object.messageId) !== null && _a !== void 0 ? _a : "";
+        message.sender = (_b = object.sender) !== null && _b !== void 0 ? _b : "";
+        message.sourceChain = (_c = object.sourceChain) !== null && _c !== void 0 ? _c : "";
+        message.destinationChain = (_d = object.destinationChain) !== null && _d !== void 0 ? _d : "";
+        message.contractAddress = (_e = object.contractAddress) !== null && _e !== void 0 ? _e : "";
+        message.payload = (_f = object.payload) !== null && _f !== void 0 ? _f : new Uint8Array();
+        message.payloadHash = (_g = object.payloadHash) !== null && _g !== void 0 ? _g : new Uint8Array();
+        return message;
+    },
+};
+function createBaseContractCallWithTokenSubmitted() {
+    return {
+        messageId: "",
+        sender: "",
+        sourceChain: "",
+        destinationChain: "",
+        contractAddress: "",
+        payload: new Uint8Array(),
+        payloadHash: new Uint8Array(),
+        asset: undefined,
+    };
+}
+exports.ContractCallWithTokenSubmitted = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.messageId !== "") {
+            writer.uint32(10).string(message.messageId);
+        }
+        if (message.sender !== "") {
+            writer.uint32(18).string(message.sender);
+        }
+        if (message.sourceChain !== "") {
+            writer.uint32(26).string(message.sourceChain);
+        }
+        if (message.destinationChain !== "") {
+            writer.uint32(34).string(message.destinationChain);
+        }
+        if (message.contractAddress !== "") {
+            writer.uint32(42).string(message.contractAddress);
+        }
+        if (message.payload.length !== 0) {
+            writer.uint32(50).bytes(message.payload);
+        }
+        if (message.payloadHash.length !== 0) {
+            writer.uint32(58).bytes(message.payloadHash);
+        }
+        if (message.asset !== undefined) {
+            coin_1.Coin.encode(message.asset, writer.uint32(66).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseContractCallWithTokenSubmitted();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.messageId = reader.string();
+                    break;
+                case 2:
+                    message.sender = reader.string();
+                    break;
+                case 3:
+                    message.sourceChain = reader.string();
+                    break;
+                case 4:
+                    message.destinationChain = reader.string();
+                    break;
+                case 5:
+                    message.contractAddress = reader.string();
+                    break;
+                case 6:
+                    message.payload = reader.bytes();
+                    break;
+                case 7:
+                    message.payloadHash = reader.bytes();
+                    break;
+                case 8:
+                    message.asset = coin_1.Coin.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            messageId: isSet(object.messageId) ? String(object.messageId) : "",
+            sender: isSet(object.sender) ? String(object.sender) : "",
+            sourceChain: isSet(object.sourceChain) ? String(object.sourceChain) : "",
+            destinationChain: isSet(object.destinationChain) ? String(object.destinationChain) : "",
+            contractAddress: isSet(object.contractAddress) ? String(object.contractAddress) : "",
+            payload: isSet(object.payload) ? bytesFromBase64(object.payload) : new Uint8Array(),
+            payloadHash: isSet(object.payloadHash) ? bytesFromBase64(object.payloadHash) : new Uint8Array(),
+            asset: isSet(object.asset) ? coin_1.Coin.fromJSON(object.asset) : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.messageId !== undefined && (obj.messageId = message.messageId);
+        message.sender !== undefined && (obj.sender = message.sender);
+        message.sourceChain !== undefined && (obj.sourceChain = message.sourceChain);
+        message.destinationChain !== undefined && (obj.destinationChain = message.destinationChain);
+        message.contractAddress !== undefined && (obj.contractAddress = message.contractAddress);
+        message.payload !== undefined &&
+            (obj.payload = base64FromBytes(message.payload !== undefined ? message.payload : new Uint8Array()));
+        message.payloadHash !== undefined &&
+            (obj.payloadHash = base64FromBytes(message.payloadHash !== undefined ? message.payloadHash : new Uint8Array()));
+        message.asset !== undefined && (obj.asset = message.asset ? coin_1.Coin.toJSON(message.asset) : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a, _b, _c, _d, _e, _f, _g;
+        const message = createBaseContractCallWithTokenSubmitted();
+        message.messageId = (_a = object.messageId) !== null && _a !== void 0 ? _a : "";
+        message.sender = (_b = object.sender) !== null && _b !== void 0 ? _b : "";
+        message.sourceChain = (_c = object.sourceChain) !== null && _c !== void 0 ? _c : "";
+        message.destinationChain = (_d = object.destinationChain) !== null && _d !== void 0 ? _d : "";
+        message.contractAddress = (_e = object.contractAddress) !== null && _e !== void 0 ? _e : "";
+        message.payload = (_f = object.payload) !== null && _f !== void 0 ? _f : new Uint8Array();
+        message.payloadHash = (_g = object.payloadHash) !== null && _g !== void 0 ? _g : new Uint8Array();
+        message.asset =
+            object.asset !== undefined && object.asset !== null ? coin_1.Coin.fromPartial(object.asset) : undefined;
+        return message;
+    },
+};
+function createBaseTokenSent() {
+    return {
+        transferId: long_1.default.UZERO,
+        sender: "",
+        sourceChain: "",
+        destinationChain: "",
+        destinationAddress: "",
+        asset: undefined,
+    };
+}
+exports.TokenSent = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (!message.transferId.isZero()) {
+            writer.uint32(8).uint64(message.transferId);
+        }
+        if (message.sender !== "") {
+            writer.uint32(18).string(message.sender);
+        }
+        if (message.sourceChain !== "") {
+            writer.uint32(26).string(message.sourceChain);
+        }
+        if (message.destinationChain !== "") {
+            writer.uint32(34).string(message.destinationChain);
+        }
+        if (message.destinationAddress !== "") {
+            writer.uint32(42).string(message.destinationAddress);
+        }
+        if (message.asset !== undefined) {
+            coin_1.Coin.encode(message.asset, writer.uint32(50).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseTokenSent();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.transferId = reader.uint64();
+                    break;
+                case 2:
+                    message.sender = reader.string();
+                    break;
+                case 3:
+                    message.sourceChain = reader.string();
+                    break;
+                case 4:
+                    message.destinationChain = reader.string();
+                    break;
+                case 5:
+                    message.destinationAddress = reader.string();
+                    break;
+                case 6:
+                    message.asset = coin_1.Coin.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            transferId: isSet(object.transferId) ? long_1.default.fromValue(object.transferId) : long_1.default.UZERO,
+            sender: isSet(object.sender) ? String(object.sender) : "",
+            sourceChain: isSet(object.sourceChain) ? String(object.sourceChain) : "",
+            destinationChain: isSet(object.destinationChain) ? String(object.destinationChain) : "",
+            destinationAddress: isSet(object.destinationAddress) ? String(object.destinationAddress) : "",
+            asset: isSet(object.asset) ? coin_1.Coin.fromJSON(object.asset) : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.transferId !== undefined && (obj.transferId = (message.transferId || long_1.default.UZERO).toString());
         message.sender !== undefined && (obj.sender = message.sender);
         message.sourceChain !== undefined && (obj.sourceChain = message.sourceChain);
         message.destinationChain !== undefined && (obj.destinationChain = message.destinationChain);
         message.destinationAddress !== undefined && (obj.destinationAddress = message.destinationAddress);
-        message.payloadHash !== undefined &&
-            (obj.payloadHash = base64FromBytes(message.payloadHash !== undefined ? message.payloadHash : new Uint8Array()));
-        message.payload !== undefined &&
-            (obj.payload = base64FromBytes(message.payload !== undefined ? message.payload : new Uint8Array()));
-        message.coin !== undefined && (obj.coin = message.coin ? coin_1.Coin.toJSON(message.coin) : undefined);
+        message.asset !== undefined && (obj.asset = message.asset ? coin_1.Coin.toJSON(message.asset) : undefined);
         return obj;
     },
     fromPartial(object) {
-        var _a, _b, _c, _d, _e, _f;
-        const message = createBaseGeneralMessageApprovedWithToken();
+        var _a, _b, _c, _d;
+        const message = createBaseTokenSent();
+        message.transferId =
+            object.transferId !== undefined && object.transferId !== null
+                ? long_1.default.fromValue(object.transferId)
+                : long_1.default.UZERO;
         message.sender = (_a = object.sender) !== null && _a !== void 0 ? _a : "";
         message.sourceChain = (_b = object.sourceChain) !== null && _b !== void 0 ? _b : "";
         message.destinationChain = (_c = object.destinationChain) !== null && _c !== void 0 ? _c : "";
         message.destinationAddress = (_d = object.destinationAddress) !== null && _d !== void 0 ? _d : "";
-        message.payloadHash = (_e = object.payloadHash) !== null && _e !== void 0 ? _e : new Uint8Array();
-        message.payload = (_f = object.payload) !== null && _f !== void 0 ? _f : new Uint8Array();
-        message.coin =
-            object.coin !== undefined && object.coin !== null ? coin_1.Coin.fromPartial(object.coin) : undefined;
+        message.asset =
+            object.asset !== undefined && object.asset !== null ? coin_1.Coin.fromPartial(object.asset) : undefined;
         return message;
     },
 };

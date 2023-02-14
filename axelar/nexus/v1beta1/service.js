@@ -83,6 +83,7 @@ class QueryServiceClientImpl {
         this.ChainState = this.ChainState.bind(this);
         this.ChainsByAsset = this.ChainsByAsset.bind(this);
         this.RecipientAddress = this.RecipientAddress.bind(this);
+        this.ChainMaintainers = this.ChainMaintainers.bind(this);
         this.TransferRateLimit = this.TransferRateLimit.bind(this);
     }
     LatestDepositAddress(request) {
@@ -129,6 +130,11 @@ class QueryServiceClientImpl {
         const data = query_1.RecipientAddressRequest.encode(request).finish();
         const promise = this.rpc.request("axelar.nexus.v1beta1.QueryService", "RecipientAddress", data);
         return promise.then((data) => query_1.RecipientAddressResponse.decode(new _m0.Reader(data)));
+    }
+    ChainMaintainers(request) {
+        const data = query_1.ChainMaintainersRequest.encode(request).finish();
+        const promise = this.rpc.request("axelar.nexus.v1beta1.QueryService", "ChainMaintainers", data);
+        return promise.then((data) => query_1.ChainMaintainersResponse.decode(new _m0.Reader(data)));
     }
     TransferRateLimit(request) {
         const data = query_1.TransferRateLimitRequest.encode(request).finish();

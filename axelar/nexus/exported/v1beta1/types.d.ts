@@ -57,6 +57,24 @@ export interface Asset {
     denom: string;
     isNativeAsset: boolean;
 }
+export interface GeneralMessage {
+    id: string;
+    sender?: CrossChainAddress;
+    recipient?: CrossChainAddress;
+    payloadHash: Uint8Array;
+    status: GeneralMessage_Status;
+    asset?: Coin;
+}
+export declare enum GeneralMessage_Status {
+    STATUS_UNSPECIFIED = 0,
+    STATUS_APPROVED = 1,
+    STATUS_SENT = 2,
+    STATUS_EXECUTED = 3,
+    STATUS_FAILED = 4,
+    UNRECOGNIZED = -1
+}
+export declare function generalMessage_StatusFromJSON(object: any): GeneralMessage_Status;
+export declare function generalMessage_StatusToJSON(object: GeneralMessage_Status): string;
 export declare const Chain: {
     encode(message: Chain, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Chain;
@@ -271,6 +289,94 @@ export declare const Asset: {
         denom?: string | undefined;
         isNativeAsset?: boolean | undefined;
     } & Record<Exclude<keyof I, keyof Asset>, never>>(object: I): Asset;
+};
+export declare const GeneralMessage: {
+    encode(message: GeneralMessage, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): GeneralMessage;
+    fromJSON(object: any): GeneralMessage;
+    toJSON(message: GeneralMessage): unknown;
+    fromPartial<I extends {
+        id?: string | undefined;
+        sender?: {
+            chain?: {
+                name?: string | undefined;
+                supportsForeignAssets?: boolean | undefined;
+                keyType?: KeyType | undefined;
+                module?: string | undefined;
+            } | undefined;
+            address?: string | undefined;
+        } | undefined;
+        recipient?: {
+            chain?: {
+                name?: string | undefined;
+                supportsForeignAssets?: boolean | undefined;
+                keyType?: KeyType | undefined;
+                module?: string | undefined;
+            } | undefined;
+            address?: string | undefined;
+        } | undefined;
+        payloadHash?: Uint8Array | undefined;
+        status?: GeneralMessage_Status | undefined;
+        asset?: {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } | undefined;
+    } & {
+        id?: string | undefined;
+        sender?: ({
+            chain?: {
+                name?: string | undefined;
+                supportsForeignAssets?: boolean | undefined;
+                keyType?: KeyType | undefined;
+                module?: string | undefined;
+            } | undefined;
+            address?: string | undefined;
+        } & {
+            chain?: ({
+                name?: string | undefined;
+                supportsForeignAssets?: boolean | undefined;
+                keyType?: KeyType | undefined;
+                module?: string | undefined;
+            } & {
+                name?: string | undefined;
+                supportsForeignAssets?: boolean | undefined;
+                keyType?: KeyType | undefined;
+                module?: string | undefined;
+            } & Record<Exclude<keyof I["sender"]["chain"], keyof Chain>, never>) | undefined;
+            address?: string | undefined;
+        } & Record<Exclude<keyof I["sender"], keyof CrossChainAddress>, never>) | undefined;
+        recipient?: ({
+            chain?: {
+                name?: string | undefined;
+                supportsForeignAssets?: boolean | undefined;
+                keyType?: KeyType | undefined;
+                module?: string | undefined;
+            } | undefined;
+            address?: string | undefined;
+        } & {
+            chain?: ({
+                name?: string | undefined;
+                supportsForeignAssets?: boolean | undefined;
+                keyType?: KeyType | undefined;
+                module?: string | undefined;
+            } & {
+                name?: string | undefined;
+                supportsForeignAssets?: boolean | undefined;
+                keyType?: KeyType | undefined;
+                module?: string | undefined;
+            } & Record<Exclude<keyof I["recipient"]["chain"], keyof Chain>, never>) | undefined;
+            address?: string | undefined;
+        } & Record<Exclude<keyof I["recipient"], keyof CrossChainAddress>, never>) | undefined;
+        payloadHash?: Uint8Array | undefined;
+        status?: GeneralMessage_Status | undefined;
+        asset?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & Record<Exclude<keyof I["asset"], keyof Coin>, never>) | undefined;
+    } & Record<Exclude<keyof I, keyof GeneralMessage>, never>>(object: I): GeneralMessage;
 };
 declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {

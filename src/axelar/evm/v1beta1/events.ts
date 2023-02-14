@@ -115,6 +115,11 @@ export interface ContractCallApproved {
   payloadHash: Uint8Array;
 }
 
+export interface ContractCallFailed {
+  chain: string;
+  msgId: string;
+}
+
 export interface ContractCallWithMintApproved {
   chain: string;
   eventId: string;
@@ -1465,6 +1470,64 @@ export const ContractCallApproved = {
     message.destinationChain = object.destinationChain ?? "";
     message.contractAddress = object.contractAddress ?? "";
     message.payloadHash = object.payloadHash ?? new Uint8Array();
+    return message;
+  },
+};
+
+function createBaseContractCallFailed(): ContractCallFailed {
+  return { chain: "", msgId: "" };
+}
+
+export const ContractCallFailed = {
+  encode(message: ContractCallFailed, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.chain !== "") {
+      writer.uint32(10).string(message.chain);
+    }
+    if (message.msgId !== "") {
+      writer.uint32(18).string(message.msgId);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): ContractCallFailed {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseContractCallFailed();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.chain = reader.string();
+          break;
+        case 2:
+          message.msgId = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): ContractCallFailed {
+    return {
+      chain: isSet(object.chain) ? String(object.chain) : "",
+      msgId: isSet(object.msgId) ? String(object.msgId) : "",
+    };
+  },
+
+  toJSON(message: ContractCallFailed): unknown {
+    const obj: any = {};
+    message.chain !== undefined && (obj.chain = message.chain);
+    message.msgId !== undefined && (obj.msgId = message.msgId);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<ContractCallFailed>, I>>(object: I): ContractCallFailed {
+    const message = createBaseContractCallFailed();
+    message.chain = object.chain ?? "";
+    message.msgId = object.msgId ?? "";
     return message;
   },
 };

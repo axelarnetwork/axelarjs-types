@@ -123,14 +123,22 @@ export interface RetryIBCTransferRequest {
 
 export interface RetryIBCTransferResponse {}
 
-export interface ExecuteGeneralMessageWithTokenRequest {
+export interface ExecuteMessageRequest {
   sender: Uint8Array;
-  chain: string;
   id: string;
   payload: Uint8Array;
 }
 
-export interface ExecuteGeneralMessageWithTokenResponse {}
+export interface ExecuteMessageResponse {}
+
+export interface CallContractRequest {
+  sender: Uint8Array;
+  chain: string;
+  contractAddress: string;
+  payload: Uint8Array;
+}
+
+export interface CallContractResponse {}
 
 function createBaseLinkRequest(): LinkRequest {
   return { sender: new Uint8Array(), recipientAddr: "", recipientChain: "", asset: "" };
@@ -1160,23 +1168,128 @@ export const RetryIBCTransferResponse = {
   },
 };
 
-function createBaseExecuteGeneralMessageWithTokenRequest(): ExecuteGeneralMessageWithTokenRequest {
-  return { sender: new Uint8Array(), chain: "", id: "", payload: new Uint8Array() };
+function createBaseExecuteMessageRequest(): ExecuteMessageRequest {
+  return { sender: new Uint8Array(), id: "", payload: new Uint8Array() };
 }
 
-export const ExecuteGeneralMessageWithTokenRequest = {
-  encode(
-    message: ExecuteGeneralMessageWithTokenRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+export const ExecuteMessageRequest = {
+  encode(message: ExecuteMessageRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.sender.length !== 0) {
+      writer.uint32(10).bytes(message.sender);
+    }
+    if (message.id !== "") {
+      writer.uint32(18).string(message.id);
+    }
+    if (message.payload.length !== 0) {
+      writer.uint32(26).bytes(message.payload);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): ExecuteMessageRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseExecuteMessageRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.sender = reader.bytes();
+          break;
+        case 2:
+          message.id = reader.string();
+          break;
+        case 3:
+          message.payload = reader.bytes();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): ExecuteMessageRequest {
+    return {
+      sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+      id: isSet(object.id) ? String(object.id) : "",
+      payload: isSet(object.payload) ? bytesFromBase64(object.payload) : new Uint8Array(),
+    };
+  },
+
+  toJSON(message: ExecuteMessageRequest): unknown {
+    const obj: any = {};
+    message.sender !== undefined &&
+      (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+    message.id !== undefined && (obj.id = message.id);
+    message.payload !== undefined &&
+      (obj.payload = base64FromBytes(message.payload !== undefined ? message.payload : new Uint8Array()));
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<ExecuteMessageRequest>, I>>(object: I): ExecuteMessageRequest {
+    const message = createBaseExecuteMessageRequest();
+    message.sender = object.sender ?? new Uint8Array();
+    message.id = object.id ?? "";
+    message.payload = object.payload ?? new Uint8Array();
+    return message;
+  },
+};
+
+function createBaseExecuteMessageResponse(): ExecuteMessageResponse {
+  return {};
+}
+
+export const ExecuteMessageResponse = {
+  encode(_: ExecuteMessageResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): ExecuteMessageResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseExecuteMessageResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): ExecuteMessageResponse {
+    return {};
+  },
+
+  toJSON(_: ExecuteMessageResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<ExecuteMessageResponse>, I>>(_: I): ExecuteMessageResponse {
+    const message = createBaseExecuteMessageResponse();
+    return message;
+  },
+};
+
+function createBaseCallContractRequest(): CallContractRequest {
+  return { sender: new Uint8Array(), chain: "", contractAddress: "", payload: new Uint8Array() };
+}
+
+export const CallContractRequest = {
+  encode(message: CallContractRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.sender.length !== 0) {
       writer.uint32(10).bytes(message.sender);
     }
     if (message.chain !== "") {
       writer.uint32(18).string(message.chain);
     }
-    if (message.id !== "") {
-      writer.uint32(26).string(message.id);
+    if (message.contractAddress !== "") {
+      writer.uint32(26).string(message.contractAddress);
     }
     if (message.payload.length !== 0) {
       writer.uint32(34).bytes(message.payload);
@@ -1184,10 +1297,10 @@ export const ExecuteGeneralMessageWithTokenRequest = {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): ExecuteGeneralMessageWithTokenRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): CallContractRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseExecuteGeneralMessageWithTokenRequest();
+    const message = createBaseCallContractRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1198,7 +1311,7 @@ export const ExecuteGeneralMessageWithTokenRequest = {
           message.chain = reader.string();
           break;
         case 3:
-          message.id = reader.string();
+          message.contractAddress = reader.string();
           break;
         case 4:
           message.payload = reader.bytes();
@@ -1211,51 +1324,49 @@ export const ExecuteGeneralMessageWithTokenRequest = {
     return message;
   },
 
-  fromJSON(object: any): ExecuteGeneralMessageWithTokenRequest {
+  fromJSON(object: any): CallContractRequest {
     return {
       sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
       chain: isSet(object.chain) ? String(object.chain) : "",
-      id: isSet(object.id) ? String(object.id) : "",
+      contractAddress: isSet(object.contractAddress) ? String(object.contractAddress) : "",
       payload: isSet(object.payload) ? bytesFromBase64(object.payload) : new Uint8Array(),
     };
   },
 
-  toJSON(message: ExecuteGeneralMessageWithTokenRequest): unknown {
+  toJSON(message: CallContractRequest): unknown {
     const obj: any = {};
     message.sender !== undefined &&
       (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
     message.chain !== undefined && (obj.chain = message.chain);
-    message.id !== undefined && (obj.id = message.id);
+    message.contractAddress !== undefined && (obj.contractAddress = message.contractAddress);
     message.payload !== undefined &&
       (obj.payload = base64FromBytes(message.payload !== undefined ? message.payload : new Uint8Array()));
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ExecuteGeneralMessageWithTokenRequest>, I>>(
-    object: I,
-  ): ExecuteGeneralMessageWithTokenRequest {
-    const message = createBaseExecuteGeneralMessageWithTokenRequest();
+  fromPartial<I extends Exact<DeepPartial<CallContractRequest>, I>>(object: I): CallContractRequest {
+    const message = createBaseCallContractRequest();
     message.sender = object.sender ?? new Uint8Array();
     message.chain = object.chain ?? "";
-    message.id = object.id ?? "";
+    message.contractAddress = object.contractAddress ?? "";
     message.payload = object.payload ?? new Uint8Array();
     return message;
   },
 };
 
-function createBaseExecuteGeneralMessageWithTokenResponse(): ExecuteGeneralMessageWithTokenResponse {
+function createBaseCallContractResponse(): CallContractResponse {
   return {};
 }
 
-export const ExecuteGeneralMessageWithTokenResponse = {
-  encode(_: ExecuteGeneralMessageWithTokenResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const CallContractResponse = {
+  encode(_: CallContractResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): ExecuteGeneralMessageWithTokenResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): CallContractResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseExecuteGeneralMessageWithTokenResponse();
+    const message = createBaseCallContractResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1267,19 +1378,17 @@ export const ExecuteGeneralMessageWithTokenResponse = {
     return message;
   },
 
-  fromJSON(_: any): ExecuteGeneralMessageWithTokenResponse {
+  fromJSON(_: any): CallContractResponse {
     return {};
   },
 
-  toJSON(_: ExecuteGeneralMessageWithTokenResponse): unknown {
+  toJSON(_: CallContractResponse): unknown {
     const obj: any = {};
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ExecuteGeneralMessageWithTokenResponse>, I>>(
-    _: I,
-  ): ExecuteGeneralMessageWithTokenResponse {
-    const message = createBaseExecuteGeneralMessageWithTokenResponse();
+  fromPartial<I extends Exact<DeepPartial<CallContractResponse>, I>>(_: I): CallContractResponse {
+    const message = createBaseCallContractResponse();
     return message;
   },
 };

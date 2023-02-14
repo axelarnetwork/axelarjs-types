@@ -10,7 +10,8 @@ import {
   RouteIBCTransfersResponse,
   RegisterFeeCollectorResponse,
   RetryIBCTransferResponse,
-  ExecuteGeneralMessageWithTokenResponse,
+  ExecuteMessageResponse,
+  CallContractResponse,
   LinkRequest,
   ConfirmDepositRequest,
   ExecutePendingTransfersRequest,
@@ -19,7 +20,8 @@ import {
   RouteIBCTransfersRequest,
   RegisterFeeCollectorRequest,
   RetryIBCTransferRequest,
-  ExecuteGeneralMessageWithTokenRequest,
+  ExecuteMessageRequest,
+  CallContractRequest,
 } from "../../../axelar/axelarnet/v1beta1/tx";
 import {
   PendingIBCTransferCountResponse,
@@ -38,9 +40,8 @@ export interface MsgService {
   RouteIBCTransfers(request: RouteIBCTransfersRequest): Promise<RouteIBCTransfersResponse>;
   RegisterFeeCollector(request: RegisterFeeCollectorRequest): Promise<RegisterFeeCollectorResponse>;
   RetryIBCTransfer(request: RetryIBCTransferRequest): Promise<RetryIBCTransferResponse>;
-  ExecuteGeneralMessageWithToken(
-    request: ExecuteGeneralMessageWithTokenRequest,
-  ): Promise<ExecuteGeneralMessageWithTokenResponse>;
+  ExecuteMessage(request: ExecuteMessageRequest): Promise<ExecuteMessageResponse>;
+  CallContract(request: CallContractRequest): Promise<CallContractResponse>;
 }
 
 export class MsgServiceClientImpl implements MsgService {
@@ -55,7 +56,8 @@ export class MsgServiceClientImpl implements MsgService {
     this.RouteIBCTransfers = this.RouteIBCTransfers.bind(this);
     this.RegisterFeeCollector = this.RegisterFeeCollector.bind(this);
     this.RetryIBCTransfer = this.RetryIBCTransfer.bind(this);
-    this.ExecuteGeneralMessageWithToken = this.ExecuteGeneralMessageWithToken.bind(this);
+    this.ExecuteMessage = this.ExecuteMessage.bind(this);
+    this.CallContract = this.CallContract.bind(this);
   }
   Link(request: LinkRequest): Promise<LinkResponse> {
     const data = LinkRequest.encode(request).finish();
@@ -105,16 +107,16 @@ export class MsgServiceClientImpl implements MsgService {
     return promise.then((data) => RetryIBCTransferResponse.decode(new _m0.Reader(data)));
   }
 
-  ExecuteGeneralMessageWithToken(
-    request: ExecuteGeneralMessageWithTokenRequest,
-  ): Promise<ExecuteGeneralMessageWithTokenResponse> {
-    const data = ExecuteGeneralMessageWithTokenRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "axelar.axelarnet.v1beta1.MsgService",
-      "ExecuteGeneralMessageWithToken",
-      data,
-    );
-    return promise.then((data) => ExecuteGeneralMessageWithTokenResponse.decode(new _m0.Reader(data)));
+  ExecuteMessage(request: ExecuteMessageRequest): Promise<ExecuteMessageResponse> {
+    const data = ExecuteMessageRequest.encode(request).finish();
+    const promise = this.rpc.request("axelar.axelarnet.v1beta1.MsgService", "ExecuteMessage", data);
+    return promise.then((data) => ExecuteMessageResponse.decode(new _m0.Reader(data)));
+  }
+
+  CallContract(request: CallContractRequest): Promise<CallContractResponse> {
+    const data = CallContractRequest.encode(request).finish();
+    const promise = this.rpc.request("axelar.axelarnet.v1beta1.MsgService", "CallContract", data);
+    return promise.then((data) => CallContractResponse.decode(new _m0.Reader(data)));
   }
 }
 

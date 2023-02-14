@@ -1,5 +1,5 @@
 import { SetGatewayResponse, ConfirmGatewayTxResponse, LinkResponse, ConfirmTokenResponse, ConfirmDepositResponse, ConfirmTransferKeyResponse, CreateDeployTokenResponse, CreateBurnTokensResponse, CreatePendingTransfersResponse, CreateTransferOperatorshipResponse, SignCommandsResponse, AddChainResponse, RetryFailedEventResponse, SetGatewayRequest, ConfirmGatewayTxRequest, LinkRequest, ConfirmTokenRequest, ConfirmDepositRequest, ConfirmTransferKeyRequest, CreateDeployTokenRequest, CreateBurnTokensRequest, CreatePendingTransfersRequest, CreateTransferOperatorshipRequest, SignCommandsRequest, AddChainRequest, RetryFailedEventRequest } from "../../../axelar/evm/v1beta1/tx";
-import { BatchedCommandsResponse, BurnerInfoResponse, ConfirmationHeightResponse, DepositStateResponse, PendingCommandsResponse, ChainsResponse, KeyAddressResponse, GatewayAddressResponse, BytecodeResponse, EventResponse, ERC20TokensResponse, TokenInfoResponse, BatchedCommandsRequest, BurnerInfoRequest, ConfirmationHeightRequest, DepositStateRequest, PendingCommandsRequest, ChainsRequest, KeyAddressRequest, GatewayAddressRequest, BytecodeRequest, EventRequest, ERC20TokensRequest, TokenInfoRequest } from "../../../axelar/evm/v1beta1/query";
+import { BatchedCommandsResponse, BurnerInfoResponse, ConfirmationHeightResponse, DepositStateResponse, PendingCommandsResponse, ChainsResponse, CommandResponse, KeyAddressResponse, GatewayAddressResponse, BytecodeResponse, EventResponse, ERC20TokensResponse, TokenInfoResponse, BatchedCommandsRequest, BurnerInfoRequest, ConfirmationHeightRequest, DepositStateRequest, PendingCommandsRequest, ChainsRequest, CommandRequest, KeyAddressRequest, GatewayAddressRequest, BytecodeRequest, EventRequest, ERC20TokensRequest, TokenInfoRequest } from "../../../axelar/evm/v1beta1/query";
 export declare const protobufPackage = "axelar.evm.v1beta1";
 /** Msg defines the evm Msg service. */
 export interface MsgService {
@@ -56,11 +56,19 @@ export interface QueryService {
     PendingCommands(request: PendingCommandsRequest): Promise<PendingCommandsResponse>;
     /** Chains queries the available evm chains */
     Chains(request: ChainsRequest): Promise<ChainsResponse>;
+    /** Command queries the command of a chain provided the command id */
+    Command(request: CommandRequest): Promise<CommandResponse>;
     /** KeyAddress queries the address of key of a chain */
     KeyAddress(request: KeyAddressRequest): Promise<KeyAddressResponse>;
-    /** GatewayAddress queries the address of axelar gateway at the specified chain */
+    /**
+     * GatewayAddress queries the address of axelar gateway at the specified
+     * chain
+     */
     GatewayAddress(request: GatewayAddressRequest): Promise<GatewayAddressResponse>;
-    /** Bytecode queries the bytecode of a specified gateway at the specified chain */
+    /**
+     * Bytecode queries the bytecode of a specified gateway at the specified
+     * chain
+     */
     Bytecode(request: BytecodeRequest): Promise<BytecodeResponse>;
     /** Event queries an event at the specified chain */
     Event(request: EventRequest): Promise<EventResponse>;
@@ -78,6 +86,7 @@ export declare class QueryServiceClientImpl implements QueryService {
     DepositState(request: DepositStateRequest): Promise<DepositStateResponse>;
     PendingCommands(request: PendingCommandsRequest): Promise<PendingCommandsResponse>;
     Chains(request: ChainsRequest): Promise<ChainsResponse>;
+    Command(request: CommandRequest): Promise<CommandResponse>;
     KeyAddress(request: KeyAddressRequest): Promise<KeyAddressResponse>;
     GatewayAddress(request: GatewayAddressRequest): Promise<GatewayAddressResponse>;
     Bytecode(request: BytecodeRequest): Promise<BytecodeResponse>;

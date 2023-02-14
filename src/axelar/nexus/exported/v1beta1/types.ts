@@ -133,6 +133,66 @@ export interface Asset {
   isNativeAsset: boolean;
 }
 
+export interface GeneralMessage {
+  id: string;
+  sender?: CrossChainAddress;
+  recipient?: CrossChainAddress;
+  payloadHash: Uint8Array;
+  status: GeneralMessage_Status;
+  asset?: Coin;
+}
+
+export enum GeneralMessage_Status {
+  STATUS_UNSPECIFIED = 0,
+  STATUS_APPROVED = 1,
+  STATUS_SENT = 2,
+  STATUS_EXECUTED = 3,
+  STATUS_FAILED = 4,
+  UNRECOGNIZED = -1,
+}
+
+export function generalMessage_StatusFromJSON(object: any): GeneralMessage_Status {
+  switch (object) {
+    case 0:
+    case "STATUS_UNSPECIFIED":
+      return GeneralMessage_Status.STATUS_UNSPECIFIED;
+    case 1:
+    case "STATUS_APPROVED":
+      return GeneralMessage_Status.STATUS_APPROVED;
+    case 2:
+    case "STATUS_SENT":
+      return GeneralMessage_Status.STATUS_SENT;
+    case 3:
+    case "STATUS_EXECUTED":
+      return GeneralMessage_Status.STATUS_EXECUTED;
+    case 4:
+    case "STATUS_FAILED":
+      return GeneralMessage_Status.STATUS_FAILED;
+    case -1:
+    case "UNRECOGNIZED":
+    default:
+      return GeneralMessage_Status.UNRECOGNIZED;
+  }
+}
+
+export function generalMessage_StatusToJSON(object: GeneralMessage_Status): string {
+  switch (object) {
+    case GeneralMessage_Status.STATUS_UNSPECIFIED:
+      return "STATUS_UNSPECIFIED";
+    case GeneralMessage_Status.STATUS_APPROVED:
+      return "STATUS_APPROVED";
+    case GeneralMessage_Status.STATUS_SENT:
+      return "STATUS_SENT";
+    case GeneralMessage_Status.STATUS_EXECUTED:
+      return "STATUS_EXECUTED";
+    case GeneralMessage_Status.STATUS_FAILED:
+      return "STATUS_FAILED";
+    case GeneralMessage_Status.UNRECOGNIZED:
+    default:
+      return "UNRECOGNIZED";
+  }
+}
+
 function createBaseChain(): Chain {
   return { name: "", supportsForeignAssets: false, keyType: 0, module: "" };
 }
@@ -553,6 +613,119 @@ export const Asset = {
     const message = createBaseAsset();
     message.denom = object.denom ?? "";
     message.isNativeAsset = object.isNativeAsset ?? false;
+    return message;
+  },
+};
+
+function createBaseGeneralMessage(): GeneralMessage {
+  return {
+    id: "",
+    sender: undefined,
+    recipient: undefined,
+    payloadHash: new Uint8Array(),
+    status: 0,
+    asset: undefined,
+  };
+}
+
+export const GeneralMessage = {
+  encode(message: GeneralMessage, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.id !== "") {
+      writer.uint32(10).string(message.id);
+    }
+    if (message.sender !== undefined) {
+      CrossChainAddress.encode(message.sender, writer.uint32(18).fork()).ldelim();
+    }
+    if (message.recipient !== undefined) {
+      CrossChainAddress.encode(message.recipient, writer.uint32(26).fork()).ldelim();
+    }
+    if (message.payloadHash.length !== 0) {
+      writer.uint32(34).bytes(message.payloadHash);
+    }
+    if (message.status !== 0) {
+      writer.uint32(40).int32(message.status);
+    }
+    if (message.asset !== undefined) {
+      Coin.encode(message.asset, writer.uint32(50).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): GeneralMessage {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseGeneralMessage();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.id = reader.string();
+          break;
+        case 2:
+          message.sender = CrossChainAddress.decode(reader, reader.uint32());
+          break;
+        case 3:
+          message.recipient = CrossChainAddress.decode(reader, reader.uint32());
+          break;
+        case 4:
+          message.payloadHash = reader.bytes();
+          break;
+        case 5:
+          message.status = reader.int32() as any;
+          break;
+        case 6:
+          message.asset = Coin.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): GeneralMessage {
+    return {
+      id: isSet(object.id) ? String(object.id) : "",
+      sender: isSet(object.sender) ? CrossChainAddress.fromJSON(object.sender) : undefined,
+      recipient: isSet(object.recipient) ? CrossChainAddress.fromJSON(object.recipient) : undefined,
+      payloadHash: isSet(object.payloadHash) ? bytesFromBase64(object.payloadHash) : new Uint8Array(),
+      status: isSet(object.status) ? generalMessage_StatusFromJSON(object.status) : 0,
+      asset: isSet(object.asset) ? Coin.fromJSON(object.asset) : undefined,
+    };
+  },
+
+  toJSON(message: GeneralMessage): unknown {
+    const obj: any = {};
+    message.id !== undefined && (obj.id = message.id);
+    message.sender !== undefined &&
+      (obj.sender = message.sender ? CrossChainAddress.toJSON(message.sender) : undefined);
+    message.recipient !== undefined &&
+      (obj.recipient = message.recipient ? CrossChainAddress.toJSON(message.recipient) : undefined);
+    message.payloadHash !== undefined &&
+      (obj.payloadHash = base64FromBytes(
+        message.payloadHash !== undefined ? message.payloadHash : new Uint8Array(),
+      ));
+    message.status !== undefined && (obj.status = generalMessage_StatusToJSON(message.status));
+    message.asset !== undefined && (obj.asset = message.asset ? Coin.toJSON(message.asset) : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<GeneralMessage>, I>>(object: I): GeneralMessage {
+    const message = createBaseGeneralMessage();
+    message.id = object.id ?? "";
+    message.sender =
+      object.sender !== undefined && object.sender !== null
+        ? CrossChainAddress.fromPartial(object.sender)
+        : undefined;
+    message.recipient =
+      object.recipient !== undefined && object.recipient !== null
+        ? CrossChainAddress.fromPartial(object.recipient)
+        : undefined;
+    message.payloadHash = object.payloadHash ?? new Uint8Array();
+    message.status = object.status ?? 0;
+    message.asset =
+      object.asset !== undefined && object.asset !== null ? Coin.fromPartial(object.asset) : undefined;
     return message;
   },
 };

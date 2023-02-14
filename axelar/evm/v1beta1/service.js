@@ -122,6 +122,7 @@ class QueryServiceClientImpl {
         this.DepositState = this.DepositState.bind(this);
         this.PendingCommands = this.PendingCommands.bind(this);
         this.Chains = this.Chains.bind(this);
+        this.Command = this.Command.bind(this);
         this.KeyAddress = this.KeyAddress.bind(this);
         this.GatewayAddress = this.GatewayAddress.bind(this);
         this.Bytecode = this.Bytecode.bind(this);
@@ -158,6 +159,11 @@ class QueryServiceClientImpl {
         const data = query_1.ChainsRequest.encode(request).finish();
         const promise = this.rpc.request("axelar.evm.v1beta1.QueryService", "Chains", data);
         return promise.then((data) => query_1.ChainsResponse.decode(new _m0.Reader(data)));
+    }
+    Command(request) {
+        const data = query_1.CommandRequest.encode(request).finish();
+        const promise = this.rpc.request("axelar.evm.v1beta1.QueryService", "Command", data);
+        return promise.then((data) => query_1.CommandResponse.decode(new _m0.Reader(data)));
     }
     KeyAddress(request) {
         const data = query_1.KeyAddressRequest.encode(request).finish();

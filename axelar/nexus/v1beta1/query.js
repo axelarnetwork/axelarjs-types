@@ -22,7 +22,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TransferRateLimit = exports.TransferRateLimitResponse = exports.TransferRateLimitRequest = exports.RecipientAddressResponse = exports.RecipientAddressRequest = exports.ChainsByAssetResponse = exports.ChainsByAssetRequest = exports.ChainStateResponse = exports.ChainStateRequest = exports.AssetsResponse = exports.AssetsRequest = exports.ChainsResponse = exports.ChainsRequest = exports.TransferFeeResponse = exports.TransferFeeRequest = exports.FeeInfoResponse = exports.FeeInfoRequest = exports.TransfersForChainResponse = exports.TransfersForChainRequest = exports.LatestDepositAddressResponse = exports.LatestDepositAddressRequest = exports.QueryChainMaintainersResponse = exports.chainStatusToJSON = exports.chainStatusFromJSON = exports.ChainStatus = exports.protobufPackage = void 0;
+exports.TransferRateLimit = exports.TransferRateLimitResponse = exports.TransferRateLimitRequest = exports.RecipientAddressResponse = exports.RecipientAddressRequest = exports.ChainsByAssetResponse = exports.ChainsByAssetRequest = exports.ChainStateResponse = exports.ChainStateRequest = exports.AssetsResponse = exports.AssetsRequest = exports.ChainsResponse = exports.ChainsRequest = exports.TransferFeeResponse = exports.TransferFeeRequest = exports.FeeInfoResponse = exports.FeeInfoRequest = exports.TransfersForChainResponse = exports.TransfersForChainRequest = exports.LatestDepositAddressResponse = exports.LatestDepositAddressRequest = exports.ChainMaintainersResponse = exports.ChainMaintainersRequest = exports.chainStatusToJSON = exports.chainStatusFromJSON = exports.ChainStatus = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
@@ -71,10 +71,54 @@ function chainStatusToJSON(object) {
     }
 }
 exports.chainStatusToJSON = chainStatusToJSON;
-function createBaseQueryChainMaintainersResponse() {
+function createBaseChainMaintainersRequest() {
+    return { chain: "" };
+}
+exports.ChainMaintainersRequest = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.chain !== "") {
+            writer.uint32(10).string(message.chain);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseChainMaintainersRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.chain = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            chain: isSet(object.chain) ? String(object.chain) : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.chain !== undefined && (obj.chain = message.chain);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseChainMaintainersRequest();
+        message.chain = (_a = object.chain) !== null && _a !== void 0 ? _a : "";
+        return message;
+    },
+};
+function createBaseChainMaintainersResponse() {
     return { maintainers: [] };
 }
-exports.QueryChainMaintainersResponse = {
+exports.ChainMaintainersResponse = {
     encode(message, writer = _m0.Writer.create()) {
         for (const v of message.maintainers) {
             writer.uint32(10).bytes(v);
@@ -84,7 +128,7 @@ exports.QueryChainMaintainersResponse = {
     decode(input, length) {
         const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryChainMaintainersResponse();
+        const message = createBaseChainMaintainersResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -117,7 +161,7 @@ exports.QueryChainMaintainersResponse = {
     },
     fromPartial(object) {
         var _a;
-        const message = createBaseQueryChainMaintainersResponse();
+        const message = createBaseChainMaintainersResponse();
         message.maintainers = ((_a = object.maintainers) === null || _a === void 0 ? void 0 : _a.map((e) => e)) || [];
         return message;
     },

@@ -14,7 +14,14 @@ export declare enum ChainStatus {
 }
 export declare function chainStatusFromJSON(object: any): ChainStatus;
 export declare function chainStatusToJSON(object: ChainStatus): string;
-export interface QueryChainMaintainersResponse {
+/**
+ * ChainMaintainersRequest represents a message that queries
+ * the chain maintainers for the specified chain
+ */
+export interface ChainMaintainersRequest {
+    chain: string;
+}
+export interface ChainMaintainersResponse {
     maintainers: Uint8Array[];
 }
 /**
@@ -136,16 +143,27 @@ export interface TransferRateLimit {
     /** time_left indicates the time left in the rate limit window */
     timeLeft?: Duration;
 }
-export declare const QueryChainMaintainersResponse: {
-    encode(message: QueryChainMaintainersResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryChainMaintainersResponse;
-    fromJSON(object: any): QueryChainMaintainersResponse;
-    toJSON(message: QueryChainMaintainersResponse): unknown;
+export declare const ChainMaintainersRequest: {
+    encode(message: ChainMaintainersRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ChainMaintainersRequest;
+    fromJSON(object: any): ChainMaintainersRequest;
+    toJSON(message: ChainMaintainersRequest): unknown;
+    fromPartial<I extends {
+        chain?: string | undefined;
+    } & {
+        chain?: string | undefined;
+    } & Record<Exclude<keyof I, "chain">, never>>(object: I): ChainMaintainersRequest;
+};
+export declare const ChainMaintainersResponse: {
+    encode(message: ChainMaintainersResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ChainMaintainersResponse;
+    fromJSON(object: any): ChainMaintainersResponse;
+    toJSON(message: ChainMaintainersResponse): unknown;
     fromPartial<I extends {
         maintainers?: Uint8Array[] | undefined;
     } & {
         maintainers?: (Uint8Array[] & Uint8Array[] & Record<Exclude<keyof I["maintainers"], keyof Uint8Array[]>, never>) | undefined;
-    } & Record<Exclude<keyof I, "maintainers">, never>>(object: I): QueryChainMaintainersResponse;
+    } & Record<Exclude<keyof I, "maintainers">, never>>(object: I): ChainMaintainersResponse;
 };
 export declare const LatestDepositAddressRequest: {
     encode(message: LatestDepositAddressRequest, writer?: _m0.Writer): _m0.Writer;

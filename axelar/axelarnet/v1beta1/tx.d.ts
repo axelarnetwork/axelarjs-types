@@ -110,13 +110,20 @@ export interface RetryIBCTransferRequest {
 }
 export interface RetryIBCTransferResponse {
 }
-export interface ExecuteGeneralMessageWithTokenRequest {
+export interface ExecuteMessageRequest {
     sender: Uint8Array;
-    chain: string;
     id: string;
     payload: Uint8Array;
 }
-export interface ExecuteGeneralMessageWithTokenResponse {
+export interface ExecuteMessageResponse {
+}
+export interface CallContractRequest {
+    sender: Uint8Array;
+    chain: string;
+    contractAddress: string;
+    payload: Uint8Array;
+}
+export interface CallContractResponse {
 }
 export declare const LinkRequest: {
     encode(message: LinkRequest, writer?: _m0.Writer): _m0.Writer;
@@ -484,29 +491,51 @@ export declare const RetryIBCTransferResponse: {
     toJSON(_: RetryIBCTransferResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): RetryIBCTransferResponse;
 };
-export declare const ExecuteGeneralMessageWithTokenRequest: {
-    encode(message: ExecuteGeneralMessageWithTokenRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ExecuteGeneralMessageWithTokenRequest;
-    fromJSON(object: any): ExecuteGeneralMessageWithTokenRequest;
-    toJSON(message: ExecuteGeneralMessageWithTokenRequest): unknown;
+export declare const ExecuteMessageRequest: {
+    encode(message: ExecuteMessageRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ExecuteMessageRequest;
+    fromJSON(object: any): ExecuteMessageRequest;
+    toJSON(message: ExecuteMessageRequest): unknown;
     fromPartial<I extends {
         sender?: Uint8Array | undefined;
-        chain?: string | undefined;
         id?: string | undefined;
         payload?: Uint8Array | undefined;
     } & {
         sender?: Uint8Array | undefined;
-        chain?: string | undefined;
         id?: string | undefined;
         payload?: Uint8Array | undefined;
-    } & Record<Exclude<keyof I, keyof ExecuteGeneralMessageWithTokenRequest>, never>>(object: I): ExecuteGeneralMessageWithTokenRequest;
+    } & Record<Exclude<keyof I, keyof ExecuteMessageRequest>, never>>(object: I): ExecuteMessageRequest;
 };
-export declare const ExecuteGeneralMessageWithTokenResponse: {
-    encode(_: ExecuteGeneralMessageWithTokenResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ExecuteGeneralMessageWithTokenResponse;
-    fromJSON(_: any): ExecuteGeneralMessageWithTokenResponse;
-    toJSON(_: ExecuteGeneralMessageWithTokenResponse): unknown;
-    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): ExecuteGeneralMessageWithTokenResponse;
+export declare const ExecuteMessageResponse: {
+    encode(_: ExecuteMessageResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ExecuteMessageResponse;
+    fromJSON(_: any): ExecuteMessageResponse;
+    toJSON(_: ExecuteMessageResponse): unknown;
+    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): ExecuteMessageResponse;
+};
+export declare const CallContractRequest: {
+    encode(message: CallContractRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): CallContractRequest;
+    fromJSON(object: any): CallContractRequest;
+    toJSON(message: CallContractRequest): unknown;
+    fromPartial<I extends {
+        sender?: Uint8Array | undefined;
+        chain?: string | undefined;
+        contractAddress?: string | undefined;
+        payload?: Uint8Array | undefined;
+    } & {
+        sender?: Uint8Array | undefined;
+        chain?: string | undefined;
+        contractAddress?: string | undefined;
+        payload?: Uint8Array | undefined;
+    } & Record<Exclude<keyof I, keyof CallContractRequest>, never>>(object: I): CallContractRequest;
+};
+export declare const CallContractResponse: {
+    encode(_: CallContractResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): CallContractResponse;
+    fromJSON(_: any): CallContractResponse;
+    toJSON(_: CallContractResponse): unknown;
+    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): CallContractResponse;
 };
 declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {

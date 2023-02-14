@@ -36,6 +36,7 @@ import {
   DepositStateResponse,
   PendingCommandsResponse,
   ChainsResponse,
+  CommandResponse,
   KeyAddressResponse,
   GatewayAddressResponse,
   BytecodeResponse,
@@ -48,6 +49,7 @@ import {
   DepositStateRequest,
   PendingCommandsRequest,
   ChainsRequest,
+  CommandRequest,
   KeyAddressRequest,
   GatewayAddressRequest,
   BytecodeRequest,
@@ -198,11 +200,19 @@ export interface QueryService {
   PendingCommands(request: PendingCommandsRequest): Promise<PendingCommandsResponse>;
   /** Chains queries the available evm chains */
   Chains(request: ChainsRequest): Promise<ChainsResponse>;
+  /** Command queries the command of a chain provided the command id */
+  Command(request: CommandRequest): Promise<CommandResponse>;
   /** KeyAddress queries the address of key of a chain */
   KeyAddress(request: KeyAddressRequest): Promise<KeyAddressResponse>;
-  /** GatewayAddress queries the address of axelar gateway at the specified chain */
+  /**
+   * GatewayAddress queries the address of axelar gateway at the specified
+   * chain
+   */
   GatewayAddress(request: GatewayAddressRequest): Promise<GatewayAddressResponse>;
-  /** Bytecode queries the bytecode of a specified gateway at the specified chain */
+  /**
+   * Bytecode queries the bytecode of a specified gateway at the specified
+   * chain
+   */
   Bytecode(request: BytecodeRequest): Promise<BytecodeResponse>;
   /** Event queries an event at the specified chain */
   Event(request: EventRequest): Promise<EventResponse>;
@@ -222,6 +232,7 @@ export class QueryServiceClientImpl implements QueryService {
     this.DepositState = this.DepositState.bind(this);
     this.PendingCommands = this.PendingCommands.bind(this);
     this.Chains = this.Chains.bind(this);
+    this.Command = this.Command.bind(this);
     this.KeyAddress = this.KeyAddress.bind(this);
     this.GatewayAddress = this.GatewayAddress.bind(this);
     this.Bytecode = this.Bytecode.bind(this);
@@ -263,6 +274,12 @@ export class QueryServiceClientImpl implements QueryService {
     const data = ChainsRequest.encode(request).finish();
     const promise = this.rpc.request("axelar.evm.v1beta1.QueryService", "Chains", data);
     return promise.then((data) => ChainsResponse.decode(new _m0.Reader(data)));
+  }
+
+  Command(request: CommandRequest): Promise<CommandResponse> {
+    const data = CommandRequest.encode(request).finish();
+    const promise = this.rpc.request("axelar.evm.v1beta1.QueryService", "Command", data);
+    return promise.then((data) => CommandResponse.decode(new _m0.Reader(data)));
   }
 
   KeyAddress(request: KeyAddressRequest): Promise<KeyAddressResponse> {

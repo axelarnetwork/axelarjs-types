@@ -1,4 +1,4 @@
-import { LinkResponse, ConfirmDepositResponse, ExecutePendingTransfersResponse, AddCosmosBasedChainResponse, RegisterAssetResponse, RouteIBCTransfersResponse, RegisterFeeCollectorResponse, RetryIBCTransferResponse, ExecuteGeneralMessageWithTokenResponse, LinkRequest, ConfirmDepositRequest, ExecutePendingTransfersRequest, AddCosmosBasedChainRequest, RegisterAssetRequest, RouteIBCTransfersRequest, RegisterFeeCollectorRequest, RetryIBCTransferRequest, ExecuteGeneralMessageWithTokenRequest } from "../../../axelar/axelarnet/v1beta1/tx";
+import { LinkResponse, ConfirmDepositResponse, ExecutePendingTransfersResponse, AddCosmosBasedChainResponse, RegisterAssetResponse, RouteIBCTransfersResponse, RegisterFeeCollectorResponse, RetryIBCTransferResponse, ExecuteMessageResponse, CallContractResponse, LinkRequest, ConfirmDepositRequest, ExecutePendingTransfersRequest, AddCosmosBasedChainRequest, RegisterAssetRequest, RouteIBCTransfersRequest, RegisterFeeCollectorRequest, RetryIBCTransferRequest, ExecuteMessageRequest, CallContractRequest } from "../../../axelar/axelarnet/v1beta1/tx";
 import { PendingIBCTransferCountResponse, PendingIBCTransferCountRequest } from "../../../axelar/axelarnet/v1beta1/query";
 export declare const protobufPackage = "axelar.axelarnet.v1beta1";
 /** Msg defines the axelarnet Msg service. */
@@ -11,7 +11,8 @@ export interface MsgService {
     RouteIBCTransfers(request: RouteIBCTransfersRequest): Promise<RouteIBCTransfersResponse>;
     RegisterFeeCollector(request: RegisterFeeCollectorRequest): Promise<RegisterFeeCollectorResponse>;
     RetryIBCTransfer(request: RetryIBCTransferRequest): Promise<RetryIBCTransferResponse>;
-    ExecuteGeneralMessageWithToken(request: ExecuteGeneralMessageWithTokenRequest): Promise<ExecuteGeneralMessageWithTokenResponse>;
+    ExecuteMessage(request: ExecuteMessageRequest): Promise<ExecuteMessageResponse>;
+    CallContract(request: CallContractRequest): Promise<CallContractResponse>;
 }
 export declare class MsgServiceClientImpl implements MsgService {
     private readonly rpc;
@@ -24,7 +25,8 @@ export declare class MsgServiceClientImpl implements MsgService {
     RouteIBCTransfers(request: RouteIBCTransfersRequest): Promise<RouteIBCTransfersResponse>;
     RegisterFeeCollector(request: RegisterFeeCollectorRequest): Promise<RegisterFeeCollectorResponse>;
     RetryIBCTransfer(request: RetryIBCTransferRequest): Promise<RetryIBCTransferResponse>;
-    ExecuteGeneralMessageWithToken(request: ExecuteGeneralMessageWithTokenRequest): Promise<ExecuteGeneralMessageWithTokenResponse>;
+    ExecuteMessage(request: ExecuteMessageRequest): Promise<ExecuteMessageResponse>;
+    CallContract(request: CallContractRequest): Promise<CallContractResponse>;
 }
 /** QueryService defines the gRPC querier service. */
 export interface QueryService {

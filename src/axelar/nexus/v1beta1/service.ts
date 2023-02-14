@@ -25,6 +25,7 @@ import {
   ChainStateResponse,
   ChainsByAssetResponse,
   RecipientAddressResponse,
+  ChainMaintainersResponse,
   TransferRateLimitResponse,
   LatestDepositAddressRequest,
   TransfersForChainRequest,
@@ -35,6 +36,7 @@ import {
   ChainStateRequest,
   ChainsByAssetRequest,
   RecipientAddressRequest,
+  ChainMaintainersRequest,
   TransferRateLimitRequest,
 } from "../../../axelar/nexus/v1beta1/query";
 
@@ -125,6 +127,8 @@ export interface QueryService {
   ChainsByAsset(request: ChainsByAssetRequest): Promise<ChainsByAssetResponse>;
   /** RecipientAddress queries the recipient address for a given deposit address */
   RecipientAddress(request: RecipientAddressRequest): Promise<RecipientAddressResponse>;
+  /** ChainMaintainers queries the chain maintainers for a given chain */
+  ChainMaintainers(request: ChainMaintainersRequest): Promise<ChainMaintainersResponse>;
   /**
    * TransferRateLimit queries the transfer rate limit for a given chain and
    * asset. If a rate limit is not set, nil is returned.
@@ -145,6 +149,7 @@ export class QueryServiceClientImpl implements QueryService {
     this.ChainState = this.ChainState.bind(this);
     this.ChainsByAsset = this.ChainsByAsset.bind(this);
     this.RecipientAddress = this.RecipientAddress.bind(this);
+    this.ChainMaintainers = this.ChainMaintainers.bind(this);
     this.TransferRateLimit = this.TransferRateLimit.bind(this);
   }
   LatestDepositAddress(request: LatestDepositAddressRequest): Promise<LatestDepositAddressResponse> {
@@ -199,6 +204,12 @@ export class QueryServiceClientImpl implements QueryService {
     const data = RecipientAddressRequest.encode(request).finish();
     const promise = this.rpc.request("axelar.nexus.v1beta1.QueryService", "RecipientAddress", data);
     return promise.then((data) => RecipientAddressResponse.decode(new _m0.Reader(data)));
+  }
+
+  ChainMaintainers(request: ChainMaintainersRequest): Promise<ChainMaintainersResponse> {
+    const data = ChainMaintainersRequest.encode(request).finish();
+    const promise = this.rpc.request("axelar.nexus.v1beta1.QueryService", "ChainMaintainers", data);
+    return promise.then((data) => ChainMaintainersResponse.decode(new _m0.Reader(data)));
   }
 
   TransferRateLimit(request: TransferRateLimitRequest): Promise<TransferRateLimitResponse> {
