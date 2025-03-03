@@ -18,29 +18,78 @@ protoc \
   --proto_path="$AXELAR_SDK_DIR" \
   --proto_path="$AXELAR_SDK_THIRD_PARTY_DIR" \
   --ts_proto_yarn_2_opt="$TS_PROTO_OPTS" \
+  "$AXELAR_SDK_DIR/axelar/auxiliary/v1beta1/genesis.proto" \
+  "$AXELAR_SDK_DIR/axelar/auxiliary/v1beta1/events.proto" \
+  "$AXELAR_SDK_DIR/axelar/auxiliary/v1beta1/service.proto" \
+  "$AXELAR_SDK_DIR/axelar/auxiliary/v1beta1/tx.proto" \
+  "$AXELAR_SDK_DIR/axelar/axelarnet/v1beta1/events.proto" \
   "$AXELAR_SDK_DIR/axelar/axelarnet/v1beta1/genesis.proto" \
-  "$AXELAR_SDK_DIR/axelar/axelarnet/v1beta1/proposal.proto" \
   "$AXELAR_SDK_DIR/axelar/axelarnet/v1beta1/params.proto" \
+  "$AXELAR_SDK_DIR/axelar/axelarnet/v1beta1/proposal.proto" \
   "$AXELAR_SDK_DIR/axelar/axelarnet/v1beta1/query.proto" \
   "$AXELAR_SDK_DIR/axelar/axelarnet/v1beta1/service.proto" \
   "$AXELAR_SDK_DIR/axelar/axelarnet/v1beta1/tx.proto" \
   "$AXELAR_SDK_DIR/axelar/axelarnet/v1beta1/types.proto" \
-  "$AXELAR_SDK_DIR/axelar/evm/v1beta1/genesis.proto" \
-  "$AXELAR_SDK_DIR/axelar/evm/v1beta1/params.proto" \
-  "$AXELAR_SDK_DIR/axelar/evm/v1beta1/query.proto" \
-  "$AXELAR_SDK_DIR/axelar/evm/v1beta1/service.proto" \
-  "$AXELAR_SDK_DIR/axelar/evm/v1beta1/tx.proto" \
-  "$AXELAR_SDK_DIR/axelar/evm/v1beta1/types.proto" \
-  "$AXELAR_SDK_DIR/axelar/multisig/v1beta1/tx.proto" \
+  "$AXELAR_SDK_DIR/axelar/distribution/v1beta1/events.proto" \
+  "$AXELAR_SDK_DIR/axelar/multisig/exported/v1beta1/types.proto" \
+  "$AXELAR_SDK_DIR/axelar/multisig/v1beta1/events.proto" \
+  "$AXELAR_SDK_DIR/axelar/multisig/v1beta1/genesis.proto" \
+  "$AXELAR_SDK_DIR/axelar/multisig/v1beta1/params.proto" \
+  "$AXELAR_SDK_DIR/axelar/multisig/v1beta1/query.proto" \
   "$AXELAR_SDK_DIR/axelar/multisig/v1beta1/service.proto" \
+  "$AXELAR_SDK_DIR/axelar/multisig/v1beta1/tx.proto" \
+  "$AXELAR_SDK_DIR/axelar/multisig/v1beta1/types.proto" \
+  "$AXELAR_SDK_DIR/axelar/nexus/exported/v1beta1/types.proto" \
+  "$AXELAR_SDK_DIR/axelar/nexus/v1beta1/events.proto" \
   "$AXELAR_SDK_DIR/axelar/nexus/v1beta1/genesis.proto" \
   "$AXELAR_SDK_DIR/axelar/nexus/v1beta1/params.proto" \
   "$AXELAR_SDK_DIR/axelar/nexus/v1beta1/query.proto" \
   "$AXELAR_SDK_DIR/axelar/nexus/v1beta1/service.proto" \
   "$AXELAR_SDK_DIR/axelar/nexus/v1beta1/tx.proto" \
   "$AXELAR_SDK_DIR/axelar/nexus/v1beta1/types.proto" \
+  "$AXELAR_SDK_DIR/axelar/permission/exported/v1beta1/types.proto" \
+  "$AXELAR_SDK_DIR/axelar/permission/v1beta1/genesis.proto" \
+  "$AXELAR_SDK_DIR/axelar/permission/v1beta1/params.proto" \
+  "$AXELAR_SDK_DIR/axelar/permission/v1beta1/query.proto" \
+  "$AXELAR_SDK_DIR/axelar/permission/v1beta1/service.proto" \
+  "$AXELAR_SDK_DIR/axelar/permission/v1beta1/tx.proto" \
+  "$AXELAR_SDK_DIR/axelar/permission/v1beta1/types.proto" \
+  "$AXELAR_SDK_DIR/axelar/reward/v1beta1/genesis.proto" \
+  "$AXELAR_SDK_DIR/axelar/reward/v1beta1/params.proto" \
+  "$AXELAR_SDK_DIR/axelar/reward/v1beta1/query.proto" \
+  "$AXELAR_SDK_DIR/axelar/reward/v1beta1/service.proto" \
+  "$AXELAR_SDK_DIR/axelar/reward/v1beta1/tx.proto" \
+  "$AXELAR_SDK_DIR/axelar/reward/v1beta1/types.proto" \
+  "$AXELAR_SDK_DIR/axelar/snapshot/exported/v1beta1/types.proto" \
+  "$AXELAR_SDK_DIR/axelar/snapshot/v1beta1/genesis.proto" \
+  "$AXELAR_SDK_DIR/axelar/snapshot/v1beta1/params.proto" \
+  "$AXELAR_SDK_DIR/axelar/snapshot/v1beta1/query.proto" \
+  "$AXELAR_SDK_DIR/axelar/snapshot/v1beta1/service.proto" \
+  "$AXELAR_SDK_DIR/axelar/snapshot/v1beta1/tx.proto" \
+  "$AXELAR_SDK_DIR/axelar/snapshot/v1beta1/types.proto" \
+  "$AXELAR_SDK_DIR/axelar/evm/v1beta1/genesis.proto" \
+  "$AXELAR_SDK_DIR/axelar/evm/v1beta1/params.proto" \
+  "$AXELAR_SDK_DIR/axelar/evm/v1beta1/query.proto" \
+  "$AXELAR_SDK_DIR/axelar/evm/v1beta1/service.proto" \
+  "$AXELAR_SDK_DIR/axelar/evm/v1beta1/tx.proto" \
+  "$AXELAR_SDK_DIR/axelar/evm/v1beta1/types.proto" \
+  "$AXELAR_SDK_DIR/axelar/tss/exported/v1beta1/types.proto" \
+  "$AXELAR_SDK_DIR/axelar/tss/tofnd/v1beta1/common.proto" \
+  "$AXELAR_SDK_DIR/axelar/tss/tofnd/v1beta1/multisig.proto" \
+  "$AXELAR_SDK_DIR/axelar/tss/tofnd/v1beta1/tofnd.proto" \
   "$AXELAR_SDK_DIR/axelar/tss/v1beta1/genesis.proto" \
   "$AXELAR_SDK_DIR/axelar/tss/v1beta1/params.proto" \
   "$AXELAR_SDK_DIR/axelar/tss/v1beta1/service.proto" \
   "$AXELAR_SDK_DIR/axelar/tss/v1beta1/tx.proto" \
   "$AXELAR_SDK_DIR/axelar/tss/v1beta1/types.proto" \
+  "$AXELAR_SDK_DIR/axelar/utils/v1beta1/bitmap.proto" \
+  "$AXELAR_SDK_DIR/axelar/utils/v1beta1/queuer.proto" \
+  "$AXELAR_SDK_DIR/axelar/utils/v1beta1/threshold.proto" \
+  "$AXELAR_SDK_DIR/axelar/vote/exported/v1beta1/types.proto" \
+  "$AXELAR_SDK_DIR/axelar/vote/v1beta1/events.proto" \
+  "$AXELAR_SDK_DIR/axelar/vote/v1beta1/genesis.proto" \
+  "$AXELAR_SDK_DIR/axelar/vote/v1beta1/params.proto" \
+  "$AXELAR_SDK_DIR/axelar/vote/v1beta1/query.proto" \
+  "$AXELAR_SDK_DIR/axelar/vote/v1beta1/service.proto" \
+  "$AXELAR_SDK_DIR/axelar/vote/v1beta1/tx.proto" \
+  "$AXELAR_SDK_DIR/axelar/vote/v1beta1/types.proto" \
