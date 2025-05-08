@@ -6,39 +6,48 @@ import { LegacyAminoPubKey } from "../../../cosmos/crypto/multisig/keys";
 export const protobufPackage = "axelar.permission.v1beta1";
 
 export interface UpdateGovernanceKeyRequest {
-  sender: Uint8Array;
+  /** @deprecated */
+  senderBz: Uint8Array;
   governanceKey?: LegacyAminoPubKey;
+  sender: string;
 }
 
 export interface UpdateGovernanceKeyResponse {}
 
 /** MsgRegisterController represents a message to register a controller account */
 export interface RegisterControllerRequest {
-  sender: Uint8Array;
+  /** @deprecated */
+  senderBz: Uint8Array;
   controller: Uint8Array;
+  sender: string;
 }
 
 export interface RegisterControllerResponse {}
 
 /** DeregisterController represents a message to deregister a controller account */
 export interface DeregisterControllerRequest {
-  sender: Uint8Array;
+  /** @deprecated */
+  senderBz: Uint8Array;
   controller: Uint8Array;
+  sender: string;
 }
 
 export interface DeregisterControllerResponse {}
 
 function createBaseUpdateGovernanceKeyRequest(): UpdateGovernanceKeyRequest {
-  return { sender: new Uint8Array(), governanceKey: undefined };
+  return { senderBz: new Uint8Array(), governanceKey: undefined, sender: "" };
 }
 
 export const UpdateGovernanceKeyRequest = {
   encode(message: UpdateGovernanceKeyRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sender.length !== 0) {
-      writer.uint32(10).bytes(message.sender);
+    if (message.senderBz.length !== 0) {
+      writer.uint32(10).bytes(message.senderBz);
     }
     if (message.governanceKey !== undefined) {
       LegacyAminoPubKey.encode(message.governanceKey, writer.uint32(18).fork()).ldelim();
+    }
+    if (message.sender !== "") {
+      writer.uint32(26).string(message.sender);
     }
     return writer;
   },
@@ -51,10 +60,13 @@ export const UpdateGovernanceKeyRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.sender = reader.bytes();
+          message.senderBz = reader.bytes();
           break;
         case 2:
           message.governanceKey = LegacyAminoPubKey.decode(reader, reader.uint32());
+          break;
+        case 3:
+          message.sender = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -66,21 +78,23 @@ export const UpdateGovernanceKeyRequest = {
 
   fromJSON(object: any): UpdateGovernanceKeyRequest {
     return {
-      sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+      senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
       governanceKey: isSet(object.governanceKey)
         ? LegacyAminoPubKey.fromJSON(object.governanceKey)
         : undefined,
+      sender: isSet(object.sender) ? String(object.sender) : "",
     };
   },
 
   toJSON(message: UpdateGovernanceKeyRequest): unknown {
     const obj: any = {};
-    message.sender !== undefined &&
-      (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+    message.senderBz !== undefined &&
+      (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
     message.governanceKey !== undefined &&
       (obj.governanceKey = message.governanceKey
         ? LegacyAminoPubKey.toJSON(message.governanceKey)
         : undefined);
+    message.sender !== undefined && (obj.sender = message.sender);
     return obj;
   },
 
@@ -88,11 +102,12 @@ export const UpdateGovernanceKeyRequest = {
     object: I,
   ): UpdateGovernanceKeyRequest {
     const message = createBaseUpdateGovernanceKeyRequest();
-    message.sender = object.sender ?? new Uint8Array();
+    message.senderBz = object.senderBz ?? new Uint8Array();
     message.governanceKey =
       object.governanceKey !== undefined && object.governanceKey !== null
         ? LegacyAminoPubKey.fromPartial(object.governanceKey)
         : undefined;
+    message.sender = object.sender ?? "";
     return message;
   },
 };
@@ -139,16 +154,19 @@ export const UpdateGovernanceKeyResponse = {
 };
 
 function createBaseRegisterControllerRequest(): RegisterControllerRequest {
-  return { sender: new Uint8Array(), controller: new Uint8Array() };
+  return { senderBz: new Uint8Array(), controller: new Uint8Array(), sender: "" };
 }
 
 export const RegisterControllerRequest = {
   encode(message: RegisterControllerRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sender.length !== 0) {
-      writer.uint32(10).bytes(message.sender);
+    if (message.senderBz.length !== 0) {
+      writer.uint32(10).bytes(message.senderBz);
     }
     if (message.controller.length !== 0) {
       writer.uint32(18).bytes(message.controller);
+    }
+    if (message.sender !== "") {
+      writer.uint32(26).string(message.sender);
     }
     return writer;
   },
@@ -161,10 +179,13 @@ export const RegisterControllerRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.sender = reader.bytes();
+          message.senderBz = reader.bytes();
           break;
         case 2:
           message.controller = reader.bytes();
+          break;
+        case 3:
+          message.sender = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -176,19 +197,21 @@ export const RegisterControllerRequest = {
 
   fromJSON(object: any): RegisterControllerRequest {
     return {
-      sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+      senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
       controller: isSet(object.controller) ? bytesFromBase64(object.controller) : new Uint8Array(),
+      sender: isSet(object.sender) ? String(object.sender) : "",
     };
   },
 
   toJSON(message: RegisterControllerRequest): unknown {
     const obj: any = {};
-    message.sender !== undefined &&
-      (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+    message.senderBz !== undefined &&
+      (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
     message.controller !== undefined &&
       (obj.controller = base64FromBytes(
         message.controller !== undefined ? message.controller : new Uint8Array(),
       ));
+    message.sender !== undefined && (obj.sender = message.sender);
     return obj;
   },
 
@@ -196,8 +219,9 @@ export const RegisterControllerRequest = {
     object: I,
   ): RegisterControllerRequest {
     const message = createBaseRegisterControllerRequest();
-    message.sender = object.sender ?? new Uint8Array();
+    message.senderBz = object.senderBz ?? new Uint8Array();
     message.controller = object.controller ?? new Uint8Array();
+    message.sender = object.sender ?? "";
     return message;
   },
 };
@@ -242,16 +266,19 @@ export const RegisterControllerResponse = {
 };
 
 function createBaseDeregisterControllerRequest(): DeregisterControllerRequest {
-  return { sender: new Uint8Array(), controller: new Uint8Array() };
+  return { senderBz: new Uint8Array(), controller: new Uint8Array(), sender: "" };
 }
 
 export const DeregisterControllerRequest = {
   encode(message: DeregisterControllerRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sender.length !== 0) {
-      writer.uint32(10).bytes(message.sender);
+    if (message.senderBz.length !== 0) {
+      writer.uint32(10).bytes(message.senderBz);
     }
     if (message.controller.length !== 0) {
       writer.uint32(18).bytes(message.controller);
+    }
+    if (message.sender !== "") {
+      writer.uint32(26).string(message.sender);
     }
     return writer;
   },
@@ -264,10 +291,13 @@ export const DeregisterControllerRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.sender = reader.bytes();
+          message.senderBz = reader.bytes();
           break;
         case 2:
           message.controller = reader.bytes();
+          break;
+        case 3:
+          message.sender = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -279,19 +309,21 @@ export const DeregisterControllerRequest = {
 
   fromJSON(object: any): DeregisterControllerRequest {
     return {
-      sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+      senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
       controller: isSet(object.controller) ? bytesFromBase64(object.controller) : new Uint8Array(),
+      sender: isSet(object.sender) ? String(object.sender) : "",
     };
   },
 
   toJSON(message: DeregisterControllerRequest): unknown {
     const obj: any = {};
-    message.sender !== undefined &&
-      (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+    message.senderBz !== undefined &&
+      (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
     message.controller !== undefined &&
       (obj.controller = base64FromBytes(
         message.controller !== undefined ? message.controller : new Uint8Array(),
       ));
+    message.sender !== undefined && (obj.sender = message.sender);
     return obj;
   },
 
@@ -299,8 +331,9 @@ export const DeregisterControllerRequest = {
     object: I,
   ): DeregisterControllerRequest {
     const message = createBaseDeregisterControllerRequest();
-    message.sender = object.sender ?? new Uint8Array();
+    message.senderBz = object.senderBz ?? new Uint8Array();
     message.controller = object.controller ?? new Uint8Array();
+    message.sender = object.sender ?? "";
     return message;
   },
 };

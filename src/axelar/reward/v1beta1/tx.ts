@@ -6,8 +6,10 @@ import { Any } from "../../../google/protobuf/any";
 export const protobufPackage = "axelar.reward.v1beta1";
 
 export interface RefundMsgRequest {
-  sender: Uint8Array;
+  /** @deprecated */
+  senderBz: Uint8Array;
   innerMessage?: Any;
+  sender: string;
 }
 
 export interface RefundMsgResponse {
@@ -16,16 +18,19 @@ export interface RefundMsgResponse {
 }
 
 function createBaseRefundMsgRequest(): RefundMsgRequest {
-  return { sender: new Uint8Array(), innerMessage: undefined };
+  return { senderBz: new Uint8Array(), innerMessage: undefined, sender: "" };
 }
 
 export const RefundMsgRequest = {
   encode(message: RefundMsgRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sender.length !== 0) {
-      writer.uint32(10).bytes(message.sender);
+    if (message.senderBz.length !== 0) {
+      writer.uint32(10).bytes(message.senderBz);
     }
     if (message.innerMessage !== undefined) {
       Any.encode(message.innerMessage, writer.uint32(18).fork()).ldelim();
+    }
+    if (message.sender !== "") {
+      writer.uint32(26).string(message.sender);
     }
     return writer;
   },
@@ -38,10 +43,13 @@ export const RefundMsgRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.sender = reader.bytes();
+          message.senderBz = reader.bytes();
           break;
         case 2:
           message.innerMessage = Any.decode(reader, reader.uint32());
+          break;
+        case 3:
+          message.sender = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -53,27 +61,30 @@ export const RefundMsgRequest = {
 
   fromJSON(object: any): RefundMsgRequest {
     return {
-      sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+      senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
       innerMessage: isSet(object.innerMessage) ? Any.fromJSON(object.innerMessage) : undefined,
+      sender: isSet(object.sender) ? String(object.sender) : "",
     };
   },
 
   toJSON(message: RefundMsgRequest): unknown {
     const obj: any = {};
-    message.sender !== undefined &&
-      (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+    message.senderBz !== undefined &&
+      (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
     message.innerMessage !== undefined &&
       (obj.innerMessage = message.innerMessage ? Any.toJSON(message.innerMessage) : undefined);
+    message.sender !== undefined && (obj.sender = message.sender);
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<RefundMsgRequest>, I>>(object: I): RefundMsgRequest {
     const message = createBaseRefundMsgRequest();
-    message.sender = object.sender ?? new Uint8Array();
+    message.senderBz = object.senderBz ?? new Uint8Array();
     message.innerMessage =
       object.innerMessage !== undefined && object.innerMessage !== null
         ? Any.fromPartial(object.innerMessage)
         : undefined;
+    message.sender = object.sender ?? "";
     return message;
   },
 };

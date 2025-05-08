@@ -7,7 +7,14 @@ import {
   RegisterProxyRequest,
   DeactivateProxyRequest,
 } from "../../../axelar/snapshot/v1beta1/tx";
-import { ParamsResponse, ParamsRequest } from "../../../axelar/snapshot/v1beta1/query";
+import {
+  ParamsResponse,
+  OperatorByProxyResponse,
+  ProxyByOperatorResponse,
+  ParamsRequest,
+  OperatorByProxyRequest,
+  ProxyByOperatorRequest,
+} from "../../../axelar/snapshot/v1beta1/query";
 
 export const protobufPackage = "axelar.snapshot.v1beta1";
 
@@ -45,6 +52,8 @@ export class MsgServiceClientImpl implements MsgService {
 /** QueryService defines the gRPC querier service. */
 export interface QueryService {
   Params(request: ParamsRequest): Promise<ParamsResponse>;
+  OperatorByProxy(request: OperatorByProxyRequest): Promise<OperatorByProxyResponse>;
+  ProxyByOperator(request: ProxyByOperatorRequest): Promise<ProxyByOperatorResponse>;
 }
 
 export class QueryServiceClientImpl implements QueryService {
@@ -52,11 +61,25 @@ export class QueryServiceClientImpl implements QueryService {
   constructor(rpc: Rpc) {
     this.rpc = rpc;
     this.Params = this.Params.bind(this);
+    this.OperatorByProxy = this.OperatorByProxy.bind(this);
+    this.ProxyByOperator = this.ProxyByOperator.bind(this);
   }
   Params(request: ParamsRequest): Promise<ParamsResponse> {
     const data = ParamsRequest.encode(request).finish();
     const promise = this.rpc.request("axelar.snapshot.v1beta1.QueryService", "Params", data);
     return promise.then((data) => ParamsResponse.decode(new _m0.Reader(data)));
+  }
+
+  OperatorByProxy(request: OperatorByProxyRequest): Promise<OperatorByProxyResponse> {
+    const data = OperatorByProxyRequest.encode(request).finish();
+    const promise = this.rpc.request("axelar.snapshot.v1beta1.QueryService", "OperatorByProxy", data);
+    return promise.then((data) => OperatorByProxyResponse.decode(new _m0.Reader(data)));
+  }
+
+  ProxyByOperator(request: ProxyByOperatorRequest): Promise<ProxyByOperatorResponse> {
+    const data = ProxyByOperatorRequest.encode(request).finish();
+    const promise = this.rpc.request("axelar.snapshot.v1beta1.QueryService", "ProxyByOperator", data);
+    return promise.then((data) => ProxyByOperatorResponse.decode(new _m0.Reader(data)));
   }
 }
 

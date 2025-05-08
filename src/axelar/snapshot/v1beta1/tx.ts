@@ -5,29 +5,36 @@ import * as _m0 from "protobufjs/minimal";
 export const protobufPackage = "axelar.snapshot.v1beta1";
 
 export interface RegisterProxyRequest {
-  sender: Uint8Array;
+  /** @deprecated */
+  senderBz: Uint8Array;
   proxyAddr: Uint8Array;
+  sender: string;
 }
 
 export interface RegisterProxyResponse {}
 
 export interface DeactivateProxyRequest {
-  sender: Uint8Array;
+  /** @deprecated */
+  senderBz: Uint8Array;
+  sender: string;
 }
 
 export interface DeactivateProxyResponse {}
 
 function createBaseRegisterProxyRequest(): RegisterProxyRequest {
-  return { sender: new Uint8Array(), proxyAddr: new Uint8Array() };
+  return { senderBz: new Uint8Array(), proxyAddr: new Uint8Array(), sender: "" };
 }
 
 export const RegisterProxyRequest = {
   encode(message: RegisterProxyRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sender.length !== 0) {
-      writer.uint32(10).bytes(message.sender);
+    if (message.senderBz.length !== 0) {
+      writer.uint32(10).bytes(message.senderBz);
     }
     if (message.proxyAddr.length !== 0) {
       writer.uint32(18).bytes(message.proxyAddr);
+    }
+    if (message.sender !== "") {
+      writer.uint32(26).string(message.sender);
     }
     return writer;
   },
@@ -40,10 +47,13 @@ export const RegisterProxyRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.sender = reader.bytes();
+          message.senderBz = reader.bytes();
           break;
         case 2:
           message.proxyAddr = reader.bytes();
+          break;
+        case 3:
+          message.sender = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -55,26 +65,29 @@ export const RegisterProxyRequest = {
 
   fromJSON(object: any): RegisterProxyRequest {
     return {
-      sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+      senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
       proxyAddr: isSet(object.proxyAddr) ? bytesFromBase64(object.proxyAddr) : new Uint8Array(),
+      sender: isSet(object.sender) ? String(object.sender) : "",
     };
   },
 
   toJSON(message: RegisterProxyRequest): unknown {
     const obj: any = {};
-    message.sender !== undefined &&
-      (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+    message.senderBz !== undefined &&
+      (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
     message.proxyAddr !== undefined &&
       (obj.proxyAddr = base64FromBytes(
         message.proxyAddr !== undefined ? message.proxyAddr : new Uint8Array(),
       ));
+    message.sender !== undefined && (obj.sender = message.sender);
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<RegisterProxyRequest>, I>>(object: I): RegisterProxyRequest {
     const message = createBaseRegisterProxyRequest();
-    message.sender = object.sender ?? new Uint8Array();
+    message.senderBz = object.senderBz ?? new Uint8Array();
     message.proxyAddr = object.proxyAddr ?? new Uint8Array();
+    message.sender = object.sender ?? "";
     return message;
   },
 };
@@ -119,13 +132,16 @@ export const RegisterProxyResponse = {
 };
 
 function createBaseDeactivateProxyRequest(): DeactivateProxyRequest {
-  return { sender: new Uint8Array() };
+  return { senderBz: new Uint8Array(), sender: "" };
 }
 
 export const DeactivateProxyRequest = {
   encode(message: DeactivateProxyRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sender.length !== 0) {
-      writer.uint32(10).bytes(message.sender);
+    if (message.senderBz.length !== 0) {
+      writer.uint32(10).bytes(message.senderBz);
+    }
+    if (message.sender !== "") {
+      writer.uint32(18).string(message.sender);
     }
     return writer;
   },
@@ -138,7 +154,10 @@ export const DeactivateProxyRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.sender = reader.bytes();
+          message.senderBz = reader.bytes();
+          break;
+        case 2:
+          message.sender = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -150,20 +169,23 @@ export const DeactivateProxyRequest = {
 
   fromJSON(object: any): DeactivateProxyRequest {
     return {
-      sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+      senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
+      sender: isSet(object.sender) ? String(object.sender) : "",
     };
   },
 
   toJSON(message: DeactivateProxyRequest): unknown {
     const obj: any = {};
-    message.sender !== undefined &&
-      (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+    message.senderBz !== undefined &&
+      (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
+    message.sender !== undefined && (obj.sender = message.sender);
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<DeactivateProxyRequest>, I>>(object: I): DeactivateProxyRequest {
     const message = createBaseDeactivateProxyRequest();
-    message.sender = object.sender ?? new Uint8Array();
+    message.senderBz = object.senderBz ?? new Uint8Array();
+    message.sender = object.sender ?? "";
     return message;
   },
 };

@@ -12,10 +12,12 @@ export const protobufPackage = "axelar.axelarnet.v1beta1";
  * address
  */
 export interface LinkRequest {
-  sender: Uint8Array;
+  /** @deprecated */
+  senderBz: Uint8Array;
   recipientAddr: string;
   recipientChain: string;
   asset: string;
+  sender: string;
 }
 
 export interface LinkResponse {
@@ -24,9 +26,11 @@ export interface LinkResponse {
 
 /** MsgConfirmDeposit represents a deposit confirmation message */
 export interface ConfirmDepositRequest {
-  sender: Uint8Array;
+  /** @deprecated */
+  senderBz: Uint8Array;
   depositAddress: Uint8Array;
   denom: string;
+  sender: string;
 }
 
 export interface ConfirmDepositResponse {}
@@ -36,7 +40,9 @@ export interface ConfirmDepositResponse {}
  * pending transfers
  */
 export interface ExecutePendingTransfersRequest {
-  sender: Uint8Array;
+  /** @deprecated */
+  senderBz: Uint8Array;
+  sender: string;
 }
 
 export interface ExecutePendingTransfersResponse {}
@@ -48,9 +54,11 @@ export interface ExecutePendingTransfersResponse {}
  * @deprecated
  */
 export interface RegisterIBCPathRequest {
-  sender: Uint8Array;
+  /** @deprecated */
+  senderBz: Uint8Array;
   chain: string;
   path: string;
+  sender: string;
 }
 
 export interface RegisterIBCPathResponse {}
@@ -60,7 +68,8 @@ export interface RegisterIBCPathResponse {}
  * to nexus
  */
 export interface AddCosmosBasedChainRequest {
-  sender: Uint8Array;
+  /** @deprecated */
+  senderBz: Uint8Array;
   /**
    * chain was deprecated in v0.27
    *
@@ -77,6 +86,7 @@ export interface AddCosmosBasedChainRequest {
   /** TODO: Rename this to `chain` after v1beta1 -> v1 version bump */
   cosmosChain: string;
   ibcPath: string;
+  sender: string;
 }
 
 export interface AddCosmosBasedChainResponse {}
@@ -86,11 +96,13 @@ export interface AddCosmosBasedChainResponse {}
  * based chain
  */
 export interface RegisterAssetRequest {
-  sender: Uint8Array;
+  /** @deprecated */
+  senderBz: Uint8Array;
   chain: string;
   asset?: Asset;
   limit: Uint8Array;
   window?: Duration;
+  sender: string;
 }
 
 export interface RegisterAssetResponse {}
@@ -100,7 +112,9 @@ export interface RegisterAssetResponse {}
  * cosmos based chains
  */
 export interface RouteIBCTransfersRequest {
-  sender: Uint8Array;
+  /** @deprecated */
+  senderBz: Uint8Array;
+  sender: string;
 }
 
 export interface RouteIBCTransfersResponse {}
@@ -110,48 +124,56 @@ export interface RouteIBCTransfersResponse {}
  * collector account
  */
 export interface RegisterFeeCollectorRequest {
-  sender: Uint8Array;
+  /** @deprecated */
+  senderBz: Uint8Array;
   feeCollector: Uint8Array;
+  sender: string;
 }
 
 export interface RegisterFeeCollectorResponse {}
 
 export interface RetryIBCTransferRequest {
-  sender: Uint8Array;
+  /** @deprecated */
+  senderBz: Uint8Array;
   /** @deprecated */
   chain: string;
   id: Long;
+  sender: string;
 }
 
 export interface RetryIBCTransferResponse {}
 
 export interface RouteMessageRequest {
-  sender: Uint8Array;
+  /** @deprecated */
+  senderBz: Uint8Array;
   id: string;
   payload: Uint8Array;
   feegranter: Uint8Array;
+  sender: string;
 }
 
 export interface RouteMessageResponse {}
 
 export interface CallContractRequest {
-  sender: Uint8Array;
+  /** @deprecated */
+  senderBz: Uint8Array;
   chain: string;
   contractAddress: string;
   payload: Uint8Array;
   fee?: Fee;
+  sender: string;
 }
 
 export interface CallContractResponse {}
 
 function createBaseLinkRequest(): LinkRequest {
-  return { sender: new Uint8Array(), recipientAddr: "", recipientChain: "", asset: "" };
+  return { senderBz: new Uint8Array(), recipientAddr: "", recipientChain: "", asset: "", sender: "" };
 }
 
 export const LinkRequest = {
   encode(message: LinkRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sender.length !== 0) {
-      writer.uint32(10).bytes(message.sender);
+    if (message.senderBz.length !== 0) {
+      writer.uint32(10).bytes(message.senderBz);
     }
     if (message.recipientAddr !== "") {
       writer.uint32(18).string(message.recipientAddr);
@@ -161,6 +183,9 @@ export const LinkRequest = {
     }
     if (message.asset !== "") {
       writer.uint32(34).string(message.asset);
+    }
+    if (message.sender !== "") {
+      writer.uint32(42).string(message.sender);
     }
     return writer;
   },
@@ -173,7 +198,7 @@ export const LinkRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.sender = reader.bytes();
+          message.senderBz = reader.bytes();
           break;
         case 2:
           message.recipientAddr = reader.string();
@@ -183,6 +208,9 @@ export const LinkRequest = {
           break;
         case 4:
           message.asset = reader.string();
+          break;
+        case 5:
+          message.sender = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -194,29 +222,32 @@ export const LinkRequest = {
 
   fromJSON(object: any): LinkRequest {
     return {
-      sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+      senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
       recipientAddr: isSet(object.recipientAddr) ? String(object.recipientAddr) : "",
       recipientChain: isSet(object.recipientChain) ? String(object.recipientChain) : "",
       asset: isSet(object.asset) ? String(object.asset) : "",
+      sender: isSet(object.sender) ? String(object.sender) : "",
     };
   },
 
   toJSON(message: LinkRequest): unknown {
     const obj: any = {};
-    message.sender !== undefined &&
-      (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+    message.senderBz !== undefined &&
+      (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
     message.recipientAddr !== undefined && (obj.recipientAddr = message.recipientAddr);
     message.recipientChain !== undefined && (obj.recipientChain = message.recipientChain);
     message.asset !== undefined && (obj.asset = message.asset);
+    message.sender !== undefined && (obj.sender = message.sender);
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<LinkRequest>, I>>(object: I): LinkRequest {
     const message = createBaseLinkRequest();
-    message.sender = object.sender ?? new Uint8Array();
+    message.senderBz = object.senderBz ?? new Uint8Array();
     message.recipientAddr = object.recipientAddr ?? "";
     message.recipientChain = object.recipientChain ?? "";
     message.asset = object.asset ?? "";
+    message.sender = object.sender ?? "";
     return message;
   },
 };
@@ -271,19 +302,22 @@ export const LinkResponse = {
 };
 
 function createBaseConfirmDepositRequest(): ConfirmDepositRequest {
-  return { sender: new Uint8Array(), depositAddress: new Uint8Array(), denom: "" };
+  return { senderBz: new Uint8Array(), depositAddress: new Uint8Array(), denom: "", sender: "" };
 }
 
 export const ConfirmDepositRequest = {
   encode(message: ConfirmDepositRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sender.length !== 0) {
-      writer.uint32(10).bytes(message.sender);
+    if (message.senderBz.length !== 0) {
+      writer.uint32(10).bytes(message.senderBz);
     }
     if (message.depositAddress.length !== 0) {
       writer.uint32(34).bytes(message.depositAddress);
     }
     if (message.denom !== "") {
       writer.uint32(42).string(message.denom);
+    }
+    if (message.sender !== "") {
+      writer.uint32(50).string(message.sender);
     }
     return writer;
   },
@@ -296,13 +330,16 @@ export const ConfirmDepositRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.sender = reader.bytes();
+          message.senderBz = reader.bytes();
           break;
         case 4:
           message.depositAddress = reader.bytes();
           break;
         case 5:
           message.denom = reader.string();
+          break;
+        case 6:
+          message.sender = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -314,31 +351,34 @@ export const ConfirmDepositRequest = {
 
   fromJSON(object: any): ConfirmDepositRequest {
     return {
-      sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+      senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
       depositAddress: isSet(object.depositAddress)
         ? bytesFromBase64(object.depositAddress)
         : new Uint8Array(),
       denom: isSet(object.denom) ? String(object.denom) : "",
+      sender: isSet(object.sender) ? String(object.sender) : "",
     };
   },
 
   toJSON(message: ConfirmDepositRequest): unknown {
     const obj: any = {};
-    message.sender !== undefined &&
-      (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+    message.senderBz !== undefined &&
+      (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
     message.depositAddress !== undefined &&
       (obj.depositAddress = base64FromBytes(
         message.depositAddress !== undefined ? message.depositAddress : new Uint8Array(),
       ));
     message.denom !== undefined && (obj.denom = message.denom);
+    message.sender !== undefined && (obj.sender = message.sender);
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<ConfirmDepositRequest>, I>>(object: I): ConfirmDepositRequest {
     const message = createBaseConfirmDepositRequest();
-    message.sender = object.sender ?? new Uint8Array();
+    message.senderBz = object.senderBz ?? new Uint8Array();
     message.depositAddress = object.depositAddress ?? new Uint8Array();
     message.denom = object.denom ?? "";
+    message.sender = object.sender ?? "";
     return message;
   },
 };
@@ -383,13 +423,16 @@ export const ConfirmDepositResponse = {
 };
 
 function createBaseExecutePendingTransfersRequest(): ExecutePendingTransfersRequest {
-  return { sender: new Uint8Array() };
+  return { senderBz: new Uint8Array(), sender: "" };
 }
 
 export const ExecutePendingTransfersRequest = {
   encode(message: ExecutePendingTransfersRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sender.length !== 0) {
-      writer.uint32(10).bytes(message.sender);
+    if (message.senderBz.length !== 0) {
+      writer.uint32(10).bytes(message.senderBz);
+    }
+    if (message.sender !== "") {
+      writer.uint32(18).string(message.sender);
     }
     return writer;
   },
@@ -402,7 +445,10 @@ export const ExecutePendingTransfersRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.sender = reader.bytes();
+          message.senderBz = reader.bytes();
+          break;
+        case 2:
+          message.sender = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -414,14 +460,16 @@ export const ExecutePendingTransfersRequest = {
 
   fromJSON(object: any): ExecutePendingTransfersRequest {
     return {
-      sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+      senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
+      sender: isSet(object.sender) ? String(object.sender) : "",
     };
   },
 
   toJSON(message: ExecutePendingTransfersRequest): unknown {
     const obj: any = {};
-    message.sender !== undefined &&
-      (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+    message.senderBz !== undefined &&
+      (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
+    message.sender !== undefined && (obj.sender = message.sender);
     return obj;
   },
 
@@ -429,7 +477,8 @@ export const ExecutePendingTransfersRequest = {
     object: I,
   ): ExecutePendingTransfersRequest {
     const message = createBaseExecutePendingTransfersRequest();
-    message.sender = object.sender ?? new Uint8Array();
+    message.senderBz = object.senderBz ?? new Uint8Array();
+    message.sender = object.sender ?? "";
     return message;
   },
 };
@@ -476,19 +525,22 @@ export const ExecutePendingTransfersResponse = {
 };
 
 function createBaseRegisterIBCPathRequest(): RegisterIBCPathRequest {
-  return { sender: new Uint8Array(), chain: "", path: "" };
+  return { senderBz: new Uint8Array(), chain: "", path: "", sender: "" };
 }
 
 export const RegisterIBCPathRequest = {
   encode(message: RegisterIBCPathRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sender.length !== 0) {
-      writer.uint32(10).bytes(message.sender);
+    if (message.senderBz.length !== 0) {
+      writer.uint32(10).bytes(message.senderBz);
     }
     if (message.chain !== "") {
       writer.uint32(18).string(message.chain);
     }
     if (message.path !== "") {
       writer.uint32(26).string(message.path);
+    }
+    if (message.sender !== "") {
+      writer.uint32(34).string(message.sender);
     }
     return writer;
   },
@@ -501,13 +553,16 @@ export const RegisterIBCPathRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.sender = reader.bytes();
+          message.senderBz = reader.bytes();
           break;
         case 2:
           message.chain = reader.string();
           break;
         case 3:
           message.path = reader.string();
+          break;
+        case 4:
+          message.sender = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -519,26 +574,29 @@ export const RegisterIBCPathRequest = {
 
   fromJSON(object: any): RegisterIBCPathRequest {
     return {
-      sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+      senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
       chain: isSet(object.chain) ? String(object.chain) : "",
       path: isSet(object.path) ? String(object.path) : "",
+      sender: isSet(object.sender) ? String(object.sender) : "",
     };
   },
 
   toJSON(message: RegisterIBCPathRequest): unknown {
     const obj: any = {};
-    message.sender !== undefined &&
-      (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+    message.senderBz !== undefined &&
+      (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
     message.chain !== undefined && (obj.chain = message.chain);
     message.path !== undefined && (obj.path = message.path);
+    message.sender !== undefined && (obj.sender = message.sender);
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<RegisterIBCPathRequest>, I>>(object: I): RegisterIBCPathRequest {
     const message = createBaseRegisterIBCPathRequest();
-    message.sender = object.sender ?? new Uint8Array();
+    message.senderBz = object.senderBz ?? new Uint8Array();
     message.chain = object.chain ?? "";
     message.path = object.path ?? "";
+    message.sender = object.sender ?? "";
     return message;
   },
 };
@@ -584,19 +642,20 @@ export const RegisterIBCPathResponse = {
 
 function createBaseAddCosmosBasedChainRequest(): AddCosmosBasedChainRequest {
   return {
-    sender: new Uint8Array(),
+    senderBz: new Uint8Array(),
     chain: undefined,
     addrPrefix: "",
     nativeAssets: [],
     cosmosChain: "",
     ibcPath: "",
+    sender: "",
   };
 }
 
 export const AddCosmosBasedChainRequest = {
   encode(message: AddCosmosBasedChainRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sender.length !== 0) {
-      writer.uint32(10).bytes(message.sender);
+    if (message.senderBz.length !== 0) {
+      writer.uint32(10).bytes(message.senderBz);
     }
     if (message.chain !== undefined) {
       Chain.encode(message.chain, writer.uint32(18).fork()).ldelim();
@@ -613,6 +672,9 @@ export const AddCosmosBasedChainRequest = {
     if (message.ibcPath !== "") {
       writer.uint32(58).string(message.ibcPath);
     }
+    if (message.sender !== "") {
+      writer.uint32(66).string(message.sender);
+    }
     return writer;
   },
 
@@ -624,7 +686,7 @@ export const AddCosmosBasedChainRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.sender = reader.bytes();
+          message.senderBz = reader.bytes();
           break;
         case 2:
           message.chain = Chain.decode(reader, reader.uint32());
@@ -641,6 +703,9 @@ export const AddCosmosBasedChainRequest = {
         case 7:
           message.ibcPath = reader.string();
           break;
+        case 8:
+          message.sender = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -651,7 +716,7 @@ export const AddCosmosBasedChainRequest = {
 
   fromJSON(object: any): AddCosmosBasedChainRequest {
     return {
-      sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+      senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
       chain: isSet(object.chain) ? Chain.fromJSON(object.chain) : undefined,
       addrPrefix: isSet(object.addrPrefix) ? String(object.addrPrefix) : "",
       nativeAssets: Array.isArray(object?.nativeAssets)
@@ -659,13 +724,14 @@ export const AddCosmosBasedChainRequest = {
         : [],
       cosmosChain: isSet(object.cosmosChain) ? String(object.cosmosChain) : "",
       ibcPath: isSet(object.ibcPath) ? String(object.ibcPath) : "",
+      sender: isSet(object.sender) ? String(object.sender) : "",
     };
   },
 
   toJSON(message: AddCosmosBasedChainRequest): unknown {
     const obj: any = {};
-    message.sender !== undefined &&
-      (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+    message.senderBz !== undefined &&
+      (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
     message.chain !== undefined && (obj.chain = message.chain ? Chain.toJSON(message.chain) : undefined);
     message.addrPrefix !== undefined && (obj.addrPrefix = message.addrPrefix);
     if (message.nativeAssets) {
@@ -675,6 +741,7 @@ export const AddCosmosBasedChainRequest = {
     }
     message.cosmosChain !== undefined && (obj.cosmosChain = message.cosmosChain);
     message.ibcPath !== undefined && (obj.ibcPath = message.ibcPath);
+    message.sender !== undefined && (obj.sender = message.sender);
     return obj;
   },
 
@@ -682,13 +749,14 @@ export const AddCosmosBasedChainRequest = {
     object: I,
   ): AddCosmosBasedChainRequest {
     const message = createBaseAddCosmosBasedChainRequest();
-    message.sender = object.sender ?? new Uint8Array();
+    message.senderBz = object.senderBz ?? new Uint8Array();
     message.chain =
       object.chain !== undefined && object.chain !== null ? Chain.fromPartial(object.chain) : undefined;
     message.addrPrefix = object.addrPrefix ?? "";
     message.nativeAssets = object.nativeAssets?.map((e) => Asset.fromPartial(e)) || [];
     message.cosmosChain = object.cosmosChain ?? "";
     message.ibcPath = object.ibcPath ?? "";
+    message.sender = object.sender ?? "";
     return message;
   },
 };
@@ -736,18 +804,19 @@ export const AddCosmosBasedChainResponse = {
 
 function createBaseRegisterAssetRequest(): RegisterAssetRequest {
   return {
-    sender: new Uint8Array(),
+    senderBz: new Uint8Array(),
     chain: "",
     asset: undefined,
     limit: new Uint8Array(),
     window: undefined,
+    sender: "",
   };
 }
 
 export const RegisterAssetRequest = {
   encode(message: RegisterAssetRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sender.length !== 0) {
-      writer.uint32(10).bytes(message.sender);
+    if (message.senderBz.length !== 0) {
+      writer.uint32(10).bytes(message.senderBz);
     }
     if (message.chain !== "") {
       writer.uint32(18).string(message.chain);
@@ -761,6 +830,9 @@ export const RegisterAssetRequest = {
     if (message.window !== undefined) {
       Duration.encode(message.window, writer.uint32(42).fork()).ldelim();
     }
+    if (message.sender !== "") {
+      writer.uint32(50).string(message.sender);
+    }
     return writer;
   },
 
@@ -772,7 +844,7 @@ export const RegisterAssetRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.sender = reader.bytes();
+          message.senderBz = reader.bytes();
           break;
         case 2:
           message.chain = reader.string();
@@ -786,6 +858,9 @@ export const RegisterAssetRequest = {
         case 5:
           message.window = Duration.decode(reader, reader.uint32());
           break;
+        case 6:
+          message.sender = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -796,36 +871,39 @@ export const RegisterAssetRequest = {
 
   fromJSON(object: any): RegisterAssetRequest {
     return {
-      sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+      senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
       chain: isSet(object.chain) ? String(object.chain) : "",
       asset: isSet(object.asset) ? Asset.fromJSON(object.asset) : undefined,
       limit: isSet(object.limit) ? bytesFromBase64(object.limit) : new Uint8Array(),
       window: isSet(object.window) ? Duration.fromJSON(object.window) : undefined,
+      sender: isSet(object.sender) ? String(object.sender) : "",
     };
   },
 
   toJSON(message: RegisterAssetRequest): unknown {
     const obj: any = {};
-    message.sender !== undefined &&
-      (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+    message.senderBz !== undefined &&
+      (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
     message.chain !== undefined && (obj.chain = message.chain);
     message.asset !== undefined && (obj.asset = message.asset ? Asset.toJSON(message.asset) : undefined);
     message.limit !== undefined &&
       (obj.limit = base64FromBytes(message.limit !== undefined ? message.limit : new Uint8Array()));
     message.window !== undefined &&
       (obj.window = message.window ? Duration.toJSON(message.window) : undefined);
+    message.sender !== undefined && (obj.sender = message.sender);
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<RegisterAssetRequest>, I>>(object: I): RegisterAssetRequest {
     const message = createBaseRegisterAssetRequest();
-    message.sender = object.sender ?? new Uint8Array();
+    message.senderBz = object.senderBz ?? new Uint8Array();
     message.chain = object.chain ?? "";
     message.asset =
       object.asset !== undefined && object.asset !== null ? Asset.fromPartial(object.asset) : undefined;
     message.limit = object.limit ?? new Uint8Array();
     message.window =
       object.window !== undefined && object.window !== null ? Duration.fromPartial(object.window) : undefined;
+    message.sender = object.sender ?? "";
     return message;
   },
 };
@@ -870,13 +948,16 @@ export const RegisterAssetResponse = {
 };
 
 function createBaseRouteIBCTransfersRequest(): RouteIBCTransfersRequest {
-  return { sender: new Uint8Array() };
+  return { senderBz: new Uint8Array(), sender: "" };
 }
 
 export const RouteIBCTransfersRequest = {
   encode(message: RouteIBCTransfersRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sender.length !== 0) {
-      writer.uint32(10).bytes(message.sender);
+    if (message.senderBz.length !== 0) {
+      writer.uint32(10).bytes(message.senderBz);
+    }
+    if (message.sender !== "") {
+      writer.uint32(18).string(message.sender);
     }
     return writer;
   },
@@ -889,7 +970,10 @@ export const RouteIBCTransfersRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.sender = reader.bytes();
+          message.senderBz = reader.bytes();
+          break;
+        case 2:
+          message.sender = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -901,14 +985,16 @@ export const RouteIBCTransfersRequest = {
 
   fromJSON(object: any): RouteIBCTransfersRequest {
     return {
-      sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+      senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
+      sender: isSet(object.sender) ? String(object.sender) : "",
     };
   },
 
   toJSON(message: RouteIBCTransfersRequest): unknown {
     const obj: any = {};
-    message.sender !== undefined &&
-      (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+    message.senderBz !== undefined &&
+      (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
+    message.sender !== undefined && (obj.sender = message.sender);
     return obj;
   },
 
@@ -916,7 +1002,8 @@ export const RouteIBCTransfersRequest = {
     object: I,
   ): RouteIBCTransfersRequest {
     const message = createBaseRouteIBCTransfersRequest();
-    message.sender = object.sender ?? new Uint8Array();
+    message.senderBz = object.senderBz ?? new Uint8Array();
+    message.sender = object.sender ?? "";
     return message;
   },
 };
@@ -961,16 +1048,19 @@ export const RouteIBCTransfersResponse = {
 };
 
 function createBaseRegisterFeeCollectorRequest(): RegisterFeeCollectorRequest {
-  return { sender: new Uint8Array(), feeCollector: new Uint8Array() };
+  return { senderBz: new Uint8Array(), feeCollector: new Uint8Array(), sender: "" };
 }
 
 export const RegisterFeeCollectorRequest = {
   encode(message: RegisterFeeCollectorRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sender.length !== 0) {
-      writer.uint32(10).bytes(message.sender);
+    if (message.senderBz.length !== 0) {
+      writer.uint32(10).bytes(message.senderBz);
     }
     if (message.feeCollector.length !== 0) {
       writer.uint32(18).bytes(message.feeCollector);
+    }
+    if (message.sender !== "") {
+      writer.uint32(26).string(message.sender);
     }
     return writer;
   },
@@ -983,10 +1073,13 @@ export const RegisterFeeCollectorRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.sender = reader.bytes();
+          message.senderBz = reader.bytes();
           break;
         case 2:
           message.feeCollector = reader.bytes();
+          break;
+        case 3:
+          message.sender = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -998,19 +1091,21 @@ export const RegisterFeeCollectorRequest = {
 
   fromJSON(object: any): RegisterFeeCollectorRequest {
     return {
-      sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+      senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
       feeCollector: isSet(object.feeCollector) ? bytesFromBase64(object.feeCollector) : new Uint8Array(),
+      sender: isSet(object.sender) ? String(object.sender) : "",
     };
   },
 
   toJSON(message: RegisterFeeCollectorRequest): unknown {
     const obj: any = {};
-    message.sender !== undefined &&
-      (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+    message.senderBz !== undefined &&
+      (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
     message.feeCollector !== undefined &&
       (obj.feeCollector = base64FromBytes(
         message.feeCollector !== undefined ? message.feeCollector : new Uint8Array(),
       ));
+    message.sender !== undefined && (obj.sender = message.sender);
     return obj;
   },
 
@@ -1018,8 +1113,9 @@ export const RegisterFeeCollectorRequest = {
     object: I,
   ): RegisterFeeCollectorRequest {
     const message = createBaseRegisterFeeCollectorRequest();
-    message.sender = object.sender ?? new Uint8Array();
+    message.senderBz = object.senderBz ?? new Uint8Array();
     message.feeCollector = object.feeCollector ?? new Uint8Array();
+    message.sender = object.sender ?? "";
     return message;
   },
 };
@@ -1066,19 +1162,22 @@ export const RegisterFeeCollectorResponse = {
 };
 
 function createBaseRetryIBCTransferRequest(): RetryIBCTransferRequest {
-  return { sender: new Uint8Array(), chain: "", id: Long.UZERO };
+  return { senderBz: new Uint8Array(), chain: "", id: Long.UZERO, sender: "" };
 }
 
 export const RetryIBCTransferRequest = {
   encode(message: RetryIBCTransferRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sender.length !== 0) {
-      writer.uint32(10).bytes(message.sender);
+    if (message.senderBz.length !== 0) {
+      writer.uint32(10).bytes(message.senderBz);
     }
     if (message.chain !== "") {
       writer.uint32(18).string(message.chain);
     }
     if (!message.id.isZero()) {
       writer.uint32(24).uint64(message.id);
+    }
+    if (message.sender !== "") {
+      writer.uint32(34).string(message.sender);
     }
     return writer;
   },
@@ -1091,13 +1190,16 @@ export const RetryIBCTransferRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.sender = reader.bytes();
+          message.senderBz = reader.bytes();
           break;
         case 2:
           message.chain = reader.string();
           break;
         case 3:
           message.id = reader.uint64() as Long;
+          break;
+        case 4:
+          message.sender = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -1109,26 +1211,29 @@ export const RetryIBCTransferRequest = {
 
   fromJSON(object: any): RetryIBCTransferRequest {
     return {
-      sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+      senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
       chain: isSet(object.chain) ? String(object.chain) : "",
       id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
+      sender: isSet(object.sender) ? String(object.sender) : "",
     };
   },
 
   toJSON(message: RetryIBCTransferRequest): unknown {
     const obj: any = {};
-    message.sender !== undefined &&
-      (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+    message.senderBz !== undefined &&
+      (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
     message.chain !== undefined && (obj.chain = message.chain);
     message.id !== undefined && (obj.id = (message.id || Long.UZERO).toString());
+    message.sender !== undefined && (obj.sender = message.sender);
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<RetryIBCTransferRequest>, I>>(object: I): RetryIBCTransferRequest {
     const message = createBaseRetryIBCTransferRequest();
-    message.sender = object.sender ?? new Uint8Array();
+    message.senderBz = object.senderBz ?? new Uint8Array();
     message.chain = object.chain ?? "";
     message.id = object.id !== undefined && object.id !== null ? Long.fromValue(object.id) : Long.UZERO;
+    message.sender = object.sender ?? "";
     return message;
   },
 };
@@ -1173,13 +1278,19 @@ export const RetryIBCTransferResponse = {
 };
 
 function createBaseRouteMessageRequest(): RouteMessageRequest {
-  return { sender: new Uint8Array(), id: "", payload: new Uint8Array(), feegranter: new Uint8Array() };
+  return {
+    senderBz: new Uint8Array(),
+    id: "",
+    payload: new Uint8Array(),
+    feegranter: new Uint8Array(),
+    sender: "",
+  };
 }
 
 export const RouteMessageRequest = {
   encode(message: RouteMessageRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sender.length !== 0) {
-      writer.uint32(10).bytes(message.sender);
+    if (message.senderBz.length !== 0) {
+      writer.uint32(10).bytes(message.senderBz);
     }
     if (message.id !== "") {
       writer.uint32(18).string(message.id);
@@ -1189,6 +1300,9 @@ export const RouteMessageRequest = {
     }
     if (message.feegranter.length !== 0) {
       writer.uint32(34).bytes(message.feegranter);
+    }
+    if (message.sender !== "") {
+      writer.uint32(42).string(message.sender);
     }
     return writer;
   },
@@ -1201,7 +1315,7 @@ export const RouteMessageRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.sender = reader.bytes();
+          message.senderBz = reader.bytes();
           break;
         case 2:
           message.id = reader.string();
@@ -1211,6 +1325,9 @@ export const RouteMessageRequest = {
           break;
         case 4:
           message.feegranter = reader.bytes();
+          break;
+        case 5:
+          message.sender = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -1222,17 +1339,18 @@ export const RouteMessageRequest = {
 
   fromJSON(object: any): RouteMessageRequest {
     return {
-      sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+      senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
       id: isSet(object.id) ? String(object.id) : "",
       payload: isSet(object.payload) ? bytesFromBase64(object.payload) : new Uint8Array(),
       feegranter: isSet(object.feegranter) ? bytesFromBase64(object.feegranter) : new Uint8Array(),
+      sender: isSet(object.sender) ? String(object.sender) : "",
     };
   },
 
   toJSON(message: RouteMessageRequest): unknown {
     const obj: any = {};
-    message.sender !== undefined &&
-      (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+    message.senderBz !== undefined &&
+      (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
     message.id !== undefined && (obj.id = message.id);
     message.payload !== undefined &&
       (obj.payload = base64FromBytes(message.payload !== undefined ? message.payload : new Uint8Array()));
@@ -1240,15 +1358,17 @@ export const RouteMessageRequest = {
       (obj.feegranter = base64FromBytes(
         message.feegranter !== undefined ? message.feegranter : new Uint8Array(),
       ));
+    message.sender !== undefined && (obj.sender = message.sender);
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<RouteMessageRequest>, I>>(object: I): RouteMessageRequest {
     const message = createBaseRouteMessageRequest();
-    message.sender = object.sender ?? new Uint8Array();
+    message.senderBz = object.senderBz ?? new Uint8Array();
     message.id = object.id ?? "";
     message.payload = object.payload ?? new Uint8Array();
     message.feegranter = object.feegranter ?? new Uint8Array();
+    message.sender = object.sender ?? "";
     return message;
   },
 };
@@ -1294,18 +1414,19 @@ export const RouteMessageResponse = {
 
 function createBaseCallContractRequest(): CallContractRequest {
   return {
-    sender: new Uint8Array(),
+    senderBz: new Uint8Array(),
     chain: "",
     contractAddress: "",
     payload: new Uint8Array(),
     fee: undefined,
+    sender: "",
   };
 }
 
 export const CallContractRequest = {
   encode(message: CallContractRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sender.length !== 0) {
-      writer.uint32(10).bytes(message.sender);
+    if (message.senderBz.length !== 0) {
+      writer.uint32(10).bytes(message.senderBz);
     }
     if (message.chain !== "") {
       writer.uint32(18).string(message.chain);
@@ -1319,6 +1440,9 @@ export const CallContractRequest = {
     if (message.fee !== undefined) {
       Fee.encode(message.fee, writer.uint32(42).fork()).ldelim();
     }
+    if (message.sender !== "") {
+      writer.uint32(50).string(message.sender);
+    }
     return writer;
   },
 
@@ -1330,7 +1454,7 @@ export const CallContractRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.sender = reader.bytes();
+          message.senderBz = reader.bytes();
           break;
         case 2:
           message.chain = reader.string();
@@ -1344,6 +1468,9 @@ export const CallContractRequest = {
         case 5:
           message.fee = Fee.decode(reader, reader.uint32());
           break;
+        case 6:
+          message.sender = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -1354,33 +1481,36 @@ export const CallContractRequest = {
 
   fromJSON(object: any): CallContractRequest {
     return {
-      sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+      senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
       chain: isSet(object.chain) ? String(object.chain) : "",
       contractAddress: isSet(object.contractAddress) ? String(object.contractAddress) : "",
       payload: isSet(object.payload) ? bytesFromBase64(object.payload) : new Uint8Array(),
       fee: isSet(object.fee) ? Fee.fromJSON(object.fee) : undefined,
+      sender: isSet(object.sender) ? String(object.sender) : "",
     };
   },
 
   toJSON(message: CallContractRequest): unknown {
     const obj: any = {};
-    message.sender !== undefined &&
-      (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+    message.senderBz !== undefined &&
+      (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
     message.chain !== undefined && (obj.chain = message.chain);
     message.contractAddress !== undefined && (obj.contractAddress = message.contractAddress);
     message.payload !== undefined &&
       (obj.payload = base64FromBytes(message.payload !== undefined ? message.payload : new Uint8Array()));
     message.fee !== undefined && (obj.fee = message.fee ? Fee.toJSON(message.fee) : undefined);
+    message.sender !== undefined && (obj.sender = message.sender);
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<CallContractRequest>, I>>(object: I): CallContractRequest {
     const message = createBaseCallContractRequest();
-    message.sender = object.sender ?? new Uint8Array();
+    message.senderBz = object.senderBz ?? new Uint8Array();
     message.chain = object.chain ?? "";
     message.contractAddress = object.contractAddress ?? "";
     message.payload = object.payload ?? new Uint8Array();
     message.fee = object.fee !== undefined && object.fee !== null ? Fee.fromPartial(object.fee) : undefined;
+    message.sender = object.sender ?? "";
     return message;
   },
 };

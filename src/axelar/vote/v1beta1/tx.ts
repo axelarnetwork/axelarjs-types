@@ -6,9 +6,11 @@ import { Any } from "../../../google/protobuf/any";
 export const protobufPackage = "axelar.vote.v1beta1";
 
 export interface VoteRequest {
-  sender: Uint8Array;
+  /** @deprecated */
+  senderBz: Uint8Array;
   pollId: Long;
   vote?: Any;
+  sender: string;
 }
 
 export interface VoteResponse {
@@ -16,19 +18,22 @@ export interface VoteResponse {
 }
 
 function createBaseVoteRequest(): VoteRequest {
-  return { sender: new Uint8Array(), pollId: Long.UZERO, vote: undefined };
+  return { senderBz: new Uint8Array(), pollId: Long.UZERO, vote: undefined, sender: "" };
 }
 
 export const VoteRequest = {
   encode(message: VoteRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sender.length !== 0) {
-      writer.uint32(10).bytes(message.sender);
+    if (message.senderBz.length !== 0) {
+      writer.uint32(10).bytes(message.senderBz);
     }
     if (!message.pollId.isZero()) {
       writer.uint32(32).uint64(message.pollId);
     }
     if (message.vote !== undefined) {
       Any.encode(message.vote, writer.uint32(42).fork()).ldelim();
+    }
+    if (message.sender !== "") {
+      writer.uint32(50).string(message.sender);
     }
     return writer;
   },
@@ -41,13 +46,16 @@ export const VoteRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.sender = reader.bytes();
+          message.senderBz = reader.bytes();
           break;
         case 4:
           message.pollId = reader.uint64() as Long;
           break;
         case 5:
           message.vote = Any.decode(reader, reader.uint32());
+          break;
+        case 6:
+          message.sender = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -59,28 +67,31 @@ export const VoteRequest = {
 
   fromJSON(object: any): VoteRequest {
     return {
-      sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+      senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
       pollId: isSet(object.pollId) ? Long.fromValue(object.pollId) : Long.UZERO,
       vote: isSet(object.vote) ? Any.fromJSON(object.vote) : undefined,
+      sender: isSet(object.sender) ? String(object.sender) : "",
     };
   },
 
   toJSON(message: VoteRequest): unknown {
     const obj: any = {};
-    message.sender !== undefined &&
-      (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+    message.senderBz !== undefined &&
+      (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
     message.pollId !== undefined && (obj.pollId = (message.pollId || Long.UZERO).toString());
     message.vote !== undefined && (obj.vote = message.vote ? Any.toJSON(message.vote) : undefined);
+    message.sender !== undefined && (obj.sender = message.sender);
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<VoteRequest>, I>>(object: I): VoteRequest {
     const message = createBaseVoteRequest();
-    message.sender = object.sender ?? new Uint8Array();
+    message.senderBz = object.senderBz ?? new Uint8Array();
     message.pollId =
       object.pollId !== undefined && object.pollId !== null ? Long.fromValue(object.pollId) : Long.UZERO;
     message.vote =
       object.vote !== undefined && object.vote !== null ? Any.fromPartial(object.vote) : undefined;
+    message.sender = object.sender ?? "";
     return message;
   },
 };

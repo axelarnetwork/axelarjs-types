@@ -7,8 +7,10 @@ import { Result } from "../../../cosmos/base/abci/v1beta1/abci";
 export const protobufPackage = "axelar.auxiliary.v1beta1";
 
 export interface BatchRequest {
-  sender: Uint8Array;
+  /** @deprecated */
+  senderBz: Uint8Array;
   messages: Any[];
+  sender: string;
 }
 
 export interface BatchResponse {
@@ -21,16 +23,19 @@ export interface BatchResponse_Response {
 }
 
 function createBaseBatchRequest(): BatchRequest {
-  return { sender: new Uint8Array(), messages: [] };
+  return { senderBz: new Uint8Array(), messages: [], sender: "" };
 }
 
 export const BatchRequest = {
   encode(message: BatchRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sender.length !== 0) {
-      writer.uint32(10).bytes(message.sender);
+    if (message.senderBz.length !== 0) {
+      writer.uint32(10).bytes(message.senderBz);
     }
     for (const v of message.messages) {
       Any.encode(v!, writer.uint32(18).fork()).ldelim();
+    }
+    if (message.sender !== "") {
+      writer.uint32(26).string(message.sender);
     }
     return writer;
   },
@@ -43,10 +48,13 @@ export const BatchRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.sender = reader.bytes();
+          message.senderBz = reader.bytes();
           break;
         case 2:
           message.messages.push(Any.decode(reader, reader.uint32()));
+          break;
+        case 3:
+          message.sender = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -58,27 +66,30 @@ export const BatchRequest = {
 
   fromJSON(object: any): BatchRequest {
     return {
-      sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+      senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
       messages: Array.isArray(object?.messages) ? object.messages.map((e: any) => Any.fromJSON(e)) : [],
+      sender: isSet(object.sender) ? String(object.sender) : "",
     };
   },
 
   toJSON(message: BatchRequest): unknown {
     const obj: any = {};
-    message.sender !== undefined &&
-      (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+    message.senderBz !== undefined &&
+      (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
     if (message.messages) {
       obj.messages = message.messages.map((e) => (e ? Any.toJSON(e) : undefined));
     } else {
       obj.messages = [];
     }
+    message.sender !== undefined && (obj.sender = message.sender);
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<BatchRequest>, I>>(object: I): BatchRequest {
     const message = createBaseBatchRequest();
-    message.sender = object.sender ?? new Uint8Array();
+    message.senderBz = object.senderBz ?? new Uint8Array();
     message.messages = object.messages?.map((e) => Any.fromPartial(e)) || [];
+    message.sender = object.sender ?? "";
     return message;
   },
 };

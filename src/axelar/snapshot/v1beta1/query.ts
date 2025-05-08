@@ -32,6 +32,70 @@ export interface ParamsResponse {
   params?: Params;
 }
 
+/**
+ * OperatorByProxyRequest retrieves the operator address associated with a given
+ * proxy address
+ */
+export interface OperatorByProxyRequest {
+  proxyAddress: string;
+}
+
+export interface OperatorByProxyResponse {
+  operatorAddress: string;
+}
+
+/**
+ * ProxyByOperatorRequest retrieves the proxy address associated with a given
+ * operator address
+ */
+export interface ProxyByOperatorRequest {
+  operatorAddress: string;
+}
+
+export interface ProxyByOperatorResponse {
+  proxyAddress: string;
+  status: ProxyByOperatorResponse_Status;
+}
+
+export enum ProxyByOperatorResponse_Status {
+  STATUS_UNSPECIFIED = 0,
+  STATUS_ACTIVE = 1,
+  STATUS_INACTIVE = 2,
+  UNRECOGNIZED = -1,
+}
+
+export function proxyByOperatorResponse_StatusFromJSON(object: any): ProxyByOperatorResponse_Status {
+  switch (object) {
+    case 0:
+    case "STATUS_UNSPECIFIED":
+      return ProxyByOperatorResponse_Status.STATUS_UNSPECIFIED;
+    case 1:
+    case "STATUS_ACTIVE":
+      return ProxyByOperatorResponse_Status.STATUS_ACTIVE;
+    case 2:
+    case "STATUS_INACTIVE":
+      return ProxyByOperatorResponse_Status.STATUS_INACTIVE;
+    case -1:
+    case "UNRECOGNIZED":
+    default:
+      return ProxyByOperatorResponse_Status.UNRECOGNIZED;
+  }
+}
+
+export function proxyByOperatorResponse_StatusToJSON(object: ProxyByOperatorResponse_Status): string {
+  switch (object) {
+    case ProxyByOperatorResponse_Status.STATUS_UNSPECIFIED:
+      return "STATUS_UNSPECIFIED";
+    case ProxyByOperatorResponse_Status.STATUS_ACTIVE:
+      return "STATUS_ACTIVE";
+    case ProxyByOperatorResponse_Status.STATUS_INACTIVE:
+      return "STATUS_INACTIVE";
+    case ProxyByOperatorResponse_Status.UNRECOGNIZED:
+    default:
+      return "UNRECOGNIZED";
+  }
+}
+
 function createBaseQueryValidatorsResponse(): QueryValidatorsResponse {
   return { validators: [] };
 }
@@ -377,6 +441,211 @@ export const ParamsResponse = {
     const message = createBaseParamsResponse();
     message.params =
       object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
+    return message;
+  },
+};
+
+function createBaseOperatorByProxyRequest(): OperatorByProxyRequest {
+  return { proxyAddress: "" };
+}
+
+export const OperatorByProxyRequest = {
+  encode(message: OperatorByProxyRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.proxyAddress !== "") {
+      writer.uint32(10).string(message.proxyAddress);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): OperatorByProxyRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseOperatorByProxyRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.proxyAddress = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): OperatorByProxyRequest {
+    return {
+      proxyAddress: isSet(object.proxyAddress) ? String(object.proxyAddress) : "",
+    };
+  },
+
+  toJSON(message: OperatorByProxyRequest): unknown {
+    const obj: any = {};
+    message.proxyAddress !== undefined && (obj.proxyAddress = message.proxyAddress);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<OperatorByProxyRequest>, I>>(object: I): OperatorByProxyRequest {
+    const message = createBaseOperatorByProxyRequest();
+    message.proxyAddress = object.proxyAddress ?? "";
+    return message;
+  },
+};
+
+function createBaseOperatorByProxyResponse(): OperatorByProxyResponse {
+  return { operatorAddress: "" };
+}
+
+export const OperatorByProxyResponse = {
+  encode(message: OperatorByProxyResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.operatorAddress !== "") {
+      writer.uint32(10).string(message.operatorAddress);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): OperatorByProxyResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseOperatorByProxyResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.operatorAddress = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): OperatorByProxyResponse {
+    return {
+      operatorAddress: isSet(object.operatorAddress) ? String(object.operatorAddress) : "",
+    };
+  },
+
+  toJSON(message: OperatorByProxyResponse): unknown {
+    const obj: any = {};
+    message.operatorAddress !== undefined && (obj.operatorAddress = message.operatorAddress);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<OperatorByProxyResponse>, I>>(object: I): OperatorByProxyResponse {
+    const message = createBaseOperatorByProxyResponse();
+    message.operatorAddress = object.operatorAddress ?? "";
+    return message;
+  },
+};
+
+function createBaseProxyByOperatorRequest(): ProxyByOperatorRequest {
+  return { operatorAddress: "" };
+}
+
+export const ProxyByOperatorRequest = {
+  encode(message: ProxyByOperatorRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.operatorAddress !== "") {
+      writer.uint32(10).string(message.operatorAddress);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): ProxyByOperatorRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseProxyByOperatorRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.operatorAddress = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): ProxyByOperatorRequest {
+    return {
+      operatorAddress: isSet(object.operatorAddress) ? String(object.operatorAddress) : "",
+    };
+  },
+
+  toJSON(message: ProxyByOperatorRequest): unknown {
+    const obj: any = {};
+    message.operatorAddress !== undefined && (obj.operatorAddress = message.operatorAddress);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<ProxyByOperatorRequest>, I>>(object: I): ProxyByOperatorRequest {
+    const message = createBaseProxyByOperatorRequest();
+    message.operatorAddress = object.operatorAddress ?? "";
+    return message;
+  },
+};
+
+function createBaseProxyByOperatorResponse(): ProxyByOperatorResponse {
+  return { proxyAddress: "", status: 0 };
+}
+
+export const ProxyByOperatorResponse = {
+  encode(message: ProxyByOperatorResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.proxyAddress !== "") {
+      writer.uint32(10).string(message.proxyAddress);
+    }
+    if (message.status !== 0) {
+      writer.uint32(16).int32(message.status);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): ProxyByOperatorResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseProxyByOperatorResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.proxyAddress = reader.string();
+          break;
+        case 2:
+          message.status = reader.int32() as any;
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): ProxyByOperatorResponse {
+    return {
+      proxyAddress: isSet(object.proxyAddress) ? String(object.proxyAddress) : "",
+      status: isSet(object.status) ? proxyByOperatorResponse_StatusFromJSON(object.status) : 0,
+    };
+  },
+
+  toJSON(message: ProxyByOperatorResponse): unknown {
+    const obj: any = {};
+    message.proxyAddress !== undefined && (obj.proxyAddress = message.proxyAddress);
+    message.status !== undefined && (obj.status = proxyByOperatorResponse_StatusToJSON(message.status));
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<ProxyByOperatorResponse>, I>>(object: I): ProxyByOperatorResponse {
+    const message = createBaseProxyByOperatorResponse();
+    message.proxyAddress = object.proxyAddress ?? "";
+    message.status = object.status ?? 0;
     return message;
   },
 };
