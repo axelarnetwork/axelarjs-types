@@ -2,13 +2,17 @@ import Long from "long";
 import * as _m0 from "protobufjs/minimal";
 export declare const protobufPackage = "axelar.snapshot.v1beta1";
 export interface RegisterProxyRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
     proxyAddr: Uint8Array;
+    sender: string;
 }
 export interface RegisterProxyResponse {
 }
 export interface DeactivateProxyRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
+    sender: string;
 }
 export interface DeactivateProxyResponse {
 }
@@ -18,11 +22,13 @@ export declare const RegisterProxyRequest: {
     fromJSON(object: any): RegisterProxyRequest;
     toJSON(message: RegisterProxyRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         proxyAddr?: Uint8Array | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         proxyAddr?: Uint8Array | undefined;
+        sender?: string | undefined;
     } & Record<Exclude<keyof I, keyof RegisterProxyRequest>, never>>(object: I): RegisterProxyRequest;
 };
 export declare const RegisterProxyResponse: {
@@ -38,10 +44,12 @@ export declare const DeactivateProxyRequest: {
     fromJSON(object: any): DeactivateProxyRequest;
     toJSON(message: DeactivateProxyRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
-    } & Record<Exclude<keyof I, "sender">, never>>(object: I): DeactivateProxyRequest;
+        senderBz?: Uint8Array | undefined;
+        sender?: string | undefined;
+    } & Record<Exclude<keyof I, keyof DeactivateProxyRequest>, never>>(object: I): DeactivateProxyRequest;
 };
 export declare const DeactivateProxyResponse: {
     encode(_: DeactivateProxyResponse, writer?: _m0.Writer): _m0.Writer;

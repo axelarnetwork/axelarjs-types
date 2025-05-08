@@ -30,15 +30,18 @@ const any_1 = require("../../../google/protobuf/any");
 const abci_1 = require("../../../cosmos/base/abci/v1beta1/abci");
 exports.protobufPackage = "axelar.auxiliary.v1beta1";
 function createBaseBatchRequest() {
-    return { sender: new Uint8Array(), messages: [] };
+    return { senderBz: new Uint8Array(), messages: [], sender: "" };
 }
 exports.BatchRequest = {
     encode(message, writer = _m0.Writer.create()) {
-        if (message.sender.length !== 0) {
-            writer.uint32(10).bytes(message.sender);
+        if (message.senderBz.length !== 0) {
+            writer.uint32(10).bytes(message.senderBz);
         }
         for (const v of message.messages) {
             any_1.Any.encode(v, writer.uint32(18).fork()).ldelim();
+        }
+        if (message.sender !== "") {
+            writer.uint32(26).string(message.sender);
         }
         return writer;
     },
@@ -50,10 +53,13 @@ exports.BatchRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.sender = reader.bytes();
+                    message.senderBz = reader.bytes();
                     break;
                 case 2:
                     message.messages.push(any_1.Any.decode(reader, reader.uint32()));
+                    break;
+                case 3:
+                    message.sender = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -64,27 +70,30 @@ exports.BatchRequest = {
     },
     fromJSON(object) {
         return {
-            sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+            senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
             messages: Array.isArray(object === null || object === void 0 ? void 0 : object.messages) ? object.messages.map((e) => any_1.Any.fromJSON(e)) : [],
+            sender: isSet(object.sender) ? String(object.sender) : "",
         };
     },
     toJSON(message) {
         const obj = {};
-        message.sender !== undefined &&
-            (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+        message.senderBz !== undefined &&
+            (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
         if (message.messages) {
             obj.messages = message.messages.map((e) => (e ? any_1.Any.toJSON(e) : undefined));
         }
         else {
             obj.messages = [];
         }
+        message.sender !== undefined && (obj.sender = message.sender);
         return obj;
     },
     fromPartial(object) {
-        var _a, _b;
+        var _a, _b, _c;
         const message = createBaseBatchRequest();
-        message.sender = (_a = object.sender) !== null && _a !== void 0 ? _a : new Uint8Array();
+        message.senderBz = (_a = object.senderBz) !== null && _a !== void 0 ? _a : new Uint8Array();
         message.messages = ((_b = object.messages) === null || _b === void 0 ? void 0 : _b.map((e) => any_1.Any.fromPartial(e))) || [];
+        message.sender = (_c = object.sender) !== null && _c !== void 0 ? _c : "";
         return message;
     },
 };

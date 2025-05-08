@@ -51,11 +51,23 @@ class QueryServiceClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
         this.Params = this.Params.bind(this);
+        this.OperatorByProxy = this.OperatorByProxy.bind(this);
+        this.ProxyByOperator = this.ProxyByOperator.bind(this);
     }
     Params(request) {
         const data = query_1.ParamsRequest.encode(request).finish();
         const promise = this.rpc.request("axelar.snapshot.v1beta1.QueryService", "Params", data);
         return promise.then((data) => query_1.ParamsResponse.decode(new _m0.Reader(data)));
+    }
+    OperatorByProxy(request) {
+        const data = query_1.OperatorByProxyRequest.encode(request).finish();
+        const promise = this.rpc.request("axelar.snapshot.v1beta1.QueryService", "OperatorByProxy", data);
+        return promise.then((data) => query_1.OperatorByProxyResponse.decode(new _m0.Reader(data)));
+    }
+    ProxyByOperator(request) {
+        const data = query_1.ProxyByOperatorRequest.encode(request).finish();
+        const promise = this.rpc.request("axelar.snapshot.v1beta1.QueryService", "ProxyByOperator", data);
+        return promise.then((data) => query_1.ProxyByOperatorResponse.decode(new _m0.Reader(data)));
     }
 }
 exports.QueryServiceClientImpl = QueryServiceClientImpl;

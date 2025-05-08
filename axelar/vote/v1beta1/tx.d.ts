@@ -3,9 +3,11 @@ import * as _m0 from "protobufjs/minimal";
 import { Any } from "../../../google/protobuf/any";
 export declare const protobufPackage = "axelar.vote.v1beta1";
 export interface VoteRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
     pollId: Long;
     vote?: Any;
+    sender: string;
 }
 export interface VoteResponse {
     log: string;
@@ -16,14 +18,15 @@ export declare const VoteRequest: {
     fromJSON(object: any): VoteRequest;
     toJSON(message: VoteRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         pollId?: string | number | Long.Long | undefined;
         vote?: {
             typeUrl?: string | undefined;
             value?: Uint8Array | undefined;
         } | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         pollId?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -89,6 +92,7 @@ export declare const VoteRequest: {
             typeUrl?: string | undefined;
             value?: Uint8Array | undefined;
         } & Record<Exclude<keyof I["vote"], keyof Any>, never>) | undefined;
+        sender?: string | undefined;
     } & Record<Exclude<keyof I, keyof VoteRequest>, never>>(object: I): VoteRequest;
 };
 export declare const VoteResponse: {

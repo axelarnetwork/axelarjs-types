@@ -5,28 +5,35 @@ import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import { Duration } from "../../../google/protobuf/duration";
 export declare const protobufPackage = "axelar.nexus.v1beta1";
 export interface RegisterChainMaintainerRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
     chains: string[];
+    sender: string;
 }
 export interface RegisterChainMaintainerResponse {
 }
 export interface DeregisterChainMaintainerRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
     chains: string[];
+    sender: string;
 }
 export interface DeregisterChainMaintainerResponse {
 }
 /** ActivateChainRequest represents a message to activate chains */
 export interface ActivateChainRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
     chains: string[];
+    sender: string;
 }
 export interface ActivateChainResponse {
 }
 /** DeactivateChainRequest represents a message to deactivate chains */
 export interface DeactivateChainRequest {
-    sender: Uint8Array;
+    senderBz: Uint8Array;
     chains: string[];
+    sender: string;
 }
 export interface DeactivateChainResponse {
 }
@@ -35,8 +42,10 @@ export interface DeactivateChainResponse {
  * info associated to an asset on a chain
  */
 export interface RegisterAssetFeeRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
     feeInfo?: FeeInfo;
+    sender: string;
 }
 export interface RegisterAssetFeeResponse {
 }
@@ -45,10 +54,12 @@ export interface RegisterAssetFeeResponse {
  * transfers
  */
 export interface SetTransferRateLimitRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
     chain: string;
     limit?: Coin;
     window?: Duration;
+    sender: string;
 }
 export interface SetTransferRateLimitResponse {
 }
@@ -58,11 +69,13 @@ export declare const RegisterChainMaintainerRequest: {
     fromJSON(object: any): RegisterChainMaintainerRequest;
     toJSON(message: RegisterChainMaintainerRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chains?: string[] | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chains?: (string[] & string[] & Record<Exclude<keyof I["chains"], keyof string[]>, never>) | undefined;
+        sender?: string | undefined;
     } & Record<Exclude<keyof I, keyof RegisterChainMaintainerRequest>, never>>(object: I): RegisterChainMaintainerRequest;
 };
 export declare const RegisterChainMaintainerResponse: {
@@ -78,11 +91,13 @@ export declare const DeregisterChainMaintainerRequest: {
     fromJSON(object: any): DeregisterChainMaintainerRequest;
     toJSON(message: DeregisterChainMaintainerRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chains?: string[] | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chains?: (string[] & string[] & Record<Exclude<keyof I["chains"], keyof string[]>, never>) | undefined;
+        sender?: string | undefined;
     } & Record<Exclude<keyof I, keyof DeregisterChainMaintainerRequest>, never>>(object: I): DeregisterChainMaintainerRequest;
 };
 export declare const DeregisterChainMaintainerResponse: {
@@ -98,11 +113,13 @@ export declare const ActivateChainRequest: {
     fromJSON(object: any): ActivateChainRequest;
     toJSON(message: ActivateChainRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chains?: string[] | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chains?: (string[] & string[] & Record<Exclude<keyof I["chains"], keyof string[]>, never>) | undefined;
+        sender?: string | undefined;
     } & Record<Exclude<keyof I, keyof ActivateChainRequest>, never>>(object: I): ActivateChainRequest;
 };
 export declare const ActivateChainResponse: {
@@ -118,11 +135,13 @@ export declare const DeactivateChainRequest: {
     fromJSON(object: any): DeactivateChainRequest;
     toJSON(message: DeactivateChainRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chains?: string[] | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chains?: (string[] & string[] & Record<Exclude<keyof I["chains"], keyof string[]>, never>) | undefined;
+        sender?: string | undefined;
     } & Record<Exclude<keyof I, keyof DeactivateChainRequest>, never>>(object: I): DeactivateChainRequest;
 };
 export declare const DeactivateChainResponse: {
@@ -138,7 +157,7 @@ export declare const RegisterAssetFeeRequest: {
     fromJSON(object: any): RegisterAssetFeeRequest;
     toJSON(message: RegisterAssetFeeRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         feeInfo?: {
             chain?: string | undefined;
             asset?: string | undefined;
@@ -146,8 +165,9 @@ export declare const RegisterAssetFeeRequest: {
             minFee?: Uint8Array | undefined;
             maxFee?: Uint8Array | undefined;
         } | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         feeInfo?: ({
             chain?: string | undefined;
             asset?: string | undefined;
@@ -161,6 +181,7 @@ export declare const RegisterAssetFeeRequest: {
             minFee?: Uint8Array | undefined;
             maxFee?: Uint8Array | undefined;
         } & Record<Exclude<keyof I["feeInfo"], keyof FeeInfo>, never>) | undefined;
+        sender?: string | undefined;
     } & Record<Exclude<keyof I, keyof RegisterAssetFeeRequest>, never>>(object: I): RegisterAssetFeeRequest;
 };
 export declare const RegisterAssetFeeResponse: {
@@ -176,7 +197,7 @@ export declare const SetTransferRateLimitRequest: {
     fromJSON(object: any): SetTransferRateLimitRequest;
     toJSON(message: SetTransferRateLimitRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chain?: string | undefined;
         limit?: {
             denom?: string | undefined;
@@ -186,8 +207,9 @@ export declare const SetTransferRateLimitRequest: {
             seconds?: string | number | Long.Long | undefined;
             nanos?: number | undefined;
         } | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chain?: string | undefined;
         limit?: ({
             denom?: string | undefined;
@@ -260,6 +282,7 @@ export declare const SetTransferRateLimitRequest: {
             } & Record<Exclude<keyof I["window"]["seconds"], keyof Long.Long>, never>) | undefined;
             nanos?: number | undefined;
         } & Record<Exclude<keyof I["window"], keyof Duration>, never>) | undefined;
+        sender?: string | undefined;
     } & Record<Exclude<keyof I, keyof SetTransferRateLimitRequest>, never>>(object: I): SetTransferRateLimitRequest;
 };
 export declare const SetTransferRateLimitResponse: {

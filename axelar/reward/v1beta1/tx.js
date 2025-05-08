@@ -29,15 +29,18 @@ const _m0 = __importStar(require("protobufjs/minimal"));
 const any_1 = require("../../../google/protobuf/any");
 exports.protobufPackage = "axelar.reward.v1beta1";
 function createBaseRefundMsgRequest() {
-    return { sender: new Uint8Array(), innerMessage: undefined };
+    return { senderBz: new Uint8Array(), innerMessage: undefined, sender: "" };
 }
 exports.RefundMsgRequest = {
     encode(message, writer = _m0.Writer.create()) {
-        if (message.sender.length !== 0) {
-            writer.uint32(10).bytes(message.sender);
+        if (message.senderBz.length !== 0) {
+            writer.uint32(10).bytes(message.senderBz);
         }
         if (message.innerMessage !== undefined) {
             any_1.Any.encode(message.innerMessage, writer.uint32(18).fork()).ldelim();
+        }
+        if (message.sender !== "") {
+            writer.uint32(26).string(message.sender);
         }
         return writer;
     },
@@ -49,10 +52,13 @@ exports.RefundMsgRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.sender = reader.bytes();
+                    message.senderBz = reader.bytes();
                     break;
                 case 2:
                     message.innerMessage = any_1.Any.decode(reader, reader.uint32());
+                    break;
+                case 3:
+                    message.sender = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -63,26 +69,29 @@ exports.RefundMsgRequest = {
     },
     fromJSON(object) {
         return {
-            sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+            senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
             innerMessage: isSet(object.innerMessage) ? any_1.Any.fromJSON(object.innerMessage) : undefined,
+            sender: isSet(object.sender) ? String(object.sender) : "",
         };
     },
     toJSON(message) {
         const obj = {};
-        message.sender !== undefined &&
-            (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+        message.senderBz !== undefined &&
+            (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
         message.innerMessage !== undefined &&
             (obj.innerMessage = message.innerMessage ? any_1.Any.toJSON(message.innerMessage) : undefined);
+        message.sender !== undefined && (obj.sender = message.sender);
         return obj;
     },
     fromPartial(object) {
-        var _a;
+        var _a, _b;
         const message = createBaseRefundMsgRequest();
-        message.sender = (_a = object.sender) !== null && _a !== void 0 ? _a : new Uint8Array();
+        message.senderBz = (_a = object.senderBz) !== null && _a !== void 0 ? _a : new Uint8Array();
         message.innerMessage =
             object.innerMessage !== undefined && object.innerMessage !== null
                 ? any_1.Any.fromPartial(object.innerMessage)
                 : undefined;
+        message.sender = (_b = object.sender) !== null && _b !== void 0 ? _b : "";
         return message;
     },
 };

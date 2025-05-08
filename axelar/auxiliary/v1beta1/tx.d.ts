@@ -4,8 +4,10 @@ import { Any } from "../../../google/protobuf/any";
 import { Result } from "../../../cosmos/base/abci/v1beta1/abci";
 export declare const protobufPackage = "axelar.auxiliary.v1beta1";
 export interface BatchRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
     messages: Any[];
+    sender: string;
 }
 export interface BatchResponse {
     responses: BatchResponse_Response[];
@@ -20,13 +22,14 @@ export declare const BatchRequest: {
     fromJSON(object: any): BatchRequest;
     toJSON(message: BatchRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         messages?: {
             typeUrl?: string | undefined;
             value?: Uint8Array | undefined;
         }[] | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         messages?: ({
             typeUrl?: string | undefined;
             value?: Uint8Array | undefined;
@@ -40,6 +43,7 @@ export declare const BatchRequest: {
             typeUrl?: string | undefined;
             value?: Uint8Array | undefined;
         }[]>, never>) | undefined;
+        sender?: string | undefined;
     } & Record<Exclude<keyof I, keyof BatchRequest>, never>>(object: I): BatchRequest;
 };
 export declare const BatchResponse: {
@@ -55,10 +59,14 @@ export declare const BatchResponse: {
                 events?: {
                     type?: string | undefined;
                     attributes?: {
-                        key?: Uint8Array | undefined;
-                        value?: Uint8Array | undefined;
+                        key?: string | undefined;
+                        value?: string | undefined;
                         index?: boolean | undefined;
                     }[] | undefined;
+                }[] | undefined;
+                msgResponses?: {
+                    typeUrl?: string | undefined;
+                    value?: Uint8Array | undefined;
                 }[] | undefined;
             } | undefined;
             err?: string | undefined;
@@ -71,10 +79,14 @@ export declare const BatchResponse: {
                 events?: {
                     type?: string | undefined;
                     attributes?: {
-                        key?: Uint8Array | undefined;
-                        value?: Uint8Array | undefined;
+                        key?: string | undefined;
+                        value?: string | undefined;
                         index?: boolean | undefined;
                     }[] | undefined;
+                }[] | undefined;
+                msgResponses?: {
+                    typeUrl?: string | undefined;
+                    value?: Uint8Array | undefined;
                 }[] | undefined;
             } | undefined;
             err?: string | undefined;
@@ -85,10 +97,14 @@ export declare const BatchResponse: {
                 events?: {
                     type?: string | undefined;
                     attributes?: {
-                        key?: Uint8Array | undefined;
-                        value?: Uint8Array | undefined;
+                        key?: string | undefined;
+                        value?: string | undefined;
                         index?: boolean | undefined;
                     }[] | undefined;
+                }[] | undefined;
+                msgResponses?: {
+                    typeUrl?: string | undefined;
+                    value?: Uint8Array | undefined;
                 }[] | undefined;
             } | undefined;
             err?: string | undefined;
@@ -99,10 +115,14 @@ export declare const BatchResponse: {
                 events?: {
                     type?: string | undefined;
                     attributes?: {
-                        key?: Uint8Array | undefined;
-                        value?: Uint8Array | undefined;
+                        key?: string | undefined;
+                        value?: string | undefined;
                         index?: boolean | undefined;
                     }[] | undefined;
+                }[] | undefined;
+                msgResponses?: {
+                    typeUrl?: string | undefined;
+                    value?: Uint8Array | undefined;
                 }[] | undefined;
             } & {
                 data?: Uint8Array | undefined;
@@ -110,43 +130,56 @@ export declare const BatchResponse: {
                 events?: ({
                     type?: string | undefined;
                     attributes?: {
-                        key?: Uint8Array | undefined;
-                        value?: Uint8Array | undefined;
+                        key?: string | undefined;
+                        value?: string | undefined;
                         index?: boolean | undefined;
                     }[] | undefined;
                 }[] & ({
                     type?: string | undefined;
                     attributes?: {
-                        key?: Uint8Array | undefined;
-                        value?: Uint8Array | undefined;
+                        key?: string | undefined;
+                        value?: string | undefined;
                         index?: boolean | undefined;
                     }[] | undefined;
                 } & {
                     type?: string | undefined;
                     attributes?: ({
-                        key?: Uint8Array | undefined;
-                        value?: Uint8Array | undefined;
+                        key?: string | undefined;
+                        value?: string | undefined;
                         index?: boolean | undefined;
                     }[] & ({
-                        key?: Uint8Array | undefined;
-                        value?: Uint8Array | undefined;
+                        key?: string | undefined;
+                        value?: string | undefined;
                         index?: boolean | undefined;
                     } & {
-                        key?: Uint8Array | undefined;
-                        value?: Uint8Array | undefined;
+                        key?: string | undefined;
+                        value?: string | undefined;
                         index?: boolean | undefined;
                     } & Record<Exclude<keyof I["responses"][number]["result"]["events"][number]["attributes"][number], keyof import("../../../tendermint/abci/types").EventAttribute>, never>)[] & Record<Exclude<keyof I["responses"][number]["result"]["events"][number]["attributes"], keyof {
-                        key?: Uint8Array | undefined;
-                        value?: Uint8Array | undefined;
+                        key?: string | undefined;
+                        value?: string | undefined;
                         index?: boolean | undefined;
                     }[]>, never>) | undefined;
                 } & Record<Exclude<keyof I["responses"][number]["result"]["events"][number], keyof import("../../../tendermint/abci/types").Event>, never>)[] & Record<Exclude<keyof I["responses"][number]["result"]["events"], keyof {
                     type?: string | undefined;
                     attributes?: {
-                        key?: Uint8Array | undefined;
-                        value?: Uint8Array | undefined;
+                        key?: string | undefined;
+                        value?: string | undefined;
                         index?: boolean | undefined;
                     }[] | undefined;
+                }[]>, never>) | undefined;
+                msgResponses?: ({
+                    typeUrl?: string | undefined;
+                    value?: Uint8Array | undefined;
+                }[] & ({
+                    typeUrl?: string | undefined;
+                    value?: Uint8Array | undefined;
+                } & {
+                    typeUrl?: string | undefined;
+                    value?: Uint8Array | undefined;
+                } & Record<Exclude<keyof I["responses"][number]["result"]["msgResponses"][number], keyof Any>, never>)[] & Record<Exclude<keyof I["responses"][number]["result"]["msgResponses"], keyof {
+                    typeUrl?: string | undefined;
+                    value?: Uint8Array | undefined;
                 }[]>, never>) | undefined;
             } & Record<Exclude<keyof I["responses"][number]["result"], keyof Result>, never>) | undefined;
             err?: string | undefined;
@@ -157,10 +190,14 @@ export declare const BatchResponse: {
                 events?: {
                     type?: string | undefined;
                     attributes?: {
-                        key?: Uint8Array | undefined;
-                        value?: Uint8Array | undefined;
+                        key?: string | undefined;
+                        value?: string | undefined;
                         index?: boolean | undefined;
                     }[] | undefined;
+                }[] | undefined;
+                msgResponses?: {
+                    typeUrl?: string | undefined;
+                    value?: Uint8Array | undefined;
                 }[] | undefined;
             } | undefined;
             err?: string | undefined;
@@ -179,10 +216,14 @@ export declare const BatchResponse_Response: {
             events?: {
                 type?: string | undefined;
                 attributes?: {
-                    key?: Uint8Array | undefined;
-                    value?: Uint8Array | undefined;
+                    key?: string | undefined;
+                    value?: string | undefined;
                     index?: boolean | undefined;
                 }[] | undefined;
+            }[] | undefined;
+            msgResponses?: {
+                typeUrl?: string | undefined;
+                value?: Uint8Array | undefined;
             }[] | undefined;
         } | undefined;
         err?: string | undefined;
@@ -193,10 +234,14 @@ export declare const BatchResponse_Response: {
             events?: {
                 type?: string | undefined;
                 attributes?: {
-                    key?: Uint8Array | undefined;
-                    value?: Uint8Array | undefined;
+                    key?: string | undefined;
+                    value?: string | undefined;
                     index?: boolean | undefined;
                 }[] | undefined;
+            }[] | undefined;
+            msgResponses?: {
+                typeUrl?: string | undefined;
+                value?: Uint8Array | undefined;
             }[] | undefined;
         } & {
             data?: Uint8Array | undefined;
@@ -204,43 +249,56 @@ export declare const BatchResponse_Response: {
             events?: ({
                 type?: string | undefined;
                 attributes?: {
-                    key?: Uint8Array | undefined;
-                    value?: Uint8Array | undefined;
+                    key?: string | undefined;
+                    value?: string | undefined;
                     index?: boolean | undefined;
                 }[] | undefined;
             }[] & ({
                 type?: string | undefined;
                 attributes?: {
-                    key?: Uint8Array | undefined;
-                    value?: Uint8Array | undefined;
+                    key?: string | undefined;
+                    value?: string | undefined;
                     index?: boolean | undefined;
                 }[] | undefined;
             } & {
                 type?: string | undefined;
                 attributes?: ({
-                    key?: Uint8Array | undefined;
-                    value?: Uint8Array | undefined;
+                    key?: string | undefined;
+                    value?: string | undefined;
                     index?: boolean | undefined;
                 }[] & ({
-                    key?: Uint8Array | undefined;
-                    value?: Uint8Array | undefined;
+                    key?: string | undefined;
+                    value?: string | undefined;
                     index?: boolean | undefined;
                 } & {
-                    key?: Uint8Array | undefined;
-                    value?: Uint8Array | undefined;
+                    key?: string | undefined;
+                    value?: string | undefined;
                     index?: boolean | undefined;
                 } & Record<Exclude<keyof I["result"]["events"][number]["attributes"][number], keyof import("../../../tendermint/abci/types").EventAttribute>, never>)[] & Record<Exclude<keyof I["result"]["events"][number]["attributes"], keyof {
-                    key?: Uint8Array | undefined;
-                    value?: Uint8Array | undefined;
+                    key?: string | undefined;
+                    value?: string | undefined;
                     index?: boolean | undefined;
                 }[]>, never>) | undefined;
             } & Record<Exclude<keyof I["result"]["events"][number], keyof import("../../../tendermint/abci/types").Event>, never>)[] & Record<Exclude<keyof I["result"]["events"], keyof {
                 type?: string | undefined;
                 attributes?: {
-                    key?: Uint8Array | undefined;
-                    value?: Uint8Array | undefined;
+                    key?: string | undefined;
+                    value?: string | undefined;
                     index?: boolean | undefined;
                 }[] | undefined;
+            }[]>, never>) | undefined;
+            msgResponses?: ({
+                typeUrl?: string | undefined;
+                value?: Uint8Array | undefined;
+            }[] & ({
+                typeUrl?: string | undefined;
+                value?: Uint8Array | undefined;
+            } & {
+                typeUrl?: string | undefined;
+                value?: Uint8Array | undefined;
+            } & Record<Exclude<keyof I["result"]["msgResponses"][number], keyof Any>, never>)[] & Record<Exclude<keyof I["result"]["msgResponses"], keyof {
+                typeUrl?: string | undefined;
+                value?: Uint8Array | undefined;
             }[]>, never>) | undefined;
         } & Record<Exclude<keyof I["result"], keyof Result>, never>) | undefined;
         err?: string | undefined;

@@ -4,52 +4,64 @@ import { Asset, TokenDetails } from "../../../axelar/evm/v1beta1/types";
 import { KeyType } from "../../../axelar/tss/exported/v1beta1/types";
 export declare const protobufPackage = "axelar.evm.v1beta1";
 export interface SetGatewayRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
     chain: string;
     address: Uint8Array;
+    sender: string;
 }
 export interface SetGatewayResponse {
 }
 /** @deprecated */
 export interface ConfirmGatewayTxRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
     chain: string;
     txId: Uint8Array;
+    sender: string;
 }
 /** @deprecated */
 export interface ConfirmGatewayTxResponse {
 }
 export interface ConfirmGatewayTxsRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
     chain: string;
     txIds: Uint8Array[];
+    sender: string;
 }
 export interface ConfirmGatewayTxsResponse {
 }
 /** MsgConfirmDeposit represents an erc20 deposit confirmation message */
 export interface ConfirmDepositRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
     chain: string;
     txId: Uint8Array;
     /** @deprecated */
     amount: Uint8Array;
     burnerAddress: Uint8Array;
+    sender: string;
 }
 export interface ConfirmDepositResponse {
 }
 /** MsgConfirmToken represents a token deploy confirmation message */
 export interface ConfirmTokenRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
     chain: string;
     txId: Uint8Array;
     asset?: Asset;
+    sender: string;
 }
 export interface ConfirmTokenResponse {
 }
 export interface ConfirmTransferKeyRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
     chain: string;
     txId: Uint8Array;
+    sender: string;
 }
 export interface ConfirmTransferKeyResponse {
 }
@@ -58,11 +70,13 @@ export interface ConfirmTransferKeyResponse {
  * address
  */
 export interface LinkRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
     chain: string;
     recipientAddr: string;
     asset: string;
     recipientChain: string;
+    sender: string;
 }
 export interface LinkResponse {
     depositAddr: string;
@@ -72,8 +86,10 @@ export interface LinkResponse {
  * tokens with AxelarGateway
  */
 export interface CreateBurnTokensRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
     chain: string;
+    sender: string;
 }
 export interface CreateBurnTokensResponse {
 }
@@ -82,12 +98,14 @@ export interface CreateBurnTokensResponse {
  * command for AxelarGateway
  */
 export interface CreateDeployTokenRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
     chain: string;
     asset?: Asset;
     tokenDetails?: TokenDetails;
     address: Uint8Array;
     dailyMintLimit: string;
+    sender: string;
 }
 export interface CreateDeployTokenResponse {
 }
@@ -96,48 +114,60 @@ export interface CreateDeployTokenResponse {
  * commands handling all pending transfers
  */
 export interface CreatePendingTransfersRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
     chain: string;
+    sender: string;
 }
 export interface CreatePendingTransfersResponse {
 }
 /** @deprecated */
 export interface CreateTransferOwnershipRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
     chain: string;
     keyId: string;
+    sender: string;
 }
 /** @deprecated */
 export interface CreateTransferOwnershipResponse {
 }
 export interface CreateTransferOperatorshipRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
     chain: string;
     keyId: string;
+    sender: string;
 }
 export interface CreateTransferOperatorshipResponse {
 }
 export interface SignCommandsRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
     chain: string;
+    sender: string;
 }
 export interface SignCommandsResponse {
     batchedCommandsId: Uint8Array;
     commandCount: number;
 }
 export interface AddChainRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
     name: string;
     /** @deprecated */
     keyType: KeyType;
     params: Uint8Array;
+    sender: string;
 }
 export interface AddChainResponse {
 }
 export interface RetryFailedEventRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
     chain: string;
     eventId: string;
+    sender: string;
 }
 export interface RetryFailedEventResponse {
 }
@@ -147,13 +177,15 @@ export declare const SetGatewayRequest: {
     fromJSON(object: any): SetGatewayRequest;
     toJSON(message: SetGatewayRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chain?: string | undefined;
         address?: Uint8Array | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chain?: string | undefined;
         address?: Uint8Array | undefined;
+        sender?: string | undefined;
     } & Record<Exclude<keyof I, keyof SetGatewayRequest>, never>>(object: I): SetGatewayRequest;
 };
 export declare const SetGatewayResponse: {
@@ -169,13 +201,15 @@ export declare const ConfirmGatewayTxRequest: {
     fromJSON(object: any): ConfirmGatewayTxRequest;
     toJSON(message: ConfirmGatewayTxRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chain?: string | undefined;
         txId?: Uint8Array | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chain?: string | undefined;
         txId?: Uint8Array | undefined;
+        sender?: string | undefined;
     } & Record<Exclude<keyof I, keyof ConfirmGatewayTxRequest>, never>>(object: I): ConfirmGatewayTxRequest;
 };
 export declare const ConfirmGatewayTxResponse: {
@@ -191,13 +225,15 @@ export declare const ConfirmGatewayTxsRequest: {
     fromJSON(object: any): ConfirmGatewayTxsRequest;
     toJSON(message: ConfirmGatewayTxsRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chain?: string | undefined;
         txIds?: Uint8Array[] | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chain?: string | undefined;
         txIds?: (Uint8Array[] & Uint8Array[] & Record<Exclude<keyof I["txIds"], keyof Uint8Array[]>, never>) | undefined;
+        sender?: string | undefined;
     } & Record<Exclude<keyof I, keyof ConfirmGatewayTxsRequest>, never>>(object: I): ConfirmGatewayTxsRequest;
 };
 export declare const ConfirmGatewayTxsResponse: {
@@ -213,17 +249,19 @@ export declare const ConfirmDepositRequest: {
     fromJSON(object: any): ConfirmDepositRequest;
     toJSON(message: ConfirmDepositRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chain?: string | undefined;
         txId?: Uint8Array | undefined;
         amount?: Uint8Array | undefined;
         burnerAddress?: Uint8Array | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chain?: string | undefined;
         txId?: Uint8Array | undefined;
         amount?: Uint8Array | undefined;
         burnerAddress?: Uint8Array | undefined;
+        sender?: string | undefined;
     } & Record<Exclude<keyof I, keyof ConfirmDepositRequest>, never>>(object: I): ConfirmDepositRequest;
 };
 export declare const ConfirmDepositResponse: {
@@ -239,15 +277,16 @@ export declare const ConfirmTokenRequest: {
     fromJSON(object: any): ConfirmTokenRequest;
     toJSON(message: ConfirmTokenRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chain?: string | undefined;
         txId?: Uint8Array | undefined;
         asset?: {
             chain?: string | undefined;
             name?: string | undefined;
         } | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chain?: string | undefined;
         txId?: Uint8Array | undefined;
         asset?: ({
@@ -257,6 +296,7 @@ export declare const ConfirmTokenRequest: {
             chain?: string | undefined;
             name?: string | undefined;
         } & Record<Exclude<keyof I["asset"], keyof Asset>, never>) | undefined;
+        sender?: string | undefined;
     } & Record<Exclude<keyof I, keyof ConfirmTokenRequest>, never>>(object: I): ConfirmTokenRequest;
 };
 export declare const ConfirmTokenResponse: {
@@ -272,13 +312,15 @@ export declare const ConfirmTransferKeyRequest: {
     fromJSON(object: any): ConfirmTransferKeyRequest;
     toJSON(message: ConfirmTransferKeyRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chain?: string | undefined;
         txId?: Uint8Array | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chain?: string | undefined;
         txId?: Uint8Array | undefined;
+        sender?: string | undefined;
     } & Record<Exclude<keyof I, keyof ConfirmTransferKeyRequest>, never>>(object: I): ConfirmTransferKeyRequest;
 };
 export declare const ConfirmTransferKeyResponse: {
@@ -294,17 +336,19 @@ export declare const LinkRequest: {
     fromJSON(object: any): LinkRequest;
     toJSON(message: LinkRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chain?: string | undefined;
         recipientAddr?: string | undefined;
         asset?: string | undefined;
         recipientChain?: string | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chain?: string | undefined;
         recipientAddr?: string | undefined;
         asset?: string | undefined;
         recipientChain?: string | undefined;
+        sender?: string | undefined;
     } & Record<Exclude<keyof I, keyof LinkRequest>, never>>(object: I): LinkRequest;
 };
 export declare const LinkResponse: {
@@ -324,11 +368,13 @@ export declare const CreateBurnTokensRequest: {
     fromJSON(object: any): CreateBurnTokensRequest;
     toJSON(message: CreateBurnTokensRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chain?: string | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chain?: string | undefined;
+        sender?: string | undefined;
     } & Record<Exclude<keyof I, keyof CreateBurnTokensRequest>, never>>(object: I): CreateBurnTokensRequest;
 };
 export declare const CreateBurnTokensResponse: {
@@ -344,7 +390,7 @@ export declare const CreateDeployTokenRequest: {
     fromJSON(object: any): CreateDeployTokenRequest;
     toJSON(message: CreateDeployTokenRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chain?: string | undefined;
         asset?: {
             chain?: string | undefined;
@@ -358,8 +404,9 @@ export declare const CreateDeployTokenRequest: {
         } | undefined;
         address?: Uint8Array | undefined;
         dailyMintLimit?: string | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chain?: string | undefined;
         asset?: ({
             chain?: string | undefined;
@@ -381,6 +428,7 @@ export declare const CreateDeployTokenRequest: {
         } & Record<Exclude<keyof I["tokenDetails"], keyof TokenDetails>, never>) | undefined;
         address?: Uint8Array | undefined;
         dailyMintLimit?: string | undefined;
+        sender?: string | undefined;
     } & Record<Exclude<keyof I, keyof CreateDeployTokenRequest>, never>>(object: I): CreateDeployTokenRequest;
 };
 export declare const CreateDeployTokenResponse: {
@@ -396,11 +444,13 @@ export declare const CreatePendingTransfersRequest: {
     fromJSON(object: any): CreatePendingTransfersRequest;
     toJSON(message: CreatePendingTransfersRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chain?: string | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chain?: string | undefined;
+        sender?: string | undefined;
     } & Record<Exclude<keyof I, keyof CreatePendingTransfersRequest>, never>>(object: I): CreatePendingTransfersRequest;
 };
 export declare const CreatePendingTransfersResponse: {
@@ -416,13 +466,15 @@ export declare const CreateTransferOwnershipRequest: {
     fromJSON(object: any): CreateTransferOwnershipRequest;
     toJSON(message: CreateTransferOwnershipRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chain?: string | undefined;
         keyId?: string | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chain?: string | undefined;
         keyId?: string | undefined;
+        sender?: string | undefined;
     } & Record<Exclude<keyof I, keyof CreateTransferOwnershipRequest>, never>>(object: I): CreateTransferOwnershipRequest;
 };
 export declare const CreateTransferOwnershipResponse: {
@@ -438,13 +490,15 @@ export declare const CreateTransferOperatorshipRequest: {
     fromJSON(object: any): CreateTransferOperatorshipRequest;
     toJSON(message: CreateTransferOperatorshipRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chain?: string | undefined;
         keyId?: string | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chain?: string | undefined;
         keyId?: string | undefined;
+        sender?: string | undefined;
     } & Record<Exclude<keyof I, keyof CreateTransferOperatorshipRequest>, never>>(object: I): CreateTransferOperatorshipRequest;
 };
 export declare const CreateTransferOperatorshipResponse: {
@@ -460,11 +514,13 @@ export declare const SignCommandsRequest: {
     fromJSON(object: any): SignCommandsRequest;
     toJSON(message: SignCommandsRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chain?: string | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chain?: string | undefined;
+        sender?: string | undefined;
     } & Record<Exclude<keyof I, keyof SignCommandsRequest>, never>>(object: I): SignCommandsRequest;
 };
 export declare const SignCommandsResponse: {
@@ -486,15 +542,17 @@ export declare const AddChainRequest: {
     fromJSON(object: any): AddChainRequest;
     toJSON(message: AddChainRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         name?: string | undefined;
         keyType?: KeyType | undefined;
         params?: Uint8Array | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         name?: string | undefined;
         keyType?: KeyType | undefined;
         params?: Uint8Array | undefined;
+        sender?: string | undefined;
     } & Record<Exclude<keyof I, keyof AddChainRequest>, never>>(object: I): AddChainRequest;
 };
 export declare const AddChainResponse: {
@@ -510,13 +568,15 @@ export declare const RetryFailedEventRequest: {
     fromJSON(object: any): RetryFailedEventRequest;
     toJSON(message: RetryFailedEventRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chain?: string | undefined;
         eventId?: string | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chain?: string | undefined;
         eventId?: string | undefined;
+        sender?: string | undefined;
     } & Record<Exclude<keyof I, keyof RetryFailedEventRequest>, never>>(object: I): RetryFailedEventRequest;
 };
 export declare const RetryFailedEventResponse: {

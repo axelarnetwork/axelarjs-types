@@ -31,15 +31,18 @@ const coin_1 = require("../../../cosmos/base/v1beta1/coin");
 const duration_1 = require("../../../google/protobuf/duration");
 exports.protobufPackage = "axelar.nexus.v1beta1";
 function createBaseRegisterChainMaintainerRequest() {
-    return { sender: new Uint8Array(), chains: [] };
+    return { senderBz: new Uint8Array(), chains: [], sender: "" };
 }
 exports.RegisterChainMaintainerRequest = {
     encode(message, writer = _m0.Writer.create()) {
-        if (message.sender.length !== 0) {
-            writer.uint32(10).bytes(message.sender);
+        if (message.senderBz.length !== 0) {
+            writer.uint32(10).bytes(message.senderBz);
         }
         for (const v of message.chains) {
             writer.uint32(18).string(v);
+        }
+        if (message.sender !== "") {
+            writer.uint32(26).string(message.sender);
         }
         return writer;
     },
@@ -51,10 +54,13 @@ exports.RegisterChainMaintainerRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.sender = reader.bytes();
+                    message.senderBz = reader.bytes();
                     break;
                 case 2:
                     message.chains.push(reader.string());
+                    break;
+                case 3:
+                    message.sender = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -65,27 +71,30 @@ exports.RegisterChainMaintainerRequest = {
     },
     fromJSON(object) {
         return {
-            sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+            senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
             chains: Array.isArray(object === null || object === void 0 ? void 0 : object.chains) ? object.chains.map((e) => String(e)) : [],
+            sender: isSet(object.sender) ? String(object.sender) : "",
         };
     },
     toJSON(message) {
         const obj = {};
-        message.sender !== undefined &&
-            (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+        message.senderBz !== undefined &&
+            (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
         if (message.chains) {
             obj.chains = message.chains.map((e) => e);
         }
         else {
             obj.chains = [];
         }
+        message.sender !== undefined && (obj.sender = message.sender);
         return obj;
     },
     fromPartial(object) {
-        var _a, _b;
+        var _a, _b, _c;
         const message = createBaseRegisterChainMaintainerRequest();
-        message.sender = (_a = object.sender) !== null && _a !== void 0 ? _a : new Uint8Array();
+        message.senderBz = (_a = object.senderBz) !== null && _a !== void 0 ? _a : new Uint8Array();
         message.chains = ((_b = object.chains) === null || _b === void 0 ? void 0 : _b.map((e) => e)) || [];
+        message.sender = (_c = object.sender) !== null && _c !== void 0 ? _c : "";
         return message;
     },
 };
@@ -123,15 +132,18 @@ exports.RegisterChainMaintainerResponse = {
     },
 };
 function createBaseDeregisterChainMaintainerRequest() {
-    return { sender: new Uint8Array(), chains: [] };
+    return { senderBz: new Uint8Array(), chains: [], sender: "" };
 }
 exports.DeregisterChainMaintainerRequest = {
     encode(message, writer = _m0.Writer.create()) {
-        if (message.sender.length !== 0) {
-            writer.uint32(10).bytes(message.sender);
+        if (message.senderBz.length !== 0) {
+            writer.uint32(10).bytes(message.senderBz);
         }
         for (const v of message.chains) {
             writer.uint32(18).string(v);
+        }
+        if (message.sender !== "") {
+            writer.uint32(26).string(message.sender);
         }
         return writer;
     },
@@ -143,10 +155,13 @@ exports.DeregisterChainMaintainerRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.sender = reader.bytes();
+                    message.senderBz = reader.bytes();
                     break;
                 case 2:
                     message.chains.push(reader.string());
+                    break;
+                case 3:
+                    message.sender = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -157,27 +172,30 @@ exports.DeregisterChainMaintainerRequest = {
     },
     fromJSON(object) {
         return {
-            sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+            senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
             chains: Array.isArray(object === null || object === void 0 ? void 0 : object.chains) ? object.chains.map((e) => String(e)) : [],
+            sender: isSet(object.sender) ? String(object.sender) : "",
         };
     },
     toJSON(message) {
         const obj = {};
-        message.sender !== undefined &&
-            (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+        message.senderBz !== undefined &&
+            (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
         if (message.chains) {
             obj.chains = message.chains.map((e) => e);
         }
         else {
             obj.chains = [];
         }
+        message.sender !== undefined && (obj.sender = message.sender);
         return obj;
     },
     fromPartial(object) {
-        var _a, _b;
+        var _a, _b, _c;
         const message = createBaseDeregisterChainMaintainerRequest();
-        message.sender = (_a = object.sender) !== null && _a !== void 0 ? _a : new Uint8Array();
+        message.senderBz = (_a = object.senderBz) !== null && _a !== void 0 ? _a : new Uint8Array();
         message.chains = ((_b = object.chains) === null || _b === void 0 ? void 0 : _b.map((e) => e)) || [];
+        message.sender = (_c = object.sender) !== null && _c !== void 0 ? _c : "";
         return message;
     },
 };
@@ -215,15 +233,18 @@ exports.DeregisterChainMaintainerResponse = {
     },
 };
 function createBaseActivateChainRequest() {
-    return { sender: new Uint8Array(), chains: [] };
+    return { senderBz: new Uint8Array(), chains: [], sender: "" };
 }
 exports.ActivateChainRequest = {
     encode(message, writer = _m0.Writer.create()) {
-        if (message.sender.length !== 0) {
-            writer.uint32(10).bytes(message.sender);
+        if (message.senderBz.length !== 0) {
+            writer.uint32(10).bytes(message.senderBz);
         }
         for (const v of message.chains) {
             writer.uint32(18).string(v);
+        }
+        if (message.sender !== "") {
+            writer.uint32(26).string(message.sender);
         }
         return writer;
     },
@@ -235,10 +256,13 @@ exports.ActivateChainRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.sender = reader.bytes();
+                    message.senderBz = reader.bytes();
                     break;
                 case 2:
                     message.chains.push(reader.string());
+                    break;
+                case 3:
+                    message.sender = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -249,27 +273,30 @@ exports.ActivateChainRequest = {
     },
     fromJSON(object) {
         return {
-            sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+            senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
             chains: Array.isArray(object === null || object === void 0 ? void 0 : object.chains) ? object.chains.map((e) => String(e)) : [],
+            sender: isSet(object.sender) ? String(object.sender) : "",
         };
     },
     toJSON(message) {
         const obj = {};
-        message.sender !== undefined &&
-            (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+        message.senderBz !== undefined &&
+            (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
         if (message.chains) {
             obj.chains = message.chains.map((e) => e);
         }
         else {
             obj.chains = [];
         }
+        message.sender !== undefined && (obj.sender = message.sender);
         return obj;
     },
     fromPartial(object) {
-        var _a, _b;
+        var _a, _b, _c;
         const message = createBaseActivateChainRequest();
-        message.sender = (_a = object.sender) !== null && _a !== void 0 ? _a : new Uint8Array();
+        message.senderBz = (_a = object.senderBz) !== null && _a !== void 0 ? _a : new Uint8Array();
         message.chains = ((_b = object.chains) === null || _b === void 0 ? void 0 : _b.map((e) => e)) || [];
+        message.sender = (_c = object.sender) !== null && _c !== void 0 ? _c : "";
         return message;
     },
 };
@@ -307,15 +334,18 @@ exports.ActivateChainResponse = {
     },
 };
 function createBaseDeactivateChainRequest() {
-    return { sender: new Uint8Array(), chains: [] };
+    return { senderBz: new Uint8Array(), chains: [], sender: "" };
 }
 exports.DeactivateChainRequest = {
     encode(message, writer = _m0.Writer.create()) {
-        if (message.sender.length !== 0) {
-            writer.uint32(10).bytes(message.sender);
+        if (message.senderBz.length !== 0) {
+            writer.uint32(10).bytes(message.senderBz);
         }
         for (const v of message.chains) {
             writer.uint32(18).string(v);
+        }
+        if (message.sender !== "") {
+            writer.uint32(26).string(message.sender);
         }
         return writer;
     },
@@ -327,10 +357,13 @@ exports.DeactivateChainRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.sender = reader.bytes();
+                    message.senderBz = reader.bytes();
                     break;
                 case 2:
                     message.chains.push(reader.string());
+                    break;
+                case 3:
+                    message.sender = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -341,27 +374,30 @@ exports.DeactivateChainRequest = {
     },
     fromJSON(object) {
         return {
-            sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+            senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
             chains: Array.isArray(object === null || object === void 0 ? void 0 : object.chains) ? object.chains.map((e) => String(e)) : [],
+            sender: isSet(object.sender) ? String(object.sender) : "",
         };
     },
     toJSON(message) {
         const obj = {};
-        message.sender !== undefined &&
-            (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+        message.senderBz !== undefined &&
+            (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
         if (message.chains) {
             obj.chains = message.chains.map((e) => e);
         }
         else {
             obj.chains = [];
         }
+        message.sender !== undefined && (obj.sender = message.sender);
         return obj;
     },
     fromPartial(object) {
-        var _a, _b;
+        var _a, _b, _c;
         const message = createBaseDeactivateChainRequest();
-        message.sender = (_a = object.sender) !== null && _a !== void 0 ? _a : new Uint8Array();
+        message.senderBz = (_a = object.senderBz) !== null && _a !== void 0 ? _a : new Uint8Array();
         message.chains = ((_b = object.chains) === null || _b === void 0 ? void 0 : _b.map((e) => e)) || [];
+        message.sender = (_c = object.sender) !== null && _c !== void 0 ? _c : "";
         return message;
     },
 };
@@ -399,15 +435,18 @@ exports.DeactivateChainResponse = {
     },
 };
 function createBaseRegisterAssetFeeRequest() {
-    return { sender: new Uint8Array(), feeInfo: undefined };
+    return { senderBz: new Uint8Array(), feeInfo: undefined, sender: "" };
 }
 exports.RegisterAssetFeeRequest = {
     encode(message, writer = _m0.Writer.create()) {
-        if (message.sender.length !== 0) {
-            writer.uint32(10).bytes(message.sender);
+        if (message.senderBz.length !== 0) {
+            writer.uint32(10).bytes(message.senderBz);
         }
         if (message.feeInfo !== undefined) {
             types_1.FeeInfo.encode(message.feeInfo, writer.uint32(18).fork()).ldelim();
+        }
+        if (message.sender !== "") {
+            writer.uint32(26).string(message.sender);
         }
         return writer;
     },
@@ -419,10 +458,13 @@ exports.RegisterAssetFeeRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.sender = reader.bytes();
+                    message.senderBz = reader.bytes();
                     break;
                 case 2:
                     message.feeInfo = types_1.FeeInfo.decode(reader, reader.uint32());
+                    break;
+                case 3:
+                    message.sender = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -433,26 +475,29 @@ exports.RegisterAssetFeeRequest = {
     },
     fromJSON(object) {
         return {
-            sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+            senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
             feeInfo: isSet(object.feeInfo) ? types_1.FeeInfo.fromJSON(object.feeInfo) : undefined,
+            sender: isSet(object.sender) ? String(object.sender) : "",
         };
     },
     toJSON(message) {
         const obj = {};
-        message.sender !== undefined &&
-            (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+        message.senderBz !== undefined &&
+            (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
         message.feeInfo !== undefined &&
             (obj.feeInfo = message.feeInfo ? types_1.FeeInfo.toJSON(message.feeInfo) : undefined);
+        message.sender !== undefined && (obj.sender = message.sender);
         return obj;
     },
     fromPartial(object) {
-        var _a;
+        var _a, _b;
         const message = createBaseRegisterAssetFeeRequest();
-        message.sender = (_a = object.sender) !== null && _a !== void 0 ? _a : new Uint8Array();
+        message.senderBz = (_a = object.senderBz) !== null && _a !== void 0 ? _a : new Uint8Array();
         message.feeInfo =
             object.feeInfo !== undefined && object.feeInfo !== null
                 ? types_1.FeeInfo.fromPartial(object.feeInfo)
                 : undefined;
+        message.sender = (_b = object.sender) !== null && _b !== void 0 ? _b : "";
         return message;
     },
 };
@@ -490,12 +535,12 @@ exports.RegisterAssetFeeResponse = {
     },
 };
 function createBaseSetTransferRateLimitRequest() {
-    return { sender: new Uint8Array(), chain: "", limit: undefined, window: undefined };
+    return { senderBz: new Uint8Array(), chain: "", limit: undefined, window: undefined, sender: "" };
 }
 exports.SetTransferRateLimitRequest = {
     encode(message, writer = _m0.Writer.create()) {
-        if (message.sender.length !== 0) {
-            writer.uint32(10).bytes(message.sender);
+        if (message.senderBz.length !== 0) {
+            writer.uint32(10).bytes(message.senderBz);
         }
         if (message.chain !== "") {
             writer.uint32(18).string(message.chain);
@@ -505,6 +550,9 @@ exports.SetTransferRateLimitRequest = {
         }
         if (message.window !== undefined) {
             duration_1.Duration.encode(message.window, writer.uint32(34).fork()).ldelim();
+        }
+        if (message.sender !== "") {
+            writer.uint32(42).string(message.sender);
         }
         return writer;
     },
@@ -516,7 +564,7 @@ exports.SetTransferRateLimitRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.sender = reader.bytes();
+                    message.senderBz = reader.bytes();
                     break;
                 case 2:
                     message.chain = reader.string();
@@ -527,6 +575,9 @@ exports.SetTransferRateLimitRequest = {
                 case 4:
                     message.window = duration_1.Duration.decode(reader, reader.uint32());
                     break;
+                case 5:
+                    message.sender = reader.string();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -536,31 +587,34 @@ exports.SetTransferRateLimitRequest = {
     },
     fromJSON(object) {
         return {
-            sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+            senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
             chain: isSet(object.chain) ? String(object.chain) : "",
             limit: isSet(object.limit) ? coin_1.Coin.fromJSON(object.limit) : undefined,
             window: isSet(object.window) ? duration_1.Duration.fromJSON(object.window) : undefined,
+            sender: isSet(object.sender) ? String(object.sender) : "",
         };
     },
     toJSON(message) {
         const obj = {};
-        message.sender !== undefined &&
-            (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+        message.senderBz !== undefined &&
+            (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
         message.chain !== undefined && (obj.chain = message.chain);
         message.limit !== undefined && (obj.limit = message.limit ? coin_1.Coin.toJSON(message.limit) : undefined);
         message.window !== undefined &&
             (obj.window = message.window ? duration_1.Duration.toJSON(message.window) : undefined);
+        message.sender !== undefined && (obj.sender = message.sender);
         return obj;
     },
     fromPartial(object) {
-        var _a, _b;
+        var _a, _b, _c;
         const message = createBaseSetTransferRateLimitRequest();
-        message.sender = (_a = object.sender) !== null && _a !== void 0 ? _a : new Uint8Array();
+        message.senderBz = (_a = object.senderBz) !== null && _a !== void 0 ? _a : new Uint8Array();
         message.chain = (_b = object.chain) !== null && _b !== void 0 ? _b : "";
         message.limit =
             object.limit !== undefined && object.limit !== null ? coin_1.Coin.fromPartial(object.limit) : undefined;
         message.window =
             object.window !== undefined && object.window !== null ? duration_1.Duration.fromPartial(object.window) : undefined;
+        message.sender = (_c = object.sender) !== null && _c !== void 0 ? _c : "";
         return message;
     },
 };

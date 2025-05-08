@@ -28,18 +28,18 @@ const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
 exports.protobufPackage = "axelar.multisig.v1beta1";
 function createBaseStartKeygenRequest() {
-    return { senderStr: "", keyId: "", sender: new Uint8Array() };
+    return { sender: "", keyId: "", senderBz: new Uint8Array() };
 }
 exports.StartKeygenRequest = {
     encode(message, writer = _m0.Writer.create()) {
-        if (message.senderStr !== "") {
-            writer.uint32(10).string(message.senderStr);
+        if (message.sender !== "") {
+            writer.uint32(10).string(message.sender);
         }
         if (message.keyId !== "") {
             writer.uint32(18).string(message.keyId);
         }
-        if (message.sender.length !== 0) {
-            writer.uint32(26).bytes(message.sender);
+        if (message.senderBz.length !== 0) {
+            writer.uint32(26).bytes(message.senderBz);
         }
         return writer;
     },
@@ -51,13 +51,13 @@ exports.StartKeygenRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.senderStr = reader.string();
+                    message.sender = reader.string();
                     break;
                 case 2:
                     message.keyId = reader.string();
                     break;
                 case 3:
-                    message.sender = reader.bytes();
+                    message.senderBz = reader.bytes();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -68,25 +68,25 @@ exports.StartKeygenRequest = {
     },
     fromJSON(object) {
         return {
-            senderStr: isSet(object.senderStr) ? String(object.senderStr) : "",
+            sender: isSet(object.sender) ? String(object.sender) : "",
             keyId: isSet(object.keyId) ? String(object.keyId) : "",
-            sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+            senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
         };
     },
     toJSON(message) {
         const obj = {};
-        message.senderStr !== undefined && (obj.senderStr = message.senderStr);
+        message.sender !== undefined && (obj.sender = message.sender);
         message.keyId !== undefined && (obj.keyId = message.keyId);
-        message.sender !== undefined &&
-            (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+        message.senderBz !== undefined &&
+            (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
         return obj;
     },
     fromPartial(object) {
         var _a, _b, _c;
         const message = createBaseStartKeygenRequest();
-        message.senderStr = (_a = object.senderStr) !== null && _a !== void 0 ? _a : "";
+        message.sender = (_a = object.sender) !== null && _a !== void 0 ? _a : "";
         message.keyId = (_b = object.keyId) !== null && _b !== void 0 ? _b : "";
-        message.sender = (_c = object.sender) !== null && _c !== void 0 ? _c : new Uint8Array();
+        message.senderBz = (_c = object.senderBz) !== null && _c !== void 0 ? _c : new Uint8Array();
         return message;
     },
 };
@@ -125,17 +125,17 @@ exports.StartKeygenResponse = {
 };
 function createBaseSubmitPubKeyRequest() {
     return {
-        senderStr: "",
+        sender: "",
         keyId: "",
         pubKey: new Uint8Array(),
         signature: new Uint8Array(),
-        sender: new Uint8Array(),
+        senderBz: new Uint8Array(),
     };
 }
 exports.SubmitPubKeyRequest = {
     encode(message, writer = _m0.Writer.create()) {
-        if (message.senderStr !== "") {
-            writer.uint32(10).string(message.senderStr);
+        if (message.sender !== "") {
+            writer.uint32(10).string(message.sender);
         }
         if (message.keyId !== "") {
             writer.uint32(18).string(message.keyId);
@@ -146,8 +146,8 @@ exports.SubmitPubKeyRequest = {
         if (message.signature.length !== 0) {
             writer.uint32(34).bytes(message.signature);
         }
-        if (message.sender.length !== 0) {
-            writer.uint32(42).bytes(message.sender);
+        if (message.senderBz.length !== 0) {
+            writer.uint32(42).bytes(message.senderBz);
         }
         return writer;
     },
@@ -159,7 +159,7 @@ exports.SubmitPubKeyRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.senderStr = reader.string();
+                    message.sender = reader.string();
                     break;
                 case 2:
                     message.keyId = reader.string();
@@ -171,7 +171,7 @@ exports.SubmitPubKeyRequest = {
                     message.signature = reader.bytes();
                     break;
                 case 5:
-                    message.sender = reader.bytes();
+                    message.senderBz = reader.bytes();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -182,33 +182,33 @@ exports.SubmitPubKeyRequest = {
     },
     fromJSON(object) {
         return {
-            senderStr: isSet(object.senderStr) ? String(object.senderStr) : "",
+            sender: isSet(object.sender) ? String(object.sender) : "",
             keyId: isSet(object.keyId) ? String(object.keyId) : "",
             pubKey: isSet(object.pubKey) ? bytesFromBase64(object.pubKey) : new Uint8Array(),
             signature: isSet(object.signature) ? bytesFromBase64(object.signature) : new Uint8Array(),
-            sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+            senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
         };
     },
     toJSON(message) {
         const obj = {};
-        message.senderStr !== undefined && (obj.senderStr = message.senderStr);
+        message.sender !== undefined && (obj.sender = message.sender);
         message.keyId !== undefined && (obj.keyId = message.keyId);
         message.pubKey !== undefined &&
             (obj.pubKey = base64FromBytes(message.pubKey !== undefined ? message.pubKey : new Uint8Array()));
         message.signature !== undefined &&
             (obj.signature = base64FromBytes(message.signature !== undefined ? message.signature : new Uint8Array()));
-        message.sender !== undefined &&
-            (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+        message.senderBz !== undefined &&
+            (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
         return obj;
     },
     fromPartial(object) {
         var _a, _b, _c, _d, _e;
         const message = createBaseSubmitPubKeyRequest();
-        message.senderStr = (_a = object.senderStr) !== null && _a !== void 0 ? _a : "";
+        message.sender = (_a = object.sender) !== null && _a !== void 0 ? _a : "";
         message.keyId = (_b = object.keyId) !== null && _b !== void 0 ? _b : "";
         message.pubKey = (_c = object.pubKey) !== null && _c !== void 0 ? _c : new Uint8Array();
         message.signature = (_d = object.signature) !== null && _d !== void 0 ? _d : new Uint8Array();
-        message.sender = (_e = object.sender) !== null && _e !== void 0 ? _e : new Uint8Array();
+        message.senderBz = (_e = object.senderBz) !== null && _e !== void 0 ? _e : new Uint8Array();
         return message;
     },
 };
@@ -246,12 +246,12 @@ exports.SubmitPubKeyResponse = {
     },
 };
 function createBaseSubmitSignatureRequest() {
-    return { senderStr: "", sigId: long_1.default.UZERO, signature: new Uint8Array(), sender: new Uint8Array() };
+    return { sender: "", sigId: long_1.default.UZERO, signature: new Uint8Array(), senderBz: new Uint8Array() };
 }
 exports.SubmitSignatureRequest = {
     encode(message, writer = _m0.Writer.create()) {
-        if (message.senderStr !== "") {
-            writer.uint32(10).string(message.senderStr);
+        if (message.sender !== "") {
+            writer.uint32(10).string(message.sender);
         }
         if (!message.sigId.isZero()) {
             writer.uint32(16).uint64(message.sigId);
@@ -259,8 +259,8 @@ exports.SubmitSignatureRequest = {
         if (message.signature.length !== 0) {
             writer.uint32(26).bytes(message.signature);
         }
-        if (message.sender.length !== 0) {
-            writer.uint32(34).bytes(message.sender);
+        if (message.senderBz.length !== 0) {
+            writer.uint32(34).bytes(message.senderBz);
         }
         return writer;
     },
@@ -272,7 +272,7 @@ exports.SubmitSignatureRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.senderStr = reader.string();
+                    message.sender = reader.string();
                     break;
                 case 2:
                     message.sigId = reader.uint64();
@@ -281,7 +281,7 @@ exports.SubmitSignatureRequest = {
                     message.signature = reader.bytes();
                     break;
                 case 4:
-                    message.sender = reader.bytes();
+                    message.senderBz = reader.bytes();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -292,30 +292,30 @@ exports.SubmitSignatureRequest = {
     },
     fromJSON(object) {
         return {
-            senderStr: isSet(object.senderStr) ? String(object.senderStr) : "",
+            sender: isSet(object.sender) ? String(object.sender) : "",
             sigId: isSet(object.sigId) ? long_1.default.fromValue(object.sigId) : long_1.default.UZERO,
             signature: isSet(object.signature) ? bytesFromBase64(object.signature) : new Uint8Array(),
-            sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+            senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
         };
     },
     toJSON(message) {
         const obj = {};
-        message.senderStr !== undefined && (obj.senderStr = message.senderStr);
+        message.sender !== undefined && (obj.sender = message.sender);
         message.sigId !== undefined && (obj.sigId = (message.sigId || long_1.default.UZERO).toString());
         message.signature !== undefined &&
             (obj.signature = base64FromBytes(message.signature !== undefined ? message.signature : new Uint8Array()));
-        message.sender !== undefined &&
-            (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+        message.senderBz !== undefined &&
+            (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
         return obj;
     },
     fromPartial(object) {
         var _a, _b, _c;
         const message = createBaseSubmitSignatureRequest();
-        message.senderStr = (_a = object.senderStr) !== null && _a !== void 0 ? _a : "";
+        message.sender = (_a = object.sender) !== null && _a !== void 0 ? _a : "";
         message.sigId =
             object.sigId !== undefined && object.sigId !== null ? long_1.default.fromValue(object.sigId) : long_1.default.UZERO;
         message.signature = (_b = object.signature) !== null && _b !== void 0 ? _b : new Uint8Array();
-        message.sender = (_c = object.sender) !== null && _c !== void 0 ? _c : new Uint8Array();
+        message.senderBz = (_c = object.senderBz) !== null && _c !== void 0 ? _c : new Uint8Array();
         return message;
     },
 };
@@ -353,12 +353,12 @@ exports.SubmitSignatureResponse = {
     },
 };
 function createBaseRotateKeyRequest() {
-    return { senderStr: "", chain: "", keyId: "", sender: new Uint8Array() };
+    return { sender: "", chain: "", keyId: "", senderBz: new Uint8Array() };
 }
 exports.RotateKeyRequest = {
     encode(message, writer = _m0.Writer.create()) {
-        if (message.senderStr !== "") {
-            writer.uint32(10).string(message.senderStr);
+        if (message.sender !== "") {
+            writer.uint32(10).string(message.sender);
         }
         if (message.chain !== "") {
             writer.uint32(18).string(message.chain);
@@ -366,8 +366,8 @@ exports.RotateKeyRequest = {
         if (message.keyId !== "") {
             writer.uint32(26).string(message.keyId);
         }
-        if (message.sender.length !== 0) {
-            writer.uint32(34).bytes(message.sender);
+        if (message.senderBz.length !== 0) {
+            writer.uint32(34).bytes(message.senderBz);
         }
         return writer;
     },
@@ -379,7 +379,7 @@ exports.RotateKeyRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.senderStr = reader.string();
+                    message.sender = reader.string();
                     break;
                 case 2:
                     message.chain = reader.string();
@@ -388,7 +388,7 @@ exports.RotateKeyRequest = {
                     message.keyId = reader.string();
                     break;
                 case 4:
-                    message.sender = reader.bytes();
+                    message.senderBz = reader.bytes();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -399,28 +399,28 @@ exports.RotateKeyRequest = {
     },
     fromJSON(object) {
         return {
-            senderStr: isSet(object.senderStr) ? String(object.senderStr) : "",
+            sender: isSet(object.sender) ? String(object.sender) : "",
             chain: isSet(object.chain) ? String(object.chain) : "",
             keyId: isSet(object.keyId) ? String(object.keyId) : "",
-            sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+            senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
         };
     },
     toJSON(message) {
         const obj = {};
-        message.senderStr !== undefined && (obj.senderStr = message.senderStr);
+        message.sender !== undefined && (obj.sender = message.sender);
         message.chain !== undefined && (obj.chain = message.chain);
         message.keyId !== undefined && (obj.keyId = message.keyId);
-        message.sender !== undefined &&
-            (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+        message.senderBz !== undefined &&
+            (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
         return obj;
     },
     fromPartial(object) {
         var _a, _b, _c, _d;
         const message = createBaseRotateKeyRequest();
-        message.senderStr = (_a = object.senderStr) !== null && _a !== void 0 ? _a : "";
+        message.sender = (_a = object.sender) !== null && _a !== void 0 ? _a : "";
         message.chain = (_b = object.chain) !== null && _b !== void 0 ? _b : "";
         message.keyId = (_c = object.keyId) !== null && _c !== void 0 ? _c : "";
-        message.sender = (_d = object.sender) !== null && _d !== void 0 ? _d : new Uint8Array();
+        message.senderBz = (_d = object.senderBz) !== null && _d !== void 0 ? _d : new Uint8Array();
         return message;
     },
 };
@@ -458,12 +458,15 @@ exports.RotateKeyResponse = {
     },
 };
 function createBaseKeygenOptOutRequest() {
-    return { sender: new Uint8Array() };
+    return { senderBz: new Uint8Array(), sender: "" };
 }
 exports.KeygenOptOutRequest = {
     encode(message, writer = _m0.Writer.create()) {
-        if (message.sender.length !== 0) {
-            writer.uint32(10).bytes(message.sender);
+        if (message.senderBz.length !== 0) {
+            writer.uint32(10).bytes(message.senderBz);
+        }
+        if (message.sender !== "") {
+            writer.uint32(18).string(message.sender);
         }
         return writer;
     },
@@ -475,7 +478,10 @@ exports.KeygenOptOutRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.sender = reader.bytes();
+                    message.senderBz = reader.bytes();
+                    break;
+                case 2:
+                    message.sender = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -486,19 +492,22 @@ exports.KeygenOptOutRequest = {
     },
     fromJSON(object) {
         return {
-            sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+            senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
+            sender: isSet(object.sender) ? String(object.sender) : "",
         };
     },
     toJSON(message) {
         const obj = {};
-        message.sender !== undefined &&
-            (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+        message.senderBz !== undefined &&
+            (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
+        message.sender !== undefined && (obj.sender = message.sender);
         return obj;
     },
     fromPartial(object) {
-        var _a;
+        var _a, _b;
         const message = createBaseKeygenOptOutRequest();
-        message.sender = (_a = object.sender) !== null && _a !== void 0 ? _a : new Uint8Array();
+        message.senderBz = (_a = object.senderBz) !== null && _a !== void 0 ? _a : new Uint8Array();
+        message.sender = (_b = object.sender) !== null && _b !== void 0 ? _b : "";
         return message;
     },
 };
@@ -536,12 +545,15 @@ exports.KeygenOptOutResponse = {
     },
 };
 function createBaseKeygenOptInRequest() {
-    return { sender: new Uint8Array() };
+    return { senderBz: new Uint8Array(), sender: "" };
 }
 exports.KeygenOptInRequest = {
     encode(message, writer = _m0.Writer.create()) {
-        if (message.sender.length !== 0) {
-            writer.uint32(10).bytes(message.sender);
+        if (message.senderBz.length !== 0) {
+            writer.uint32(10).bytes(message.senderBz);
+        }
+        if (message.sender !== "") {
+            writer.uint32(18).string(message.sender);
         }
         return writer;
     },
@@ -553,7 +565,10 @@ exports.KeygenOptInRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.sender = reader.bytes();
+                    message.senderBz = reader.bytes();
+                    break;
+                case 2:
+                    message.sender = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -564,19 +579,22 @@ exports.KeygenOptInRequest = {
     },
     fromJSON(object) {
         return {
-            sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+            senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
+            sender: isSet(object.sender) ? String(object.sender) : "",
         };
     },
     toJSON(message) {
         const obj = {};
-        message.sender !== undefined &&
-            (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+        message.senderBz !== undefined &&
+            (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
+        message.sender !== undefined && (obj.sender = message.sender);
         return obj;
     },
     fromPartial(object) {
-        var _a;
+        var _a, _b;
         const message = createBaseKeygenOptInRequest();
-        message.sender = (_a = object.sender) !== null && _a !== void 0 ? _a : new Uint8Array();
+        message.senderBz = (_a = object.senderBz) !== null && _a !== void 0 ? _a : new Uint8Array();
+        message.sender = (_b = object.sender) !== null && _b !== void 0 ? _b : "";
         return message;
     },
 };

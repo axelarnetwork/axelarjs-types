@@ -13,62 +13,76 @@ export interface StartKeygenRequest {
 export interface StartKeygenResponse {
 }
 export interface RotateKeyRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
     chain: string;
     keyRole: KeyRole;
     keyId: string;
+    sender: string;
 }
 export interface RotateKeyResponse {
 }
 /** ProcessKeygenTrafficRequest protocol message */
 export interface ProcessKeygenTrafficRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
     sessionId: string;
     payload?: TrafficOut;
+    sender: string;
 }
 export interface ProcessKeygenTrafficResponse {
 }
 /** ProcessSignTrafficRequest protocol message */
 export interface ProcessSignTrafficRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
     sessionId: string;
     payload?: TrafficOut;
+    sender: string;
 }
 export interface ProcessSignTrafficResponse {
 }
 /** VotePubKeyRequest represents the message to vote on a public key */
 export interface VotePubKeyRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
     pollKey?: PollKey;
     result?: MessageOut_KeygenResult;
+    sender: string;
 }
 export interface VotePubKeyResponse {
     log: string;
 }
 /** VoteSigRequest represents a message to vote for a signature */
 export interface VoteSigRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
     pollKey?: PollKey;
     result?: MessageOut_SignResult;
+    sender: string;
 }
 export interface VoteSigResponse {
     log: string;
 }
 export interface HeartBeatRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
     /**
      * Deprecated: this field will be removed in the next release
      *
      * @deprecated
      */
     keyIds: string[];
+    sender: string;
 }
 export interface HeartBeatResponse {
 }
 export interface RegisterExternalKeysRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
     chain: string;
     externalKeys: RegisterExternalKeysRequest_ExternalKey[];
+    sender: string;
 }
 export interface RegisterExternalKeysRequest_ExternalKey {
     id: string;
@@ -77,16 +91,20 @@ export interface RegisterExternalKeysRequest_ExternalKey {
 export interface RegisterExternalKeysResponse {
 }
 export interface SubmitMultisigPubKeysRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
     keyId: string;
     sigKeyPairs: SigKeyPair[];
+    sender: string;
 }
 export interface SubmitMultisigPubKeysResponse {
 }
 export interface SubmitMultisigSignaturesRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
     sigId: string;
     signatures: Uint8Array[];
+    sender: string;
 }
 export interface SubmitMultisigSignaturesResponse {
 }
@@ -128,15 +146,17 @@ export declare const RotateKeyRequest: {
     fromJSON(object: any): RotateKeyRequest;
     toJSON(message: RotateKeyRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chain?: string | undefined;
         keyRole?: KeyRole | undefined;
         keyId?: string | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chain?: string | undefined;
         keyRole?: KeyRole | undefined;
         keyId?: string | undefined;
+        sender?: string | undefined;
     } & Record<Exclude<keyof I, keyof RotateKeyRequest>, never>>(object: I): RotateKeyRequest;
 };
 export declare const RotateKeyResponse: {
@@ -152,15 +172,16 @@ export declare const ProcessKeygenTrafficRequest: {
     fromJSON(object: any): ProcessKeygenTrafficRequest;
     toJSON(message: ProcessKeygenTrafficRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         sessionId?: string | undefined;
         payload?: {
             toPartyUid?: string | undefined;
             payload?: Uint8Array | undefined;
             isBroadcast?: boolean | undefined;
         } | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         sessionId?: string | undefined;
         payload?: ({
             toPartyUid?: string | undefined;
@@ -171,6 +192,7 @@ export declare const ProcessKeygenTrafficRequest: {
             payload?: Uint8Array | undefined;
             isBroadcast?: boolean | undefined;
         } & Record<Exclude<keyof I["payload"], keyof TrafficOut>, never>) | undefined;
+        sender?: string | undefined;
     } & Record<Exclude<keyof I, keyof ProcessKeygenTrafficRequest>, never>>(object: I): ProcessKeygenTrafficRequest;
 };
 export declare const ProcessKeygenTrafficResponse: {
@@ -186,15 +208,16 @@ export declare const ProcessSignTrafficRequest: {
     fromJSON(object: any): ProcessSignTrafficRequest;
     toJSON(message: ProcessSignTrafficRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         sessionId?: string | undefined;
         payload?: {
             toPartyUid?: string | undefined;
             payload?: Uint8Array | undefined;
             isBroadcast?: boolean | undefined;
         } | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         sessionId?: string | undefined;
         payload?: ({
             toPartyUid?: string | undefined;
@@ -205,6 +228,7 @@ export declare const ProcessSignTrafficRequest: {
             payload?: Uint8Array | undefined;
             isBroadcast?: boolean | undefined;
         } & Record<Exclude<keyof I["payload"], keyof TrafficOut>, never>) | undefined;
+        sender?: string | undefined;
     } & Record<Exclude<keyof I, keyof ProcessSignTrafficRequest>, never>>(object: I): ProcessSignTrafficRequest;
 };
 export declare const ProcessSignTrafficResponse: {
@@ -220,7 +244,7 @@ export declare const VotePubKeyRequest: {
     fromJSON(object: any): VotePubKeyRequest;
     toJSON(message: VotePubKeyRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         pollKey?: {
             module?: string | undefined;
             id?: string | undefined;
@@ -238,8 +262,9 @@ export declare const VotePubKeyRequest: {
                 }[] | undefined;
             } | undefined;
         } | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         pollKey?: ({
             module?: string | undefined;
             id?: string | undefined;
@@ -290,6 +315,7 @@ export declare const VotePubKeyRequest: {
                 }[]>, never>) | undefined;
             } & Record<Exclude<keyof I["result"]["criminals"], "criminals">, never>) | undefined;
         } & Record<Exclude<keyof I["result"], keyof MessageOut_KeygenResult>, never>) | undefined;
+        sender?: string | undefined;
     } & Record<Exclude<keyof I, keyof VotePubKeyRequest>, never>>(object: I): VotePubKeyRequest;
 };
 export declare const VotePubKeyResponse: {
@@ -309,7 +335,7 @@ export declare const VoteSigRequest: {
     fromJSON(object: any): VoteSigRequest;
     toJSON(message: VoteSigRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         pollKey?: {
             module?: string | undefined;
             id?: string | undefined;
@@ -323,8 +349,9 @@ export declare const VoteSigRequest: {
                 }[] | undefined;
             } | undefined;
         } | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         pollKey?: ({
             module?: string | undefined;
             id?: string | undefined;
@@ -363,6 +390,7 @@ export declare const VoteSigRequest: {
                 }[]>, never>) | undefined;
             } & Record<Exclude<keyof I["result"]["criminals"], "criminals">, never>) | undefined;
         } & Record<Exclude<keyof I["result"], keyof MessageOut_SignResult>, never>) | undefined;
+        sender?: string | undefined;
     } & Record<Exclude<keyof I, keyof VoteSigRequest>, never>>(object: I): VoteSigRequest;
 };
 export declare const VoteSigResponse: {
@@ -382,11 +410,13 @@ export declare const HeartBeatRequest: {
     fromJSON(object: any): HeartBeatRequest;
     toJSON(message: HeartBeatRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         keyIds?: string[] | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         keyIds?: (string[] & string[] & Record<Exclude<keyof I["keyIds"], keyof string[]>, never>) | undefined;
+        sender?: string | undefined;
     } & Record<Exclude<keyof I, keyof HeartBeatRequest>, never>>(object: I): HeartBeatRequest;
 };
 export declare const HeartBeatResponse: {
@@ -402,14 +432,15 @@ export declare const RegisterExternalKeysRequest: {
     fromJSON(object: any): RegisterExternalKeysRequest;
     toJSON(message: RegisterExternalKeysRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chain?: string | undefined;
         externalKeys?: {
             id?: string | undefined;
             pubKey?: Uint8Array | undefined;
         }[] | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chain?: string | undefined;
         externalKeys?: ({
             id?: string | undefined;
@@ -424,6 +455,7 @@ export declare const RegisterExternalKeysRequest: {
             id?: string | undefined;
             pubKey?: Uint8Array | undefined;
         }[]>, never>) | undefined;
+        sender?: string | undefined;
     } & Record<Exclude<keyof I, keyof RegisterExternalKeysRequest>, never>>(object: I): RegisterExternalKeysRequest;
 };
 export declare const RegisterExternalKeysRequest_ExternalKey: {
@@ -452,14 +484,15 @@ export declare const SubmitMultisigPubKeysRequest: {
     fromJSON(object: any): SubmitMultisigPubKeysRequest;
     toJSON(message: SubmitMultisigPubKeysRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         keyId?: string | undefined;
         sigKeyPairs?: {
             pubKey?: Uint8Array | undefined;
             signature?: Uint8Array | undefined;
         }[] | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         keyId?: string | undefined;
         sigKeyPairs?: ({
             pubKey?: Uint8Array | undefined;
@@ -474,6 +507,7 @@ export declare const SubmitMultisigPubKeysRequest: {
             pubKey?: Uint8Array | undefined;
             signature?: Uint8Array | undefined;
         }[]>, never>) | undefined;
+        sender?: string | undefined;
     } & Record<Exclude<keyof I, keyof SubmitMultisigPubKeysRequest>, never>>(object: I): SubmitMultisigPubKeysRequest;
 };
 export declare const SubmitMultisigPubKeysResponse: {
@@ -489,13 +523,15 @@ export declare const SubmitMultisigSignaturesRequest: {
     fromJSON(object: any): SubmitMultisigSignaturesRequest;
     toJSON(message: SubmitMultisigSignaturesRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         sigId?: string | undefined;
         signatures?: Uint8Array[] | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         sigId?: string | undefined;
         signatures?: (Uint8Array[] & Uint8Array[] & Record<Exclude<keyof I["signatures"], keyof Uint8Array[]>, never>) | undefined;
+        sender?: string | undefined;
     } & Record<Exclude<keyof I, keyof SubmitMultisigSignaturesRequest>, never>>(object: I): SubmitMultisigSignaturesRequest;
 };
 export declare const SubmitMultisigSignaturesResponse: {

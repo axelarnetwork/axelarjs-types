@@ -122,12 +122,12 @@ exports.StartKeygenResponse = {
     },
 };
 function createBaseRotateKeyRequest() {
-    return { sender: new Uint8Array(), chain: "", keyRole: 0, keyId: "" };
+    return { senderBz: new Uint8Array(), chain: "", keyRole: 0, keyId: "", sender: "" };
 }
 exports.RotateKeyRequest = {
     encode(message, writer = _m0.Writer.create()) {
-        if (message.sender.length !== 0) {
-            writer.uint32(10).bytes(message.sender);
+        if (message.senderBz.length !== 0) {
+            writer.uint32(10).bytes(message.senderBz);
         }
         if (message.chain !== "") {
             writer.uint32(18).string(message.chain);
@@ -137,6 +137,9 @@ exports.RotateKeyRequest = {
         }
         if (message.keyId !== "") {
             writer.uint32(34).string(message.keyId);
+        }
+        if (message.sender !== "") {
+            writer.uint32(42).string(message.sender);
         }
         return writer;
     },
@@ -148,7 +151,7 @@ exports.RotateKeyRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.sender = reader.bytes();
+                    message.senderBz = reader.bytes();
                     break;
                 case 2:
                     message.chain = reader.string();
@@ -159,6 +162,9 @@ exports.RotateKeyRequest = {
                 case 4:
                     message.keyId = reader.string();
                     break;
+                case 5:
+                    message.sender = reader.string();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -168,28 +174,31 @@ exports.RotateKeyRequest = {
     },
     fromJSON(object) {
         return {
-            sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+            senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
             chain: isSet(object.chain) ? String(object.chain) : "",
             keyRole: isSet(object.keyRole) ? (0, types_2.keyRoleFromJSON)(object.keyRole) : 0,
             keyId: isSet(object.keyId) ? String(object.keyId) : "",
+            sender: isSet(object.sender) ? String(object.sender) : "",
         };
     },
     toJSON(message) {
         const obj = {};
-        message.sender !== undefined &&
-            (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+        message.senderBz !== undefined &&
+            (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
         message.chain !== undefined && (obj.chain = message.chain);
         message.keyRole !== undefined && (obj.keyRole = (0, types_2.keyRoleToJSON)(message.keyRole));
         message.keyId !== undefined && (obj.keyId = message.keyId);
+        message.sender !== undefined && (obj.sender = message.sender);
         return obj;
     },
     fromPartial(object) {
-        var _a, _b, _c, _d;
+        var _a, _b, _c, _d, _e;
         const message = createBaseRotateKeyRequest();
-        message.sender = (_a = object.sender) !== null && _a !== void 0 ? _a : new Uint8Array();
+        message.senderBz = (_a = object.senderBz) !== null && _a !== void 0 ? _a : new Uint8Array();
         message.chain = (_b = object.chain) !== null && _b !== void 0 ? _b : "";
         message.keyRole = (_c = object.keyRole) !== null && _c !== void 0 ? _c : 0;
         message.keyId = (_d = object.keyId) !== null && _d !== void 0 ? _d : "";
+        message.sender = (_e = object.sender) !== null && _e !== void 0 ? _e : "";
         return message;
     },
 };
@@ -227,18 +236,21 @@ exports.RotateKeyResponse = {
     },
 };
 function createBaseProcessKeygenTrafficRequest() {
-    return { sender: new Uint8Array(), sessionId: "", payload: undefined };
+    return { senderBz: new Uint8Array(), sessionId: "", payload: undefined, sender: "" };
 }
 exports.ProcessKeygenTrafficRequest = {
     encode(message, writer = _m0.Writer.create()) {
-        if (message.sender.length !== 0) {
-            writer.uint32(10).bytes(message.sender);
+        if (message.senderBz.length !== 0) {
+            writer.uint32(10).bytes(message.senderBz);
         }
         if (message.sessionId !== "") {
             writer.uint32(18).string(message.sessionId);
         }
         if (message.payload !== undefined) {
             tofnd_1.TrafficOut.encode(message.payload, writer.uint32(26).fork()).ldelim();
+        }
+        if (message.sender !== "") {
+            writer.uint32(34).string(message.sender);
         }
         return writer;
     },
@@ -250,13 +262,16 @@ exports.ProcessKeygenTrafficRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.sender = reader.bytes();
+                    message.senderBz = reader.bytes();
                     break;
                 case 2:
                     message.sessionId = reader.string();
                     break;
                 case 3:
                     message.payload = tofnd_1.TrafficOut.decode(reader, reader.uint32());
+                    break;
+                case 4:
+                    message.sender = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -267,29 +282,32 @@ exports.ProcessKeygenTrafficRequest = {
     },
     fromJSON(object) {
         return {
-            sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+            senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
             sessionId: isSet(object.sessionId) ? String(object.sessionId) : "",
             payload: isSet(object.payload) ? tofnd_1.TrafficOut.fromJSON(object.payload) : undefined,
+            sender: isSet(object.sender) ? String(object.sender) : "",
         };
     },
     toJSON(message) {
         const obj = {};
-        message.sender !== undefined &&
-            (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+        message.senderBz !== undefined &&
+            (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
         message.sessionId !== undefined && (obj.sessionId = message.sessionId);
         message.payload !== undefined &&
             (obj.payload = message.payload ? tofnd_1.TrafficOut.toJSON(message.payload) : undefined);
+        message.sender !== undefined && (obj.sender = message.sender);
         return obj;
     },
     fromPartial(object) {
-        var _a, _b;
+        var _a, _b, _c;
         const message = createBaseProcessKeygenTrafficRequest();
-        message.sender = (_a = object.sender) !== null && _a !== void 0 ? _a : new Uint8Array();
+        message.senderBz = (_a = object.senderBz) !== null && _a !== void 0 ? _a : new Uint8Array();
         message.sessionId = (_b = object.sessionId) !== null && _b !== void 0 ? _b : "";
         message.payload =
             object.payload !== undefined && object.payload !== null
                 ? tofnd_1.TrafficOut.fromPartial(object.payload)
                 : undefined;
+        message.sender = (_c = object.sender) !== null && _c !== void 0 ? _c : "";
         return message;
     },
 };
@@ -327,18 +345,21 @@ exports.ProcessKeygenTrafficResponse = {
     },
 };
 function createBaseProcessSignTrafficRequest() {
-    return { sender: new Uint8Array(), sessionId: "", payload: undefined };
+    return { senderBz: new Uint8Array(), sessionId: "", payload: undefined, sender: "" };
 }
 exports.ProcessSignTrafficRequest = {
     encode(message, writer = _m0.Writer.create()) {
-        if (message.sender.length !== 0) {
-            writer.uint32(10).bytes(message.sender);
+        if (message.senderBz.length !== 0) {
+            writer.uint32(10).bytes(message.senderBz);
         }
         if (message.sessionId !== "") {
             writer.uint32(18).string(message.sessionId);
         }
         if (message.payload !== undefined) {
             tofnd_1.TrafficOut.encode(message.payload, writer.uint32(26).fork()).ldelim();
+        }
+        if (message.sender !== "") {
+            writer.uint32(34).string(message.sender);
         }
         return writer;
     },
@@ -350,13 +371,16 @@ exports.ProcessSignTrafficRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.sender = reader.bytes();
+                    message.senderBz = reader.bytes();
                     break;
                 case 2:
                     message.sessionId = reader.string();
                     break;
                 case 3:
                     message.payload = tofnd_1.TrafficOut.decode(reader, reader.uint32());
+                    break;
+                case 4:
+                    message.sender = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -367,29 +391,32 @@ exports.ProcessSignTrafficRequest = {
     },
     fromJSON(object) {
         return {
-            sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+            senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
             sessionId: isSet(object.sessionId) ? String(object.sessionId) : "",
             payload: isSet(object.payload) ? tofnd_1.TrafficOut.fromJSON(object.payload) : undefined,
+            sender: isSet(object.sender) ? String(object.sender) : "",
         };
     },
     toJSON(message) {
         const obj = {};
-        message.sender !== undefined &&
-            (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+        message.senderBz !== undefined &&
+            (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
         message.sessionId !== undefined && (obj.sessionId = message.sessionId);
         message.payload !== undefined &&
             (obj.payload = message.payload ? tofnd_1.TrafficOut.toJSON(message.payload) : undefined);
+        message.sender !== undefined && (obj.sender = message.sender);
         return obj;
     },
     fromPartial(object) {
-        var _a, _b;
+        var _a, _b, _c;
         const message = createBaseProcessSignTrafficRequest();
-        message.sender = (_a = object.sender) !== null && _a !== void 0 ? _a : new Uint8Array();
+        message.senderBz = (_a = object.senderBz) !== null && _a !== void 0 ? _a : new Uint8Array();
         message.sessionId = (_b = object.sessionId) !== null && _b !== void 0 ? _b : "";
         message.payload =
             object.payload !== undefined && object.payload !== null
                 ? tofnd_1.TrafficOut.fromPartial(object.payload)
                 : undefined;
+        message.sender = (_c = object.sender) !== null && _c !== void 0 ? _c : "";
         return message;
     },
 };
@@ -427,18 +454,21 @@ exports.ProcessSignTrafficResponse = {
     },
 };
 function createBaseVotePubKeyRequest() {
-    return { sender: new Uint8Array(), pollKey: undefined, result: undefined };
+    return { senderBz: new Uint8Array(), pollKey: undefined, result: undefined, sender: "" };
 }
 exports.VotePubKeyRequest = {
     encode(message, writer = _m0.Writer.create()) {
-        if (message.sender.length !== 0) {
-            writer.uint32(10).bytes(message.sender);
+        if (message.senderBz.length !== 0) {
+            writer.uint32(10).bytes(message.senderBz);
         }
         if (message.pollKey !== undefined) {
             types_3.PollKey.encode(message.pollKey, writer.uint32(18).fork()).ldelim();
         }
         if (message.result !== undefined) {
             tofnd_1.MessageOut_KeygenResult.encode(message.result, writer.uint32(26).fork()).ldelim();
+        }
+        if (message.sender !== "") {
+            writer.uint32(34).string(message.sender);
         }
         return writer;
     },
@@ -450,13 +480,16 @@ exports.VotePubKeyRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.sender = reader.bytes();
+                    message.senderBz = reader.bytes();
                     break;
                 case 2:
                     message.pollKey = types_3.PollKey.decode(reader, reader.uint32());
                     break;
                 case 3:
                     message.result = tofnd_1.MessageOut_KeygenResult.decode(reader, reader.uint32());
+                    break;
+                case 4:
+                    message.sender = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -467,25 +500,27 @@ exports.VotePubKeyRequest = {
     },
     fromJSON(object) {
         return {
-            sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+            senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
             pollKey: isSet(object.pollKey) ? types_3.PollKey.fromJSON(object.pollKey) : undefined,
             result: isSet(object.result) ? tofnd_1.MessageOut_KeygenResult.fromJSON(object.result) : undefined,
+            sender: isSet(object.sender) ? String(object.sender) : "",
         };
     },
     toJSON(message) {
         const obj = {};
-        message.sender !== undefined &&
-            (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+        message.senderBz !== undefined &&
+            (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
         message.pollKey !== undefined &&
             (obj.pollKey = message.pollKey ? types_3.PollKey.toJSON(message.pollKey) : undefined);
         message.result !== undefined &&
             (obj.result = message.result ? tofnd_1.MessageOut_KeygenResult.toJSON(message.result) : undefined);
+        message.sender !== undefined && (obj.sender = message.sender);
         return obj;
     },
     fromPartial(object) {
-        var _a;
+        var _a, _b;
         const message = createBaseVotePubKeyRequest();
-        message.sender = (_a = object.sender) !== null && _a !== void 0 ? _a : new Uint8Array();
+        message.senderBz = (_a = object.senderBz) !== null && _a !== void 0 ? _a : new Uint8Array();
         message.pollKey =
             object.pollKey !== undefined && object.pollKey !== null
                 ? types_3.PollKey.fromPartial(object.pollKey)
@@ -494,6 +529,7 @@ exports.VotePubKeyRequest = {
             object.result !== undefined && object.result !== null
                 ? tofnd_1.MessageOut_KeygenResult.fromPartial(object.result)
                 : undefined;
+        message.sender = (_b = object.sender) !== null && _b !== void 0 ? _b : "";
         return message;
     },
 };
@@ -542,18 +578,21 @@ exports.VotePubKeyResponse = {
     },
 };
 function createBaseVoteSigRequest() {
-    return { sender: new Uint8Array(), pollKey: undefined, result: undefined };
+    return { senderBz: new Uint8Array(), pollKey: undefined, result: undefined, sender: "" };
 }
 exports.VoteSigRequest = {
     encode(message, writer = _m0.Writer.create()) {
-        if (message.sender.length !== 0) {
-            writer.uint32(10).bytes(message.sender);
+        if (message.senderBz.length !== 0) {
+            writer.uint32(10).bytes(message.senderBz);
         }
         if (message.pollKey !== undefined) {
             types_3.PollKey.encode(message.pollKey, writer.uint32(18).fork()).ldelim();
         }
         if (message.result !== undefined) {
             tofnd_1.MessageOut_SignResult.encode(message.result, writer.uint32(26).fork()).ldelim();
+        }
+        if (message.sender !== "") {
+            writer.uint32(34).string(message.sender);
         }
         return writer;
     },
@@ -565,13 +604,16 @@ exports.VoteSigRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.sender = reader.bytes();
+                    message.senderBz = reader.bytes();
                     break;
                 case 2:
                     message.pollKey = types_3.PollKey.decode(reader, reader.uint32());
                     break;
                 case 3:
                     message.result = tofnd_1.MessageOut_SignResult.decode(reader, reader.uint32());
+                    break;
+                case 4:
+                    message.sender = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -582,25 +624,27 @@ exports.VoteSigRequest = {
     },
     fromJSON(object) {
         return {
-            sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+            senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
             pollKey: isSet(object.pollKey) ? types_3.PollKey.fromJSON(object.pollKey) : undefined,
             result: isSet(object.result) ? tofnd_1.MessageOut_SignResult.fromJSON(object.result) : undefined,
+            sender: isSet(object.sender) ? String(object.sender) : "",
         };
     },
     toJSON(message) {
         const obj = {};
-        message.sender !== undefined &&
-            (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+        message.senderBz !== undefined &&
+            (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
         message.pollKey !== undefined &&
             (obj.pollKey = message.pollKey ? types_3.PollKey.toJSON(message.pollKey) : undefined);
         message.result !== undefined &&
             (obj.result = message.result ? tofnd_1.MessageOut_SignResult.toJSON(message.result) : undefined);
+        message.sender !== undefined && (obj.sender = message.sender);
         return obj;
     },
     fromPartial(object) {
-        var _a;
+        var _a, _b;
         const message = createBaseVoteSigRequest();
-        message.sender = (_a = object.sender) !== null && _a !== void 0 ? _a : new Uint8Array();
+        message.senderBz = (_a = object.senderBz) !== null && _a !== void 0 ? _a : new Uint8Array();
         message.pollKey =
             object.pollKey !== undefined && object.pollKey !== null
                 ? types_3.PollKey.fromPartial(object.pollKey)
@@ -609,6 +653,7 @@ exports.VoteSigRequest = {
             object.result !== undefined && object.result !== null
                 ? tofnd_1.MessageOut_SignResult.fromPartial(object.result)
                 : undefined;
+        message.sender = (_b = object.sender) !== null && _b !== void 0 ? _b : "";
         return message;
     },
 };
@@ -657,15 +702,18 @@ exports.VoteSigResponse = {
     },
 };
 function createBaseHeartBeatRequest() {
-    return { sender: new Uint8Array(), keyIds: [] };
+    return { senderBz: new Uint8Array(), keyIds: [], sender: "" };
 }
 exports.HeartBeatRequest = {
     encode(message, writer = _m0.Writer.create()) {
-        if (message.sender.length !== 0) {
-            writer.uint32(10).bytes(message.sender);
+        if (message.senderBz.length !== 0) {
+            writer.uint32(10).bytes(message.senderBz);
         }
         for (const v of message.keyIds) {
             writer.uint32(18).string(v);
+        }
+        if (message.sender !== "") {
+            writer.uint32(26).string(message.sender);
         }
         return writer;
     },
@@ -677,10 +725,13 @@ exports.HeartBeatRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.sender = reader.bytes();
+                    message.senderBz = reader.bytes();
                     break;
                 case 2:
                     message.keyIds.push(reader.string());
+                    break;
+                case 3:
+                    message.sender = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -691,27 +742,30 @@ exports.HeartBeatRequest = {
     },
     fromJSON(object) {
         return {
-            sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+            senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
             keyIds: Array.isArray(object === null || object === void 0 ? void 0 : object.keyIds) ? object.keyIds.map((e) => String(e)) : [],
+            sender: isSet(object.sender) ? String(object.sender) : "",
         };
     },
     toJSON(message) {
         const obj = {};
-        message.sender !== undefined &&
-            (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+        message.senderBz !== undefined &&
+            (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
         if (message.keyIds) {
             obj.keyIds = message.keyIds.map((e) => e);
         }
         else {
             obj.keyIds = [];
         }
+        message.sender !== undefined && (obj.sender = message.sender);
         return obj;
     },
     fromPartial(object) {
-        var _a, _b;
+        var _a, _b, _c;
         const message = createBaseHeartBeatRequest();
-        message.sender = (_a = object.sender) !== null && _a !== void 0 ? _a : new Uint8Array();
+        message.senderBz = (_a = object.senderBz) !== null && _a !== void 0 ? _a : new Uint8Array();
         message.keyIds = ((_b = object.keyIds) === null || _b === void 0 ? void 0 : _b.map((e) => e)) || [];
+        message.sender = (_c = object.sender) !== null && _c !== void 0 ? _c : "";
         return message;
     },
 };
@@ -749,18 +803,21 @@ exports.HeartBeatResponse = {
     },
 };
 function createBaseRegisterExternalKeysRequest() {
-    return { sender: new Uint8Array(), chain: "", externalKeys: [] };
+    return { senderBz: new Uint8Array(), chain: "", externalKeys: [], sender: "" };
 }
 exports.RegisterExternalKeysRequest = {
     encode(message, writer = _m0.Writer.create()) {
-        if (message.sender.length !== 0) {
-            writer.uint32(10).bytes(message.sender);
+        if (message.senderBz.length !== 0) {
+            writer.uint32(10).bytes(message.senderBz);
         }
         if (message.chain !== "") {
             writer.uint32(18).string(message.chain);
         }
         for (const v of message.externalKeys) {
             exports.RegisterExternalKeysRequest_ExternalKey.encode(v, writer.uint32(26).fork()).ldelim();
+        }
+        if (message.sender !== "") {
+            writer.uint32(34).string(message.sender);
         }
         return writer;
     },
@@ -772,13 +829,16 @@ exports.RegisterExternalKeysRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.sender = reader.bytes();
+                    message.senderBz = reader.bytes();
                     break;
                 case 2:
                     message.chain = reader.string();
                     break;
                 case 3:
                     message.externalKeys.push(exports.RegisterExternalKeysRequest_ExternalKey.decode(reader, reader.uint32()));
+                    break;
+                case 4:
+                    message.sender = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -789,17 +849,18 @@ exports.RegisterExternalKeysRequest = {
     },
     fromJSON(object) {
         return {
-            sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+            senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
             chain: isSet(object.chain) ? String(object.chain) : "",
             externalKeys: Array.isArray(object === null || object === void 0 ? void 0 : object.externalKeys)
                 ? object.externalKeys.map((e) => exports.RegisterExternalKeysRequest_ExternalKey.fromJSON(e))
                 : [],
+            sender: isSet(object.sender) ? String(object.sender) : "",
         };
     },
     toJSON(message) {
         const obj = {};
-        message.sender !== undefined &&
-            (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+        message.senderBz !== undefined &&
+            (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
         message.chain !== undefined && (obj.chain = message.chain);
         if (message.externalKeys) {
             obj.externalKeys = message.externalKeys.map((e) => e ? exports.RegisterExternalKeysRequest_ExternalKey.toJSON(e) : undefined);
@@ -807,15 +868,17 @@ exports.RegisterExternalKeysRequest = {
         else {
             obj.externalKeys = [];
         }
+        message.sender !== undefined && (obj.sender = message.sender);
         return obj;
     },
     fromPartial(object) {
-        var _a, _b, _c;
+        var _a, _b, _c, _d;
         const message = createBaseRegisterExternalKeysRequest();
-        message.sender = (_a = object.sender) !== null && _a !== void 0 ? _a : new Uint8Array();
+        message.senderBz = (_a = object.senderBz) !== null && _a !== void 0 ? _a : new Uint8Array();
         message.chain = (_b = object.chain) !== null && _b !== void 0 ? _b : "";
         message.externalKeys =
             ((_c = object.externalKeys) === null || _c === void 0 ? void 0 : _c.map((e) => exports.RegisterExternalKeysRequest_ExternalKey.fromPartial(e))) || [];
+        message.sender = (_d = object.sender) !== null && _d !== void 0 ? _d : "";
         return message;
     },
 };
@@ -907,18 +970,21 @@ exports.RegisterExternalKeysResponse = {
     },
 };
 function createBaseSubmitMultisigPubKeysRequest() {
-    return { sender: new Uint8Array(), keyId: "", sigKeyPairs: [] };
+    return { senderBz: new Uint8Array(), keyId: "", sigKeyPairs: [], sender: "" };
 }
 exports.SubmitMultisigPubKeysRequest = {
     encode(message, writer = _m0.Writer.create()) {
-        if (message.sender.length !== 0) {
-            writer.uint32(10).bytes(message.sender);
+        if (message.senderBz.length !== 0) {
+            writer.uint32(10).bytes(message.senderBz);
         }
         if (message.keyId !== "") {
             writer.uint32(18).string(message.keyId);
         }
         for (const v of message.sigKeyPairs) {
             types_2.SigKeyPair.encode(v, writer.uint32(26).fork()).ldelim();
+        }
+        if (message.sender !== "") {
+            writer.uint32(34).string(message.sender);
         }
         return writer;
     },
@@ -930,13 +996,16 @@ exports.SubmitMultisigPubKeysRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.sender = reader.bytes();
+                    message.senderBz = reader.bytes();
                     break;
                 case 2:
                     message.keyId = reader.string();
                     break;
                 case 3:
                     message.sigKeyPairs.push(types_2.SigKeyPair.decode(reader, reader.uint32()));
+                    break;
+                case 4:
+                    message.sender = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -947,17 +1016,18 @@ exports.SubmitMultisigPubKeysRequest = {
     },
     fromJSON(object) {
         return {
-            sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+            senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
             keyId: isSet(object.keyId) ? String(object.keyId) : "",
             sigKeyPairs: Array.isArray(object === null || object === void 0 ? void 0 : object.sigKeyPairs)
                 ? object.sigKeyPairs.map((e) => types_2.SigKeyPair.fromJSON(e))
                 : [],
+            sender: isSet(object.sender) ? String(object.sender) : "",
         };
     },
     toJSON(message) {
         const obj = {};
-        message.sender !== undefined &&
-            (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+        message.senderBz !== undefined &&
+            (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
         message.keyId !== undefined && (obj.keyId = message.keyId);
         if (message.sigKeyPairs) {
             obj.sigKeyPairs = message.sigKeyPairs.map((e) => (e ? types_2.SigKeyPair.toJSON(e) : undefined));
@@ -965,14 +1035,16 @@ exports.SubmitMultisigPubKeysRequest = {
         else {
             obj.sigKeyPairs = [];
         }
+        message.sender !== undefined && (obj.sender = message.sender);
         return obj;
     },
     fromPartial(object) {
-        var _a, _b, _c;
+        var _a, _b, _c, _d;
         const message = createBaseSubmitMultisigPubKeysRequest();
-        message.sender = (_a = object.sender) !== null && _a !== void 0 ? _a : new Uint8Array();
+        message.senderBz = (_a = object.senderBz) !== null && _a !== void 0 ? _a : new Uint8Array();
         message.keyId = (_b = object.keyId) !== null && _b !== void 0 ? _b : "";
         message.sigKeyPairs = ((_c = object.sigKeyPairs) === null || _c === void 0 ? void 0 : _c.map((e) => types_2.SigKeyPair.fromPartial(e))) || [];
+        message.sender = (_d = object.sender) !== null && _d !== void 0 ? _d : "";
         return message;
     },
 };
@@ -1010,18 +1082,21 @@ exports.SubmitMultisigPubKeysResponse = {
     },
 };
 function createBaseSubmitMultisigSignaturesRequest() {
-    return { sender: new Uint8Array(), sigId: "", signatures: [] };
+    return { senderBz: new Uint8Array(), sigId: "", signatures: [], sender: "" };
 }
 exports.SubmitMultisigSignaturesRequest = {
     encode(message, writer = _m0.Writer.create()) {
-        if (message.sender.length !== 0) {
-            writer.uint32(10).bytes(message.sender);
+        if (message.senderBz.length !== 0) {
+            writer.uint32(10).bytes(message.senderBz);
         }
         if (message.sigId !== "") {
             writer.uint32(18).string(message.sigId);
         }
         for (const v of message.signatures) {
             writer.uint32(26).bytes(v);
+        }
+        if (message.sender !== "") {
+            writer.uint32(34).string(message.sender);
         }
         return writer;
     },
@@ -1033,13 +1108,16 @@ exports.SubmitMultisigSignaturesRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.sender = reader.bytes();
+                    message.senderBz = reader.bytes();
                     break;
                 case 2:
                     message.sigId = reader.string();
                     break;
                 case 3:
                     message.signatures.push(reader.bytes());
+                    break;
+                case 4:
+                    message.sender = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -1050,17 +1128,18 @@ exports.SubmitMultisigSignaturesRequest = {
     },
     fromJSON(object) {
         return {
-            sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+            senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
             sigId: isSet(object.sigId) ? String(object.sigId) : "",
             signatures: Array.isArray(object === null || object === void 0 ? void 0 : object.signatures)
                 ? object.signatures.map((e) => bytesFromBase64(e))
                 : [],
+            sender: isSet(object.sender) ? String(object.sender) : "",
         };
     },
     toJSON(message) {
         const obj = {};
-        message.sender !== undefined &&
-            (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+        message.senderBz !== undefined &&
+            (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
         message.sigId !== undefined && (obj.sigId = message.sigId);
         if (message.signatures) {
             obj.signatures = message.signatures.map((e) => base64FromBytes(e !== undefined ? e : new Uint8Array()));
@@ -1068,14 +1147,16 @@ exports.SubmitMultisigSignaturesRequest = {
         else {
             obj.signatures = [];
         }
+        message.sender !== undefined && (obj.sender = message.sender);
         return obj;
     },
     fromPartial(object) {
-        var _a, _b, _c;
+        var _a, _b, _c, _d;
         const message = createBaseSubmitMultisigSignaturesRequest();
-        message.sender = (_a = object.sender) !== null && _a !== void 0 ? _a : new Uint8Array();
+        message.senderBz = (_a = object.senderBz) !== null && _a !== void 0 ? _a : new Uint8Array();
         message.sigId = (_b = object.sigId) !== null && _b !== void 0 ? _b : "";
         message.signatures = ((_c = object.signatures) === null || _c === void 0 ? void 0 : _c.map((e) => e)) || [];
+        message.sender = (_d = object.sender) !== null && _d !== void 0 ? _d : "";
         return message;
     },
 };

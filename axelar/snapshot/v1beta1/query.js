@@ -22,12 +22,51 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ParamsResponse = exports.ParamsRequest = exports.QueryValidatorsResponse_Validator = exports.QueryValidatorsResponse_TssIllegibilityInfo = exports.QueryValidatorsResponse = exports.protobufPackage = void 0;
+exports.ProxyByOperatorResponse = exports.ProxyByOperatorRequest = exports.OperatorByProxyResponse = exports.OperatorByProxyRequest = exports.ParamsResponse = exports.ParamsRequest = exports.QueryValidatorsResponse_Validator = exports.QueryValidatorsResponse_TssIllegibilityInfo = exports.QueryValidatorsResponse = exports.proxyByOperatorResponse_StatusToJSON = exports.proxyByOperatorResponse_StatusFromJSON = exports.ProxyByOperatorResponse_Status = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
 const params_1 = require("../../../axelar/snapshot/v1beta1/params");
 exports.protobufPackage = "axelar.snapshot.v1beta1";
+var ProxyByOperatorResponse_Status;
+(function (ProxyByOperatorResponse_Status) {
+    ProxyByOperatorResponse_Status[ProxyByOperatorResponse_Status["STATUS_UNSPECIFIED"] = 0] = "STATUS_UNSPECIFIED";
+    ProxyByOperatorResponse_Status[ProxyByOperatorResponse_Status["STATUS_ACTIVE"] = 1] = "STATUS_ACTIVE";
+    ProxyByOperatorResponse_Status[ProxyByOperatorResponse_Status["STATUS_INACTIVE"] = 2] = "STATUS_INACTIVE";
+    ProxyByOperatorResponse_Status[ProxyByOperatorResponse_Status["UNRECOGNIZED"] = -1] = "UNRECOGNIZED";
+})(ProxyByOperatorResponse_Status = exports.ProxyByOperatorResponse_Status || (exports.ProxyByOperatorResponse_Status = {}));
+function proxyByOperatorResponse_StatusFromJSON(object) {
+    switch (object) {
+        case 0:
+        case "STATUS_UNSPECIFIED":
+            return ProxyByOperatorResponse_Status.STATUS_UNSPECIFIED;
+        case 1:
+        case "STATUS_ACTIVE":
+            return ProxyByOperatorResponse_Status.STATUS_ACTIVE;
+        case 2:
+        case "STATUS_INACTIVE":
+            return ProxyByOperatorResponse_Status.STATUS_INACTIVE;
+        case -1:
+        case "UNRECOGNIZED":
+        default:
+            return ProxyByOperatorResponse_Status.UNRECOGNIZED;
+    }
+}
+exports.proxyByOperatorResponse_StatusFromJSON = proxyByOperatorResponse_StatusFromJSON;
+function proxyByOperatorResponse_StatusToJSON(object) {
+    switch (object) {
+        case ProxyByOperatorResponse_Status.STATUS_UNSPECIFIED:
+            return "STATUS_UNSPECIFIED";
+        case ProxyByOperatorResponse_Status.STATUS_ACTIVE:
+            return "STATUS_ACTIVE";
+        case ProxyByOperatorResponse_Status.STATUS_INACTIVE:
+            return "STATUS_INACTIVE";
+        case ProxyByOperatorResponse_Status.UNRECOGNIZED:
+        default:
+            return "UNRECOGNIZED";
+    }
+}
+exports.proxyByOperatorResponse_StatusToJSON = proxyByOperatorResponse_StatusToJSON;
 function createBaseQueryValidatorsResponse() {
     return { validators: [] };
 }
@@ -333,6 +372,191 @@ exports.ParamsResponse = {
         const message = createBaseParamsResponse();
         message.params =
             object.params !== undefined && object.params !== null ? params_1.Params.fromPartial(object.params) : undefined;
+        return message;
+    },
+};
+function createBaseOperatorByProxyRequest() {
+    return { proxyAddress: "" };
+}
+exports.OperatorByProxyRequest = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.proxyAddress !== "") {
+            writer.uint32(10).string(message.proxyAddress);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseOperatorByProxyRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.proxyAddress = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            proxyAddress: isSet(object.proxyAddress) ? String(object.proxyAddress) : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.proxyAddress !== undefined && (obj.proxyAddress = message.proxyAddress);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseOperatorByProxyRequest();
+        message.proxyAddress = (_a = object.proxyAddress) !== null && _a !== void 0 ? _a : "";
+        return message;
+    },
+};
+function createBaseOperatorByProxyResponse() {
+    return { operatorAddress: "" };
+}
+exports.OperatorByProxyResponse = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.operatorAddress !== "") {
+            writer.uint32(10).string(message.operatorAddress);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseOperatorByProxyResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.operatorAddress = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            operatorAddress: isSet(object.operatorAddress) ? String(object.operatorAddress) : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.operatorAddress !== undefined && (obj.operatorAddress = message.operatorAddress);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseOperatorByProxyResponse();
+        message.operatorAddress = (_a = object.operatorAddress) !== null && _a !== void 0 ? _a : "";
+        return message;
+    },
+};
+function createBaseProxyByOperatorRequest() {
+    return { operatorAddress: "" };
+}
+exports.ProxyByOperatorRequest = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.operatorAddress !== "") {
+            writer.uint32(10).string(message.operatorAddress);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseProxyByOperatorRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.operatorAddress = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            operatorAddress: isSet(object.operatorAddress) ? String(object.operatorAddress) : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.operatorAddress !== undefined && (obj.operatorAddress = message.operatorAddress);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseProxyByOperatorRequest();
+        message.operatorAddress = (_a = object.operatorAddress) !== null && _a !== void 0 ? _a : "";
+        return message;
+    },
+};
+function createBaseProxyByOperatorResponse() {
+    return { proxyAddress: "", status: 0 };
+}
+exports.ProxyByOperatorResponse = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.proxyAddress !== "") {
+            writer.uint32(10).string(message.proxyAddress);
+        }
+        if (message.status !== 0) {
+            writer.uint32(16).int32(message.status);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseProxyByOperatorResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.proxyAddress = reader.string();
+                    break;
+                case 2:
+                    message.status = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            proxyAddress: isSet(object.proxyAddress) ? String(object.proxyAddress) : "",
+            status: isSet(object.status) ? proxyByOperatorResponse_StatusFromJSON(object.status) : 0,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.proxyAddress !== undefined && (obj.proxyAddress = message.proxyAddress);
+        message.status !== undefined && (obj.status = proxyByOperatorResponse_StatusToJSON(message.status));
+        return obj;
+    },
+    fromPartial(object) {
+        var _a, _b;
+        const message = createBaseProxyByOperatorResponse();
+        message.proxyAddress = (_a = object.proxyAddress) !== null && _a !== void 0 ? _a : "";
+        message.status = (_b = object.status) !== null && _b !== void 0 ? _b : 0;
         return message;
     },
 };

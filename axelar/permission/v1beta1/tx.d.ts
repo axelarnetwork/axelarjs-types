@@ -3,22 +3,28 @@ import * as _m0 from "protobufjs/minimal";
 import { LegacyAminoPubKey } from "../../../cosmos/crypto/multisig/keys";
 export declare const protobufPackage = "axelar.permission.v1beta1";
 export interface UpdateGovernanceKeyRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
     governanceKey?: LegacyAminoPubKey;
+    sender: string;
 }
 export interface UpdateGovernanceKeyResponse {
 }
 /** MsgRegisterController represents a message to register a controller account */
 export interface RegisterControllerRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
     controller: Uint8Array;
+    sender: string;
 }
 export interface RegisterControllerResponse {
 }
 /** DeregisterController represents a message to deregister a controller account */
 export interface DeregisterControllerRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
     controller: Uint8Array;
+    sender: string;
 }
 export interface DeregisterControllerResponse {
 }
@@ -28,7 +34,7 @@ export declare const UpdateGovernanceKeyRequest: {
     fromJSON(object: any): UpdateGovernanceKeyRequest;
     toJSON(message: UpdateGovernanceKeyRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         governanceKey?: {
             threshold?: number | undefined;
             publicKeys?: {
@@ -36,8 +42,9 @@ export declare const UpdateGovernanceKeyRequest: {
                 value?: Uint8Array | undefined;
             }[] | undefined;
         } | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         governanceKey?: ({
             threshold?: number | undefined;
             publicKeys?: {
@@ -60,6 +67,7 @@ export declare const UpdateGovernanceKeyRequest: {
                 value?: Uint8Array | undefined;
             }[]>, never>) | undefined;
         } & Record<Exclude<keyof I["governanceKey"], keyof LegacyAminoPubKey>, never>) | undefined;
+        sender?: string | undefined;
     } & Record<Exclude<keyof I, keyof UpdateGovernanceKeyRequest>, never>>(object: I): UpdateGovernanceKeyRequest;
 };
 export declare const UpdateGovernanceKeyResponse: {
@@ -75,11 +83,13 @@ export declare const RegisterControllerRequest: {
     fromJSON(object: any): RegisterControllerRequest;
     toJSON(message: RegisterControllerRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         controller?: Uint8Array | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         controller?: Uint8Array | undefined;
+        sender?: string | undefined;
     } & Record<Exclude<keyof I, keyof RegisterControllerRequest>, never>>(object: I): RegisterControllerRequest;
 };
 export declare const RegisterControllerResponse: {
@@ -95,11 +105,13 @@ export declare const DeregisterControllerRequest: {
     fromJSON(object: any): DeregisterControllerRequest;
     toJSON(message: DeregisterControllerRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         controller?: Uint8Array | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         controller?: Uint8Array | undefined;
+        sender?: string | undefined;
     } & Record<Exclude<keyof I, keyof DeregisterControllerRequest>, never>>(object: I): DeregisterControllerRequest;
 };
 export declare const DeregisterControllerResponse: {

@@ -29,18 +29,21 @@ const _m0 = __importStar(require("protobufjs/minimal"));
 const any_1 = require("../../../google/protobuf/any");
 exports.protobufPackage = "axelar.vote.v1beta1";
 function createBaseVoteRequest() {
-    return { sender: new Uint8Array(), pollId: long_1.default.UZERO, vote: undefined };
+    return { senderBz: new Uint8Array(), pollId: long_1.default.UZERO, vote: undefined, sender: "" };
 }
 exports.VoteRequest = {
     encode(message, writer = _m0.Writer.create()) {
-        if (message.sender.length !== 0) {
-            writer.uint32(10).bytes(message.sender);
+        if (message.senderBz.length !== 0) {
+            writer.uint32(10).bytes(message.senderBz);
         }
         if (!message.pollId.isZero()) {
             writer.uint32(32).uint64(message.pollId);
         }
         if (message.vote !== undefined) {
             any_1.Any.encode(message.vote, writer.uint32(42).fork()).ldelim();
+        }
+        if (message.sender !== "") {
+            writer.uint32(50).string(message.sender);
         }
         return writer;
     },
@@ -52,13 +55,16 @@ exports.VoteRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.sender = reader.bytes();
+                    message.senderBz = reader.bytes();
                     break;
                 case 4:
                     message.pollId = reader.uint64();
                     break;
                 case 5:
                     message.vote = any_1.Any.decode(reader, reader.uint32());
+                    break;
+                case 6:
+                    message.sender = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -69,27 +75,30 @@ exports.VoteRequest = {
     },
     fromJSON(object) {
         return {
-            sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+            senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
             pollId: isSet(object.pollId) ? long_1.default.fromValue(object.pollId) : long_1.default.UZERO,
             vote: isSet(object.vote) ? any_1.Any.fromJSON(object.vote) : undefined,
+            sender: isSet(object.sender) ? String(object.sender) : "",
         };
     },
     toJSON(message) {
         const obj = {};
-        message.sender !== undefined &&
-            (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+        message.senderBz !== undefined &&
+            (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
         message.pollId !== undefined && (obj.pollId = (message.pollId || long_1.default.UZERO).toString());
         message.vote !== undefined && (obj.vote = message.vote ? any_1.Any.toJSON(message.vote) : undefined);
+        message.sender !== undefined && (obj.sender = message.sender);
         return obj;
     },
     fromPartial(object) {
-        var _a;
+        var _a, _b;
         const message = createBaseVoteRequest();
-        message.sender = (_a = object.sender) !== null && _a !== void 0 ? _a : new Uint8Array();
+        message.senderBz = (_a = object.senderBz) !== null && _a !== void 0 ? _a : new Uint8Array();
         message.pollId =
             object.pollId !== undefined && object.pollId !== null ? long_1.default.fromValue(object.pollId) : long_1.default.UZERO;
         message.vote =
             object.vote !== undefined && object.vote !== null ? any_1.Any.fromPartial(object.vote) : undefined;
+        message.sender = (_b = object.sender) !== null && _b !== void 0 ? _b : "";
         return message;
     },
 };

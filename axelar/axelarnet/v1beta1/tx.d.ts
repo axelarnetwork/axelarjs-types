@@ -9,19 +9,23 @@ export declare const protobufPackage = "axelar.axelarnet.v1beta1";
  * address
  */
 export interface LinkRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
     recipientAddr: string;
     recipientChain: string;
     asset: string;
+    sender: string;
 }
 export interface LinkResponse {
     depositAddr: string;
 }
 /** MsgConfirmDeposit represents a deposit confirmation message */
 export interface ConfirmDepositRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
     depositAddress: Uint8Array;
     denom: string;
+    sender: string;
 }
 export interface ConfirmDepositResponse {
 }
@@ -30,7 +34,9 @@ export interface ConfirmDepositResponse {
  * pending transfers
  */
 export interface ExecutePendingTransfersRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
+    sender: string;
 }
 export interface ExecutePendingTransfersResponse {
 }
@@ -41,9 +47,11 @@ export interface ExecutePendingTransfersResponse {
  * @deprecated
  */
 export interface RegisterIBCPathRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
     chain: string;
     path: string;
+    sender: string;
 }
 export interface RegisterIBCPathResponse {
 }
@@ -52,7 +60,8 @@ export interface RegisterIBCPathResponse {
  * to nexus
  */
 export interface AddCosmosBasedChainRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
     /**
      * chain was deprecated in v0.27
      *
@@ -69,6 +78,7 @@ export interface AddCosmosBasedChainRequest {
     /** TODO: Rename this to `chain` after v1beta1 -> v1 version bump */
     cosmosChain: string;
     ibcPath: string;
+    sender: string;
 }
 export interface AddCosmosBasedChainResponse {
 }
@@ -77,11 +87,13 @@ export interface AddCosmosBasedChainResponse {
  * based chain
  */
 export interface RegisterAssetRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
     chain: string;
     asset?: Asset;
     limit: Uint8Array;
     window?: Duration;
+    sender: string;
 }
 export interface RegisterAssetResponse {
 }
@@ -90,7 +102,9 @@ export interface RegisterAssetResponse {
  * cosmos based chains
  */
 export interface RouteIBCTransfersRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
+    sender: string;
 }
 export interface RouteIBCTransfersResponse {
 }
@@ -99,33 +113,41 @@ export interface RouteIBCTransfersResponse {
  * collector account
  */
 export interface RegisterFeeCollectorRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
     feeCollector: Uint8Array;
+    sender: string;
 }
 export interface RegisterFeeCollectorResponse {
 }
 export interface RetryIBCTransferRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
     /** @deprecated */
     chain: string;
     id: Long;
+    sender: string;
 }
 export interface RetryIBCTransferResponse {
 }
 export interface RouteMessageRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
     id: string;
     payload: Uint8Array;
     feegranter: Uint8Array;
+    sender: string;
 }
 export interface RouteMessageResponse {
 }
 export interface CallContractRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
     chain: string;
     contractAddress: string;
     payload: Uint8Array;
     fee?: Fee;
+    sender: string;
 }
 export interface CallContractResponse {
 }
@@ -135,15 +157,17 @@ export declare const LinkRequest: {
     fromJSON(object: any): LinkRequest;
     toJSON(message: LinkRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         recipientAddr?: string | undefined;
         recipientChain?: string | undefined;
         asset?: string | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         recipientAddr?: string | undefined;
         recipientChain?: string | undefined;
         asset?: string | undefined;
+        sender?: string | undefined;
     } & Record<Exclude<keyof I, keyof LinkRequest>, never>>(object: I): LinkRequest;
 };
 export declare const LinkResponse: {
@@ -163,13 +187,15 @@ export declare const ConfirmDepositRequest: {
     fromJSON(object: any): ConfirmDepositRequest;
     toJSON(message: ConfirmDepositRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         depositAddress?: Uint8Array | undefined;
         denom?: string | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         depositAddress?: Uint8Array | undefined;
         denom?: string | undefined;
+        sender?: string | undefined;
     } & Record<Exclude<keyof I, keyof ConfirmDepositRequest>, never>>(object: I): ConfirmDepositRequest;
 };
 export declare const ConfirmDepositResponse: {
@@ -185,10 +211,12 @@ export declare const ExecutePendingTransfersRequest: {
     fromJSON(object: any): ExecutePendingTransfersRequest;
     toJSON(message: ExecutePendingTransfersRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
-    } & Record<Exclude<keyof I, "sender">, never>>(object: I): ExecutePendingTransfersRequest;
+        senderBz?: Uint8Array | undefined;
+        sender?: string | undefined;
+    } & Record<Exclude<keyof I, keyof ExecutePendingTransfersRequest>, never>>(object: I): ExecutePendingTransfersRequest;
 };
 export declare const ExecutePendingTransfersResponse: {
     encode(_: ExecutePendingTransfersResponse, writer?: _m0.Writer): _m0.Writer;
@@ -203,13 +231,15 @@ export declare const RegisterIBCPathRequest: {
     fromJSON(object: any): RegisterIBCPathRequest;
     toJSON(message: RegisterIBCPathRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chain?: string | undefined;
         path?: string | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chain?: string | undefined;
         path?: string | undefined;
+        sender?: string | undefined;
     } & Record<Exclude<keyof I, keyof RegisterIBCPathRequest>, never>>(object: I): RegisterIBCPathRequest;
 };
 export declare const RegisterIBCPathResponse: {
@@ -225,7 +255,7 @@ export declare const AddCosmosBasedChainRequest: {
     fromJSON(object: any): AddCosmosBasedChainRequest;
     toJSON(message: AddCosmosBasedChainRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chain?: {
             name?: string | undefined;
             supportsForeignAssets?: boolean | undefined;
@@ -239,8 +269,9 @@ export declare const AddCosmosBasedChainRequest: {
         }[] | undefined;
         cosmosChain?: string | undefined;
         ibcPath?: string | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chain?: ({
             name?: string | undefined;
             supportsForeignAssets?: boolean | undefined;
@@ -268,6 +299,7 @@ export declare const AddCosmosBasedChainRequest: {
         }[]>, never>) | undefined;
         cosmosChain?: string | undefined;
         ibcPath?: string | undefined;
+        sender?: string | undefined;
     } & Record<Exclude<keyof I, keyof AddCosmosBasedChainRequest>, never>>(object: I): AddCosmosBasedChainRequest;
 };
 export declare const AddCosmosBasedChainResponse: {
@@ -283,7 +315,7 @@ export declare const RegisterAssetRequest: {
     fromJSON(object: any): RegisterAssetRequest;
     toJSON(message: RegisterAssetRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chain?: string | undefined;
         asset?: {
             denom?: string | undefined;
@@ -294,8 +326,9 @@ export declare const RegisterAssetRequest: {
             seconds?: string | number | Long.Long | undefined;
             nanos?: number | undefined;
         } | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chain?: string | undefined;
         asset?: ({
             denom?: string | undefined;
@@ -369,6 +402,7 @@ export declare const RegisterAssetRequest: {
             } & Record<Exclude<keyof I["window"]["seconds"], keyof Long.Long>, never>) | undefined;
             nanos?: number | undefined;
         } & Record<Exclude<keyof I["window"], keyof Duration>, never>) | undefined;
+        sender?: string | undefined;
     } & Record<Exclude<keyof I, keyof RegisterAssetRequest>, never>>(object: I): RegisterAssetRequest;
 };
 export declare const RegisterAssetResponse: {
@@ -384,10 +418,12 @@ export declare const RouteIBCTransfersRequest: {
     fromJSON(object: any): RouteIBCTransfersRequest;
     toJSON(message: RouteIBCTransfersRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
-    } & Record<Exclude<keyof I, "sender">, never>>(object: I): RouteIBCTransfersRequest;
+        senderBz?: Uint8Array | undefined;
+        sender?: string | undefined;
+    } & Record<Exclude<keyof I, keyof RouteIBCTransfersRequest>, never>>(object: I): RouteIBCTransfersRequest;
 };
 export declare const RouteIBCTransfersResponse: {
     encode(_: RouteIBCTransfersResponse, writer?: _m0.Writer): _m0.Writer;
@@ -402,11 +438,13 @@ export declare const RegisterFeeCollectorRequest: {
     fromJSON(object: any): RegisterFeeCollectorRequest;
     toJSON(message: RegisterFeeCollectorRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         feeCollector?: Uint8Array | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         feeCollector?: Uint8Array | undefined;
+        sender?: string | undefined;
     } & Record<Exclude<keyof I, keyof RegisterFeeCollectorRequest>, never>>(object: I): RegisterFeeCollectorRequest;
 };
 export declare const RegisterFeeCollectorResponse: {
@@ -422,11 +460,12 @@ export declare const RetryIBCTransferRequest: {
     fromJSON(object: any): RetryIBCTransferRequest;
     toJSON(message: RetryIBCTransferRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chain?: string | undefined;
         id?: string | number | Long.Long | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chain?: string | undefined;
         id?: string | number | (Long.Long & {
             high: number;
@@ -486,6 +525,7 @@ export declare const RetryIBCTransferRequest: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["id"], keyof Long.Long>, never>) | undefined;
+        sender?: string | undefined;
     } & Record<Exclude<keyof I, keyof RetryIBCTransferRequest>, never>>(object: I): RetryIBCTransferRequest;
 };
 export declare const RetryIBCTransferResponse: {
@@ -501,15 +541,17 @@ export declare const RouteMessageRequest: {
     fromJSON(object: any): RouteMessageRequest;
     toJSON(message: RouteMessageRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         id?: string | undefined;
         payload?: Uint8Array | undefined;
         feegranter?: Uint8Array | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         id?: string | undefined;
         payload?: Uint8Array | undefined;
         feegranter?: Uint8Array | undefined;
+        sender?: string | undefined;
     } & Record<Exclude<keyof I, keyof RouteMessageRequest>, never>>(object: I): RouteMessageRequest;
 };
 export declare const RouteMessageResponse: {
@@ -525,7 +567,7 @@ export declare const CallContractRequest: {
     fromJSON(object: any): CallContractRequest;
     toJSON(message: CallContractRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chain?: string | undefined;
         contractAddress?: string | undefined;
         payload?: Uint8Array | undefined;
@@ -537,8 +579,9 @@ export declare const CallContractRequest: {
             recipient?: Uint8Array | undefined;
             refundRecipient?: Uint8Array | undefined;
         } | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         chain?: string | undefined;
         contractAddress?: string | undefined;
         payload?: Uint8Array | undefined;
@@ -560,6 +603,7 @@ export declare const CallContractRequest: {
             recipient?: Uint8Array | undefined;
             refundRecipient?: Uint8Array | undefined;
         } & Record<Exclude<keyof I["fee"], keyof Fee>, never>) | undefined;
+        sender?: string | undefined;
     } & Record<Exclude<keyof I, keyof CallContractRequest>, never>>(object: I): CallContractRequest;
 };
 export declare const CallContractResponse: {

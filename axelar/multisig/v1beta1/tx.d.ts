@@ -2,72 +2,52 @@ import Long from "long";
 import * as _m0 from "protobufjs/minimal";
 export declare const protobufPackage = "axelar.multisig.v1beta1";
 export interface StartKeygenRequest {
-    /**
-     * Deprecated: This is the original "sender" field, but was originally declared as a string,
-     * rather than a byte array.
-     *
-     * @deprecated
-     */
-    senderStr: string;
+    sender: string;
     keyId: string;
-    /** New "sender" field, using the appropriate type */
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
 }
 export interface StartKeygenResponse {
 }
 export interface SubmitPubKeyRequest {
-    /**
-     * Deprecated: This is the original "sender" field, but was originally declared as a string,
-     * rather than a byte array.
-     *
-     * @deprecated
-     */
-    senderStr: string;
+    sender: string;
     keyId: string;
     pubKey: Uint8Array;
     signature: Uint8Array;
-    /** New "sender" field, using the appropriate type */
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
 }
 export interface SubmitPubKeyResponse {
 }
 export interface SubmitSignatureRequest {
-    /**
-     * Deprecated: This is the original "sender" field, but was originally declared as a string,
-     * rather than a byte array.
-     *
-     * @deprecated
-     */
-    senderStr: string;
+    sender: string;
     sigId: Long;
     signature: Uint8Array;
-    /** New "sender" field, using the appropriate type */
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
 }
 export interface SubmitSignatureResponse {
 }
 export interface RotateKeyRequest {
-    /**
-     * Deprecated: This is the original "sender" field, but was originally declared as a string,
-     * rather than a byte array.
-     *
-     * @deprecated
-     */
-    senderStr: string;
+    sender: string;
     chain: string;
     keyId: string;
-    /** New "sender" field, using the appropriate type */
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
 }
 export interface RotateKeyResponse {
 }
 export interface KeygenOptOutRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
+    sender: string;
 }
 export interface KeygenOptOutResponse {
 }
 export interface KeygenOptInRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
+    sender: string;
 }
 export interface KeygenOptInResponse {
 }
@@ -77,13 +57,13 @@ export declare const StartKeygenRequest: {
     fromJSON(object: any): StartKeygenRequest;
     toJSON(message: StartKeygenRequest): unknown;
     fromPartial<I extends {
-        senderStr?: string | undefined;
+        sender?: string | undefined;
         keyId?: string | undefined;
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
     } & {
-        senderStr?: string | undefined;
+        sender?: string | undefined;
         keyId?: string | undefined;
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
     } & Record<Exclude<keyof I, keyof StartKeygenRequest>, never>>(object: I): StartKeygenRequest;
 };
 export declare const StartKeygenResponse: {
@@ -99,17 +79,17 @@ export declare const SubmitPubKeyRequest: {
     fromJSON(object: any): SubmitPubKeyRequest;
     toJSON(message: SubmitPubKeyRequest): unknown;
     fromPartial<I extends {
-        senderStr?: string | undefined;
+        sender?: string | undefined;
         keyId?: string | undefined;
         pubKey?: Uint8Array | undefined;
         signature?: Uint8Array | undefined;
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
     } & {
-        senderStr?: string | undefined;
+        sender?: string | undefined;
         keyId?: string | undefined;
         pubKey?: Uint8Array | undefined;
         signature?: Uint8Array | undefined;
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
     } & Record<Exclude<keyof I, keyof SubmitPubKeyRequest>, never>>(object: I): SubmitPubKeyRequest;
 };
 export declare const SubmitPubKeyResponse: {
@@ -125,12 +105,12 @@ export declare const SubmitSignatureRequest: {
     fromJSON(object: any): SubmitSignatureRequest;
     toJSON(message: SubmitSignatureRequest): unknown;
     fromPartial<I extends {
-        senderStr?: string | undefined;
+        sender?: string | undefined;
         sigId?: string | number | Long.Long | undefined;
         signature?: Uint8Array | undefined;
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
     } & {
-        senderStr?: string | undefined;
+        sender?: string | undefined;
         sigId?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -190,7 +170,7 @@ export declare const SubmitSignatureRequest: {
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["sigId"], keyof Long.Long>, never>) | undefined;
         signature?: Uint8Array | undefined;
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
     } & Record<Exclude<keyof I, keyof SubmitSignatureRequest>, never>>(object: I): SubmitSignatureRequest;
 };
 export declare const SubmitSignatureResponse: {
@@ -206,15 +186,15 @@ export declare const RotateKeyRequest: {
     fromJSON(object: any): RotateKeyRequest;
     toJSON(message: RotateKeyRequest): unknown;
     fromPartial<I extends {
-        senderStr?: string | undefined;
+        sender?: string | undefined;
         chain?: string | undefined;
         keyId?: string | undefined;
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
     } & {
-        senderStr?: string | undefined;
+        sender?: string | undefined;
         chain?: string | undefined;
         keyId?: string | undefined;
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
     } & Record<Exclude<keyof I, keyof RotateKeyRequest>, never>>(object: I): RotateKeyRequest;
 };
 export declare const RotateKeyResponse: {
@@ -230,10 +210,12 @@ export declare const KeygenOptOutRequest: {
     fromJSON(object: any): KeygenOptOutRequest;
     toJSON(message: KeygenOptOutRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
-    } & Record<Exclude<keyof I, "sender">, never>>(object: I): KeygenOptOutRequest;
+        senderBz?: Uint8Array | undefined;
+        sender?: string | undefined;
+    } & Record<Exclude<keyof I, keyof KeygenOptOutRequest>, never>>(object: I): KeygenOptOutRequest;
 };
 export declare const KeygenOptOutResponse: {
     encode(_: KeygenOptOutResponse, writer?: _m0.Writer): _m0.Writer;
@@ -248,10 +230,12 @@ export declare const KeygenOptInRequest: {
     fromJSON(object: any): KeygenOptInRequest;
     toJSON(message: KeygenOptInRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
-    } & Record<Exclude<keyof I, "sender">, never>>(object: I): KeygenOptInRequest;
+        senderBz?: Uint8Array | undefined;
+        sender?: string | undefined;
+    } & Record<Exclude<keyof I, keyof KeygenOptInRequest>, never>>(object: I): KeygenOptInRequest;
 };
 export declare const KeygenOptInResponse: {
     encode(_: KeygenOptInResponse, writer?: _m0.Writer): _m0.Writer;

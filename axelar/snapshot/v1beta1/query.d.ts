@@ -25,6 +25,35 @@ export interface ParamsRequest {
 export interface ParamsResponse {
     params?: Params;
 }
+/**
+ * OperatorByProxyRequest retrieves the operator address associated with a given
+ * proxy address
+ */
+export interface OperatorByProxyRequest {
+    proxyAddress: string;
+}
+export interface OperatorByProxyResponse {
+    operatorAddress: string;
+}
+/**
+ * ProxyByOperatorRequest retrieves the proxy address associated with a given
+ * operator address
+ */
+export interface ProxyByOperatorRequest {
+    operatorAddress: string;
+}
+export interface ProxyByOperatorResponse {
+    proxyAddress: string;
+    status: ProxyByOperatorResponse_Status;
+}
+export declare enum ProxyByOperatorResponse_Status {
+    STATUS_UNSPECIFIED = 0,
+    STATUS_ACTIVE = 1,
+    STATUS_INACTIVE = 2,
+    UNRECOGNIZED = -1
+}
+export declare function proxyByOperatorResponse_StatusFromJSON(object: any): ProxyByOperatorResponse_Status;
+export declare function proxyByOperatorResponse_StatusToJSON(object: ProxyByOperatorResponse_Status): string;
 export declare const QueryValidatorsResponse: {
     encode(message: QueryValidatorsResponse, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryValidatorsResponse;
@@ -246,6 +275,52 @@ export declare const ParamsResponse: {
             } & Record<Exclude<keyof I["params"]["minProxyBalance"], keyof Long.Long>, never>) | undefined;
         } & Record<Exclude<keyof I["params"], "minProxyBalance">, never>) | undefined;
     } & Record<Exclude<keyof I, "params">, never>>(object: I): ParamsResponse;
+};
+export declare const OperatorByProxyRequest: {
+    encode(message: OperatorByProxyRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): OperatorByProxyRequest;
+    fromJSON(object: any): OperatorByProxyRequest;
+    toJSON(message: OperatorByProxyRequest): unknown;
+    fromPartial<I extends {
+        proxyAddress?: string | undefined;
+    } & {
+        proxyAddress?: string | undefined;
+    } & Record<Exclude<keyof I, "proxyAddress">, never>>(object: I): OperatorByProxyRequest;
+};
+export declare const OperatorByProxyResponse: {
+    encode(message: OperatorByProxyResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): OperatorByProxyResponse;
+    fromJSON(object: any): OperatorByProxyResponse;
+    toJSON(message: OperatorByProxyResponse): unknown;
+    fromPartial<I extends {
+        operatorAddress?: string | undefined;
+    } & {
+        operatorAddress?: string | undefined;
+    } & Record<Exclude<keyof I, "operatorAddress">, never>>(object: I): OperatorByProxyResponse;
+};
+export declare const ProxyByOperatorRequest: {
+    encode(message: ProxyByOperatorRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ProxyByOperatorRequest;
+    fromJSON(object: any): ProxyByOperatorRequest;
+    toJSON(message: ProxyByOperatorRequest): unknown;
+    fromPartial<I extends {
+        operatorAddress?: string | undefined;
+    } & {
+        operatorAddress?: string | undefined;
+    } & Record<Exclude<keyof I, "operatorAddress">, never>>(object: I): ProxyByOperatorRequest;
+};
+export declare const ProxyByOperatorResponse: {
+    encode(message: ProxyByOperatorResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ProxyByOperatorResponse;
+    fromJSON(object: any): ProxyByOperatorResponse;
+    toJSON(message: ProxyByOperatorResponse): unknown;
+    fromPartial<I extends {
+        proxyAddress?: string | undefined;
+        status?: ProxyByOperatorResponse_Status | undefined;
+    } & {
+        proxyAddress?: string | undefined;
+        status?: ProxyByOperatorResponse_Status | undefined;
+    } & Record<Exclude<keyof I, keyof ProxyByOperatorResponse>, never>>(object: I): ProxyByOperatorResponse;
 };
 declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {

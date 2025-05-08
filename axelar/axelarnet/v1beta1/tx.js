@@ -31,12 +31,12 @@ const duration_1 = require("../../../google/protobuf/duration");
 const types_2 = require("../../../axelar/axelarnet/v1beta1/types");
 exports.protobufPackage = "axelar.axelarnet.v1beta1";
 function createBaseLinkRequest() {
-    return { sender: new Uint8Array(), recipientAddr: "", recipientChain: "", asset: "" };
+    return { senderBz: new Uint8Array(), recipientAddr: "", recipientChain: "", asset: "", sender: "" };
 }
 exports.LinkRequest = {
     encode(message, writer = _m0.Writer.create()) {
-        if (message.sender.length !== 0) {
-            writer.uint32(10).bytes(message.sender);
+        if (message.senderBz.length !== 0) {
+            writer.uint32(10).bytes(message.senderBz);
         }
         if (message.recipientAddr !== "") {
             writer.uint32(18).string(message.recipientAddr);
@@ -46,6 +46,9 @@ exports.LinkRequest = {
         }
         if (message.asset !== "") {
             writer.uint32(34).string(message.asset);
+        }
+        if (message.sender !== "") {
+            writer.uint32(42).string(message.sender);
         }
         return writer;
     },
@@ -57,7 +60,7 @@ exports.LinkRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.sender = reader.bytes();
+                    message.senderBz = reader.bytes();
                     break;
                 case 2:
                     message.recipientAddr = reader.string();
@@ -68,6 +71,9 @@ exports.LinkRequest = {
                 case 4:
                     message.asset = reader.string();
                     break;
+                case 5:
+                    message.sender = reader.string();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -77,28 +83,31 @@ exports.LinkRequest = {
     },
     fromJSON(object) {
         return {
-            sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+            senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
             recipientAddr: isSet(object.recipientAddr) ? String(object.recipientAddr) : "",
             recipientChain: isSet(object.recipientChain) ? String(object.recipientChain) : "",
             asset: isSet(object.asset) ? String(object.asset) : "",
+            sender: isSet(object.sender) ? String(object.sender) : "",
         };
     },
     toJSON(message) {
         const obj = {};
-        message.sender !== undefined &&
-            (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+        message.senderBz !== undefined &&
+            (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
         message.recipientAddr !== undefined && (obj.recipientAddr = message.recipientAddr);
         message.recipientChain !== undefined && (obj.recipientChain = message.recipientChain);
         message.asset !== undefined && (obj.asset = message.asset);
+        message.sender !== undefined && (obj.sender = message.sender);
         return obj;
     },
     fromPartial(object) {
-        var _a, _b, _c, _d;
+        var _a, _b, _c, _d, _e;
         const message = createBaseLinkRequest();
-        message.sender = (_a = object.sender) !== null && _a !== void 0 ? _a : new Uint8Array();
+        message.senderBz = (_a = object.senderBz) !== null && _a !== void 0 ? _a : new Uint8Array();
         message.recipientAddr = (_b = object.recipientAddr) !== null && _b !== void 0 ? _b : "";
         message.recipientChain = (_c = object.recipientChain) !== null && _c !== void 0 ? _c : "";
         message.asset = (_d = object.asset) !== null && _d !== void 0 ? _d : "";
+        message.sender = (_e = object.sender) !== null && _e !== void 0 ? _e : "";
         return message;
     },
 };
@@ -147,18 +156,21 @@ exports.LinkResponse = {
     },
 };
 function createBaseConfirmDepositRequest() {
-    return { sender: new Uint8Array(), depositAddress: new Uint8Array(), denom: "" };
+    return { senderBz: new Uint8Array(), depositAddress: new Uint8Array(), denom: "", sender: "" };
 }
 exports.ConfirmDepositRequest = {
     encode(message, writer = _m0.Writer.create()) {
-        if (message.sender.length !== 0) {
-            writer.uint32(10).bytes(message.sender);
+        if (message.senderBz.length !== 0) {
+            writer.uint32(10).bytes(message.senderBz);
         }
         if (message.depositAddress.length !== 0) {
             writer.uint32(34).bytes(message.depositAddress);
         }
         if (message.denom !== "") {
             writer.uint32(42).string(message.denom);
+        }
+        if (message.sender !== "") {
+            writer.uint32(50).string(message.sender);
         }
         return writer;
     },
@@ -170,13 +182,16 @@ exports.ConfirmDepositRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.sender = reader.bytes();
+                    message.senderBz = reader.bytes();
                     break;
                 case 4:
                     message.depositAddress = reader.bytes();
                     break;
                 case 5:
                     message.denom = reader.string();
+                    break;
+                case 6:
+                    message.sender = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -187,28 +202,31 @@ exports.ConfirmDepositRequest = {
     },
     fromJSON(object) {
         return {
-            sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+            senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
             depositAddress: isSet(object.depositAddress)
                 ? bytesFromBase64(object.depositAddress)
                 : new Uint8Array(),
             denom: isSet(object.denom) ? String(object.denom) : "",
+            sender: isSet(object.sender) ? String(object.sender) : "",
         };
     },
     toJSON(message) {
         const obj = {};
-        message.sender !== undefined &&
-            (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+        message.senderBz !== undefined &&
+            (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
         message.depositAddress !== undefined &&
             (obj.depositAddress = base64FromBytes(message.depositAddress !== undefined ? message.depositAddress : new Uint8Array()));
         message.denom !== undefined && (obj.denom = message.denom);
+        message.sender !== undefined && (obj.sender = message.sender);
         return obj;
     },
     fromPartial(object) {
-        var _a, _b, _c;
+        var _a, _b, _c, _d;
         const message = createBaseConfirmDepositRequest();
-        message.sender = (_a = object.sender) !== null && _a !== void 0 ? _a : new Uint8Array();
+        message.senderBz = (_a = object.senderBz) !== null && _a !== void 0 ? _a : new Uint8Array();
         message.depositAddress = (_b = object.depositAddress) !== null && _b !== void 0 ? _b : new Uint8Array();
         message.denom = (_c = object.denom) !== null && _c !== void 0 ? _c : "";
+        message.sender = (_d = object.sender) !== null && _d !== void 0 ? _d : "";
         return message;
     },
 };
@@ -246,12 +264,15 @@ exports.ConfirmDepositResponse = {
     },
 };
 function createBaseExecutePendingTransfersRequest() {
-    return { sender: new Uint8Array() };
+    return { senderBz: new Uint8Array(), sender: "" };
 }
 exports.ExecutePendingTransfersRequest = {
     encode(message, writer = _m0.Writer.create()) {
-        if (message.sender.length !== 0) {
-            writer.uint32(10).bytes(message.sender);
+        if (message.senderBz.length !== 0) {
+            writer.uint32(10).bytes(message.senderBz);
+        }
+        if (message.sender !== "") {
+            writer.uint32(18).string(message.sender);
         }
         return writer;
     },
@@ -263,7 +284,10 @@ exports.ExecutePendingTransfersRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.sender = reader.bytes();
+                    message.senderBz = reader.bytes();
+                    break;
+                case 2:
+                    message.sender = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -274,19 +298,22 @@ exports.ExecutePendingTransfersRequest = {
     },
     fromJSON(object) {
         return {
-            sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+            senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
+            sender: isSet(object.sender) ? String(object.sender) : "",
         };
     },
     toJSON(message) {
         const obj = {};
-        message.sender !== undefined &&
-            (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+        message.senderBz !== undefined &&
+            (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
+        message.sender !== undefined && (obj.sender = message.sender);
         return obj;
     },
     fromPartial(object) {
-        var _a;
+        var _a, _b;
         const message = createBaseExecutePendingTransfersRequest();
-        message.sender = (_a = object.sender) !== null && _a !== void 0 ? _a : new Uint8Array();
+        message.senderBz = (_a = object.senderBz) !== null && _a !== void 0 ? _a : new Uint8Array();
+        message.sender = (_b = object.sender) !== null && _b !== void 0 ? _b : "";
         return message;
     },
 };
@@ -324,18 +351,21 @@ exports.ExecutePendingTransfersResponse = {
     },
 };
 function createBaseRegisterIBCPathRequest() {
-    return { sender: new Uint8Array(), chain: "", path: "" };
+    return { senderBz: new Uint8Array(), chain: "", path: "", sender: "" };
 }
 exports.RegisterIBCPathRequest = {
     encode(message, writer = _m0.Writer.create()) {
-        if (message.sender.length !== 0) {
-            writer.uint32(10).bytes(message.sender);
+        if (message.senderBz.length !== 0) {
+            writer.uint32(10).bytes(message.senderBz);
         }
         if (message.chain !== "") {
             writer.uint32(18).string(message.chain);
         }
         if (message.path !== "") {
             writer.uint32(26).string(message.path);
+        }
+        if (message.sender !== "") {
+            writer.uint32(34).string(message.sender);
         }
         return writer;
     },
@@ -347,13 +377,16 @@ exports.RegisterIBCPathRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.sender = reader.bytes();
+                    message.senderBz = reader.bytes();
                     break;
                 case 2:
                     message.chain = reader.string();
                     break;
                 case 3:
                     message.path = reader.string();
+                    break;
+                case 4:
+                    message.sender = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -364,25 +397,28 @@ exports.RegisterIBCPathRequest = {
     },
     fromJSON(object) {
         return {
-            sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+            senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
             chain: isSet(object.chain) ? String(object.chain) : "",
             path: isSet(object.path) ? String(object.path) : "",
+            sender: isSet(object.sender) ? String(object.sender) : "",
         };
     },
     toJSON(message) {
         const obj = {};
-        message.sender !== undefined &&
-            (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+        message.senderBz !== undefined &&
+            (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
         message.chain !== undefined && (obj.chain = message.chain);
         message.path !== undefined && (obj.path = message.path);
+        message.sender !== undefined && (obj.sender = message.sender);
         return obj;
     },
     fromPartial(object) {
-        var _a, _b, _c;
+        var _a, _b, _c, _d;
         const message = createBaseRegisterIBCPathRequest();
-        message.sender = (_a = object.sender) !== null && _a !== void 0 ? _a : new Uint8Array();
+        message.senderBz = (_a = object.senderBz) !== null && _a !== void 0 ? _a : new Uint8Array();
         message.chain = (_b = object.chain) !== null && _b !== void 0 ? _b : "";
         message.path = (_c = object.path) !== null && _c !== void 0 ? _c : "";
+        message.sender = (_d = object.sender) !== null && _d !== void 0 ? _d : "";
         return message;
     },
 };
@@ -421,18 +457,19 @@ exports.RegisterIBCPathResponse = {
 };
 function createBaseAddCosmosBasedChainRequest() {
     return {
-        sender: new Uint8Array(),
+        senderBz: new Uint8Array(),
         chain: undefined,
         addrPrefix: "",
         nativeAssets: [],
         cosmosChain: "",
         ibcPath: "",
+        sender: "",
     };
 }
 exports.AddCosmosBasedChainRequest = {
     encode(message, writer = _m0.Writer.create()) {
-        if (message.sender.length !== 0) {
-            writer.uint32(10).bytes(message.sender);
+        if (message.senderBz.length !== 0) {
+            writer.uint32(10).bytes(message.senderBz);
         }
         if (message.chain !== undefined) {
             types_1.Chain.encode(message.chain, writer.uint32(18).fork()).ldelim();
@@ -449,6 +486,9 @@ exports.AddCosmosBasedChainRequest = {
         if (message.ibcPath !== "") {
             writer.uint32(58).string(message.ibcPath);
         }
+        if (message.sender !== "") {
+            writer.uint32(66).string(message.sender);
+        }
         return writer;
     },
     decode(input, length) {
@@ -459,7 +499,7 @@ exports.AddCosmosBasedChainRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.sender = reader.bytes();
+                    message.senderBz = reader.bytes();
                     break;
                 case 2:
                     message.chain = types_1.Chain.decode(reader, reader.uint32());
@@ -476,6 +516,9 @@ exports.AddCosmosBasedChainRequest = {
                 case 7:
                     message.ibcPath = reader.string();
                     break;
+                case 8:
+                    message.sender = reader.string();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -485,7 +528,7 @@ exports.AddCosmosBasedChainRequest = {
     },
     fromJSON(object) {
         return {
-            sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+            senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
             chain: isSet(object.chain) ? types_1.Chain.fromJSON(object.chain) : undefined,
             addrPrefix: isSet(object.addrPrefix) ? String(object.addrPrefix) : "",
             nativeAssets: Array.isArray(object === null || object === void 0 ? void 0 : object.nativeAssets)
@@ -493,12 +536,13 @@ exports.AddCosmosBasedChainRequest = {
                 : [],
             cosmosChain: isSet(object.cosmosChain) ? String(object.cosmosChain) : "",
             ibcPath: isSet(object.ibcPath) ? String(object.ibcPath) : "",
+            sender: isSet(object.sender) ? String(object.sender) : "",
         };
     },
     toJSON(message) {
         const obj = {};
-        message.sender !== undefined &&
-            (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+        message.senderBz !== undefined &&
+            (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
         message.chain !== undefined && (obj.chain = message.chain ? types_1.Chain.toJSON(message.chain) : undefined);
         message.addrPrefix !== undefined && (obj.addrPrefix = message.addrPrefix);
         if (message.nativeAssets) {
@@ -509,18 +553,20 @@ exports.AddCosmosBasedChainRequest = {
         }
         message.cosmosChain !== undefined && (obj.cosmosChain = message.cosmosChain);
         message.ibcPath !== undefined && (obj.ibcPath = message.ibcPath);
+        message.sender !== undefined && (obj.sender = message.sender);
         return obj;
     },
     fromPartial(object) {
-        var _a, _b, _c, _d, _e;
+        var _a, _b, _c, _d, _e, _f;
         const message = createBaseAddCosmosBasedChainRequest();
-        message.sender = (_a = object.sender) !== null && _a !== void 0 ? _a : new Uint8Array();
+        message.senderBz = (_a = object.senderBz) !== null && _a !== void 0 ? _a : new Uint8Array();
         message.chain =
             object.chain !== undefined && object.chain !== null ? types_1.Chain.fromPartial(object.chain) : undefined;
         message.addrPrefix = (_b = object.addrPrefix) !== null && _b !== void 0 ? _b : "";
         message.nativeAssets = ((_c = object.nativeAssets) === null || _c === void 0 ? void 0 : _c.map((e) => types_1.Asset.fromPartial(e))) || [];
         message.cosmosChain = (_d = object.cosmosChain) !== null && _d !== void 0 ? _d : "";
         message.ibcPath = (_e = object.ibcPath) !== null && _e !== void 0 ? _e : "";
+        message.sender = (_f = object.sender) !== null && _f !== void 0 ? _f : "";
         return message;
     },
 };
@@ -559,17 +605,18 @@ exports.AddCosmosBasedChainResponse = {
 };
 function createBaseRegisterAssetRequest() {
     return {
-        sender: new Uint8Array(),
+        senderBz: new Uint8Array(),
         chain: "",
         asset: undefined,
         limit: new Uint8Array(),
         window: undefined,
+        sender: "",
     };
 }
 exports.RegisterAssetRequest = {
     encode(message, writer = _m0.Writer.create()) {
-        if (message.sender.length !== 0) {
-            writer.uint32(10).bytes(message.sender);
+        if (message.senderBz.length !== 0) {
+            writer.uint32(10).bytes(message.senderBz);
         }
         if (message.chain !== "") {
             writer.uint32(18).string(message.chain);
@@ -583,6 +630,9 @@ exports.RegisterAssetRequest = {
         if (message.window !== undefined) {
             duration_1.Duration.encode(message.window, writer.uint32(42).fork()).ldelim();
         }
+        if (message.sender !== "") {
+            writer.uint32(50).string(message.sender);
+        }
         return writer;
     },
     decode(input, length) {
@@ -593,7 +643,7 @@ exports.RegisterAssetRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.sender = reader.bytes();
+                    message.senderBz = reader.bytes();
                     break;
                 case 2:
                     message.chain = reader.string();
@@ -607,6 +657,9 @@ exports.RegisterAssetRequest = {
                 case 5:
                     message.window = duration_1.Duration.decode(reader, reader.uint32());
                     break;
+                case 6:
+                    message.sender = reader.string();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -616,35 +669,38 @@ exports.RegisterAssetRequest = {
     },
     fromJSON(object) {
         return {
-            sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+            senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
             chain: isSet(object.chain) ? String(object.chain) : "",
             asset: isSet(object.asset) ? types_1.Asset.fromJSON(object.asset) : undefined,
             limit: isSet(object.limit) ? bytesFromBase64(object.limit) : new Uint8Array(),
             window: isSet(object.window) ? duration_1.Duration.fromJSON(object.window) : undefined,
+            sender: isSet(object.sender) ? String(object.sender) : "",
         };
     },
     toJSON(message) {
         const obj = {};
-        message.sender !== undefined &&
-            (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+        message.senderBz !== undefined &&
+            (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
         message.chain !== undefined && (obj.chain = message.chain);
         message.asset !== undefined && (obj.asset = message.asset ? types_1.Asset.toJSON(message.asset) : undefined);
         message.limit !== undefined &&
             (obj.limit = base64FromBytes(message.limit !== undefined ? message.limit : new Uint8Array()));
         message.window !== undefined &&
             (obj.window = message.window ? duration_1.Duration.toJSON(message.window) : undefined);
+        message.sender !== undefined && (obj.sender = message.sender);
         return obj;
     },
     fromPartial(object) {
-        var _a, _b, _c;
+        var _a, _b, _c, _d;
         const message = createBaseRegisterAssetRequest();
-        message.sender = (_a = object.sender) !== null && _a !== void 0 ? _a : new Uint8Array();
+        message.senderBz = (_a = object.senderBz) !== null && _a !== void 0 ? _a : new Uint8Array();
         message.chain = (_b = object.chain) !== null && _b !== void 0 ? _b : "";
         message.asset =
             object.asset !== undefined && object.asset !== null ? types_1.Asset.fromPartial(object.asset) : undefined;
         message.limit = (_c = object.limit) !== null && _c !== void 0 ? _c : new Uint8Array();
         message.window =
             object.window !== undefined && object.window !== null ? duration_1.Duration.fromPartial(object.window) : undefined;
+        message.sender = (_d = object.sender) !== null && _d !== void 0 ? _d : "";
         return message;
     },
 };
@@ -682,12 +738,15 @@ exports.RegisterAssetResponse = {
     },
 };
 function createBaseRouteIBCTransfersRequest() {
-    return { sender: new Uint8Array() };
+    return { senderBz: new Uint8Array(), sender: "" };
 }
 exports.RouteIBCTransfersRequest = {
     encode(message, writer = _m0.Writer.create()) {
-        if (message.sender.length !== 0) {
-            writer.uint32(10).bytes(message.sender);
+        if (message.senderBz.length !== 0) {
+            writer.uint32(10).bytes(message.senderBz);
+        }
+        if (message.sender !== "") {
+            writer.uint32(18).string(message.sender);
         }
         return writer;
     },
@@ -699,7 +758,10 @@ exports.RouteIBCTransfersRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.sender = reader.bytes();
+                    message.senderBz = reader.bytes();
+                    break;
+                case 2:
+                    message.sender = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -710,19 +772,22 @@ exports.RouteIBCTransfersRequest = {
     },
     fromJSON(object) {
         return {
-            sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+            senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
+            sender: isSet(object.sender) ? String(object.sender) : "",
         };
     },
     toJSON(message) {
         const obj = {};
-        message.sender !== undefined &&
-            (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+        message.senderBz !== undefined &&
+            (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
+        message.sender !== undefined && (obj.sender = message.sender);
         return obj;
     },
     fromPartial(object) {
-        var _a;
+        var _a, _b;
         const message = createBaseRouteIBCTransfersRequest();
-        message.sender = (_a = object.sender) !== null && _a !== void 0 ? _a : new Uint8Array();
+        message.senderBz = (_a = object.senderBz) !== null && _a !== void 0 ? _a : new Uint8Array();
+        message.sender = (_b = object.sender) !== null && _b !== void 0 ? _b : "";
         return message;
     },
 };
@@ -760,15 +825,18 @@ exports.RouteIBCTransfersResponse = {
     },
 };
 function createBaseRegisterFeeCollectorRequest() {
-    return { sender: new Uint8Array(), feeCollector: new Uint8Array() };
+    return { senderBz: new Uint8Array(), feeCollector: new Uint8Array(), sender: "" };
 }
 exports.RegisterFeeCollectorRequest = {
     encode(message, writer = _m0.Writer.create()) {
-        if (message.sender.length !== 0) {
-            writer.uint32(10).bytes(message.sender);
+        if (message.senderBz.length !== 0) {
+            writer.uint32(10).bytes(message.senderBz);
         }
         if (message.feeCollector.length !== 0) {
             writer.uint32(18).bytes(message.feeCollector);
+        }
+        if (message.sender !== "") {
+            writer.uint32(26).string(message.sender);
         }
         return writer;
     },
@@ -780,10 +848,13 @@ exports.RegisterFeeCollectorRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.sender = reader.bytes();
+                    message.senderBz = reader.bytes();
                     break;
                 case 2:
                     message.feeCollector = reader.bytes();
+                    break;
+                case 3:
+                    message.sender = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -794,23 +865,26 @@ exports.RegisterFeeCollectorRequest = {
     },
     fromJSON(object) {
         return {
-            sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+            senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
             feeCollector: isSet(object.feeCollector) ? bytesFromBase64(object.feeCollector) : new Uint8Array(),
+            sender: isSet(object.sender) ? String(object.sender) : "",
         };
     },
     toJSON(message) {
         const obj = {};
-        message.sender !== undefined &&
-            (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+        message.senderBz !== undefined &&
+            (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
         message.feeCollector !== undefined &&
             (obj.feeCollector = base64FromBytes(message.feeCollector !== undefined ? message.feeCollector : new Uint8Array()));
+        message.sender !== undefined && (obj.sender = message.sender);
         return obj;
     },
     fromPartial(object) {
-        var _a, _b;
+        var _a, _b, _c;
         const message = createBaseRegisterFeeCollectorRequest();
-        message.sender = (_a = object.sender) !== null && _a !== void 0 ? _a : new Uint8Array();
+        message.senderBz = (_a = object.senderBz) !== null && _a !== void 0 ? _a : new Uint8Array();
         message.feeCollector = (_b = object.feeCollector) !== null && _b !== void 0 ? _b : new Uint8Array();
+        message.sender = (_c = object.sender) !== null && _c !== void 0 ? _c : "";
         return message;
     },
 };
@@ -848,18 +922,21 @@ exports.RegisterFeeCollectorResponse = {
     },
 };
 function createBaseRetryIBCTransferRequest() {
-    return { sender: new Uint8Array(), chain: "", id: long_1.default.UZERO };
+    return { senderBz: new Uint8Array(), chain: "", id: long_1.default.UZERO, sender: "" };
 }
 exports.RetryIBCTransferRequest = {
     encode(message, writer = _m0.Writer.create()) {
-        if (message.sender.length !== 0) {
-            writer.uint32(10).bytes(message.sender);
+        if (message.senderBz.length !== 0) {
+            writer.uint32(10).bytes(message.senderBz);
         }
         if (message.chain !== "") {
             writer.uint32(18).string(message.chain);
         }
         if (!message.id.isZero()) {
             writer.uint32(24).uint64(message.id);
+        }
+        if (message.sender !== "") {
+            writer.uint32(34).string(message.sender);
         }
         return writer;
     },
@@ -871,13 +948,16 @@ exports.RetryIBCTransferRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.sender = reader.bytes();
+                    message.senderBz = reader.bytes();
                     break;
                 case 2:
                     message.chain = reader.string();
                     break;
                 case 3:
                     message.id = reader.uint64();
+                    break;
+                case 4:
+                    message.sender = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -888,25 +968,28 @@ exports.RetryIBCTransferRequest = {
     },
     fromJSON(object) {
         return {
-            sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+            senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
             chain: isSet(object.chain) ? String(object.chain) : "",
             id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
+            sender: isSet(object.sender) ? String(object.sender) : "",
         };
     },
     toJSON(message) {
         const obj = {};
-        message.sender !== undefined &&
-            (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+        message.senderBz !== undefined &&
+            (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
         message.chain !== undefined && (obj.chain = message.chain);
         message.id !== undefined && (obj.id = (message.id || long_1.default.UZERO).toString());
+        message.sender !== undefined && (obj.sender = message.sender);
         return obj;
     },
     fromPartial(object) {
-        var _a, _b;
+        var _a, _b, _c;
         const message = createBaseRetryIBCTransferRequest();
-        message.sender = (_a = object.sender) !== null && _a !== void 0 ? _a : new Uint8Array();
+        message.senderBz = (_a = object.senderBz) !== null && _a !== void 0 ? _a : new Uint8Array();
         message.chain = (_b = object.chain) !== null && _b !== void 0 ? _b : "";
         message.id = object.id !== undefined && object.id !== null ? long_1.default.fromValue(object.id) : long_1.default.UZERO;
+        message.sender = (_c = object.sender) !== null && _c !== void 0 ? _c : "";
         return message;
     },
 };
@@ -944,12 +1027,18 @@ exports.RetryIBCTransferResponse = {
     },
 };
 function createBaseRouteMessageRequest() {
-    return { sender: new Uint8Array(), id: "", payload: new Uint8Array(), feegranter: new Uint8Array() };
+    return {
+        senderBz: new Uint8Array(),
+        id: "",
+        payload: new Uint8Array(),
+        feegranter: new Uint8Array(),
+        sender: "",
+    };
 }
 exports.RouteMessageRequest = {
     encode(message, writer = _m0.Writer.create()) {
-        if (message.sender.length !== 0) {
-            writer.uint32(10).bytes(message.sender);
+        if (message.senderBz.length !== 0) {
+            writer.uint32(10).bytes(message.senderBz);
         }
         if (message.id !== "") {
             writer.uint32(18).string(message.id);
@@ -959,6 +1048,9 @@ exports.RouteMessageRequest = {
         }
         if (message.feegranter.length !== 0) {
             writer.uint32(34).bytes(message.feegranter);
+        }
+        if (message.sender !== "") {
+            writer.uint32(42).string(message.sender);
         }
         return writer;
     },
@@ -970,7 +1062,7 @@ exports.RouteMessageRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.sender = reader.bytes();
+                    message.senderBz = reader.bytes();
                     break;
                 case 2:
                     message.id = reader.string();
@@ -981,6 +1073,9 @@ exports.RouteMessageRequest = {
                 case 4:
                     message.feegranter = reader.bytes();
                     break;
+                case 5:
+                    message.sender = reader.string();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -990,30 +1085,33 @@ exports.RouteMessageRequest = {
     },
     fromJSON(object) {
         return {
-            sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+            senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
             id: isSet(object.id) ? String(object.id) : "",
             payload: isSet(object.payload) ? bytesFromBase64(object.payload) : new Uint8Array(),
             feegranter: isSet(object.feegranter) ? bytesFromBase64(object.feegranter) : new Uint8Array(),
+            sender: isSet(object.sender) ? String(object.sender) : "",
         };
     },
     toJSON(message) {
         const obj = {};
-        message.sender !== undefined &&
-            (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+        message.senderBz !== undefined &&
+            (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
         message.id !== undefined && (obj.id = message.id);
         message.payload !== undefined &&
             (obj.payload = base64FromBytes(message.payload !== undefined ? message.payload : new Uint8Array()));
         message.feegranter !== undefined &&
             (obj.feegranter = base64FromBytes(message.feegranter !== undefined ? message.feegranter : new Uint8Array()));
+        message.sender !== undefined && (obj.sender = message.sender);
         return obj;
     },
     fromPartial(object) {
-        var _a, _b, _c, _d;
+        var _a, _b, _c, _d, _e;
         const message = createBaseRouteMessageRequest();
-        message.sender = (_a = object.sender) !== null && _a !== void 0 ? _a : new Uint8Array();
+        message.senderBz = (_a = object.senderBz) !== null && _a !== void 0 ? _a : new Uint8Array();
         message.id = (_b = object.id) !== null && _b !== void 0 ? _b : "";
         message.payload = (_c = object.payload) !== null && _c !== void 0 ? _c : new Uint8Array();
         message.feegranter = (_d = object.feegranter) !== null && _d !== void 0 ? _d : new Uint8Array();
+        message.sender = (_e = object.sender) !== null && _e !== void 0 ? _e : "";
         return message;
     },
 };
@@ -1052,17 +1150,18 @@ exports.RouteMessageResponse = {
 };
 function createBaseCallContractRequest() {
     return {
-        sender: new Uint8Array(),
+        senderBz: new Uint8Array(),
         chain: "",
         contractAddress: "",
         payload: new Uint8Array(),
         fee: undefined,
+        sender: "",
     };
 }
 exports.CallContractRequest = {
     encode(message, writer = _m0.Writer.create()) {
-        if (message.sender.length !== 0) {
-            writer.uint32(10).bytes(message.sender);
+        if (message.senderBz.length !== 0) {
+            writer.uint32(10).bytes(message.senderBz);
         }
         if (message.chain !== "") {
             writer.uint32(18).string(message.chain);
@@ -1076,6 +1175,9 @@ exports.CallContractRequest = {
         if (message.fee !== undefined) {
             types_2.Fee.encode(message.fee, writer.uint32(42).fork()).ldelim();
         }
+        if (message.sender !== "") {
+            writer.uint32(50).string(message.sender);
+        }
         return writer;
     },
     decode(input, length) {
@@ -1086,7 +1188,7 @@ exports.CallContractRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.sender = reader.bytes();
+                    message.senderBz = reader.bytes();
                     break;
                 case 2:
                     message.chain = reader.string();
@@ -1100,6 +1202,9 @@ exports.CallContractRequest = {
                 case 5:
                     message.fee = types_2.Fee.decode(reader, reader.uint32());
                     break;
+                case 6:
+                    message.sender = reader.string();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -1109,32 +1214,35 @@ exports.CallContractRequest = {
     },
     fromJSON(object) {
         return {
-            sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(),
+            senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(),
             chain: isSet(object.chain) ? String(object.chain) : "",
             contractAddress: isSet(object.contractAddress) ? String(object.contractAddress) : "",
             payload: isSet(object.payload) ? bytesFromBase64(object.payload) : new Uint8Array(),
             fee: isSet(object.fee) ? types_2.Fee.fromJSON(object.fee) : undefined,
+            sender: isSet(object.sender) ? String(object.sender) : "",
         };
     },
     toJSON(message) {
         const obj = {};
-        message.sender !== undefined &&
-            (obj.sender = base64FromBytes(message.sender !== undefined ? message.sender : new Uint8Array()));
+        message.senderBz !== undefined &&
+            (obj.senderBz = base64FromBytes(message.senderBz !== undefined ? message.senderBz : new Uint8Array()));
         message.chain !== undefined && (obj.chain = message.chain);
         message.contractAddress !== undefined && (obj.contractAddress = message.contractAddress);
         message.payload !== undefined &&
             (obj.payload = base64FromBytes(message.payload !== undefined ? message.payload : new Uint8Array()));
         message.fee !== undefined && (obj.fee = message.fee ? types_2.Fee.toJSON(message.fee) : undefined);
+        message.sender !== undefined && (obj.sender = message.sender);
         return obj;
     },
     fromPartial(object) {
-        var _a, _b, _c, _d;
+        var _a, _b, _c, _d, _e;
         const message = createBaseCallContractRequest();
-        message.sender = (_a = object.sender) !== null && _a !== void 0 ? _a : new Uint8Array();
+        message.senderBz = (_a = object.senderBz) !== null && _a !== void 0 ? _a : new Uint8Array();
         message.chain = (_b = object.chain) !== null && _b !== void 0 ? _b : "";
         message.contractAddress = (_c = object.contractAddress) !== null && _c !== void 0 ? _c : "";
         message.payload = (_d = object.payload) !== null && _d !== void 0 ? _d : new Uint8Array();
         message.fee = object.fee !== undefined && object.fee !== null ? types_2.Fee.fromPartial(object.fee) : undefined;
+        message.sender = (_e = object.sender) !== null && _e !== void 0 ? _e : "";
         return message;
     },
 };

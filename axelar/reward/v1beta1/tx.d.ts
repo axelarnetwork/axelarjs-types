@@ -3,8 +3,10 @@ import * as _m0 from "protobufjs/minimal";
 import { Any } from "../../../google/protobuf/any";
 export declare const protobufPackage = "axelar.reward.v1beta1";
 export interface RefundMsgRequest {
-    sender: Uint8Array;
+    /** @deprecated */
+    senderBz: Uint8Array;
     innerMessage?: Any;
+    sender: string;
 }
 export interface RefundMsgResponse {
     data: Uint8Array;
@@ -16,13 +18,14 @@ export declare const RefundMsgRequest: {
     fromJSON(object: any): RefundMsgRequest;
     toJSON(message: RefundMsgRequest): unknown;
     fromPartial<I extends {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         innerMessage?: {
             typeUrl?: string | undefined;
             value?: Uint8Array | undefined;
         } | undefined;
+        sender?: string | undefined;
     } & {
-        sender?: Uint8Array | undefined;
+        senderBz?: Uint8Array | undefined;
         innerMessage?: ({
             typeUrl?: string | undefined;
             value?: Uint8Array | undefined;
@@ -30,6 +33,7 @@ export declare const RefundMsgRequest: {
             typeUrl?: string | undefined;
             value?: Uint8Array | undefined;
         } & Record<Exclude<keyof I["innerMessage"], keyof Any>, never>) | undefined;
+        sender?: string | undefined;
     } & Record<Exclude<keyof I, keyof RefundMsgRequest>, never>>(object: I): RefundMsgRequest;
 };
 export declare const RefundMsgResponse: {
