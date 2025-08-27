@@ -9,6 +9,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@axelar-network/axelarjs-types@workspace:."
   dependencies:
+    "@bufbuild/buf": ^1.56.0
     "@types/long": ^4.0.1
     "@types/node": ^15.6.2
     long: ^4.0.0
@@ -18,6 +19,89 @@ __metadata:
     typescript: ~4.4
   languageName: unknown
   linkType: soft
+
+"@bufbuild/buf-darwin-arm64@npm:1.56.0":
+  version: 1.56.0
+  resolution: "@bufbuild/buf-darwin-arm64@npm:1.56.0"
+  conditions: os=darwin & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@bufbuild/buf-darwin-x64@npm:1.56.0":
+  version: 1.56.0
+  resolution: "@bufbuild/buf-darwin-x64@npm:1.56.0"
+  conditions: os=darwin & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@bufbuild/buf-linux-aarch64@npm:1.56.0":
+  version: 1.56.0
+  resolution: "@bufbuild/buf-linux-aarch64@npm:1.56.0"
+  conditions: os=linux & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@bufbuild/buf-linux-armv7@npm:1.56.0":
+  version: 1.56.0
+  resolution: "@bufbuild/buf-linux-armv7@npm:1.56.0"
+  conditions: os=linux & cpu=arm
+  languageName: node
+  linkType: hard
+
+"@bufbuild/buf-linux-x64@npm:1.56.0":
+  version: 1.56.0
+  resolution: "@bufbuild/buf-linux-x64@npm:1.56.0"
+  conditions: os=linux & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@bufbuild/buf-win32-arm64@npm:1.56.0":
+  version: 1.56.0
+  resolution: "@bufbuild/buf-win32-arm64@npm:1.56.0"
+  conditions: os=win32 & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@bufbuild/buf-win32-x64@npm:1.56.0":
+  version: 1.56.0
+  resolution: "@bufbuild/buf-win32-x64@npm:1.56.0"
+  conditions: os=win32 & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@bufbuild/buf@npm:^1.56.0":
+  version: 1.56.0
+  resolution: "@bufbuild/buf@npm:1.56.0"
+  dependencies:
+    "@bufbuild/buf-darwin-arm64": 1.56.0
+    "@bufbuild/buf-darwin-x64": 1.56.0
+    "@bufbuild/buf-linux-aarch64": 1.56.0
+    "@bufbuild/buf-linux-armv7": 1.56.0
+    "@bufbuild/buf-linux-x64": 1.56.0
+    "@bufbuild/buf-win32-arm64": 1.56.0
+    "@bufbuild/buf-win32-x64": 1.56.0
+  dependenciesMeta:
+    "@bufbuild/buf-darwin-arm64":
+      optional: true
+    "@bufbuild/buf-darwin-x64":
+      optional: true
+    "@bufbuild/buf-linux-aarch64":
+      optional: true
+    "@bufbuild/buf-linux-armv7":
+      optional: true
+    "@bufbuild/buf-linux-x64":
+      optional: true
+    "@bufbuild/buf-win32-arm64":
+      optional: true
+    "@bufbuild/buf-win32-x64":
+      optional: true
+  bin:
+    buf: bin/buf
+    protoc-gen-buf-breaking: bin/protoc-gen-buf-breaking
+    protoc-gen-buf-lint: bin/protoc-gen-buf-lint
+  checksum: ac1298ead380f20112218b05ba072617747eeaf395b084bd78c36a39d10e0649324c1c5702b210f2e6347f6f4852f2e2b754ba1ae4b9bf57596abda25f6be3cc
+  languageName: node
+  linkType: hard
 
 "@protobufjs/aspromise@npm:^1.1.1, @protobufjs/aspromise@npm:^1.1.2":
   version: 1.1.2

@@ -17,11 +17,15 @@
   ],
   "scripts": {
     "format": "prettier --write --loglevel warn \"./src/**/*.ts\"",
-    "codegen": "./scripts/codegen-axelar-sdk.sh && yarn format",
+    "buf:deps": "cd axelar-core/proto && npx buf dep update",
+    "buf:export": "cd axelar-core/proto && npx buf export . --output ../third_party/proto",
+    "buf:setup": "yarn buf:deps && yarn buf:export",
+    "codegen": "yarn buf:setup && ./scripts/codegen-axelar-sdk.sh && yarn format",
     "prepare": "./scripts/prepare.sh",
     "build": "tsc && yarn prepare"
   },
   "dependencies": {
+    "@bufbuild/buf": "^1.56.0",
     "long": "^4.0.0",
     "protobufjs": "~6.11.2"
   },
