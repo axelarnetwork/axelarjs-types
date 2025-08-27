@@ -2,8 +2,8 @@
 // versions:
 //   protoc-gen-ts_proto  v1.181.2
 //   protoc               v3.21.12
-// source: gogoproto/gogo.proto
+// source: amino/amino.proto
 
 /* eslint-disable */
 
-export const protobufPackage = "gogoproto";
+export const protobufPackage = "amino";
