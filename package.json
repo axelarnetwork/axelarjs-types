@@ -25,11 +25,11 @@
     "build": "tsc && yarn prepare"
   },
   "dependencies": {
-    "@bufbuild/buf": "^1.56.0",
     "long": "^4.0.0",
     "protobufjs": "~6.11.2"
   },
   "devDependencies": {
+    "@bufbuild/buf": "^1.56.0",
     "@types/long": "^4.0.1",
     "@types/node": "^15.6.2",
     "prettier": "^2.6",
