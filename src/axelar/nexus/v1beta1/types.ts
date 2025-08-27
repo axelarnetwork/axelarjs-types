@@ -22,7 +22,7 @@ import {
 export const protobufPackage = "axelar.nexus.v1beta1";
 
 export interface MaintainerState {
-  address: Uint8Array;
+  address: Buffer;
   missingVotes?: Bitmap | undefined;
   incorrectVotes?: Bitmap | undefined;
   chain: string;
@@ -57,7 +57,7 @@ export interface TransferEpoch {
 }
 
 function createBaseMaintainerState(): MaintainerState {
-  return { address: new Uint8Array(0), missingVotes: undefined, incorrectVotes: undefined, chain: "" };
+  return { address: Buffer.alloc(0), missingVotes: undefined, incorrectVotes: undefined, chain: "" };
 }
 
 export const MaintainerState = {
@@ -89,7 +89,7 @@ export const MaintainerState = {
             break;
           }
 
-          message.address = reader.bytes();
+          message.address = reader.bytes() as Buffer;
           continue;
         case 2:
           if (tag !== 18) {
@@ -123,10 +123,10 @@ export const MaintainerState = {
 
   fromJSON(object: any): MaintainerState {
     return {
-      address: isSet(object.address) ? bytesFromBase64(object.address) : new Uint8Array(0),
+      address: isSet(object.address) ? Buffer.from(bytesFromBase64(object.address)) : Buffer.alloc(0),
       missingVotes: isSet(object.missingVotes) ? Bitmap.fromJSON(object.missingVotes) : undefined,
       incorrectVotes: isSet(object.incorrectVotes) ? Bitmap.fromJSON(object.incorrectVotes) : undefined,
-      chain: isSet(object.chain) ? globalThis.String(object.chain) : "",
+      chain: isSet(object.chain) ? gt.String(object.chain) : "",
     };
   },
 
@@ -152,7 +152,7 @@ export const MaintainerState = {
   },
   fromPartial<I extends Exact<DeepPartial<MaintainerState>, I>>(object: I): MaintainerState {
     const message = createBaseMaintainerState();
-    message.address = object.address ?? new Uint8Array(0);
+    message.address = object.address ?? Buffer.alloc(0);
     message.missingVotes =
       object.missingVotes !== undefined && object.missingVotes !== null
         ? Bitmap.fromPartial(object.missingVotes)
@@ -234,11 +234,9 @@ export const ChainState = {
   fromJSON(object: any): ChainState {
     return {
       chain: isSet(object.chain) ? Chain.fromJSON(object.chain) : undefined,
-      activated: isSet(object.activated) ? globalThis.Boolean(object.activated) : false,
-      assets: globalThis.Array.isArray(object?.assets)
-        ? object.assets.map((e: any) => Asset.fromJSON(e))
-        : [],
-      maintainerStates: globalThis.Array.isArray(object?.maintainerStates)
+      activated: isSet(object.activated) ? gt.Boolean(object.activated) : false,
+      assets: gt.Array.isArray(object?.assets) ? object.assets.map((e: any) => Asset.fromJSON(e)) : [],
+      maintainerStates: gt.Array.isArray(object?.maintainerStates)
         ? object.maintainerStates.map((e: any) => MaintainerState.fromJSON(e))
         : [],
     };
@@ -416,7 +414,7 @@ export const RateLimit = {
 
   fromJSON(object: any): RateLimit {
     return {
-      chain: isSet(object.chain) ? globalThis.String(object.chain) : "",
+      chain: isSet(object.chain) ? gt.String(object.chain) : "",
       limit: isSet(object.limit) ? Coin.fromJSON(object.limit) : undefined,
       window: isSet(object.window) ? Duration.fromJSON(object.window) : undefined,
     };
@@ -517,7 +515,7 @@ export const TransferEpoch = {
 
   fromJSON(object: any): TransferEpoch {
     return {
-      chain: isSet(object.chain) ? globalThis.String(object.chain) : "",
+      chain: isSet(object.chain) ? gt.String(object.chain) : "",
       amount: isSet(object.amount) ? Coin.fromJSON(object.amount) : undefined,
       epoch: isSet(object.epoch) ? Long.fromValue(object.epoch) : Long.UZERO,
       direction: isSet(object.direction) ? transferDirectionFromJSON(object.direction) : 0,
@@ -556,29 +554,31 @@ export const TransferEpoch = {
   },
 };
 
-function bytesFromBase64(b64: string): Uint8Array {
-  if ((globalThis as any).Buffer) {
-    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
-  } else {
-    const bin = globalThis.atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-      arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
   }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
+
+function bytesFromBase64(b64: string): Uint8Array {
+  return Uint8Array.from(gt.Buffer.from(b64, "base64"));
 }
 
 function base64FromBytes(arr: Uint8Array): string {
-  if ((globalThis as any).Buffer) {
-    return globalThis.Buffer.from(arr).toString("base64");
-  } else {
-    const bin: string[] = [];
-    arr.forEach((byte) => {
-      bin.push(globalThis.String.fromCharCode(byte));
-    });
-    return globalThis.btoa(bin.join(""));
-  }
+  return gt.Buffer.from(arr).toString("base64");
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;

@@ -47,7 +47,7 @@ export interface KeyRequest {
 
 export interface KeygenParticipant {
   address: string;
-  weight: Uint8Array;
+  weight: Buffer;
   pubKey: string;
 }
 
@@ -57,8 +57,8 @@ export interface KeyResponse {
   state: KeyState;
   startedAt: Long;
   startedAtTimestamp?: Timestamp | undefined;
-  thresholdWeight: Uint8Array;
-  bondedWeight: Uint8Array;
+  thresholdWeight: Buffer;
+  bondedWeight: Buffer;
   /** Keygen participants in descending order by weight */
   participants: KeygenParticipant[];
 }
@@ -75,9 +75,9 @@ export interface KeygenSessionResponse {
   completedAt: Long;
   gracePeriod: Long;
   state: MultisigState;
-  keygenThresholdWeight: Uint8Array;
-  signingThresholdWeight: Uint8Array;
-  bondedWeight: Uint8Array;
+  keygenThresholdWeight: Buffer;
+  signingThresholdWeight: Buffer;
+  bondedWeight: Buffer;
   /** Keygen candidates in descending order by weight */
   participants: KeygenParticipant[];
 }
@@ -125,7 +125,7 @@ export const KeyIDRequest = {
   },
 
   fromJSON(object: any): KeyIDRequest {
-    return { chain: isSet(object.chain) ? globalThis.String(object.chain) : "" };
+    return { chain: isSet(object.chain) ? gt.String(object.chain) : "" };
   },
 
   toJSON(message: KeyIDRequest): unknown {
@@ -182,7 +182,7 @@ export const KeyIDResponse = {
   },
 
   fromJSON(object: any): KeyIDResponse {
-    return { keyId: isSet(object.keyId) ? globalThis.String(object.keyId) : "" };
+    return { keyId: isSet(object.keyId) ? gt.String(object.keyId) : "" };
   },
 
   toJSON(message: KeyIDResponse): unknown {
@@ -239,7 +239,7 @@ export const NextKeyIDRequest = {
   },
 
   fromJSON(object: any): NextKeyIDRequest {
-    return { chain: isSet(object.chain) ? globalThis.String(object.chain) : "" };
+    return { chain: isSet(object.chain) ? gt.String(object.chain) : "" };
   },
 
   toJSON(message: NextKeyIDRequest): unknown {
@@ -296,7 +296,7 @@ export const NextKeyIDResponse = {
   },
 
   fromJSON(object: any): NextKeyIDResponse {
-    return { keyId: isSet(object.keyId) ? globalThis.String(object.keyId) : "" };
+    return { keyId: isSet(object.keyId) ? gt.String(object.keyId) : "" };
   },
 
   toJSON(message: NextKeyIDResponse): unknown {
@@ -353,7 +353,7 @@ export const KeyRequest = {
   },
 
   fromJSON(object: any): KeyRequest {
-    return { keyId: isSet(object.keyId) ? globalThis.String(object.keyId) : "" };
+    return { keyId: isSet(object.keyId) ? gt.String(object.keyId) : "" };
   },
 
   toJSON(message: KeyRequest): unknown {
@@ -375,7 +375,7 @@ export const KeyRequest = {
 };
 
 function createBaseKeygenParticipant(): KeygenParticipant {
-  return { address: "", weight: new Uint8Array(0), pubKey: "" };
+  return { address: "", weight: Buffer.alloc(0), pubKey: "" };
 }
 
 export const KeygenParticipant = {
@@ -411,7 +411,7 @@ export const KeygenParticipant = {
             break;
           }
 
-          message.weight = reader.bytes();
+          message.weight = reader.bytes() as Buffer;
           continue;
         case 3:
           if (tag !== 26) {
@@ -431,9 +431,9 @@ export const KeygenParticipant = {
 
   fromJSON(object: any): KeygenParticipant {
     return {
-      address: isSet(object.address) ? globalThis.String(object.address) : "",
-      weight: isSet(object.weight) ? bytesFromBase64(object.weight) : new Uint8Array(0),
-      pubKey: isSet(object.pubKey) ? globalThis.String(object.pubKey) : "",
+      address: isSet(object.address) ? gt.String(object.address) : "",
+      weight: isSet(object.weight) ? Buffer.from(bytesFromBase64(object.weight)) : Buffer.alloc(0),
+      pubKey: isSet(object.pubKey) ? gt.String(object.pubKey) : "",
     };
   },
 
@@ -457,7 +457,7 @@ export const KeygenParticipant = {
   fromPartial<I extends Exact<DeepPartial<KeygenParticipant>, I>>(object: I): KeygenParticipant {
     const message = createBaseKeygenParticipant();
     message.address = object.address ?? "";
-    message.weight = object.weight ?? new Uint8Array(0);
+    message.weight = object.weight ?? Buffer.alloc(0);
     message.pubKey = object.pubKey ?? "";
     return message;
   },
@@ -469,8 +469,8 @@ function createBaseKeyResponse(): KeyResponse {
     state: 0,
     startedAt: Long.ZERO,
     startedAtTimestamp: undefined,
-    thresholdWeight: new Uint8Array(0),
-    bondedWeight: new Uint8Array(0),
+    thresholdWeight: Buffer.alloc(0),
+    bondedWeight: Buffer.alloc(0),
     participants: [],
   };
 }
@@ -541,14 +541,14 @@ export const KeyResponse = {
             break;
           }
 
-          message.thresholdWeight = reader.bytes();
+          message.thresholdWeight = reader.bytes() as Buffer;
           continue;
         case 6:
           if (tag !== 50) {
             break;
           }
 
-          message.bondedWeight = reader.bytes();
+          message.bondedWeight = reader.bytes() as Buffer;
           continue;
         case 7:
           if (tag !== 58) {
@@ -568,17 +568,19 @@ export const KeyResponse = {
 
   fromJSON(object: any): KeyResponse {
     return {
-      keyId: isSet(object.keyId) ? globalThis.String(object.keyId) : "",
+      keyId: isSet(object.keyId) ? gt.String(object.keyId) : "",
       state: isSet(object.state) ? keyStateFromJSON(object.state) : 0,
       startedAt: isSet(object.startedAt) ? Long.fromValue(object.startedAt) : Long.ZERO,
       startedAtTimestamp: isSet(object.startedAtTimestamp)
         ? fromJsonTimestamp(object.startedAtTimestamp)
         : undefined,
       thresholdWeight: isSet(object.thresholdWeight)
-        ? bytesFromBase64(object.thresholdWeight)
-        : new Uint8Array(0),
-      bondedWeight: isSet(object.bondedWeight) ? bytesFromBase64(object.bondedWeight) : new Uint8Array(0),
-      participants: globalThis.Array.isArray(object?.participants)
+        ? Buffer.from(bytesFromBase64(object.thresholdWeight))
+        : Buffer.alloc(0),
+      bondedWeight: isSet(object.bondedWeight)
+        ? Buffer.from(bytesFromBase64(object.bondedWeight))
+        : Buffer.alloc(0),
+      participants: gt.Array.isArray(object?.participants)
         ? object.participants.map((e: any) => KeygenParticipant.fromJSON(e))
         : [],
     };
@@ -625,8 +627,8 @@ export const KeyResponse = {
       object.startedAtTimestamp !== undefined && object.startedAtTimestamp !== null
         ? Timestamp.fromPartial(object.startedAtTimestamp)
         : undefined;
-    message.thresholdWeight = object.thresholdWeight ?? new Uint8Array(0);
-    message.bondedWeight = object.bondedWeight ?? new Uint8Array(0);
+    message.thresholdWeight = object.thresholdWeight ?? Buffer.alloc(0);
+    message.bondedWeight = object.bondedWeight ?? Buffer.alloc(0);
     message.participants = object.participants?.map((e) => KeygenParticipant.fromPartial(e)) || [];
     return message;
   },
@@ -668,7 +670,7 @@ export const KeygenSessionRequest = {
   },
 
   fromJSON(object: any): KeygenSessionRequest {
-    return { keyId: isSet(object.keyId) ? globalThis.String(object.keyId) : "" };
+    return { keyId: isSet(object.keyId) ? gt.String(object.keyId) : "" };
   },
 
   toJSON(message: KeygenSessionRequest): unknown {
@@ -697,9 +699,9 @@ function createBaseKeygenSessionResponse(): KeygenSessionResponse {
     completedAt: Long.ZERO,
     gracePeriod: Long.ZERO,
     state: 0,
-    keygenThresholdWeight: new Uint8Array(0),
-    signingThresholdWeight: new Uint8Array(0),
-    bondedWeight: new Uint8Array(0),
+    keygenThresholdWeight: Buffer.alloc(0),
+    signingThresholdWeight: Buffer.alloc(0),
+    bondedWeight: Buffer.alloc(0),
     participants: [],
   };
 }
@@ -793,21 +795,21 @@ export const KeygenSessionResponse = {
             break;
           }
 
-          message.keygenThresholdWeight = reader.bytes();
+          message.keygenThresholdWeight = reader.bytes() as Buffer;
           continue;
         case 8:
           if (tag !== 66) {
             break;
           }
 
-          message.signingThresholdWeight = reader.bytes();
+          message.signingThresholdWeight = reader.bytes() as Buffer;
           continue;
         case 9:
           if (tag !== 74) {
             break;
           }
 
-          message.bondedWeight = reader.bytes();
+          message.bondedWeight = reader.bytes() as Buffer;
           continue;
         case 10:
           if (tag !== 82) {
@@ -836,13 +838,15 @@ export const KeygenSessionResponse = {
       gracePeriod: isSet(object.gracePeriod) ? Long.fromValue(object.gracePeriod) : Long.ZERO,
       state: isSet(object.state) ? multisigStateFromJSON(object.state) : 0,
       keygenThresholdWeight: isSet(object.keygenThresholdWeight)
-        ? bytesFromBase64(object.keygenThresholdWeight)
-        : new Uint8Array(0),
+        ? Buffer.from(bytesFromBase64(object.keygenThresholdWeight))
+        : Buffer.alloc(0),
       signingThresholdWeight: isSet(object.signingThresholdWeight)
-        ? bytesFromBase64(object.signingThresholdWeight)
-        : new Uint8Array(0),
-      bondedWeight: isSet(object.bondedWeight) ? bytesFromBase64(object.bondedWeight) : new Uint8Array(0),
-      participants: globalThis.Array.isArray(object?.participants)
+        ? Buffer.from(bytesFromBase64(object.signingThresholdWeight))
+        : Buffer.alloc(0),
+      bondedWeight: isSet(object.bondedWeight)
+        ? Buffer.from(bytesFromBase64(object.bondedWeight))
+        : Buffer.alloc(0),
+      participants: gt.Array.isArray(object?.participants)
         ? object.participants.map((e: any) => KeygenParticipant.fromJSON(e))
         : [],
     };
@@ -909,9 +913,9 @@ export const KeygenSessionResponse = {
         ? Long.fromValue(object.gracePeriod)
         : Long.ZERO;
     message.state = object.state ?? 0;
-    message.keygenThresholdWeight = object.keygenThresholdWeight ?? new Uint8Array(0);
-    message.signingThresholdWeight = object.signingThresholdWeight ?? new Uint8Array(0);
-    message.bondedWeight = object.bondedWeight ?? new Uint8Array(0);
+    message.keygenThresholdWeight = object.keygenThresholdWeight ?? Buffer.alloc(0);
+    message.signingThresholdWeight = object.signingThresholdWeight ?? Buffer.alloc(0);
+    message.bondedWeight = object.bondedWeight ?? Buffer.alloc(0);
     message.participants = object.participants?.map((e) => KeygenParticipant.fromPartial(e)) || [];
     return message;
   },
@@ -1018,29 +1022,31 @@ export const ParamsResponse = {
   },
 };
 
-function bytesFromBase64(b64: string): Uint8Array {
-  if ((globalThis as any).Buffer) {
-    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
-  } else {
-    const bin = globalThis.atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-      arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
   }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
+
+function bytesFromBase64(b64: string): Uint8Array {
+  return Uint8Array.from(gt.Buffer.from(b64, "base64"));
 }
 
 function base64FromBytes(arr: Uint8Array): string {
-  if ((globalThis as any).Buffer) {
-    return globalThis.Buffer.from(arr).toString("base64");
-  } else {
-    const bin: string[] = [];
-    arr.forEach((byte) => {
-      bin.push(globalThis.String.fromCharCode(byte));
-    });
-    return globalThis.btoa(bin.join(""));
-  }
+  return gt.Buffer.from(arr).toString("base64");
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
@@ -1071,14 +1077,14 @@ function toTimestamp(date: Date): Timestamp {
 function fromTimestamp(t: Timestamp): Date {
   let millis = (t.seconds.toNumber() || 0) * 1_000;
   millis += (t.nanos || 0) / 1_000_000;
-  return new globalThis.Date(millis);
+  return new gt.Date(millis);
 }
 
 function fromJsonTimestamp(o: any): Timestamp {
-  if (o instanceof globalThis.Date) {
+  if (o instanceof gt.Date) {
     return toTimestamp(o);
   } else if (typeof o === "string") {
-    return toTimestamp(new globalThis.Date(o));
+    return toTimestamp(new gt.Date(o));
   } else {
     return Timestamp.fromJSON(o);
   }

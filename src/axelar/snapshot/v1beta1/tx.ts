@@ -11,7 +11,7 @@ import _m0 from "protobufjs/minimal";
 export const protobufPackage = "axelar.snapshot.v1beta1";
 
 export interface RegisterProxyRequest {
-  proxyAddr: Uint8Array;
+  proxyAddr: Buffer;
   sender: string;
 }
 
@@ -19,14 +19,14 @@ export interface RegisterProxyResponse {}
 
 export interface DeactivateProxyRequest {
   /** @deprecated */
-  senderBz: Uint8Array;
+  senderBz: Buffer;
   sender: string;
 }
 
 export interface DeactivateProxyResponse {}
 
 function createBaseRegisterProxyRequest(): RegisterProxyRequest {
-  return { proxyAddr: new Uint8Array(0), sender: "" };
+  return { proxyAddr: Buffer.alloc(0), sender: "" };
 }
 
 export const RegisterProxyRequest = {
@@ -52,7 +52,7 @@ export const RegisterProxyRequest = {
             break;
           }
 
-          message.proxyAddr = reader.bytes();
+          message.proxyAddr = reader.bytes() as Buffer;
           continue;
         case 3:
           if (tag !== 26) {
@@ -72,8 +72,8 @@ export const RegisterProxyRequest = {
 
   fromJSON(object: any): RegisterProxyRequest {
     return {
-      proxyAddr: isSet(object.proxyAddr) ? bytesFromBase64(object.proxyAddr) : new Uint8Array(0),
-      sender: isSet(object.sender) ? globalThis.String(object.sender) : "",
+      proxyAddr: isSet(object.proxyAddr) ? Buffer.from(bytesFromBase64(object.proxyAddr)) : Buffer.alloc(0),
+      sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
   },
 
@@ -93,7 +93,7 @@ export const RegisterProxyRequest = {
   },
   fromPartial<I extends Exact<DeepPartial<RegisterProxyRequest>, I>>(object: I): RegisterProxyRequest {
     const message = createBaseRegisterProxyRequest();
-    message.proxyAddr = object.proxyAddr ?? new Uint8Array(0);
+    message.proxyAddr = object.proxyAddr ?? Buffer.alloc(0);
     message.sender = object.sender ?? "";
     return message;
   },
@@ -143,7 +143,7 @@ export const RegisterProxyResponse = {
 };
 
 function createBaseDeactivateProxyRequest(): DeactivateProxyRequest {
-  return { senderBz: new Uint8Array(0), sender: "" };
+  return { senderBz: Buffer.alloc(0), sender: "" };
 }
 
 export const DeactivateProxyRequest = {
@@ -169,7 +169,7 @@ export const DeactivateProxyRequest = {
             break;
           }
 
-          message.senderBz = reader.bytes();
+          message.senderBz = reader.bytes() as Buffer;
           continue;
         case 2:
           if (tag !== 18) {
@@ -189,8 +189,8 @@ export const DeactivateProxyRequest = {
 
   fromJSON(object: any): DeactivateProxyRequest {
     return {
-      senderBz: isSet(object.senderBz) ? bytesFromBase64(object.senderBz) : new Uint8Array(0),
-      sender: isSet(object.sender) ? globalThis.String(object.sender) : "",
+      senderBz: isSet(object.senderBz) ? Buffer.from(bytesFromBase64(object.senderBz)) : Buffer.alloc(0),
+      sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
   },
 
@@ -210,7 +210,7 @@ export const DeactivateProxyRequest = {
   },
   fromPartial<I extends Exact<DeepPartial<DeactivateProxyRequest>, I>>(object: I): DeactivateProxyRequest {
     const message = createBaseDeactivateProxyRequest();
-    message.senderBz = object.senderBz ?? new Uint8Array(0);
+    message.senderBz = object.senderBz ?? Buffer.alloc(0);
     message.sender = object.sender ?? "";
     return message;
   },
@@ -259,29 +259,31 @@ export const DeactivateProxyResponse = {
   },
 };
 
-function bytesFromBase64(b64: string): Uint8Array {
-  if ((globalThis as any).Buffer) {
-    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
-  } else {
-    const bin = globalThis.atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-      arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
   }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
+
+function bytesFromBase64(b64: string): Uint8Array {
+  return Uint8Array.from(gt.Buffer.from(b64, "base64"));
 }
 
 function base64FromBytes(arr: Uint8Array): string {
-  if ((globalThis as any).Buffer) {
-    return globalThis.Buffer.from(arr).toString("base64");
-  } else {
-    const bin: string[] = [];
-    arr.forEach((byte) => {
-      bin.push(globalThis.String.fromCharCode(byte));
-    });
-    return globalThis.btoa(bin.join(""));
-  }
+  return gt.Buffer.from(arr).toString("base64");
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;

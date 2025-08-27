@@ -191,29 +191,27 @@ export const GenesisState = {
     return {
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
       nonce: isSet(object.nonce) ? Long.fromValue(object.nonce) : Long.UZERO,
-      chains: globalThis.Array.isArray(object?.chains)
-        ? object.chains.map((e: any) => Chain.fromJSON(e))
-        : [],
-      chainStates: globalThis.Array.isArray(object?.chainStates)
+      chains: gt.Array.isArray(object?.chains) ? object.chains.map((e: any) => Chain.fromJSON(e)) : [],
+      chainStates: gt.Array.isArray(object?.chainStates)
         ? object.chainStates.map((e: any) => ChainState.fromJSON(e))
         : [],
-      linkedAddresses: globalThis.Array.isArray(object?.linkedAddresses)
+      linkedAddresses: gt.Array.isArray(object?.linkedAddresses)
         ? object.linkedAddresses.map((e: any) => LinkedAddresses.fromJSON(e))
         : [],
-      transfers: globalThis.Array.isArray(object?.transfers)
+      transfers: gt.Array.isArray(object?.transfers)
         ? object.transfers.map((e: any) => CrossChainTransfer.fromJSON(e))
         : [],
       fee: isSet(object.fee) ? TransferFee.fromJSON(object.fee) : undefined,
-      feeInfos: globalThis.Array.isArray(object?.feeInfos)
+      feeInfos: gt.Array.isArray(object?.feeInfos)
         ? object.feeInfos.map((e: any) => FeeInfo.fromJSON(e))
         : [],
-      rateLimits: globalThis.Array.isArray(object?.rateLimits)
+      rateLimits: gt.Array.isArray(object?.rateLimits)
         ? object.rateLimits.map((e: any) => RateLimit.fromJSON(e))
         : [],
-      transferEpochs: globalThis.Array.isArray(object?.transferEpochs)
+      transferEpochs: gt.Array.isArray(object?.transferEpochs)
         ? object.transferEpochs.map((e: any) => TransferEpoch.fromJSON(e))
         : [],
-      messages: globalThis.Array.isArray(object?.messages)
+      messages: gt.Array.isArray(object?.messages)
         ? object.messages.map((e: any) => GeneralMessage.fromJSON(e))
         : [],
       messageNonce: isSet(object.messageNonce) ? Long.fromValue(object.messageNonce) : Long.UZERO,
@@ -287,6 +285,25 @@ export const GenesisState = {
     return message;
   },
 };
+
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
+  }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 

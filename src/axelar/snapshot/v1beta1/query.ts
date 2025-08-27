@@ -139,7 +139,7 @@ export const QueryValidatorsResponse = {
 
   fromJSON(object: any): QueryValidatorsResponse {
     return {
-      validators: globalThis.Array.isArray(object?.validators)
+      validators: gt.Array.isArray(object?.validators)
         ? object.validators.map((e: any) => QueryValidatorsResponse_Validator.fromJSON(e))
         : [],
     };
@@ -272,21 +272,15 @@ export const QueryValidatorsResponse_TssIllegibilityInfo = {
 
   fromJSON(object: any): QueryValidatorsResponse_TssIllegibilityInfo {
     return {
-      tombstoned: isSet(object.tombstoned) ? globalThis.Boolean(object.tombstoned) : false,
-      jailed: isSet(object.jailed) ? globalThis.Boolean(object.jailed) : false,
-      missedTooManyBlocks: isSet(object.missedTooManyBlocks)
-        ? globalThis.Boolean(object.missedTooManyBlocks)
-        : false,
-      noProxyRegistered: isSet(object.noProxyRegistered)
-        ? globalThis.Boolean(object.noProxyRegistered)
-        : false,
-      tssSuspended: isSet(object.tssSuspended) ? globalThis.Boolean(object.tssSuspended) : false,
+      tombstoned: isSet(object.tombstoned) ? gt.Boolean(object.tombstoned) : false,
+      jailed: isSet(object.jailed) ? gt.Boolean(object.jailed) : false,
+      missedTooManyBlocks: isSet(object.missedTooManyBlocks) ? gt.Boolean(object.missedTooManyBlocks) : false,
+      noProxyRegistered: isSet(object.noProxyRegistered) ? gt.Boolean(object.noProxyRegistered) : false,
+      tssSuspended: isSet(object.tssSuspended) ? gt.Boolean(object.tssSuspended) : false,
       proxyInsuficientFunds: isSet(object.proxyInsuficientFunds)
-        ? globalThis.Boolean(object.proxyInsuficientFunds)
+        ? gt.Boolean(object.proxyInsuficientFunds)
         : false,
-      staleTssHeartbeat: isSet(object.staleTssHeartbeat)
-        ? globalThis.Boolean(object.staleTssHeartbeat)
-        : false,
+      staleTssHeartbeat: isSet(object.staleTssHeartbeat) ? gt.Boolean(object.staleTssHeartbeat) : false,
     };
   },
 
@@ -399,8 +393,8 @@ export const QueryValidatorsResponse_Validator = {
 
   fromJSON(object: any): QueryValidatorsResponse_Validator {
     return {
-      operatorAddress: isSet(object.operatorAddress) ? globalThis.String(object.operatorAddress) : "",
-      moniker: isSet(object.moniker) ? globalThis.String(object.moniker) : "",
+      operatorAddress: isSet(object.operatorAddress) ? gt.String(object.operatorAddress) : "",
+      moniker: isSet(object.moniker) ? gt.String(object.moniker) : "",
       tssIllegibilityInfo: isSet(object.tssIllegibilityInfo)
         ? QueryValidatorsResponse_TssIllegibilityInfo.fromJSON(object.tssIllegibilityInfo)
         : undefined,
@@ -579,7 +573,7 @@ export const OperatorByProxyRequest = {
   },
 
   fromJSON(object: any): OperatorByProxyRequest {
-    return { proxyAddress: isSet(object.proxyAddress) ? globalThis.String(object.proxyAddress) : "" };
+    return { proxyAddress: isSet(object.proxyAddress) ? gt.String(object.proxyAddress) : "" };
   },
 
   toJSON(message: OperatorByProxyRequest): unknown {
@@ -636,9 +630,7 @@ export const OperatorByProxyResponse = {
   },
 
   fromJSON(object: any): OperatorByProxyResponse {
-    return {
-      operatorAddress: isSet(object.operatorAddress) ? globalThis.String(object.operatorAddress) : "",
-    };
+    return { operatorAddress: isSet(object.operatorAddress) ? gt.String(object.operatorAddress) : "" };
   },
 
   toJSON(message: OperatorByProxyResponse): unknown {
@@ -695,9 +687,7 @@ export const ProxyByOperatorRequest = {
   },
 
   fromJSON(object: any): ProxyByOperatorRequest {
-    return {
-      operatorAddress: isSet(object.operatorAddress) ? globalThis.String(object.operatorAddress) : "",
-    };
+    return { operatorAddress: isSet(object.operatorAddress) ? gt.String(object.operatorAddress) : "" };
   },
 
   toJSON(message: ProxyByOperatorRequest): unknown {
@@ -765,7 +755,7 @@ export const ProxyByOperatorResponse = {
 
   fromJSON(object: any): ProxyByOperatorResponse {
     return {
-      proxyAddress: isSet(object.proxyAddress) ? globalThis.String(object.proxyAddress) : "",
+      proxyAddress: isSet(object.proxyAddress) ? gt.String(object.proxyAddress) : "",
       status: isSet(object.status) ? proxyByOperatorResponse_StatusFromJSON(object.status) : 0,
     };
   },
@@ -791,6 +781,25 @@ export const ProxyByOperatorResponse = {
     return message;
   },
 };
+
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
+  }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 

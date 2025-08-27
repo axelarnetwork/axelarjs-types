@@ -95,11 +95,11 @@ export const Voted = {
 
   fromJSON(object: any): Voted {
     return {
-      module: isSet(object.module) ? globalThis.String(object.module) : "",
-      action: isSet(object.action) ? globalThis.String(object.action) : "",
-      poll: isSet(object.poll) ? globalThis.String(object.poll) : "",
-      voter: isSet(object.voter) ? globalThis.String(object.voter) : "",
-      state: isSet(object.state) ? globalThis.String(object.state) : "",
+      module: isSet(object.module) ? gt.String(object.module) : "",
+      action: isSet(object.action) ? gt.String(object.action) : "",
+      poll: isSet(object.poll) ? gt.String(object.poll) : "",
+      voter: isSet(object.voter) ? gt.String(object.voter) : "",
+      state: isSet(object.state) ? gt.String(object.state) : "",
     };
   },
 
@@ -136,6 +136,25 @@ export const Voted = {
     return message;
   },
 };
+
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
+  }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 

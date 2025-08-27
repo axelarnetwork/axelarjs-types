@@ -16,7 +16,7 @@ export const protobufPackage = "axelar.vote.v1beta1";
  * validators voting for the same data
  */
 export interface TalliedVote {
-  tally: Uint8Array;
+  tally: Buffer;
   data?: Any | undefined;
   pollId: Long;
   isVoterLate: { [key: string]: boolean };
@@ -28,7 +28,7 @@ export interface TalliedVote_IsVoterLateEntry {
 }
 
 function createBaseTalliedVote(): TalliedVote {
-  return { tally: new Uint8Array(0), data: undefined, pollId: Long.UZERO, isVoterLate: {} };
+  return { tally: Buffer.alloc(0), data: undefined, pollId: Long.UZERO, isVoterLate: {} };
 }
 
 export const TalliedVote = {
@@ -60,7 +60,7 @@ export const TalliedVote = {
             break;
           }
 
-          message.tally = reader.bytes();
+          message.tally = reader.bytes() as Buffer;
           continue;
         case 3:
           if (tag !== 26) {
@@ -97,7 +97,7 @@ export const TalliedVote = {
 
   fromJSON(object: any): TalliedVote {
     return {
-      tally: isSet(object.tally) ? bytesFromBase64(object.tally) : new Uint8Array(0),
+      tally: isSet(object.tally) ? Buffer.from(bytesFromBase64(object.tally)) : Buffer.alloc(0),
       data: isSet(object.data) ? Any.fromJSON(object.data) : undefined,
       pollId: isSet(object.pollId) ? Long.fromValue(object.pollId) : Long.UZERO,
       isVoterLate: isObject(object.isVoterLate)
@@ -137,7 +137,7 @@ export const TalliedVote = {
   },
   fromPartial<I extends Exact<DeepPartial<TalliedVote>, I>>(object: I): TalliedVote {
     const message = createBaseTalliedVote();
-    message.tally = object.tally ?? new Uint8Array(0);
+    message.tally = object.tally ?? Buffer.alloc(0);
     message.data =
       object.data !== undefined && object.data !== null ? Any.fromPartial(object.data) : undefined;
     message.pollId =
@@ -145,7 +145,7 @@ export const TalliedVote = {
     message.isVoterLate = Object.entries(object.isVoterLate ?? {}).reduce<{ [key: string]: boolean }>(
       (acc, [key, value]) => {
         if (value !== undefined) {
-          acc[key] = globalThis.Boolean(value);
+          acc[key] = gt.Boolean(value);
         }
         return acc;
       },
@@ -202,8 +202,8 @@ export const TalliedVote_IsVoterLateEntry = {
 
   fromJSON(object: any): TalliedVote_IsVoterLateEntry {
     return {
-      key: isSet(object.key) ? globalThis.String(object.key) : "",
-      value: isSet(object.value) ? globalThis.Boolean(object.value) : false,
+      key: isSet(object.key) ? gt.String(object.key) : "",
+      value: isSet(object.value) ? gt.Boolean(object.value) : false,
     };
   },
 
@@ -233,29 +233,31 @@ export const TalliedVote_IsVoterLateEntry = {
   },
 };
 
-function bytesFromBase64(b64: string): Uint8Array {
-  if ((globalThis as any).Buffer) {
-    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
-  } else {
-    const bin = globalThis.atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-      arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
   }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
+
+function bytesFromBase64(b64: string): Uint8Array {
+  return Uint8Array.from(gt.Buffer.from(b64, "base64"));
 }
 
 function base64FromBytes(arr: Uint8Array): string {
-  if ((globalThis as any).Buffer) {
-    return globalThis.Buffer.from(arr).toString("base64");
-  } else {
-    const bin: string[] = [];
-    arr.forEach((byte) => {
-      bin.push(globalThis.String.fromCharCode(byte));
-    });
-    return globalThis.btoa(bin.join(""));
-  }
+  return gt.Buffer.from(arr).toString("base64");
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;

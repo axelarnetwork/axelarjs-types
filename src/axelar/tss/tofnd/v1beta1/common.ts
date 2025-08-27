@@ -16,7 +16,7 @@ export const protobufPackage = "axelar.tss.tofnd.v1beta1";
 export interface KeyPresenceRequest {
   keyUid: string;
   /** SEC1-encoded compressed pub key bytes to find the right */
-  pubKey: Uint8Array;
+  pubKey: Buffer;
 }
 
 export interface KeyPresenceResponse {
@@ -69,7 +69,7 @@ export function keyPresenceResponse_ResponseToJSON(object: KeyPresenceResponse_R
 }
 
 function createBaseKeyPresenceRequest(): KeyPresenceRequest {
-  return { keyUid: "", pubKey: new Uint8Array(0) };
+  return { keyUid: "", pubKey: Buffer.alloc(0) };
 }
 
 export const KeyPresenceRequest = {
@@ -102,7 +102,7 @@ export const KeyPresenceRequest = {
             break;
           }
 
-          message.pubKey = reader.bytes();
+          message.pubKey = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -115,8 +115,8 @@ export const KeyPresenceRequest = {
 
   fromJSON(object: any): KeyPresenceRequest {
     return {
-      keyUid: isSet(object.keyUid) ? globalThis.String(object.keyUid) : "",
-      pubKey: isSet(object.pubKey) ? bytesFromBase64(object.pubKey) : new Uint8Array(0),
+      keyUid: isSet(object.keyUid) ? gt.String(object.keyUid) : "",
+      pubKey: isSet(object.pubKey) ? Buffer.from(bytesFromBase64(object.pubKey)) : Buffer.alloc(0),
     };
   },
 
@@ -137,7 +137,7 @@ export const KeyPresenceRequest = {
   fromPartial<I extends Exact<DeepPartial<KeyPresenceRequest>, I>>(object: I): KeyPresenceRequest {
     const message = createBaseKeyPresenceRequest();
     message.keyUid = object.keyUid ?? "";
-    message.pubKey = object.pubKey ?? new Uint8Array(0);
+    message.pubKey = object.pubKey ?? Buffer.alloc(0);
     return message;
   },
 };
@@ -199,29 +199,31 @@ export const KeyPresenceResponse = {
   },
 };
 
-function bytesFromBase64(b64: string): Uint8Array {
-  if ((globalThis as any).Buffer) {
-    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
-  } else {
-    const bin = globalThis.atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-      arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
   }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
+
+function bytesFromBase64(b64: string): Uint8Array {
+  return Uint8Array.from(gt.Buffer.from(b64, "base64"));
 }
 
 function base64FromBytes(arr: Uint8Array): string {
-  if ((globalThis as any).Buffer) {
-    return globalThis.Buffer.from(arr).toString("base64");
-  } else {
-    const bin: string[] = [];
-    arr.forEach((byte) => {
-      bin.push(globalThis.String.fromCharCode(byte));
-    });
-    return globalThis.btoa(bin.join(""));
-  }
+  return gt.Buffer.from(arr).toString("base64");
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;

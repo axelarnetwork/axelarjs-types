@@ -942,7 +942,7 @@ export interface UninterpretedOption {
   positiveIntValue?: Long | undefined;
   negativeIntValue?: Long | undefined;
   doubleValue?: number | undefined;
-  stringValue?: Uint8Array | undefined;
+  stringValue?: Buffer | undefined;
   aggregateValue?: string | undefined;
 }
 
@@ -1138,7 +1138,7 @@ function createBaseFileDescriptorSet(): FileDescriptorSet {
   return { file: [] };
 }
 
-export const FileDescriptorSet = {
+export const FileDescriptorSet: any = {
   encode(message: FileDescriptorSet, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.file) {
       FileDescriptorProto.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -1171,7 +1171,7 @@ export const FileDescriptorSet = {
 
   fromJSON(object: any): FileDescriptorSet {
     return {
-      file: globalThis.Array.isArray(object?.file)
+      file: gt.Array.isArray(object?.file)
         ? object.file.map((e: any) => FileDescriptorProto.fromJSON(e))
         : [],
     };
@@ -1212,7 +1212,7 @@ function createBaseFileDescriptorProto(): FileDescriptorProto {
   };
 }
 
-export const FileDescriptorProto = {
+export const FileDescriptorProto: any = {
   encode(message: FileDescriptorProto, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.name !== undefined && message.name !== "") {
       writer.uint32(10).string(message.name);
@@ -1379,34 +1379,32 @@ export const FileDescriptorProto = {
 
   fromJSON(object: any): FileDescriptorProto {
     return {
-      name: isSet(object.name) ? globalThis.String(object.name) : "",
-      package: isSet(object.package) ? globalThis.String(object.package) : "",
-      dependency: globalThis.Array.isArray(object?.dependency)
-        ? object.dependency.map((e: any) => globalThis.String(e))
+      name: isSet(object.name) ? gt.String(object.name) : "",
+      package: isSet(object.package) ? gt.String(object.package) : "",
+      dependency: gt.Array.isArray(object?.dependency) ? object.dependency.map((e: any) => gt.String(e)) : [],
+      publicDependency: gt.Array.isArray(object?.publicDependency)
+        ? object.publicDependency.map((e: any) => gt.Number(e))
         : [],
-      publicDependency: globalThis.Array.isArray(object?.publicDependency)
-        ? object.publicDependency.map((e: any) => globalThis.Number(e))
+      weakDependency: gt.Array.isArray(object?.weakDependency)
+        ? object.weakDependency.map((e: any) => gt.Number(e))
         : [],
-      weakDependency: globalThis.Array.isArray(object?.weakDependency)
-        ? object.weakDependency.map((e: any) => globalThis.Number(e))
-        : [],
-      messageType: globalThis.Array.isArray(object?.messageType)
+      messageType: gt.Array.isArray(object?.messageType)
         ? object.messageType.map((e: any) => DescriptorProto.fromJSON(e))
         : [],
-      enumType: globalThis.Array.isArray(object?.enumType)
+      enumType: gt.Array.isArray(object?.enumType)
         ? object.enumType.map((e: any) => EnumDescriptorProto.fromJSON(e))
         : [],
-      service: globalThis.Array.isArray(object?.service)
+      service: gt.Array.isArray(object?.service)
         ? object.service.map((e: any) => ServiceDescriptorProto.fromJSON(e))
         : [],
-      extension: globalThis.Array.isArray(object?.extension)
+      extension: gt.Array.isArray(object?.extension)
         ? object.extension.map((e: any) => FieldDescriptorProto.fromJSON(e))
         : [],
       options: isSet(object.options) ? FileOptions.fromJSON(object.options) : undefined,
       sourceCodeInfo: isSet(object.sourceCodeInfo)
         ? SourceCodeInfo.fromJSON(object.sourceCodeInfo)
         : undefined,
-      syntax: isSet(object.syntax) ? globalThis.String(object.syntax) : "",
+      syntax: isSet(object.syntax) ? gt.String(object.syntax) : "",
     };
   },
 
@@ -1493,7 +1491,7 @@ function createBaseDescriptorProto(): DescriptorProto {
   };
 }
 
-export const DescriptorProto = {
+export const DescriptorProto: any = {
   encode(message: DescriptorProto, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.name !== undefined && message.name !== "") {
       writer.uint32(10).string(message.name);
@@ -1616,31 +1614,31 @@ export const DescriptorProto = {
 
   fromJSON(object: any): DescriptorProto {
     return {
-      name: isSet(object.name) ? globalThis.String(object.name) : "",
-      field: globalThis.Array.isArray(object?.field)
+      name: isSet(object.name) ? gt.String(object.name) : "",
+      field: gt.Array.isArray(object?.field)
         ? object.field.map((e: any) => FieldDescriptorProto.fromJSON(e))
         : [],
-      extension: globalThis.Array.isArray(object?.extension)
+      extension: gt.Array.isArray(object?.extension)
         ? object.extension.map((e: any) => FieldDescriptorProto.fromJSON(e))
         : [],
-      nestedType: globalThis.Array.isArray(object?.nestedType)
+      nestedType: gt.Array.isArray(object?.nestedType)
         ? object.nestedType.map((e: any) => DescriptorProto.fromJSON(e))
         : [],
-      enumType: globalThis.Array.isArray(object?.enumType)
+      enumType: gt.Array.isArray(object?.enumType)
         ? object.enumType.map((e: any) => EnumDescriptorProto.fromJSON(e))
         : [],
-      extensionRange: globalThis.Array.isArray(object?.extensionRange)
+      extensionRange: gt.Array.isArray(object?.extensionRange)
         ? object.extensionRange.map((e: any) => DescriptorProto_ExtensionRange.fromJSON(e))
         : [],
-      oneofDecl: globalThis.Array.isArray(object?.oneofDecl)
+      oneofDecl: gt.Array.isArray(object?.oneofDecl)
         ? object.oneofDecl.map((e: any) => OneofDescriptorProto.fromJSON(e))
         : [],
       options: isSet(object.options) ? MessageOptions.fromJSON(object.options) : undefined,
-      reservedRange: globalThis.Array.isArray(object?.reservedRange)
+      reservedRange: gt.Array.isArray(object?.reservedRange)
         ? object.reservedRange.map((e: any) => DescriptorProto_ReservedRange.fromJSON(e))
         : [],
-      reservedName: globalThis.Array.isArray(object?.reservedName)
-        ? object.reservedName.map((e: any) => globalThis.String(e))
+      reservedName: gt.Array.isArray(object?.reservedName)
+        ? object.reservedName.map((e: any) => gt.String(e))
         : [],
     };
   },
@@ -1761,8 +1759,8 @@ export const DescriptorProto_ExtensionRange = {
 
   fromJSON(object: any): DescriptorProto_ExtensionRange {
     return {
-      start: isSet(object.start) ? globalThis.Number(object.start) : 0,
-      end: isSet(object.end) ? globalThis.Number(object.end) : 0,
+      start: isSet(object.start) ? gt.Number(object.start) : 0,
+      end: isSet(object.end) ? gt.Number(object.end) : 0,
       options: isSet(object.options) ? ExtensionRangeOptions.fromJSON(object.options) : undefined,
     };
   },
@@ -1847,8 +1845,8 @@ export const DescriptorProto_ReservedRange = {
 
   fromJSON(object: any): DescriptorProto_ReservedRange {
     return {
-      start: isSet(object.start) ? globalThis.Number(object.start) : 0,
-      end: isSet(object.end) ? globalThis.Number(object.end) : 0,
+      start: isSet(object.start) ? gt.Number(object.start) : 0,
+      end: isSet(object.end) ? gt.Number(object.end) : 0,
     };
   },
 
@@ -1915,7 +1913,7 @@ export const ExtensionRangeOptions = {
 
   fromJSON(object: any): ExtensionRangeOptions {
     return {
-      uninterpretedOption: globalThis.Array.isArray(object?.uninterpretedOption)
+      uninterpretedOption: gt.Array.isArray(object?.uninterpretedOption)
         ? object.uninterpretedOption.map((e: any) => UninterpretedOption.fromJSON(e))
         : [],
     };
@@ -2089,17 +2087,17 @@ export const FieldDescriptorProto = {
 
   fromJSON(object: any): FieldDescriptorProto {
     return {
-      name: isSet(object.name) ? globalThis.String(object.name) : "",
-      number: isSet(object.number) ? globalThis.Number(object.number) : 0,
+      name: isSet(object.name) ? gt.String(object.name) : "",
+      number: isSet(object.number) ? gt.Number(object.number) : 0,
       label: isSet(object.label) ? fieldDescriptorProto_LabelFromJSON(object.label) : 1,
       type: isSet(object.type) ? fieldDescriptorProto_TypeFromJSON(object.type) : 1,
-      typeName: isSet(object.typeName) ? globalThis.String(object.typeName) : "",
-      extendee: isSet(object.extendee) ? globalThis.String(object.extendee) : "",
-      defaultValue: isSet(object.defaultValue) ? globalThis.String(object.defaultValue) : "",
-      oneofIndex: isSet(object.oneofIndex) ? globalThis.Number(object.oneofIndex) : 0,
-      jsonName: isSet(object.jsonName) ? globalThis.String(object.jsonName) : "",
+      typeName: isSet(object.typeName) ? gt.String(object.typeName) : "",
+      extendee: isSet(object.extendee) ? gt.String(object.extendee) : "",
+      defaultValue: isSet(object.defaultValue) ? gt.String(object.defaultValue) : "",
+      oneofIndex: isSet(object.oneofIndex) ? gt.Number(object.oneofIndex) : 0,
+      jsonName: isSet(object.jsonName) ? gt.String(object.jsonName) : "",
       options: isSet(object.options) ? FieldOptions.fromJSON(object.options) : undefined,
-      proto3Optional: isSet(object.proto3Optional) ? globalThis.Boolean(object.proto3Optional) : false,
+      proto3Optional: isSet(object.proto3Optional) ? gt.Boolean(object.proto3Optional) : false,
     };
   },
 
@@ -2211,7 +2209,7 @@ export const OneofDescriptorProto = {
 
   fromJSON(object: any): OneofDescriptorProto {
     return {
-      name: isSet(object.name) ? globalThis.String(object.name) : "",
+      name: isSet(object.name) ? gt.String(object.name) : "",
       options: isSet(object.options) ? OneofOptions.fromJSON(object.options) : undefined,
     };
   },
@@ -2318,16 +2316,16 @@ export const EnumDescriptorProto = {
 
   fromJSON(object: any): EnumDescriptorProto {
     return {
-      name: isSet(object.name) ? globalThis.String(object.name) : "",
-      value: globalThis.Array.isArray(object?.value)
+      name: isSet(object.name) ? gt.String(object.name) : "",
+      value: gt.Array.isArray(object?.value)
         ? object.value.map((e: any) => EnumValueDescriptorProto.fromJSON(e))
         : [],
       options: isSet(object.options) ? EnumOptions.fromJSON(object.options) : undefined,
-      reservedRange: globalThis.Array.isArray(object?.reservedRange)
+      reservedRange: gt.Array.isArray(object?.reservedRange)
         ? object.reservedRange.map((e: any) => EnumDescriptorProto_EnumReservedRange.fromJSON(e))
         : [],
-      reservedName: globalThis.Array.isArray(object?.reservedName)
-        ? object.reservedName.map((e: any) => globalThis.String(e))
+      reservedName: gt.Array.isArray(object?.reservedName)
+        ? object.reservedName.map((e: any) => gt.String(e))
         : [],
     };
   },
@@ -2420,8 +2418,8 @@ export const EnumDescriptorProto_EnumReservedRange = {
 
   fromJSON(object: any): EnumDescriptorProto_EnumReservedRange {
     return {
-      start: isSet(object.start) ? globalThis.Number(object.start) : 0,
-      end: isSet(object.end) ? globalThis.Number(object.end) : 0,
+      start: isSet(object.start) ? gt.Number(object.start) : 0,
+      end: isSet(object.end) ? gt.Number(object.end) : 0,
     };
   },
 
@@ -2508,8 +2506,8 @@ export const EnumValueDescriptorProto = {
 
   fromJSON(object: any): EnumValueDescriptorProto {
     return {
-      name: isSet(object.name) ? globalThis.String(object.name) : "",
-      number: isSet(object.number) ? globalThis.Number(object.number) : 0,
+      name: isSet(object.name) ? gt.String(object.name) : "",
+      number: isSet(object.number) ? gt.Number(object.number) : 0,
       options: isSet(object.options) ? EnumValueOptions.fromJSON(object.options) : undefined,
     };
   },
@@ -2602,8 +2600,8 @@ export const ServiceDescriptorProto = {
 
   fromJSON(object: any): ServiceDescriptorProto {
     return {
-      name: isSet(object.name) ? globalThis.String(object.name) : "",
-      method: globalThis.Array.isArray(object?.method)
+      name: isSet(object.name) ? gt.String(object.name) : "",
+      method: gt.Array.isArray(object?.method)
         ? object.method.map((e: any) => MethodDescriptorProto.fromJSON(e))
         : [],
       options: isSet(object.options) ? ServiceOptions.fromJSON(object.options) : undefined,
@@ -2733,12 +2731,12 @@ export const MethodDescriptorProto = {
 
   fromJSON(object: any): MethodDescriptorProto {
     return {
-      name: isSet(object.name) ? globalThis.String(object.name) : "",
-      inputType: isSet(object.inputType) ? globalThis.String(object.inputType) : "",
-      outputType: isSet(object.outputType) ? globalThis.String(object.outputType) : "",
+      name: isSet(object.name) ? gt.String(object.name) : "",
+      inputType: isSet(object.inputType) ? gt.String(object.inputType) : "",
+      outputType: isSet(object.outputType) ? gt.String(object.outputType) : "",
       options: isSet(object.options) ? MethodOptions.fromJSON(object.options) : undefined,
-      clientStreaming: isSet(object.clientStreaming) ? globalThis.Boolean(object.clientStreaming) : false,
-      serverStreaming: isSet(object.serverStreaming) ? globalThis.Boolean(object.serverStreaming) : false,
+      clientStreaming: isSet(object.clientStreaming) ? gt.Boolean(object.clientStreaming) : false,
+      serverStreaming: isSet(object.serverStreaming) ? gt.Boolean(object.serverStreaming) : false,
     };
   },
 
@@ -3042,45 +3040,29 @@ export const FileOptions = {
 
   fromJSON(object: any): FileOptions {
     return {
-      javaPackage: isSet(object.javaPackage) ? globalThis.String(object.javaPackage) : "",
-      javaOuterClassname: isSet(object.javaOuterClassname)
-        ? globalThis.String(object.javaOuterClassname)
-        : "",
-      javaMultipleFiles: isSet(object.javaMultipleFiles)
-        ? globalThis.Boolean(object.javaMultipleFiles)
-        : false,
+      javaPackage: isSet(object.javaPackage) ? gt.String(object.javaPackage) : "",
+      javaOuterClassname: isSet(object.javaOuterClassname) ? gt.String(object.javaOuterClassname) : "",
+      javaMultipleFiles: isSet(object.javaMultipleFiles) ? gt.Boolean(object.javaMultipleFiles) : false,
       javaGenerateEqualsAndHash: isSet(object.javaGenerateEqualsAndHash)
-        ? globalThis.Boolean(object.javaGenerateEqualsAndHash)
+        ? gt.Boolean(object.javaGenerateEqualsAndHash)
         : false,
-      javaStringCheckUtf8: isSet(object.javaStringCheckUtf8)
-        ? globalThis.Boolean(object.javaStringCheckUtf8)
-        : false,
+      javaStringCheckUtf8: isSet(object.javaStringCheckUtf8) ? gt.Boolean(object.javaStringCheckUtf8) : false,
       optimizeFor: isSet(object.optimizeFor) ? fileOptions_OptimizeModeFromJSON(object.optimizeFor) : 1,
-      goPackage: isSet(object.goPackage) ? globalThis.String(object.goPackage) : "",
-      ccGenericServices: isSet(object.ccGenericServices)
-        ? globalThis.Boolean(object.ccGenericServices)
-        : false,
-      javaGenericServices: isSet(object.javaGenericServices)
-        ? globalThis.Boolean(object.javaGenericServices)
-        : false,
-      pyGenericServices: isSet(object.pyGenericServices)
-        ? globalThis.Boolean(object.pyGenericServices)
-        : false,
-      phpGenericServices: isSet(object.phpGenericServices)
-        ? globalThis.Boolean(object.phpGenericServices)
-        : false,
-      deprecated: isSet(object.deprecated) ? globalThis.Boolean(object.deprecated) : false,
-      ccEnableArenas: isSet(object.ccEnableArenas) ? globalThis.Boolean(object.ccEnableArenas) : true,
-      objcClassPrefix: isSet(object.objcClassPrefix) ? globalThis.String(object.objcClassPrefix) : "",
-      csharpNamespace: isSet(object.csharpNamespace) ? globalThis.String(object.csharpNamespace) : "",
-      swiftPrefix: isSet(object.swiftPrefix) ? globalThis.String(object.swiftPrefix) : "",
-      phpClassPrefix: isSet(object.phpClassPrefix) ? globalThis.String(object.phpClassPrefix) : "",
-      phpNamespace: isSet(object.phpNamespace) ? globalThis.String(object.phpNamespace) : "",
-      phpMetadataNamespace: isSet(object.phpMetadataNamespace)
-        ? globalThis.String(object.phpMetadataNamespace)
-        : "",
-      rubyPackage: isSet(object.rubyPackage) ? globalThis.String(object.rubyPackage) : "",
-      uninterpretedOption: globalThis.Array.isArray(object?.uninterpretedOption)
+      goPackage: isSet(object.goPackage) ? gt.String(object.goPackage) : "",
+      ccGenericServices: isSet(object.ccGenericServices) ? gt.Boolean(object.ccGenericServices) : false,
+      javaGenericServices: isSet(object.javaGenericServices) ? gt.Boolean(object.javaGenericServices) : false,
+      pyGenericServices: isSet(object.pyGenericServices) ? gt.Boolean(object.pyGenericServices) : false,
+      phpGenericServices: isSet(object.phpGenericServices) ? gt.Boolean(object.phpGenericServices) : false,
+      deprecated: isSet(object.deprecated) ? gt.Boolean(object.deprecated) : false,
+      ccEnableArenas: isSet(object.ccEnableArenas) ? gt.Boolean(object.ccEnableArenas) : true,
+      objcClassPrefix: isSet(object.objcClassPrefix) ? gt.String(object.objcClassPrefix) : "",
+      csharpNamespace: isSet(object.csharpNamespace) ? gt.String(object.csharpNamespace) : "",
+      swiftPrefix: isSet(object.swiftPrefix) ? gt.String(object.swiftPrefix) : "",
+      phpClassPrefix: isSet(object.phpClassPrefix) ? gt.String(object.phpClassPrefix) : "",
+      phpNamespace: isSet(object.phpNamespace) ? gt.String(object.phpNamespace) : "",
+      phpMetadataNamespace: isSet(object.phpMetadataNamespace) ? gt.String(object.phpMetadataNamespace) : "",
+      rubyPackage: isSet(object.rubyPackage) ? gt.String(object.rubyPackage) : "",
+      uninterpretedOption: gt.Array.isArray(object?.uninterpretedOption)
         ? object.uninterpretedOption.map((e: any) => UninterpretedOption.fromJSON(e))
         : [],
     };
@@ -3272,14 +3254,14 @@ export const MessageOptions = {
   fromJSON(object: any): MessageOptions {
     return {
       messageSetWireFormat: isSet(object.messageSetWireFormat)
-        ? globalThis.Boolean(object.messageSetWireFormat)
+        ? gt.Boolean(object.messageSetWireFormat)
         : false,
       noStandardDescriptorAccessor: isSet(object.noStandardDescriptorAccessor)
-        ? globalThis.Boolean(object.noStandardDescriptorAccessor)
+        ? gt.Boolean(object.noStandardDescriptorAccessor)
         : false,
-      deprecated: isSet(object.deprecated) ? globalThis.Boolean(object.deprecated) : false,
-      mapEntry: isSet(object.mapEntry) ? globalThis.Boolean(object.mapEntry) : false,
-      uninterpretedOption: globalThis.Array.isArray(object?.uninterpretedOption)
+      deprecated: isSet(object.deprecated) ? gt.Boolean(object.deprecated) : false,
+      mapEntry: isSet(object.mapEntry) ? gt.Boolean(object.mapEntry) : false,
+      uninterpretedOption: gt.Array.isArray(object?.uninterpretedOption)
         ? object.uninterpretedOption.map((e: any) => UninterpretedOption.fromJSON(e))
         : [],
     };
@@ -3440,13 +3422,13 @@ export const FieldOptions = {
   fromJSON(object: any): FieldOptions {
     return {
       ctype: isSet(object.ctype) ? fieldOptions_CTypeFromJSON(object.ctype) : 0,
-      packed: isSet(object.packed) ? globalThis.Boolean(object.packed) : false,
+      packed: isSet(object.packed) ? gt.Boolean(object.packed) : false,
       jstype: isSet(object.jstype) ? fieldOptions_JSTypeFromJSON(object.jstype) : 0,
-      lazy: isSet(object.lazy) ? globalThis.Boolean(object.lazy) : false,
-      unverifiedLazy: isSet(object.unverifiedLazy) ? globalThis.Boolean(object.unverifiedLazy) : false,
-      deprecated: isSet(object.deprecated) ? globalThis.Boolean(object.deprecated) : false,
-      weak: isSet(object.weak) ? globalThis.Boolean(object.weak) : false,
-      uninterpretedOption: globalThis.Array.isArray(object?.uninterpretedOption)
+      lazy: isSet(object.lazy) ? gt.Boolean(object.lazy) : false,
+      unverifiedLazy: isSet(object.unverifiedLazy) ? gt.Boolean(object.unverifiedLazy) : false,
+      deprecated: isSet(object.deprecated) ? gt.Boolean(object.deprecated) : false,
+      weak: isSet(object.weak) ? gt.Boolean(object.weak) : false,
+      uninterpretedOption: gt.Array.isArray(object?.uninterpretedOption)
         ? object.uninterpretedOption.map((e: any) => UninterpretedOption.fromJSON(e))
         : [],
     };
@@ -3536,7 +3518,7 @@ export const OneofOptions = {
 
   fromJSON(object: any): OneofOptions {
     return {
-      uninterpretedOption: globalThis.Array.isArray(object?.uninterpretedOption)
+      uninterpretedOption: gt.Array.isArray(object?.uninterpretedOption)
         ? object.uninterpretedOption.map((e: any) => UninterpretedOption.fromJSON(e))
         : [],
     };
@@ -3618,9 +3600,9 @@ export const EnumOptions = {
 
   fromJSON(object: any): EnumOptions {
     return {
-      allowAlias: isSet(object.allowAlias) ? globalThis.Boolean(object.allowAlias) : false,
-      deprecated: isSet(object.deprecated) ? globalThis.Boolean(object.deprecated) : false,
-      uninterpretedOption: globalThis.Array.isArray(object?.uninterpretedOption)
+      allowAlias: isSet(object.allowAlias) ? gt.Boolean(object.allowAlias) : false,
+      deprecated: isSet(object.deprecated) ? gt.Boolean(object.deprecated) : false,
+      uninterpretedOption: gt.Array.isArray(object?.uninterpretedOption)
         ? object.uninterpretedOption.map((e: any) => UninterpretedOption.fromJSON(e))
         : [],
     };
@@ -3700,8 +3682,8 @@ export const EnumValueOptions = {
 
   fromJSON(object: any): EnumValueOptions {
     return {
-      deprecated: isSet(object.deprecated) ? globalThis.Boolean(object.deprecated) : false,
-      uninterpretedOption: globalThis.Array.isArray(object?.uninterpretedOption)
+      deprecated: isSet(object.deprecated) ? gt.Boolean(object.deprecated) : false,
+      uninterpretedOption: gt.Array.isArray(object?.uninterpretedOption)
         ? object.uninterpretedOption.map((e: any) => UninterpretedOption.fromJSON(e))
         : [],
     };
@@ -3777,8 +3759,8 @@ export const ServiceOptions = {
 
   fromJSON(object: any): ServiceOptions {
     return {
-      deprecated: isSet(object.deprecated) ? globalThis.Boolean(object.deprecated) : false,
-      uninterpretedOption: globalThis.Array.isArray(object?.uninterpretedOption)
+      deprecated: isSet(object.deprecated) ? gt.Boolean(object.deprecated) : false,
+      uninterpretedOption: gt.Array.isArray(object?.uninterpretedOption)
         ? object.uninterpretedOption.map((e: any) => UninterpretedOption.fromJSON(e))
         : [],
     };
@@ -3864,11 +3846,11 @@ export const MethodOptions = {
 
   fromJSON(object: any): MethodOptions {
     return {
-      deprecated: isSet(object.deprecated) ? globalThis.Boolean(object.deprecated) : false,
+      deprecated: isSet(object.deprecated) ? gt.Boolean(object.deprecated) : false,
       idempotencyLevel: isSet(object.idempotencyLevel)
         ? methodOptions_IdempotencyLevelFromJSON(object.idempotencyLevel)
         : 0,
-      uninterpretedOption: globalThis.Array.isArray(object?.uninterpretedOption)
+      uninterpretedOption: gt.Array.isArray(object?.uninterpretedOption)
         ? object.uninterpretedOption.map((e: any) => UninterpretedOption.fromJSON(e))
         : [],
     };
@@ -3908,7 +3890,7 @@ function createBaseUninterpretedOption(): UninterpretedOption {
     positiveIntValue: Long.UZERO,
     negativeIntValue: Long.ZERO,
     doubleValue: 0,
-    stringValue: new Uint8Array(0),
+    stringValue: Buffer.alloc(0),
     aggregateValue: "",
   };
 }
@@ -3986,7 +3968,7 @@ export const UninterpretedOption = {
             break;
           }
 
-          message.stringValue = reader.bytes();
+          message.stringValue = reader.bytes() as Buffer;
           continue;
         case 8:
           if (tag !== 66) {
@@ -4006,15 +3988,17 @@ export const UninterpretedOption = {
 
   fromJSON(object: any): UninterpretedOption {
     return {
-      name: globalThis.Array.isArray(object?.name)
+      name: gt.Array.isArray(object?.name)
         ? object.name.map((e: any) => UninterpretedOption_NamePart.fromJSON(e))
         : [],
-      identifierValue: isSet(object.identifierValue) ? globalThis.String(object.identifierValue) : "",
+      identifierValue: isSet(object.identifierValue) ? gt.String(object.identifierValue) : "",
       positiveIntValue: isSet(object.positiveIntValue) ? Long.fromValue(object.positiveIntValue) : Long.UZERO,
       negativeIntValue: isSet(object.negativeIntValue) ? Long.fromValue(object.negativeIntValue) : Long.ZERO,
-      doubleValue: isSet(object.doubleValue) ? globalThis.Number(object.doubleValue) : 0,
-      stringValue: isSet(object.stringValue) ? bytesFromBase64(object.stringValue) : new Uint8Array(0),
-      aggregateValue: isSet(object.aggregateValue) ? globalThis.String(object.aggregateValue) : "",
+      doubleValue: isSet(object.doubleValue) ? gt.Number(object.doubleValue) : 0,
+      stringValue: isSet(object.stringValue)
+        ? Buffer.from(bytesFromBase64(object.stringValue))
+        : Buffer.alloc(0),
+      aggregateValue: isSet(object.aggregateValue) ? gt.String(object.aggregateValue) : "",
     };
   },
 
@@ -4060,7 +4044,7 @@ export const UninterpretedOption = {
         ? Long.fromValue(object.negativeIntValue)
         : Long.ZERO;
     message.doubleValue = object.doubleValue ?? 0;
-    message.stringValue = object.stringValue ?? new Uint8Array(0);
+    message.stringValue = object.stringValue ?? Buffer.alloc(0);
     message.aggregateValue = object.aggregateValue ?? "";
     return message;
   },
@@ -4113,8 +4097,8 @@ export const UninterpretedOption_NamePart = {
 
   fromJSON(object: any): UninterpretedOption_NamePart {
     return {
-      namePart: isSet(object.namePart) ? globalThis.String(object.namePart) : "",
-      isExtension: isSet(object.isExtension) ? globalThis.Boolean(object.isExtension) : false,
+      namePart: isSet(object.namePart) ? gt.String(object.namePart) : "",
+      isExtension: isSet(object.isExtension) ? gt.Boolean(object.isExtension) : false,
     };
   },
 
@@ -4181,7 +4165,7 @@ export const SourceCodeInfo = {
 
   fromJSON(object: any): SourceCodeInfo {
     return {
-      location: globalThis.Array.isArray(object?.location)
+      location: gt.Array.isArray(object?.location)
         ? object.location.map((e: any) => SourceCodeInfo_Location.fromJSON(e))
         : [],
     };
@@ -4306,12 +4290,12 @@ export const SourceCodeInfo_Location = {
 
   fromJSON(object: any): SourceCodeInfo_Location {
     return {
-      path: globalThis.Array.isArray(object?.path) ? object.path.map((e: any) => globalThis.Number(e)) : [],
-      span: globalThis.Array.isArray(object?.span) ? object.span.map((e: any) => globalThis.Number(e)) : [],
-      leadingComments: isSet(object.leadingComments) ? globalThis.String(object.leadingComments) : "",
-      trailingComments: isSet(object.trailingComments) ? globalThis.String(object.trailingComments) : "",
-      leadingDetachedComments: globalThis.Array.isArray(object?.leadingDetachedComments)
-        ? object.leadingDetachedComments.map((e: any) => globalThis.String(e))
+      path: gt.Array.isArray(object?.path) ? object.path.map((e: any) => gt.Number(e)) : [],
+      span: gt.Array.isArray(object?.span) ? object.span.map((e: any) => gt.Number(e)) : [],
+      leadingComments: isSet(object.leadingComments) ? gt.String(object.leadingComments) : "",
+      trailingComments: isSet(object.trailingComments) ? gt.String(object.trailingComments) : "",
+      leadingDetachedComments: gt.Array.isArray(object?.leadingDetachedComments)
+        ? object.leadingDetachedComments.map((e: any) => gt.String(e))
         : [],
     };
   },
@@ -4387,7 +4371,7 @@ export const GeneratedCodeInfo = {
 
   fromJSON(object: any): GeneratedCodeInfo {
     return {
-      annotation: globalThis.Array.isArray(object?.annotation)
+      annotation: gt.Array.isArray(object?.annotation)
         ? object.annotation.map((e: any) => GeneratedCodeInfo_Annotation.fromJSON(e))
         : [],
     };
@@ -4490,10 +4474,10 @@ export const GeneratedCodeInfo_Annotation = {
 
   fromJSON(object: any): GeneratedCodeInfo_Annotation {
     return {
-      path: globalThis.Array.isArray(object?.path) ? object.path.map((e: any) => globalThis.Number(e)) : [],
-      sourceFile: isSet(object.sourceFile) ? globalThis.String(object.sourceFile) : "",
-      begin: isSet(object.begin) ? globalThis.Number(object.begin) : 0,
-      end: isSet(object.end) ? globalThis.Number(object.end) : 0,
+      path: gt.Array.isArray(object?.path) ? object.path.map((e: any) => gt.Number(e)) : [],
+      sourceFile: isSet(object.sourceFile) ? gt.String(object.sourceFile) : "",
+      begin: isSet(object.begin) ? gt.Number(object.begin) : 0,
+      end: isSet(object.end) ? gt.Number(object.end) : 0,
     };
   },
 
@@ -4531,29 +4515,31 @@ export const GeneratedCodeInfo_Annotation = {
   },
 };
 
-function bytesFromBase64(b64: string): Uint8Array {
-  if ((globalThis as any).Buffer) {
-    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
-  } else {
-    const bin = globalThis.atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-      arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
   }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
+
+function bytesFromBase64(b64: string): Uint8Array {
+  return Uint8Array.from(gt.Buffer.from(b64, "base64"));
 }
 
 function base64FromBytes(arr: Uint8Array): string {
-  if ((globalThis as any).Buffer) {
-    return globalThis.Buffer.from(arr).toString("base64");
-  } else {
-    const bin: string[] = [];
-    arr.forEach((byte) => {
-      bin.push(globalThis.String.fromCharCode(byte));
-    });
-    return globalThis.btoa(bin.join(""));
-  }
+  return gt.Buffer.from(arr).toString("base64");
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;

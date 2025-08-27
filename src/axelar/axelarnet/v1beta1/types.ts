@@ -12,7 +12,7 @@ import { Coin } from "../../../cosmos/base/v1beta1/coin";
 export const protobufPackage = "axelar.axelarnet.v1beta1";
 
 export interface IBCTransfer {
-  sender: Uint8Array;
+  sender: Buffer;
   receiver: string;
   token?: Coin | undefined;
   portId: string;
@@ -79,18 +79,18 @@ export interface CosmosChain {
 /** @deprecated */
 export interface Asset {
   denom: string;
-  minAmount: Uint8Array;
+  minAmount: Buffer;
 }
 
 export interface Fee {
   amount?: Coin | undefined;
-  recipient: Uint8Array;
-  refundRecipient: Uint8Array;
+  recipient: Buffer;
+  refundRecipient: Buffer;
 }
 
 function createBaseIBCTransfer(): IBCTransfer {
   return {
-    sender: new Uint8Array(0),
+    sender: Buffer.alloc(0),
     receiver: "",
     token: undefined,
     portId: "",
@@ -142,7 +142,7 @@ export const IBCTransfer = {
             break;
           }
 
-          message.sender = reader.bytes();
+          message.sender = reader.bytes() as Buffer;
           continue;
         case 2:
           if (tag !== 18) {
@@ -204,11 +204,11 @@ export const IBCTransfer = {
 
   fromJSON(object: any): IBCTransfer {
     return {
-      sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(0),
-      receiver: isSet(object.receiver) ? globalThis.String(object.receiver) : "",
+      sender: isSet(object.sender) ? Buffer.from(bytesFromBase64(object.sender)) : Buffer.alloc(0),
+      receiver: isSet(object.receiver) ? gt.String(object.receiver) : "",
       token: isSet(object.token) ? Coin.fromJSON(object.token) : undefined,
-      portId: isSet(object.portId) ? globalThis.String(object.portId) : "",
-      channelId: isSet(object.channelId) ? globalThis.String(object.channelId) : "",
+      portId: isSet(object.portId) ? gt.String(object.portId) : "",
+      channelId: isSet(object.channelId) ? gt.String(object.channelId) : "",
       sequence: isSet(object.sequence) ? Long.fromValue(object.sequence) : Long.UZERO,
       id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
       status: isSet(object.status) ? iBCTransfer_StatusFromJSON(object.status) : 0,
@@ -249,7 +249,7 @@ export const IBCTransfer = {
   },
   fromPartial<I extends Exact<DeepPartial<IBCTransfer>, I>>(object: I): IBCTransfer {
     const message = createBaseIBCTransfer();
-    message.sender = object.sender ?? new Uint8Array(0);
+    message.sender = object.sender ?? Buffer.alloc(0);
     message.receiver = object.receiver ?? "";
     message.token =
       object.token !== undefined && object.token !== null ? Coin.fromPartial(object.token) : undefined;
@@ -332,12 +332,10 @@ export const CosmosChain = {
 
   fromJSON(object: any): CosmosChain {
     return {
-      name: isSet(object.name) ? globalThis.String(object.name) : "",
-      ibcPath: isSet(object.ibcPath) ? globalThis.String(object.ibcPath) : "",
-      assets: globalThis.Array.isArray(object?.assets)
-        ? object.assets.map((e: any) => Asset.fromJSON(e))
-        : [],
-      addrPrefix: isSet(object.addrPrefix) ? globalThis.String(object.addrPrefix) : "",
+      name: isSet(object.name) ? gt.String(object.name) : "",
+      ibcPath: isSet(object.ibcPath) ? gt.String(object.ibcPath) : "",
+      assets: gt.Array.isArray(object?.assets) ? object.assets.map((e: any) => Asset.fromJSON(e)) : [],
+      addrPrefix: isSet(object.addrPrefix) ? gt.String(object.addrPrefix) : "",
     };
   },
 
@@ -372,7 +370,7 @@ export const CosmosChain = {
 };
 
 function createBaseAsset(): Asset {
-  return { denom: "", minAmount: new Uint8Array(0) };
+  return { denom: "", minAmount: Buffer.alloc(0) };
 }
 
 export const Asset = {
@@ -405,7 +403,7 @@ export const Asset = {
             break;
           }
 
-          message.minAmount = reader.bytes();
+          message.minAmount = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -418,8 +416,8 @@ export const Asset = {
 
   fromJSON(object: any): Asset {
     return {
-      denom: isSet(object.denom) ? globalThis.String(object.denom) : "",
-      minAmount: isSet(object.minAmount) ? bytesFromBase64(object.minAmount) : new Uint8Array(0),
+      denom: isSet(object.denom) ? gt.String(object.denom) : "",
+      minAmount: isSet(object.minAmount) ? Buffer.from(bytesFromBase64(object.minAmount)) : Buffer.alloc(0),
     };
   },
 
@@ -440,13 +438,13 @@ export const Asset = {
   fromPartial<I extends Exact<DeepPartial<Asset>, I>>(object: I): Asset {
     const message = createBaseAsset();
     message.denom = object.denom ?? "";
-    message.minAmount = object.minAmount ?? new Uint8Array(0);
+    message.minAmount = object.minAmount ?? Buffer.alloc(0);
     return message;
   },
 };
 
 function createBaseFee(): Fee {
-  return { amount: undefined, recipient: new Uint8Array(0), refundRecipient: new Uint8Array(0) };
+  return { amount: undefined, recipient: Buffer.alloc(0), refundRecipient: Buffer.alloc(0) };
 }
 
 export const Fee = {
@@ -482,14 +480,14 @@ export const Fee = {
             break;
           }
 
-          message.recipient = reader.bytes();
+          message.recipient = reader.bytes() as Buffer;
           continue;
         case 3:
           if (tag !== 26) {
             break;
           }
 
-          message.refundRecipient = reader.bytes();
+          message.refundRecipient = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -503,10 +501,10 @@ export const Fee = {
   fromJSON(object: any): Fee {
     return {
       amount: isSet(object.amount) ? Coin.fromJSON(object.amount) : undefined,
-      recipient: isSet(object.recipient) ? bytesFromBase64(object.recipient) : new Uint8Array(0),
+      recipient: isSet(object.recipient) ? Buffer.from(bytesFromBase64(object.recipient)) : Buffer.alloc(0),
       refundRecipient: isSet(object.refundRecipient)
-        ? bytesFromBase64(object.refundRecipient)
-        : new Uint8Array(0),
+        ? Buffer.from(bytesFromBase64(object.refundRecipient))
+        : Buffer.alloc(0),
     };
   },
 
@@ -531,35 +529,37 @@ export const Fee = {
     const message = createBaseFee();
     message.amount =
       object.amount !== undefined && object.amount !== null ? Coin.fromPartial(object.amount) : undefined;
-    message.recipient = object.recipient ?? new Uint8Array(0);
-    message.refundRecipient = object.refundRecipient ?? new Uint8Array(0);
+    message.recipient = object.recipient ?? Buffer.alloc(0);
+    message.refundRecipient = object.refundRecipient ?? Buffer.alloc(0);
     return message;
   },
 };
 
-function bytesFromBase64(b64: string): Uint8Array {
-  if ((globalThis as any).Buffer) {
-    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
-  } else {
-    const bin = globalThis.atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-      arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
   }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
+
+function bytesFromBase64(b64: string): Uint8Array {
+  return Uint8Array.from(gt.Buffer.from(b64, "base64"));
 }
 
 function base64FromBytes(arr: Uint8Array): string {
-  if ((globalThis as any).Buffer) {
-    return globalThis.Buffer.from(arr).toString("base64");
-  } else {
-    const bin: string[] = [];
-    arr.forEach((byte) => {
-      bin.push(globalThis.String.fromCharCode(byte));
-    });
-    return globalThis.btoa(bin.join(""));
-  }
+  return gt.Buffer.from(arr).toString("base64");
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;

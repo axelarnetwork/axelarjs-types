@@ -259,7 +259,7 @@ export interface VoteEvents {
 
 export interface Event {
   chain: string;
-  txId: Uint8Array;
+  txId: Buffer;
   index: Long;
   status: Event_Status;
   tokenSent?: EventTokenSent | undefined;
@@ -318,57 +318,57 @@ export function event_StatusToJSON(object: Event_Status): string {
 }
 
 export interface EventTokenSent {
-  sender: Uint8Array;
+  sender: Buffer;
   destinationChain: string;
   destinationAddress: string;
   symbol: string;
-  amount: Uint8Array;
+  amount: Buffer;
 }
 
 export interface EventContractCall {
-  sender: Uint8Array;
+  sender: Buffer;
   destinationChain: string;
   contractAddress: string;
-  payloadHash: Uint8Array;
+  payloadHash: Buffer;
 }
 
 export interface EventContractCallWithToken {
-  sender: Uint8Array;
+  sender: Buffer;
   destinationChain: string;
   contractAddress: string;
-  payloadHash: Uint8Array;
+  payloadHash: Buffer;
   symbol: string;
-  amount: Uint8Array;
+  amount: Buffer;
 }
 
 export interface EventTransfer {
-  to: Uint8Array;
-  amount: Uint8Array;
+  to: Buffer;
+  amount: Buffer;
 }
 
 export interface EventTokenDeployed {
   symbol: string;
-  tokenAddress: Uint8Array;
+  tokenAddress: Buffer;
 }
 
 /** @deprecated */
 export interface EventMultisigOwnershipTransferred {
-  preOwners: Uint8Array[];
-  prevThreshold: Uint8Array;
-  newOwners: Uint8Array[];
-  newThreshold: Uint8Array;
+  preOwners: Buffer[];
+  prevThreshold: Buffer;
+  newOwners: Buffer[];
+  newThreshold: Buffer;
 }
 
 export interface EventMultisigOperatorshipTransferred {
-  newOperators: Uint8Array[];
-  newThreshold: Uint8Array;
-  newWeights: Uint8Array[];
+  newOperators: Buffer[];
+  newThreshold: Buffer;
+  newWeights: Buffer[];
 }
 
 /** NetworkInfo describes information about a network */
 export interface NetworkInfo {
   name: string;
-  id: Uint8Array;
+  id: Buffer;
 }
 
 /**
@@ -376,59 +376,59 @@ export interface NetworkInfo {
  * that is deposited by an user
  */
 export interface BurnerInfo {
-  burnerAddress: Uint8Array;
-  tokenAddress: Uint8Array;
+  burnerAddress: Buffer;
+  tokenAddress: Buffer;
   destinationChain: string;
   symbol: string;
   asset: string;
-  salt: Uint8Array;
+  salt: Buffer;
 }
 
 /** ERC20Deposit contains information for an ERC20 deposit */
 export interface ERC20Deposit {
-  txId: Uint8Array;
-  amount: Uint8Array;
+  txId: Buffer;
+  amount: Buffer;
   asset: string;
   destinationChain: string;
-  burnerAddress: Uint8Array;
+  burnerAddress: Buffer;
   logIndex: Long;
 }
 
 /** ERC20TokenMetadata describes information about an ERC20 token */
 export interface ERC20TokenMetadata {
   asset: string;
-  chainId: Uint8Array;
+  chainId: Buffer;
   details?: TokenDetails | undefined;
   tokenAddress: string;
   txHash: string;
   status: Status;
   isExternal: boolean;
-  burnerCode: Uint8Array;
+  burnerCode: Buffer;
 }
 
 export interface TransactionMetadata {
-  rawTx: Uint8Array;
-  pubKey: Uint8Array;
+  rawTx: Buffer;
+  pubKey: Buffer;
 }
 
 export interface Command {
-  id: Uint8Array;
+  id: Buffer;
   /** @deprecated */
   command: string;
-  params: Uint8Array;
+  params: Buffer;
   keyId: string;
   maxGasCost: number;
   type: CommandType;
 }
 
 export interface CommandBatchMetadata {
-  id: Uint8Array;
-  commandIds: Uint8Array[];
-  data: Uint8Array;
-  sigHash: Uint8Array;
+  id: Buffer;
+  commandIds: Buffer[];
+  data: Buffer;
+  sigHash: Buffer;
   status: BatchedCommandsStatus;
   keyId: string;
-  prevBatchedCommandsId: Uint8Array;
+  prevBatchedCommandsId: Buffer;
   signature?: Any | undefined;
 }
 
@@ -439,12 +439,12 @@ export interface CommandBatchMetadata {
 export interface SigMetadata {
   type: SigType;
   chain: string;
-  commandBatchId: Uint8Array;
+  commandBatchId: Buffer;
 }
 
 /** TransferKey contains information for a transfer operatorship */
 export interface TransferKey {
-  txId: Uint8Array;
+  txId: Buffer;
   nextKeyId: string;
 }
 
@@ -457,16 +457,16 @@ export interface TokenDetails {
   tokenName: string;
   symbol: string;
   decimals: number;
-  capacity: Uint8Array;
+  capacity: Buffer;
 }
 
 export interface Gateway {
-  address: Uint8Array;
+  address: Buffer;
 }
 
 export interface PollMetadata {
   chain: string;
-  txId: Uint8Array;
+  txId: Buffer;
 }
 
 function createBaseVoteEvents(): VoteEvents {
@@ -516,10 +516,8 @@ export const VoteEvents = {
 
   fromJSON(object: any): VoteEvents {
     return {
-      chain: isSet(object.chain) ? globalThis.String(object.chain) : "",
-      events: globalThis.Array.isArray(object?.events)
-        ? object.events.map((e: any) => Event.fromJSON(e))
-        : [],
+      chain: isSet(object.chain) ? gt.String(object.chain) : "",
+      events: gt.Array.isArray(object?.events) ? object.events.map((e: any) => Event.fromJSON(e)) : [],
     };
   },
 
@@ -548,7 +546,7 @@ export const VoteEvents = {
 function createBaseEvent(): Event {
   return {
     chain: "",
-    txId: new Uint8Array(0),
+    txId: Buffer.alloc(0),
     index: Long.UZERO,
     status: 0,
     tokenSent: undefined,
@@ -624,7 +622,7 @@ export const Event = {
             break;
           }
 
-          message.txId = reader.bytes();
+          message.txId = reader.bytes() as Buffer;
           continue;
         case 3:
           if (tag !== 24) {
@@ -706,8 +704,8 @@ export const Event = {
 
   fromJSON(object: any): Event {
     return {
-      chain: isSet(object.chain) ? globalThis.String(object.chain) : "",
-      txId: isSet(object.txId) ? bytesFromBase64(object.txId) : new Uint8Array(0),
+      chain: isSet(object.chain) ? gt.String(object.chain) : "",
+      txId: isSet(object.txId) ? Buffer.from(bytesFromBase64(object.txId)) : Buffer.alloc(0),
       index: isSet(object.index) ? Long.fromValue(object.index) : Long.UZERO,
       status: isSet(object.status) ? event_StatusFromJSON(object.status) : 0,
       tokenSent: isSet(object.tokenSent) ? EventTokenSent.fromJSON(object.tokenSent) : undefined,
@@ -776,7 +774,7 @@ export const Event = {
   fromPartial<I extends Exact<DeepPartial<Event>, I>>(object: I): Event {
     const message = createBaseEvent();
     message.chain = object.chain ?? "";
-    message.txId = object.txId ?? new Uint8Array(0);
+    message.txId = object.txId ?? Buffer.alloc(0);
     message.index =
       object.index !== undefined && object.index !== null ? Long.fromValue(object.index) : Long.UZERO;
     message.status = object.status ?? 0;
@@ -814,11 +812,11 @@ export const Event = {
 
 function createBaseEventTokenSent(): EventTokenSent {
   return {
-    sender: new Uint8Array(0),
+    sender: Buffer.alloc(0),
     destinationChain: "",
     destinationAddress: "",
     symbol: "",
-    amount: new Uint8Array(0),
+    amount: Buffer.alloc(0),
   };
 }
 
@@ -854,7 +852,7 @@ export const EventTokenSent = {
             break;
           }
 
-          message.sender = reader.bytes();
+          message.sender = reader.bytes() as Buffer;
           continue;
         case 2:
           if (tag !== 18) {
@@ -882,7 +880,7 @@ export const EventTokenSent = {
             break;
           }
 
-          message.amount = reader.bytes();
+          message.amount = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -895,13 +893,11 @@ export const EventTokenSent = {
 
   fromJSON(object: any): EventTokenSent {
     return {
-      sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(0),
-      destinationChain: isSet(object.destinationChain) ? globalThis.String(object.destinationChain) : "",
-      destinationAddress: isSet(object.destinationAddress)
-        ? globalThis.String(object.destinationAddress)
-        : "",
-      symbol: isSet(object.symbol) ? globalThis.String(object.symbol) : "",
-      amount: isSet(object.amount) ? bytesFromBase64(object.amount) : new Uint8Array(0),
+      sender: isSet(object.sender) ? Buffer.from(bytesFromBase64(object.sender)) : Buffer.alloc(0),
+      destinationChain: isSet(object.destinationChain) ? gt.String(object.destinationChain) : "",
+      destinationAddress: isSet(object.destinationAddress) ? gt.String(object.destinationAddress) : "",
+      symbol: isSet(object.symbol) ? gt.String(object.symbol) : "",
+      amount: isSet(object.amount) ? Buffer.from(bytesFromBase64(object.amount)) : Buffer.alloc(0),
     };
   },
 
@@ -930,22 +926,17 @@ export const EventTokenSent = {
   },
   fromPartial<I extends Exact<DeepPartial<EventTokenSent>, I>>(object: I): EventTokenSent {
     const message = createBaseEventTokenSent();
-    message.sender = object.sender ?? new Uint8Array(0);
+    message.sender = object.sender ?? Buffer.alloc(0);
     message.destinationChain = object.destinationChain ?? "";
     message.destinationAddress = object.destinationAddress ?? "";
     message.symbol = object.symbol ?? "";
-    message.amount = object.amount ?? new Uint8Array(0);
+    message.amount = object.amount ?? Buffer.alloc(0);
     return message;
   },
 };
 
 function createBaseEventContractCall(): EventContractCall {
-  return {
-    sender: new Uint8Array(0),
-    destinationChain: "",
-    contractAddress: "",
-    payloadHash: new Uint8Array(0),
-  };
+  return { sender: Buffer.alloc(0), destinationChain: "", contractAddress: "", payloadHash: Buffer.alloc(0) };
 }
 
 export const EventContractCall = {
@@ -977,7 +968,7 @@ export const EventContractCall = {
             break;
           }
 
-          message.sender = reader.bytes();
+          message.sender = reader.bytes() as Buffer;
           continue;
         case 2:
           if (tag !== 18) {
@@ -998,7 +989,7 @@ export const EventContractCall = {
             break;
           }
 
-          message.payloadHash = reader.bytes();
+          message.payloadHash = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -1011,10 +1002,12 @@ export const EventContractCall = {
 
   fromJSON(object: any): EventContractCall {
     return {
-      sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(0),
-      destinationChain: isSet(object.destinationChain) ? globalThis.String(object.destinationChain) : "",
-      contractAddress: isSet(object.contractAddress) ? globalThis.String(object.contractAddress) : "",
-      payloadHash: isSet(object.payloadHash) ? bytesFromBase64(object.payloadHash) : new Uint8Array(0),
+      sender: isSet(object.sender) ? Buffer.from(bytesFromBase64(object.sender)) : Buffer.alloc(0),
+      destinationChain: isSet(object.destinationChain) ? gt.String(object.destinationChain) : "",
+      contractAddress: isSet(object.contractAddress) ? gt.String(object.contractAddress) : "",
+      payloadHash: isSet(object.payloadHash)
+        ? Buffer.from(bytesFromBase64(object.payloadHash))
+        : Buffer.alloc(0),
     };
   },
 
@@ -1040,22 +1033,22 @@ export const EventContractCall = {
   },
   fromPartial<I extends Exact<DeepPartial<EventContractCall>, I>>(object: I): EventContractCall {
     const message = createBaseEventContractCall();
-    message.sender = object.sender ?? new Uint8Array(0);
+    message.sender = object.sender ?? Buffer.alloc(0);
     message.destinationChain = object.destinationChain ?? "";
     message.contractAddress = object.contractAddress ?? "";
-    message.payloadHash = object.payloadHash ?? new Uint8Array(0);
+    message.payloadHash = object.payloadHash ?? Buffer.alloc(0);
     return message;
   },
 };
 
 function createBaseEventContractCallWithToken(): EventContractCallWithToken {
   return {
-    sender: new Uint8Array(0),
+    sender: Buffer.alloc(0),
     destinationChain: "",
     contractAddress: "",
-    payloadHash: new Uint8Array(0),
+    payloadHash: Buffer.alloc(0),
     symbol: "",
-    amount: new Uint8Array(0),
+    amount: Buffer.alloc(0),
   };
 }
 
@@ -1094,7 +1087,7 @@ export const EventContractCallWithToken = {
             break;
           }
 
-          message.sender = reader.bytes();
+          message.sender = reader.bytes() as Buffer;
           continue;
         case 2:
           if (tag !== 18) {
@@ -1115,7 +1108,7 @@ export const EventContractCallWithToken = {
             break;
           }
 
-          message.payloadHash = reader.bytes();
+          message.payloadHash = reader.bytes() as Buffer;
           continue;
         case 5:
           if (tag !== 42) {
@@ -1129,7 +1122,7 @@ export const EventContractCallWithToken = {
             break;
           }
 
-          message.amount = reader.bytes();
+          message.amount = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -1142,12 +1135,14 @@ export const EventContractCallWithToken = {
 
   fromJSON(object: any): EventContractCallWithToken {
     return {
-      sender: isSet(object.sender) ? bytesFromBase64(object.sender) : new Uint8Array(0),
-      destinationChain: isSet(object.destinationChain) ? globalThis.String(object.destinationChain) : "",
-      contractAddress: isSet(object.contractAddress) ? globalThis.String(object.contractAddress) : "",
-      payloadHash: isSet(object.payloadHash) ? bytesFromBase64(object.payloadHash) : new Uint8Array(0),
-      symbol: isSet(object.symbol) ? globalThis.String(object.symbol) : "",
-      amount: isSet(object.amount) ? bytesFromBase64(object.amount) : new Uint8Array(0),
+      sender: isSet(object.sender) ? Buffer.from(bytesFromBase64(object.sender)) : Buffer.alloc(0),
+      destinationChain: isSet(object.destinationChain) ? gt.String(object.destinationChain) : "",
+      contractAddress: isSet(object.contractAddress) ? gt.String(object.contractAddress) : "",
+      payloadHash: isSet(object.payloadHash)
+        ? Buffer.from(bytesFromBase64(object.payloadHash))
+        : Buffer.alloc(0),
+      symbol: isSet(object.symbol) ? gt.String(object.symbol) : "",
+      amount: isSet(object.amount) ? Buffer.from(bytesFromBase64(object.amount)) : Buffer.alloc(0),
     };
   },
 
@@ -1181,18 +1176,18 @@ export const EventContractCallWithToken = {
     object: I,
   ): EventContractCallWithToken {
     const message = createBaseEventContractCallWithToken();
-    message.sender = object.sender ?? new Uint8Array(0);
+    message.sender = object.sender ?? Buffer.alloc(0);
     message.destinationChain = object.destinationChain ?? "";
     message.contractAddress = object.contractAddress ?? "";
-    message.payloadHash = object.payloadHash ?? new Uint8Array(0);
+    message.payloadHash = object.payloadHash ?? Buffer.alloc(0);
     message.symbol = object.symbol ?? "";
-    message.amount = object.amount ?? new Uint8Array(0);
+    message.amount = object.amount ?? Buffer.alloc(0);
     return message;
   },
 };
 
 function createBaseEventTransfer(): EventTransfer {
-  return { to: new Uint8Array(0), amount: new Uint8Array(0) };
+  return { to: Buffer.alloc(0), amount: Buffer.alloc(0) };
 }
 
 export const EventTransfer = {
@@ -1218,14 +1213,14 @@ export const EventTransfer = {
             break;
           }
 
-          message.to = reader.bytes();
+          message.to = reader.bytes() as Buffer;
           continue;
         case 2:
           if (tag !== 18) {
             break;
           }
 
-          message.amount = reader.bytes();
+          message.amount = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -1238,8 +1233,8 @@ export const EventTransfer = {
 
   fromJSON(object: any): EventTransfer {
     return {
-      to: isSet(object.to) ? bytesFromBase64(object.to) : new Uint8Array(0),
-      amount: isSet(object.amount) ? bytesFromBase64(object.amount) : new Uint8Array(0),
+      to: isSet(object.to) ? Buffer.from(bytesFromBase64(object.to)) : Buffer.alloc(0),
+      amount: isSet(object.amount) ? Buffer.from(bytesFromBase64(object.amount)) : Buffer.alloc(0),
     };
   },
 
@@ -1259,14 +1254,14 @@ export const EventTransfer = {
   },
   fromPartial<I extends Exact<DeepPartial<EventTransfer>, I>>(object: I): EventTransfer {
     const message = createBaseEventTransfer();
-    message.to = object.to ?? new Uint8Array(0);
-    message.amount = object.amount ?? new Uint8Array(0);
+    message.to = object.to ?? Buffer.alloc(0);
+    message.amount = object.amount ?? Buffer.alloc(0);
     return message;
   },
 };
 
 function createBaseEventTokenDeployed(): EventTokenDeployed {
-  return { symbol: "", tokenAddress: new Uint8Array(0) };
+  return { symbol: "", tokenAddress: Buffer.alloc(0) };
 }
 
 export const EventTokenDeployed = {
@@ -1299,7 +1294,7 @@ export const EventTokenDeployed = {
             break;
           }
 
-          message.tokenAddress = reader.bytes();
+          message.tokenAddress = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -1312,8 +1307,10 @@ export const EventTokenDeployed = {
 
   fromJSON(object: any): EventTokenDeployed {
     return {
-      symbol: isSet(object.symbol) ? globalThis.String(object.symbol) : "",
-      tokenAddress: isSet(object.tokenAddress) ? bytesFromBase64(object.tokenAddress) : new Uint8Array(0),
+      symbol: isSet(object.symbol) ? gt.String(object.symbol) : "",
+      tokenAddress: isSet(object.tokenAddress)
+        ? Buffer.from(bytesFromBase64(object.tokenAddress))
+        : Buffer.alloc(0),
     };
   },
 
@@ -1334,13 +1331,13 @@ export const EventTokenDeployed = {
   fromPartial<I extends Exact<DeepPartial<EventTokenDeployed>, I>>(object: I): EventTokenDeployed {
     const message = createBaseEventTokenDeployed();
     message.symbol = object.symbol ?? "";
-    message.tokenAddress = object.tokenAddress ?? new Uint8Array(0);
+    message.tokenAddress = object.tokenAddress ?? Buffer.alloc(0);
     return message;
   },
 };
 
 function createBaseEventMultisigOwnershipTransferred(): EventMultisigOwnershipTransferred {
-  return { preOwners: [], prevThreshold: new Uint8Array(0), newOwners: [], newThreshold: new Uint8Array(0) };
+  return { preOwners: [], prevThreshold: Buffer.alloc(0), newOwners: [], newThreshold: Buffer.alloc(0) };
 }
 
 export const EventMultisigOwnershipTransferred = {
@@ -1372,28 +1369,28 @@ export const EventMultisigOwnershipTransferred = {
             break;
           }
 
-          message.preOwners.push(reader.bytes());
+          message.preOwners.push(reader.bytes() as Buffer);
           continue;
         case 2:
           if (tag !== 18) {
             break;
           }
 
-          message.prevThreshold = reader.bytes();
+          message.prevThreshold = reader.bytes() as Buffer;
           continue;
         case 3:
           if (tag !== 26) {
             break;
           }
 
-          message.newOwners.push(reader.bytes());
+          message.newOwners.push(reader.bytes() as Buffer);
           continue;
         case 4:
           if (tag !== 34) {
             break;
           }
 
-          message.newThreshold = reader.bytes();
+          message.newThreshold = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -1406,14 +1403,18 @@ export const EventMultisigOwnershipTransferred = {
 
   fromJSON(object: any): EventMultisigOwnershipTransferred {
     return {
-      preOwners: globalThis.Array.isArray(object?.preOwners)
-        ? object.preOwners.map((e: any) => bytesFromBase64(e))
+      preOwners: gt.Array.isArray(object?.preOwners)
+        ? object.preOwners.map((e: any) => Buffer.from(bytesFromBase64(e)))
         : [],
-      prevThreshold: isSet(object.prevThreshold) ? bytesFromBase64(object.prevThreshold) : new Uint8Array(0),
-      newOwners: globalThis.Array.isArray(object?.newOwners)
-        ? object.newOwners.map((e: any) => bytesFromBase64(e))
+      prevThreshold: isSet(object.prevThreshold)
+        ? Buffer.from(bytesFromBase64(object.prevThreshold))
+        : Buffer.alloc(0),
+      newOwners: gt.Array.isArray(object?.newOwners)
+        ? object.newOwners.map((e: any) => Buffer.from(bytesFromBase64(e)))
         : [],
-      newThreshold: isSet(object.newThreshold) ? bytesFromBase64(object.newThreshold) : new Uint8Array(0),
+      newThreshold: isSet(object.newThreshold)
+        ? Buffer.from(bytesFromBase64(object.newThreshold))
+        : Buffer.alloc(0),
     };
   },
 
@@ -1444,15 +1445,15 @@ export const EventMultisigOwnershipTransferred = {
   ): EventMultisigOwnershipTransferred {
     const message = createBaseEventMultisigOwnershipTransferred();
     message.preOwners = object.preOwners?.map((e) => e) || [];
-    message.prevThreshold = object.prevThreshold ?? new Uint8Array(0);
+    message.prevThreshold = object.prevThreshold ?? Buffer.alloc(0);
     message.newOwners = object.newOwners?.map((e) => e) || [];
-    message.newThreshold = object.newThreshold ?? new Uint8Array(0);
+    message.newThreshold = object.newThreshold ?? Buffer.alloc(0);
     return message;
   },
 };
 
 function createBaseEventMultisigOperatorshipTransferred(): EventMultisigOperatorshipTransferred {
-  return { newOperators: [], newThreshold: new Uint8Array(0), newWeights: [] };
+  return { newOperators: [], newThreshold: Buffer.alloc(0), newWeights: [] };
 }
 
 export const EventMultisigOperatorshipTransferred = {
@@ -1484,21 +1485,21 @@ export const EventMultisigOperatorshipTransferred = {
             break;
           }
 
-          message.newOperators.push(reader.bytes());
+          message.newOperators.push(reader.bytes() as Buffer);
           continue;
         case 4:
           if (tag !== 34) {
             break;
           }
 
-          message.newThreshold = reader.bytes();
+          message.newThreshold = reader.bytes() as Buffer;
           continue;
         case 5:
           if (tag !== 42) {
             break;
           }
 
-          message.newWeights.push(reader.bytes());
+          message.newWeights.push(reader.bytes() as Buffer);
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -1511,12 +1512,14 @@ export const EventMultisigOperatorshipTransferred = {
 
   fromJSON(object: any): EventMultisigOperatorshipTransferred {
     return {
-      newOperators: globalThis.Array.isArray(object?.newOperators)
-        ? object.newOperators.map((e: any) => bytesFromBase64(e))
+      newOperators: gt.Array.isArray(object?.newOperators)
+        ? object.newOperators.map((e: any) => Buffer.from(bytesFromBase64(e)))
         : [],
-      newThreshold: isSet(object.newThreshold) ? bytesFromBase64(object.newThreshold) : new Uint8Array(0),
-      newWeights: globalThis.Array.isArray(object?.newWeights)
-        ? object.newWeights.map((e: any) => bytesFromBase64(e))
+      newThreshold: isSet(object.newThreshold)
+        ? Buffer.from(bytesFromBase64(object.newThreshold))
+        : Buffer.alloc(0),
+      newWeights: gt.Array.isArray(object?.newWeights)
+        ? object.newWeights.map((e: any) => Buffer.from(bytesFromBase64(e)))
         : [],
     };
   },
@@ -1545,14 +1548,14 @@ export const EventMultisigOperatorshipTransferred = {
   ): EventMultisigOperatorshipTransferred {
     const message = createBaseEventMultisigOperatorshipTransferred();
     message.newOperators = object.newOperators?.map((e) => e) || [];
-    message.newThreshold = object.newThreshold ?? new Uint8Array(0);
+    message.newThreshold = object.newThreshold ?? Buffer.alloc(0);
     message.newWeights = object.newWeights?.map((e) => e) || [];
     return message;
   },
 };
 
 function createBaseNetworkInfo(): NetworkInfo {
-  return { name: "", id: new Uint8Array(0) };
+  return { name: "", id: Buffer.alloc(0) };
 }
 
 export const NetworkInfo = {
@@ -1585,7 +1588,7 @@ export const NetworkInfo = {
             break;
           }
 
-          message.id = reader.bytes();
+          message.id = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -1598,8 +1601,8 @@ export const NetworkInfo = {
 
   fromJSON(object: any): NetworkInfo {
     return {
-      name: isSet(object.name) ? globalThis.String(object.name) : "",
-      id: isSet(object.id) ? bytesFromBase64(object.id) : new Uint8Array(0),
+      name: isSet(object.name) ? gt.String(object.name) : "",
+      id: isSet(object.id) ? Buffer.from(bytesFromBase64(object.id)) : Buffer.alloc(0),
     };
   },
 
@@ -1620,19 +1623,19 @@ export const NetworkInfo = {
   fromPartial<I extends Exact<DeepPartial<NetworkInfo>, I>>(object: I): NetworkInfo {
     const message = createBaseNetworkInfo();
     message.name = object.name ?? "";
-    message.id = object.id ?? new Uint8Array(0);
+    message.id = object.id ?? Buffer.alloc(0);
     return message;
   },
 };
 
 function createBaseBurnerInfo(): BurnerInfo {
   return {
-    burnerAddress: new Uint8Array(0),
-    tokenAddress: new Uint8Array(0),
+    burnerAddress: Buffer.alloc(0),
+    tokenAddress: Buffer.alloc(0),
     destinationChain: "",
     symbol: "",
     asset: "",
-    salt: new Uint8Array(0),
+    salt: Buffer.alloc(0),
   };
 }
 
@@ -1671,14 +1674,14 @@ export const BurnerInfo = {
             break;
           }
 
-          message.burnerAddress = reader.bytes();
+          message.burnerAddress = reader.bytes() as Buffer;
           continue;
         case 2:
           if (tag !== 18) {
             break;
           }
 
-          message.tokenAddress = reader.bytes();
+          message.tokenAddress = reader.bytes() as Buffer;
           continue;
         case 3:
           if (tag !== 26) {
@@ -1706,7 +1709,7 @@ export const BurnerInfo = {
             break;
           }
 
-          message.salt = reader.bytes();
+          message.salt = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -1719,12 +1722,16 @@ export const BurnerInfo = {
 
   fromJSON(object: any): BurnerInfo {
     return {
-      burnerAddress: isSet(object.burnerAddress) ? bytesFromBase64(object.burnerAddress) : new Uint8Array(0),
-      tokenAddress: isSet(object.tokenAddress) ? bytesFromBase64(object.tokenAddress) : new Uint8Array(0),
-      destinationChain: isSet(object.destinationChain) ? globalThis.String(object.destinationChain) : "",
-      symbol: isSet(object.symbol) ? globalThis.String(object.symbol) : "",
-      asset: isSet(object.asset) ? globalThis.String(object.asset) : "",
-      salt: isSet(object.salt) ? bytesFromBase64(object.salt) : new Uint8Array(0),
+      burnerAddress: isSet(object.burnerAddress)
+        ? Buffer.from(bytesFromBase64(object.burnerAddress))
+        : Buffer.alloc(0),
+      tokenAddress: isSet(object.tokenAddress)
+        ? Buffer.from(bytesFromBase64(object.tokenAddress))
+        : Buffer.alloc(0),
+      destinationChain: isSet(object.destinationChain) ? gt.String(object.destinationChain) : "",
+      symbol: isSet(object.symbol) ? gt.String(object.symbol) : "",
+      asset: isSet(object.asset) ? gt.String(object.asset) : "",
+      salt: isSet(object.salt) ? Buffer.from(bytesFromBase64(object.salt)) : Buffer.alloc(0),
     };
   },
 
@@ -1756,23 +1763,23 @@ export const BurnerInfo = {
   },
   fromPartial<I extends Exact<DeepPartial<BurnerInfo>, I>>(object: I): BurnerInfo {
     const message = createBaseBurnerInfo();
-    message.burnerAddress = object.burnerAddress ?? new Uint8Array(0);
-    message.tokenAddress = object.tokenAddress ?? new Uint8Array(0);
+    message.burnerAddress = object.burnerAddress ?? Buffer.alloc(0);
+    message.tokenAddress = object.tokenAddress ?? Buffer.alloc(0);
     message.destinationChain = object.destinationChain ?? "";
     message.symbol = object.symbol ?? "";
     message.asset = object.asset ?? "";
-    message.salt = object.salt ?? new Uint8Array(0);
+    message.salt = object.salt ?? Buffer.alloc(0);
     return message;
   },
 };
 
 function createBaseERC20Deposit(): ERC20Deposit {
   return {
-    txId: new Uint8Array(0),
-    amount: new Uint8Array(0),
+    txId: Buffer.alloc(0),
+    amount: Buffer.alloc(0),
     asset: "",
     destinationChain: "",
-    burnerAddress: new Uint8Array(0),
+    burnerAddress: Buffer.alloc(0),
     logIndex: Long.UZERO,
   };
 }
@@ -1812,14 +1819,14 @@ export const ERC20Deposit = {
             break;
           }
 
-          message.txId = reader.bytes();
+          message.txId = reader.bytes() as Buffer;
           continue;
         case 2:
           if (tag !== 18) {
             break;
           }
 
-          message.amount = reader.bytes();
+          message.amount = reader.bytes() as Buffer;
           continue;
         case 3:
           if (tag !== 26) {
@@ -1840,7 +1847,7 @@ export const ERC20Deposit = {
             break;
           }
 
-          message.burnerAddress = reader.bytes();
+          message.burnerAddress = reader.bytes() as Buffer;
           continue;
         case 6:
           if (tag !== 48) {
@@ -1860,11 +1867,13 @@ export const ERC20Deposit = {
 
   fromJSON(object: any): ERC20Deposit {
     return {
-      txId: isSet(object.txId) ? bytesFromBase64(object.txId) : new Uint8Array(0),
-      amount: isSet(object.amount) ? bytesFromBase64(object.amount) : new Uint8Array(0),
-      asset: isSet(object.asset) ? globalThis.String(object.asset) : "",
-      destinationChain: isSet(object.destinationChain) ? globalThis.String(object.destinationChain) : "",
-      burnerAddress: isSet(object.burnerAddress) ? bytesFromBase64(object.burnerAddress) : new Uint8Array(0),
+      txId: isSet(object.txId) ? Buffer.from(bytesFromBase64(object.txId)) : Buffer.alloc(0),
+      amount: isSet(object.amount) ? Buffer.from(bytesFromBase64(object.amount)) : Buffer.alloc(0),
+      asset: isSet(object.asset) ? gt.String(object.asset) : "",
+      destinationChain: isSet(object.destinationChain) ? gt.String(object.destinationChain) : "",
+      burnerAddress: isSet(object.burnerAddress)
+        ? Buffer.from(bytesFromBase64(object.burnerAddress))
+        : Buffer.alloc(0),
       logIndex: isSet(object.logIndex) ? Long.fromValue(object.logIndex) : Long.UZERO,
     };
   },
@@ -1897,11 +1906,11 @@ export const ERC20Deposit = {
   },
   fromPartial<I extends Exact<DeepPartial<ERC20Deposit>, I>>(object: I): ERC20Deposit {
     const message = createBaseERC20Deposit();
-    message.txId = object.txId ?? new Uint8Array(0);
-    message.amount = object.amount ?? new Uint8Array(0);
+    message.txId = object.txId ?? Buffer.alloc(0);
+    message.amount = object.amount ?? Buffer.alloc(0);
     message.asset = object.asset ?? "";
     message.destinationChain = object.destinationChain ?? "";
-    message.burnerAddress = object.burnerAddress ?? new Uint8Array(0);
+    message.burnerAddress = object.burnerAddress ?? Buffer.alloc(0);
     message.logIndex =
       object.logIndex !== undefined && object.logIndex !== null
         ? Long.fromValue(object.logIndex)
@@ -1913,13 +1922,13 @@ export const ERC20Deposit = {
 function createBaseERC20TokenMetadata(): ERC20TokenMetadata {
   return {
     asset: "",
-    chainId: new Uint8Array(0),
+    chainId: Buffer.alloc(0),
     details: undefined,
     tokenAddress: "",
     txHash: "",
     status: 0,
     isExternal: false,
-    burnerCode: new Uint8Array(0),
+    burnerCode: Buffer.alloc(0),
   };
 }
 
@@ -1971,7 +1980,7 @@ export const ERC20TokenMetadata = {
             break;
           }
 
-          message.chainId = reader.bytes();
+          message.chainId = reader.bytes() as Buffer;
           continue;
         case 3:
           if (tag !== 26) {
@@ -2013,7 +2022,7 @@ export const ERC20TokenMetadata = {
             break;
           }
 
-          message.burnerCode = reader.bytes();
+          message.burnerCode = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -2026,14 +2035,16 @@ export const ERC20TokenMetadata = {
 
   fromJSON(object: any): ERC20TokenMetadata {
     return {
-      asset: isSet(object.asset) ? globalThis.String(object.asset) : "",
-      chainId: isSet(object.chainId) ? bytesFromBase64(object.chainId) : new Uint8Array(0),
+      asset: isSet(object.asset) ? gt.String(object.asset) : "",
+      chainId: isSet(object.chainId) ? Buffer.from(bytesFromBase64(object.chainId)) : Buffer.alloc(0),
       details: isSet(object.details) ? TokenDetails.fromJSON(object.details) : undefined,
-      tokenAddress: isSet(object.tokenAddress) ? globalThis.String(object.tokenAddress) : "",
-      txHash: isSet(object.txHash) ? globalThis.String(object.txHash) : "",
+      tokenAddress: isSet(object.tokenAddress) ? gt.String(object.tokenAddress) : "",
+      txHash: isSet(object.txHash) ? gt.String(object.txHash) : "",
       status: isSet(object.status) ? statusFromJSON(object.status) : 0,
-      isExternal: isSet(object.isExternal) ? globalThis.Boolean(object.isExternal) : false,
-      burnerCode: isSet(object.burnerCode) ? bytesFromBase64(object.burnerCode) : new Uint8Array(0),
+      isExternal: isSet(object.isExternal) ? gt.Boolean(object.isExternal) : false,
+      burnerCode: isSet(object.burnerCode)
+        ? Buffer.from(bytesFromBase64(object.burnerCode))
+        : Buffer.alloc(0),
     };
   },
 
@@ -2072,7 +2083,7 @@ export const ERC20TokenMetadata = {
   fromPartial<I extends Exact<DeepPartial<ERC20TokenMetadata>, I>>(object: I): ERC20TokenMetadata {
     const message = createBaseERC20TokenMetadata();
     message.asset = object.asset ?? "";
-    message.chainId = object.chainId ?? new Uint8Array(0);
+    message.chainId = object.chainId ?? Buffer.alloc(0);
     message.details =
       object.details !== undefined && object.details !== null
         ? TokenDetails.fromPartial(object.details)
@@ -2081,13 +2092,13 @@ export const ERC20TokenMetadata = {
     message.txHash = object.txHash ?? "";
     message.status = object.status ?? 0;
     message.isExternal = object.isExternal ?? false;
-    message.burnerCode = object.burnerCode ?? new Uint8Array(0);
+    message.burnerCode = object.burnerCode ?? Buffer.alloc(0);
     return message;
   },
 };
 
 function createBaseTransactionMetadata(): TransactionMetadata {
-  return { rawTx: new Uint8Array(0), pubKey: new Uint8Array(0) };
+  return { rawTx: Buffer.alloc(0), pubKey: Buffer.alloc(0) };
 }
 
 export const TransactionMetadata = {
@@ -2113,14 +2124,14 @@ export const TransactionMetadata = {
             break;
           }
 
-          message.rawTx = reader.bytes();
+          message.rawTx = reader.bytes() as Buffer;
           continue;
         case 2:
           if (tag !== 18) {
             break;
           }
 
-          message.pubKey = reader.bytes();
+          message.pubKey = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -2133,8 +2144,8 @@ export const TransactionMetadata = {
 
   fromJSON(object: any): TransactionMetadata {
     return {
-      rawTx: isSet(object.rawTx) ? bytesFromBase64(object.rawTx) : new Uint8Array(0),
-      pubKey: isSet(object.pubKey) ? bytesFromBase64(object.pubKey) : new Uint8Array(0),
+      rawTx: isSet(object.rawTx) ? Buffer.from(bytesFromBase64(object.rawTx)) : Buffer.alloc(0),
+      pubKey: isSet(object.pubKey) ? Buffer.from(bytesFromBase64(object.pubKey)) : Buffer.alloc(0),
     };
   },
 
@@ -2154,14 +2165,14 @@ export const TransactionMetadata = {
   },
   fromPartial<I extends Exact<DeepPartial<TransactionMetadata>, I>>(object: I): TransactionMetadata {
     const message = createBaseTransactionMetadata();
-    message.rawTx = object.rawTx ?? new Uint8Array(0);
-    message.pubKey = object.pubKey ?? new Uint8Array(0);
+    message.rawTx = object.rawTx ?? Buffer.alloc(0);
+    message.pubKey = object.pubKey ?? Buffer.alloc(0);
     return message;
   },
 };
 
 function createBaseCommand(): Command {
-  return { id: new Uint8Array(0), command: "", params: new Uint8Array(0), keyId: "", maxGasCost: 0, type: 0 };
+  return { id: Buffer.alloc(0), command: "", params: Buffer.alloc(0), keyId: "", maxGasCost: 0, type: 0 };
 }
 
 export const Command = {
@@ -2199,7 +2210,7 @@ export const Command = {
             break;
           }
 
-          message.id = reader.bytes();
+          message.id = reader.bytes() as Buffer;
           continue;
         case 2:
           if (tag !== 18) {
@@ -2213,7 +2224,7 @@ export const Command = {
             break;
           }
 
-          message.params = reader.bytes();
+          message.params = reader.bytes() as Buffer;
           continue;
         case 4:
           if (tag !== 34) {
@@ -2247,11 +2258,11 @@ export const Command = {
 
   fromJSON(object: any): Command {
     return {
-      id: isSet(object.id) ? bytesFromBase64(object.id) : new Uint8Array(0),
-      command: isSet(object.command) ? globalThis.String(object.command) : "",
-      params: isSet(object.params) ? bytesFromBase64(object.params) : new Uint8Array(0),
-      keyId: isSet(object.keyId) ? globalThis.String(object.keyId) : "",
-      maxGasCost: isSet(object.maxGasCost) ? globalThis.Number(object.maxGasCost) : 0,
+      id: isSet(object.id) ? Buffer.from(bytesFromBase64(object.id)) : Buffer.alloc(0),
+      command: isSet(object.command) ? gt.String(object.command) : "",
+      params: isSet(object.params) ? Buffer.from(bytesFromBase64(object.params)) : Buffer.alloc(0),
+      keyId: isSet(object.keyId) ? gt.String(object.keyId) : "",
+      maxGasCost: isSet(object.maxGasCost) ? gt.Number(object.maxGasCost) : 0,
       type: isSet(object.type) ? commandTypeFromJSON(object.type) : 0,
     };
   },
@@ -2284,9 +2295,9 @@ export const Command = {
   },
   fromPartial<I extends Exact<DeepPartial<Command>, I>>(object: I): Command {
     const message = createBaseCommand();
-    message.id = object.id ?? new Uint8Array(0);
+    message.id = object.id ?? Buffer.alloc(0);
     message.command = object.command ?? "";
-    message.params = object.params ?? new Uint8Array(0);
+    message.params = object.params ?? Buffer.alloc(0);
     message.keyId = object.keyId ?? "";
     message.maxGasCost = object.maxGasCost ?? 0;
     message.type = object.type ?? 0;
@@ -2296,13 +2307,13 @@ export const Command = {
 
 function createBaseCommandBatchMetadata(): CommandBatchMetadata {
   return {
-    id: new Uint8Array(0),
+    id: Buffer.alloc(0),
     commandIds: [],
-    data: new Uint8Array(0),
-    sigHash: new Uint8Array(0),
+    data: Buffer.alloc(0),
+    sigHash: Buffer.alloc(0),
     status: 0,
     keyId: "",
-    prevBatchedCommandsId: new Uint8Array(0),
+    prevBatchedCommandsId: Buffer.alloc(0),
     signature: undefined,
   };
 }
@@ -2348,28 +2359,28 @@ export const CommandBatchMetadata = {
             break;
           }
 
-          message.id = reader.bytes();
+          message.id = reader.bytes() as Buffer;
           continue;
         case 2:
           if (tag !== 18) {
             break;
           }
 
-          message.commandIds.push(reader.bytes());
+          message.commandIds.push(reader.bytes() as Buffer);
           continue;
         case 3:
           if (tag !== 26) {
             break;
           }
 
-          message.data = reader.bytes();
+          message.data = reader.bytes() as Buffer;
           continue;
         case 4:
           if (tag !== 34) {
             break;
           }
 
-          message.sigHash = reader.bytes();
+          message.sigHash = reader.bytes() as Buffer;
           continue;
         case 5:
           if (tag !== 40) {
@@ -2390,7 +2401,7 @@ export const CommandBatchMetadata = {
             break;
           }
 
-          message.prevBatchedCommandsId = reader.bytes();
+          message.prevBatchedCommandsId = reader.bytes() as Buffer;
           continue;
         case 8:
           if (tag !== 66) {
@@ -2410,17 +2421,17 @@ export const CommandBatchMetadata = {
 
   fromJSON(object: any): CommandBatchMetadata {
     return {
-      id: isSet(object.id) ? bytesFromBase64(object.id) : new Uint8Array(0),
-      commandIds: globalThis.Array.isArray(object?.commandIds)
-        ? object.commandIds.map((e: any) => bytesFromBase64(e))
+      id: isSet(object.id) ? Buffer.from(bytesFromBase64(object.id)) : Buffer.alloc(0),
+      commandIds: gt.Array.isArray(object?.commandIds)
+        ? object.commandIds.map((e: any) => Buffer.from(bytesFromBase64(e)))
         : [],
-      data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(0),
-      sigHash: isSet(object.sigHash) ? bytesFromBase64(object.sigHash) : new Uint8Array(0),
+      data: isSet(object.data) ? Buffer.from(bytesFromBase64(object.data)) : Buffer.alloc(0),
+      sigHash: isSet(object.sigHash) ? Buffer.from(bytesFromBase64(object.sigHash)) : Buffer.alloc(0),
       status: isSet(object.status) ? batchedCommandsStatusFromJSON(object.status) : 0,
-      keyId: isSet(object.keyId) ? globalThis.String(object.keyId) : "",
+      keyId: isSet(object.keyId) ? gt.String(object.keyId) : "",
       prevBatchedCommandsId: isSet(object.prevBatchedCommandsId)
-        ? bytesFromBase64(object.prevBatchedCommandsId)
-        : new Uint8Array(0),
+        ? Buffer.from(bytesFromBase64(object.prevBatchedCommandsId))
+        : Buffer.alloc(0),
       signature: isSet(object.signature) ? Any.fromJSON(object.signature) : undefined,
     };
   },
@@ -2459,13 +2470,13 @@ export const CommandBatchMetadata = {
   },
   fromPartial<I extends Exact<DeepPartial<CommandBatchMetadata>, I>>(object: I): CommandBatchMetadata {
     const message = createBaseCommandBatchMetadata();
-    message.id = object.id ?? new Uint8Array(0);
+    message.id = object.id ?? Buffer.alloc(0);
     message.commandIds = object.commandIds?.map((e) => e) || [];
-    message.data = object.data ?? new Uint8Array(0);
-    message.sigHash = object.sigHash ?? new Uint8Array(0);
+    message.data = object.data ?? Buffer.alloc(0);
+    message.sigHash = object.sigHash ?? Buffer.alloc(0);
     message.status = object.status ?? 0;
     message.keyId = object.keyId ?? "";
-    message.prevBatchedCommandsId = object.prevBatchedCommandsId ?? new Uint8Array(0);
+    message.prevBatchedCommandsId = object.prevBatchedCommandsId ?? Buffer.alloc(0);
     message.signature =
       object.signature !== undefined && object.signature !== null
         ? Any.fromPartial(object.signature)
@@ -2475,7 +2486,7 @@ export const CommandBatchMetadata = {
 };
 
 function createBaseSigMetadata(): SigMetadata {
-  return { type: 0, chain: "", commandBatchId: new Uint8Array(0) };
+  return { type: 0, chain: "", commandBatchId: Buffer.alloc(0) };
 }
 
 export const SigMetadata = {
@@ -2518,7 +2529,7 @@ export const SigMetadata = {
             break;
           }
 
-          message.commandBatchId = reader.bytes();
+          message.commandBatchId = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -2532,10 +2543,10 @@ export const SigMetadata = {
   fromJSON(object: any): SigMetadata {
     return {
       type: isSet(object.type) ? sigTypeFromJSON(object.type) : 0,
-      chain: isSet(object.chain) ? globalThis.String(object.chain) : "",
+      chain: isSet(object.chain) ? gt.String(object.chain) : "",
       commandBatchId: isSet(object.commandBatchId)
-        ? bytesFromBase64(object.commandBatchId)
-        : new Uint8Array(0),
+        ? Buffer.from(bytesFromBase64(object.commandBatchId))
+        : Buffer.alloc(0),
     };
   },
 
@@ -2560,13 +2571,13 @@ export const SigMetadata = {
     const message = createBaseSigMetadata();
     message.type = object.type ?? 0;
     message.chain = object.chain ?? "";
-    message.commandBatchId = object.commandBatchId ?? new Uint8Array(0);
+    message.commandBatchId = object.commandBatchId ?? Buffer.alloc(0);
     return message;
   },
 };
 
 function createBaseTransferKey(): TransferKey {
-  return { txId: new Uint8Array(0), nextKeyId: "" };
+  return { txId: Buffer.alloc(0), nextKeyId: "" };
 }
 
 export const TransferKey = {
@@ -2592,7 +2603,7 @@ export const TransferKey = {
             break;
           }
 
-          message.txId = reader.bytes();
+          message.txId = reader.bytes() as Buffer;
           continue;
         case 3:
           if (tag !== 26) {
@@ -2612,8 +2623,8 @@ export const TransferKey = {
 
   fromJSON(object: any): TransferKey {
     return {
-      txId: isSet(object.txId) ? bytesFromBase64(object.txId) : new Uint8Array(0),
-      nextKeyId: isSet(object.nextKeyId) ? globalThis.String(object.nextKeyId) : "",
+      txId: isSet(object.txId) ? Buffer.from(bytesFromBase64(object.txId)) : Buffer.alloc(0),
+      nextKeyId: isSet(object.nextKeyId) ? gt.String(object.nextKeyId) : "",
     };
   },
 
@@ -2633,7 +2644,7 @@ export const TransferKey = {
   },
   fromPartial<I extends Exact<DeepPartial<TransferKey>, I>>(object: I): TransferKey {
     const message = createBaseTransferKey();
-    message.txId = object.txId ?? new Uint8Array(0);
+    message.txId = object.txId ?? Buffer.alloc(0);
     message.nextKeyId = object.nextKeyId ?? "";
     return message;
   },
@@ -2686,8 +2697,8 @@ export const Asset = {
 
   fromJSON(object: any): Asset {
     return {
-      chain: isSet(object.chain) ? globalThis.String(object.chain) : "",
-      name: isSet(object.name) ? globalThis.String(object.name) : "",
+      chain: isSet(object.chain) ? gt.String(object.chain) : "",
+      name: isSet(object.name) ? gt.String(object.name) : "",
     };
   },
 
@@ -2714,7 +2725,7 @@ export const Asset = {
 };
 
 function createBaseTokenDetails(): TokenDetails {
-  return { tokenName: "", symbol: "", decimals: 0, capacity: new Uint8Array(0) };
+  return { tokenName: "", symbol: "", decimals: 0, capacity: Buffer.alloc(0) };
 }
 
 export const TokenDetails = {
@@ -2767,7 +2778,7 @@ export const TokenDetails = {
             break;
           }
 
-          message.capacity = reader.bytes();
+          message.capacity = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -2780,10 +2791,10 @@ export const TokenDetails = {
 
   fromJSON(object: any): TokenDetails {
     return {
-      tokenName: isSet(object.tokenName) ? globalThis.String(object.tokenName) : "",
-      symbol: isSet(object.symbol) ? globalThis.String(object.symbol) : "",
-      decimals: isSet(object.decimals) ? globalThis.Number(object.decimals) : 0,
-      capacity: isSet(object.capacity) ? bytesFromBase64(object.capacity) : new Uint8Array(0),
+      tokenName: isSet(object.tokenName) ? gt.String(object.tokenName) : "",
+      symbol: isSet(object.symbol) ? gt.String(object.symbol) : "",
+      decimals: isSet(object.decimals) ? gt.Number(object.decimals) : 0,
+      capacity: isSet(object.capacity) ? Buffer.from(bytesFromBase64(object.capacity)) : Buffer.alloc(0),
     };
   },
 
@@ -2812,13 +2823,13 @@ export const TokenDetails = {
     message.tokenName = object.tokenName ?? "";
     message.symbol = object.symbol ?? "";
     message.decimals = object.decimals ?? 0;
-    message.capacity = object.capacity ?? new Uint8Array(0);
+    message.capacity = object.capacity ?? Buffer.alloc(0);
     return message;
   },
 };
 
 function createBaseGateway(): Gateway {
-  return { address: new Uint8Array(0) };
+  return { address: Buffer.alloc(0) };
 }
 
 export const Gateway = {
@@ -2841,7 +2852,7 @@ export const Gateway = {
             break;
           }
 
-          message.address = reader.bytes();
+          message.address = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -2853,7 +2864,9 @@ export const Gateway = {
   },
 
   fromJSON(object: any): Gateway {
-    return { address: isSet(object.address) ? bytesFromBase64(object.address) : new Uint8Array(0) };
+    return {
+      address: isSet(object.address) ? Buffer.from(bytesFromBase64(object.address)) : Buffer.alloc(0),
+    };
   },
 
   toJSON(message: Gateway): unknown {
@@ -2869,13 +2882,13 @@ export const Gateway = {
   },
   fromPartial<I extends Exact<DeepPartial<Gateway>, I>>(object: I): Gateway {
     const message = createBaseGateway();
-    message.address = object.address ?? new Uint8Array(0);
+    message.address = object.address ?? Buffer.alloc(0);
     return message;
   },
 };
 
 function createBasePollMetadata(): PollMetadata {
-  return { chain: "", txId: new Uint8Array(0) };
+  return { chain: "", txId: Buffer.alloc(0) };
 }
 
 export const PollMetadata = {
@@ -2908,7 +2921,7 @@ export const PollMetadata = {
             break;
           }
 
-          message.txId = reader.bytes();
+          message.txId = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -2921,8 +2934,8 @@ export const PollMetadata = {
 
   fromJSON(object: any): PollMetadata {
     return {
-      chain: isSet(object.chain) ? globalThis.String(object.chain) : "",
-      txId: isSet(object.txId) ? bytesFromBase64(object.txId) : new Uint8Array(0),
+      chain: isSet(object.chain) ? gt.String(object.chain) : "",
+      txId: isSet(object.txId) ? Buffer.from(bytesFromBase64(object.txId)) : Buffer.alloc(0),
     };
   },
 
@@ -2943,34 +2956,36 @@ export const PollMetadata = {
   fromPartial<I extends Exact<DeepPartial<PollMetadata>, I>>(object: I): PollMetadata {
     const message = createBasePollMetadata();
     message.chain = object.chain ?? "";
-    message.txId = object.txId ?? new Uint8Array(0);
+    message.txId = object.txId ?? Buffer.alloc(0);
     return message;
   },
 };
 
-function bytesFromBase64(b64: string): Uint8Array {
-  if ((globalThis as any).Buffer) {
-    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
-  } else {
-    const bin = globalThis.atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-      arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
   }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
+
+function bytesFromBase64(b64: string): Uint8Array {
+  return Uint8Array.from(gt.Buffer.from(b64, "base64"));
 }
 
 function base64FromBytes(arr: Uint8Array): string {
-  if ((globalThis as any).Buffer) {
-    return globalThis.Buffer.from(arr).toString("base64");
-  } else {
-    const bin: string[] = [];
-    arr.forEach((byte) => {
-      bin.push(globalThis.String.fromCharCode(byte));
-    });
-    return globalThis.btoa(bin.join(""));
-  }
+  return gt.Buffer.from(arr).toString("base64");
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;

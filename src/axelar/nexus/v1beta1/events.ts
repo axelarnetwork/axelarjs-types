@@ -37,7 +37,7 @@ export interface RateLimitUpdated {
 
 export interface MessageReceived {
   id: string;
-  payloadHash: Uint8Array;
+  payloadHash: Buffer;
   sender?: CrossChainAddress | undefined;
   recipient?: CrossChainAddress | undefined;
 }
@@ -148,8 +148,8 @@ export const FeeDeducted = {
   fromJSON(object: any): FeeDeducted {
     return {
       transferId: isSet(object.transferId) ? Long.fromValue(object.transferId) : Long.UZERO,
-      recipientChain: isSet(object.recipientChain) ? globalThis.String(object.recipientChain) : "",
-      recipientAddress: isSet(object.recipientAddress) ? globalThis.String(object.recipientAddress) : "",
+      recipientChain: isSet(object.recipientChain) ? gt.String(object.recipientChain) : "",
+      recipientAddress: isSet(object.recipientAddress) ? gt.String(object.recipientAddress) : "",
       amount: isSet(object.amount) ? Coin.fromJSON(object.amount) : undefined,
       fee: isSet(object.fee) ? Coin.fromJSON(object.fee) : undefined,
     };
@@ -277,8 +277,8 @@ export const InsufficientFee = {
   fromJSON(object: any): InsufficientFee {
     return {
       transferId: isSet(object.transferId) ? Long.fromValue(object.transferId) : Long.UZERO,
-      recipientChain: isSet(object.recipientChain) ? globalThis.String(object.recipientChain) : "",
-      recipientAddress: isSet(object.recipientAddress) ? globalThis.String(object.recipientAddress) : "",
+      recipientChain: isSet(object.recipientChain) ? gt.String(object.recipientChain) : "",
+      recipientAddress: isSet(object.recipientAddress) ? gt.String(object.recipientAddress) : "",
       amount: isSet(object.amount) ? Coin.fromJSON(object.amount) : undefined,
       fee: isSet(object.fee) ? Coin.fromJSON(object.fee) : undefined,
     };
@@ -379,7 +379,7 @@ export const RateLimitUpdated = {
 
   fromJSON(object: any): RateLimitUpdated {
     return {
-      chain: isSet(object.chain) ? globalThis.String(object.chain) : "",
+      chain: isSet(object.chain) ? gt.String(object.chain) : "",
       limit: isSet(object.limit) ? Coin.fromJSON(object.limit) : undefined,
       window: isSet(object.window) ? Duration.fromJSON(object.window) : undefined,
     };
@@ -414,7 +414,7 @@ export const RateLimitUpdated = {
 };
 
 function createBaseMessageReceived(): MessageReceived {
-  return { id: "", payloadHash: new Uint8Array(0), sender: undefined, recipient: undefined };
+  return { id: "", payloadHash: Buffer.alloc(0), sender: undefined, recipient: undefined };
 }
 
 export const MessageReceived = {
@@ -453,7 +453,7 @@ export const MessageReceived = {
             break;
           }
 
-          message.payloadHash = reader.bytes();
+          message.payloadHash = reader.bytes() as Buffer;
           continue;
         case 3:
           if (tag !== 26) {
@@ -480,8 +480,10 @@ export const MessageReceived = {
 
   fromJSON(object: any): MessageReceived {
     return {
-      id: isSet(object.id) ? globalThis.String(object.id) : "",
-      payloadHash: isSet(object.payloadHash) ? bytesFromBase64(object.payloadHash) : new Uint8Array(0),
+      id: isSet(object.id) ? gt.String(object.id) : "",
+      payloadHash: isSet(object.payloadHash)
+        ? Buffer.from(bytesFromBase64(object.payloadHash))
+        : Buffer.alloc(0),
       sender: isSet(object.sender) ? CrossChainAddress.fromJSON(object.sender) : undefined,
       recipient: isSet(object.recipient) ? CrossChainAddress.fromJSON(object.recipient) : undefined,
     };
@@ -510,7 +512,7 @@ export const MessageReceived = {
   fromPartial<I extends Exact<DeepPartial<MessageReceived>, I>>(object: I): MessageReceived {
     const message = createBaseMessageReceived();
     message.id = object.id ?? "";
-    message.payloadHash = object.payloadHash ?? new Uint8Array(0);
+    message.payloadHash = object.payloadHash ?? Buffer.alloc(0);
     message.sender =
       object.sender !== undefined && object.sender !== null
         ? CrossChainAddress.fromPartial(object.sender)
@@ -580,9 +582,9 @@ export const MessageProcessing = {
 
   fromJSON(object: any): MessageProcessing {
     return {
-      id: isSet(object.id) ? globalThis.String(object.id) : "",
-      sourceChain: isSet(object.sourceChain) ? globalThis.String(object.sourceChain) : "",
-      destinationChain: isSet(object.destinationChain) ? globalThis.String(object.destinationChain) : "",
+      id: isSet(object.id) ? gt.String(object.id) : "",
+      sourceChain: isSet(object.sourceChain) ? gt.String(object.sourceChain) : "",
+      destinationChain: isSet(object.destinationChain) ? gt.String(object.destinationChain) : "",
     };
   },
 
@@ -669,9 +671,9 @@ export const MessageExecuted = {
 
   fromJSON(object: any): MessageExecuted {
     return {
-      id: isSet(object.id) ? globalThis.String(object.id) : "",
-      sourceChain: isSet(object.sourceChain) ? globalThis.String(object.sourceChain) : "",
-      destinationChain: isSet(object.destinationChain) ? globalThis.String(object.destinationChain) : "",
+      id: isSet(object.id) ? gt.String(object.id) : "",
+      sourceChain: isSet(object.sourceChain) ? gt.String(object.sourceChain) : "",
+      destinationChain: isSet(object.destinationChain) ? gt.String(object.destinationChain) : "",
     };
   },
 
@@ -758,9 +760,9 @@ export const MessageFailed = {
 
   fromJSON(object: any): MessageFailed {
     return {
-      id: isSet(object.id) ? globalThis.String(object.id) : "",
-      sourceChain: isSet(object.sourceChain) ? globalThis.String(object.sourceChain) : "",
-      destinationChain: isSet(object.destinationChain) ? globalThis.String(object.destinationChain) : "",
+      id: isSet(object.id) ? gt.String(object.id) : "",
+      sourceChain: isSet(object.sourceChain) ? gt.String(object.sourceChain) : "",
+      destinationChain: isSet(object.destinationChain) ? gt.String(object.destinationChain) : "",
     };
   },
 
@@ -850,29 +852,31 @@ export const WasmMessageRouted = {
   },
 };
 
-function bytesFromBase64(b64: string): Uint8Array {
-  if ((globalThis as any).Buffer) {
-    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
-  } else {
-    const bin = globalThis.atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-      arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
   }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
+
+function bytesFromBase64(b64: string): Uint8Array {
+  return Uint8Array.from(gt.Buffer.from(b64, "base64"));
 }
 
 function base64FromBytes(arr: Uint8Array): string {
-  if ((globalThis as any).Buffer) {
-    return globalThis.Buffer.from(arr).toString("base64");
-  } else {
-    const bin: string[] = [];
-    arr.forEach((byte) => {
-      bin.push(globalThis.String.fromCharCode(byte));
-    });
-    return globalThis.btoa(bin.join(""));
-  }
+  return gt.Buffer.from(arr).toString("base64");
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;

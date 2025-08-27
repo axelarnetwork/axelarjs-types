@@ -154,8 +154,8 @@ export interface QueryTokenAddressResponse {
 
 /** @deprecated */
 export interface QueryDepositStateParams {
-  txId: Uint8Array;
-  burnerAddress: Uint8Array;
+  txId: Buffer;
+  burnerAddress: Buffer;
 }
 
 /** @deprecated */
@@ -230,7 +230,7 @@ export interface QueryCommandResponse_ParamsEntry {
 }
 
 export interface BurnerInfoRequest {
-  address: Uint8Array;
+  address: Buffer;
 }
 
 export interface BurnerInfoResponse {
@@ -374,9 +374,9 @@ export const DepositQueryParams = {
 
   fromJSON(object: any): DepositQueryParams {
     return {
-      address: isSet(object.address) ? globalThis.String(object.address) : "",
-      asset: isSet(object.asset) ? globalThis.String(object.asset) : "",
-      chain: isSet(object.chain) ? globalThis.String(object.chain) : "",
+      address: isSet(object.address) ? gt.String(object.address) : "",
+      asset: isSet(object.asset) ? gt.String(object.asset) : "",
+      chain: isSet(object.chain) ? gt.String(object.chain) : "",
     };
   },
 
@@ -453,8 +453,8 @@ export const BatchedCommandsRequest = {
 
   fromJSON(object: any): BatchedCommandsRequest {
     return {
-      chain: isSet(object.chain) ? globalThis.String(object.chain) : "",
-      id: isSet(object.id) ? globalThis.String(object.id) : "",
+      chain: isSet(object.chain) ? gt.String(object.chain) : "",
+      id: isSet(object.id) ? gt.String(object.id) : "",
     };
   },
 
@@ -596,17 +596,15 @@ export const BatchedCommandsResponse = {
 
   fromJSON(object: any): BatchedCommandsResponse {
     return {
-      id: isSet(object.id) ? globalThis.String(object.id) : "",
-      data: isSet(object.data) ? globalThis.String(object.data) : "",
+      id: isSet(object.id) ? gt.String(object.id) : "",
+      data: isSet(object.data) ? gt.String(object.data) : "",
       status: isSet(object.status) ? batchedCommandsStatusFromJSON(object.status) : 0,
-      keyId: isSet(object.keyId) ? globalThis.String(object.keyId) : "",
-      executeData: isSet(object.executeData) ? globalThis.String(object.executeData) : "",
+      keyId: isSet(object.keyId) ? gt.String(object.keyId) : "",
+      executeData: isSet(object.executeData) ? gt.String(object.executeData) : "",
       prevBatchedCommandsId: isSet(object.prevBatchedCommandsId)
-        ? globalThis.String(object.prevBatchedCommandsId)
+        ? gt.String(object.prevBatchedCommandsId)
         : "",
-      commandIds: globalThis.Array.isArray(object?.commandIds)
-        ? object.commandIds.map((e: any) => globalThis.String(e))
-        : [],
+      commandIds: gt.Array.isArray(object?.commandIds) ? object.commandIds.map((e: any) => gt.String(e)) : [],
       proof: isSet(object.proof) ? Proof.fromJSON(object.proof) : undefined,
     };
   },
@@ -705,8 +703,8 @@ export const KeyAddressRequest = {
 
   fromJSON(object: any): KeyAddressRequest {
     return {
-      chain: isSet(object.chain) ? globalThis.String(object.chain) : "",
-      keyId: isSet(object.keyId) ? globalThis.String(object.keyId) : "",
+      chain: isSet(object.chain) ? gt.String(object.chain) : "",
+      keyId: isSet(object.keyId) ? gt.String(object.keyId) : "",
     };
   },
 
@@ -789,11 +787,11 @@ export const KeyAddressResponse = {
 
   fromJSON(object: any): KeyAddressResponse {
     return {
-      keyId: isSet(object.keyId) ? globalThis.String(object.keyId) : "",
-      addresses: globalThis.Array.isArray(object?.addresses)
+      keyId: isSet(object.keyId) ? gt.String(object.keyId) : "",
+      addresses: gt.Array.isArray(object?.addresses)
         ? object.addresses.map((e: any) => KeyAddressResponse_WeightedAddress.fromJSON(e))
         : [],
-      threshold: isSet(object.threshold) ? globalThis.String(object.threshold) : "",
+      threshold: isSet(object.threshold) ? gt.String(object.threshold) : "",
     };
   },
 
@@ -870,8 +868,8 @@ export const KeyAddressResponse_WeightedAddress = {
 
   fromJSON(object: any): KeyAddressResponse_WeightedAddress {
     return {
-      address: isSet(object.address) ? globalThis.String(object.address) : "",
-      weight: isSet(object.weight) ? globalThis.String(object.weight) : "",
+      address: isSet(object.address) ? gt.String(object.address) : "",
+      weight: isSet(object.weight) ? gt.String(object.weight) : "",
     };
   },
 
@@ -948,8 +946,8 @@ export const QueryTokenAddressResponse = {
 
   fromJSON(object: any): QueryTokenAddressResponse {
     return {
-      address: isSet(object.address) ? globalThis.String(object.address) : "",
-      confirmed: isSet(object.confirmed) ? globalThis.Boolean(object.confirmed) : false,
+      address: isSet(object.address) ? gt.String(object.address) : "",
+      confirmed: isSet(object.confirmed) ? gt.Boolean(object.confirmed) : false,
     };
   },
 
@@ -978,7 +976,7 @@ export const QueryTokenAddressResponse = {
 };
 
 function createBaseQueryDepositStateParams(): QueryDepositStateParams {
-  return { txId: new Uint8Array(0), burnerAddress: new Uint8Array(0) };
+  return { txId: Buffer.alloc(0), burnerAddress: Buffer.alloc(0) };
 }
 
 export const QueryDepositStateParams = {
@@ -1004,14 +1002,14 @@ export const QueryDepositStateParams = {
             break;
           }
 
-          message.txId = reader.bytes();
+          message.txId = reader.bytes() as Buffer;
           continue;
         case 2:
           if (tag !== 18) {
             break;
           }
 
-          message.burnerAddress = reader.bytes();
+          message.burnerAddress = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -1024,8 +1022,10 @@ export const QueryDepositStateParams = {
 
   fromJSON(object: any): QueryDepositStateParams {
     return {
-      txId: isSet(object.txId) ? bytesFromBase64(object.txId) : new Uint8Array(0),
-      burnerAddress: isSet(object.burnerAddress) ? bytesFromBase64(object.burnerAddress) : new Uint8Array(0),
+      txId: isSet(object.txId) ? Buffer.from(bytesFromBase64(object.txId)) : Buffer.alloc(0),
+      burnerAddress: isSet(object.burnerAddress)
+        ? Buffer.from(bytesFromBase64(object.burnerAddress))
+        : Buffer.alloc(0),
     };
   },
 
@@ -1045,8 +1045,8 @@ export const QueryDepositStateParams = {
   },
   fromPartial<I extends Exact<DeepPartial<QueryDepositStateParams>, I>>(object: I): QueryDepositStateParams {
     const message = createBaseQueryDepositStateParams();
-    message.txId = object.txId ?? new Uint8Array(0);
-    message.burnerAddress = object.burnerAddress ?? new Uint8Array(0);
+    message.txId = object.txId ?? Buffer.alloc(0);
+    message.burnerAddress = object.burnerAddress ?? Buffer.alloc(0);
     return message;
   },
 };
@@ -1098,7 +1098,7 @@ export const DepositStateRequest = {
 
   fromJSON(object: any): DepositStateRequest {
     return {
-      chain: isSet(object.chain) ? globalThis.String(object.chain) : "",
+      chain: isSet(object.chain) ? gt.String(object.chain) : "",
       params: isSet(object.params) ? QueryDepositStateParams.fromJSON(object.params) : undefined,
     };
   },
@@ -1232,8 +1232,8 @@ export const EventRequest = {
 
   fromJSON(object: any): EventRequest {
     return {
-      chain: isSet(object.chain) ? globalThis.String(object.chain) : "",
-      eventId: isSet(object.eventId) ? globalThis.String(object.eventId) : "",
+      chain: isSet(object.chain) ? gt.String(object.chain) : "",
+      eventId: isSet(object.eventId) ? gt.String(object.eventId) : "",
     };
   },
 
@@ -1353,7 +1353,7 @@ export const QueryBurnerAddressResponse = {
   },
 
   fromJSON(object: any): QueryBurnerAddressResponse {
-    return { address: isSet(object.address) ? globalThis.String(object.address) : "" };
+    return { address: isSet(object.address) ? gt.String(object.address) : "" };
   },
 
   toJSON(message: QueryBurnerAddressResponse): unknown {
@@ -1469,11 +1469,7 @@ export const ChainsResponse = {
   },
 
   fromJSON(object: any): ChainsResponse {
-    return {
-      chains: globalThis.Array.isArray(object?.chains)
-        ? object.chains.map((e: any) => globalThis.String(e))
-        : [],
-    };
+    return { chains: gt.Array.isArray(object?.chains) ? object.chains.map((e: any) => gt.String(e)) : [] };
   },
 
   toJSON(message: ChainsResponse): unknown {
@@ -1541,8 +1537,8 @@ export const CommandRequest = {
 
   fromJSON(object: any): CommandRequest {
     return {
-      chain: isSet(object.chain) ? globalThis.String(object.chain) : "",
-      id: isSet(object.id) ? globalThis.String(object.id) : "",
+      chain: isSet(object.chain) ? gt.String(object.chain) : "",
+      id: isSet(object.id) ? gt.String(object.id) : "",
     };
   },
 
@@ -1648,16 +1644,16 @@ export const CommandResponse = {
 
   fromJSON(object: any): CommandResponse {
     return {
-      id: isSet(object.id) ? globalThis.String(object.id) : "",
-      type: isSet(object.type) ? globalThis.String(object.type) : "",
+      id: isSet(object.id) ? gt.String(object.id) : "",
+      type: isSet(object.type) ? gt.String(object.type) : "",
       params: isObject(object.params)
         ? Object.entries(object.params).reduce<{ [key: string]: string }>((acc, [key, value]) => {
             acc[key] = String(value);
             return acc;
           }, {})
         : {},
-      keyId: isSet(object.keyId) ? globalThis.String(object.keyId) : "",
-      maxGasCost: isSet(object.maxGasCost) ? globalThis.Number(object.maxGasCost) : 0,
+      keyId: isSet(object.keyId) ? gt.String(object.keyId) : "",
+      maxGasCost: isSet(object.maxGasCost) ? gt.Number(object.maxGasCost) : 0,
     };
   },
 
@@ -1697,7 +1693,7 @@ export const CommandResponse = {
     message.params = Object.entries(object.params ?? {}).reduce<{ [key: string]: string }>(
       (acc, [key, value]) => {
         if (value !== undefined) {
-          acc[key] = globalThis.String(value);
+          acc[key] = gt.String(value);
         }
         return acc;
       },
@@ -1756,8 +1752,8 @@ export const CommandResponse_ParamsEntry = {
 
   fromJSON(object: any): CommandResponse_ParamsEntry {
     return {
-      key: isSet(object.key) ? globalThis.String(object.key) : "",
-      value: isSet(object.value) ? globalThis.String(object.value) : "",
+      key: isSet(object.key) ? gt.String(object.key) : "",
+      value: isSet(object.value) ? gt.String(object.value) : "",
     };
   },
 
@@ -1823,7 +1819,7 @@ export const PendingCommandsRequest = {
   },
 
   fromJSON(object: any): PendingCommandsRequest {
-    return { chain: isSet(object.chain) ? globalThis.String(object.chain) : "" };
+    return { chain: isSet(object.chain) ? gt.String(object.chain) : "" };
   },
 
   toJSON(message: PendingCommandsRequest): unknown {
@@ -1881,7 +1877,7 @@ export const PendingCommandsResponse = {
 
   fromJSON(object: any): PendingCommandsResponse {
     return {
-      commands: globalThis.Array.isArray(object?.commands)
+      commands: gt.Array.isArray(object?.commands)
         ? object.commands.map((e: any) => QueryCommandResponse.fromJSON(e))
         : [],
     };
@@ -1985,16 +1981,16 @@ export const QueryCommandResponse = {
 
   fromJSON(object: any): QueryCommandResponse {
     return {
-      id: isSet(object.id) ? globalThis.String(object.id) : "",
-      type: isSet(object.type) ? globalThis.String(object.type) : "",
+      id: isSet(object.id) ? gt.String(object.id) : "",
+      type: isSet(object.type) ? gt.String(object.type) : "",
       params: isObject(object.params)
         ? Object.entries(object.params).reduce<{ [key: string]: string }>((acc, [key, value]) => {
             acc[key] = String(value);
             return acc;
           }, {})
         : {},
-      keyId: isSet(object.keyId) ? globalThis.String(object.keyId) : "",
-      maxGasCost: isSet(object.maxGasCost) ? globalThis.Number(object.maxGasCost) : 0,
+      keyId: isSet(object.keyId) ? gt.String(object.keyId) : "",
+      maxGasCost: isSet(object.maxGasCost) ? gt.Number(object.maxGasCost) : 0,
     };
   },
 
@@ -2034,7 +2030,7 @@ export const QueryCommandResponse = {
     message.params = Object.entries(object.params ?? {}).reduce<{ [key: string]: string }>(
       (acc, [key, value]) => {
         if (value !== undefined) {
-          acc[key] = globalThis.String(value);
+          acc[key] = gt.String(value);
         }
         return acc;
       },
@@ -2093,8 +2089,8 @@ export const QueryCommandResponse_ParamsEntry = {
 
   fromJSON(object: any): QueryCommandResponse_ParamsEntry {
     return {
-      key: isSet(object.key) ? globalThis.String(object.key) : "",
-      value: isSet(object.value) ? globalThis.String(object.value) : "",
+      key: isSet(object.key) ? gt.String(object.key) : "",
+      value: isSet(object.value) ? gt.String(object.value) : "",
     };
   },
 
@@ -2125,7 +2121,7 @@ export const QueryCommandResponse_ParamsEntry = {
 };
 
 function createBaseBurnerInfoRequest(): BurnerInfoRequest {
-  return { address: new Uint8Array(0) };
+  return { address: Buffer.alloc(0) };
 }
 
 export const BurnerInfoRequest = {
@@ -2148,7 +2144,7 @@ export const BurnerInfoRequest = {
             break;
           }
 
-          message.address = reader.bytes();
+          message.address = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -2160,7 +2156,9 @@ export const BurnerInfoRequest = {
   },
 
   fromJSON(object: any): BurnerInfoRequest {
-    return { address: isSet(object.address) ? bytesFromBase64(object.address) : new Uint8Array(0) };
+    return {
+      address: isSet(object.address) ? Buffer.from(bytesFromBase64(object.address)) : Buffer.alloc(0),
+    };
   },
 
   toJSON(message: BurnerInfoRequest): unknown {
@@ -2176,7 +2174,7 @@ export const BurnerInfoRequest = {
   },
   fromPartial<I extends Exact<DeepPartial<BurnerInfoRequest>, I>>(object: I): BurnerInfoRequest {
     const message = createBaseBurnerInfoRequest();
-    message.address = object.address ?? new Uint8Array(0);
+    message.address = object.address ?? Buffer.alloc(0);
     return message;
   },
 };
@@ -2228,7 +2226,7 @@ export const BurnerInfoResponse = {
 
   fromJSON(object: any): BurnerInfoResponse {
     return {
-      chain: isSet(object.chain) ? globalThis.String(object.chain) : "",
+      chain: isSet(object.chain) ? gt.String(object.chain) : "",
       burnerInfo: isSet(object.burnerInfo) ? BurnerInfo.fromJSON(object.burnerInfo) : undefined,
     };
   },
@@ -2294,7 +2292,7 @@ export const ConfirmationHeightRequest = {
   },
 
   fromJSON(object: any): ConfirmationHeightRequest {
-    return { chain: isSet(object.chain) ? globalThis.String(object.chain) : "" };
+    return { chain: isSet(object.chain) ? gt.String(object.chain) : "" };
   },
 
   toJSON(message: ConfirmationHeightRequest): unknown {
@@ -2413,7 +2411,7 @@ export const GatewayAddressRequest = {
   },
 
   fromJSON(object: any): GatewayAddressRequest {
-    return { chain: isSet(object.chain) ? globalThis.String(object.chain) : "" };
+    return { chain: isSet(object.chain) ? gt.String(object.chain) : "" };
   },
 
   toJSON(message: GatewayAddressRequest): unknown {
@@ -2470,7 +2468,7 @@ export const GatewayAddressResponse = {
   },
 
   fromJSON(object: any): GatewayAddressResponse {
-    return { address: isSet(object.address) ? globalThis.String(object.address) : "" };
+    return { address: isSet(object.address) ? gt.String(object.address) : "" };
   },
 
   toJSON(message: GatewayAddressResponse): unknown {
@@ -2538,8 +2536,8 @@ export const BytecodeRequest = {
 
   fromJSON(object: any): BytecodeRequest {
     return {
-      chain: isSet(object.chain) ? globalThis.String(object.chain) : "",
-      contract: isSet(object.contract) ? globalThis.String(object.contract) : "",
+      chain: isSet(object.chain) ? gt.String(object.chain) : "",
+      contract: isSet(object.contract) ? gt.String(object.contract) : "",
     };
   },
 
@@ -2601,7 +2599,7 @@ export const BytecodeResponse = {
   },
 
   fromJSON(object: any): BytecodeResponse {
-    return { bytecode: isSet(object.bytecode) ? globalThis.String(object.bytecode) : "" };
+    return { bytecode: isSet(object.bytecode) ? gt.String(object.bytecode) : "" };
   },
 
   toJSON(message: BytecodeResponse): unknown {
@@ -2669,7 +2667,7 @@ export const ERC20TokensRequest = {
 
   fromJSON(object: any): ERC20TokensRequest {
     return {
-      chain: isSet(object.chain) ? globalThis.String(object.chain) : "",
+      chain: isSet(object.chain) ? gt.String(object.chain) : "",
       type: isSet(object.type) ? tokenTypeFromJSON(object.type) : 0,
     };
   },
@@ -2733,7 +2731,7 @@ export const ERC20TokensResponse = {
 
   fromJSON(object: any): ERC20TokensResponse {
     return {
-      tokens: globalThis.Array.isArray(object?.tokens)
+      tokens: gt.Array.isArray(object?.tokens)
         ? object.tokens.map((e: any) => ERC20TokensResponse_Token.fromJSON(e))
         : [],
     };
@@ -2804,8 +2802,8 @@ export const ERC20TokensResponse_Token = {
 
   fromJSON(object: any): ERC20TokensResponse_Token {
     return {
-      asset: isSet(object.asset) ? globalThis.String(object.asset) : "",
-      symbol: isSet(object.symbol) ? globalThis.String(object.symbol) : "",
+      asset: isSet(object.asset) ? gt.String(object.asset) : "",
+      symbol: isSet(object.symbol) ? gt.String(object.symbol) : "",
     };
   },
 
@@ -2900,10 +2898,10 @@ export const TokenInfoRequest = {
 
   fromJSON(object: any): TokenInfoRequest {
     return {
-      chain: isSet(object.chain) ? globalThis.String(object.chain) : "",
-      asset: isSet(object.asset) ? globalThis.String(object.asset) : undefined,
-      symbol: isSet(object.symbol) ? globalThis.String(object.symbol) : undefined,
-      address: isSet(object.address) ? globalThis.String(object.address) : undefined,
+      chain: isSet(object.chain) ? gt.String(object.chain) : "",
+      asset: isSet(object.asset) ? gt.String(object.asset) : undefined,
+      symbol: isSet(object.symbol) ? gt.String(object.symbol) : undefined,
+      address: isSet(object.address) ? gt.String(object.address) : undefined,
     };
   },
 
@@ -3031,12 +3029,12 @@ export const TokenInfoResponse = {
 
   fromJSON(object: any): TokenInfoResponse {
     return {
-      asset: isSet(object.asset) ? globalThis.String(object.asset) : "",
+      asset: isSet(object.asset) ? gt.String(object.asset) : "",
       details: isSet(object.details) ? TokenDetails.fromJSON(object.details) : undefined,
-      address: isSet(object.address) ? globalThis.String(object.address) : "",
-      confirmed: isSet(object.confirmed) ? globalThis.Boolean(object.confirmed) : false,
-      isExternal: isSet(object.isExternal) ? globalThis.Boolean(object.isExternal) : false,
-      burnerCodeHash: isSet(object.burnerCodeHash) ? globalThis.String(object.burnerCodeHash) : "",
+      address: isSet(object.address) ? gt.String(object.address) : "",
+      confirmed: isSet(object.confirmed) ? gt.Boolean(object.confirmed) : false,
+      isExternal: isSet(object.isExternal) ? gt.Boolean(object.isExternal) : false,
+      burnerCodeHash: isSet(object.burnerCodeHash) ? gt.String(object.burnerCodeHash) : "",
     };
   },
 
@@ -3148,16 +3146,10 @@ export const Proof = {
 
   fromJSON(object: any): Proof {
     return {
-      addresses: globalThis.Array.isArray(object?.addresses)
-        ? object.addresses.map((e: any) => globalThis.String(e))
-        : [],
-      weights: globalThis.Array.isArray(object?.weights)
-        ? object.weights.map((e: any) => globalThis.String(e))
-        : [],
-      threshold: isSet(object.threshold) ? globalThis.String(object.threshold) : "",
-      signatures: globalThis.Array.isArray(object?.signatures)
-        ? object.signatures.map((e: any) => globalThis.String(e))
-        : [],
+      addresses: gt.Array.isArray(object?.addresses) ? object.addresses.map((e: any) => gt.String(e)) : [],
+      weights: gt.Array.isArray(object?.weights) ? object.weights.map((e: any) => gt.String(e)) : [],
+      threshold: isSet(object.threshold) ? gt.String(object.threshold) : "",
+      signatures: gt.Array.isArray(object?.signatures) ? object.signatures.map((e: any) => gt.String(e)) : [],
     };
   },
 
@@ -3227,7 +3219,7 @@ export const ParamsRequest = {
   },
 
   fromJSON(object: any): ParamsRequest {
-    return { chain: isSet(object.chain) ? globalThis.String(object.chain) : "" };
+    return { chain: isSet(object.chain) ? gt.String(object.chain) : "" };
   },
 
   toJSON(message: ParamsRequest): unknown {
@@ -3306,29 +3298,31 @@ export const ParamsResponse = {
   },
 };
 
-function bytesFromBase64(b64: string): Uint8Array {
-  if ((globalThis as any).Buffer) {
-    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
-  } else {
-    const bin = globalThis.atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-      arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
   }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
+
+function bytesFromBase64(b64: string): Uint8Array {
+  return Uint8Array.from(gt.Buffer.from(b64, "base64"));
 }
 
 function base64FromBytes(arr: Uint8Array): string {
-  if ((globalThis as any).Buffer) {
-    return globalThis.Buffer.from(arr).toString("base64");
-  } else {
-    const bin: string[] = [];
-    arr.forEach((byte) => {
-      bin.push(globalThis.String.fromCharCode(byte));
-    });
-    return globalThis.btoa(bin.join(""));
-  }
+  return gt.Buffer.from(arr).toString("base64");
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;

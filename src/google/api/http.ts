@@ -407,11 +407,9 @@ export const Http = {
 
   fromJSON(object: any): Http {
     return {
-      rules: globalThis.Array.isArray(object?.rules)
-        ? object.rules.map((e: any) => HttpRule.fromJSON(e))
-        : [],
+      rules: gt.Array.isArray(object?.rules) ? object.rules.map((e: any) => HttpRule.fromJSON(e)) : [],
       fullyDecodeReservedExpansion: isSet(object.fullyDecodeReservedExpansion)
-        ? globalThis.Boolean(object.fullyDecodeReservedExpansion)
+        ? gt.Boolean(object.fullyDecodeReservedExpansion)
         : false,
     };
   },
@@ -576,16 +574,16 @@ export const HttpRule = {
 
   fromJSON(object: any): HttpRule {
     return {
-      selector: isSet(object.selector) ? globalThis.String(object.selector) : "",
-      get: isSet(object.get) ? globalThis.String(object.get) : undefined,
-      put: isSet(object.put) ? globalThis.String(object.put) : undefined,
-      post: isSet(object.post) ? globalThis.String(object.post) : undefined,
-      delete: isSet(object.delete) ? globalThis.String(object.delete) : undefined,
-      patch: isSet(object.patch) ? globalThis.String(object.patch) : undefined,
+      selector: isSet(object.selector) ? gt.String(object.selector) : "",
+      get: isSet(object.get) ? gt.String(object.get) : undefined,
+      put: isSet(object.put) ? gt.String(object.put) : undefined,
+      post: isSet(object.post) ? gt.String(object.post) : undefined,
+      delete: isSet(object.delete) ? gt.String(object.delete) : undefined,
+      patch: isSet(object.patch) ? gt.String(object.patch) : undefined,
       custom: isSet(object.custom) ? CustomHttpPattern.fromJSON(object.custom) : undefined,
-      body: isSet(object.body) ? globalThis.String(object.body) : "",
-      responseBody: isSet(object.responseBody) ? globalThis.String(object.responseBody) : "",
-      additionalBindings: globalThis.Array.isArray(object?.additionalBindings)
+      body: isSet(object.body) ? gt.String(object.body) : "",
+      responseBody: isSet(object.responseBody) ? gt.String(object.responseBody) : "",
+      additionalBindings: gt.Array.isArray(object?.additionalBindings)
         ? object.additionalBindings.map((e: any) => HttpRule.fromJSON(e))
         : [],
     };
@@ -695,8 +693,8 @@ export const CustomHttpPattern = {
 
   fromJSON(object: any): CustomHttpPattern {
     return {
-      kind: isSet(object.kind) ? globalThis.String(object.kind) : "",
-      path: isSet(object.path) ? globalThis.String(object.path) : "",
+      kind: isSet(object.kind) ? gt.String(object.kind) : "",
+      path: isSet(object.path) ? gt.String(object.path) : "",
     };
   },
 
@@ -721,6 +719,25 @@ export const CustomHttpPattern = {
     return message;
   },
 };
+
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
+  }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 

@@ -19,8 +19,8 @@ import {
 export const protobufPackage = "axelar.tss.v1beta1";
 
 export interface KeygenVoteData {
-  pubKey: Uint8Array;
-  groupRecoveryInfo: Uint8Array;
+  pubKey: Buffer;
+  groupRecoveryInfo: Buffer;
 }
 
 /** KeyInfo holds information about a key */
@@ -38,19 +38,19 @@ export interface MultisigInfo {
 }
 
 export interface MultisigInfo_Info {
-  participant: Uint8Array;
-  data: Uint8Array[];
+  participant: Buffer;
+  data: Buffer[];
 }
 
 export interface KeyRecoveryInfo {
   keyId: string;
-  public: Uint8Array;
-  private: { [key: string]: Uint8Array };
+  public: Buffer;
+  private: { [key: string]: Buffer };
 }
 
 export interface KeyRecoveryInfo_PrivateEntry {
   key: string;
-  value: Uint8Array;
+  value: Buffer;
 }
 
 export interface ExternalKeys {
@@ -59,12 +59,12 @@ export interface ExternalKeys {
 }
 
 export interface ValidatorStatus {
-  validator: Uint8Array;
+  validator: Buffer;
   suspendedUntil: Long;
 }
 
 function createBaseKeygenVoteData(): KeygenVoteData {
-  return { pubKey: new Uint8Array(0), groupRecoveryInfo: new Uint8Array(0) };
+  return { pubKey: Buffer.alloc(0), groupRecoveryInfo: Buffer.alloc(0) };
 }
 
 export const KeygenVoteData = {
@@ -90,14 +90,14 @@ export const KeygenVoteData = {
             break;
           }
 
-          message.pubKey = reader.bytes();
+          message.pubKey = reader.bytes() as Buffer;
           continue;
         case 2:
           if (tag !== 18) {
             break;
           }
 
-          message.groupRecoveryInfo = reader.bytes();
+          message.groupRecoveryInfo = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -110,10 +110,10 @@ export const KeygenVoteData = {
 
   fromJSON(object: any): KeygenVoteData {
     return {
-      pubKey: isSet(object.pubKey) ? bytesFromBase64(object.pubKey) : new Uint8Array(0),
+      pubKey: isSet(object.pubKey) ? Buffer.from(bytesFromBase64(object.pubKey)) : Buffer.alloc(0),
       groupRecoveryInfo: isSet(object.groupRecoveryInfo)
-        ? bytesFromBase64(object.groupRecoveryInfo)
-        : new Uint8Array(0),
+        ? Buffer.from(bytesFromBase64(object.groupRecoveryInfo))
+        : Buffer.alloc(0),
     };
   },
 
@@ -133,8 +133,8 @@ export const KeygenVoteData = {
   },
   fromPartial<I extends Exact<DeepPartial<KeygenVoteData>, I>>(object: I): KeygenVoteData {
     const message = createBaseKeygenVoteData();
-    message.pubKey = object.pubKey ?? new Uint8Array(0);
-    message.groupRecoveryInfo = object.groupRecoveryInfo ?? new Uint8Array(0);
+    message.pubKey = object.pubKey ?? Buffer.alloc(0);
+    message.groupRecoveryInfo = object.groupRecoveryInfo ?? Buffer.alloc(0);
     return message;
   },
 };
@@ -196,7 +196,7 @@ export const KeyInfo = {
 
   fromJSON(object: any): KeyInfo {
     return {
-      keyId: isSet(object.keyId) ? globalThis.String(object.keyId) : "",
+      keyId: isSet(object.keyId) ? gt.String(object.keyId) : "",
       keyRole: isSet(object.keyRole) ? keyRoleFromJSON(object.keyRole) : 0,
       keyType: isSet(object.keyType) ? keyTypeFromJSON(object.keyType) : 0,
     };
@@ -295,10 +295,10 @@ export const MultisigInfo = {
 
   fromJSON(object: any): MultisigInfo {
     return {
-      id: isSet(object.id) ? globalThis.String(object.id) : "",
+      id: isSet(object.id) ? gt.String(object.id) : "",
       timeout: isSet(object.timeout) ? Long.fromValue(object.timeout) : Long.ZERO,
       targetNum: isSet(object.targetNum) ? Long.fromValue(object.targetNum) : Long.ZERO,
-      infos: globalThis.Array.isArray(object?.infos)
+      infos: gt.Array.isArray(object?.infos)
         ? object.infos.map((e: any) => MultisigInfo_Info.fromJSON(e))
         : [],
     };
@@ -339,7 +339,7 @@ export const MultisigInfo = {
 };
 
 function createBaseMultisigInfo_Info(): MultisigInfo_Info {
-  return { participant: new Uint8Array(0), data: [] };
+  return { participant: Buffer.alloc(0), data: [] };
 }
 
 export const MultisigInfo_Info = {
@@ -365,14 +365,14 @@ export const MultisigInfo_Info = {
             break;
           }
 
-          message.participant = reader.bytes();
+          message.participant = reader.bytes() as Buffer;
           continue;
         case 2:
           if (tag !== 18) {
             break;
           }
 
-          message.data.push(reader.bytes());
+          message.data.push(reader.bytes() as Buffer);
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -385,8 +385,12 @@ export const MultisigInfo_Info = {
 
   fromJSON(object: any): MultisigInfo_Info {
     return {
-      participant: isSet(object.participant) ? bytesFromBase64(object.participant) : new Uint8Array(0),
-      data: globalThis.Array.isArray(object?.data) ? object.data.map((e: any) => bytesFromBase64(e)) : [],
+      participant: isSet(object.participant)
+        ? Buffer.from(bytesFromBase64(object.participant))
+        : Buffer.alloc(0),
+      data: gt.Array.isArray(object?.data)
+        ? object.data.map((e: any) => Buffer.from(bytesFromBase64(e)))
+        : [],
     };
   },
 
@@ -406,14 +410,14 @@ export const MultisigInfo_Info = {
   },
   fromPartial<I extends Exact<DeepPartial<MultisigInfo_Info>, I>>(object: I): MultisigInfo_Info {
     const message = createBaseMultisigInfo_Info();
-    message.participant = object.participant ?? new Uint8Array(0);
+    message.participant = object.participant ?? Buffer.alloc(0);
     message.data = object.data?.map((e) => e) || [];
     return message;
   },
 };
 
 function createBaseKeyRecoveryInfo(): KeyRecoveryInfo {
-  return { keyId: "", public: new Uint8Array(0), private: {} };
+  return { keyId: "", public: Buffer.alloc(0), private: {} };
 }
 
 export const KeyRecoveryInfo = {
@@ -449,7 +453,7 @@ export const KeyRecoveryInfo = {
             break;
           }
 
-          message.public = reader.bytes();
+          message.public = reader.bytes() as Buffer;
           continue;
         case 3:
           if (tag !== 26) {
@@ -472,11 +476,11 @@ export const KeyRecoveryInfo = {
 
   fromJSON(object: any): KeyRecoveryInfo {
     return {
-      keyId: isSet(object.keyId) ? globalThis.String(object.keyId) : "",
-      public: isSet(object.public) ? bytesFromBase64(object.public) : new Uint8Array(0),
+      keyId: isSet(object.keyId) ? gt.String(object.keyId) : "",
+      public: isSet(object.public) ? Buffer.from(bytesFromBase64(object.public)) : Buffer.alloc(0),
       private: isObject(object.private)
-        ? Object.entries(object.private).reduce<{ [key: string]: Uint8Array }>((acc, [key, value]) => {
-            acc[key] = bytesFromBase64(value as string);
+        ? Object.entries(object.private).reduce<{ [key: string]: Buffer }>((acc, [key, value]) => {
+            acc[key] = Buffer.from(bytesFromBase64(value as string));
             return acc;
           }, {})
         : {},
@@ -509,8 +513,8 @@ export const KeyRecoveryInfo = {
   fromPartial<I extends Exact<DeepPartial<KeyRecoveryInfo>, I>>(object: I): KeyRecoveryInfo {
     const message = createBaseKeyRecoveryInfo();
     message.keyId = object.keyId ?? "";
-    message.public = object.public ?? new Uint8Array(0);
-    message.private = Object.entries(object.private ?? {}).reduce<{ [key: string]: Uint8Array }>(
+    message.public = object.public ?? Buffer.alloc(0);
+    message.private = Object.entries(object.private ?? {}).reduce<{ [key: string]: Buffer }>(
       (acc, [key, value]) => {
         if (value !== undefined) {
           acc[key] = value;
@@ -524,7 +528,7 @@ export const KeyRecoveryInfo = {
 };
 
 function createBaseKeyRecoveryInfo_PrivateEntry(): KeyRecoveryInfo_PrivateEntry {
-  return { key: "", value: new Uint8Array(0) };
+  return { key: "", value: Buffer.alloc(0) };
 }
 
 export const KeyRecoveryInfo_PrivateEntry = {
@@ -557,7 +561,7 @@ export const KeyRecoveryInfo_PrivateEntry = {
             break;
           }
 
-          message.value = reader.bytes();
+          message.value = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -570,8 +574,8 @@ export const KeyRecoveryInfo_PrivateEntry = {
 
   fromJSON(object: any): KeyRecoveryInfo_PrivateEntry {
     return {
-      key: isSet(object.key) ? globalThis.String(object.key) : "",
-      value: isSet(object.value) ? bytesFromBase64(object.value) : new Uint8Array(0),
+      key: isSet(object.key) ? gt.String(object.key) : "",
+      value: isSet(object.value) ? Buffer.from(bytesFromBase64(object.value)) : Buffer.alloc(0),
     };
   },
 
@@ -596,7 +600,7 @@ export const KeyRecoveryInfo_PrivateEntry = {
   ): KeyRecoveryInfo_PrivateEntry {
     const message = createBaseKeyRecoveryInfo_PrivateEntry();
     message.key = object.key ?? "";
-    message.value = object.value ?? new Uint8Array(0);
+    message.value = object.value ?? Buffer.alloc(0);
     return message;
   },
 };
@@ -648,10 +652,8 @@ export const ExternalKeys = {
 
   fromJSON(object: any): ExternalKeys {
     return {
-      chain: isSet(object.chain) ? globalThis.String(object.chain) : "",
-      keyIds: globalThis.Array.isArray(object?.keyIds)
-        ? object.keyIds.map((e: any) => globalThis.String(e))
-        : [],
+      chain: isSet(object.chain) ? gt.String(object.chain) : "",
+      keyIds: gt.Array.isArray(object?.keyIds) ? object.keyIds.map((e: any) => gt.String(e)) : [],
     };
   },
 
@@ -678,7 +680,7 @@ export const ExternalKeys = {
 };
 
 function createBaseValidatorStatus(): ValidatorStatus {
-  return { validator: new Uint8Array(0), suspendedUntil: Long.UZERO };
+  return { validator: Buffer.alloc(0), suspendedUntil: Long.UZERO };
 }
 
 export const ValidatorStatus = {
@@ -704,7 +706,7 @@ export const ValidatorStatus = {
             break;
           }
 
-          message.validator = reader.bytes();
+          message.validator = reader.bytes() as Buffer;
           continue;
         case 2:
           if (tag !== 16) {
@@ -724,7 +726,7 @@ export const ValidatorStatus = {
 
   fromJSON(object: any): ValidatorStatus {
     return {
-      validator: isSet(object.validator) ? bytesFromBase64(object.validator) : new Uint8Array(0),
+      validator: isSet(object.validator) ? Buffer.from(bytesFromBase64(object.validator)) : Buffer.alloc(0),
       suspendedUntil: isSet(object.suspendedUntil) ? Long.fromValue(object.suspendedUntil) : Long.UZERO,
     };
   },
@@ -745,7 +747,7 @@ export const ValidatorStatus = {
   },
   fromPartial<I extends Exact<DeepPartial<ValidatorStatus>, I>>(object: I): ValidatorStatus {
     const message = createBaseValidatorStatus();
-    message.validator = object.validator ?? new Uint8Array(0);
+    message.validator = object.validator ?? Buffer.alloc(0);
     message.suspendedUntil =
       object.suspendedUntil !== undefined && object.suspendedUntil !== null
         ? Long.fromValue(object.suspendedUntil)
@@ -754,29 +756,31 @@ export const ValidatorStatus = {
   },
 };
 
-function bytesFromBase64(b64: string): Uint8Array {
-  if ((globalThis as any).Buffer) {
-    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
-  } else {
-    const bin = globalThis.atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-      arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
   }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
+
+function bytesFromBase64(b64: string): Uint8Array {
+  return Uint8Array.from(gt.Buffer.from(b64, "base64"));
 }
 
 function base64FromBytes(arr: Uint8Array): string {
-  if ((globalThis as any).Buffer) {
-    return globalThis.Buffer.from(arr).toString("base64");
-  } else {
-    const bin: string[] = [];
-    arr.forEach((byte) => {
-      bin.push(globalThis.String.fromCharCode(byte));
-    });
-    return globalThis.btoa(bin.join(""));
-  }
+  return gt.Buffer.from(arr).toString("base64");
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;

@@ -165,7 +165,7 @@ export const Timestamp = {
   fromJSON(object: any): Timestamp {
     return {
       seconds: isSet(object.seconds) ? Long.fromValue(object.seconds) : Long.ZERO,
-      nanos: isSet(object.nanos) ? globalThis.Number(object.nanos) : 0,
+      nanos: isSet(object.nanos) ? gt.Number(object.nanos) : 0,
     };
   },
 
@@ -191,6 +191,25 @@ export const Timestamp = {
     return message;
   },
 };
+
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
+  }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 

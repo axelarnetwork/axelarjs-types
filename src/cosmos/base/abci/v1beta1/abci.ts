@@ -107,7 +107,7 @@ export interface Result {
    *
    * @deprecated
    */
-  data: Uint8Array;
+  data: Buffer;
   /** Log contains the log information from message or handler execution. */
   log: string;
   /**
@@ -140,7 +140,7 @@ export interface SimulationResponse {
  */
 export interface MsgData {
   msgType: string;
-  data: Uint8Array;
+  data: Buffer;
 }
 
 /**
@@ -366,22 +366,18 @@ export const TxResponse = {
   fromJSON(object: any): TxResponse {
     return {
       height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
-      txhash: isSet(object.txhash) ? globalThis.String(object.txhash) : "",
-      codespace: isSet(object.codespace) ? globalThis.String(object.codespace) : "",
-      code: isSet(object.code) ? globalThis.Number(object.code) : 0,
-      data: isSet(object.data) ? globalThis.String(object.data) : "",
-      rawLog: isSet(object.rawLog) ? globalThis.String(object.rawLog) : "",
-      logs: globalThis.Array.isArray(object?.logs)
-        ? object.logs.map((e: any) => ABCIMessageLog.fromJSON(e))
-        : [],
-      info: isSet(object.info) ? globalThis.String(object.info) : "",
+      txhash: isSet(object.txhash) ? gt.String(object.txhash) : "",
+      codespace: isSet(object.codespace) ? gt.String(object.codespace) : "",
+      code: isSet(object.code) ? gt.Number(object.code) : 0,
+      data: isSet(object.data) ? gt.String(object.data) : "",
+      rawLog: isSet(object.rawLog) ? gt.String(object.rawLog) : "",
+      logs: gt.Array.isArray(object?.logs) ? object.logs.map((e: any) => ABCIMessageLog.fromJSON(e)) : [],
+      info: isSet(object.info) ? gt.String(object.info) : "",
       gasWanted: isSet(object.gasWanted) ? Long.fromValue(object.gasWanted) : Long.ZERO,
       gasUsed: isSet(object.gasUsed) ? Long.fromValue(object.gasUsed) : Long.ZERO,
       tx: isSet(object.tx) ? Any.fromJSON(object.tx) : undefined,
-      timestamp: isSet(object.timestamp) ? globalThis.String(object.timestamp) : "",
-      events: globalThis.Array.isArray(object?.events)
-        ? object.events.map((e: any) => Event.fromJSON(e))
-        : [],
+      timestamp: isSet(object.timestamp) ? gt.String(object.timestamp) : "",
+      events: gt.Array.isArray(object?.events) ? object.events.map((e: any) => Event.fromJSON(e)) : [],
     };
   },
 
@@ -513,11 +509,9 @@ export const ABCIMessageLog = {
 
   fromJSON(object: any): ABCIMessageLog {
     return {
-      msgIndex: isSet(object.msgIndex) ? globalThis.Number(object.msgIndex) : 0,
-      log: isSet(object.log) ? globalThis.String(object.log) : "",
-      events: globalThis.Array.isArray(object?.events)
-        ? object.events.map((e: any) => StringEvent.fromJSON(e))
-        : [],
+      msgIndex: isSet(object.msgIndex) ? gt.Number(object.msgIndex) : 0,
+      log: isSet(object.log) ? gt.String(object.log) : "",
+      events: gt.Array.isArray(object?.events) ? object.events.map((e: any) => StringEvent.fromJSON(e)) : [],
     };
   },
 
@@ -594,8 +588,8 @@ export const StringEvent = {
 
   fromJSON(object: any): StringEvent {
     return {
-      type: isSet(object.type) ? globalThis.String(object.type) : "",
-      attributes: globalThis.Array.isArray(object?.attributes)
+      type: isSet(object.type) ? gt.String(object.type) : "",
+      attributes: gt.Array.isArray(object?.attributes)
         ? object.attributes.map((e: any) => Attribute.fromJSON(e))
         : [],
     };
@@ -670,8 +664,8 @@ export const Attribute = {
 
   fromJSON(object: any): Attribute {
     return {
-      key: isSet(object.key) ? globalThis.String(object.key) : "",
-      value: isSet(object.value) ? globalThis.String(object.value) : "",
+      key: isSet(object.key) ? gt.String(object.key) : "",
+      value: isSet(object.value) ? gt.String(object.value) : "",
     };
   },
 
@@ -776,7 +770,7 @@ export const GasInfo = {
 };
 
 function createBaseResult(): Result {
-  return { data: new Uint8Array(0), log: "", events: [], msgResponses: [] };
+  return { data: Buffer.alloc(0), log: "", events: [], msgResponses: [] };
 }
 
 export const Result = {
@@ -808,7 +802,7 @@ export const Result = {
             break;
           }
 
-          message.data = reader.bytes();
+          message.data = reader.bytes() as Buffer;
           continue;
         case 2:
           if (tag !== 18) {
@@ -842,12 +836,10 @@ export const Result = {
 
   fromJSON(object: any): Result {
     return {
-      data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(0),
-      log: isSet(object.log) ? globalThis.String(object.log) : "",
-      events: globalThis.Array.isArray(object?.events)
-        ? object.events.map((e: any) => Event.fromJSON(e))
-        : [],
-      msgResponses: globalThis.Array.isArray(object?.msgResponses)
+      data: isSet(object.data) ? Buffer.from(bytesFromBase64(object.data)) : Buffer.alloc(0),
+      log: isSet(object.log) ? gt.String(object.log) : "",
+      events: gt.Array.isArray(object?.events) ? object.events.map((e: any) => Event.fromJSON(e)) : [],
+      msgResponses: gt.Array.isArray(object?.msgResponses)
         ? object.msgResponses.map((e: any) => Any.fromJSON(e))
         : [],
     };
@@ -875,7 +867,7 @@ export const Result = {
   },
   fromPartial<I extends Exact<DeepPartial<Result>, I>>(object: I): Result {
     const message = createBaseResult();
-    message.data = object.data ?? new Uint8Array(0);
+    message.data = object.data ?? Buffer.alloc(0);
     message.log = object.log ?? "";
     message.events = object.events?.map((e) => Event.fromPartial(e)) || [];
     message.msgResponses = object.msgResponses?.map((e) => Any.fromPartial(e)) || [];
@@ -962,7 +954,7 @@ export const SimulationResponse = {
 };
 
 function createBaseMsgData(): MsgData {
-  return { msgType: "", data: new Uint8Array(0) };
+  return { msgType: "", data: Buffer.alloc(0) };
 }
 
 export const MsgData = {
@@ -995,7 +987,7 @@ export const MsgData = {
             break;
           }
 
-          message.data = reader.bytes();
+          message.data = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -1008,8 +1000,8 @@ export const MsgData = {
 
   fromJSON(object: any): MsgData {
     return {
-      msgType: isSet(object.msgType) ? globalThis.String(object.msgType) : "",
-      data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(0),
+      msgType: isSet(object.msgType) ? gt.String(object.msgType) : "",
+      data: isSet(object.data) ? Buffer.from(bytesFromBase64(object.data)) : Buffer.alloc(0),
     };
   },
 
@@ -1030,7 +1022,7 @@ export const MsgData = {
   fromPartial<I extends Exact<DeepPartial<MsgData>, I>>(object: I): MsgData {
     const message = createBaseMsgData();
     message.msgType = object.msgType ?? "";
-    message.data = object.data ?? new Uint8Array(0);
+    message.data = object.data ?? Buffer.alloc(0);
     return message;
   },
 };
@@ -1082,8 +1074,8 @@ export const TxMsgData = {
 
   fromJSON(object: any): TxMsgData {
     return {
-      data: globalThis.Array.isArray(object?.data) ? object.data.map((e: any) => MsgData.fromJSON(e)) : [],
-      msgResponses: globalThis.Array.isArray(object?.msgResponses)
+      data: gt.Array.isArray(object?.data) ? object.data.map((e: any) => MsgData.fromJSON(e)) : [],
+      msgResponses: gt.Array.isArray(object?.msgResponses)
         ? object.msgResponses.map((e: any) => Any.fromJSON(e))
         : [],
     };
@@ -1210,7 +1202,7 @@ export const SearchTxsResult = {
       pageNumber: isSet(object.pageNumber) ? Long.fromValue(object.pageNumber) : Long.UZERO,
       pageTotal: isSet(object.pageTotal) ? Long.fromValue(object.pageTotal) : Long.UZERO,
       limit: isSet(object.limit) ? Long.fromValue(object.limit) : Long.UZERO,
-      txs: globalThis.Array.isArray(object?.txs) ? object.txs.map((e: any) => TxResponse.fromJSON(e)) : [],
+      txs: gt.Array.isArray(object?.txs) ? object.txs.map((e: any) => TxResponse.fromJSON(e)) : [],
     };
   },
 
@@ -1362,9 +1354,7 @@ export const SearchBlocksResult = {
       pageNumber: isSet(object.pageNumber) ? Long.fromValue(object.pageNumber) : Long.ZERO,
       pageTotal: isSet(object.pageTotal) ? Long.fromValue(object.pageTotal) : Long.ZERO,
       limit: isSet(object.limit) ? Long.fromValue(object.limit) : Long.ZERO,
-      blocks: globalThis.Array.isArray(object?.blocks)
-        ? object.blocks.map((e: any) => Block.fromJSON(e))
-        : [],
+      blocks: gt.Array.isArray(object?.blocks) ? object.blocks.map((e: any) => Block.fromJSON(e)) : [],
     };
   },
 
@@ -1417,29 +1407,31 @@ export const SearchBlocksResult = {
   },
 };
 
-function bytesFromBase64(b64: string): Uint8Array {
-  if ((globalThis as any).Buffer) {
-    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
-  } else {
-    const bin = globalThis.atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-      arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
   }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
+
+function bytesFromBase64(b64: string): Uint8Array {
+  return Uint8Array.from(gt.Buffer.from(b64, "base64"));
 }
 
 function base64FromBytes(arr: Uint8Array): string {
-  if ((globalThis as any).Buffer) {
-    return globalThis.Buffer.from(arr).toString("base64");
-  } else {
-    const bin: string[] = [];
-    arr.forEach((byte) => {
-      bin.push(globalThis.String.fromCharCode(byte));
-    });
-    return globalThis.btoa(bin.join(""));
-  }
+  return gt.Buffer.from(arr).toString("base64");
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;

@@ -13,7 +13,7 @@ export const protobufPackage = "axelar.multisig.v1beta1";
 export interface KeygenStarted {
   module: string;
   keyId: string;
-  participants: Uint8Array[];
+  participants: Buffer[];
 }
 
 export interface KeygenCompleted {
@@ -29,22 +29,22 @@ export interface KeygenExpired {
 export interface PubKeySubmitted {
   module: string;
   keyId: string;
-  participant: Uint8Array;
-  pubKey: Uint8Array;
+  participant: Buffer;
+  pubKey: Buffer;
 }
 
 export interface SigningStarted {
   module: string;
   sigId: Long;
   keyId: string;
-  pubKeys: { [key: string]: Uint8Array };
-  payloadHash: Uint8Array;
+  pubKeys: { [key: string]: Buffer };
+  payloadHash: Buffer;
   requestingModule: string;
 }
 
 export interface SigningStarted_PubKeysEntry {
   key: string;
-  value: Uint8Array;
+  value: Buffer;
 }
 
 export interface SigningCompleted {
@@ -60,8 +60,8 @@ export interface SigningExpired {
 export interface SignatureSubmitted {
   module: string;
   sigId: Long;
-  participant: Uint8Array;
-  signature: Uint8Array;
+  participant: Buffer;
+  signature: Buffer;
 }
 
 export interface KeyAssigned {
@@ -77,11 +77,11 @@ export interface KeyRotated {
 }
 
 export interface KeygenOptOut {
-  participant: Uint8Array;
+  participant: Buffer;
 }
 
 export interface KeygenOptIn {
-  participant: Uint8Array;
+  participant: Buffer;
 }
 
 function createBaseKeygenStarted(): KeygenStarted {
@@ -128,7 +128,7 @@ export const KeygenStarted = {
             break;
           }
 
-          message.participants.push(reader.bytes());
+          message.participants.push(reader.bytes() as Buffer);
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -141,10 +141,10 @@ export const KeygenStarted = {
 
   fromJSON(object: any): KeygenStarted {
     return {
-      module: isSet(object.module) ? globalThis.String(object.module) : "",
-      keyId: isSet(object.keyId) ? globalThis.String(object.keyId) : "",
-      participants: globalThis.Array.isArray(object?.participants)
-        ? object.participants.map((e: any) => bytesFromBase64(e))
+      module: isSet(object.module) ? gt.String(object.module) : "",
+      keyId: isSet(object.keyId) ? gt.String(object.keyId) : "",
+      participants: gt.Array.isArray(object?.participants)
+        ? object.participants.map((e: any) => Buffer.from(bytesFromBase64(e)))
         : [],
     };
   },
@@ -222,8 +222,8 @@ export const KeygenCompleted = {
 
   fromJSON(object: any): KeygenCompleted {
     return {
-      module: isSet(object.module) ? globalThis.String(object.module) : "",
-      keyId: isSet(object.keyId) ? globalThis.String(object.keyId) : "",
+      module: isSet(object.module) ? gt.String(object.module) : "",
+      keyId: isSet(object.keyId) ? gt.String(object.keyId) : "",
     };
   },
 
@@ -296,8 +296,8 @@ export const KeygenExpired = {
 
   fromJSON(object: any): KeygenExpired {
     return {
-      module: isSet(object.module) ? globalThis.String(object.module) : "",
-      keyId: isSet(object.keyId) ? globalThis.String(object.keyId) : "",
+      module: isSet(object.module) ? gt.String(object.module) : "",
+      keyId: isSet(object.keyId) ? gt.String(object.keyId) : "",
     };
   },
 
@@ -324,7 +324,7 @@ export const KeygenExpired = {
 };
 
 function createBasePubKeySubmitted(): PubKeySubmitted {
-  return { module: "", keyId: "", participant: new Uint8Array(0), pubKey: new Uint8Array(0) };
+  return { module: "", keyId: "", participant: Buffer.alloc(0), pubKey: Buffer.alloc(0) };
 }
 
 export const PubKeySubmitted = {
@@ -370,14 +370,14 @@ export const PubKeySubmitted = {
             break;
           }
 
-          message.participant = reader.bytes();
+          message.participant = reader.bytes() as Buffer;
           continue;
         case 4:
           if (tag !== 34) {
             break;
           }
 
-          message.pubKey = reader.bytes();
+          message.pubKey = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -390,10 +390,12 @@ export const PubKeySubmitted = {
 
   fromJSON(object: any): PubKeySubmitted {
     return {
-      module: isSet(object.module) ? globalThis.String(object.module) : "",
-      keyId: isSet(object.keyId) ? globalThis.String(object.keyId) : "",
-      participant: isSet(object.participant) ? bytesFromBase64(object.participant) : new Uint8Array(0),
-      pubKey: isSet(object.pubKey) ? bytesFromBase64(object.pubKey) : new Uint8Array(0),
+      module: isSet(object.module) ? gt.String(object.module) : "",
+      keyId: isSet(object.keyId) ? gt.String(object.keyId) : "",
+      participant: isSet(object.participant)
+        ? Buffer.from(bytesFromBase64(object.participant))
+        : Buffer.alloc(0),
+      pubKey: isSet(object.pubKey) ? Buffer.from(bytesFromBase64(object.pubKey)) : Buffer.alloc(0),
     };
   },
 
@@ -421,8 +423,8 @@ export const PubKeySubmitted = {
     const message = createBasePubKeySubmitted();
     message.module = object.module ?? "";
     message.keyId = object.keyId ?? "";
-    message.participant = object.participant ?? new Uint8Array(0);
-    message.pubKey = object.pubKey ?? new Uint8Array(0);
+    message.participant = object.participant ?? Buffer.alloc(0);
+    message.pubKey = object.pubKey ?? Buffer.alloc(0);
     return message;
   },
 };
@@ -433,7 +435,7 @@ function createBaseSigningStarted(): SigningStarted {
     sigId: Long.UZERO,
     keyId: "",
     pubKeys: {},
-    payloadHash: new Uint8Array(0),
+    payloadHash: Buffer.alloc(0),
     requestingModule: "",
   };
 }
@@ -504,7 +506,7 @@ export const SigningStarted = {
             break;
           }
 
-          message.payloadHash = reader.bytes();
+          message.payloadHash = reader.bytes() as Buffer;
           continue;
         case 6:
           if (tag !== 50) {
@@ -524,17 +526,19 @@ export const SigningStarted = {
 
   fromJSON(object: any): SigningStarted {
     return {
-      module: isSet(object.module) ? globalThis.String(object.module) : "",
+      module: isSet(object.module) ? gt.String(object.module) : "",
       sigId: isSet(object.sigId) ? Long.fromValue(object.sigId) : Long.UZERO,
-      keyId: isSet(object.keyId) ? globalThis.String(object.keyId) : "",
+      keyId: isSet(object.keyId) ? gt.String(object.keyId) : "",
       pubKeys: isObject(object.pubKeys)
-        ? Object.entries(object.pubKeys).reduce<{ [key: string]: Uint8Array }>((acc, [key, value]) => {
-            acc[key] = bytesFromBase64(value as string);
+        ? Object.entries(object.pubKeys).reduce<{ [key: string]: Buffer }>((acc, [key, value]) => {
+            acc[key] = Buffer.from(bytesFromBase64(value as string));
             return acc;
           }, {})
         : {},
-      payloadHash: isSet(object.payloadHash) ? bytesFromBase64(object.payloadHash) : new Uint8Array(0),
-      requestingModule: isSet(object.requestingModule) ? globalThis.String(object.requestingModule) : "",
+      payloadHash: isSet(object.payloadHash)
+        ? Buffer.from(bytesFromBase64(object.payloadHash))
+        : Buffer.alloc(0),
+      requestingModule: isSet(object.requestingModule) ? gt.String(object.requestingModule) : "",
     };
   },
 
@@ -576,7 +580,7 @@ export const SigningStarted = {
     message.sigId =
       object.sigId !== undefined && object.sigId !== null ? Long.fromValue(object.sigId) : Long.UZERO;
     message.keyId = object.keyId ?? "";
-    message.pubKeys = Object.entries(object.pubKeys ?? {}).reduce<{ [key: string]: Uint8Array }>(
+    message.pubKeys = Object.entries(object.pubKeys ?? {}).reduce<{ [key: string]: Buffer }>(
       (acc, [key, value]) => {
         if (value !== undefined) {
           acc[key] = value;
@@ -585,14 +589,14 @@ export const SigningStarted = {
       },
       {},
     );
-    message.payloadHash = object.payloadHash ?? new Uint8Array(0);
+    message.payloadHash = object.payloadHash ?? Buffer.alloc(0);
     message.requestingModule = object.requestingModule ?? "";
     return message;
   },
 };
 
 function createBaseSigningStarted_PubKeysEntry(): SigningStarted_PubKeysEntry {
-  return { key: "", value: new Uint8Array(0) };
+  return { key: "", value: Buffer.alloc(0) };
 }
 
 export const SigningStarted_PubKeysEntry = {
@@ -625,7 +629,7 @@ export const SigningStarted_PubKeysEntry = {
             break;
           }
 
-          message.value = reader.bytes();
+          message.value = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -638,8 +642,8 @@ export const SigningStarted_PubKeysEntry = {
 
   fromJSON(object: any): SigningStarted_PubKeysEntry {
     return {
-      key: isSet(object.key) ? globalThis.String(object.key) : "",
-      value: isSet(object.value) ? bytesFromBase64(object.value) : new Uint8Array(0),
+      key: isSet(object.key) ? gt.String(object.key) : "",
+      value: isSet(object.value) ? Buffer.from(bytesFromBase64(object.value)) : Buffer.alloc(0),
     };
   },
 
@@ -664,7 +668,7 @@ export const SigningStarted_PubKeysEntry = {
   ): SigningStarted_PubKeysEntry {
     const message = createBaseSigningStarted_PubKeysEntry();
     message.key = object.key ?? "";
-    message.value = object.value ?? new Uint8Array(0);
+    message.value = object.value ?? Buffer.alloc(0);
     return message;
   },
 };
@@ -716,7 +720,7 @@ export const SigningCompleted = {
 
   fromJSON(object: any): SigningCompleted {
     return {
-      module: isSet(object.module) ? globalThis.String(object.module) : "",
+      module: isSet(object.module) ? gt.String(object.module) : "",
       sigId: isSet(object.sigId) ? Long.fromValue(object.sigId) : Long.UZERO,
     };
   },
@@ -791,7 +795,7 @@ export const SigningExpired = {
 
   fromJSON(object: any): SigningExpired {
     return {
-      module: isSet(object.module) ? globalThis.String(object.module) : "",
+      module: isSet(object.module) ? gt.String(object.module) : "",
       sigId: isSet(object.sigId) ? Long.fromValue(object.sigId) : Long.UZERO,
     };
   },
@@ -820,7 +824,7 @@ export const SigningExpired = {
 };
 
 function createBaseSignatureSubmitted(): SignatureSubmitted {
-  return { module: "", sigId: Long.UZERO, participant: new Uint8Array(0), signature: new Uint8Array(0) };
+  return { module: "", sigId: Long.UZERO, participant: Buffer.alloc(0), signature: Buffer.alloc(0) };
 }
 
 export const SignatureSubmitted = {
@@ -866,14 +870,14 @@ export const SignatureSubmitted = {
             break;
           }
 
-          message.participant = reader.bytes();
+          message.participant = reader.bytes() as Buffer;
           continue;
         case 4:
           if (tag !== 34) {
             break;
           }
 
-          message.signature = reader.bytes();
+          message.signature = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -886,10 +890,12 @@ export const SignatureSubmitted = {
 
   fromJSON(object: any): SignatureSubmitted {
     return {
-      module: isSet(object.module) ? globalThis.String(object.module) : "",
+      module: isSet(object.module) ? gt.String(object.module) : "",
       sigId: isSet(object.sigId) ? Long.fromValue(object.sigId) : Long.UZERO,
-      participant: isSet(object.participant) ? bytesFromBase64(object.participant) : new Uint8Array(0),
-      signature: isSet(object.signature) ? bytesFromBase64(object.signature) : new Uint8Array(0),
+      participant: isSet(object.participant)
+        ? Buffer.from(bytesFromBase64(object.participant))
+        : Buffer.alloc(0),
+      signature: isSet(object.signature) ? Buffer.from(bytesFromBase64(object.signature)) : Buffer.alloc(0),
     };
   },
 
@@ -918,8 +924,8 @@ export const SignatureSubmitted = {
     message.module = object.module ?? "";
     message.sigId =
       object.sigId !== undefined && object.sigId !== null ? Long.fromValue(object.sigId) : Long.UZERO;
-    message.participant = object.participant ?? new Uint8Array(0);
-    message.signature = object.signature ?? new Uint8Array(0);
+    message.participant = object.participant ?? Buffer.alloc(0);
+    message.signature = object.signature ?? Buffer.alloc(0);
     return message;
   },
 };
@@ -981,9 +987,9 @@ export const KeyAssigned = {
 
   fromJSON(object: any): KeyAssigned {
     return {
-      module: isSet(object.module) ? globalThis.String(object.module) : "",
-      chain: isSet(object.chain) ? globalThis.String(object.chain) : "",
-      keyId: isSet(object.keyId) ? globalThis.String(object.keyId) : "",
+      module: isSet(object.module) ? gt.String(object.module) : "",
+      chain: isSet(object.chain) ? gt.String(object.chain) : "",
+      keyId: isSet(object.keyId) ? gt.String(object.keyId) : "",
     };
   },
 
@@ -1070,9 +1076,9 @@ export const KeyRotated = {
 
   fromJSON(object: any): KeyRotated {
     return {
-      module: isSet(object.module) ? globalThis.String(object.module) : "",
-      chain: isSet(object.chain) ? globalThis.String(object.chain) : "",
-      keyId: isSet(object.keyId) ? globalThis.String(object.keyId) : "",
+      module: isSet(object.module) ? gt.String(object.module) : "",
+      chain: isSet(object.chain) ? gt.String(object.chain) : "",
+      keyId: isSet(object.keyId) ? gt.String(object.keyId) : "",
     };
   },
 
@@ -1103,7 +1109,7 @@ export const KeyRotated = {
 };
 
 function createBaseKeygenOptOut(): KeygenOptOut {
-  return { participant: new Uint8Array(0) };
+  return { participant: Buffer.alloc(0) };
 }
 
 export const KeygenOptOut = {
@@ -1126,7 +1132,7 @@ export const KeygenOptOut = {
             break;
           }
 
-          message.participant = reader.bytes();
+          message.participant = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -1139,7 +1145,9 @@ export const KeygenOptOut = {
 
   fromJSON(object: any): KeygenOptOut {
     return {
-      participant: isSet(object.participant) ? bytesFromBase64(object.participant) : new Uint8Array(0),
+      participant: isSet(object.participant)
+        ? Buffer.from(bytesFromBase64(object.participant))
+        : Buffer.alloc(0),
     };
   },
 
@@ -1156,13 +1164,13 @@ export const KeygenOptOut = {
   },
   fromPartial<I extends Exact<DeepPartial<KeygenOptOut>, I>>(object: I): KeygenOptOut {
     const message = createBaseKeygenOptOut();
-    message.participant = object.participant ?? new Uint8Array(0);
+    message.participant = object.participant ?? Buffer.alloc(0);
     return message;
   },
 };
 
 function createBaseKeygenOptIn(): KeygenOptIn {
-  return { participant: new Uint8Array(0) };
+  return { participant: Buffer.alloc(0) };
 }
 
 export const KeygenOptIn = {
@@ -1185,7 +1193,7 @@ export const KeygenOptIn = {
             break;
           }
 
-          message.participant = reader.bytes();
+          message.participant = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -1198,7 +1206,9 @@ export const KeygenOptIn = {
 
   fromJSON(object: any): KeygenOptIn {
     return {
-      participant: isSet(object.participant) ? bytesFromBase64(object.participant) : new Uint8Array(0),
+      participant: isSet(object.participant)
+        ? Buffer.from(bytesFromBase64(object.participant))
+        : Buffer.alloc(0),
     };
   },
 
@@ -1215,34 +1225,36 @@ export const KeygenOptIn = {
   },
   fromPartial<I extends Exact<DeepPartial<KeygenOptIn>, I>>(object: I): KeygenOptIn {
     const message = createBaseKeygenOptIn();
-    message.participant = object.participant ?? new Uint8Array(0);
+    message.participant = object.participant ?? Buffer.alloc(0);
     return message;
   },
 };
 
-function bytesFromBase64(b64: string): Uint8Array {
-  if ((globalThis as any).Buffer) {
-    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
-  } else {
-    const bin = globalThis.atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-      arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
   }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
+
+function bytesFromBase64(b64: string): Uint8Array {
+  return Uint8Array.from(gt.Buffer.from(b64, "base64"));
 }
 
 function base64FromBytes(arr: Uint8Array): string {
-  if ((globalThis as any).Buffer) {
-    return globalThis.Buffer.from(arr).toString("base64");
-  } else {
-    const bin: string[] = [];
-    arr.forEach((byte) => {
-      bin.push(globalThis.String.fromCharCode(byte));
-    });
-    return globalThis.btoa(bin.join(""));
-  }
+  return gt.Buffer.from(arr).toString("base64");
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;

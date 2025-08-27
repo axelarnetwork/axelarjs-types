@@ -11,13 +11,13 @@ import _m0 from "protobufjs/minimal";
 export const protobufPackage = "axelar.snapshot.v1beta1";
 
 export interface ProxiedValidator {
-  validator: Uint8Array;
-  proxy: Uint8Array;
+  validator: Buffer;
+  proxy: Buffer;
   active: boolean;
 }
 
 function createBaseProxiedValidator(): ProxiedValidator {
-  return { validator: new Uint8Array(0), proxy: new Uint8Array(0), active: false };
+  return { validator: Buffer.alloc(0), proxy: Buffer.alloc(0), active: false };
 }
 
 export const ProxiedValidator = {
@@ -46,14 +46,14 @@ export const ProxiedValidator = {
             break;
           }
 
-          message.validator = reader.bytes();
+          message.validator = reader.bytes() as Buffer;
           continue;
         case 2:
           if (tag !== 18) {
             break;
           }
 
-          message.proxy = reader.bytes();
+          message.proxy = reader.bytes() as Buffer;
           continue;
         case 3:
           if (tag !== 24) {
@@ -73,9 +73,9 @@ export const ProxiedValidator = {
 
   fromJSON(object: any): ProxiedValidator {
     return {
-      validator: isSet(object.validator) ? bytesFromBase64(object.validator) : new Uint8Array(0),
-      proxy: isSet(object.proxy) ? bytesFromBase64(object.proxy) : new Uint8Array(0),
-      active: isSet(object.active) ? globalThis.Boolean(object.active) : false,
+      validator: isSet(object.validator) ? Buffer.from(bytesFromBase64(object.validator)) : Buffer.alloc(0),
+      proxy: isSet(object.proxy) ? Buffer.from(bytesFromBase64(object.proxy)) : Buffer.alloc(0),
+      active: isSet(object.active) ? gt.Boolean(object.active) : false,
     };
   },
 
@@ -98,36 +98,38 @@ export const ProxiedValidator = {
   },
   fromPartial<I extends Exact<DeepPartial<ProxiedValidator>, I>>(object: I): ProxiedValidator {
     const message = createBaseProxiedValidator();
-    message.validator = object.validator ?? new Uint8Array(0);
-    message.proxy = object.proxy ?? new Uint8Array(0);
+    message.validator = object.validator ?? Buffer.alloc(0);
+    message.proxy = object.proxy ?? Buffer.alloc(0);
     message.active = object.active ?? false;
     return message;
   },
 };
 
-function bytesFromBase64(b64: string): Uint8Array {
-  if ((globalThis as any).Buffer) {
-    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
-  } else {
-    const bin = globalThis.atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-      arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
   }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
+
+function bytesFromBase64(b64: string): Uint8Array {
+  return Uint8Array.from(gt.Buffer.from(b64, "base64"));
 }
 
 function base64FromBytes(arr: Uint8Array): string {
-  if ((globalThis as any).Buffer) {
-    return globalThis.Buffer.from(arr).toString("base64");
-  } else {
-    const bin: string[] = [];
-    arr.forEach((byte) => {
-      bin.push(globalThis.String.fromCharCode(byte));
-    });
-    return globalThis.btoa(bin.join(""));
-  }
+  return gt.Buffer.from(arr).toString("base64");
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;

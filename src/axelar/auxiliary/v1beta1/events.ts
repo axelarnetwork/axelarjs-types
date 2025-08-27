@@ -62,8 +62,8 @@ export const BatchedMessageFailed = {
 
   fromJSON(object: any): BatchedMessageFailed {
     return {
-      index: isSet(object.index) ? globalThis.Number(object.index) : 0,
-      error: isSet(object.error) ? globalThis.String(object.error) : "",
+      index: isSet(object.index) ? gt.Number(object.index) : 0,
+      error: isSet(object.error) ? gt.String(object.error) : "",
     };
   },
 
@@ -88,6 +88,25 @@ export const BatchedMessageFailed = {
     return message;
   },
 };
+
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
+  }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 

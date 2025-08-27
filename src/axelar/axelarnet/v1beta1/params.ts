@@ -105,7 +105,7 @@ export const Params = {
         : Long.UZERO,
       transferLimit: isSet(object.transferLimit) ? Long.fromValue(object.transferLimit) : Long.UZERO,
       endBlockerLimit: isSet(object.endBlockerLimit) ? Long.fromValue(object.endBlockerLimit) : Long.UZERO,
-      callContractsProposalMinDeposits: globalThis.Array.isArray(object?.callContractsProposalMinDeposits)
+      callContractsProposalMinDeposits: gt.Array.isArray(object?.callContractsProposalMinDeposits)
         ? object.callContractsProposalMinDeposits.map((e: any) => CallContractProposalMinDeposit.fromJSON(e))
         : [],
     };
@@ -211,9 +211,9 @@ export const CallContractProposalMinDeposit = {
 
   fromJSON(object: any): CallContractProposalMinDeposit {
     return {
-      chain: isSet(object.chain) ? globalThis.String(object.chain) : "",
-      contractAddress: isSet(object.contractAddress) ? globalThis.String(object.contractAddress) : "",
-      minDeposits: globalThis.Array.isArray(object?.minDeposits)
+      chain: isSet(object.chain) ? gt.String(object.chain) : "",
+      contractAddress: isSet(object.contractAddress) ? gt.String(object.contractAddress) : "",
+      minDeposits: gt.Array.isArray(object?.minDeposits)
         ? object.minDeposits.map((e: any) => Coin.fromJSON(e))
         : [],
     };
@@ -248,6 +248,25 @@ export const CallContractProposalMinDeposit = {
     return message;
   },
 };
+
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
+  }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 

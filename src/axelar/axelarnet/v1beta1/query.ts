@@ -182,7 +182,7 @@ export const PendingIBCTransferCountResponse = {
       [key: string]: number;
     }>((acc, [key, value]) => {
       if (value !== undefined) {
-        acc[key] = globalThis.Number(value);
+        acc[key] = gt.Number(value);
       }
       return acc;
     }, {});
@@ -243,8 +243,8 @@ export const PendingIBCTransferCountResponse_TransfersByChainEntry = {
 
   fromJSON(object: any): PendingIBCTransferCountResponse_TransfersByChainEntry {
     return {
-      key: isSet(object.key) ? globalThis.String(object.key) : "",
-      value: isSet(object.value) ? globalThis.Number(object.value) : 0,
+      key: isSet(object.key) ? gt.String(object.key) : "",
+      value: isSet(object.value) ? gt.Number(object.value) : 0,
     };
   },
 
@@ -411,7 +411,7 @@ export const IBCPathRequest = {
   },
 
   fromJSON(object: any): IBCPathRequest {
-    return { chain: isSet(object.chain) ? globalThis.String(object.chain) : "" };
+    return { chain: isSet(object.chain) ? gt.String(object.chain) : "" };
   },
 
   toJSON(message: IBCPathRequest): unknown {
@@ -468,7 +468,7 @@ export const IBCPathResponse = {
   },
 
   fromJSON(object: any): IBCPathResponse {
-    return { ibcPath: isSet(object.ibcPath) ? globalThis.String(object.ibcPath) : "" };
+    return { ibcPath: isSet(object.ibcPath) ? gt.String(object.ibcPath) : "" };
   },
 
   toJSON(message: IBCPathResponse): unknown {
@@ -525,7 +525,7 @@ export const ChainByIBCPathRequest = {
   },
 
   fromJSON(object: any): ChainByIBCPathRequest {
-    return { ibcPath: isSet(object.ibcPath) ? globalThis.String(object.ibcPath) : "" };
+    return { ibcPath: isSet(object.ibcPath) ? gt.String(object.ibcPath) : "" };
   },
 
   toJSON(message: ChainByIBCPathRequest): unknown {
@@ -582,7 +582,7 @@ export const ChainByIBCPathResponse = {
   },
 
   fromJSON(object: any): ChainByIBCPathResponse {
-    return { chain: isSet(object.chain) ? globalThis.String(object.chain) : "" };
+    return { chain: isSet(object.chain) ? gt.String(object.chain) : "" };
   },
 
   toJSON(message: ChainByIBCPathResponse): unknown {
@@ -602,6 +602,25 @@ export const ChainByIBCPathResponse = {
     return message;
   },
 };
+
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
+  }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 

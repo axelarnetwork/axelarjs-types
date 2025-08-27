@@ -65,7 +65,7 @@ export const GenesisState = {
   fromJSON(object: any): GenesisState {
     return {
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
-      pollMetadatas: globalThis.Array.isArray(object?.pollMetadatas)
+      pollMetadatas: gt.Array.isArray(object?.pollMetadatas)
         ? object.pollMetadatas.map((e: any) => PollMetadata.fromJSON(e))
         : [],
     };
@@ -93,6 +93,25 @@ export const GenesisState = {
     return message;
   },
 };
+
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
+  }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 

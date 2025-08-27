@@ -25,7 +25,7 @@ export interface PageRequest {
    * querying the next page most efficiently. Only one of offset or key
    * should be set.
    */
-  key: Uint8Array;
+  key: Buffer;
   /**
    * offset is a numeric offset that can be used when key is unavailable.
    * It is less efficient than using key. Only one of offset or key should
@@ -67,7 +67,7 @@ export interface PageResponse {
    * query the next page most efficiently. It will be empty if
    * there are no more results.
    */
-  nextKey: Uint8Array;
+  nextKey: Buffer;
   /**
    * total is total number of results available if PageRequest.count_total
    * was set, its value is undefined otherwise
@@ -76,7 +76,7 @@ export interface PageResponse {
 }
 
 function createBasePageRequest(): PageRequest {
-  return { key: new Uint8Array(0), offset: Long.UZERO, limit: Long.UZERO, countTotal: false, reverse: false };
+  return { key: Buffer.alloc(0), offset: Long.UZERO, limit: Long.UZERO, countTotal: false, reverse: false };
 }
 
 export const PageRequest = {
@@ -111,7 +111,7 @@ export const PageRequest = {
             break;
           }
 
-          message.key = reader.bytes();
+          message.key = reader.bytes() as Buffer;
           continue;
         case 2:
           if (tag !== 16) {
@@ -152,11 +152,11 @@ export const PageRequest = {
 
   fromJSON(object: any): PageRequest {
     return {
-      key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(0),
+      key: isSet(object.key) ? Buffer.from(bytesFromBase64(object.key)) : Buffer.alloc(0),
       offset: isSet(object.offset) ? Long.fromValue(object.offset) : Long.UZERO,
       limit: isSet(object.limit) ? Long.fromValue(object.limit) : Long.UZERO,
-      countTotal: isSet(object.countTotal) ? globalThis.Boolean(object.countTotal) : false,
-      reverse: isSet(object.reverse) ? globalThis.Boolean(object.reverse) : false,
+      countTotal: isSet(object.countTotal) ? gt.Boolean(object.countTotal) : false,
+      reverse: isSet(object.reverse) ? gt.Boolean(object.reverse) : false,
     };
   },
 
@@ -185,7 +185,7 @@ export const PageRequest = {
   },
   fromPartial<I extends Exact<DeepPartial<PageRequest>, I>>(object: I): PageRequest {
     const message = createBasePageRequest();
-    message.key = object.key ?? new Uint8Array(0);
+    message.key = object.key ?? Buffer.alloc(0);
     message.offset =
       object.offset !== undefined && object.offset !== null ? Long.fromValue(object.offset) : Long.UZERO;
     message.limit =
@@ -197,7 +197,7 @@ export const PageRequest = {
 };
 
 function createBasePageResponse(): PageResponse {
-  return { nextKey: new Uint8Array(0), total: Long.UZERO };
+  return { nextKey: Buffer.alloc(0), total: Long.UZERO };
 }
 
 export const PageResponse = {
@@ -223,7 +223,7 @@ export const PageResponse = {
             break;
           }
 
-          message.nextKey = reader.bytes();
+          message.nextKey = reader.bytes() as Buffer;
           continue;
         case 2:
           if (tag !== 16) {
@@ -243,7 +243,7 @@ export const PageResponse = {
 
   fromJSON(object: any): PageResponse {
     return {
-      nextKey: isSet(object.nextKey) ? bytesFromBase64(object.nextKey) : new Uint8Array(0),
+      nextKey: isSet(object.nextKey) ? Buffer.from(bytesFromBase64(object.nextKey)) : Buffer.alloc(0),
       total: isSet(object.total) ? Long.fromValue(object.total) : Long.UZERO,
     };
   },
@@ -264,36 +264,38 @@ export const PageResponse = {
   },
   fromPartial<I extends Exact<DeepPartial<PageResponse>, I>>(object: I): PageResponse {
     const message = createBasePageResponse();
-    message.nextKey = object.nextKey ?? new Uint8Array(0);
+    message.nextKey = object.nextKey ?? Buffer.alloc(0);
     message.total =
       object.total !== undefined && object.total !== null ? Long.fromValue(object.total) : Long.UZERO;
     return message;
   },
 };
 
-function bytesFromBase64(b64: string): Uint8Array {
-  if ((globalThis as any).Buffer) {
-    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
-  } else {
-    const bin = globalThis.atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-      arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
   }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
+
+function bytesFromBase64(b64: string): Uint8Array {
+  return Uint8Array.from(gt.Buffer.from(b64, "base64"));
 }
 
 function base64FromBytes(arr: Uint8Array): string {
-  if ((globalThis as any).Buffer) {
-    return globalThis.Buffer.from(arr).toString("base64");
-  } else {
-    const bin: string[] = [];
-    arr.forEach((byte) => {
-      bin.push(globalThis.String.fromCharCode(byte));
-    });
-    return globalThis.btoa(bin.join(""));
-  }
+  return gt.Buffer.from(arr).toString("base64");
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;

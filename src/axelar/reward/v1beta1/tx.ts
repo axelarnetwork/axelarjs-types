@@ -17,7 +17,7 @@ export interface RefundMsgRequest {
 }
 
 export interface RefundMsgResponse {
-  data: Uint8Array;
+  data: Buffer;
   log: string;
 }
 
@@ -69,7 +69,7 @@ export const RefundMsgRequest = {
   fromJSON(object: any): RefundMsgRequest {
     return {
       innerMessage: isSet(object.innerMessage) ? Any.fromJSON(object.innerMessage) : undefined,
-      sender: isSet(object.sender) ? globalThis.String(object.sender) : "",
+      sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
   },
 
@@ -99,7 +99,7 @@ export const RefundMsgRequest = {
 };
 
 function createBaseRefundMsgResponse(): RefundMsgResponse {
-  return { data: new Uint8Array(0), log: "" };
+  return { data: Buffer.alloc(0), log: "" };
 }
 
 export const RefundMsgResponse = {
@@ -125,7 +125,7 @@ export const RefundMsgResponse = {
             break;
           }
 
-          message.data = reader.bytes();
+          message.data = reader.bytes() as Buffer;
           continue;
         case 2:
           if (tag !== 18) {
@@ -145,8 +145,8 @@ export const RefundMsgResponse = {
 
   fromJSON(object: any): RefundMsgResponse {
     return {
-      data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(0),
-      log: isSet(object.log) ? globalThis.String(object.log) : "",
+      data: isSet(object.data) ? Buffer.from(bytesFromBase64(object.data)) : Buffer.alloc(0),
+      log: isSet(object.log) ? gt.String(object.log) : "",
     };
   },
 
@@ -166,35 +166,37 @@ export const RefundMsgResponse = {
   },
   fromPartial<I extends Exact<DeepPartial<RefundMsgResponse>, I>>(object: I): RefundMsgResponse {
     const message = createBaseRefundMsgResponse();
-    message.data = object.data ?? new Uint8Array(0);
+    message.data = object.data ?? Buffer.alloc(0);
     message.log = object.log ?? "";
     return message;
   },
 };
 
-function bytesFromBase64(b64: string): Uint8Array {
-  if ((globalThis as any).Buffer) {
-    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
-  } else {
-    const bin = globalThis.atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-      arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
   }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
+
+function bytesFromBase64(b64: string): Uint8Array {
+  return Uint8Array.from(gt.Buffer.from(b64, "base64"));
 }
 
 function base64FromBytes(arr: Uint8Array): string {
-  if ((globalThis as any).Buffer) {
-    return globalThis.Buffer.from(arr).toString("base64");
-  } else {
-    const bin: string[] = [];
-    arr.forEach((byte) => {
-      bin.push(globalThis.String.fromCharCode(byte));
-    });
-    return globalThis.btoa(bin.join(""));
-  }
+  return gt.Buffer.from(arr).toString("base64");
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;

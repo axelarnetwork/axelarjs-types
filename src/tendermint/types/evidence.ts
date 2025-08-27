@@ -347,7 +347,7 @@ export const LightClientAttackEvidence = {
         ? LightBlock.fromJSON(object.conflictingBlock)
         : undefined,
       commonHeight: isSet(object.commonHeight) ? Long.fromValue(object.commonHeight) : Long.ZERO,
-      byzantineValidators: globalThis.Array.isArray(object?.byzantineValidators)
+      byzantineValidators: gt.Array.isArray(object?.byzantineValidators)
         ? object.byzantineValidators.map((e: any) => Validator.fromJSON(e))
         : [],
       totalVotingPower: isSet(object.totalVotingPower) ? Long.fromValue(object.totalVotingPower) : Long.ZERO,
@@ -440,7 +440,7 @@ export const EvidenceList = {
 
   fromJSON(object: any): EvidenceList {
     return {
-      evidence: globalThis.Array.isArray(object?.evidence)
+      evidence: gt.Array.isArray(object?.evidence)
         ? object.evidence.map((e: any) => Evidence.fromJSON(e))
         : [],
     };
@@ -463,6 +463,25 @@ export const EvidenceList = {
     return message;
   },
 };
+
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
+  }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
@@ -492,14 +511,14 @@ function toTimestamp(date: Date): Timestamp {
 function fromTimestamp(t: Timestamp): Date {
   let millis = (t.seconds.toNumber() || 0) * 1_000;
   millis += (t.nanos || 0) / 1_000_000;
-  return new globalThis.Date(millis);
+  return new gt.Date(millis);
 }
 
 function fromJsonTimestamp(o: any): Timestamp {
-  if (o instanceof globalThis.Date) {
+  if (o instanceof gt.Date) {
     return toTimestamp(o);
   } else if (typeof o === "string") {
-    return toTimestamp(new globalThis.Date(o));
+    return toTimestamp(new gt.Date(o));
   } else {
     return Timestamp.fromJSON(o);
   }

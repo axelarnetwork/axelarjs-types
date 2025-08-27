@@ -12,15 +12,15 @@ import { Timestamp } from "../../../../google/protobuf/timestamp";
 export const protobufPackage = "axelar.snapshot.exported.v1beta1";
 
 export interface Participant {
-  address: Uint8Array;
-  weight: Uint8Array;
+  address: Buffer;
+  weight: Buffer;
 }
 
 export interface Snapshot {
   timestamp?: Timestamp | undefined;
   height: Long;
   participants: { [key: string]: Participant };
-  bondedWeight: Uint8Array;
+  bondedWeight: Buffer;
 }
 
 export interface Snapshot_ParticipantsEntry {
@@ -29,7 +29,7 @@ export interface Snapshot_ParticipantsEntry {
 }
 
 function createBaseParticipant(): Participant {
-  return { address: new Uint8Array(0), weight: new Uint8Array(0) };
+  return { address: Buffer.alloc(0), weight: Buffer.alloc(0) };
 }
 
 export const Participant = {
@@ -55,14 +55,14 @@ export const Participant = {
             break;
           }
 
-          message.address = reader.bytes();
+          message.address = reader.bytes() as Buffer;
           continue;
         case 2:
           if (tag !== 18) {
             break;
           }
 
-          message.weight = reader.bytes();
+          message.weight = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -75,8 +75,8 @@ export const Participant = {
 
   fromJSON(object: any): Participant {
     return {
-      address: isSet(object.address) ? bytesFromBase64(object.address) : new Uint8Array(0),
-      weight: isSet(object.weight) ? bytesFromBase64(object.weight) : new Uint8Array(0),
+      address: isSet(object.address) ? Buffer.from(bytesFromBase64(object.address)) : Buffer.alloc(0),
+      weight: isSet(object.weight) ? Buffer.from(bytesFromBase64(object.weight)) : Buffer.alloc(0),
     };
   },
 
@@ -96,14 +96,14 @@ export const Participant = {
   },
   fromPartial<I extends Exact<DeepPartial<Participant>, I>>(object: I): Participant {
     const message = createBaseParticipant();
-    message.address = object.address ?? new Uint8Array(0);
-    message.weight = object.weight ?? new Uint8Array(0);
+    message.address = object.address ?? Buffer.alloc(0);
+    message.weight = object.weight ?? Buffer.alloc(0);
     return message;
   },
 };
 
 function createBaseSnapshot(): Snapshot {
-  return { timestamp: undefined, height: Long.ZERO, participants: {}, bondedWeight: new Uint8Array(0) };
+  return { timestamp: undefined, height: Long.ZERO, participants: {}, bondedWeight: Buffer.alloc(0) };
 }
 
 export const Snapshot = {
@@ -159,7 +159,7 @@ export const Snapshot = {
             break;
           }
 
-          message.bondedWeight = reader.bytes();
+          message.bondedWeight = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -180,7 +180,9 @@ export const Snapshot = {
             return acc;
           }, {})
         : {},
-      bondedWeight: isSet(object.bondedWeight) ? bytesFromBase64(object.bondedWeight) : new Uint8Array(0),
+      bondedWeight: isSet(object.bondedWeight)
+        ? Buffer.from(bytesFromBase64(object.bondedWeight))
+        : Buffer.alloc(0),
     };
   },
 
@@ -227,7 +229,7 @@ export const Snapshot = {
       },
       {},
     );
-    message.bondedWeight = object.bondedWeight ?? new Uint8Array(0);
+    message.bondedWeight = object.bondedWeight ?? Buffer.alloc(0);
     return message;
   },
 };
@@ -279,7 +281,7 @@ export const Snapshot_ParticipantsEntry = {
 
   fromJSON(object: any): Snapshot_ParticipantsEntry {
     return {
-      key: isSet(object.key) ? globalThis.String(object.key) : "",
+      key: isSet(object.key) ? gt.String(object.key) : "",
       value: isSet(object.value) ? Participant.fromJSON(object.value) : undefined,
     };
   },
@@ -309,29 +311,31 @@ export const Snapshot_ParticipantsEntry = {
   },
 };
 
-function bytesFromBase64(b64: string): Uint8Array {
-  if ((globalThis as any).Buffer) {
-    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
-  } else {
-    const bin = globalThis.atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-      arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
   }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
+
+function bytesFromBase64(b64: string): Uint8Array {
+  return Uint8Array.from(gt.Buffer.from(b64, "base64"));
 }
 
 function base64FromBytes(arr: Uint8Array): string {
-  if ((globalThis as any).Buffer) {
-    return globalThis.Buffer.from(arr).toString("base64");
-  } else {
-    const bin: string[] = [];
-    arr.forEach((byte) => {
-      bin.push(globalThis.String.fromCharCode(byte));
-    });
-    return globalThis.btoa(bin.join(""));
-  }
+  return gt.Buffer.from(arr).toString("base64");
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
@@ -362,14 +366,14 @@ function toTimestamp(date: Date): Timestamp {
 function fromTimestamp(t: Timestamp): Date {
   let millis = (t.seconds.toNumber() || 0) * 1_000;
   millis += (t.nanos || 0) / 1_000_000;
-  return new globalThis.Date(millis);
+  return new gt.Date(millis);
 }
 
 function fromJsonTimestamp(o: any): Timestamp {
-  if (o instanceof globalThis.Date) {
+  if (o instanceof gt.Date) {
     return toTimestamp(o);
   } else if (typeof o === "string") {
-    return toTimestamp(new globalThis.Date(o));
+    return toTimestamp(new gt.Date(o));
   } else {
     return Timestamp.fromJSON(o);
   }

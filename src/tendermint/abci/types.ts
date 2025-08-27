@@ -124,19 +124,19 @@ export interface RequestInitChain {
   chainId: string;
   consensusParams?: ConsensusParams | undefined;
   validators: ValidatorUpdate[];
-  appStateBytes: Uint8Array;
+  appStateBytes: Buffer;
   initialHeight: Long;
 }
 
 export interface RequestQuery {
-  data: Uint8Array;
+  data: Buffer;
   path: string;
   height: Long;
   prove: boolean;
 }
 
 export interface RequestCheckTx {
-  tx: Uint8Array;
+  tx: Buffer;
   type: CheckTxType;
 }
 
@@ -150,7 +150,7 @@ export interface RequestOfferSnapshot {
   /** snapshot offered by peers */
   snapshot?: Snapshot | undefined;
   /** light client-verified app hash for snapshot height */
-  appHash: Uint8Array;
+  appHash: Buffer;
 }
 
 /** loads a snapshot chunk */
@@ -163,7 +163,7 @@ export interface RequestLoadSnapshotChunk {
 /** Applies a snapshot chunk */
 export interface RequestApplySnapshotChunk {
   index: number;
-  chunk: Uint8Array;
+  chunk: Buffer;
   sender: string;
 }
 
@@ -174,66 +174,66 @@ export interface RequestPrepareProposal {
    * txs is an array of transactions that will be included in a block,
    * sent to the app for possible modifications.
    */
-  txs: Uint8Array[];
+  txs: Buffer[];
   localLastCommit?: ExtendedCommitInfo | undefined;
   misbehavior: Misbehavior[];
   height: Long;
   time?: Timestamp | undefined;
-  nextValidatorsHash: Uint8Array;
+  nextValidatorsHash: Buffer;
   /** address of the public key of the validator proposing the block. */
-  proposerAddress: Uint8Array;
+  proposerAddress: Buffer;
 }
 
 export interface RequestProcessProposal {
-  txs: Uint8Array[];
+  txs: Buffer[];
   proposedLastCommit?: CommitInfo | undefined;
   misbehavior: Misbehavior[];
   /** hash is the merkle root hash of the fields of the proposed block. */
-  hash: Uint8Array;
+  hash: Buffer;
   height: Long;
   time?: Timestamp | undefined;
-  nextValidatorsHash: Uint8Array;
+  nextValidatorsHash: Buffer;
   /** address of the public key of the original proposer of the block. */
-  proposerAddress: Uint8Array;
+  proposerAddress: Buffer;
 }
 
 /** Extends a vote with application-injected data */
 export interface RequestExtendVote {
   /** the hash of the block that this vote may be referring to */
-  hash: Uint8Array;
+  hash: Buffer;
   /** the height of the extended vote */
   height: Long;
   /** info of the block that this vote may be referring to */
   time?: Timestamp | undefined;
-  txs: Uint8Array[];
+  txs: Buffer[];
   proposedLastCommit?: CommitInfo | undefined;
   misbehavior: Misbehavior[];
-  nextValidatorsHash: Uint8Array;
+  nextValidatorsHash: Buffer;
   /** address of the public key of the original proposer of the block. */
-  proposerAddress: Uint8Array;
+  proposerAddress: Buffer;
 }
 
 /** Verify the vote extension */
 export interface RequestVerifyVoteExtension {
   /** the hash of the block that this received vote corresponds to */
-  hash: Uint8Array;
+  hash: Buffer;
   /** the validator that signed the vote extension */
-  validatorAddress: Uint8Array;
+  validatorAddress: Buffer;
   height: Long;
-  voteExtension: Uint8Array;
+  voteExtension: Buffer;
 }
 
 export interface RequestFinalizeBlock {
-  txs: Uint8Array[];
+  txs: Buffer[];
   decidedLastCommit?: CommitInfo | undefined;
   misbehavior: Misbehavior[];
   /** hash is the merkle root hash of the fields of the decided block. */
-  hash: Uint8Array;
+  hash: Buffer;
   height: Long;
   time?: Timestamp | undefined;
-  nextValidatorsHash: Uint8Array;
+  nextValidatorsHash: Buffer;
   /** proposer_address is the address of the public key of the original proposer of the block. */
-  proposerAddress: Uint8Array;
+  proposerAddress: Buffer;
 }
 
 export interface Response {
@@ -272,13 +272,13 @@ export interface ResponseInfo {
   version: string;
   appVersion: Long;
   lastBlockHeight: Long;
-  lastBlockAppHash: Uint8Array;
+  lastBlockAppHash: Buffer;
 }
 
 export interface ResponseInitChain {
   consensusParams?: ConsensusParams | undefined;
   validators: ValidatorUpdate[];
-  appHash: Uint8Array;
+  appHash: Buffer;
 }
 
 export interface ResponseQuery {
@@ -288,8 +288,8 @@ export interface ResponseQuery {
   /** nondeterministic */
   info: string;
   index: Long;
-  key: Uint8Array;
-  value: Uint8Array;
+  key: Buffer;
+  value: Buffer;
   proofOps?: ProofOps | undefined;
   height: Long;
   codespace: string;
@@ -297,7 +297,7 @@ export interface ResponseQuery {
 
 export interface ResponseCheckTx {
   code: number;
-  data: Uint8Array;
+  data: Buffer;
   /** nondeterministic */
   log: string;
   /** nondeterministic */
@@ -384,7 +384,7 @@ export function responseOfferSnapshot_ResultToJSON(object: ResponseOfferSnapshot
 }
 
 export interface ResponseLoadSnapshotChunk {
-  chunk: Uint8Array;
+  chunk: Buffer;
 }
 
 export interface ResponseApplySnapshotChunk {
@@ -459,7 +459,7 @@ export function responseApplySnapshotChunk_ResultToJSON(object: ResponseApplySna
 }
 
 export interface ResponsePrepareProposal {
-  txs: Uint8Array[];
+  txs: Buffer[];
 }
 
 export interface ResponseProcessProposal {
@@ -510,7 +510,7 @@ export function responseProcessProposal_ProposalStatusToJSON(
 }
 
 export interface ResponseExtendVote {
-  voteExtension: Uint8Array;
+  voteExtension: Buffer;
 }
 
 export interface ResponseVerifyVoteExtension {
@@ -583,7 +583,7 @@ export interface ResponseFinalizeBlock {
    * app_hash is the hash of the applications' state which is used to confirm that execution of the transactions was
    * deterministic. It is up to the application to decide which algorithm to use.
    */
-  appHash: Uint8Array;
+  appHash: Buffer;
 }
 
 export interface CommitInfo {
@@ -631,7 +631,7 @@ export interface EventAttribute {
  */
 export interface ExecTxResult {
   code: number;
-  data: Uint8Array;
+  data: Buffer;
   /** nondeterministic */
   log: string;
   /** nondeterministic */
@@ -651,13 +651,13 @@ export interface ExecTxResult {
 export interface TxResult {
   height: Long;
   index: number;
-  tx: Uint8Array;
+  tx: Buffer;
   result?: ExecTxResult | undefined;
 }
 
 export interface Validator {
   /** The first 20 bytes of SHA256(public key) */
-  address: Uint8Array;
+  address: Buffer;
   /** PubKey pub_key = 2 [(gogoproto.nullable)=false]; */
   power: Long;
 }
@@ -676,9 +676,9 @@ export interface ExtendedVoteInfo {
   /** The validator that sent the vote. */
   validator?: Validator | undefined;
   /** Non-deterministic extension provided by the sending validator's application. */
-  voteExtension: Uint8Array;
+  voteExtension: Buffer;
   /** Vote extension signature created by CometBFT */
-  extensionSignature: Uint8Array;
+  extensionSignature: Buffer;
   /** block_id_flag indicates whether the validator voted for a block, nil, or did not vote at all */
   blockIdFlag: BlockIDFlag;
 }
@@ -707,9 +707,9 @@ export interface Snapshot {
   /** Number of chunks in the snapshot */
   chunks: number;
   /** Arbitrary snapshot hash, equal only if identical */
-  hash: Uint8Array;
+  hash: Buffer;
   /** Arbitrary application metadata */
-  metadata: Uint8Array;
+  metadata: Buffer;
 }
 
 function createBaseRequest(): Request {
@@ -1109,7 +1109,7 @@ export const RequestEcho = {
   },
 
   fromJSON(object: any): RequestEcho {
-    return { message: isSet(object.message) ? globalThis.String(object.message) : "" };
+    return { message: isSet(object.message) ? gt.String(object.message) : "" };
   },
 
   toJSON(message: RequestEcho): unknown {
@@ -1240,10 +1240,10 @@ export const RequestInfo = {
 
   fromJSON(object: any): RequestInfo {
     return {
-      version: isSet(object.version) ? globalThis.String(object.version) : "",
+      version: isSet(object.version) ? gt.String(object.version) : "",
       blockVersion: isSet(object.blockVersion) ? Long.fromValue(object.blockVersion) : Long.UZERO,
       p2pVersion: isSet(object.p2pVersion) ? Long.fromValue(object.p2pVersion) : Long.UZERO,
-      abciVersion: isSet(object.abciVersion) ? globalThis.String(object.abciVersion) : "",
+      abciVersion: isSet(object.abciVersion) ? gt.String(object.abciVersion) : "",
     };
   },
 
@@ -1289,7 +1289,7 @@ function createBaseRequestInitChain(): RequestInitChain {
     chainId: "",
     consensusParams: undefined,
     validators: [],
-    appStateBytes: new Uint8Array(0),
+    appStateBytes: Buffer.alloc(0),
     initialHeight: Long.ZERO,
   };
 }
@@ -1357,7 +1357,7 @@ export const RequestInitChain = {
             break;
           }
 
-          message.appStateBytes = reader.bytes();
+          message.appStateBytes = reader.bytes() as Buffer;
           continue;
         case 6:
           if (tag !== 48) {
@@ -1378,14 +1378,16 @@ export const RequestInitChain = {
   fromJSON(object: any): RequestInitChain {
     return {
       time: isSet(object.time) ? fromJsonTimestamp(object.time) : undefined,
-      chainId: isSet(object.chainId) ? globalThis.String(object.chainId) : "",
+      chainId: isSet(object.chainId) ? gt.String(object.chainId) : "",
       consensusParams: isSet(object.consensusParams)
         ? ConsensusParams.fromJSON(object.consensusParams)
         : undefined,
-      validators: globalThis.Array.isArray(object?.validators)
+      validators: gt.Array.isArray(object?.validators)
         ? object.validators.map((e: any) => ValidatorUpdate.fromJSON(e))
         : [],
-      appStateBytes: isSet(object.appStateBytes) ? bytesFromBase64(object.appStateBytes) : new Uint8Array(0),
+      appStateBytes: isSet(object.appStateBytes)
+        ? Buffer.from(bytesFromBase64(object.appStateBytes))
+        : Buffer.alloc(0),
       initialHeight: isSet(object.initialHeight) ? Long.fromValue(object.initialHeight) : Long.ZERO,
     };
   },
@@ -1426,7 +1428,7 @@ export const RequestInitChain = {
         ? ConsensusParams.fromPartial(object.consensusParams)
         : undefined;
     message.validators = object.validators?.map((e) => ValidatorUpdate.fromPartial(e)) || [];
-    message.appStateBytes = object.appStateBytes ?? new Uint8Array(0);
+    message.appStateBytes = object.appStateBytes ?? Buffer.alloc(0);
     message.initialHeight =
       object.initialHeight !== undefined && object.initialHeight !== null
         ? Long.fromValue(object.initialHeight)
@@ -1436,7 +1438,7 @@ export const RequestInitChain = {
 };
 
 function createBaseRequestQuery(): RequestQuery {
-  return { data: new Uint8Array(0), path: "", height: Long.ZERO, prove: false };
+  return { data: Buffer.alloc(0), path: "", height: Long.ZERO, prove: false };
 }
 
 export const RequestQuery = {
@@ -1468,7 +1470,7 @@ export const RequestQuery = {
             break;
           }
 
-          message.data = reader.bytes();
+          message.data = reader.bytes() as Buffer;
           continue;
         case 2:
           if (tag !== 18) {
@@ -1502,10 +1504,10 @@ export const RequestQuery = {
 
   fromJSON(object: any): RequestQuery {
     return {
-      data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(0),
-      path: isSet(object.path) ? globalThis.String(object.path) : "",
+      data: isSet(object.data) ? Buffer.from(bytesFromBase64(object.data)) : Buffer.alloc(0),
+      path: isSet(object.path) ? gt.String(object.path) : "",
       height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
-      prove: isSet(object.prove) ? globalThis.Boolean(object.prove) : false,
+      prove: isSet(object.prove) ? gt.Boolean(object.prove) : false,
     };
   },
 
@@ -1531,7 +1533,7 @@ export const RequestQuery = {
   },
   fromPartial<I extends Exact<DeepPartial<RequestQuery>, I>>(object: I): RequestQuery {
     const message = createBaseRequestQuery();
-    message.data = object.data ?? new Uint8Array(0);
+    message.data = object.data ?? Buffer.alloc(0);
     message.path = object.path ?? "";
     message.height =
       object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
@@ -1541,7 +1543,7 @@ export const RequestQuery = {
 };
 
 function createBaseRequestCheckTx(): RequestCheckTx {
-  return { tx: new Uint8Array(0), type: 0 };
+  return { tx: Buffer.alloc(0), type: 0 };
 }
 
 export const RequestCheckTx = {
@@ -1567,7 +1569,7 @@ export const RequestCheckTx = {
             break;
           }
 
-          message.tx = reader.bytes();
+          message.tx = reader.bytes() as Buffer;
           continue;
         case 2:
           if (tag !== 16) {
@@ -1587,7 +1589,7 @@ export const RequestCheckTx = {
 
   fromJSON(object: any): RequestCheckTx {
     return {
-      tx: isSet(object.tx) ? bytesFromBase64(object.tx) : new Uint8Array(0),
+      tx: isSet(object.tx) ? Buffer.from(bytesFromBase64(object.tx)) : Buffer.alloc(0),
       type: isSet(object.type) ? checkTxTypeFromJSON(object.type) : 0,
     };
   },
@@ -1608,7 +1610,7 @@ export const RequestCheckTx = {
   },
   fromPartial<I extends Exact<DeepPartial<RequestCheckTx>, I>>(object: I): RequestCheckTx {
     const message = createBaseRequestCheckTx();
-    message.tx = object.tx ?? new Uint8Array(0);
+    message.tx = object.tx ?? Buffer.alloc(0);
     message.type = object.type ?? 0;
     return message;
   },
@@ -1701,7 +1703,7 @@ export const RequestListSnapshots = {
 };
 
 function createBaseRequestOfferSnapshot(): RequestOfferSnapshot {
-  return { snapshot: undefined, appHash: new Uint8Array(0) };
+  return { snapshot: undefined, appHash: Buffer.alloc(0) };
 }
 
 export const RequestOfferSnapshot = {
@@ -1734,7 +1736,7 @@ export const RequestOfferSnapshot = {
             break;
           }
 
-          message.appHash = reader.bytes();
+          message.appHash = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -1748,7 +1750,7 @@ export const RequestOfferSnapshot = {
   fromJSON(object: any): RequestOfferSnapshot {
     return {
       snapshot: isSet(object.snapshot) ? Snapshot.fromJSON(object.snapshot) : undefined,
-      appHash: isSet(object.appHash) ? bytesFromBase64(object.appHash) : new Uint8Array(0),
+      appHash: isSet(object.appHash) ? Buffer.from(bytesFromBase64(object.appHash)) : Buffer.alloc(0),
     };
   },
 
@@ -1772,7 +1774,7 @@ export const RequestOfferSnapshot = {
       object.snapshot !== undefined && object.snapshot !== null
         ? Snapshot.fromPartial(object.snapshot)
         : undefined;
-    message.appHash = object.appHash ?? new Uint8Array(0);
+    message.appHash = object.appHash ?? Buffer.alloc(0);
     return message;
   },
 };
@@ -1835,8 +1837,8 @@ export const RequestLoadSnapshotChunk = {
   fromJSON(object: any): RequestLoadSnapshotChunk {
     return {
       height: isSet(object.height) ? Long.fromValue(object.height) : Long.UZERO,
-      format: isSet(object.format) ? globalThis.Number(object.format) : 0,
-      chunk: isSet(object.chunk) ? globalThis.Number(object.chunk) : 0,
+      format: isSet(object.format) ? gt.Number(object.format) : 0,
+      chunk: isSet(object.chunk) ? gt.Number(object.chunk) : 0,
     };
   },
 
@@ -1870,7 +1872,7 @@ export const RequestLoadSnapshotChunk = {
 };
 
 function createBaseRequestApplySnapshotChunk(): RequestApplySnapshotChunk {
-  return { index: 0, chunk: new Uint8Array(0), sender: "" };
+  return { index: 0, chunk: Buffer.alloc(0), sender: "" };
 }
 
 export const RequestApplySnapshotChunk = {
@@ -1906,7 +1908,7 @@ export const RequestApplySnapshotChunk = {
             break;
           }
 
-          message.chunk = reader.bytes();
+          message.chunk = reader.bytes() as Buffer;
           continue;
         case 3:
           if (tag !== 26) {
@@ -1926,9 +1928,9 @@ export const RequestApplySnapshotChunk = {
 
   fromJSON(object: any): RequestApplySnapshotChunk {
     return {
-      index: isSet(object.index) ? globalThis.Number(object.index) : 0,
-      chunk: isSet(object.chunk) ? bytesFromBase64(object.chunk) : new Uint8Array(0),
-      sender: isSet(object.sender) ? globalThis.String(object.sender) : "",
+      index: isSet(object.index) ? gt.Number(object.index) : 0,
+      chunk: isSet(object.chunk) ? Buffer.from(bytesFromBase64(object.chunk)) : Buffer.alloc(0),
+      sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
   },
 
@@ -1954,7 +1956,7 @@ export const RequestApplySnapshotChunk = {
   ): RequestApplySnapshotChunk {
     const message = createBaseRequestApplySnapshotChunk();
     message.index = object.index ?? 0;
-    message.chunk = object.chunk ?? new Uint8Array(0);
+    message.chunk = object.chunk ?? Buffer.alloc(0);
     message.sender = object.sender ?? "";
     return message;
   },
@@ -1968,8 +1970,8 @@ function createBaseRequestPrepareProposal(): RequestPrepareProposal {
     misbehavior: [],
     height: Long.ZERO,
     time: undefined,
-    nextValidatorsHash: new Uint8Array(0),
-    proposerAddress: new Uint8Array(0),
+    nextValidatorsHash: Buffer.alloc(0),
+    proposerAddress: Buffer.alloc(0),
   };
 }
 
@@ -2021,7 +2023,7 @@ export const RequestPrepareProposal = {
             break;
           }
 
-          message.txs.push(reader.bytes());
+          message.txs.push(reader.bytes() as Buffer);
           continue;
         case 3:
           if (tag !== 26) {
@@ -2056,14 +2058,14 @@ export const RequestPrepareProposal = {
             break;
           }
 
-          message.nextValidatorsHash = reader.bytes();
+          message.nextValidatorsHash = reader.bytes() as Buffer;
           continue;
         case 8:
           if (tag !== 66) {
             break;
           }
 
-          message.proposerAddress = reader.bytes();
+          message.proposerAddress = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -2077,21 +2079,21 @@ export const RequestPrepareProposal = {
   fromJSON(object: any): RequestPrepareProposal {
     return {
       maxTxBytes: isSet(object.maxTxBytes) ? Long.fromValue(object.maxTxBytes) : Long.ZERO,
-      txs: globalThis.Array.isArray(object?.txs) ? object.txs.map((e: any) => bytesFromBase64(e)) : [],
+      txs: gt.Array.isArray(object?.txs) ? object.txs.map((e: any) => Buffer.from(bytesFromBase64(e))) : [],
       localLastCommit: isSet(object.localLastCommit)
         ? ExtendedCommitInfo.fromJSON(object.localLastCommit)
         : undefined,
-      misbehavior: globalThis.Array.isArray(object?.misbehavior)
+      misbehavior: gt.Array.isArray(object?.misbehavior)
         ? object.misbehavior.map((e: any) => Misbehavior.fromJSON(e))
         : [],
       height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
       time: isSet(object.time) ? fromJsonTimestamp(object.time) : undefined,
       nextValidatorsHash: isSet(object.nextValidatorsHash)
-        ? bytesFromBase64(object.nextValidatorsHash)
-        : new Uint8Array(0),
+        ? Buffer.from(bytesFromBase64(object.nextValidatorsHash))
+        : Buffer.alloc(0),
       proposerAddress: isSet(object.proposerAddress)
-        ? bytesFromBase64(object.proposerAddress)
-        : new Uint8Array(0),
+        ? Buffer.from(bytesFromBase64(object.proposerAddress))
+        : Buffer.alloc(0),
     };
   },
 
@@ -2143,8 +2145,8 @@ export const RequestPrepareProposal = {
       object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
     message.time =
       object.time !== undefined && object.time !== null ? Timestamp.fromPartial(object.time) : undefined;
-    message.nextValidatorsHash = object.nextValidatorsHash ?? new Uint8Array(0);
-    message.proposerAddress = object.proposerAddress ?? new Uint8Array(0);
+    message.nextValidatorsHash = object.nextValidatorsHash ?? Buffer.alloc(0);
+    message.proposerAddress = object.proposerAddress ?? Buffer.alloc(0);
     return message;
   },
 };
@@ -2154,11 +2156,11 @@ function createBaseRequestProcessProposal(): RequestProcessProposal {
     txs: [],
     proposedLastCommit: undefined,
     misbehavior: [],
-    hash: new Uint8Array(0),
+    hash: Buffer.alloc(0),
     height: Long.ZERO,
     time: undefined,
-    nextValidatorsHash: new Uint8Array(0),
-    proposerAddress: new Uint8Array(0),
+    nextValidatorsHash: Buffer.alloc(0),
+    proposerAddress: Buffer.alloc(0),
   };
 }
 
@@ -2203,7 +2205,7 @@ export const RequestProcessProposal = {
             break;
           }
 
-          message.txs.push(reader.bytes());
+          message.txs.push(reader.bytes() as Buffer);
           continue;
         case 2:
           if (tag !== 18) {
@@ -2224,7 +2226,7 @@ export const RequestProcessProposal = {
             break;
           }
 
-          message.hash = reader.bytes();
+          message.hash = reader.bytes() as Buffer;
           continue;
         case 5:
           if (tag !== 40) {
@@ -2245,14 +2247,14 @@ export const RequestProcessProposal = {
             break;
           }
 
-          message.nextValidatorsHash = reader.bytes();
+          message.nextValidatorsHash = reader.bytes() as Buffer;
           continue;
         case 8:
           if (tag !== 66) {
             break;
           }
 
-          message.proposerAddress = reader.bytes();
+          message.proposerAddress = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -2265,22 +2267,22 @@ export const RequestProcessProposal = {
 
   fromJSON(object: any): RequestProcessProposal {
     return {
-      txs: globalThis.Array.isArray(object?.txs) ? object.txs.map((e: any) => bytesFromBase64(e)) : [],
+      txs: gt.Array.isArray(object?.txs) ? object.txs.map((e: any) => Buffer.from(bytesFromBase64(e))) : [],
       proposedLastCommit: isSet(object.proposedLastCommit)
         ? CommitInfo.fromJSON(object.proposedLastCommit)
         : undefined,
-      misbehavior: globalThis.Array.isArray(object?.misbehavior)
+      misbehavior: gt.Array.isArray(object?.misbehavior)
         ? object.misbehavior.map((e: any) => Misbehavior.fromJSON(e))
         : [],
-      hash: isSet(object.hash) ? bytesFromBase64(object.hash) : new Uint8Array(0),
+      hash: isSet(object.hash) ? Buffer.from(bytesFromBase64(object.hash)) : Buffer.alloc(0),
       height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
       time: isSet(object.time) ? fromJsonTimestamp(object.time) : undefined,
       nextValidatorsHash: isSet(object.nextValidatorsHash)
-        ? bytesFromBase64(object.nextValidatorsHash)
-        : new Uint8Array(0),
+        ? Buffer.from(bytesFromBase64(object.nextValidatorsHash))
+        : Buffer.alloc(0),
       proposerAddress: isSet(object.proposerAddress)
-        ? bytesFromBase64(object.proposerAddress)
-        : new Uint8Array(0),
+        ? Buffer.from(bytesFromBase64(object.proposerAddress))
+        : Buffer.alloc(0),
     };
   },
 
@@ -2324,27 +2326,27 @@ export const RequestProcessProposal = {
         ? CommitInfo.fromPartial(object.proposedLastCommit)
         : undefined;
     message.misbehavior = object.misbehavior?.map((e) => Misbehavior.fromPartial(e)) || [];
-    message.hash = object.hash ?? new Uint8Array(0);
+    message.hash = object.hash ?? Buffer.alloc(0);
     message.height =
       object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
     message.time =
       object.time !== undefined && object.time !== null ? Timestamp.fromPartial(object.time) : undefined;
-    message.nextValidatorsHash = object.nextValidatorsHash ?? new Uint8Array(0);
-    message.proposerAddress = object.proposerAddress ?? new Uint8Array(0);
+    message.nextValidatorsHash = object.nextValidatorsHash ?? Buffer.alloc(0);
+    message.proposerAddress = object.proposerAddress ?? Buffer.alloc(0);
     return message;
   },
 };
 
 function createBaseRequestExtendVote(): RequestExtendVote {
   return {
-    hash: new Uint8Array(0),
+    hash: Buffer.alloc(0),
     height: Long.ZERO,
     time: undefined,
     txs: [],
     proposedLastCommit: undefined,
     misbehavior: [],
-    nextValidatorsHash: new Uint8Array(0),
-    proposerAddress: new Uint8Array(0),
+    nextValidatorsHash: Buffer.alloc(0),
+    proposerAddress: Buffer.alloc(0),
   };
 }
 
@@ -2389,7 +2391,7 @@ export const RequestExtendVote = {
             break;
           }
 
-          message.hash = reader.bytes();
+          message.hash = reader.bytes() as Buffer;
           continue;
         case 2:
           if (tag !== 16) {
@@ -2410,7 +2412,7 @@ export const RequestExtendVote = {
             break;
           }
 
-          message.txs.push(reader.bytes());
+          message.txs.push(reader.bytes() as Buffer);
           continue;
         case 5:
           if (tag !== 42) {
@@ -2431,14 +2433,14 @@ export const RequestExtendVote = {
             break;
           }
 
-          message.nextValidatorsHash = reader.bytes();
+          message.nextValidatorsHash = reader.bytes() as Buffer;
           continue;
         case 8:
           if (tag !== 66) {
             break;
           }
 
-          message.proposerAddress = reader.bytes();
+          message.proposerAddress = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -2451,22 +2453,22 @@ export const RequestExtendVote = {
 
   fromJSON(object: any): RequestExtendVote {
     return {
-      hash: isSet(object.hash) ? bytesFromBase64(object.hash) : new Uint8Array(0),
+      hash: isSet(object.hash) ? Buffer.from(bytesFromBase64(object.hash)) : Buffer.alloc(0),
       height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
       time: isSet(object.time) ? fromJsonTimestamp(object.time) : undefined,
-      txs: globalThis.Array.isArray(object?.txs) ? object.txs.map((e: any) => bytesFromBase64(e)) : [],
+      txs: gt.Array.isArray(object?.txs) ? object.txs.map((e: any) => Buffer.from(bytesFromBase64(e))) : [],
       proposedLastCommit: isSet(object.proposedLastCommit)
         ? CommitInfo.fromJSON(object.proposedLastCommit)
         : undefined,
-      misbehavior: globalThis.Array.isArray(object?.misbehavior)
+      misbehavior: gt.Array.isArray(object?.misbehavior)
         ? object.misbehavior.map((e: any) => Misbehavior.fromJSON(e))
         : [],
       nextValidatorsHash: isSet(object.nextValidatorsHash)
-        ? bytesFromBase64(object.nextValidatorsHash)
-        : new Uint8Array(0),
+        ? Buffer.from(bytesFromBase64(object.nextValidatorsHash))
+        : Buffer.alloc(0),
       proposerAddress: isSet(object.proposerAddress)
-        ? bytesFromBase64(object.proposerAddress)
-        : new Uint8Array(0),
+        ? Buffer.from(bytesFromBase64(object.proposerAddress))
+        : Buffer.alloc(0),
     };
   },
 
@@ -2504,7 +2506,7 @@ export const RequestExtendVote = {
   },
   fromPartial<I extends Exact<DeepPartial<RequestExtendVote>, I>>(object: I): RequestExtendVote {
     const message = createBaseRequestExtendVote();
-    message.hash = object.hash ?? new Uint8Array(0);
+    message.hash = object.hash ?? Buffer.alloc(0);
     message.height =
       object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
     message.time =
@@ -2515,18 +2517,18 @@ export const RequestExtendVote = {
         ? CommitInfo.fromPartial(object.proposedLastCommit)
         : undefined;
     message.misbehavior = object.misbehavior?.map((e) => Misbehavior.fromPartial(e)) || [];
-    message.nextValidatorsHash = object.nextValidatorsHash ?? new Uint8Array(0);
-    message.proposerAddress = object.proposerAddress ?? new Uint8Array(0);
+    message.nextValidatorsHash = object.nextValidatorsHash ?? Buffer.alloc(0);
+    message.proposerAddress = object.proposerAddress ?? Buffer.alloc(0);
     return message;
   },
 };
 
 function createBaseRequestVerifyVoteExtension(): RequestVerifyVoteExtension {
   return {
-    hash: new Uint8Array(0),
-    validatorAddress: new Uint8Array(0),
+    hash: Buffer.alloc(0),
+    validatorAddress: Buffer.alloc(0),
     height: Long.ZERO,
-    voteExtension: new Uint8Array(0),
+    voteExtension: Buffer.alloc(0),
   };
 }
 
@@ -2559,14 +2561,14 @@ export const RequestVerifyVoteExtension = {
             break;
           }
 
-          message.hash = reader.bytes();
+          message.hash = reader.bytes() as Buffer;
           continue;
         case 2:
           if (tag !== 18) {
             break;
           }
 
-          message.validatorAddress = reader.bytes();
+          message.validatorAddress = reader.bytes() as Buffer;
           continue;
         case 3:
           if (tag !== 24) {
@@ -2580,7 +2582,7 @@ export const RequestVerifyVoteExtension = {
             break;
           }
 
-          message.voteExtension = reader.bytes();
+          message.voteExtension = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -2593,12 +2595,14 @@ export const RequestVerifyVoteExtension = {
 
   fromJSON(object: any): RequestVerifyVoteExtension {
     return {
-      hash: isSet(object.hash) ? bytesFromBase64(object.hash) : new Uint8Array(0),
+      hash: isSet(object.hash) ? Buffer.from(bytesFromBase64(object.hash)) : Buffer.alloc(0),
       validatorAddress: isSet(object.validatorAddress)
-        ? bytesFromBase64(object.validatorAddress)
-        : new Uint8Array(0),
+        ? Buffer.from(bytesFromBase64(object.validatorAddress))
+        : Buffer.alloc(0),
       height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
-      voteExtension: isSet(object.voteExtension) ? bytesFromBase64(object.voteExtension) : new Uint8Array(0),
+      voteExtension: isSet(object.voteExtension)
+        ? Buffer.from(bytesFromBase64(object.voteExtension))
+        : Buffer.alloc(0),
     };
   },
 
@@ -2626,11 +2630,11 @@ export const RequestVerifyVoteExtension = {
     object: I,
   ): RequestVerifyVoteExtension {
     const message = createBaseRequestVerifyVoteExtension();
-    message.hash = object.hash ?? new Uint8Array(0);
-    message.validatorAddress = object.validatorAddress ?? new Uint8Array(0);
+    message.hash = object.hash ?? Buffer.alloc(0);
+    message.validatorAddress = object.validatorAddress ?? Buffer.alloc(0);
     message.height =
       object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
-    message.voteExtension = object.voteExtension ?? new Uint8Array(0);
+    message.voteExtension = object.voteExtension ?? Buffer.alloc(0);
     return message;
   },
 };
@@ -2640,11 +2644,11 @@ function createBaseRequestFinalizeBlock(): RequestFinalizeBlock {
     txs: [],
     decidedLastCommit: undefined,
     misbehavior: [],
-    hash: new Uint8Array(0),
+    hash: Buffer.alloc(0),
     height: Long.ZERO,
     time: undefined,
-    nextValidatorsHash: new Uint8Array(0),
-    proposerAddress: new Uint8Array(0),
+    nextValidatorsHash: Buffer.alloc(0),
+    proposerAddress: Buffer.alloc(0),
   };
 }
 
@@ -2689,7 +2693,7 @@ export const RequestFinalizeBlock = {
             break;
           }
 
-          message.txs.push(reader.bytes());
+          message.txs.push(reader.bytes() as Buffer);
           continue;
         case 2:
           if (tag !== 18) {
@@ -2710,7 +2714,7 @@ export const RequestFinalizeBlock = {
             break;
           }
 
-          message.hash = reader.bytes();
+          message.hash = reader.bytes() as Buffer;
           continue;
         case 5:
           if (tag !== 40) {
@@ -2731,14 +2735,14 @@ export const RequestFinalizeBlock = {
             break;
           }
 
-          message.nextValidatorsHash = reader.bytes();
+          message.nextValidatorsHash = reader.bytes() as Buffer;
           continue;
         case 8:
           if (tag !== 66) {
             break;
           }
 
-          message.proposerAddress = reader.bytes();
+          message.proposerAddress = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -2751,22 +2755,22 @@ export const RequestFinalizeBlock = {
 
   fromJSON(object: any): RequestFinalizeBlock {
     return {
-      txs: globalThis.Array.isArray(object?.txs) ? object.txs.map((e: any) => bytesFromBase64(e)) : [],
+      txs: gt.Array.isArray(object?.txs) ? object.txs.map((e: any) => Buffer.from(bytesFromBase64(e))) : [],
       decidedLastCommit: isSet(object.decidedLastCommit)
         ? CommitInfo.fromJSON(object.decidedLastCommit)
         : undefined,
-      misbehavior: globalThis.Array.isArray(object?.misbehavior)
+      misbehavior: gt.Array.isArray(object?.misbehavior)
         ? object.misbehavior.map((e: any) => Misbehavior.fromJSON(e))
         : [],
-      hash: isSet(object.hash) ? bytesFromBase64(object.hash) : new Uint8Array(0),
+      hash: isSet(object.hash) ? Buffer.from(bytesFromBase64(object.hash)) : Buffer.alloc(0),
       height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
       time: isSet(object.time) ? fromJsonTimestamp(object.time) : undefined,
       nextValidatorsHash: isSet(object.nextValidatorsHash)
-        ? bytesFromBase64(object.nextValidatorsHash)
-        : new Uint8Array(0),
+        ? Buffer.from(bytesFromBase64(object.nextValidatorsHash))
+        : Buffer.alloc(0),
       proposerAddress: isSet(object.proposerAddress)
-        ? bytesFromBase64(object.proposerAddress)
-        : new Uint8Array(0),
+        ? Buffer.from(bytesFromBase64(object.proposerAddress))
+        : Buffer.alloc(0),
     };
   },
 
@@ -2810,13 +2814,13 @@ export const RequestFinalizeBlock = {
         ? CommitInfo.fromPartial(object.decidedLastCommit)
         : undefined;
     message.misbehavior = object.misbehavior?.map((e) => Misbehavior.fromPartial(e)) || [];
-    message.hash = object.hash ?? new Uint8Array(0);
+    message.hash = object.hash ?? Buffer.alloc(0);
     message.height =
       object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
     message.time =
       object.time !== undefined && object.time !== null ? Timestamp.fromPartial(object.time) : undefined;
-    message.nextValidatorsHash = object.nextValidatorsHash ?? new Uint8Array(0);
-    message.proposerAddress = object.proposerAddress ?? new Uint8Array(0);
+    message.nextValidatorsHash = object.nextValidatorsHash ?? Buffer.alloc(0);
+    message.proposerAddress = object.proposerAddress ?? Buffer.alloc(0);
     return message;
   },
 };
@@ -3237,7 +3241,7 @@ export const ResponseException = {
   },
 
   fromJSON(object: any): ResponseException {
-    return { error: isSet(object.error) ? globalThis.String(object.error) : "" };
+    return { error: isSet(object.error) ? gt.String(object.error) : "" };
   },
 
   toJSON(message: ResponseException): unknown {
@@ -3294,7 +3298,7 @@ export const ResponseEcho = {
   },
 
   fromJSON(object: any): ResponseEcho {
-    return { message: isSet(object.message) ? globalThis.String(object.message) : "" };
+    return { message: isSet(object.message) ? gt.String(object.message) : "" };
   },
 
   toJSON(message: ResponseEcho): unknown {
@@ -3364,7 +3368,7 @@ function createBaseResponseInfo(): ResponseInfo {
     version: "",
     appVersion: Long.UZERO,
     lastBlockHeight: Long.ZERO,
-    lastBlockAppHash: new Uint8Array(0),
+    lastBlockAppHash: Buffer.alloc(0),
   };
 }
 
@@ -3428,7 +3432,7 @@ export const ResponseInfo = {
             break;
           }
 
-          message.lastBlockAppHash = reader.bytes();
+          message.lastBlockAppHash = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -3441,13 +3445,13 @@ export const ResponseInfo = {
 
   fromJSON(object: any): ResponseInfo {
     return {
-      data: isSet(object.data) ? globalThis.String(object.data) : "",
-      version: isSet(object.version) ? globalThis.String(object.version) : "",
+      data: isSet(object.data) ? gt.String(object.data) : "",
+      version: isSet(object.version) ? gt.String(object.version) : "",
       appVersion: isSet(object.appVersion) ? Long.fromValue(object.appVersion) : Long.UZERO,
       lastBlockHeight: isSet(object.lastBlockHeight) ? Long.fromValue(object.lastBlockHeight) : Long.ZERO,
       lastBlockAppHash: isSet(object.lastBlockAppHash)
-        ? bytesFromBase64(object.lastBlockAppHash)
-        : new Uint8Array(0),
+        ? Buffer.from(bytesFromBase64(object.lastBlockAppHash))
+        : Buffer.alloc(0),
     };
   },
 
@@ -3486,13 +3490,13 @@ export const ResponseInfo = {
       object.lastBlockHeight !== undefined && object.lastBlockHeight !== null
         ? Long.fromValue(object.lastBlockHeight)
         : Long.ZERO;
-    message.lastBlockAppHash = object.lastBlockAppHash ?? new Uint8Array(0);
+    message.lastBlockAppHash = object.lastBlockAppHash ?? Buffer.alloc(0);
     return message;
   },
 };
 
 function createBaseResponseInitChain(): ResponseInitChain {
-  return { consensusParams: undefined, validators: [], appHash: new Uint8Array(0) };
+  return { consensusParams: undefined, validators: [], appHash: Buffer.alloc(0) };
 }
 
 export const ResponseInitChain = {
@@ -3535,7 +3539,7 @@ export const ResponseInitChain = {
             break;
           }
 
-          message.appHash = reader.bytes();
+          message.appHash = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -3551,10 +3555,10 @@ export const ResponseInitChain = {
       consensusParams: isSet(object.consensusParams)
         ? ConsensusParams.fromJSON(object.consensusParams)
         : undefined,
-      validators: globalThis.Array.isArray(object?.validators)
+      validators: gt.Array.isArray(object?.validators)
         ? object.validators.map((e: any) => ValidatorUpdate.fromJSON(e))
         : [],
-      appHash: isSet(object.appHash) ? bytesFromBase64(object.appHash) : new Uint8Array(0),
+      appHash: isSet(object.appHash) ? Buffer.from(bytesFromBase64(object.appHash)) : Buffer.alloc(0),
     };
   },
 
@@ -3582,7 +3586,7 @@ export const ResponseInitChain = {
         ? ConsensusParams.fromPartial(object.consensusParams)
         : undefined;
     message.validators = object.validators?.map((e) => ValidatorUpdate.fromPartial(e)) || [];
-    message.appHash = object.appHash ?? new Uint8Array(0);
+    message.appHash = object.appHash ?? Buffer.alloc(0);
     return message;
   },
 };
@@ -3593,8 +3597,8 @@ function createBaseResponseQuery(): ResponseQuery {
     log: "",
     info: "",
     index: Long.ZERO,
-    key: new Uint8Array(0),
-    value: new Uint8Array(0),
+    key: Buffer.alloc(0),
+    value: Buffer.alloc(0),
     proofOps: undefined,
     height: Long.ZERO,
     codespace: "",
@@ -3673,14 +3677,14 @@ export const ResponseQuery = {
             break;
           }
 
-          message.key = reader.bytes();
+          message.key = reader.bytes() as Buffer;
           continue;
         case 7:
           if (tag !== 58) {
             break;
           }
 
-          message.value = reader.bytes();
+          message.value = reader.bytes() as Buffer;
           continue;
         case 8:
           if (tag !== 66) {
@@ -3714,15 +3718,15 @@ export const ResponseQuery = {
 
   fromJSON(object: any): ResponseQuery {
     return {
-      code: isSet(object.code) ? globalThis.Number(object.code) : 0,
-      log: isSet(object.log) ? globalThis.String(object.log) : "",
-      info: isSet(object.info) ? globalThis.String(object.info) : "",
+      code: isSet(object.code) ? gt.Number(object.code) : 0,
+      log: isSet(object.log) ? gt.String(object.log) : "",
+      info: isSet(object.info) ? gt.String(object.info) : "",
       index: isSet(object.index) ? Long.fromValue(object.index) : Long.ZERO,
-      key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(0),
-      value: isSet(object.value) ? bytesFromBase64(object.value) : new Uint8Array(0),
+      key: isSet(object.key) ? Buffer.from(bytesFromBase64(object.key)) : Buffer.alloc(0),
+      value: isSet(object.value) ? Buffer.from(bytesFromBase64(object.value)) : Buffer.alloc(0),
       proofOps: isSet(object.proofOps) ? ProofOps.fromJSON(object.proofOps) : undefined,
       height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
-      codespace: isSet(object.codespace) ? globalThis.String(object.codespace) : "",
+      codespace: isSet(object.codespace) ? gt.String(object.codespace) : "",
     };
   },
 
@@ -3768,8 +3772,8 @@ export const ResponseQuery = {
     message.info = object.info ?? "";
     message.index =
       object.index !== undefined && object.index !== null ? Long.fromValue(object.index) : Long.ZERO;
-    message.key = object.key ?? new Uint8Array(0);
-    message.value = object.value ?? new Uint8Array(0);
+    message.key = object.key ?? Buffer.alloc(0);
+    message.value = object.value ?? Buffer.alloc(0);
     message.proofOps =
       object.proofOps !== undefined && object.proofOps !== null
         ? ProofOps.fromPartial(object.proofOps)
@@ -3784,7 +3788,7 @@ export const ResponseQuery = {
 function createBaseResponseCheckTx(): ResponseCheckTx {
   return {
     code: 0,
-    data: new Uint8Array(0),
+    data: Buffer.alloc(0),
     log: "",
     info: "",
     gasWanted: Long.ZERO,
@@ -3842,7 +3846,7 @@ export const ResponseCheckTx = {
             break;
           }
 
-          message.data = reader.bytes();
+          message.data = reader.bytes() as Buffer;
           continue;
         case 3:
           if (tag !== 26) {
@@ -3897,16 +3901,14 @@ export const ResponseCheckTx = {
 
   fromJSON(object: any): ResponseCheckTx {
     return {
-      code: isSet(object.code) ? globalThis.Number(object.code) : 0,
-      data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(0),
-      log: isSet(object.log) ? globalThis.String(object.log) : "",
-      info: isSet(object.info) ? globalThis.String(object.info) : "",
+      code: isSet(object.code) ? gt.Number(object.code) : 0,
+      data: isSet(object.data) ? Buffer.from(bytesFromBase64(object.data)) : Buffer.alloc(0),
+      log: isSet(object.log) ? gt.String(object.log) : "",
+      info: isSet(object.info) ? gt.String(object.info) : "",
       gasWanted: isSet(object.gas_wanted) ? Long.fromValue(object.gas_wanted) : Long.ZERO,
       gasUsed: isSet(object.gas_used) ? Long.fromValue(object.gas_used) : Long.ZERO,
-      events: globalThis.Array.isArray(object?.events)
-        ? object.events.map((e: any) => Event.fromJSON(e))
-        : [],
-      codespace: isSet(object.codespace) ? globalThis.String(object.codespace) : "",
+      events: gt.Array.isArray(object?.events) ? object.events.map((e: any) => Event.fromJSON(e)) : [],
+      codespace: isSet(object.codespace) ? gt.String(object.codespace) : "",
     };
   },
 
@@ -3945,7 +3947,7 @@ export const ResponseCheckTx = {
   fromPartial<I extends Exact<DeepPartial<ResponseCheckTx>, I>>(object: I): ResponseCheckTx {
     const message = createBaseResponseCheckTx();
     message.code = object.code ?? 0;
-    message.data = object.data ?? new Uint8Array(0);
+    message.data = object.data ?? Buffer.alloc(0);
     message.log = object.log ?? "";
     message.info = object.info ?? "";
     message.gasWanted =
@@ -4057,7 +4059,7 @@ export const ResponseListSnapshots = {
 
   fromJSON(object: any): ResponseListSnapshots {
     return {
-      snapshots: globalThis.Array.isArray(object?.snapshots)
+      snapshots: gt.Array.isArray(object?.snapshots)
         ? object.snapshots.map((e: any) => Snapshot.fromJSON(e))
         : [],
     };
@@ -4139,7 +4141,7 @@ export const ResponseOfferSnapshot = {
 };
 
 function createBaseResponseLoadSnapshotChunk(): ResponseLoadSnapshotChunk {
-  return { chunk: new Uint8Array(0) };
+  return { chunk: Buffer.alloc(0) };
 }
 
 export const ResponseLoadSnapshotChunk = {
@@ -4162,7 +4164,7 @@ export const ResponseLoadSnapshotChunk = {
             break;
           }
 
-          message.chunk = reader.bytes();
+          message.chunk = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -4174,7 +4176,7 @@ export const ResponseLoadSnapshotChunk = {
   },
 
   fromJSON(object: any): ResponseLoadSnapshotChunk {
-    return { chunk: isSet(object.chunk) ? bytesFromBase64(object.chunk) : new Uint8Array(0) };
+    return { chunk: isSet(object.chunk) ? Buffer.from(bytesFromBase64(object.chunk)) : Buffer.alloc(0) };
   },
 
   toJSON(message: ResponseLoadSnapshotChunk): unknown {
@@ -4192,7 +4194,7 @@ export const ResponseLoadSnapshotChunk = {
     object: I,
   ): ResponseLoadSnapshotChunk {
     const message = createBaseResponseLoadSnapshotChunk();
-    message.chunk = object.chunk ?? new Uint8Array(0);
+    message.chunk = object.chunk ?? Buffer.alloc(0);
     return message;
   },
 };
@@ -4267,11 +4269,11 @@ export const ResponseApplySnapshotChunk = {
   fromJSON(object: any): ResponseApplySnapshotChunk {
     return {
       result: isSet(object.result) ? responseApplySnapshotChunk_ResultFromJSON(object.result) : 0,
-      refetchChunks: globalThis.Array.isArray(object?.refetchChunks)
-        ? object.refetchChunks.map((e: any) => globalThis.Number(e))
+      refetchChunks: gt.Array.isArray(object?.refetchChunks)
+        ? object.refetchChunks.map((e: any) => gt.Number(e))
         : [],
-      rejectSenders: globalThis.Array.isArray(object?.rejectSenders)
-        ? object.rejectSenders.map((e: any) => globalThis.String(e))
+      rejectSenders: gt.Array.isArray(object?.rejectSenders)
+        ? object.rejectSenders.map((e: any) => gt.String(e))
         : [],
     };
   },
@@ -4328,7 +4330,7 @@ export const ResponsePrepareProposal = {
             break;
           }
 
-          message.txs.push(reader.bytes());
+          message.txs.push(reader.bytes() as Buffer);
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -4341,7 +4343,7 @@ export const ResponsePrepareProposal = {
 
   fromJSON(object: any): ResponsePrepareProposal {
     return {
-      txs: globalThis.Array.isArray(object?.txs) ? object.txs.map((e: any) => bytesFromBase64(e)) : [],
+      txs: gt.Array.isArray(object?.txs) ? object.txs.map((e: any) => Buffer.from(bytesFromBase64(e))) : [],
     };
   },
 
@@ -4423,7 +4425,7 @@ export const ResponseProcessProposal = {
 };
 
 function createBaseResponseExtendVote(): ResponseExtendVote {
-  return { voteExtension: new Uint8Array(0) };
+  return { voteExtension: Buffer.alloc(0) };
 }
 
 export const ResponseExtendVote = {
@@ -4446,7 +4448,7 @@ export const ResponseExtendVote = {
             break;
           }
 
-          message.voteExtension = reader.bytes();
+          message.voteExtension = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -4459,7 +4461,9 @@ export const ResponseExtendVote = {
 
   fromJSON(object: any): ResponseExtendVote {
     return {
-      voteExtension: isSet(object.voteExtension) ? bytesFromBase64(object.voteExtension) : new Uint8Array(0),
+      voteExtension: isSet(object.voteExtension)
+        ? Buffer.from(bytesFromBase64(object.voteExtension))
+        : Buffer.alloc(0),
     };
   },
 
@@ -4476,7 +4480,7 @@ export const ResponseExtendVote = {
   },
   fromPartial<I extends Exact<DeepPartial<ResponseExtendVote>, I>>(object: I): ResponseExtendVote {
     const message = createBaseResponseExtendVote();
-    message.voteExtension = object.voteExtension ?? new Uint8Array(0);
+    message.voteExtension = object.voteExtension ?? Buffer.alloc(0);
     return message;
   },
 };
@@ -4550,7 +4554,7 @@ function createBaseResponseFinalizeBlock(): ResponseFinalizeBlock {
     txResults: [],
     validatorUpdates: [],
     consensusParamUpdates: undefined,
-    appHash: new Uint8Array(0),
+    appHash: Buffer.alloc(0),
   };
 }
 
@@ -4614,7 +4618,7 @@ export const ResponseFinalizeBlock = {
             break;
           }
 
-          message.appHash = reader.bytes();
+          message.appHash = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -4627,19 +4631,17 @@ export const ResponseFinalizeBlock = {
 
   fromJSON(object: any): ResponseFinalizeBlock {
     return {
-      events: globalThis.Array.isArray(object?.events)
-        ? object.events.map((e: any) => Event.fromJSON(e))
-        : [],
-      txResults: globalThis.Array.isArray(object?.txResults)
+      events: gt.Array.isArray(object?.events) ? object.events.map((e: any) => Event.fromJSON(e)) : [],
+      txResults: gt.Array.isArray(object?.txResults)
         ? object.txResults.map((e: any) => ExecTxResult.fromJSON(e))
         : [],
-      validatorUpdates: globalThis.Array.isArray(object?.validatorUpdates)
+      validatorUpdates: gt.Array.isArray(object?.validatorUpdates)
         ? object.validatorUpdates.map((e: any) => ValidatorUpdate.fromJSON(e))
         : [],
       consensusParamUpdates: isSet(object.consensusParamUpdates)
         ? ConsensusParams.fromJSON(object.consensusParamUpdates)
         : undefined,
-      appHash: isSet(object.appHash) ? bytesFromBase64(object.appHash) : new Uint8Array(0),
+      appHash: isSet(object.appHash) ? Buffer.from(bytesFromBase64(object.appHash)) : Buffer.alloc(0),
     };
   },
 
@@ -4675,7 +4677,7 @@ export const ResponseFinalizeBlock = {
       object.consensusParamUpdates !== undefined && object.consensusParamUpdates !== null
         ? ConsensusParams.fromPartial(object.consensusParamUpdates)
         : undefined;
-    message.appHash = object.appHash ?? new Uint8Array(0);
+    message.appHash = object.appHash ?? Buffer.alloc(0);
     return message;
   },
 };
@@ -4727,10 +4729,8 @@ export const CommitInfo = {
 
   fromJSON(object: any): CommitInfo {
     return {
-      round: isSet(object.round) ? globalThis.Number(object.round) : 0,
-      votes: globalThis.Array.isArray(object?.votes)
-        ? object.votes.map((e: any) => VoteInfo.fromJSON(e))
-        : [],
+      round: isSet(object.round) ? gt.Number(object.round) : 0,
+      votes: gt.Array.isArray(object?.votes) ? object.votes.map((e: any) => VoteInfo.fromJSON(e)) : [],
     };
   },
 
@@ -4803,8 +4803,8 @@ export const ExtendedCommitInfo = {
 
   fromJSON(object: any): ExtendedCommitInfo {
     return {
-      round: isSet(object.round) ? globalThis.Number(object.round) : 0,
-      votes: globalThis.Array.isArray(object?.votes)
+      round: isSet(object.round) ? gt.Number(object.round) : 0,
+      votes: gt.Array.isArray(object?.votes)
         ? object.votes.map((e: any) => ExtendedVoteInfo.fromJSON(e))
         : [],
     };
@@ -4879,8 +4879,8 @@ export const Event = {
 
   fromJSON(object: any): Event {
     return {
-      type: isSet(object.type) ? globalThis.String(object.type) : "",
-      attributes: globalThis.Array.isArray(object?.attributes)
+      type: isSet(object.type) ? gt.String(object.type) : "",
+      attributes: gt.Array.isArray(object?.attributes)
         ? object.attributes.map((e: any) => EventAttribute.fromJSON(e))
         : [],
     };
@@ -4965,9 +4965,9 @@ export const EventAttribute = {
 
   fromJSON(object: any): EventAttribute {
     return {
-      key: isSet(object.key) ? globalThis.String(object.key) : "",
-      value: isSet(object.value) ? globalThis.String(object.value) : "",
-      index: isSet(object.index) ? globalThis.Boolean(object.index) : false,
+      key: isSet(object.key) ? gt.String(object.key) : "",
+      value: isSet(object.value) ? gt.String(object.value) : "",
+      index: isSet(object.index) ? gt.Boolean(object.index) : false,
     };
   },
 
@@ -5000,7 +5000,7 @@ export const EventAttribute = {
 function createBaseExecTxResult(): ExecTxResult {
   return {
     code: 0,
-    data: new Uint8Array(0),
+    data: Buffer.alloc(0),
     log: "",
     info: "",
     gasWanted: Long.ZERO,
@@ -5058,7 +5058,7 @@ export const ExecTxResult = {
             break;
           }
 
-          message.data = reader.bytes();
+          message.data = reader.bytes() as Buffer;
           continue;
         case 3:
           if (tag !== 26) {
@@ -5113,16 +5113,14 @@ export const ExecTxResult = {
 
   fromJSON(object: any): ExecTxResult {
     return {
-      code: isSet(object.code) ? globalThis.Number(object.code) : 0,
-      data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(0),
-      log: isSet(object.log) ? globalThis.String(object.log) : "",
-      info: isSet(object.info) ? globalThis.String(object.info) : "",
+      code: isSet(object.code) ? gt.Number(object.code) : 0,
+      data: isSet(object.data) ? Buffer.from(bytesFromBase64(object.data)) : Buffer.alloc(0),
+      log: isSet(object.log) ? gt.String(object.log) : "",
+      info: isSet(object.info) ? gt.String(object.info) : "",
       gasWanted: isSet(object.gas_wanted) ? Long.fromValue(object.gas_wanted) : Long.ZERO,
       gasUsed: isSet(object.gas_used) ? Long.fromValue(object.gas_used) : Long.ZERO,
-      events: globalThis.Array.isArray(object?.events)
-        ? object.events.map((e: any) => Event.fromJSON(e))
-        : [],
-      codespace: isSet(object.codespace) ? globalThis.String(object.codespace) : "",
+      events: gt.Array.isArray(object?.events) ? object.events.map((e: any) => Event.fromJSON(e)) : [],
+      codespace: isSet(object.codespace) ? gt.String(object.codespace) : "",
     };
   },
 
@@ -5161,7 +5159,7 @@ export const ExecTxResult = {
   fromPartial<I extends Exact<DeepPartial<ExecTxResult>, I>>(object: I): ExecTxResult {
     const message = createBaseExecTxResult();
     message.code = object.code ?? 0;
-    message.data = object.data ?? new Uint8Array(0);
+    message.data = object.data ?? Buffer.alloc(0);
     message.log = object.log ?? "";
     message.info = object.info ?? "";
     message.gasWanted =
@@ -5177,7 +5175,7 @@ export const ExecTxResult = {
 };
 
 function createBaseTxResult(): TxResult {
-  return { height: Long.ZERO, index: 0, tx: new Uint8Array(0), result: undefined };
+  return { height: Long.ZERO, index: 0, tx: Buffer.alloc(0), result: undefined };
 }
 
 export const TxResult = {
@@ -5223,7 +5221,7 @@ export const TxResult = {
             break;
           }
 
-          message.tx = reader.bytes();
+          message.tx = reader.bytes() as Buffer;
           continue;
         case 4:
           if (tag !== 34) {
@@ -5244,8 +5242,8 @@ export const TxResult = {
   fromJSON(object: any): TxResult {
     return {
       height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
-      index: isSet(object.index) ? globalThis.Number(object.index) : 0,
-      tx: isSet(object.tx) ? bytesFromBase64(object.tx) : new Uint8Array(0),
+      index: isSet(object.index) ? gt.Number(object.index) : 0,
+      tx: isSet(object.tx) ? Buffer.from(bytesFromBase64(object.tx)) : Buffer.alloc(0),
       result: isSet(object.result) ? ExecTxResult.fromJSON(object.result) : undefined,
     };
   },
@@ -5275,7 +5273,7 @@ export const TxResult = {
     message.height =
       object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
     message.index = object.index ?? 0;
-    message.tx = object.tx ?? new Uint8Array(0);
+    message.tx = object.tx ?? Buffer.alloc(0);
     message.result =
       object.result !== undefined && object.result !== null
         ? ExecTxResult.fromPartial(object.result)
@@ -5285,7 +5283,7 @@ export const TxResult = {
 };
 
 function createBaseValidator(): Validator {
-  return { address: new Uint8Array(0), power: Long.ZERO };
+  return { address: Buffer.alloc(0), power: Long.ZERO };
 }
 
 export const Validator = {
@@ -5311,7 +5309,7 @@ export const Validator = {
             break;
           }
 
-          message.address = reader.bytes();
+          message.address = reader.bytes() as Buffer;
           continue;
         case 3:
           if (tag !== 24) {
@@ -5331,7 +5329,7 @@ export const Validator = {
 
   fromJSON(object: any): Validator {
     return {
-      address: isSet(object.address) ? bytesFromBase64(object.address) : new Uint8Array(0),
+      address: isSet(object.address) ? Buffer.from(bytesFromBase64(object.address)) : Buffer.alloc(0),
       power: isSet(object.power) ? Long.fromValue(object.power) : Long.ZERO,
     };
   },
@@ -5352,7 +5350,7 @@ export const Validator = {
   },
   fromPartial<I extends Exact<DeepPartial<Validator>, I>>(object: I): Validator {
     const message = createBaseValidator();
-    message.address = object.address ?? new Uint8Array(0);
+    message.address = object.address ?? Buffer.alloc(0);
     message.power =
       object.power !== undefined && object.power !== null ? Long.fromValue(object.power) : Long.ZERO;
     return message;
@@ -5517,8 +5515,8 @@ export const VoteInfo = {
 function createBaseExtendedVoteInfo(): ExtendedVoteInfo {
   return {
     validator: undefined,
-    voteExtension: new Uint8Array(0),
-    extensionSignature: new Uint8Array(0),
+    voteExtension: Buffer.alloc(0),
+    extensionSignature: Buffer.alloc(0),
     blockIdFlag: 0,
   };
 }
@@ -5559,14 +5557,14 @@ export const ExtendedVoteInfo = {
             break;
           }
 
-          message.voteExtension = reader.bytes();
+          message.voteExtension = reader.bytes() as Buffer;
           continue;
         case 4:
           if (tag !== 34) {
             break;
           }
 
-          message.extensionSignature = reader.bytes();
+          message.extensionSignature = reader.bytes() as Buffer;
           continue;
         case 5:
           if (tag !== 40) {
@@ -5587,10 +5585,12 @@ export const ExtendedVoteInfo = {
   fromJSON(object: any): ExtendedVoteInfo {
     return {
       validator: isSet(object.validator) ? Validator.fromJSON(object.validator) : undefined,
-      voteExtension: isSet(object.voteExtension) ? bytesFromBase64(object.voteExtension) : new Uint8Array(0),
+      voteExtension: isSet(object.voteExtension)
+        ? Buffer.from(bytesFromBase64(object.voteExtension))
+        : Buffer.alloc(0),
       extensionSignature: isSet(object.extensionSignature)
-        ? bytesFromBase64(object.extensionSignature)
-        : new Uint8Array(0),
+        ? Buffer.from(bytesFromBase64(object.extensionSignature))
+        : Buffer.alloc(0),
       blockIdFlag: isSet(object.blockIdFlag) ? blockIDFlagFromJSON(object.blockIdFlag) : 0,
     };
   },
@@ -5621,8 +5621,8 @@ export const ExtendedVoteInfo = {
       object.validator !== undefined && object.validator !== null
         ? Validator.fromPartial(object.validator)
         : undefined;
-    message.voteExtension = object.voteExtension ?? new Uint8Array(0);
-    message.extensionSignature = object.extensionSignature ?? new Uint8Array(0);
+    message.voteExtension = object.voteExtension ?? Buffer.alloc(0);
+    message.extensionSignature = object.extensionSignature ?? Buffer.alloc(0);
     message.blockIdFlag = object.blockIdFlag ?? 0;
     return message;
   },
@@ -5756,7 +5756,7 @@ export const Misbehavior = {
 };
 
 function createBaseSnapshot(): Snapshot {
-  return { height: Long.UZERO, format: 0, chunks: 0, hash: new Uint8Array(0), metadata: new Uint8Array(0) };
+  return { height: Long.UZERO, format: 0, chunks: 0, hash: Buffer.alloc(0), metadata: Buffer.alloc(0) };
 }
 
 export const Snapshot = {
@@ -5812,14 +5812,14 @@ export const Snapshot = {
             break;
           }
 
-          message.hash = reader.bytes();
+          message.hash = reader.bytes() as Buffer;
           continue;
         case 5:
           if (tag !== 42) {
             break;
           }
 
-          message.metadata = reader.bytes();
+          message.metadata = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -5833,10 +5833,10 @@ export const Snapshot = {
   fromJSON(object: any): Snapshot {
     return {
       height: isSet(object.height) ? Long.fromValue(object.height) : Long.UZERO,
-      format: isSet(object.format) ? globalThis.Number(object.format) : 0,
-      chunks: isSet(object.chunks) ? globalThis.Number(object.chunks) : 0,
-      hash: isSet(object.hash) ? bytesFromBase64(object.hash) : new Uint8Array(0),
-      metadata: isSet(object.metadata) ? bytesFromBase64(object.metadata) : new Uint8Array(0),
+      format: isSet(object.format) ? gt.Number(object.format) : 0,
+      chunks: isSet(object.chunks) ? gt.Number(object.chunks) : 0,
+      hash: isSet(object.hash) ? Buffer.from(bytesFromBase64(object.hash)) : Buffer.alloc(0),
+      metadata: isSet(object.metadata) ? Buffer.from(bytesFromBase64(object.metadata)) : Buffer.alloc(0),
     };
   },
 
@@ -5869,8 +5869,8 @@ export const Snapshot = {
       object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.UZERO;
     message.format = object.format ?? 0;
     message.chunks = object.chunks ?? 0;
-    message.hash = object.hash ?? new Uint8Array(0);
-    message.metadata = object.metadata ?? new Uint8Array(0);
+    message.hash = object.hash ?? Buffer.alloc(0);
+    message.metadata = object.metadata ?? Buffer.alloc(0);
     return message;
   },
 };
@@ -6019,29 +6019,31 @@ interface Rpc {
   request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
 
-function bytesFromBase64(b64: string): Uint8Array {
-  if ((globalThis as any).Buffer) {
-    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
-  } else {
-    const bin = globalThis.atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-      arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
   }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
+
+function bytesFromBase64(b64: string): Uint8Array {
+  return Uint8Array.from(gt.Buffer.from(b64, "base64"));
 }
 
 function base64FromBytes(arr: Uint8Array): string {
-  if ((globalThis as any).Buffer) {
-    return globalThis.Buffer.from(arr).toString("base64");
-  } else {
-    const bin: string[] = [];
-    arr.forEach((byte) => {
-      bin.push(globalThis.String.fromCharCode(byte));
-    });
-    return globalThis.btoa(bin.join(""));
-  }
+  return gt.Buffer.from(arr).toString("base64");
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
@@ -6072,14 +6074,14 @@ function toTimestamp(date: Date): Timestamp {
 function fromTimestamp(t: Timestamp): Date {
   let millis = (t.seconds.toNumber() || 0) * 1_000;
   millis += (t.nanos || 0) / 1_000_000;
-  return new globalThis.Date(millis);
+  return new gt.Date(millis);
 }
 
 function fromJsonTimestamp(o: any): Timestamp {
-  if (o instanceof globalThis.Date) {
+  if (o instanceof gt.Date) {
     return toTimestamp(o);
   } else if (typeof o === "string") {
-    return toTimestamp(new globalThis.Date(o));
+    return toTimestamp(new gt.Date(o));
   } else {
     return Timestamp.fromJSON(o);
   }

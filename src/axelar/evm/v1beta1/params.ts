@@ -18,8 +18,8 @@ export interface Params {
   chain: string;
   confirmationHeight: Long;
   network: string;
-  tokenCode: Uint8Array;
-  burnable: Uint8Array;
+  tokenCode: Buffer;
+  burnable: Buffer;
   revoteLockingPeriod: Long;
   networks: NetworkInfo[];
   votingThreshold?: Threshold | undefined;
@@ -40,8 +40,8 @@ function createBaseParams(): Params {
     chain: "",
     confirmationHeight: Long.UZERO,
     network: "",
-    tokenCode: new Uint8Array(0),
-    burnable: new Uint8Array(0),
+    tokenCode: Buffer.alloc(0),
+    burnable: Buffer.alloc(0),
     revoteLockingPeriod: Long.ZERO,
     networks: [],
     votingThreshold: undefined,
@@ -130,14 +130,14 @@ export const Params = {
             break;
           }
 
-          message.tokenCode = reader.bytes();
+          message.tokenCode = reader.bytes() as Buffer;
           continue;
         case 6:
           if (tag !== 50) {
             break;
           }
 
-          message.burnable = reader.bytes();
+          message.burnable = reader.bytes() as Buffer;
           continue;
         case 7:
           if (tag !== 56) {
@@ -206,22 +206,22 @@ export const Params = {
 
   fromJSON(object: any): Params {
     return {
-      chain: isSet(object.chain) ? globalThis.String(object.chain) : "",
+      chain: isSet(object.chain) ? gt.String(object.chain) : "",
       confirmationHeight: isSet(object.confirmationHeight)
         ? Long.fromValue(object.confirmationHeight)
         : Long.UZERO,
-      network: isSet(object.network) ? globalThis.String(object.network) : "",
-      tokenCode: isSet(object.tokenCode) ? bytesFromBase64(object.tokenCode) : new Uint8Array(0),
-      burnable: isSet(object.burnable) ? bytesFromBase64(object.burnable) : new Uint8Array(0),
+      network: isSet(object.network) ? gt.String(object.network) : "",
+      tokenCode: isSet(object.tokenCode) ? Buffer.from(bytesFromBase64(object.tokenCode)) : Buffer.alloc(0),
+      burnable: isSet(object.burnable) ? Buffer.from(bytesFromBase64(object.burnable)) : Buffer.alloc(0),
       revoteLockingPeriod: isSet(object.revoteLockingPeriod)
         ? Long.fromValue(object.revoteLockingPeriod)
         : Long.ZERO,
-      networks: globalThis.Array.isArray(object?.networks)
+      networks: gt.Array.isArray(object?.networks)
         ? object.networks.map((e: any) => NetworkInfo.fromJSON(e))
         : [],
       votingThreshold: isSet(object.votingThreshold) ? Threshold.fromJSON(object.votingThreshold) : undefined,
       minVoterCount: isSet(object.minVoterCount) ? Long.fromValue(object.minVoterCount) : Long.ZERO,
-      commandsGasLimit: isSet(object.commandsGasLimit) ? globalThis.Number(object.commandsGasLimit) : 0,
+      commandsGasLimit: isSet(object.commandsGasLimit) ? gt.Number(object.commandsGasLimit) : 0,
       votingGracePeriod: isSet(object.votingGracePeriod)
         ? Long.fromValue(object.votingGracePeriod)
         : Long.ZERO,
@@ -285,8 +285,8 @@ export const Params = {
         ? Long.fromValue(object.confirmationHeight)
         : Long.UZERO;
     message.network = object.network ?? "";
-    message.tokenCode = object.tokenCode ?? new Uint8Array(0);
-    message.burnable = object.burnable ?? new Uint8Array(0);
+    message.tokenCode = object.tokenCode ?? Buffer.alloc(0);
+    message.burnable = object.burnable ?? Buffer.alloc(0);
     message.revoteLockingPeriod =
       object.revoteLockingPeriod !== undefined && object.revoteLockingPeriod !== null
         ? Long.fromValue(object.revoteLockingPeriod)
@@ -393,29 +393,31 @@ export const PendingChain = {
   },
 };
 
-function bytesFromBase64(b64: string): Uint8Array {
-  if ((globalThis as any).Buffer) {
-    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
-  } else {
-    const bin = globalThis.atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-      arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
   }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
+
+function bytesFromBase64(b64: string): Uint8Array {
+  return Uint8Array.from(gt.Buffer.from(b64, "base64"));
 }
 
 function base64FromBytes(arr: Uint8Array): string {
-  if ((globalThis as any).Buffer) {
-    return globalThis.Buffer.from(arr).toString("base64");
-  } else {
-    const bin: string[] = [];
-    arr.forEach((byte) => {
-      bin.push(globalThis.String.fromCharCode(byte));
-    });
-    return globalThis.btoa(bin.join(""));
-  }
+  return gt.Buffer.from(arr).toString("base64");
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;

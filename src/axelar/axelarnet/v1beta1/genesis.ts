@@ -15,7 +15,7 @@ export const protobufPackage = "axelar.axelarnet.v1beta1";
 
 export interface GenesisState {
   params?: Params | undefined;
-  collectorAddress: Uint8Array;
+  collectorAddress: Buffer;
   chains: CosmosChain[];
   transferQueue?: QueueState | undefined;
   ibcTransfers: IBCTransfer[];
@@ -30,7 +30,7 @@ export interface GenesisState_SeqIdMappingEntry {
 function createBaseGenesisState(): GenesisState {
   return {
     params: undefined,
-    collectorAddress: new Uint8Array(0),
+    collectorAddress: Buffer.alloc(0),
     chains: [],
     transferQueue: undefined,
     ibcTransfers: [],
@@ -80,7 +80,7 @@ export const GenesisState = {
             break;
           }
 
-          message.collectorAddress = reader.bytes();
+          message.collectorAddress = reader.bytes() as Buffer;
           continue;
         case 3:
           if (tag !== 26) {
@@ -126,13 +126,11 @@ export const GenesisState = {
     return {
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
       collectorAddress: isSet(object.collectorAddress)
-        ? bytesFromBase64(object.collectorAddress)
-        : new Uint8Array(0),
-      chains: globalThis.Array.isArray(object?.chains)
-        ? object.chains.map((e: any) => CosmosChain.fromJSON(e))
-        : [],
+        ? Buffer.from(bytesFromBase64(object.collectorAddress))
+        : Buffer.alloc(0),
+      chains: gt.Array.isArray(object?.chains) ? object.chains.map((e: any) => CosmosChain.fromJSON(e)) : [],
       transferQueue: isSet(object.transferQueue) ? QueueState.fromJSON(object.transferQueue) : undefined,
-      ibcTransfers: globalThis.Array.isArray(object?.ibcTransfers)
+      ibcTransfers: gt.Array.isArray(object?.ibcTransfers)
         ? object.ibcTransfers.map((e: any) => IBCTransfer.fromJSON(e))
         : [],
       seqIdMapping: isObject(object.seqIdMapping)
@@ -180,7 +178,7 @@ export const GenesisState = {
     const message = createBaseGenesisState();
     message.params =
       object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
-    message.collectorAddress = object.collectorAddress ?? new Uint8Array(0);
+    message.collectorAddress = object.collectorAddress ?? Buffer.alloc(0);
     message.chains = object.chains?.map((e) => CosmosChain.fromPartial(e)) || [];
     message.transferQueue =
       object.transferQueue !== undefined && object.transferQueue !== null
@@ -247,7 +245,7 @@ export const GenesisState_SeqIdMappingEntry = {
 
   fromJSON(object: any): GenesisState_SeqIdMappingEntry {
     return {
-      key: isSet(object.key) ? globalThis.String(object.key) : "",
+      key: isSet(object.key) ? gt.String(object.key) : "",
       value: isSet(object.value) ? Long.fromValue(object.value) : Long.UZERO,
     };
   },
@@ -279,29 +277,31 @@ export const GenesisState_SeqIdMappingEntry = {
   },
 };
 
-function bytesFromBase64(b64: string): Uint8Array {
-  if ((globalThis as any).Buffer) {
-    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
-  } else {
-    const bin = globalThis.atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-      arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
   }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
+
+function bytesFromBase64(b64: string): Uint8Array {
+  return Uint8Array.from(gt.Buffer.from(b64, "base64"));
 }
 
 function base64FromBytes(arr: Uint8Array): string {
-  if ((globalThis as any).Buffer) {
-    return globalThis.Buffer.from(arr).toString("base64");
-  } else {
-    const bin: string[] = [];
-    arr.forEach((byte) => {
-      bin.push(globalThis.String.fromCharCode(byte));
-    });
-    return globalThis.btoa(bin.join(""));
-  }
+  return gt.Buffer.from(arr).toString("base64");
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;

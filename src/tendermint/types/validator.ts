@@ -68,7 +68,7 @@ export interface ValidatorSet {
 }
 
 export interface Validator {
-  address: Uint8Array;
+  address: Buffer;
   pubKey?: PublicKey | undefined;
   votingPower: Long;
   proposerPriority: Long;
@@ -136,7 +136,7 @@ export const ValidatorSet = {
 
   fromJSON(object: any): ValidatorSet {
     return {
-      validators: globalThis.Array.isArray(object?.validators)
+      validators: gt.Array.isArray(object?.validators)
         ? object.validators.map((e: any) => Validator.fromJSON(e))
         : [],
       proposer: isSet(object.proposer) ? Validator.fromJSON(object.proposer) : undefined,
@@ -177,12 +177,7 @@ export const ValidatorSet = {
 };
 
 function createBaseValidator(): Validator {
-  return {
-    address: new Uint8Array(0),
-    pubKey: undefined,
-    votingPower: Long.ZERO,
-    proposerPriority: Long.ZERO,
-  };
+  return { address: Buffer.alloc(0), pubKey: undefined, votingPower: Long.ZERO, proposerPriority: Long.ZERO };
 }
 
 export const Validator = {
@@ -214,7 +209,7 @@ export const Validator = {
             break;
           }
 
-          message.address = reader.bytes();
+          message.address = reader.bytes() as Buffer;
           continue;
         case 2:
           if (tag !== 18) {
@@ -248,7 +243,7 @@ export const Validator = {
 
   fromJSON(object: any): Validator {
     return {
-      address: isSet(object.address) ? bytesFromBase64(object.address) : new Uint8Array(0),
+      address: isSet(object.address) ? Buffer.from(bytesFromBase64(object.address)) : Buffer.alloc(0),
       pubKey: isSet(object.pubKey) ? PublicKey.fromJSON(object.pubKey) : undefined,
       votingPower: isSet(object.votingPower) ? Long.fromValue(object.votingPower) : Long.ZERO,
       proposerPriority: isSet(object.proposerPriority) ? Long.fromValue(object.proposerPriority) : Long.ZERO,
@@ -277,7 +272,7 @@ export const Validator = {
   },
   fromPartial<I extends Exact<DeepPartial<Validator>, I>>(object: I): Validator {
     const message = createBaseValidator();
-    message.address = object.address ?? new Uint8Array(0);
+    message.address = object.address ?? Buffer.alloc(0);
     message.pubKey =
       object.pubKey !== undefined && object.pubKey !== null
         ? PublicKey.fromPartial(object.pubKey)
@@ -374,29 +369,31 @@ export const SimpleValidator = {
   },
 };
 
-function bytesFromBase64(b64: string): Uint8Array {
-  if ((globalThis as any).Buffer) {
-    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
-  } else {
-    const bin = globalThis.atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-      arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
   }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
+
+function bytesFromBase64(b64: string): Uint8Array {
+  return Uint8Array.from(gt.Buffer.from(b64, "base64"));
 }
 
 function base64FromBytes(arr: Uint8Array): string {
-  if ((globalThis as any).Buffer) {
-    return globalThis.Buffer.from(arr).toString("base64");
-  } else {
-    const bin: string[] = [];
-    arr.forEach((byte) => {
-      bin.push(globalThis.String.fromCharCode(byte));
-    });
-    return globalThis.btoa(bin.join(""));
-  }
+  return gt.Buffer.from(arr).toString("base64");
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;

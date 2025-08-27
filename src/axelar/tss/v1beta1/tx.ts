@@ -91,7 +91,7 @@ export interface RegisterExternalKeysRequest {
 
 export interface RegisterExternalKeysRequest_ExternalKey {
   id: string;
-  pubKey: Uint8Array;
+  pubKey: Buffer;
 }
 
 export interface RegisterExternalKeysResponse {}
@@ -106,7 +106,7 @@ export interface SubmitMultisigPubKeysResponse {}
 
 export interface SubmitMultisigSignaturesRequest {
   sigId: string;
-  signatures: Uint8Array[];
+  signatures: Buffer[];
   sender: string;
 }
 
@@ -159,7 +159,7 @@ export const StartKeygenRequest = {
 
   fromJSON(object: any): StartKeygenRequest {
     return {
-      sender: isSet(object.sender) ? globalThis.String(object.sender) : "",
+      sender: isSet(object.sender) ? gt.String(object.sender) : "",
       keyInfo: isSet(object.keyInfo) ? KeyInfo.fromJSON(object.keyInfo) : undefined,
     };
   },
@@ -299,10 +299,10 @@ export const RotateKeyRequest = {
 
   fromJSON(object: any): RotateKeyRequest {
     return {
-      chain: isSet(object.chain) ? globalThis.String(object.chain) : "",
+      chain: isSet(object.chain) ? gt.String(object.chain) : "",
       keyRole: isSet(object.keyRole) ? keyRoleFromJSON(object.keyRole) : 0,
-      keyId: isSet(object.keyId) ? globalThis.String(object.keyId) : "",
-      sender: isSet(object.sender) ? globalThis.String(object.sender) : "",
+      keyId: isSet(object.keyId) ? gt.String(object.keyId) : "",
+      sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
   },
 
@@ -436,9 +436,9 @@ export const ProcessKeygenTrafficRequest = {
 
   fromJSON(object: any): ProcessKeygenTrafficRequest {
     return {
-      sessionId: isSet(object.sessionId) ? globalThis.String(object.sessionId) : "",
+      sessionId: isSet(object.sessionId) ? gt.String(object.sessionId) : "",
       payload: isSet(object.payload) ? TrafficOut.fromJSON(object.payload) : undefined,
-      sender: isSet(object.sender) ? globalThis.String(object.sender) : "",
+      sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
   },
 
@@ -579,9 +579,9 @@ export const ProcessSignTrafficRequest = {
 
   fromJSON(object: any): ProcessSignTrafficRequest {
     return {
-      sessionId: isSet(object.sessionId) ? globalThis.String(object.sessionId) : "",
+      sessionId: isSet(object.sessionId) ? gt.String(object.sessionId) : "",
       payload: isSet(object.payload) ? TrafficOut.fromJSON(object.payload) : undefined,
-      sender: isSet(object.sender) ? globalThis.String(object.sender) : "",
+      sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
   },
 
@@ -718,7 +718,7 @@ export const VotePubKeyRequest = {
     return {
       pollKey: isSet(object.pollKey) ? PollKey.fromJSON(object.pollKey) : undefined,
       result: isSet(object.result) ? MessageOut_KeygenResult.fromJSON(object.result) : undefined,
-      sender: isSet(object.sender) ? globalThis.String(object.sender) : "",
+      sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
   },
 
@@ -790,7 +790,7 @@ export const VotePubKeyResponse = {
   },
 
   fromJSON(object: any): VotePubKeyResponse {
-    return { log: isSet(object.log) ? globalThis.String(object.log) : "" };
+    return { log: isSet(object.log) ? gt.String(object.log) : "" };
   },
 
   toJSON(message: VotePubKeyResponse): unknown {
@@ -870,7 +870,7 @@ export const VoteSigRequest = {
     return {
       pollKey: isSet(object.pollKey) ? PollKey.fromJSON(object.pollKey) : undefined,
       result: isSet(object.result) ? MessageOut_SignResult.fromJSON(object.result) : undefined,
-      sender: isSet(object.sender) ? globalThis.String(object.sender) : "",
+      sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
   },
 
@@ -942,7 +942,7 @@ export const VoteSigResponse = {
   },
 
   fromJSON(object: any): VoteSigResponse {
-    return { log: isSet(object.log) ? globalThis.String(object.log) : "" };
+    return { log: isSet(object.log) ? gt.String(object.log) : "" };
   },
 
   toJSON(message: VoteSigResponse): unknown {
@@ -1010,10 +1010,8 @@ export const HeartBeatRequest = {
 
   fromJSON(object: any): HeartBeatRequest {
     return {
-      keyIds: globalThis.Array.isArray(object?.keyIds)
-        ? object.keyIds.map((e: any) => globalThis.String(e))
-        : [],
-      sender: isSet(object.sender) ? globalThis.String(object.sender) : "",
+      keyIds: gt.Array.isArray(object?.keyIds) ? object.keyIds.map((e: any) => gt.String(e)) : [],
+      sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
   },
 
@@ -1139,11 +1137,11 @@ export const RegisterExternalKeysRequest = {
 
   fromJSON(object: any): RegisterExternalKeysRequest {
     return {
-      chain: isSet(object.chain) ? globalThis.String(object.chain) : "",
-      externalKeys: globalThis.Array.isArray(object?.externalKeys)
+      chain: isSet(object.chain) ? gt.String(object.chain) : "",
+      externalKeys: gt.Array.isArray(object?.externalKeys)
         ? object.externalKeys.map((e: any) => RegisterExternalKeysRequest_ExternalKey.fromJSON(e))
         : [],
-      sender: isSet(object.sender) ? globalThis.String(object.sender) : "",
+      sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
   },
 
@@ -1179,7 +1177,7 @@ export const RegisterExternalKeysRequest = {
 };
 
 function createBaseRegisterExternalKeysRequest_ExternalKey(): RegisterExternalKeysRequest_ExternalKey {
-  return { id: "", pubKey: new Uint8Array(0) };
+  return { id: "", pubKey: Buffer.alloc(0) };
 }
 
 export const RegisterExternalKeysRequest_ExternalKey = {
@@ -1215,7 +1213,7 @@ export const RegisterExternalKeysRequest_ExternalKey = {
             break;
           }
 
-          message.pubKey = reader.bytes();
+          message.pubKey = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -1228,8 +1226,8 @@ export const RegisterExternalKeysRequest_ExternalKey = {
 
   fromJSON(object: any): RegisterExternalKeysRequest_ExternalKey {
     return {
-      id: isSet(object.id) ? globalThis.String(object.id) : "",
-      pubKey: isSet(object.pubKey) ? bytesFromBase64(object.pubKey) : new Uint8Array(0),
+      id: isSet(object.id) ? gt.String(object.id) : "",
+      pubKey: isSet(object.pubKey) ? Buffer.from(bytesFromBase64(object.pubKey)) : Buffer.alloc(0),
     };
   },
 
@@ -1254,7 +1252,7 @@ export const RegisterExternalKeysRequest_ExternalKey = {
   ): RegisterExternalKeysRequest_ExternalKey {
     const message = createBaseRegisterExternalKeysRequest_ExternalKey();
     message.id = object.id ?? "";
-    message.pubKey = object.pubKey ?? new Uint8Array(0);
+    message.pubKey = object.pubKey ?? Buffer.alloc(0);
     return message;
   },
 };
@@ -1363,11 +1361,11 @@ export const SubmitMultisigPubKeysRequest = {
 
   fromJSON(object: any): SubmitMultisigPubKeysRequest {
     return {
-      keyId: isSet(object.keyId) ? globalThis.String(object.keyId) : "",
-      sigKeyPairs: globalThis.Array.isArray(object?.sigKeyPairs)
+      keyId: isSet(object.keyId) ? gt.String(object.keyId) : "",
+      sigKeyPairs: gt.Array.isArray(object?.sigKeyPairs)
         ? object.sigKeyPairs.map((e: any) => SigKeyPair.fromJSON(e))
         : [],
-      sender: isSet(object.sender) ? globalThis.String(object.sender) : "",
+      sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
   },
 
@@ -1485,7 +1483,7 @@ export const SubmitMultisigSignaturesRequest = {
             break;
           }
 
-          message.signatures.push(reader.bytes());
+          message.signatures.push(reader.bytes() as Buffer);
           continue;
         case 4:
           if (tag !== 34) {
@@ -1505,11 +1503,11 @@ export const SubmitMultisigSignaturesRequest = {
 
   fromJSON(object: any): SubmitMultisigSignaturesRequest {
     return {
-      sigId: isSet(object.sigId) ? globalThis.String(object.sigId) : "",
-      signatures: globalThis.Array.isArray(object?.signatures)
-        ? object.signatures.map((e: any) => bytesFromBase64(e))
+      sigId: isSet(object.sigId) ? gt.String(object.sigId) : "",
+      signatures: gt.Array.isArray(object?.signatures)
+        ? object.signatures.map((e: any) => Buffer.from(bytesFromBase64(e)))
         : [],
-      sender: isSet(object.sender) ? globalThis.String(object.sender) : "",
+      sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
   },
 
@@ -1590,29 +1588,31 @@ export const SubmitMultisigSignaturesResponse = {
   },
 };
 
-function bytesFromBase64(b64: string): Uint8Array {
-  if ((globalThis as any).Buffer) {
-    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
-  } else {
-    const bin = globalThis.atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-      arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
   }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
+
+function bytesFromBase64(b64: string): Uint8Array {
+  return Uint8Array.from(gt.Buffer.from(b64, "base64"));
 }
 
 function base64FromBytes(arr: Uint8Array): string {
-  if ((globalThis as any).Buffer) {
-    return globalThis.Buffer.from(arr).toString("base64");
-  } else {
-    const bin: string[] = [];
-    arr.forEach((byte) => {
-      bin.push(globalThis.String.fromCharCode(byte));
-    });
-    return globalThis.btoa(bin.join(""));
-  }
+  return gt.Buffer.from(arr).toString("base64");
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;

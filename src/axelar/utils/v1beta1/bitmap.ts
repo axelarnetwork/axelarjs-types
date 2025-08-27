@@ -153,11 +153,11 @@ export const CircularBuffer = {
 
   fromJSON(object: any): CircularBuffer {
     return {
-      cumulativeValue: globalThis.Array.isArray(object?.cumulativeValue)
+      cumulativeValue: gt.Array.isArray(object?.cumulativeValue)
         ? object.cumulativeValue.map((e: any) => Long.fromValue(e))
         : [],
-      index: isSet(object.index) ? globalThis.Number(object.index) : 0,
-      maxSize: isSet(object.maxSize) ? globalThis.Number(object.maxSize) : 0,
+      index: isSet(object.index) ? gt.Number(object.index) : 0,
+      maxSize: isSet(object.maxSize) ? gt.Number(object.maxSize) : 0,
     };
   },
 
@@ -186,6 +186,25 @@ export const CircularBuffer = {
     return message;
   },
 };
+
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
+  }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 

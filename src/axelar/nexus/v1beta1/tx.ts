@@ -114,10 +114,8 @@ export const RegisterChainMaintainerRequest = {
 
   fromJSON(object: any): RegisterChainMaintainerRequest {
     return {
-      chains: globalThis.Array.isArray(object?.chains)
-        ? object.chains.map((e: any) => globalThis.String(e))
-        : [],
-      sender: isSet(object.sender) ? globalThis.String(object.sender) : "",
+      chains: gt.Array.isArray(object?.chains) ? object.chains.map((e: any) => gt.String(e)) : [],
+      sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
   },
 
@@ -241,10 +239,8 @@ export const DeregisterChainMaintainerRequest = {
 
   fromJSON(object: any): DeregisterChainMaintainerRequest {
     return {
-      chains: globalThis.Array.isArray(object?.chains)
-        ? object.chains.map((e: any) => globalThis.String(e))
-        : [],
-      sender: isSet(object.sender) ? globalThis.String(object.sender) : "",
+      chains: gt.Array.isArray(object?.chains) ? object.chains.map((e: any) => gt.String(e)) : [],
+      sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
   },
 
@@ -368,10 +364,8 @@ export const ActivateChainRequest = {
 
   fromJSON(object: any): ActivateChainRequest {
     return {
-      chains: globalThis.Array.isArray(object?.chains)
-        ? object.chains.map((e: any) => globalThis.String(e))
-        : [],
-      sender: isSet(object.sender) ? globalThis.String(object.sender) : "",
+      chains: gt.Array.isArray(object?.chains) ? object.chains.map((e: any) => gt.String(e)) : [],
+      sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
   },
 
@@ -487,10 +481,8 @@ export const DeactivateChainRequest = {
 
   fromJSON(object: any): DeactivateChainRequest {
     return {
-      chains: globalThis.Array.isArray(object?.chains)
-        ? object.chains.map((e: any) => globalThis.String(e))
-        : [],
-      sender: isSet(object.sender) ? globalThis.String(object.sender) : "",
+      chains: gt.Array.isArray(object?.chains) ? object.chains.map((e: any) => gt.String(e)) : [],
+      sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
   },
 
@@ -607,7 +599,7 @@ export const RegisterAssetFeeRequest = {
   fromJSON(object: any): RegisterAssetFeeRequest {
     return {
       feeInfo: isSet(object.feeInfo) ? FeeInfo.fromJSON(object.feeInfo) : undefined,
-      sender: isSet(object.sender) ? globalThis.String(object.sender) : "",
+      sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
   },
 
@@ -746,10 +738,10 @@ export const SetTransferRateLimitRequest = {
 
   fromJSON(object: any): SetTransferRateLimitRequest {
     return {
-      chain: isSet(object.chain) ? globalThis.String(object.chain) : "",
+      chain: isSet(object.chain) ? gt.String(object.chain) : "",
       limit: isSet(object.limit) ? Coin.fromJSON(object.limit) : undefined,
       window: isSet(object.window) ? Duration.fromJSON(object.window) : undefined,
-      sender: isSet(object.sender) ? globalThis.String(object.sender) : "",
+      sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
   },
 
@@ -835,6 +827,25 @@ export const SetTransferRateLimitResponse = {
     return message;
   },
 };
+
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
+  }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 

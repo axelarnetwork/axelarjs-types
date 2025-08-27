@@ -63,11 +63,11 @@ export function recoverResponse_ResponseToJSON(object: RecoverResponse_Response)
 /** Keygen's success response */
 export interface KeygenOutput {
   /** pub_key; common for all parties */
-  pubKey: Uint8Array;
+  pubKey: Buffer;
   /** recover info of all parties' shares; common for all parties */
-  groupRecoverInfo: Uint8Array;
+  groupRecoverInfo: Buffer;
   /** private recover info of this party's shares; unique for each party */
-  privateRecoverInfo: Uint8Array;
+  privateRecoverInfo: Buffer;
 }
 
 export interface MessageIn {
@@ -103,7 +103,7 @@ export interface MessageOut_KeygenResult {
 /** Sign's response types */
 export interface MessageOut_SignResult {
   /** Success response */
-  signature?: Uint8Array | undefined;
+  signature?: Buffer | undefined;
   /** Failure response */
   criminals?: MessageOut_CriminalList | undefined;
 }
@@ -163,13 +163,13 @@ export function messageOut_CriminalList_Criminal_CrimeTypeToJSON(
 
 export interface TrafficIn {
   fromPartyUid: string;
-  payload: Uint8Array;
+  payload: Buffer;
   isBroadcast: boolean;
 }
 
 export interface TrafficOut {
   toPartyUid: string;
-  payload: Uint8Array;
+  payload: Buffer;
   isBroadcast: boolean;
 }
 
@@ -187,7 +187,7 @@ export interface SignInit {
   keyUid: string;
   /** TODO replace this with a subset of indices? */
   partyUids: string[];
-  messageToSign: Uint8Array;
+  messageToSign: Buffer;
 }
 
 function createBaseRecoverRequest(): RecoverRequest {
@@ -328,11 +328,7 @@ export const RecoverResponse = {
 };
 
 function createBaseKeygenOutput(): KeygenOutput {
-  return {
-    pubKey: new Uint8Array(0),
-    groupRecoverInfo: new Uint8Array(0),
-    privateRecoverInfo: new Uint8Array(0),
-  };
+  return { pubKey: Buffer.alloc(0), groupRecoverInfo: Buffer.alloc(0), privateRecoverInfo: Buffer.alloc(0) };
 }
 
 export const KeygenOutput = {
@@ -361,21 +357,21 @@ export const KeygenOutput = {
             break;
           }
 
-          message.pubKey = reader.bytes();
+          message.pubKey = reader.bytes() as Buffer;
           continue;
         case 2:
           if (tag !== 18) {
             break;
           }
 
-          message.groupRecoverInfo = reader.bytes();
+          message.groupRecoverInfo = reader.bytes() as Buffer;
           continue;
         case 3:
           if (tag !== 26) {
             break;
           }
 
-          message.privateRecoverInfo = reader.bytes();
+          message.privateRecoverInfo = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -388,13 +384,13 @@ export const KeygenOutput = {
 
   fromJSON(object: any): KeygenOutput {
     return {
-      pubKey: isSet(object.pubKey) ? bytesFromBase64(object.pubKey) : new Uint8Array(0),
+      pubKey: isSet(object.pubKey) ? Buffer.from(bytesFromBase64(object.pubKey)) : Buffer.alloc(0),
       groupRecoverInfo: isSet(object.groupRecoverInfo)
-        ? bytesFromBase64(object.groupRecoverInfo)
-        : new Uint8Array(0),
+        ? Buffer.from(bytesFromBase64(object.groupRecoverInfo))
+        : Buffer.alloc(0),
       privateRecoverInfo: isSet(object.privateRecoverInfo)
-        ? bytesFromBase64(object.privateRecoverInfo)
-        : new Uint8Array(0),
+        ? Buffer.from(bytesFromBase64(object.privateRecoverInfo))
+        : Buffer.alloc(0),
     };
   },
 
@@ -417,9 +413,9 @@ export const KeygenOutput = {
   },
   fromPartial<I extends Exact<DeepPartial<KeygenOutput>, I>>(object: I): KeygenOutput {
     const message = createBaseKeygenOutput();
-    message.pubKey = object.pubKey ?? new Uint8Array(0);
-    message.groupRecoverInfo = object.groupRecoverInfo ?? new Uint8Array(0);
-    message.privateRecoverInfo = object.privateRecoverInfo ?? new Uint8Array(0);
+    message.pubKey = object.pubKey ?? Buffer.alloc(0);
+    message.groupRecoverInfo = object.groupRecoverInfo ?? Buffer.alloc(0);
+    message.privateRecoverInfo = object.privateRecoverInfo ?? Buffer.alloc(0);
     return message;
   },
 };
@@ -494,7 +490,7 @@ export const MessageIn = {
       keygenInit: isSet(object.keygenInit) ? KeygenInit.fromJSON(object.keygenInit) : undefined,
       signInit: isSet(object.signInit) ? SignInit.fromJSON(object.signInit) : undefined,
       traffic: isSet(object.traffic) ? TrafficIn.fromJSON(object.traffic) : undefined,
-      abort: isSet(object.abort) ? globalThis.Boolean(object.abort) : undefined,
+      abort: isSet(object.abort) ? gt.Boolean(object.abort) : undefined,
     };
   },
 
@@ -609,7 +605,7 @@ export const MessageOut = {
         ? MessageOut_KeygenResult.fromJSON(object.keygenResult)
         : undefined,
       signResult: isSet(object.signResult) ? MessageOut_SignResult.fromJSON(object.signResult) : undefined,
-      needRecover: isSet(object.needRecover) ? globalThis.Boolean(object.needRecover) : undefined,
+      needRecover: isSet(object.needRecover) ? gt.Boolean(object.needRecover) : undefined,
     };
   },
 
@@ -757,7 +753,7 @@ export const MessageOut_SignResult = {
             break;
           }
 
-          message.signature = reader.bytes();
+          message.signature = reader.bytes() as Buffer;
           continue;
         case 2:
           if (tag !== 18) {
@@ -777,7 +773,7 @@ export const MessageOut_SignResult = {
 
   fromJSON(object: any): MessageOut_SignResult {
     return {
-      signature: isSet(object.signature) ? bytesFromBase64(object.signature) : undefined,
+      signature: isSet(object.signature) ? Buffer.from(bytesFromBase64(object.signature)) : undefined,
       criminals: isSet(object.criminals) ? MessageOut_CriminalList.fromJSON(object.criminals) : undefined,
     };
   },
@@ -844,7 +840,7 @@ export const MessageOut_CriminalList = {
 
   fromJSON(object: any): MessageOut_CriminalList {
     return {
-      criminals: globalThis.Array.isArray(object?.criminals)
+      criminals: gt.Array.isArray(object?.criminals)
         ? object.criminals.map((e: any) => MessageOut_CriminalList_Criminal.fromJSON(e))
         : [],
     };
@@ -915,7 +911,7 @@ export const MessageOut_CriminalList_Criminal = {
 
   fromJSON(object: any): MessageOut_CriminalList_Criminal {
     return {
-      partyUid: isSet(object.partyUid) ? globalThis.String(object.partyUid) : "",
+      partyUid: isSet(object.partyUid) ? gt.String(object.partyUid) : "",
       crimeType: isSet(object.crimeType)
         ? messageOut_CriminalList_Criminal_CrimeTypeFromJSON(object.crimeType)
         : 0,
@@ -949,7 +945,7 @@ export const MessageOut_CriminalList_Criminal = {
 };
 
 function createBaseTrafficIn(): TrafficIn {
-  return { fromPartyUid: "", payload: new Uint8Array(0), isBroadcast: false };
+  return { fromPartyUid: "", payload: Buffer.alloc(0), isBroadcast: false };
 }
 
 export const TrafficIn = {
@@ -985,7 +981,7 @@ export const TrafficIn = {
             break;
           }
 
-          message.payload = reader.bytes();
+          message.payload = reader.bytes() as Buffer;
           continue;
         case 3:
           if (tag !== 24) {
@@ -1005,9 +1001,9 @@ export const TrafficIn = {
 
   fromJSON(object: any): TrafficIn {
     return {
-      fromPartyUid: isSet(object.fromPartyUid) ? globalThis.String(object.fromPartyUid) : "",
-      payload: isSet(object.payload) ? bytesFromBase64(object.payload) : new Uint8Array(0),
-      isBroadcast: isSet(object.isBroadcast) ? globalThis.Boolean(object.isBroadcast) : false,
+      fromPartyUid: isSet(object.fromPartyUid) ? gt.String(object.fromPartyUid) : "",
+      payload: isSet(object.payload) ? Buffer.from(bytesFromBase64(object.payload)) : Buffer.alloc(0),
+      isBroadcast: isSet(object.isBroadcast) ? gt.Boolean(object.isBroadcast) : false,
     };
   },
 
@@ -1031,14 +1027,14 @@ export const TrafficIn = {
   fromPartial<I extends Exact<DeepPartial<TrafficIn>, I>>(object: I): TrafficIn {
     const message = createBaseTrafficIn();
     message.fromPartyUid = object.fromPartyUid ?? "";
-    message.payload = object.payload ?? new Uint8Array(0);
+    message.payload = object.payload ?? Buffer.alloc(0);
     message.isBroadcast = object.isBroadcast ?? false;
     return message;
   },
 };
 
 function createBaseTrafficOut(): TrafficOut {
-  return { toPartyUid: "", payload: new Uint8Array(0), isBroadcast: false };
+  return { toPartyUid: "", payload: Buffer.alloc(0), isBroadcast: false };
 }
 
 export const TrafficOut = {
@@ -1074,7 +1070,7 @@ export const TrafficOut = {
             break;
           }
 
-          message.payload = reader.bytes();
+          message.payload = reader.bytes() as Buffer;
           continue;
         case 3:
           if (tag !== 24) {
@@ -1094,9 +1090,9 @@ export const TrafficOut = {
 
   fromJSON(object: any): TrafficOut {
     return {
-      toPartyUid: isSet(object.toPartyUid) ? globalThis.String(object.toPartyUid) : "",
-      payload: isSet(object.payload) ? bytesFromBase64(object.payload) : new Uint8Array(0),
-      isBroadcast: isSet(object.isBroadcast) ? globalThis.Boolean(object.isBroadcast) : false,
+      toPartyUid: isSet(object.toPartyUid) ? gt.String(object.toPartyUid) : "",
+      payload: isSet(object.payload) ? Buffer.from(bytesFromBase64(object.payload)) : Buffer.alloc(0),
+      isBroadcast: isSet(object.isBroadcast) ? gt.Boolean(object.isBroadcast) : false,
     };
   },
 
@@ -1120,7 +1116,7 @@ export const TrafficOut = {
   fromPartial<I extends Exact<DeepPartial<TrafficOut>, I>>(object: I): TrafficOut {
     const message = createBaseTrafficOut();
     message.toPartyUid = object.toPartyUid ?? "";
-    message.payload = object.payload ?? new Uint8Array(0);
+    message.payload = object.payload ?? Buffer.alloc(0);
     message.isBroadcast = object.isBroadcast ?? false;
     return message;
   },
@@ -1215,15 +1211,13 @@ export const KeygenInit = {
 
   fromJSON(object: any): KeygenInit {
     return {
-      newKeyUid: isSet(object.newKeyUid) ? globalThis.String(object.newKeyUid) : "",
-      partyUids: globalThis.Array.isArray(object?.partyUids)
-        ? object.partyUids.map((e: any) => globalThis.String(e))
+      newKeyUid: isSet(object.newKeyUid) ? gt.String(object.newKeyUid) : "",
+      partyUids: gt.Array.isArray(object?.partyUids) ? object.partyUids.map((e: any) => gt.String(e)) : [],
+      partyShareCounts: gt.Array.isArray(object?.partyShareCounts)
+        ? object.partyShareCounts.map((e: any) => gt.Number(e))
         : [],
-      partyShareCounts: globalThis.Array.isArray(object?.partyShareCounts)
-        ? object.partyShareCounts.map((e: any) => globalThis.Number(e))
-        : [],
-      myPartyIndex: isSet(object.myPartyIndex) ? globalThis.Number(object.myPartyIndex) : 0,
-      threshold: isSet(object.threshold) ? globalThis.Number(object.threshold) : 0,
+      myPartyIndex: isSet(object.myPartyIndex) ? gt.Number(object.myPartyIndex) : 0,
+      threshold: isSet(object.threshold) ? gt.Number(object.threshold) : 0,
     };
   },
 
@@ -1262,7 +1256,7 @@ export const KeygenInit = {
 };
 
 function createBaseSignInit(): SignInit {
-  return { newSigUid: "", keyUid: "", partyUids: [], messageToSign: new Uint8Array(0) };
+  return { newSigUid: "", keyUid: "", partyUids: [], messageToSign: Buffer.alloc(0) };
 }
 
 export const SignInit = {
@@ -1315,7 +1309,7 @@ export const SignInit = {
             break;
           }
 
-          message.messageToSign = reader.bytes();
+          message.messageToSign = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -1328,12 +1322,12 @@ export const SignInit = {
 
   fromJSON(object: any): SignInit {
     return {
-      newSigUid: isSet(object.newSigUid) ? globalThis.String(object.newSigUid) : "",
-      keyUid: isSet(object.keyUid) ? globalThis.String(object.keyUid) : "",
-      partyUids: globalThis.Array.isArray(object?.partyUids)
-        ? object.partyUids.map((e: any) => globalThis.String(e))
-        : [],
-      messageToSign: isSet(object.messageToSign) ? bytesFromBase64(object.messageToSign) : new Uint8Array(0),
+      newSigUid: isSet(object.newSigUid) ? gt.String(object.newSigUid) : "",
+      keyUid: isSet(object.keyUid) ? gt.String(object.keyUid) : "",
+      partyUids: gt.Array.isArray(object?.partyUids) ? object.partyUids.map((e: any) => gt.String(e)) : [],
+      messageToSign: isSet(object.messageToSign)
+        ? Buffer.from(bytesFromBase64(object.messageToSign))
+        : Buffer.alloc(0),
     };
   },
 
@@ -1362,34 +1356,36 @@ export const SignInit = {
     message.newSigUid = object.newSigUid ?? "";
     message.keyUid = object.keyUid ?? "";
     message.partyUids = object.partyUids?.map((e) => e) || [];
-    message.messageToSign = object.messageToSign ?? new Uint8Array(0);
+    message.messageToSign = object.messageToSign ?? Buffer.alloc(0);
     return message;
   },
 };
 
-function bytesFromBase64(b64: string): Uint8Array {
-  if ((globalThis as any).Buffer) {
-    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
-  } else {
-    const bin = globalThis.atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-      arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
   }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
+
+function bytesFromBase64(b64: string): Uint8Array {
+  return Uint8Array.from(gt.Buffer.from(b64, "base64"));
 }
 
 function base64FromBytes(arr: Uint8Array): string {
-  if ((globalThis as any).Buffer) {
-    return globalThis.Buffer.from(arr).toString("base64");
-  } else {
-    const bin: string[] = [];
-    arr.forEach((byte) => {
-      bin.push(globalThis.String.fromCharCode(byte));
-    });
-    return globalThis.btoa(bin.join(""));
-  }
+  return gt.Buffer.from(arr).toString("base64");
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;

@@ -56,13 +56,13 @@ export interface AxelarTransferCompleted {
 }
 
 export interface FeeCollected {
-  collector: Uint8Array;
+  collector: Buffer;
   fee?: Coin | undefined;
 }
 
 export interface FeePaid {
   messageId: string;
-  recipient: Uint8Array;
+  recipient: Buffer;
   fee?: Coin | undefined;
   refundRecipient: string;
   /** registered asset name in nexus */
@@ -77,8 +77,8 @@ export interface ContractCallSubmitted {
   sourceChain: string;
   destinationChain: string;
   contractAddress: string;
-  payload: Uint8Array;
-  payloadHash: Uint8Array;
+  payload: Buffer;
+  payloadHash: Buffer;
 }
 
 export interface ContractCallWithTokenSubmitted {
@@ -87,8 +87,8 @@ export interface ContractCallWithTokenSubmitted {
   sourceChain: string;
   destinationChain: string;
   contractAddress: string;
-  payload: Uint8Array;
-  payloadHash: Uint8Array;
+  payload: Buffer;
+  payloadHash: Buffer;
   asset?: Coin | undefined;
 }
 
@@ -207,12 +207,12 @@ export const IBCTransferSent = {
   fromJSON(object: any): IBCTransferSent {
     return {
       id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
-      receipient: isSet(object.receipient) ? globalThis.String(object.receipient) : "",
+      receipient: isSet(object.receipient) ? gt.String(object.receipient) : "",
       asset: isSet(object.asset) ? Coin.fromJSON(object.asset) : undefined,
       sequence: isSet(object.sequence) ? Long.fromValue(object.sequence) : Long.UZERO,
-      portId: isSet(object.portId) ? globalThis.String(object.portId) : "",
-      channelId: isSet(object.channelId) ? globalThis.String(object.channelId) : "",
-      recipient: isSet(object.recipient) ? globalThis.String(object.recipient) : "",
+      portId: isSet(object.portId) ? gt.String(object.portId) : "",
+      channelId: isSet(object.channelId) ? gt.String(object.channelId) : "",
+      recipient: isSet(object.recipient) ? gt.String(object.recipient) : "",
     };
   },
 
@@ -331,8 +331,8 @@ export const IBCTransferCompleted = {
     return {
       id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
       sequence: isSet(object.sequence) ? Long.fromValue(object.sequence) : Long.UZERO,
-      portId: isSet(object.portId) ? globalThis.String(object.portId) : "",
-      channelId: isSet(object.channelId) ? globalThis.String(object.channelId) : "",
+      portId: isSet(object.portId) ? gt.String(object.portId) : "",
+      channelId: isSet(object.channelId) ? gt.String(object.channelId) : "",
     };
   },
 
@@ -438,8 +438,8 @@ export const IBCTransferFailed = {
     return {
       id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
       sequence: isSet(object.sequence) ? Long.fromValue(object.sequence) : Long.UZERO,
-      portId: isSet(object.portId) ? globalThis.String(object.portId) : "",
-      channelId: isSet(object.channelId) ? globalThis.String(object.channelId) : "",
+      portId: isSet(object.portId) ? gt.String(object.portId) : "",
+      channelId: isSet(object.channelId) ? gt.String(object.channelId) : "",
     };
   },
 
@@ -582,12 +582,12 @@ export const IBCTransferRetried = {
   fromJSON(object: any): IBCTransferRetried {
     return {
       id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
-      receipient: isSet(object.receipient) ? globalThis.String(object.receipient) : "",
+      receipient: isSet(object.receipient) ? gt.String(object.receipient) : "",
       asset: isSet(object.asset) ? Coin.fromJSON(object.asset) : undefined,
       sequence: isSet(object.sequence) ? Long.fromValue(object.sequence) : Long.UZERO,
-      portId: isSet(object.portId) ? globalThis.String(object.portId) : "",
-      channelId: isSet(object.channelId) ? globalThis.String(object.channelId) : "",
-      recipient: isSet(object.recipient) ? globalThis.String(object.recipient) : "",
+      portId: isSet(object.portId) ? gt.String(object.portId) : "",
+      channelId: isSet(object.channelId) ? gt.String(object.channelId) : "",
+      recipient: isSet(object.recipient) ? gt.String(object.recipient) : "",
     };
   },
 
@@ -705,9 +705,9 @@ export const AxelarTransferCompleted = {
   fromJSON(object: any): AxelarTransferCompleted {
     return {
       id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
-      receipient: isSet(object.receipient) ? globalThis.String(object.receipient) : "",
+      receipient: isSet(object.receipient) ? gt.String(object.receipient) : "",
       asset: isSet(object.asset) ? Coin.fromJSON(object.asset) : undefined,
-      recipient: isSet(object.recipient) ? globalThis.String(object.recipient) : "",
+      recipient: isSet(object.recipient) ? gt.String(object.recipient) : "",
     };
   },
 
@@ -743,7 +743,7 @@ export const AxelarTransferCompleted = {
 };
 
 function createBaseFeeCollected(): FeeCollected {
-  return { collector: new Uint8Array(0), fee: undefined };
+  return { collector: Buffer.alloc(0), fee: undefined };
 }
 
 export const FeeCollected = {
@@ -769,7 +769,7 @@ export const FeeCollected = {
             break;
           }
 
-          message.collector = reader.bytes();
+          message.collector = reader.bytes() as Buffer;
           continue;
         case 2:
           if (tag !== 18) {
@@ -789,7 +789,7 @@ export const FeeCollected = {
 
   fromJSON(object: any): FeeCollected {
     return {
-      collector: isSet(object.collector) ? bytesFromBase64(object.collector) : new Uint8Array(0),
+      collector: isSet(object.collector) ? Buffer.from(bytesFromBase64(object.collector)) : Buffer.alloc(0),
       fee: isSet(object.fee) ? Coin.fromJSON(object.fee) : undefined,
     };
   },
@@ -810,7 +810,7 @@ export const FeeCollected = {
   },
   fromPartial<I extends Exact<DeepPartial<FeeCollected>, I>>(object: I): FeeCollected {
     const message = createBaseFeeCollected();
-    message.collector = object.collector ?? new Uint8Array(0);
+    message.collector = object.collector ?? Buffer.alloc(0);
     message.fee = object.fee !== undefined && object.fee !== null ? Coin.fromPartial(object.fee) : undefined;
     return message;
   },
@@ -819,7 +819,7 @@ export const FeeCollected = {
 function createBaseFeePaid(): FeePaid {
   return {
     messageId: "",
-    recipient: new Uint8Array(0),
+    recipient: Buffer.alloc(0),
     fee: undefined,
     refundRecipient: "",
     asset: "",
@@ -873,7 +873,7 @@ export const FeePaid = {
             break;
           }
 
-          message.recipient = reader.bytes();
+          message.recipient = reader.bytes() as Buffer;
           continue;
         case 3:
           if (tag !== 26) {
@@ -921,13 +921,13 @@ export const FeePaid = {
 
   fromJSON(object: any): FeePaid {
     return {
-      messageId: isSet(object.messageId) ? globalThis.String(object.messageId) : "",
-      recipient: isSet(object.recipient) ? bytesFromBase64(object.recipient) : new Uint8Array(0),
+      messageId: isSet(object.messageId) ? gt.String(object.messageId) : "",
+      recipient: isSet(object.recipient) ? Buffer.from(bytesFromBase64(object.recipient)) : Buffer.alloc(0),
       fee: isSet(object.fee) ? Coin.fromJSON(object.fee) : undefined,
-      refundRecipient: isSet(object.refundRecipient) ? globalThis.String(object.refundRecipient) : "",
-      asset: isSet(object.asset) ? globalThis.String(object.asset) : "",
-      sourceChain: isSet(object.sourceChain) ? globalThis.String(object.sourceChain) : "",
-      destinationChain: isSet(object.destinationChain) ? globalThis.String(object.destinationChain) : "",
+      refundRecipient: isSet(object.refundRecipient) ? gt.String(object.refundRecipient) : "",
+      asset: isSet(object.asset) ? gt.String(object.asset) : "",
+      sourceChain: isSet(object.sourceChain) ? gt.String(object.sourceChain) : "",
+      destinationChain: isSet(object.destinationChain) ? gt.String(object.destinationChain) : "",
     };
   },
 
@@ -963,7 +963,7 @@ export const FeePaid = {
   fromPartial<I extends Exact<DeepPartial<FeePaid>, I>>(object: I): FeePaid {
     const message = createBaseFeePaid();
     message.messageId = object.messageId ?? "";
-    message.recipient = object.recipient ?? new Uint8Array(0);
+    message.recipient = object.recipient ?? Buffer.alloc(0);
     message.fee = object.fee !== undefined && object.fee !== null ? Coin.fromPartial(object.fee) : undefined;
     message.refundRecipient = object.refundRecipient ?? "";
     message.asset = object.asset ?? "";
@@ -980,8 +980,8 @@ function createBaseContractCallSubmitted(): ContractCallSubmitted {
     sourceChain: "",
     destinationChain: "",
     contractAddress: "",
-    payload: new Uint8Array(0),
-    payloadHash: new Uint8Array(0),
+    payload: Buffer.alloc(0),
+    payloadHash: Buffer.alloc(0),
   };
 }
 
@@ -1058,14 +1058,14 @@ export const ContractCallSubmitted = {
             break;
           }
 
-          message.payload = reader.bytes();
+          message.payload = reader.bytes() as Buffer;
           continue;
         case 7:
           if (tag !== 58) {
             break;
           }
 
-          message.payloadHash = reader.bytes();
+          message.payloadHash = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -1078,13 +1078,15 @@ export const ContractCallSubmitted = {
 
   fromJSON(object: any): ContractCallSubmitted {
     return {
-      messageId: isSet(object.messageId) ? globalThis.String(object.messageId) : "",
-      sender: isSet(object.sender) ? globalThis.String(object.sender) : "",
-      sourceChain: isSet(object.sourceChain) ? globalThis.String(object.sourceChain) : "",
-      destinationChain: isSet(object.destinationChain) ? globalThis.String(object.destinationChain) : "",
-      contractAddress: isSet(object.contractAddress) ? globalThis.String(object.contractAddress) : "",
-      payload: isSet(object.payload) ? bytesFromBase64(object.payload) : new Uint8Array(0),
-      payloadHash: isSet(object.payloadHash) ? bytesFromBase64(object.payloadHash) : new Uint8Array(0),
+      messageId: isSet(object.messageId) ? gt.String(object.messageId) : "",
+      sender: isSet(object.sender) ? gt.String(object.sender) : "",
+      sourceChain: isSet(object.sourceChain) ? gt.String(object.sourceChain) : "",
+      destinationChain: isSet(object.destinationChain) ? gt.String(object.destinationChain) : "",
+      contractAddress: isSet(object.contractAddress) ? gt.String(object.contractAddress) : "",
+      payload: isSet(object.payload) ? Buffer.from(bytesFromBase64(object.payload)) : Buffer.alloc(0),
+      payloadHash: isSet(object.payloadHash)
+        ? Buffer.from(bytesFromBase64(object.payloadHash))
+        : Buffer.alloc(0),
     };
   },
 
@@ -1124,8 +1126,8 @@ export const ContractCallSubmitted = {
     message.sourceChain = object.sourceChain ?? "";
     message.destinationChain = object.destinationChain ?? "";
     message.contractAddress = object.contractAddress ?? "";
-    message.payload = object.payload ?? new Uint8Array(0);
-    message.payloadHash = object.payloadHash ?? new Uint8Array(0);
+    message.payload = object.payload ?? Buffer.alloc(0);
+    message.payloadHash = object.payloadHash ?? Buffer.alloc(0);
     return message;
   },
 };
@@ -1137,8 +1139,8 @@ function createBaseContractCallWithTokenSubmitted(): ContractCallWithTokenSubmit
     sourceChain: "",
     destinationChain: "",
     contractAddress: "",
-    payload: new Uint8Array(0),
-    payloadHash: new Uint8Array(0),
+    payload: Buffer.alloc(0),
+    payloadHash: Buffer.alloc(0),
     asset: undefined,
   };
 }
@@ -1219,14 +1221,14 @@ export const ContractCallWithTokenSubmitted = {
             break;
           }
 
-          message.payload = reader.bytes();
+          message.payload = reader.bytes() as Buffer;
           continue;
         case 7:
           if (tag !== 58) {
             break;
           }
 
-          message.payloadHash = reader.bytes();
+          message.payloadHash = reader.bytes() as Buffer;
           continue;
         case 8:
           if (tag !== 66) {
@@ -1246,13 +1248,15 @@ export const ContractCallWithTokenSubmitted = {
 
   fromJSON(object: any): ContractCallWithTokenSubmitted {
     return {
-      messageId: isSet(object.messageId) ? globalThis.String(object.messageId) : "",
-      sender: isSet(object.sender) ? globalThis.String(object.sender) : "",
-      sourceChain: isSet(object.sourceChain) ? globalThis.String(object.sourceChain) : "",
-      destinationChain: isSet(object.destinationChain) ? globalThis.String(object.destinationChain) : "",
-      contractAddress: isSet(object.contractAddress) ? globalThis.String(object.contractAddress) : "",
-      payload: isSet(object.payload) ? bytesFromBase64(object.payload) : new Uint8Array(0),
-      payloadHash: isSet(object.payloadHash) ? bytesFromBase64(object.payloadHash) : new Uint8Array(0),
+      messageId: isSet(object.messageId) ? gt.String(object.messageId) : "",
+      sender: isSet(object.sender) ? gt.String(object.sender) : "",
+      sourceChain: isSet(object.sourceChain) ? gt.String(object.sourceChain) : "",
+      destinationChain: isSet(object.destinationChain) ? gt.String(object.destinationChain) : "",
+      contractAddress: isSet(object.contractAddress) ? gt.String(object.contractAddress) : "",
+      payload: isSet(object.payload) ? Buffer.from(bytesFromBase64(object.payload)) : Buffer.alloc(0),
+      payloadHash: isSet(object.payloadHash)
+        ? Buffer.from(bytesFromBase64(object.payloadHash))
+        : Buffer.alloc(0),
       asset: isSet(object.asset) ? Coin.fromJSON(object.asset) : undefined,
     };
   },
@@ -1300,8 +1304,8 @@ export const ContractCallWithTokenSubmitted = {
     message.sourceChain = object.sourceChain ?? "";
     message.destinationChain = object.destinationChain ?? "";
     message.contractAddress = object.contractAddress ?? "";
-    message.payload = object.payload ?? new Uint8Array(0);
-    message.payloadHash = object.payloadHash ?? new Uint8Array(0);
+    message.payload = object.payload ?? Buffer.alloc(0);
+    message.payloadHash = object.payloadHash ?? Buffer.alloc(0);
     message.asset =
       object.asset !== undefined && object.asset !== null ? Coin.fromPartial(object.asset) : undefined;
     return message;
@@ -1403,12 +1407,10 @@ export const TokenSent = {
   fromJSON(object: any): TokenSent {
     return {
       transferId: isSet(object.transferId) ? Long.fromValue(object.transferId) : Long.UZERO,
-      sender: isSet(object.sender) ? globalThis.String(object.sender) : "",
-      sourceChain: isSet(object.sourceChain) ? globalThis.String(object.sourceChain) : "",
-      destinationChain: isSet(object.destinationChain) ? globalThis.String(object.destinationChain) : "",
-      destinationAddress: isSet(object.destinationAddress)
-        ? globalThis.String(object.destinationAddress)
-        : "",
+      sender: isSet(object.sender) ? gt.String(object.sender) : "",
+      sourceChain: isSet(object.sourceChain) ? gt.String(object.sourceChain) : "",
+      destinationChain: isSet(object.destinationChain) ? gt.String(object.destinationChain) : "",
+      destinationAddress: isSet(object.destinationAddress) ? gt.String(object.destinationAddress) : "",
       asset: isSet(object.asset) ? Coin.fromJSON(object.asset) : undefined,
     };
   },
@@ -1455,29 +1457,31 @@ export const TokenSent = {
   },
 };
 
-function bytesFromBase64(b64: string): Uint8Array {
-  if ((globalThis as any).Buffer) {
-    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
-  } else {
-    const bin = globalThis.atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-      arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
   }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
+
+function bytesFromBase64(b64: string): Uint8Array {
+  return Uint8Array.from(gt.Buffer.from(b64, "base64"));
 }
 
 function base64FromBytes(arr: Uint8Array): string {
-  if ((globalThis as any).Buffer) {
-    return globalThis.Buffer.from(arr).toString("base64");
-  } else {
-    const bin: string[] = [];
-    arr.forEach((byte) => {
-      bin.push(globalThis.String.fromCharCode(byte));
-    });
-    return globalThis.btoa(bin.join(""));
-  }
+  return gt.Buffer.from(arr).toString("base64");
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;

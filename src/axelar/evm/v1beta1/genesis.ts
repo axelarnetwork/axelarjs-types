@@ -70,7 +70,7 @@ export const GenesisState = {
 
   fromJSON(object: any): GenesisState {
     return {
-      chains: globalThis.Array.isArray(object?.chains)
+      chains: gt.Array.isArray(object?.chains)
         ? object.chains.map((e: any) => GenesisState_Chain.fromJSON(e))
         : [],
     };
@@ -255,33 +255,31 @@ export const GenesisState_Chain = {
   fromJSON(object: any): GenesisState_Chain {
     return {
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
-      burnerInfos: globalThis.Array.isArray(object?.burnerInfos)
+      burnerInfos: gt.Array.isArray(object?.burnerInfos)
         ? object.burnerInfos.map((e: any) => BurnerInfo.fromJSON(e))
         : [],
       commandQueue: isSet(object.commandQueue) ? QueueState.fromJSON(object.commandQueue) : undefined,
-      confirmedDeposits: globalThis.Array.isArray(object?.confirmedDeposits)
+      confirmedDeposits: gt.Array.isArray(object?.confirmedDeposits)
         ? object.confirmedDeposits.map((e: any) => ERC20Deposit.fromJSON(e))
         : [],
-      burnedDeposits: globalThis.Array.isArray(object?.burnedDeposits)
+      burnedDeposits: gt.Array.isArray(object?.burnedDeposits)
         ? object.burnedDeposits.map((e: any) => ERC20Deposit.fromJSON(e))
         : [],
-      commandBatches: globalThis.Array.isArray(object?.commandBatches)
+      commandBatches: gt.Array.isArray(object?.commandBatches)
         ? object.commandBatches.map((e: any) => CommandBatchMetadata.fromJSON(e))
         : [],
       gateway: isSet(object.gateway) ? Gateway.fromJSON(object.gateway) : undefined,
-      tokens: globalThis.Array.isArray(object?.tokens)
+      tokens: gt.Array.isArray(object?.tokens)
         ? object.tokens.map((e: any) => ERC20TokenMetadata.fromJSON(e))
         : [],
-      events: globalThis.Array.isArray(object?.events)
-        ? object.events.map((e: any) => Event.fromJSON(e))
-        : [],
+      events: gt.Array.isArray(object?.events) ? object.events.map((e: any) => Event.fromJSON(e)) : [],
       confirmedEventQueue: isSet(object.confirmedEventQueue)
         ? QueueState.fromJSON(object.confirmedEventQueue)
         : undefined,
-      legacyConfirmedDeposits: globalThis.Array.isArray(object?.legacyConfirmedDeposits)
+      legacyConfirmedDeposits: gt.Array.isArray(object?.legacyConfirmedDeposits)
         ? object.legacyConfirmedDeposits.map((e: any) => ERC20Deposit.fromJSON(e))
         : [],
-      legacyBurnedDeposits: globalThis.Array.isArray(object?.legacyBurnedDeposits)
+      legacyBurnedDeposits: gt.Array.isArray(object?.legacyBurnedDeposits)
         ? object.legacyBurnedDeposits.map((e: any) => ERC20Deposit.fromJSON(e))
         : [],
     };
@@ -359,6 +357,25 @@ export const GenesisState_Chain = {
     return message;
   },
 };
+
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
+  }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 

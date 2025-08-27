@@ -147,8 +147,8 @@ export const InterfaceDescriptor = {
 
   fromJSON(object: any): InterfaceDescriptor {
     return {
-      name: isSet(object.name) ? globalThis.String(object.name) : "",
-      description: isSet(object.description) ? globalThis.String(object.description) : "",
+      name: isSet(object.name) ? gt.String(object.name) : "",
+      description: isSet(object.description) ? gt.String(object.description) : "",
     };
   },
 
@@ -243,9 +243,9 @@ export const ScalarDescriptor = {
 
   fromJSON(object: any): ScalarDescriptor {
     return {
-      name: isSet(object.name) ? globalThis.String(object.name) : "",
-      description: isSet(object.description) ? globalThis.String(object.description) : "",
-      fieldType: globalThis.Array.isArray(object?.fieldType)
+      name: isSet(object.name) ? gt.String(object.name) : "",
+      description: isSet(object.description) ? gt.String(object.description) : "",
+      fieldType: gt.Array.isArray(object?.fieldType)
         ? object.fieldType.map((e: any) => scalarTypeFromJSON(e))
         : [],
     };
@@ -276,6 +276,25 @@ export const ScalarDescriptor = {
     return message;
   },
 };
+
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
+  }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 

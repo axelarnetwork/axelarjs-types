@@ -162,7 +162,7 @@ export const Params = {
 
   fromJSON(object: any): Params {
     return {
-      keyRequirements: globalThis.Array.isArray(object?.keyRequirements)
+      keyRequirements: gt.Array.isArray(object?.keyRequirements)
         ? object.keyRequirements.map((e: any) => KeyRequirement.fromJSON(e))
         : [],
       suspendDurationInBlocks: isSet(object.suspendDurationInBlocks)
@@ -266,6 +266,25 @@ export const Params = {
     return message;
   },
 };
+
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
+  }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 

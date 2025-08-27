@@ -14,7 +14,7 @@ export const protobufPackage = "axelar.evm.v1beta1";
 
 export interface SetGatewayRequest {
   chain: string;
-  address: Uint8Array;
+  address: Buffer;
   sender: string;
 }
 
@@ -23,7 +23,7 @@ export interface SetGatewayResponse {}
 /** @deprecated */
 export interface ConfirmGatewayTxRequest {
   chain: string;
-  txId: Uint8Array;
+  txId: Buffer;
   sender: string;
 }
 
@@ -32,7 +32,7 @@ export interface ConfirmGatewayTxResponse {}
 
 export interface ConfirmGatewayTxsRequest {
   chain: string;
-  txIds: Uint8Array[];
+  txIds: Buffer[];
   sender: string;
 }
 
@@ -41,10 +41,10 @@ export interface ConfirmGatewayTxsResponse {}
 /** MsgConfirmDeposit represents an erc20 deposit confirmation message */
 export interface ConfirmDepositRequest {
   chain: string;
-  txId: Uint8Array;
+  txId: Buffer;
   /** @deprecated */
-  amount: Uint8Array;
-  burnerAddress: Uint8Array;
+  amount: Buffer;
+  burnerAddress: Buffer;
   sender: string;
 }
 
@@ -53,7 +53,7 @@ export interface ConfirmDepositResponse {}
 /** MsgConfirmToken represents a token deploy confirmation message */
 export interface ConfirmTokenRequest {
   chain: string;
-  txId: Uint8Array;
+  txId: Buffer;
   asset?: Asset | undefined;
   sender: string;
 }
@@ -62,7 +62,7 @@ export interface ConfirmTokenResponse {}
 
 export interface ConfirmTransferKeyRequest {
   chain: string;
-  txId: Uint8Array;
+  txId: Buffer;
   sender: string;
 }
 
@@ -103,7 +103,7 @@ export interface CreateDeployTokenRequest {
   chain: string;
   asset?: Asset | undefined;
   tokenDetails?: TokenDetails | undefined;
-  address: Uint8Array;
+  address: Buffer;
   dailyMintLimit: string;
   sender: string;
 }
@@ -145,7 +145,7 @@ export interface SignCommandsRequest {
 }
 
 export interface SignCommandsResponse {
-  batchedCommandsId: Uint8Array;
+  batchedCommandsId: Buffer;
   commandCount: number;
 }
 
@@ -153,7 +153,7 @@ export interface AddChainRequest {
   name: string;
   /** @deprecated */
   keyType: KeyType;
-  params: Uint8Array;
+  params: Buffer;
   sender: string;
 }
 
@@ -168,7 +168,7 @@ export interface RetryFailedEventRequest {
 export interface RetryFailedEventResponse {}
 
 function createBaseSetGatewayRequest(): SetGatewayRequest {
-  return { chain: "", address: new Uint8Array(0), sender: "" };
+  return { chain: "", address: Buffer.alloc(0), sender: "" };
 }
 
 export const SetGatewayRequest = {
@@ -204,7 +204,7 @@ export const SetGatewayRequest = {
             break;
           }
 
-          message.address = reader.bytes();
+          message.address = reader.bytes() as Buffer;
           continue;
         case 4:
           if (tag !== 34) {
@@ -224,9 +224,9 @@ export const SetGatewayRequest = {
 
   fromJSON(object: any): SetGatewayRequest {
     return {
-      chain: isSet(object.chain) ? globalThis.String(object.chain) : "",
-      address: isSet(object.address) ? bytesFromBase64(object.address) : new Uint8Array(0),
-      sender: isSet(object.sender) ? globalThis.String(object.sender) : "",
+      chain: isSet(object.chain) ? gt.String(object.chain) : "",
+      address: isSet(object.address) ? Buffer.from(bytesFromBase64(object.address)) : Buffer.alloc(0),
+      sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
   },
 
@@ -250,7 +250,7 @@ export const SetGatewayRequest = {
   fromPartial<I extends Exact<DeepPartial<SetGatewayRequest>, I>>(object: I): SetGatewayRequest {
     const message = createBaseSetGatewayRequest();
     message.chain = object.chain ?? "";
-    message.address = object.address ?? new Uint8Array(0);
+    message.address = object.address ?? Buffer.alloc(0);
     message.sender = object.sender ?? "";
     return message;
   },
@@ -300,7 +300,7 @@ export const SetGatewayResponse = {
 };
 
 function createBaseConfirmGatewayTxRequest(): ConfirmGatewayTxRequest {
-  return { chain: "", txId: new Uint8Array(0), sender: "" };
+  return { chain: "", txId: Buffer.alloc(0), sender: "" };
 }
 
 export const ConfirmGatewayTxRequest = {
@@ -336,7 +336,7 @@ export const ConfirmGatewayTxRequest = {
             break;
           }
 
-          message.txId = reader.bytes();
+          message.txId = reader.bytes() as Buffer;
           continue;
         case 4:
           if (tag !== 34) {
@@ -356,9 +356,9 @@ export const ConfirmGatewayTxRequest = {
 
   fromJSON(object: any): ConfirmGatewayTxRequest {
     return {
-      chain: isSet(object.chain) ? globalThis.String(object.chain) : "",
-      txId: isSet(object.txId) ? bytesFromBase64(object.txId) : new Uint8Array(0),
-      sender: isSet(object.sender) ? globalThis.String(object.sender) : "",
+      chain: isSet(object.chain) ? gt.String(object.chain) : "",
+      txId: isSet(object.txId) ? Buffer.from(bytesFromBase64(object.txId)) : Buffer.alloc(0),
+      sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
   },
 
@@ -382,7 +382,7 @@ export const ConfirmGatewayTxRequest = {
   fromPartial<I extends Exact<DeepPartial<ConfirmGatewayTxRequest>, I>>(object: I): ConfirmGatewayTxRequest {
     const message = createBaseConfirmGatewayTxRequest();
     message.chain = object.chain ?? "";
-    message.txId = object.txId ?? new Uint8Array(0);
+    message.txId = object.txId ?? Buffer.alloc(0);
     message.sender = object.sender ?? "";
     return message;
   },
@@ -468,7 +468,7 @@ export const ConfirmGatewayTxsRequest = {
             break;
           }
 
-          message.txIds.push(reader.bytes());
+          message.txIds.push(reader.bytes() as Buffer);
           continue;
         case 4:
           if (tag !== 34) {
@@ -488,9 +488,11 @@ export const ConfirmGatewayTxsRequest = {
 
   fromJSON(object: any): ConfirmGatewayTxsRequest {
     return {
-      chain: isSet(object.chain) ? globalThis.String(object.chain) : "",
-      txIds: globalThis.Array.isArray(object?.txIds) ? object.txIds.map((e: any) => bytesFromBase64(e)) : [],
-      sender: isSet(object.sender) ? globalThis.String(object.sender) : "",
+      chain: isSet(object.chain) ? gt.String(object.chain) : "",
+      txIds: gt.Array.isArray(object?.txIds)
+        ? object.txIds.map((e: any) => Buffer.from(bytesFromBase64(e)))
+        : [],
+      sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
   },
 
@@ -568,9 +570,9 @@ export const ConfirmGatewayTxsResponse = {
 function createBaseConfirmDepositRequest(): ConfirmDepositRequest {
   return {
     chain: "",
-    txId: new Uint8Array(0),
-    amount: new Uint8Array(0),
-    burnerAddress: new Uint8Array(0),
+    txId: Buffer.alloc(0),
+    amount: Buffer.alloc(0),
+    burnerAddress: Buffer.alloc(0),
     sender: "",
   };
 }
@@ -614,21 +616,21 @@ export const ConfirmDepositRequest = {
             break;
           }
 
-          message.txId = reader.bytes();
+          message.txId = reader.bytes() as Buffer;
           continue;
         case 4:
           if (tag !== 34) {
             break;
           }
 
-          message.amount = reader.bytes();
+          message.amount = reader.bytes() as Buffer;
           continue;
         case 5:
           if (tag !== 42) {
             break;
           }
 
-          message.burnerAddress = reader.bytes();
+          message.burnerAddress = reader.bytes() as Buffer;
           continue;
         case 6:
           if (tag !== 50) {
@@ -648,11 +650,13 @@ export const ConfirmDepositRequest = {
 
   fromJSON(object: any): ConfirmDepositRequest {
     return {
-      chain: isSet(object.chain) ? globalThis.String(object.chain) : "",
-      txId: isSet(object.txId) ? bytesFromBase64(object.txId) : new Uint8Array(0),
-      amount: isSet(object.amount) ? bytesFromBase64(object.amount) : new Uint8Array(0),
-      burnerAddress: isSet(object.burnerAddress) ? bytesFromBase64(object.burnerAddress) : new Uint8Array(0),
-      sender: isSet(object.sender) ? globalThis.String(object.sender) : "",
+      chain: isSet(object.chain) ? gt.String(object.chain) : "",
+      txId: isSet(object.txId) ? Buffer.from(bytesFromBase64(object.txId)) : Buffer.alloc(0),
+      amount: isSet(object.amount) ? Buffer.from(bytesFromBase64(object.amount)) : Buffer.alloc(0),
+      burnerAddress: isSet(object.burnerAddress)
+        ? Buffer.from(bytesFromBase64(object.burnerAddress))
+        : Buffer.alloc(0),
+      sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
   },
 
@@ -682,9 +686,9 @@ export const ConfirmDepositRequest = {
   fromPartial<I extends Exact<DeepPartial<ConfirmDepositRequest>, I>>(object: I): ConfirmDepositRequest {
     const message = createBaseConfirmDepositRequest();
     message.chain = object.chain ?? "";
-    message.txId = object.txId ?? new Uint8Array(0);
-    message.amount = object.amount ?? new Uint8Array(0);
-    message.burnerAddress = object.burnerAddress ?? new Uint8Array(0);
+    message.txId = object.txId ?? Buffer.alloc(0);
+    message.amount = object.amount ?? Buffer.alloc(0);
+    message.burnerAddress = object.burnerAddress ?? Buffer.alloc(0);
     message.sender = object.sender ?? "";
     return message;
   },
@@ -734,7 +738,7 @@ export const ConfirmDepositResponse = {
 };
 
 function createBaseConfirmTokenRequest(): ConfirmTokenRequest {
-  return { chain: "", txId: new Uint8Array(0), asset: undefined, sender: "" };
+  return { chain: "", txId: Buffer.alloc(0), asset: undefined, sender: "" };
 }
 
 export const ConfirmTokenRequest = {
@@ -773,7 +777,7 @@ export const ConfirmTokenRequest = {
             break;
           }
 
-          message.txId = reader.bytes();
+          message.txId = reader.bytes() as Buffer;
           continue;
         case 4:
           if (tag !== 34) {
@@ -800,10 +804,10 @@ export const ConfirmTokenRequest = {
 
   fromJSON(object: any): ConfirmTokenRequest {
     return {
-      chain: isSet(object.chain) ? globalThis.String(object.chain) : "",
-      txId: isSet(object.txId) ? bytesFromBase64(object.txId) : new Uint8Array(0),
+      chain: isSet(object.chain) ? gt.String(object.chain) : "",
+      txId: isSet(object.txId) ? Buffer.from(bytesFromBase64(object.txId)) : Buffer.alloc(0),
       asset: isSet(object.asset) ? Asset.fromJSON(object.asset) : undefined,
-      sender: isSet(object.sender) ? globalThis.String(object.sender) : "",
+      sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
   },
 
@@ -830,7 +834,7 @@ export const ConfirmTokenRequest = {
   fromPartial<I extends Exact<DeepPartial<ConfirmTokenRequest>, I>>(object: I): ConfirmTokenRequest {
     const message = createBaseConfirmTokenRequest();
     message.chain = object.chain ?? "";
-    message.txId = object.txId ?? new Uint8Array(0);
+    message.txId = object.txId ?? Buffer.alloc(0);
     message.asset =
       object.asset !== undefined && object.asset !== null ? Asset.fromPartial(object.asset) : undefined;
     message.sender = object.sender ?? "";
@@ -882,7 +886,7 @@ export const ConfirmTokenResponse = {
 };
 
 function createBaseConfirmTransferKeyRequest(): ConfirmTransferKeyRequest {
-  return { chain: "", txId: new Uint8Array(0), sender: "" };
+  return { chain: "", txId: Buffer.alloc(0), sender: "" };
 }
 
 export const ConfirmTransferKeyRequest = {
@@ -918,7 +922,7 @@ export const ConfirmTransferKeyRequest = {
             break;
           }
 
-          message.txId = reader.bytes();
+          message.txId = reader.bytes() as Buffer;
           continue;
         case 6:
           if (tag !== 50) {
@@ -938,9 +942,9 @@ export const ConfirmTransferKeyRequest = {
 
   fromJSON(object: any): ConfirmTransferKeyRequest {
     return {
-      chain: isSet(object.chain) ? globalThis.String(object.chain) : "",
-      txId: isSet(object.txId) ? bytesFromBase64(object.txId) : new Uint8Array(0),
-      sender: isSet(object.sender) ? globalThis.String(object.sender) : "",
+      chain: isSet(object.chain) ? gt.String(object.chain) : "",
+      txId: isSet(object.txId) ? Buffer.from(bytesFromBase64(object.txId)) : Buffer.alloc(0),
+      sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
   },
 
@@ -966,7 +970,7 @@ export const ConfirmTransferKeyRequest = {
   ): ConfirmTransferKeyRequest {
     const message = createBaseConfirmTransferKeyRequest();
     message.chain = object.chain ?? "";
-    message.txId = object.txId ?? new Uint8Array(0);
+    message.txId = object.txId ?? Buffer.alloc(0);
     message.sender = object.sender ?? "";
     return message;
   },
@@ -1092,11 +1096,11 @@ export const LinkRequest = {
 
   fromJSON(object: any): LinkRequest {
     return {
-      chain: isSet(object.chain) ? globalThis.String(object.chain) : "",
-      recipientAddr: isSet(object.recipientAddr) ? globalThis.String(object.recipientAddr) : "",
-      asset: isSet(object.asset) ? globalThis.String(object.asset) : "",
-      recipientChain: isSet(object.recipientChain) ? globalThis.String(object.recipientChain) : "",
-      sender: isSet(object.sender) ? globalThis.String(object.sender) : "",
+      chain: isSet(object.chain) ? gt.String(object.chain) : "",
+      recipientAddr: isSet(object.recipientAddr) ? gt.String(object.recipientAddr) : "",
+      asset: isSet(object.asset) ? gt.String(object.asset) : "",
+      recipientChain: isSet(object.recipientChain) ? gt.String(object.recipientChain) : "",
+      sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
   },
 
@@ -1170,7 +1174,7 @@ export const LinkResponse = {
   },
 
   fromJSON(object: any): LinkResponse {
-    return { depositAddr: isSet(object.depositAddr) ? globalThis.String(object.depositAddr) : "" };
+    return { depositAddr: isSet(object.depositAddr) ? gt.String(object.depositAddr) : "" };
   },
 
   toJSON(message: LinkResponse): unknown {
@@ -1238,8 +1242,8 @@ export const CreateBurnTokensRequest = {
 
   fromJSON(object: any): CreateBurnTokensRequest {
     return {
-      chain: isSet(object.chain) ? globalThis.String(object.chain) : "",
-      sender: isSet(object.sender) ? globalThis.String(object.sender) : "",
+      chain: isSet(object.chain) ? gt.String(object.chain) : "",
+      sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
   },
 
@@ -1313,7 +1317,7 @@ function createBaseCreateDeployTokenRequest(): CreateDeployTokenRequest {
     chain: "",
     asset: undefined,
     tokenDetails: undefined,
-    address: new Uint8Array(0),
+    address: Buffer.alloc(0),
     dailyMintLimit: "",
     sender: "",
   };
@@ -1375,7 +1379,7 @@ export const CreateDeployTokenRequest = {
             break;
           }
 
-          message.address = reader.bytes();
+          message.address = reader.bytes() as Buffer;
           continue;
         case 7:
           if (tag !== 58) {
@@ -1402,12 +1406,12 @@ export const CreateDeployTokenRequest = {
 
   fromJSON(object: any): CreateDeployTokenRequest {
     return {
-      chain: isSet(object.chain) ? globalThis.String(object.chain) : "",
+      chain: isSet(object.chain) ? gt.String(object.chain) : "",
       asset: isSet(object.asset) ? Asset.fromJSON(object.asset) : undefined,
       tokenDetails: isSet(object.tokenDetails) ? TokenDetails.fromJSON(object.tokenDetails) : undefined,
-      address: isSet(object.address) ? bytesFromBase64(object.address) : new Uint8Array(0),
-      dailyMintLimit: isSet(object.dailyMintLimit) ? globalThis.String(object.dailyMintLimit) : "",
-      sender: isSet(object.sender) ? globalThis.String(object.sender) : "",
+      address: isSet(object.address) ? Buffer.from(bytesFromBase64(object.address)) : Buffer.alloc(0),
+      dailyMintLimit: isSet(object.dailyMintLimit) ? gt.String(object.dailyMintLimit) : "",
+      sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
   },
 
@@ -1448,7 +1452,7 @@ export const CreateDeployTokenRequest = {
       object.tokenDetails !== undefined && object.tokenDetails !== null
         ? TokenDetails.fromPartial(object.tokenDetails)
         : undefined;
-    message.address = object.address ?? new Uint8Array(0);
+    message.address = object.address ?? Buffer.alloc(0);
     message.dailyMintLimit = object.dailyMintLimit ?? "";
     message.sender = object.sender ?? "";
     return message;
@@ -1545,8 +1549,8 @@ export const CreatePendingTransfersRequest = {
 
   fromJSON(object: any): CreatePendingTransfersRequest {
     return {
-      chain: isSet(object.chain) ? globalThis.String(object.chain) : "",
-      sender: isSet(object.sender) ? globalThis.String(object.sender) : "",
+      chain: isSet(object.chain) ? gt.String(object.chain) : "",
+      sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
   },
 
@@ -1680,9 +1684,9 @@ export const CreateTransferOwnershipRequest = {
 
   fromJSON(object: any): CreateTransferOwnershipRequest {
     return {
-      chain: isSet(object.chain) ? globalThis.String(object.chain) : "",
-      keyId: isSet(object.keyId) ? globalThis.String(object.keyId) : "",
-      sender: isSet(object.sender) ? globalThis.String(object.sender) : "",
+      chain: isSet(object.chain) ? gt.String(object.chain) : "",
+      keyId: isSet(object.keyId) ? gt.String(object.keyId) : "",
+      sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
   },
 
@@ -1820,9 +1824,9 @@ export const CreateTransferOperatorshipRequest = {
 
   fromJSON(object: any): CreateTransferOperatorshipRequest {
     return {
-      chain: isSet(object.chain) ? globalThis.String(object.chain) : "",
-      keyId: isSet(object.keyId) ? globalThis.String(object.keyId) : "",
-      sender: isSet(object.sender) ? globalThis.String(object.sender) : "",
+      chain: isSet(object.chain) ? gt.String(object.chain) : "",
+      keyId: isSet(object.keyId) ? gt.String(object.keyId) : "",
+      sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
   },
 
@@ -1950,8 +1954,8 @@ export const SignCommandsRequest = {
 
   fromJSON(object: any): SignCommandsRequest {
     return {
-      chain: isSet(object.chain) ? globalThis.String(object.chain) : "",
-      sender: isSet(object.sender) ? globalThis.String(object.sender) : "",
+      chain: isSet(object.chain) ? gt.String(object.chain) : "",
+      sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
   },
 
@@ -1978,7 +1982,7 @@ export const SignCommandsRequest = {
 };
 
 function createBaseSignCommandsResponse(): SignCommandsResponse {
-  return { batchedCommandsId: new Uint8Array(0), commandCount: 0 };
+  return { batchedCommandsId: Buffer.alloc(0), commandCount: 0 };
 }
 
 export const SignCommandsResponse = {
@@ -2004,7 +2008,7 @@ export const SignCommandsResponse = {
             break;
           }
 
-          message.batchedCommandsId = reader.bytes();
+          message.batchedCommandsId = reader.bytes() as Buffer;
           continue;
         case 2:
           if (tag !== 16) {
@@ -2025,9 +2029,9 @@ export const SignCommandsResponse = {
   fromJSON(object: any): SignCommandsResponse {
     return {
       batchedCommandsId: isSet(object.batchedCommandsId)
-        ? bytesFromBase64(object.batchedCommandsId)
-        : new Uint8Array(0),
-      commandCount: isSet(object.commandCount) ? globalThis.Number(object.commandCount) : 0,
+        ? Buffer.from(bytesFromBase64(object.batchedCommandsId))
+        : Buffer.alloc(0),
+      commandCount: isSet(object.commandCount) ? gt.Number(object.commandCount) : 0,
     };
   },
 
@@ -2047,14 +2051,14 @@ export const SignCommandsResponse = {
   },
   fromPartial<I extends Exact<DeepPartial<SignCommandsResponse>, I>>(object: I): SignCommandsResponse {
     const message = createBaseSignCommandsResponse();
-    message.batchedCommandsId = object.batchedCommandsId ?? new Uint8Array(0);
+    message.batchedCommandsId = object.batchedCommandsId ?? Buffer.alloc(0);
     message.commandCount = object.commandCount ?? 0;
     return message;
   },
 };
 
 function createBaseAddChainRequest(): AddChainRequest {
-  return { name: "", keyType: 0, params: new Uint8Array(0), sender: "" };
+  return { name: "", keyType: 0, params: Buffer.alloc(0), sender: "" };
 }
 
 export const AddChainRequest = {
@@ -2100,7 +2104,7 @@ export const AddChainRequest = {
             break;
           }
 
-          message.params = reader.bytes();
+          message.params = reader.bytes() as Buffer;
           continue;
         case 6:
           if (tag !== 50) {
@@ -2120,10 +2124,10 @@ export const AddChainRequest = {
 
   fromJSON(object: any): AddChainRequest {
     return {
-      name: isSet(object.name) ? globalThis.String(object.name) : "",
+      name: isSet(object.name) ? gt.String(object.name) : "",
       keyType: isSet(object.keyType) ? keyTypeFromJSON(object.keyType) : 0,
-      params: isSet(object.params) ? bytesFromBase64(object.params) : new Uint8Array(0),
-      sender: isSet(object.sender) ? globalThis.String(object.sender) : "",
+      params: isSet(object.params) ? Buffer.from(bytesFromBase64(object.params)) : Buffer.alloc(0),
+      sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
   },
 
@@ -2151,7 +2155,7 @@ export const AddChainRequest = {
     const message = createBaseAddChainRequest();
     message.name = object.name ?? "";
     message.keyType = object.keyType ?? 0;
-    message.params = object.params ?? new Uint8Array(0);
+    message.params = object.params ?? Buffer.alloc(0);
     message.sender = object.sender ?? "";
     return message;
   },
@@ -2257,9 +2261,9 @@ export const RetryFailedEventRequest = {
 
   fromJSON(object: any): RetryFailedEventRequest {
     return {
-      chain: isSet(object.chain) ? globalThis.String(object.chain) : "",
-      eventId: isSet(object.eventId) ? globalThis.String(object.eventId) : "",
-      sender: isSet(object.sender) ? globalThis.String(object.sender) : "",
+      chain: isSet(object.chain) ? gt.String(object.chain) : "",
+      eventId: isSet(object.eventId) ? gt.String(object.eventId) : "",
+      sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
   },
 
@@ -2332,29 +2336,31 @@ export const RetryFailedEventResponse = {
   },
 };
 
-function bytesFromBase64(b64: string): Uint8Array {
-  if ((globalThis as any).Buffer) {
-    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
-  } else {
-    const bin = globalThis.atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-      arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
   }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
+
+function bytesFromBase64(b64: string): Uint8Array {
+  return Uint8Array.from(gt.Buffer.from(b64, "base64"));
 }
 
 function base64FromBytes(arr: Uint8Array): string {
-  if ((globalThis as any).Buffer) {
-    return globalThis.Buffer.from(arr).toString("base64");
-  } else {
-    const bin: string[] = [];
-    arr.forEach((byte) => {
-      bin.push(globalThis.String.fromCharCode(byte));
-    });
-    return globalThis.btoa(bin.join(""));
-  }
+  return gt.Buffer.from(arr).toString("base64");
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;

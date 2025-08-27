@@ -71,7 +71,7 @@ export interface ChainMaintainersRequest {
 }
 
 export interface ChainMaintainersResponse {
-  maintainers: Uint8Array[];
+  maintainers: Buffer[];
 }
 
 /**
@@ -206,16 +206,16 @@ export interface TransferRateLimitResponse {
 }
 
 export interface TransferRateLimit {
-  limit: Uint8Array;
+  limit: Buffer;
   window?: Duration | undefined;
   /** @deprecated */
-  incoming: Uint8Array;
+  incoming: Buffer;
   /** @deprecated */
-  outgoing: Uint8Array;
+  outgoing: Buffer;
   /** time_left indicates the time left in the rate limit window */
   timeLeft?: Duration | undefined;
-  from: Uint8Array;
-  to: Uint8Array;
+  from: Buffer;
+  to: Buffer;
 }
 
 export interface MessageRequest {
@@ -269,7 +269,7 @@ export const ChainMaintainersRequest = {
   },
 
   fromJSON(object: any): ChainMaintainersRequest {
-    return { chain: isSet(object.chain) ? globalThis.String(object.chain) : "" };
+    return { chain: isSet(object.chain) ? gt.String(object.chain) : "" };
   },
 
   toJSON(message: ChainMaintainersRequest): unknown {
@@ -314,7 +314,7 @@ export const ChainMaintainersResponse = {
             break;
           }
 
-          message.maintainers.push(reader.bytes());
+          message.maintainers.push(reader.bytes() as Buffer);
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -327,8 +327,8 @@ export const ChainMaintainersResponse = {
 
   fromJSON(object: any): ChainMaintainersResponse {
     return {
-      maintainers: globalThis.Array.isArray(object?.maintainers)
-        ? object.maintainers.map((e: any) => bytesFromBase64(e))
+      maintainers: gt.Array.isArray(object?.maintainers)
+        ? object.maintainers.map((e: any) => Buffer.from(bytesFromBase64(e)))
         : [],
     };
   },
@@ -410,9 +410,9 @@ export const LatestDepositAddressRequest = {
 
   fromJSON(object: any): LatestDepositAddressRequest {
     return {
-      recipientAddr: isSet(object.recipientAddr) ? globalThis.String(object.recipientAddr) : "",
-      recipientChain: isSet(object.recipientChain) ? globalThis.String(object.recipientChain) : "",
-      depositChain: isSet(object.depositChain) ? globalThis.String(object.depositChain) : "",
+      recipientAddr: isSet(object.recipientAddr) ? gt.String(object.recipientAddr) : "",
+      recipientChain: isSet(object.recipientChain) ? gt.String(object.recipientChain) : "",
+      depositChain: isSet(object.depositChain) ? gt.String(object.depositChain) : "",
     };
   },
 
@@ -482,7 +482,7 @@ export const LatestDepositAddressResponse = {
   },
 
   fromJSON(object: any): LatestDepositAddressResponse {
-    return { depositAddr: isSet(object.depositAddr) ? globalThis.String(object.depositAddr) : "" };
+    return { depositAddr: isSet(object.depositAddr) ? gt.String(object.depositAddr) : "" };
   },
 
   toJSON(message: LatestDepositAddressResponse): unknown {
@@ -564,7 +564,7 @@ export const TransfersForChainRequest = {
 
   fromJSON(object: any): TransfersForChainRequest {
     return {
-      chain: isSet(object.chain) ? globalThis.String(object.chain) : "",
+      chain: isSet(object.chain) ? gt.String(object.chain) : "",
       state: isSet(object.state) ? transferStateFromJSON(object.state) : 0,
       pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
     };
@@ -648,7 +648,7 @@ export const TransfersForChainResponse = {
 
   fromJSON(object: any): TransfersForChainResponse {
     return {
-      transfers: globalThis.Array.isArray(object?.transfers)
+      transfers: gt.Array.isArray(object?.transfers)
         ? object.transfers.map((e: any) => CrossChainTransfer.fromJSON(e))
         : [],
       pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
@@ -729,8 +729,8 @@ export const FeeInfoRequest = {
 
   fromJSON(object: any): FeeInfoRequest {
     return {
-      chain: isSet(object.chain) ? globalThis.String(object.chain) : "",
-      asset: isSet(object.asset) ? globalThis.String(object.asset) : "",
+      chain: isSet(object.chain) ? gt.String(object.chain) : "",
+      asset: isSet(object.asset) ? gt.String(object.asset) : "",
     };
   },
 
@@ -873,9 +873,9 @@ export const TransferFeeRequest = {
 
   fromJSON(object: any): TransferFeeRequest {
     return {
-      sourceChain: isSet(object.sourceChain) ? globalThis.String(object.sourceChain) : "",
-      destinationChain: isSet(object.destinationChain) ? globalThis.String(object.destinationChain) : "",
-      amount: isSet(object.amount) ? globalThis.String(object.amount) : "",
+      sourceChain: isSet(object.sourceChain) ? gt.String(object.sourceChain) : "",
+      destinationChain: isSet(object.destinationChain) ? gt.String(object.destinationChain) : "",
+      amount: isSet(object.amount) ? gt.String(object.amount) : "",
     };
   },
 
@@ -1055,11 +1055,7 @@ export const ChainsResponse = {
   },
 
   fromJSON(object: any): ChainsResponse {
-    return {
-      chains: globalThis.Array.isArray(object?.chains)
-        ? object.chains.map((e: any) => globalThis.String(e))
-        : [],
-    };
+    return { chains: gt.Array.isArray(object?.chains) ? object.chains.map((e: any) => gt.String(e)) : [] };
   },
 
   toJSON(message: ChainsResponse): unknown {
@@ -1116,7 +1112,7 @@ export const AssetsRequest = {
   },
 
   fromJSON(object: any): AssetsRequest {
-    return { chain: isSet(object.chain) ? globalThis.String(object.chain) : "" };
+    return { chain: isSet(object.chain) ? gt.String(object.chain) : "" };
   },
 
   toJSON(message: AssetsRequest): unknown {
@@ -1173,11 +1169,7 @@ export const AssetsResponse = {
   },
 
   fromJSON(object: any): AssetsResponse {
-    return {
-      assets: globalThis.Array.isArray(object?.assets)
-        ? object.assets.map((e: any) => globalThis.String(e))
-        : [],
-    };
+    return { assets: gt.Array.isArray(object?.assets) ? object.assets.map((e: any) => gt.String(e)) : [] };
   },
 
   toJSON(message: AssetsResponse): unknown {
@@ -1234,7 +1226,7 @@ export const ChainStateRequest = {
   },
 
   fromJSON(object: any): ChainStateRequest {
-    return { chain: isSet(object.chain) ? globalThis.String(object.chain) : "" };
+    return { chain: isSet(object.chain) ? gt.String(object.chain) : "" };
   },
 
   toJSON(message: ChainStateRequest): unknown {
@@ -1349,7 +1341,7 @@ export const ChainsByAssetRequest = {
   },
 
   fromJSON(object: any): ChainsByAssetRequest {
-    return { asset: isSet(object.asset) ? globalThis.String(object.asset) : "" };
+    return { asset: isSet(object.asset) ? gt.String(object.asset) : "" };
   },
 
   toJSON(message: ChainsByAssetRequest): unknown {
@@ -1406,11 +1398,7 @@ export const ChainsByAssetResponse = {
   },
 
   fromJSON(object: any): ChainsByAssetResponse {
-    return {
-      chains: globalThis.Array.isArray(object?.chains)
-        ? object.chains.map((e: any) => globalThis.String(e))
-        : [],
-    };
+    return { chains: gt.Array.isArray(object?.chains) ? object.chains.map((e: any) => gt.String(e)) : [] };
   },
 
   toJSON(message: ChainsByAssetResponse): unknown {
@@ -1478,8 +1466,8 @@ export const RecipientAddressRequest = {
 
   fromJSON(object: any): RecipientAddressRequest {
     return {
-      depositAddr: isSet(object.depositAddr) ? globalThis.String(object.depositAddr) : "",
-      depositChain: isSet(object.depositChain) ? globalThis.String(object.depositChain) : "",
+      depositAddr: isSet(object.depositAddr) ? gt.String(object.depositAddr) : "",
+      depositChain: isSet(object.depositChain) ? gt.String(object.depositChain) : "",
     };
   },
 
@@ -1552,8 +1540,8 @@ export const RecipientAddressResponse = {
 
   fromJSON(object: any): RecipientAddressResponse {
     return {
-      recipientAddr: isSet(object.recipientAddr) ? globalThis.String(object.recipientAddr) : "",
-      recipientChain: isSet(object.recipientChain) ? globalThis.String(object.recipientChain) : "",
+      recipientAddr: isSet(object.recipientAddr) ? gt.String(object.recipientAddr) : "",
+      recipientChain: isSet(object.recipientChain) ? gt.String(object.recipientChain) : "",
     };
   },
 
@@ -1628,8 +1616,8 @@ export const TransferRateLimitRequest = {
 
   fromJSON(object: any): TransferRateLimitRequest {
     return {
-      chain: isSet(object.chain) ? globalThis.String(object.chain) : "",
-      asset: isSet(object.asset) ? globalThis.String(object.asset) : "",
+      chain: isSet(object.chain) ? gt.String(object.chain) : "",
+      asset: isSet(object.asset) ? gt.String(object.asset) : "",
     };
   },
 
@@ -1725,13 +1713,13 @@ export const TransferRateLimitResponse = {
 
 function createBaseTransferRateLimit(): TransferRateLimit {
   return {
-    limit: new Uint8Array(0),
+    limit: Buffer.alloc(0),
     window: undefined,
-    incoming: new Uint8Array(0),
-    outgoing: new Uint8Array(0),
+    incoming: Buffer.alloc(0),
+    outgoing: Buffer.alloc(0),
     timeLeft: undefined,
-    from: new Uint8Array(0),
-    to: new Uint8Array(0),
+    from: Buffer.alloc(0),
+    to: Buffer.alloc(0),
   };
 }
 
@@ -1773,7 +1761,7 @@ export const TransferRateLimit = {
             break;
           }
 
-          message.limit = reader.bytes();
+          message.limit = reader.bytes() as Buffer;
           continue;
         case 2:
           if (tag !== 18) {
@@ -1787,14 +1775,14 @@ export const TransferRateLimit = {
             break;
           }
 
-          message.incoming = reader.bytes();
+          message.incoming = reader.bytes() as Buffer;
           continue;
         case 4:
           if (tag !== 34) {
             break;
           }
 
-          message.outgoing = reader.bytes();
+          message.outgoing = reader.bytes() as Buffer;
           continue;
         case 5:
           if (tag !== 42) {
@@ -1808,14 +1796,14 @@ export const TransferRateLimit = {
             break;
           }
 
-          message.from = reader.bytes();
+          message.from = reader.bytes() as Buffer;
           continue;
         case 7:
           if (tag !== 58) {
             break;
           }
 
-          message.to = reader.bytes();
+          message.to = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -1828,13 +1816,13 @@ export const TransferRateLimit = {
 
   fromJSON(object: any): TransferRateLimit {
     return {
-      limit: isSet(object.limit) ? bytesFromBase64(object.limit) : new Uint8Array(0),
+      limit: isSet(object.limit) ? Buffer.from(bytesFromBase64(object.limit)) : Buffer.alloc(0),
       window: isSet(object.window) ? Duration.fromJSON(object.window) : undefined,
-      incoming: isSet(object.incoming) ? bytesFromBase64(object.incoming) : new Uint8Array(0),
-      outgoing: isSet(object.outgoing) ? bytesFromBase64(object.outgoing) : new Uint8Array(0),
+      incoming: isSet(object.incoming) ? Buffer.from(bytesFromBase64(object.incoming)) : Buffer.alloc(0),
+      outgoing: isSet(object.outgoing) ? Buffer.from(bytesFromBase64(object.outgoing)) : Buffer.alloc(0),
       timeLeft: isSet(object.timeLeft) ? Duration.fromJSON(object.timeLeft) : undefined,
-      from: isSet(object.from) ? bytesFromBase64(object.from) : new Uint8Array(0),
-      to: isSet(object.to) ? bytesFromBase64(object.to) : new Uint8Array(0),
+      from: isSet(object.from) ? Buffer.from(bytesFromBase64(object.from)) : Buffer.alloc(0),
+      to: isSet(object.to) ? Buffer.from(bytesFromBase64(object.to)) : Buffer.alloc(0),
     };
   },
 
@@ -1869,17 +1857,17 @@ export const TransferRateLimit = {
   },
   fromPartial<I extends Exact<DeepPartial<TransferRateLimit>, I>>(object: I): TransferRateLimit {
     const message = createBaseTransferRateLimit();
-    message.limit = object.limit ?? new Uint8Array(0);
+    message.limit = object.limit ?? Buffer.alloc(0);
     message.window =
       object.window !== undefined && object.window !== null ? Duration.fromPartial(object.window) : undefined;
-    message.incoming = object.incoming ?? new Uint8Array(0);
-    message.outgoing = object.outgoing ?? new Uint8Array(0);
+    message.incoming = object.incoming ?? Buffer.alloc(0);
+    message.outgoing = object.outgoing ?? Buffer.alloc(0);
     message.timeLeft =
       object.timeLeft !== undefined && object.timeLeft !== null
         ? Duration.fromPartial(object.timeLeft)
         : undefined;
-    message.from = object.from ?? new Uint8Array(0);
-    message.to = object.to ?? new Uint8Array(0);
+    message.from = object.from ?? Buffer.alloc(0);
+    message.to = object.to ?? Buffer.alloc(0);
     return message;
   },
 };
@@ -1920,7 +1908,7 @@ export const MessageRequest = {
   },
 
   fromJSON(object: any): MessageRequest {
-    return { id: isSet(object.id) ? globalThis.String(object.id) : "" };
+    return { id: isSet(object.id) ? gt.String(object.id) : "" };
   },
 
   toJSON(message: MessageRequest): unknown {
@@ -2102,29 +2090,31 @@ export const ParamsResponse = {
   },
 };
 
-function bytesFromBase64(b64: string): Uint8Array {
-  if ((globalThis as any).Buffer) {
-    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
-  } else {
-    const bin = globalThis.atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-      arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
   }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
+
+function bytesFromBase64(b64: string): Uint8Array {
+  return Uint8Array.from(gt.Buffer.from(b64, "base64"));
 }
 
 function base64FromBytes(arr: Uint8Array): string {
-  if ((globalThis as any).Buffer) {
-    return globalThis.Buffer.from(arr).toString("base64");
-  } else {
-    const bin: string[] = [];
-    arr.forEach((byte) => {
-      bin.push(globalThis.String.fromCharCode(byte));
-    });
-    return globalThis.btoa(bin.join(""));
-  }
+  return gt.Buffer.from(arr).toString("base64");
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;

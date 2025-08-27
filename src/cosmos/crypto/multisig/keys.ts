@@ -68,8 +68,8 @@ export const LegacyAminoPubKey = {
 
   fromJSON(object: any): LegacyAminoPubKey {
     return {
-      threshold: isSet(object.threshold) ? globalThis.Number(object.threshold) : 0,
-      publicKeys: globalThis.Array.isArray(object?.publicKeys)
+      threshold: isSet(object.threshold) ? gt.Number(object.threshold) : 0,
+      publicKeys: gt.Array.isArray(object?.publicKeys)
         ? object.publicKeys.map((e: any) => Any.fromJSON(e))
         : [],
     };
@@ -96,6 +96,25 @@ export const LegacyAminoPubKey = {
     return message;
   },
 };
+
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
+  }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 

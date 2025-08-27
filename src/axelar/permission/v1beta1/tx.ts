@@ -20,7 +20,7 @@ export interface UpdateGovernanceKeyResponse {}
 
 /** MsgRegisterController represents a message to register a controller account */
 export interface RegisterControllerRequest {
-  controller: Uint8Array;
+  controller: Buffer;
   sender: string;
 }
 
@@ -28,7 +28,7 @@ export interface RegisterControllerResponse {}
 
 /** DeregisterController represents a message to deregister a controller account */
 export interface DeregisterControllerRequest {
-  controller: Uint8Array;
+  controller: Buffer;
   sender: string;
 }
 
@@ -84,7 +84,7 @@ export const UpdateGovernanceKeyRequest = {
       governanceKey: isSet(object.governanceKey)
         ? LegacyAminoPubKey.fromJSON(object.governanceKey)
         : undefined,
-      sender: isSet(object.sender) ? globalThis.String(object.sender) : "",
+      sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
   },
 
@@ -163,7 +163,7 @@ export const UpdateGovernanceKeyResponse = {
 };
 
 function createBaseRegisterControllerRequest(): RegisterControllerRequest {
-  return { controller: new Uint8Array(0), sender: "" };
+  return { controller: Buffer.alloc(0), sender: "" };
 }
 
 export const RegisterControllerRequest = {
@@ -189,7 +189,7 @@ export const RegisterControllerRequest = {
             break;
           }
 
-          message.controller = reader.bytes();
+          message.controller = reader.bytes() as Buffer;
           continue;
         case 3:
           if (tag !== 26) {
@@ -209,8 +209,10 @@ export const RegisterControllerRequest = {
 
   fromJSON(object: any): RegisterControllerRequest {
     return {
-      controller: isSet(object.controller) ? bytesFromBase64(object.controller) : new Uint8Array(0),
-      sender: isSet(object.sender) ? globalThis.String(object.sender) : "",
+      controller: isSet(object.controller)
+        ? Buffer.from(bytesFromBase64(object.controller))
+        : Buffer.alloc(0),
+      sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
   },
 
@@ -232,7 +234,7 @@ export const RegisterControllerRequest = {
     object: I,
   ): RegisterControllerRequest {
     const message = createBaseRegisterControllerRequest();
-    message.controller = object.controller ?? new Uint8Array(0);
+    message.controller = object.controller ?? Buffer.alloc(0);
     message.sender = object.sender ?? "";
     return message;
   },
@@ -282,7 +284,7 @@ export const RegisterControllerResponse = {
 };
 
 function createBaseDeregisterControllerRequest(): DeregisterControllerRequest {
-  return { controller: new Uint8Array(0), sender: "" };
+  return { controller: Buffer.alloc(0), sender: "" };
 }
 
 export const DeregisterControllerRequest = {
@@ -308,7 +310,7 @@ export const DeregisterControllerRequest = {
             break;
           }
 
-          message.controller = reader.bytes();
+          message.controller = reader.bytes() as Buffer;
           continue;
         case 3:
           if (tag !== 26) {
@@ -328,8 +330,10 @@ export const DeregisterControllerRequest = {
 
   fromJSON(object: any): DeregisterControllerRequest {
     return {
-      controller: isSet(object.controller) ? bytesFromBase64(object.controller) : new Uint8Array(0),
-      sender: isSet(object.sender) ? globalThis.String(object.sender) : "",
+      controller: isSet(object.controller)
+        ? Buffer.from(bytesFromBase64(object.controller))
+        : Buffer.alloc(0),
+      sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
   },
 
@@ -353,7 +357,7 @@ export const DeregisterControllerRequest = {
     object: I,
   ): DeregisterControllerRequest {
     const message = createBaseDeregisterControllerRequest();
-    message.controller = object.controller ?? new Uint8Array(0);
+    message.controller = object.controller ?? Buffer.alloc(0);
     message.sender = object.sender ?? "";
     return message;
   },
@@ -406,29 +410,31 @@ export const DeregisterControllerResponse = {
   },
 };
 
-function bytesFromBase64(b64: string): Uint8Array {
-  if ((globalThis as any).Buffer) {
-    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
-  } else {
-    const bin = globalThis.atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-      arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
   }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
+
+function bytesFromBase64(b64: string): Uint8Array {
+  return Uint8Array.from(gt.Buffer.from(b64, "base64"));
 }
 
 function base64FromBytes(arr: Uint8Array): string {
-  if ((globalThis as any).Buffer) {
-    return globalThis.Buffer.from(arr).toString("base64");
-  } else {
-    const bin: string[] = [];
-    arr.forEach((byte) => {
-      bin.push(globalThis.String.fromCharCode(byte));
-    });
-    return globalThis.btoa(bin.join(""));
-  }
+  return gt.Buffer.from(arr).toString("base64");
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;

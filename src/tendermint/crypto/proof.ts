@@ -13,13 +13,13 @@ export const protobufPackage = "tendermint.crypto";
 export interface Proof {
   total: Long;
   index: Long;
-  leafHash: Uint8Array;
-  aunts: Uint8Array[];
+  leafHash: Buffer;
+  aunts: Buffer[];
 }
 
 export interface ValueOp {
   /** Encoded in ProofOp.Key. */
-  key: Uint8Array;
+  key: Buffer;
   /** To encode in ProofOp.Data */
   proof?: Proof | undefined;
 }
@@ -37,8 +37,8 @@ export interface DominoOp {
  */
 export interface ProofOp {
   type: string;
-  key: Uint8Array;
-  data: Uint8Array;
+  key: Buffer;
+  data: Buffer;
 }
 
 /** ProofOps is Merkle proof defined by the list of ProofOps */
@@ -47,7 +47,7 @@ export interface ProofOps {
 }
 
 function createBaseProof(): Proof {
-  return { total: Long.ZERO, index: Long.ZERO, leafHash: new Uint8Array(0), aunts: [] };
+  return { total: Long.ZERO, index: Long.ZERO, leafHash: Buffer.alloc(0), aunts: [] };
 }
 
 export const Proof = {
@@ -93,14 +93,14 @@ export const Proof = {
             break;
           }
 
-          message.leafHash = reader.bytes();
+          message.leafHash = reader.bytes() as Buffer;
           continue;
         case 4:
           if (tag !== 34) {
             break;
           }
 
-          message.aunts.push(reader.bytes());
+          message.aunts.push(reader.bytes() as Buffer);
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -115,8 +115,10 @@ export const Proof = {
     return {
       total: isSet(object.total) ? Long.fromValue(object.total) : Long.ZERO,
       index: isSet(object.index) ? Long.fromValue(object.index) : Long.ZERO,
-      leafHash: isSet(object.leafHash) ? bytesFromBase64(object.leafHash) : new Uint8Array(0),
-      aunts: globalThis.Array.isArray(object?.aunts) ? object.aunts.map((e: any) => bytesFromBase64(e)) : [],
+      leafHash: isSet(object.leafHash) ? Buffer.from(bytesFromBase64(object.leafHash)) : Buffer.alloc(0),
+      aunts: gt.Array.isArray(object?.aunts)
+        ? object.aunts.map((e: any) => Buffer.from(bytesFromBase64(e)))
+        : [],
     };
   },
 
@@ -146,14 +148,14 @@ export const Proof = {
       object.total !== undefined && object.total !== null ? Long.fromValue(object.total) : Long.ZERO;
     message.index =
       object.index !== undefined && object.index !== null ? Long.fromValue(object.index) : Long.ZERO;
-    message.leafHash = object.leafHash ?? new Uint8Array(0);
+    message.leafHash = object.leafHash ?? Buffer.alloc(0);
     message.aunts = object.aunts?.map((e) => e) || [];
     return message;
   },
 };
 
 function createBaseValueOp(): ValueOp {
-  return { key: new Uint8Array(0), proof: undefined };
+  return { key: Buffer.alloc(0), proof: undefined };
 }
 
 export const ValueOp = {
@@ -179,7 +181,7 @@ export const ValueOp = {
             break;
           }
 
-          message.key = reader.bytes();
+          message.key = reader.bytes() as Buffer;
           continue;
         case 2:
           if (tag !== 18) {
@@ -199,7 +201,7 @@ export const ValueOp = {
 
   fromJSON(object: any): ValueOp {
     return {
-      key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(0),
+      key: isSet(object.key) ? Buffer.from(bytesFromBase64(object.key)) : Buffer.alloc(0),
       proof: isSet(object.proof) ? Proof.fromJSON(object.proof) : undefined,
     };
   },
@@ -220,7 +222,7 @@ export const ValueOp = {
   },
   fromPartial<I extends Exact<DeepPartial<ValueOp>, I>>(object: I): ValueOp {
     const message = createBaseValueOp();
-    message.key = object.key ?? new Uint8Array(0);
+    message.key = object.key ?? Buffer.alloc(0);
     message.proof =
       object.proof !== undefined && object.proof !== null ? Proof.fromPartial(object.proof) : undefined;
     return message;
@@ -284,9 +286,9 @@ export const DominoOp = {
 
   fromJSON(object: any): DominoOp {
     return {
-      key: isSet(object.key) ? globalThis.String(object.key) : "",
-      input: isSet(object.input) ? globalThis.String(object.input) : "",
-      output: isSet(object.output) ? globalThis.String(object.output) : "",
+      key: isSet(object.key) ? gt.String(object.key) : "",
+      input: isSet(object.input) ? gt.String(object.input) : "",
+      output: isSet(object.output) ? gt.String(object.output) : "",
     };
   },
 
@@ -317,7 +319,7 @@ export const DominoOp = {
 };
 
 function createBaseProofOp(): ProofOp {
-  return { type: "", key: new Uint8Array(0), data: new Uint8Array(0) };
+  return { type: "", key: Buffer.alloc(0), data: Buffer.alloc(0) };
 }
 
 export const ProofOp = {
@@ -353,14 +355,14 @@ export const ProofOp = {
             break;
           }
 
-          message.key = reader.bytes();
+          message.key = reader.bytes() as Buffer;
           continue;
         case 3:
           if (tag !== 26) {
             break;
           }
 
-          message.data = reader.bytes();
+          message.data = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -373,9 +375,9 @@ export const ProofOp = {
 
   fromJSON(object: any): ProofOp {
     return {
-      type: isSet(object.type) ? globalThis.String(object.type) : "",
-      key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(0),
-      data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(0),
+      type: isSet(object.type) ? gt.String(object.type) : "",
+      key: isSet(object.key) ? Buffer.from(bytesFromBase64(object.key)) : Buffer.alloc(0),
+      data: isSet(object.data) ? Buffer.from(bytesFromBase64(object.data)) : Buffer.alloc(0),
     };
   },
 
@@ -399,8 +401,8 @@ export const ProofOp = {
   fromPartial<I extends Exact<DeepPartial<ProofOp>, I>>(object: I): ProofOp {
     const message = createBaseProofOp();
     message.type = object.type ?? "";
-    message.key = object.key ?? new Uint8Array(0);
-    message.data = object.data ?? new Uint8Array(0);
+    message.key = object.key ?? Buffer.alloc(0);
+    message.data = object.data ?? Buffer.alloc(0);
     return message;
   },
 };
@@ -441,9 +443,7 @@ export const ProofOps = {
   },
 
   fromJSON(object: any): ProofOps {
-    return {
-      ops: globalThis.Array.isArray(object?.ops) ? object.ops.map((e: any) => ProofOp.fromJSON(e)) : [],
-    };
+    return { ops: gt.Array.isArray(object?.ops) ? object.ops.map((e: any) => ProofOp.fromJSON(e)) : [] };
   },
 
   toJSON(message: ProofOps): unknown {
@@ -464,29 +464,31 @@ export const ProofOps = {
   },
 };
 
-function bytesFromBase64(b64: string): Uint8Array {
-  if ((globalThis as any).Buffer) {
-    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
-  } else {
-    const bin = globalThis.atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-      arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
   }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
+
+function bytesFromBase64(b64: string): Uint8Array {
+  return Uint8Array.from(gt.Buffer.from(b64, "base64"));
 }
 
 function base64FromBytes(arr: Uint8Array): string {
-  if ((globalThis as any).Buffer) {
-    return globalThis.Buffer.from(arr).toString("base64");
-  } else {
-    const bin: string[] = [];
-    arr.forEach((byte) => {
-      bin.push(globalThis.String.fromCharCode(byte));
-    });
-    return globalThis.btoa(bin.join(""));
-  }
+  return gt.Buffer.from(arr).toString("base64");
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;

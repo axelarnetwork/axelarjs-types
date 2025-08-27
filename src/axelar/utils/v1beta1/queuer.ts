@@ -15,8 +15,8 @@ export interface QueueState {
 }
 
 export interface QueueState_Item {
-  key: Uint8Array;
-  value: Uint8Array;
+  key: Buffer;
+  value: Buffer;
 }
 
 export interface QueueState_ItemsEntry {
@@ -106,7 +106,7 @@ export const QueueState = {
 };
 
 function createBaseQueueState_Item(): QueueState_Item {
-  return { key: new Uint8Array(0), value: new Uint8Array(0) };
+  return { key: Buffer.alloc(0), value: Buffer.alloc(0) };
 }
 
 export const QueueState_Item = {
@@ -132,14 +132,14 @@ export const QueueState_Item = {
             break;
           }
 
-          message.key = reader.bytes();
+          message.key = reader.bytes() as Buffer;
           continue;
         case 2:
           if (tag !== 18) {
             break;
           }
 
-          message.value = reader.bytes();
+          message.value = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -152,8 +152,8 @@ export const QueueState_Item = {
 
   fromJSON(object: any): QueueState_Item {
     return {
-      key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(0),
-      value: isSet(object.value) ? bytesFromBase64(object.value) : new Uint8Array(0),
+      key: isSet(object.key) ? Buffer.from(bytesFromBase64(object.key)) : Buffer.alloc(0),
+      value: isSet(object.value) ? Buffer.from(bytesFromBase64(object.value)) : Buffer.alloc(0),
     };
   },
 
@@ -173,8 +173,8 @@ export const QueueState_Item = {
   },
   fromPartial<I extends Exact<DeepPartial<QueueState_Item>, I>>(object: I): QueueState_Item {
     const message = createBaseQueueState_Item();
-    message.key = object.key ?? new Uint8Array(0);
-    message.value = object.value ?? new Uint8Array(0);
+    message.key = object.key ?? Buffer.alloc(0);
+    message.value = object.value ?? Buffer.alloc(0);
     return message;
   },
 };
@@ -226,7 +226,7 @@ export const QueueState_ItemsEntry = {
 
   fromJSON(object: any): QueueState_ItemsEntry {
     return {
-      key: isSet(object.key) ? globalThis.String(object.key) : "",
+      key: isSet(object.key) ? gt.String(object.key) : "",
       value: isSet(object.value) ? QueueState_Item.fromJSON(object.value) : undefined,
     };
   },
@@ -256,29 +256,31 @@ export const QueueState_ItemsEntry = {
   },
 };
 
-function bytesFromBase64(b64: string): Uint8Array {
-  if ((globalThis as any).Buffer) {
-    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
-  } else {
-    const bin = globalThis.atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-      arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
   }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
+
+function bytesFromBase64(b64: string): Uint8Array {
+  return Uint8Array.from(gt.Buffer.from(b64, "base64"));
 }
 
 function base64FromBytes(arr: Uint8Array): string {
-  if ((globalThis as any).Buffer) {
-    return globalThis.Buffer.from(arr).toString("base64");
-  } else {
-    const bin: string[] = [];
-    arr.forEach((byte) => {
-      bin.push(globalThis.String.fromCharCode(byte));
-    });
-    return globalThis.btoa(bin.join(""));
-  }
+  return gt.Buffer.from(arr).toString("base64");
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;

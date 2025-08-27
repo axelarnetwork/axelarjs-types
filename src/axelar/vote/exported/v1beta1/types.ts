@@ -90,7 +90,7 @@ export interface PollKey {
 /** PollParticipants should be embedded in poll events in other modules */
 export interface PollParticipants {
   pollId: Long;
-  participants: Uint8Array[];
+  participants: Buffer[];
 }
 
 function createBasePollMetadata(): PollMetadata {
@@ -258,12 +258,12 @@ export const PollMetadata = {
       votingThreshold: isSet(object.votingThreshold) ? Threshold.fromJSON(object.votingThreshold) : undefined,
       state: isSet(object.state) ? pollStateFromJSON(object.state) : 0,
       minVoterCount: isSet(object.minVoterCount) ? Long.fromValue(object.minVoterCount) : Long.ZERO,
-      rewardPoolName: isSet(object.rewardPoolName) ? globalThis.String(object.rewardPoolName) : "",
+      rewardPoolName: isSet(object.rewardPoolName) ? gt.String(object.rewardPoolName) : "",
       gracePeriod: isSet(object.gracePeriod) ? Long.fromValue(object.gracePeriod) : Long.ZERO,
       completedAt: isSet(object.completedAt) ? Long.fromValue(object.completedAt) : Long.ZERO,
       id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
       snapshot: isSet(object.snapshot) ? Snapshot.fromJSON(object.snapshot) : undefined,
-      module: isSet(object.module) ? globalThis.String(object.module) : "",
+      module: isSet(object.module) ? gt.String(object.module) : "",
       moduleMetadata: isSet(object.moduleMetadata) ? Any.fromJSON(object.moduleMetadata) : undefined,
     };
   },
@@ -399,8 +399,8 @@ export const PollKey = {
 
   fromJSON(object: any): PollKey {
     return {
-      module: isSet(object.module) ? globalThis.String(object.module) : "",
-      id: isSet(object.id) ? globalThis.String(object.id) : "",
+      module: isSet(object.module) ? gt.String(object.module) : "",
+      id: isSet(object.id) ? gt.String(object.id) : "",
     };
   },
 
@@ -460,7 +460,7 @@ export const PollParticipants = {
             break;
           }
 
-          message.participants.push(reader.bytes());
+          message.participants.push(reader.bytes() as Buffer);
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -474,8 +474,8 @@ export const PollParticipants = {
   fromJSON(object: any): PollParticipants {
     return {
       pollId: isSet(object.pollId) ? Long.fromValue(object.pollId) : Long.UZERO,
-      participants: globalThis.Array.isArray(object?.participants)
-        ? object.participants.map((e: any) => bytesFromBase64(e))
+      participants: gt.Array.isArray(object?.participants)
+        ? object.participants.map((e: any) => Buffer.from(bytesFromBase64(e)))
         : [],
     };
   },
@@ -503,29 +503,31 @@ export const PollParticipants = {
   },
 };
 
-function bytesFromBase64(b64: string): Uint8Array {
-  if ((globalThis as any).Buffer) {
-    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
-  } else {
-    const bin = globalThis.atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-      arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
   }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
+
+function bytesFromBase64(b64: string): Uint8Array {
+  return Uint8Array.from(gt.Buffer.from(b64, "base64"));
 }
 
 function base64FromBytes(arr: Uint8Array): string {
-  if ((globalThis as any).Buffer) {
-    return globalThis.Buffer.from(arr).toString("base64");
-  } else {
-    const bin: string[] = [];
-    arr.forEach((byte) => {
-      bin.push(globalThis.String.fromCharCode(byte));
-    });
-    return globalThis.btoa(bin.join(""));
-  }
+  return gt.Buffer.from(arr).toString("base64");
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;

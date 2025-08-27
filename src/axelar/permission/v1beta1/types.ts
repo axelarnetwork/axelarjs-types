@@ -12,12 +12,12 @@ import { Role, roleFromJSON, roleToJSON } from "../exported/v1beta1/types";
 export const protobufPackage = "axelar.permission.v1beta1";
 
 export interface GovAccount {
-  address: Uint8Array;
+  address: Buffer;
   role: Role;
 }
 
 function createBaseGovAccount(): GovAccount {
-  return { address: new Uint8Array(0), role: 0 };
+  return { address: Buffer.alloc(0), role: 0 };
 }
 
 export const GovAccount = {
@@ -43,7 +43,7 @@ export const GovAccount = {
             break;
           }
 
-          message.address = reader.bytes();
+          message.address = reader.bytes() as Buffer;
           continue;
         case 2:
           if (tag !== 16) {
@@ -63,7 +63,7 @@ export const GovAccount = {
 
   fromJSON(object: any): GovAccount {
     return {
-      address: isSet(object.address) ? bytesFromBase64(object.address) : new Uint8Array(0),
+      address: isSet(object.address) ? Buffer.from(bytesFromBase64(object.address)) : Buffer.alloc(0),
       role: isSet(object.role) ? roleFromJSON(object.role) : 0,
     };
   },
@@ -84,35 +84,37 @@ export const GovAccount = {
   },
   fromPartial<I extends Exact<DeepPartial<GovAccount>, I>>(object: I): GovAccount {
     const message = createBaseGovAccount();
-    message.address = object.address ?? new Uint8Array(0);
+    message.address = object.address ?? Buffer.alloc(0);
     message.role = object.role ?? 0;
     return message;
   },
 };
 
-function bytesFromBase64(b64: string): Uint8Array {
-  if ((globalThis as any).Buffer) {
-    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
-  } else {
-    const bin = globalThis.atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-      arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
   }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
+
+function bytesFromBase64(b64: string): Uint8Array {
+  return Uint8Array.from(gt.Buffer.from(b64, "base64"));
 }
 
 function base64FromBytes(arr: Uint8Array): string {
-  if ((globalThis as any).Buffer) {
-    return globalThis.Buffer.from(arr).toString("base64");
-  } else {
-    const bin: string[] = [];
-    arr.forEach((byte) => {
-      bin.push(globalThis.String.fromCharCode(byte));
-    });
-    return globalThis.btoa(bin.join(""));
-  }
+  return gt.Buffer.from(arr).toString("base64");
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;

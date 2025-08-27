@@ -73,10 +73,8 @@ export const BatchRequest = {
 
   fromJSON(object: any): BatchRequest {
     return {
-      messages: globalThis.Array.isArray(object?.messages)
-        ? object.messages.map((e: any) => Any.fromJSON(e))
-        : [],
-      sender: isSet(object.sender) ? globalThis.String(object.sender) : "",
+      messages: gt.Array.isArray(object?.messages) ? object.messages.map((e: any) => Any.fromJSON(e)) : [],
+      sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
   },
 
@@ -139,7 +137,7 @@ export const BatchResponse = {
 
   fromJSON(object: any): BatchResponse {
     return {
-      responses: globalThis.Array.isArray(object?.responses)
+      responses: gt.Array.isArray(object?.responses)
         ? object.responses.map((e: any) => BatchResponse_Response.fromJSON(e))
         : [],
     };
@@ -211,7 +209,7 @@ export const BatchResponse_Response = {
   fromJSON(object: any): BatchResponse_Response {
     return {
       result: isSet(object.result) ? Result.fromJSON(object.result) : undefined,
-      err: isSet(object.err) ? globalThis.String(object.err) : undefined,
+      err: isSet(object.err) ? gt.String(object.err) : undefined,
     };
   },
 
@@ -237,6 +235,25 @@ export const BatchResponse_Response = {
     return message;
   },
 };
+
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
+  }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 

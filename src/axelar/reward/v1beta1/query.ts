@@ -23,7 +23,7 @@ export interface InflationRateRequest {
 }
 
 export interface InflationRateResponse {
-  inflationRate: Uint8Array;
+  inflationRate: Buffer;
 }
 
 /** ParamsRequest represents a message that queries the params */
@@ -69,7 +69,7 @@ export const InflationRateRequest = {
   },
 
   fromJSON(object: any): InflationRateRequest {
-    return { validator: isSet(object.validator) ? globalThis.String(object.validator) : "" };
+    return { validator: isSet(object.validator) ? gt.String(object.validator) : "" };
   },
 
   toJSON(message: InflationRateRequest): unknown {
@@ -91,7 +91,7 @@ export const InflationRateRequest = {
 };
 
 function createBaseInflationRateResponse(): InflationRateResponse {
-  return { inflationRate: new Uint8Array(0) };
+  return { inflationRate: Buffer.alloc(0) };
 }
 
 export const InflationRateResponse = {
@@ -114,7 +114,7 @@ export const InflationRateResponse = {
             break;
           }
 
-          message.inflationRate = reader.bytes();
+          message.inflationRate = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -127,7 +127,9 @@ export const InflationRateResponse = {
 
   fromJSON(object: any): InflationRateResponse {
     return {
-      inflationRate: isSet(object.inflationRate) ? bytesFromBase64(object.inflationRate) : new Uint8Array(0),
+      inflationRate: isSet(object.inflationRate)
+        ? Buffer.from(bytesFromBase64(object.inflationRate))
+        : Buffer.alloc(0),
     };
   },
 
@@ -144,7 +146,7 @@ export const InflationRateResponse = {
   },
   fromPartial<I extends Exact<DeepPartial<InflationRateResponse>, I>>(object: I): InflationRateResponse {
     const message = createBaseInflationRateResponse();
-    message.inflationRate = object.inflationRate ?? new Uint8Array(0);
+    message.inflationRate = object.inflationRate ?? Buffer.alloc(0);
     return message;
   },
 };
@@ -250,29 +252,31 @@ export const ParamsResponse = {
   },
 };
 
-function bytesFromBase64(b64: string): Uint8Array {
-  if ((globalThis as any).Buffer) {
-    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
-  } else {
-    const bin = globalThis.atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-      arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
   }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
+
+function bytesFromBase64(b64: string): Uint8Array {
+  return Uint8Array.from(gt.Buffer.from(b64, "base64"));
 }
 
 function base64FromBytes(arr: Uint8Array): string {
-  if ((globalThis as any).Buffer) {
-    return globalThis.Buffer.from(arr).toString("base64");
-  } else {
-    const bin: string[] = [];
-    arr.forEach((byte) => {
-      bin.push(globalThis.String.fromCharCode(byte));
-    });
-    return globalThis.btoa(bin.join(""));
-  }
+  return gt.Buffer.from(arr).toString("base64");
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;

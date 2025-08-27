@@ -12,15 +12,12 @@ export const protobufPackage = "axelar.reward.v1beta1";
 
 /** Params represent the genesis parameters for the module */
 export interface Params {
-  externalChainVotingInflationRate: Uint8Array;
-  keyMgmtRelativeInflationRate: Uint8Array;
+  externalChainVotingInflationRate: Buffer;
+  keyMgmtRelativeInflationRate: Buffer;
 }
 
 function createBaseParams(): Params {
-  return {
-    externalChainVotingInflationRate: new Uint8Array(0),
-    keyMgmtRelativeInflationRate: new Uint8Array(0),
-  };
+  return { externalChainVotingInflationRate: Buffer.alloc(0), keyMgmtRelativeInflationRate: Buffer.alloc(0) };
 }
 
 export const Params = {
@@ -46,14 +43,14 @@ export const Params = {
             break;
           }
 
-          message.externalChainVotingInflationRate = reader.bytes();
+          message.externalChainVotingInflationRate = reader.bytes() as Buffer;
           continue;
         case 2:
           if (tag !== 18) {
             break;
           }
 
-          message.keyMgmtRelativeInflationRate = reader.bytes();
+          message.keyMgmtRelativeInflationRate = reader.bytes() as Buffer;
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -67,11 +64,11 @@ export const Params = {
   fromJSON(object: any): Params {
     return {
       externalChainVotingInflationRate: isSet(object.externalChainVotingInflationRate)
-        ? bytesFromBase64(object.externalChainVotingInflationRate)
-        : new Uint8Array(0),
+        ? Buffer.from(bytesFromBase64(object.externalChainVotingInflationRate))
+        : Buffer.alloc(0),
       keyMgmtRelativeInflationRate: isSet(object.keyMgmtRelativeInflationRate)
-        ? bytesFromBase64(object.keyMgmtRelativeInflationRate)
-        : new Uint8Array(0),
+        ? Buffer.from(bytesFromBase64(object.keyMgmtRelativeInflationRate))
+        : Buffer.alloc(0),
     };
   },
 
@@ -91,35 +88,37 @@ export const Params = {
   },
   fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
     const message = createBaseParams();
-    message.externalChainVotingInflationRate = object.externalChainVotingInflationRate ?? new Uint8Array(0);
-    message.keyMgmtRelativeInflationRate = object.keyMgmtRelativeInflationRate ?? new Uint8Array(0);
+    message.externalChainVotingInflationRate = object.externalChainVotingInflationRate ?? Buffer.alloc(0);
+    message.keyMgmtRelativeInflationRate = object.keyMgmtRelativeInflationRate ?? Buffer.alloc(0);
     return message;
   },
 };
 
-function bytesFromBase64(b64: string): Uint8Array {
-  if ((globalThis as any).Buffer) {
-    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
-  } else {
-    const bin = globalThis.atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-      arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
   }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
+
+function bytesFromBase64(b64: string): Uint8Array {
+  return Uint8Array.from(gt.Buffer.from(b64, "base64"));
 }
 
 function base64FromBytes(arr: Uint8Array): string {
-  if ((globalThis as any).Buffer) {
-    return globalThis.Buffer.from(arr).toString("base64");
-  } else {
-    const bin: string[] = [];
-    arr.forEach((byte) => {
-      bin.push(globalThis.String.fromCharCode(byte));
-    });
-    return globalThis.btoa(bin.join(""));
-  }
+  return gt.Buffer.from(arr).toString("base64");
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;

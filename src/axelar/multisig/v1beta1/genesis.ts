@@ -99,14 +99,14 @@ export const GenesisState = {
   fromJSON(object: any): GenesisState {
     return {
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
-      keygenSessions: globalThis.Array.isArray(object?.keygenSessions)
+      keygenSessions: gt.Array.isArray(object?.keygenSessions)
         ? object.keygenSessions.map((e: any) => KeygenSession.fromJSON(e))
         : [],
-      signingSessions: globalThis.Array.isArray(object?.signingSessions)
+      signingSessions: gt.Array.isArray(object?.signingSessions)
         ? object.signingSessions.map((e: any) => SigningSession.fromJSON(e))
         : [],
-      keys: globalThis.Array.isArray(object?.keys) ? object.keys.map((e: any) => Key.fromJSON(e)) : [],
-      keyEpochs: globalThis.Array.isArray(object?.keyEpochs)
+      keys: gt.Array.isArray(object?.keys) ? object.keys.map((e: any) => Key.fromJSON(e)) : [],
+      keyEpochs: gt.Array.isArray(object?.keyEpochs)
         ? object.keyEpochs.map((e: any) => KeyEpoch.fromJSON(e))
         : [],
     };
@@ -146,6 +146,25 @@ export const GenesisState = {
     return message;
   },
 };
+
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
+  }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 

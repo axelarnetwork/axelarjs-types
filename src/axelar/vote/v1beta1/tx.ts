@@ -80,7 +80,7 @@ export const VoteRequest = {
     return {
       pollId: isSet(object.pollId) ? Long.fromValue(object.pollId) : Long.UZERO,
       vote: isSet(object.vote) ? Any.fromJSON(object.vote) : undefined,
-      sender: isSet(object.sender) ? globalThis.String(object.sender) : "",
+      sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
   },
 
@@ -148,7 +148,7 @@ export const VoteResponse = {
   },
 
   fromJSON(object: any): VoteResponse {
-    return { log: isSet(object.log) ? globalThis.String(object.log) : "" };
+    return { log: isSet(object.log) ? gt.String(object.log) : "" };
   },
 
   toJSON(message: VoteResponse): unknown {
@@ -168,6 +168,25 @@ export const VoteResponse = {
     return message;
   },
 };
+
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const gt: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
+  }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
