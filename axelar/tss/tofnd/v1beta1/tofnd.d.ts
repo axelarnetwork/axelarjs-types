@@ -1,10 +1,11 @@
+/// <reference types="node" />
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
+import _m0 from "protobufjs/minimal";
 export declare const protobufPackage = "axelar.tss.tofnd.v1beta1";
 /** File copied from golang tofnd with minor tweaks */
 export interface RecoverRequest {
-    keygenInit?: KeygenInit;
-    keygenOutput?: KeygenOutput;
+    keygenInit?: KeygenInit | undefined;
+    keygenOutput?: KeygenOutput | undefined;
 }
 export interface RecoverResponse {
     response: RecoverResponse_Response;
@@ -20,11 +21,11 @@ export declare function recoverResponse_ResponseToJSON(object: RecoverResponse_R
 /** Keygen's success response */
 export interface KeygenOutput {
     /** pub_key; common for all parties */
-    pubKey: Uint8Array;
+    pubKey: Buffer;
     /** recover info of all parties' shares; common for all parties */
-    groupRecoverInfo: Uint8Array;
+    groupRecoverInfo: Buffer;
     /** private recover info of this party's shares; unique for each party */
-    privateRecoverInfo: Uint8Array;
+    privateRecoverInfo: Buffer;
 }
 export interface MessageIn {
     /** first message only, Keygen */
@@ -34,7 +35,7 @@ export interface MessageIn {
     /** all subsequent messages */
     traffic?: TrafficIn | undefined;
     /** abort the protocol, ignore the bool value */
-    abort: boolean | undefined;
+    abort?: boolean | undefined;
 }
 export interface MessageOut {
     /** all but final message */
@@ -44,7 +45,7 @@ export interface MessageOut {
     /** final message only, Sign */
     signResult?: MessageOut_SignResult | undefined;
     /** issue recover from client */
-    needRecover: boolean | undefined;
+    needRecover?: boolean | undefined;
 }
 /** Keygen's response types */
 export interface MessageOut_KeygenResult {
@@ -56,7 +57,7 @@ export interface MessageOut_KeygenResult {
 /** Sign's response types */
 export interface MessageOut_SignResult {
     /** Success response */
-    signature: Uint8Array | undefined;
+    signature?: Buffer | undefined;
     /** Failure response */
     criminals?: MessageOut_CriminalList | undefined;
 }
@@ -78,12 +79,12 @@ export declare function messageOut_CriminalList_Criminal_CrimeTypeFromJSON(objec
 export declare function messageOut_CriminalList_Criminal_CrimeTypeToJSON(object: MessageOut_CriminalList_Criminal_CrimeType): string;
 export interface TrafficIn {
     fromPartyUid: string;
-    payload: Uint8Array;
+    payload: Buffer;
     isBroadcast: boolean;
 }
 export interface TrafficOut {
     toPartyUid: string;
-    payload: Uint8Array;
+    payload: Buffer;
     isBroadcast: boolean;
 }
 export interface KeygenInit {
@@ -99,14 +100,14 @@ export interface SignInit {
     keyUid: string;
     /** TODO replace this with a subset of indices? */
     partyUids: string[];
-    messageToSign: Uint8Array;
+    messageToSign: Buffer;
 }
 export declare const RecoverRequest: {
     encode(message: RecoverRequest, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): RecoverRequest;
     fromJSON(object: any): RecoverRequest;
     toJSON(message: RecoverRequest): unknown;
-    fromPartial<I extends {
+    create<I extends {
         keygenInit?: {
             newKeyUid?: string | undefined;
             partyUids?: string[] | undefined;
@@ -115,9 +116,9 @@ export declare const RecoverRequest: {
             threshold?: number | undefined;
         } | undefined;
         keygenOutput?: {
-            pubKey?: Uint8Array | undefined;
-            groupRecoverInfo?: Uint8Array | undefined;
-            privateRecoverInfo?: Uint8Array | undefined;
+            pubKey?: Buffer | undefined;
+            groupRecoverInfo?: Buffer | undefined;
+            privateRecoverInfo?: Buffer | undefined;
         } | undefined;
     } & {
         keygenInit?: ({
@@ -128,54 +129,105 @@ export declare const RecoverRequest: {
             threshold?: number | undefined;
         } & {
             newKeyUid?: string | undefined;
-            partyUids?: (string[] & string[] & Record<Exclude<keyof I["keygenInit"]["partyUids"], keyof string[]>, never>) | undefined;
-            partyShareCounts?: (number[] & number[] & Record<Exclude<keyof I["keygenInit"]["partyShareCounts"], keyof number[]>, never>) | undefined;
+            partyUids?: (string[] & string[] & { [K in Exclude<keyof I["keygenInit"]["partyUids"], keyof string[]>]: never; }) | undefined;
+            partyShareCounts?: (number[] & number[] & { [K_1 in Exclude<keyof I["keygenInit"]["partyShareCounts"], keyof number[]>]: never; }) | undefined;
             myPartyIndex?: number | undefined;
             threshold?: number | undefined;
-        } & Record<Exclude<keyof I["keygenInit"], keyof KeygenInit>, never>) | undefined;
+        } & { [K_2 in Exclude<keyof I["keygenInit"], keyof KeygenInit>]: never; }) | undefined;
         keygenOutput?: ({
-            pubKey?: Uint8Array | undefined;
-            groupRecoverInfo?: Uint8Array | undefined;
-            privateRecoverInfo?: Uint8Array | undefined;
+            pubKey?: Buffer | undefined;
+            groupRecoverInfo?: Buffer | undefined;
+            privateRecoverInfo?: Buffer | undefined;
         } & {
-            pubKey?: Uint8Array | undefined;
-            groupRecoverInfo?: Uint8Array | undefined;
-            privateRecoverInfo?: Uint8Array | undefined;
-        } & Record<Exclude<keyof I["keygenOutput"], keyof KeygenOutput>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof RecoverRequest>, never>>(object: I): RecoverRequest;
+            pubKey?: Buffer | undefined;
+            groupRecoverInfo?: Buffer | undefined;
+            privateRecoverInfo?: Buffer | undefined;
+        } & { [K_3 in Exclude<keyof I["keygenOutput"], keyof KeygenOutput>]: never; }) | undefined;
+    } & { [K_4 in Exclude<keyof I, keyof RecoverRequest>]: never; }>(base?: I | undefined): RecoverRequest;
+    fromPartial<I_1 extends {
+        keygenInit?: {
+            newKeyUid?: string | undefined;
+            partyUids?: string[] | undefined;
+            partyShareCounts?: number[] | undefined;
+            myPartyIndex?: number | undefined;
+            threshold?: number | undefined;
+        } | undefined;
+        keygenOutput?: {
+            pubKey?: Buffer | undefined;
+            groupRecoverInfo?: Buffer | undefined;
+            privateRecoverInfo?: Buffer | undefined;
+        } | undefined;
+    } & {
+        keygenInit?: ({
+            newKeyUid?: string | undefined;
+            partyUids?: string[] | undefined;
+            partyShareCounts?: number[] | undefined;
+            myPartyIndex?: number | undefined;
+            threshold?: number | undefined;
+        } & {
+            newKeyUid?: string | undefined;
+            partyUids?: (string[] & string[] & { [K_5 in Exclude<keyof I_1["keygenInit"]["partyUids"], keyof string[]>]: never; }) | undefined;
+            partyShareCounts?: (number[] & number[] & { [K_6 in Exclude<keyof I_1["keygenInit"]["partyShareCounts"], keyof number[]>]: never; }) | undefined;
+            myPartyIndex?: number | undefined;
+            threshold?: number | undefined;
+        } & { [K_7 in Exclude<keyof I_1["keygenInit"], keyof KeygenInit>]: never; }) | undefined;
+        keygenOutput?: ({
+            pubKey?: Buffer | undefined;
+            groupRecoverInfo?: Buffer | undefined;
+            privateRecoverInfo?: Buffer | undefined;
+        } & {
+            pubKey?: Buffer | undefined;
+            groupRecoverInfo?: Buffer | undefined;
+            privateRecoverInfo?: Buffer | undefined;
+        } & { [K_8 in Exclude<keyof I_1["keygenOutput"], keyof KeygenOutput>]: never; }) | undefined;
+    } & { [K_9 in Exclude<keyof I_1, keyof RecoverRequest>]: never; }>(object: I_1): RecoverRequest;
 };
 export declare const RecoverResponse: {
     encode(message: RecoverResponse, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): RecoverResponse;
     fromJSON(object: any): RecoverResponse;
     toJSON(message: RecoverResponse): unknown;
-    fromPartial<I extends {
+    create<I extends {
         response?: RecoverResponse_Response | undefined;
     } & {
         response?: RecoverResponse_Response | undefined;
-    } & Record<Exclude<keyof I, "response">, never>>(object: I): RecoverResponse;
+    } & { [K in Exclude<keyof I, "response">]: never; }>(base?: I | undefined): RecoverResponse;
+    fromPartial<I_1 extends {
+        response?: RecoverResponse_Response | undefined;
+    } & {
+        response?: RecoverResponse_Response | undefined;
+    } & { [K_1 in Exclude<keyof I_1, "response">]: never; }>(object: I_1): RecoverResponse;
 };
 export declare const KeygenOutput: {
     encode(message: KeygenOutput, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): KeygenOutput;
     fromJSON(object: any): KeygenOutput;
     toJSON(message: KeygenOutput): unknown;
-    fromPartial<I extends {
-        pubKey?: Uint8Array | undefined;
-        groupRecoverInfo?: Uint8Array | undefined;
-        privateRecoverInfo?: Uint8Array | undefined;
+    create<I extends {
+        pubKey?: Buffer | undefined;
+        groupRecoverInfo?: Buffer | undefined;
+        privateRecoverInfo?: Buffer | undefined;
     } & {
-        pubKey?: Uint8Array | undefined;
-        groupRecoverInfo?: Uint8Array | undefined;
-        privateRecoverInfo?: Uint8Array | undefined;
-    } & Record<Exclude<keyof I, keyof KeygenOutput>, never>>(object: I): KeygenOutput;
+        pubKey?: Buffer | undefined;
+        groupRecoverInfo?: Buffer | undefined;
+        privateRecoverInfo?: Buffer | undefined;
+    } & { [K in Exclude<keyof I, keyof KeygenOutput>]: never; }>(base?: I | undefined): KeygenOutput;
+    fromPartial<I_1 extends {
+        pubKey?: Buffer | undefined;
+        groupRecoverInfo?: Buffer | undefined;
+        privateRecoverInfo?: Buffer | undefined;
+    } & {
+        pubKey?: Buffer | undefined;
+        groupRecoverInfo?: Buffer | undefined;
+        privateRecoverInfo?: Buffer | undefined;
+    } & { [K_1 in Exclude<keyof I_1, keyof KeygenOutput>]: never; }>(object: I_1): KeygenOutput;
 };
 export declare const MessageIn: {
     encode(message: MessageIn, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MessageIn;
     fromJSON(object: any): MessageIn;
     toJSON(message: MessageIn): unknown;
-    fromPartial<I extends {
+    create<I extends {
         keygenInit?: {
             newKeyUid?: string | undefined;
             partyUids?: string[] | undefined;
@@ -187,11 +239,11 @@ export declare const MessageIn: {
             newSigUid?: string | undefined;
             keyUid?: string | undefined;
             partyUids?: string[] | undefined;
-            messageToSign?: Uint8Array | undefined;
+            messageToSign?: Buffer | undefined;
         } | undefined;
         traffic?: {
             fromPartyUid?: string | undefined;
-            payload?: Uint8Array | undefined;
+            payload?: Buffer | undefined;
             isBroadcast?: boolean | undefined;
         } | undefined;
         abort?: boolean | undefined;
@@ -204,50 +256,106 @@ export declare const MessageIn: {
             threshold?: number | undefined;
         } & {
             newKeyUid?: string | undefined;
-            partyUids?: (string[] & string[] & Record<Exclude<keyof I["keygenInit"]["partyUids"], keyof string[]>, never>) | undefined;
-            partyShareCounts?: (number[] & number[] & Record<Exclude<keyof I["keygenInit"]["partyShareCounts"], keyof number[]>, never>) | undefined;
+            partyUids?: (string[] & string[] & { [K in Exclude<keyof I["keygenInit"]["partyUids"], keyof string[]>]: never; }) | undefined;
+            partyShareCounts?: (number[] & number[] & { [K_1 in Exclude<keyof I["keygenInit"]["partyShareCounts"], keyof number[]>]: never; }) | undefined;
             myPartyIndex?: number | undefined;
             threshold?: number | undefined;
-        } & Record<Exclude<keyof I["keygenInit"], keyof KeygenInit>, never>) | undefined;
+        } & { [K_2 in Exclude<keyof I["keygenInit"], keyof KeygenInit>]: never; }) | undefined;
         signInit?: ({
             newSigUid?: string | undefined;
             keyUid?: string | undefined;
             partyUids?: string[] | undefined;
-            messageToSign?: Uint8Array | undefined;
+            messageToSign?: Buffer | undefined;
         } & {
             newSigUid?: string | undefined;
             keyUid?: string | undefined;
-            partyUids?: (string[] & string[] & Record<Exclude<keyof I["signInit"]["partyUids"], keyof string[]>, never>) | undefined;
-            messageToSign?: Uint8Array | undefined;
-        } & Record<Exclude<keyof I["signInit"], keyof SignInit>, never>) | undefined;
+            partyUids?: (string[] & string[] & { [K_3 in Exclude<keyof I["signInit"]["partyUids"], keyof string[]>]: never; }) | undefined;
+            messageToSign?: Buffer | undefined;
+        } & { [K_4 in Exclude<keyof I["signInit"], keyof SignInit>]: never; }) | undefined;
         traffic?: ({
             fromPartyUid?: string | undefined;
-            payload?: Uint8Array | undefined;
+            payload?: Buffer | undefined;
             isBroadcast?: boolean | undefined;
         } & {
             fromPartyUid?: string | undefined;
-            payload?: Uint8Array | undefined;
+            payload?: Buffer | undefined;
             isBroadcast?: boolean | undefined;
-        } & Record<Exclude<keyof I["traffic"], keyof TrafficIn>, never>) | undefined;
+        } & { [K_5 in Exclude<keyof I["traffic"], keyof TrafficIn>]: never; }) | undefined;
         abort?: boolean | undefined;
-    } & Record<Exclude<keyof I, keyof MessageIn>, never>>(object: I): MessageIn;
+    } & { [K_6 in Exclude<keyof I, keyof MessageIn>]: never; }>(base?: I | undefined): MessageIn;
+    fromPartial<I_1 extends {
+        keygenInit?: {
+            newKeyUid?: string | undefined;
+            partyUids?: string[] | undefined;
+            partyShareCounts?: number[] | undefined;
+            myPartyIndex?: number | undefined;
+            threshold?: number | undefined;
+        } | undefined;
+        signInit?: {
+            newSigUid?: string | undefined;
+            keyUid?: string | undefined;
+            partyUids?: string[] | undefined;
+            messageToSign?: Buffer | undefined;
+        } | undefined;
+        traffic?: {
+            fromPartyUid?: string | undefined;
+            payload?: Buffer | undefined;
+            isBroadcast?: boolean | undefined;
+        } | undefined;
+        abort?: boolean | undefined;
+    } & {
+        keygenInit?: ({
+            newKeyUid?: string | undefined;
+            partyUids?: string[] | undefined;
+            partyShareCounts?: number[] | undefined;
+            myPartyIndex?: number | undefined;
+            threshold?: number | undefined;
+        } & {
+            newKeyUid?: string | undefined;
+            partyUids?: (string[] & string[] & { [K_7 in Exclude<keyof I_1["keygenInit"]["partyUids"], keyof string[]>]: never; }) | undefined;
+            partyShareCounts?: (number[] & number[] & { [K_8 in Exclude<keyof I_1["keygenInit"]["partyShareCounts"], keyof number[]>]: never; }) | undefined;
+            myPartyIndex?: number | undefined;
+            threshold?: number | undefined;
+        } & { [K_9 in Exclude<keyof I_1["keygenInit"], keyof KeygenInit>]: never; }) | undefined;
+        signInit?: ({
+            newSigUid?: string | undefined;
+            keyUid?: string | undefined;
+            partyUids?: string[] | undefined;
+            messageToSign?: Buffer | undefined;
+        } & {
+            newSigUid?: string | undefined;
+            keyUid?: string | undefined;
+            partyUids?: (string[] & string[] & { [K_10 in Exclude<keyof I_1["signInit"]["partyUids"], keyof string[]>]: never; }) | undefined;
+            messageToSign?: Buffer | undefined;
+        } & { [K_11 in Exclude<keyof I_1["signInit"], keyof SignInit>]: never; }) | undefined;
+        traffic?: ({
+            fromPartyUid?: string | undefined;
+            payload?: Buffer | undefined;
+            isBroadcast?: boolean | undefined;
+        } & {
+            fromPartyUid?: string | undefined;
+            payload?: Buffer | undefined;
+            isBroadcast?: boolean | undefined;
+        } & { [K_12 in Exclude<keyof I_1["traffic"], keyof TrafficIn>]: never; }) | undefined;
+        abort?: boolean | undefined;
+    } & { [K_13 in Exclude<keyof I_1, keyof MessageIn>]: never; }>(object: I_1): MessageIn;
 };
 export declare const MessageOut: {
     encode(message: MessageOut, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MessageOut;
     fromJSON(object: any): MessageOut;
     toJSON(message: MessageOut): unknown;
-    fromPartial<I extends {
+    create<I extends {
         traffic?: {
             toPartyUid?: string | undefined;
-            payload?: Uint8Array | undefined;
+            payload?: Buffer | undefined;
             isBroadcast?: boolean | undefined;
         } | undefined;
         keygenResult?: {
             data?: {
-                pubKey?: Uint8Array | undefined;
-                groupRecoverInfo?: Uint8Array | undefined;
-                privateRecoverInfo?: Uint8Array | undefined;
+                pubKey?: Buffer | undefined;
+                groupRecoverInfo?: Buffer | undefined;
+                privateRecoverInfo?: Buffer | undefined;
             } | undefined;
             criminals?: {
                 criminals?: {
@@ -257,7 +365,7 @@ export declare const MessageOut: {
             } | undefined;
         } | undefined;
         signResult?: {
-            signature?: Uint8Array | undefined;
+            signature?: Buffer | undefined;
             criminals?: {
                 criminals?: {
                     partyUid?: string | undefined;
@@ -269,18 +377,18 @@ export declare const MessageOut: {
     } & {
         traffic?: ({
             toPartyUid?: string | undefined;
-            payload?: Uint8Array | undefined;
+            payload?: Buffer | undefined;
             isBroadcast?: boolean | undefined;
         } & {
             toPartyUid?: string | undefined;
-            payload?: Uint8Array | undefined;
+            payload?: Buffer | undefined;
             isBroadcast?: boolean | undefined;
-        } & Record<Exclude<keyof I["traffic"], keyof TrafficOut>, never>) | undefined;
+        } & { [K in Exclude<keyof I["traffic"], keyof TrafficOut>]: never; }) | undefined;
         keygenResult?: ({
             data?: {
-                pubKey?: Uint8Array | undefined;
-                groupRecoverInfo?: Uint8Array | undefined;
-                privateRecoverInfo?: Uint8Array | undefined;
+                pubKey?: Buffer | undefined;
+                groupRecoverInfo?: Buffer | undefined;
+                privateRecoverInfo?: Buffer | undefined;
             } | undefined;
             criminals?: {
                 criminals?: {
@@ -290,14 +398,14 @@ export declare const MessageOut: {
             } | undefined;
         } & {
             data?: ({
-                pubKey?: Uint8Array | undefined;
-                groupRecoverInfo?: Uint8Array | undefined;
-                privateRecoverInfo?: Uint8Array | undefined;
+                pubKey?: Buffer | undefined;
+                groupRecoverInfo?: Buffer | undefined;
+                privateRecoverInfo?: Buffer | undefined;
             } & {
-                pubKey?: Uint8Array | undefined;
-                groupRecoverInfo?: Uint8Array | undefined;
-                privateRecoverInfo?: Uint8Array | undefined;
-            } & Record<Exclude<keyof I["keygenResult"]["data"], keyof KeygenOutput>, never>) | undefined;
+                pubKey?: Buffer | undefined;
+                groupRecoverInfo?: Buffer | undefined;
+                privateRecoverInfo?: Buffer | undefined;
+            } & { [K_1 in Exclude<keyof I["keygenResult"]["data"], keyof KeygenOutput>]: never; }) | undefined;
             criminals?: ({
                 criminals?: {
                     partyUid?: string | undefined;
@@ -313,14 +421,14 @@ export declare const MessageOut: {
                 } & {
                     partyUid?: string | undefined;
                     crimeType?: MessageOut_CriminalList_Criminal_CrimeType | undefined;
-                } & Record<Exclude<keyof I["keygenResult"]["criminals"]["criminals"][number], keyof MessageOut_CriminalList_Criminal>, never>)[] & Record<Exclude<keyof I["keygenResult"]["criminals"]["criminals"], keyof {
+                } & { [K_2 in Exclude<keyof I["keygenResult"]["criminals"]["criminals"][number], keyof MessageOut_CriminalList_Criminal>]: never; })[] & { [K_3 in Exclude<keyof I["keygenResult"]["criminals"]["criminals"], keyof {
                     partyUid?: string | undefined;
                     crimeType?: MessageOut_CriminalList_Criminal_CrimeType | undefined;
-                }[]>, never>) | undefined;
-            } & Record<Exclude<keyof I["keygenResult"]["criminals"], "criminals">, never>) | undefined;
-        } & Record<Exclude<keyof I["keygenResult"], keyof MessageOut_KeygenResult>, never>) | undefined;
+                }[]>]: never; }) | undefined;
+            } & { [K_4 in Exclude<keyof I["keygenResult"]["criminals"], "criminals">]: never; }) | undefined;
+        } & { [K_5 in Exclude<keyof I["keygenResult"], keyof MessageOut_KeygenResult>]: never; }) | undefined;
         signResult?: ({
-            signature?: Uint8Array | undefined;
+            signature?: Buffer | undefined;
             criminals?: {
                 criminals?: {
                     partyUid?: string | undefined;
@@ -328,7 +436,7 @@ export declare const MessageOut: {
                 }[] | undefined;
             } | undefined;
         } & {
-            signature?: Uint8Array | undefined;
+            signature?: Buffer | undefined;
             criminals?: ({
                 criminals?: {
                     partyUid?: string | undefined;
@@ -344,25 +452,140 @@ export declare const MessageOut: {
                 } & {
                     partyUid?: string | undefined;
                     crimeType?: MessageOut_CriminalList_Criminal_CrimeType | undefined;
-                } & Record<Exclude<keyof I["signResult"]["criminals"]["criminals"][number], keyof MessageOut_CriminalList_Criminal>, never>)[] & Record<Exclude<keyof I["signResult"]["criminals"]["criminals"], keyof {
+                } & { [K_6 in Exclude<keyof I["signResult"]["criminals"]["criminals"][number], keyof MessageOut_CriminalList_Criminal>]: never; })[] & { [K_7 in Exclude<keyof I["signResult"]["criminals"]["criminals"], keyof {
                     partyUid?: string | undefined;
                     crimeType?: MessageOut_CriminalList_Criminal_CrimeType | undefined;
-                }[]>, never>) | undefined;
-            } & Record<Exclude<keyof I["signResult"]["criminals"], "criminals">, never>) | undefined;
-        } & Record<Exclude<keyof I["signResult"], keyof MessageOut_SignResult>, never>) | undefined;
+                }[]>]: never; }) | undefined;
+            } & { [K_8 in Exclude<keyof I["signResult"]["criminals"], "criminals">]: never; }) | undefined;
+        } & { [K_9 in Exclude<keyof I["signResult"], keyof MessageOut_SignResult>]: never; }) | undefined;
         needRecover?: boolean | undefined;
-    } & Record<Exclude<keyof I, keyof MessageOut>, never>>(object: I): MessageOut;
+    } & { [K_10 in Exclude<keyof I, keyof MessageOut>]: never; }>(base?: I | undefined): MessageOut;
+    fromPartial<I_1 extends {
+        traffic?: {
+            toPartyUid?: string | undefined;
+            payload?: Buffer | undefined;
+            isBroadcast?: boolean | undefined;
+        } | undefined;
+        keygenResult?: {
+            data?: {
+                pubKey?: Buffer | undefined;
+                groupRecoverInfo?: Buffer | undefined;
+                privateRecoverInfo?: Buffer | undefined;
+            } | undefined;
+            criminals?: {
+                criminals?: {
+                    partyUid?: string | undefined;
+                    crimeType?: MessageOut_CriminalList_Criminal_CrimeType | undefined;
+                }[] | undefined;
+            } | undefined;
+        } | undefined;
+        signResult?: {
+            signature?: Buffer | undefined;
+            criminals?: {
+                criminals?: {
+                    partyUid?: string | undefined;
+                    crimeType?: MessageOut_CriminalList_Criminal_CrimeType | undefined;
+                }[] | undefined;
+            } | undefined;
+        } | undefined;
+        needRecover?: boolean | undefined;
+    } & {
+        traffic?: ({
+            toPartyUid?: string | undefined;
+            payload?: Buffer | undefined;
+            isBroadcast?: boolean | undefined;
+        } & {
+            toPartyUid?: string | undefined;
+            payload?: Buffer | undefined;
+            isBroadcast?: boolean | undefined;
+        } & { [K_11 in Exclude<keyof I_1["traffic"], keyof TrafficOut>]: never; }) | undefined;
+        keygenResult?: ({
+            data?: {
+                pubKey?: Buffer | undefined;
+                groupRecoverInfo?: Buffer | undefined;
+                privateRecoverInfo?: Buffer | undefined;
+            } | undefined;
+            criminals?: {
+                criminals?: {
+                    partyUid?: string | undefined;
+                    crimeType?: MessageOut_CriminalList_Criminal_CrimeType | undefined;
+                }[] | undefined;
+            } | undefined;
+        } & {
+            data?: ({
+                pubKey?: Buffer | undefined;
+                groupRecoverInfo?: Buffer | undefined;
+                privateRecoverInfo?: Buffer | undefined;
+            } & {
+                pubKey?: Buffer | undefined;
+                groupRecoverInfo?: Buffer | undefined;
+                privateRecoverInfo?: Buffer | undefined;
+            } & { [K_12 in Exclude<keyof I_1["keygenResult"]["data"], keyof KeygenOutput>]: never; }) | undefined;
+            criminals?: ({
+                criminals?: {
+                    partyUid?: string | undefined;
+                    crimeType?: MessageOut_CriminalList_Criminal_CrimeType | undefined;
+                }[] | undefined;
+            } & {
+                criminals?: ({
+                    partyUid?: string | undefined;
+                    crimeType?: MessageOut_CriminalList_Criminal_CrimeType | undefined;
+                }[] & ({
+                    partyUid?: string | undefined;
+                    crimeType?: MessageOut_CriminalList_Criminal_CrimeType | undefined;
+                } & {
+                    partyUid?: string | undefined;
+                    crimeType?: MessageOut_CriminalList_Criminal_CrimeType | undefined;
+                } & { [K_13 in Exclude<keyof I_1["keygenResult"]["criminals"]["criminals"][number], keyof MessageOut_CriminalList_Criminal>]: never; })[] & { [K_14 in Exclude<keyof I_1["keygenResult"]["criminals"]["criminals"], keyof {
+                    partyUid?: string | undefined;
+                    crimeType?: MessageOut_CriminalList_Criminal_CrimeType | undefined;
+                }[]>]: never; }) | undefined;
+            } & { [K_15 in Exclude<keyof I_1["keygenResult"]["criminals"], "criminals">]: never; }) | undefined;
+        } & { [K_16 in Exclude<keyof I_1["keygenResult"], keyof MessageOut_KeygenResult>]: never; }) | undefined;
+        signResult?: ({
+            signature?: Buffer | undefined;
+            criminals?: {
+                criminals?: {
+                    partyUid?: string | undefined;
+                    crimeType?: MessageOut_CriminalList_Criminal_CrimeType | undefined;
+                }[] | undefined;
+            } | undefined;
+        } & {
+            signature?: Buffer | undefined;
+            criminals?: ({
+                criminals?: {
+                    partyUid?: string | undefined;
+                    crimeType?: MessageOut_CriminalList_Criminal_CrimeType | undefined;
+                }[] | undefined;
+            } & {
+                criminals?: ({
+                    partyUid?: string | undefined;
+                    crimeType?: MessageOut_CriminalList_Criminal_CrimeType | undefined;
+                }[] & ({
+                    partyUid?: string | undefined;
+                    crimeType?: MessageOut_CriminalList_Criminal_CrimeType | undefined;
+                } & {
+                    partyUid?: string | undefined;
+                    crimeType?: MessageOut_CriminalList_Criminal_CrimeType | undefined;
+                } & { [K_17 in Exclude<keyof I_1["signResult"]["criminals"]["criminals"][number], keyof MessageOut_CriminalList_Criminal>]: never; })[] & { [K_18 in Exclude<keyof I_1["signResult"]["criminals"]["criminals"], keyof {
+                    partyUid?: string | undefined;
+                    crimeType?: MessageOut_CriminalList_Criminal_CrimeType | undefined;
+                }[]>]: never; }) | undefined;
+            } & { [K_19 in Exclude<keyof I_1["signResult"]["criminals"], "criminals">]: never; }) | undefined;
+        } & { [K_20 in Exclude<keyof I_1["signResult"], keyof MessageOut_SignResult>]: never; }) | undefined;
+        needRecover?: boolean | undefined;
+    } & { [K_21 in Exclude<keyof I_1, keyof MessageOut>]: never; }>(object: I_1): MessageOut;
 };
 export declare const MessageOut_KeygenResult: {
     encode(message: MessageOut_KeygenResult, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MessageOut_KeygenResult;
     fromJSON(object: any): MessageOut_KeygenResult;
     toJSON(message: MessageOut_KeygenResult): unknown;
-    fromPartial<I extends {
+    create<I extends {
         data?: {
-            pubKey?: Uint8Array | undefined;
-            groupRecoverInfo?: Uint8Array | undefined;
-            privateRecoverInfo?: Uint8Array | undefined;
+            pubKey?: Buffer | undefined;
+            groupRecoverInfo?: Buffer | undefined;
+            privateRecoverInfo?: Buffer | undefined;
         } | undefined;
         criminals?: {
             criminals?: {
@@ -372,14 +595,14 @@ export declare const MessageOut_KeygenResult: {
         } | undefined;
     } & {
         data?: ({
-            pubKey?: Uint8Array | undefined;
-            groupRecoverInfo?: Uint8Array | undefined;
-            privateRecoverInfo?: Uint8Array | undefined;
+            pubKey?: Buffer | undefined;
+            groupRecoverInfo?: Buffer | undefined;
+            privateRecoverInfo?: Buffer | undefined;
         } & {
-            pubKey?: Uint8Array | undefined;
-            groupRecoverInfo?: Uint8Array | undefined;
-            privateRecoverInfo?: Uint8Array | undefined;
-        } & Record<Exclude<keyof I["data"], keyof KeygenOutput>, never>) | undefined;
+            pubKey?: Buffer | undefined;
+            groupRecoverInfo?: Buffer | undefined;
+            privateRecoverInfo?: Buffer | undefined;
+        } & { [K in Exclude<keyof I["data"], keyof KeygenOutput>]: never; }) | undefined;
         criminals?: ({
             criminals?: {
                 partyUid?: string | undefined;
@@ -395,20 +618,18 @@ export declare const MessageOut_KeygenResult: {
             } & {
                 partyUid?: string | undefined;
                 crimeType?: MessageOut_CriminalList_Criminal_CrimeType | undefined;
-            } & Record<Exclude<keyof I["criminals"]["criminals"][number], keyof MessageOut_CriminalList_Criminal>, never>)[] & Record<Exclude<keyof I["criminals"]["criminals"], keyof {
+            } & { [K_1 in Exclude<keyof I["criminals"]["criminals"][number], keyof MessageOut_CriminalList_Criminal>]: never; })[] & { [K_2 in Exclude<keyof I["criminals"]["criminals"], keyof {
                 partyUid?: string | undefined;
                 crimeType?: MessageOut_CriminalList_Criminal_CrimeType | undefined;
-            }[]>, never>) | undefined;
-        } & Record<Exclude<keyof I["criminals"], "criminals">, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof MessageOut_KeygenResult>, never>>(object: I): MessageOut_KeygenResult;
-};
-export declare const MessageOut_SignResult: {
-    encode(message: MessageOut_SignResult, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MessageOut_SignResult;
-    fromJSON(object: any): MessageOut_SignResult;
-    toJSON(message: MessageOut_SignResult): unknown;
-    fromPartial<I extends {
-        signature?: Uint8Array | undefined;
+            }[]>]: never; }) | undefined;
+        } & { [K_3 in Exclude<keyof I["criminals"], "criminals">]: never; }) | undefined;
+    } & { [K_4 in Exclude<keyof I, keyof MessageOut_KeygenResult>]: never; }>(base?: I | undefined): MessageOut_KeygenResult;
+    fromPartial<I_1 extends {
+        data?: {
+            pubKey?: Buffer | undefined;
+            groupRecoverInfo?: Buffer | undefined;
+            privateRecoverInfo?: Buffer | undefined;
+        } | undefined;
         criminals?: {
             criminals?: {
                 partyUid?: string | undefined;
@@ -416,7 +637,15 @@ export declare const MessageOut_SignResult: {
             }[] | undefined;
         } | undefined;
     } & {
-        signature?: Uint8Array | undefined;
+        data?: ({
+            pubKey?: Buffer | undefined;
+            groupRecoverInfo?: Buffer | undefined;
+            privateRecoverInfo?: Buffer | undefined;
+        } & {
+            pubKey?: Buffer | undefined;
+            groupRecoverInfo?: Buffer | undefined;
+            privateRecoverInfo?: Buffer | undefined;
+        } & { [K_5 in Exclude<keyof I_1["data"], keyof KeygenOutput>]: never; }) | undefined;
         criminals?: ({
             criminals?: {
                 partyUid?: string | undefined;
@@ -432,19 +661,87 @@ export declare const MessageOut_SignResult: {
             } & {
                 partyUid?: string | undefined;
                 crimeType?: MessageOut_CriminalList_Criminal_CrimeType | undefined;
-            } & Record<Exclude<keyof I["criminals"]["criminals"][number], keyof MessageOut_CriminalList_Criminal>, never>)[] & Record<Exclude<keyof I["criminals"]["criminals"], keyof {
+            } & { [K_6 in Exclude<keyof I_1["criminals"]["criminals"][number], keyof MessageOut_CriminalList_Criminal>]: never; })[] & { [K_7 in Exclude<keyof I_1["criminals"]["criminals"], keyof {
                 partyUid?: string | undefined;
                 crimeType?: MessageOut_CriminalList_Criminal_CrimeType | undefined;
-            }[]>, never>) | undefined;
-        } & Record<Exclude<keyof I["criminals"], "criminals">, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof MessageOut_SignResult>, never>>(object: I): MessageOut_SignResult;
+            }[]>]: never; }) | undefined;
+        } & { [K_8 in Exclude<keyof I_1["criminals"], "criminals">]: never; }) | undefined;
+    } & { [K_9 in Exclude<keyof I_1, keyof MessageOut_KeygenResult>]: never; }>(object: I_1): MessageOut_KeygenResult;
+};
+export declare const MessageOut_SignResult: {
+    encode(message: MessageOut_SignResult, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MessageOut_SignResult;
+    fromJSON(object: any): MessageOut_SignResult;
+    toJSON(message: MessageOut_SignResult): unknown;
+    create<I extends {
+        signature?: Buffer | undefined;
+        criminals?: {
+            criminals?: {
+                partyUid?: string | undefined;
+                crimeType?: MessageOut_CriminalList_Criminal_CrimeType | undefined;
+            }[] | undefined;
+        } | undefined;
+    } & {
+        signature?: Buffer | undefined;
+        criminals?: ({
+            criminals?: {
+                partyUid?: string | undefined;
+                crimeType?: MessageOut_CriminalList_Criminal_CrimeType | undefined;
+            }[] | undefined;
+        } & {
+            criminals?: ({
+                partyUid?: string | undefined;
+                crimeType?: MessageOut_CriminalList_Criminal_CrimeType | undefined;
+            }[] & ({
+                partyUid?: string | undefined;
+                crimeType?: MessageOut_CriminalList_Criminal_CrimeType | undefined;
+            } & {
+                partyUid?: string | undefined;
+                crimeType?: MessageOut_CriminalList_Criminal_CrimeType | undefined;
+            } & { [K in Exclude<keyof I["criminals"]["criminals"][number], keyof MessageOut_CriminalList_Criminal>]: never; })[] & { [K_1 in Exclude<keyof I["criminals"]["criminals"], keyof {
+                partyUid?: string | undefined;
+                crimeType?: MessageOut_CriminalList_Criminal_CrimeType | undefined;
+            }[]>]: never; }) | undefined;
+        } & { [K_2 in Exclude<keyof I["criminals"], "criminals">]: never; }) | undefined;
+    } & { [K_3 in Exclude<keyof I, keyof MessageOut_SignResult>]: never; }>(base?: I | undefined): MessageOut_SignResult;
+    fromPartial<I_1 extends {
+        signature?: Buffer | undefined;
+        criminals?: {
+            criminals?: {
+                partyUid?: string | undefined;
+                crimeType?: MessageOut_CriminalList_Criminal_CrimeType | undefined;
+            }[] | undefined;
+        } | undefined;
+    } & {
+        signature?: Buffer | undefined;
+        criminals?: ({
+            criminals?: {
+                partyUid?: string | undefined;
+                crimeType?: MessageOut_CriminalList_Criminal_CrimeType | undefined;
+            }[] | undefined;
+        } & {
+            criminals?: ({
+                partyUid?: string | undefined;
+                crimeType?: MessageOut_CriminalList_Criminal_CrimeType | undefined;
+            }[] & ({
+                partyUid?: string | undefined;
+                crimeType?: MessageOut_CriminalList_Criminal_CrimeType | undefined;
+            } & {
+                partyUid?: string | undefined;
+                crimeType?: MessageOut_CriminalList_Criminal_CrimeType | undefined;
+            } & { [K_4 in Exclude<keyof I_1["criminals"]["criminals"][number], keyof MessageOut_CriminalList_Criminal>]: never; })[] & { [K_5 in Exclude<keyof I_1["criminals"]["criminals"], keyof {
+                partyUid?: string | undefined;
+                crimeType?: MessageOut_CriminalList_Criminal_CrimeType | undefined;
+            }[]>]: never; }) | undefined;
+        } & { [K_6 in Exclude<keyof I_1["criminals"], "criminals">]: never; }) | undefined;
+    } & { [K_7 in Exclude<keyof I_1, keyof MessageOut_SignResult>]: never; }>(object: I_1): MessageOut_SignResult;
 };
 export declare const MessageOut_CriminalList: {
     encode(message: MessageOut_CriminalList, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MessageOut_CriminalList;
     fromJSON(object: any): MessageOut_CriminalList;
     toJSON(message: MessageOut_CriminalList): unknown;
-    fromPartial<I extends {
+    create<I extends {
         criminals?: {
             partyUid?: string | undefined;
             crimeType?: MessageOut_CriminalList_Criminal_CrimeType | undefined;
@@ -459,61 +756,106 @@ export declare const MessageOut_CriminalList: {
         } & {
             partyUid?: string | undefined;
             crimeType?: MessageOut_CriminalList_Criminal_CrimeType | undefined;
-        } & Record<Exclude<keyof I["criminals"][number], keyof MessageOut_CriminalList_Criminal>, never>)[] & Record<Exclude<keyof I["criminals"], keyof {
+        } & { [K in Exclude<keyof I["criminals"][number], keyof MessageOut_CriminalList_Criminal>]: never; })[] & { [K_1 in Exclude<keyof I["criminals"], keyof {
             partyUid?: string | undefined;
             crimeType?: MessageOut_CriminalList_Criminal_CrimeType | undefined;
-        }[]>, never>) | undefined;
-    } & Record<Exclude<keyof I, "criminals">, never>>(object: I): MessageOut_CriminalList;
+        }[]>]: never; }) | undefined;
+    } & { [K_2 in Exclude<keyof I, "criminals">]: never; }>(base?: I | undefined): MessageOut_CriminalList;
+    fromPartial<I_1 extends {
+        criminals?: {
+            partyUid?: string | undefined;
+            crimeType?: MessageOut_CriminalList_Criminal_CrimeType | undefined;
+        }[] | undefined;
+    } & {
+        criminals?: ({
+            partyUid?: string | undefined;
+            crimeType?: MessageOut_CriminalList_Criminal_CrimeType | undefined;
+        }[] & ({
+            partyUid?: string | undefined;
+            crimeType?: MessageOut_CriminalList_Criminal_CrimeType | undefined;
+        } & {
+            partyUid?: string | undefined;
+            crimeType?: MessageOut_CriminalList_Criminal_CrimeType | undefined;
+        } & { [K_3 in Exclude<keyof I_1["criminals"][number], keyof MessageOut_CriminalList_Criminal>]: never; })[] & { [K_4 in Exclude<keyof I_1["criminals"], keyof {
+            partyUid?: string | undefined;
+            crimeType?: MessageOut_CriminalList_Criminal_CrimeType | undefined;
+        }[]>]: never; }) | undefined;
+    } & { [K_5 in Exclude<keyof I_1, "criminals">]: never; }>(object: I_1): MessageOut_CriminalList;
 };
 export declare const MessageOut_CriminalList_Criminal: {
     encode(message: MessageOut_CriminalList_Criminal, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MessageOut_CriminalList_Criminal;
     fromJSON(object: any): MessageOut_CriminalList_Criminal;
     toJSON(message: MessageOut_CriminalList_Criminal): unknown;
-    fromPartial<I extends {
+    create<I extends {
         partyUid?: string | undefined;
         crimeType?: MessageOut_CriminalList_Criminal_CrimeType | undefined;
     } & {
         partyUid?: string | undefined;
         crimeType?: MessageOut_CriminalList_Criminal_CrimeType | undefined;
-    } & Record<Exclude<keyof I, keyof MessageOut_CriminalList_Criminal>, never>>(object: I): MessageOut_CriminalList_Criminal;
+    } & { [K in Exclude<keyof I, keyof MessageOut_CriminalList_Criminal>]: never; }>(base?: I | undefined): MessageOut_CriminalList_Criminal;
+    fromPartial<I_1 extends {
+        partyUid?: string | undefined;
+        crimeType?: MessageOut_CriminalList_Criminal_CrimeType | undefined;
+    } & {
+        partyUid?: string | undefined;
+        crimeType?: MessageOut_CriminalList_Criminal_CrimeType | undefined;
+    } & { [K_1 in Exclude<keyof I_1, keyof MessageOut_CriminalList_Criminal>]: never; }>(object: I_1): MessageOut_CriminalList_Criminal;
 };
 export declare const TrafficIn: {
     encode(message: TrafficIn, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): TrafficIn;
     fromJSON(object: any): TrafficIn;
     toJSON(message: TrafficIn): unknown;
-    fromPartial<I extends {
+    create<I extends {
         fromPartyUid?: string | undefined;
-        payload?: Uint8Array | undefined;
+        payload?: Buffer | undefined;
         isBroadcast?: boolean | undefined;
     } & {
         fromPartyUid?: string | undefined;
-        payload?: Uint8Array | undefined;
+        payload?: Buffer | undefined;
         isBroadcast?: boolean | undefined;
-    } & Record<Exclude<keyof I, keyof TrafficIn>, never>>(object: I): TrafficIn;
+    } & { [K in Exclude<keyof I, keyof TrafficIn>]: never; }>(base?: I | undefined): TrafficIn;
+    fromPartial<I_1 extends {
+        fromPartyUid?: string | undefined;
+        payload?: Buffer | undefined;
+        isBroadcast?: boolean | undefined;
+    } & {
+        fromPartyUid?: string | undefined;
+        payload?: Buffer | undefined;
+        isBroadcast?: boolean | undefined;
+    } & { [K_1 in Exclude<keyof I_1, keyof TrafficIn>]: never; }>(object: I_1): TrafficIn;
 };
 export declare const TrafficOut: {
     encode(message: TrafficOut, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): TrafficOut;
     fromJSON(object: any): TrafficOut;
     toJSON(message: TrafficOut): unknown;
-    fromPartial<I extends {
+    create<I extends {
         toPartyUid?: string | undefined;
-        payload?: Uint8Array | undefined;
+        payload?: Buffer | undefined;
         isBroadcast?: boolean | undefined;
     } & {
         toPartyUid?: string | undefined;
-        payload?: Uint8Array | undefined;
+        payload?: Buffer | undefined;
         isBroadcast?: boolean | undefined;
-    } & Record<Exclude<keyof I, keyof TrafficOut>, never>>(object: I): TrafficOut;
+    } & { [K in Exclude<keyof I, keyof TrafficOut>]: never; }>(base?: I | undefined): TrafficOut;
+    fromPartial<I_1 extends {
+        toPartyUid?: string | undefined;
+        payload?: Buffer | undefined;
+        isBroadcast?: boolean | undefined;
+    } & {
+        toPartyUid?: string | undefined;
+        payload?: Buffer | undefined;
+        isBroadcast?: boolean | undefined;
+    } & { [K_1 in Exclude<keyof I_1, keyof TrafficOut>]: never; }>(object: I_1): TrafficOut;
 };
 export declare const KeygenInit: {
     encode(message: KeygenInit, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): KeygenInit;
     fromJSON(object: any): KeygenInit;
     toJSON(message: KeygenInit): unknown;
-    fromPartial<I extends {
+    create<I extends {
         newKeyUid?: string | undefined;
         partyUids?: string[] | undefined;
         partyShareCounts?: number[] | undefined;
@@ -521,35 +863,61 @@ export declare const KeygenInit: {
         threshold?: number | undefined;
     } & {
         newKeyUid?: string | undefined;
-        partyUids?: (string[] & string[] & Record<Exclude<keyof I["partyUids"], keyof string[]>, never>) | undefined;
-        partyShareCounts?: (number[] & number[] & Record<Exclude<keyof I["partyShareCounts"], keyof number[]>, never>) | undefined;
+        partyUids?: (string[] & string[] & { [K in Exclude<keyof I["partyUids"], keyof string[]>]: never; }) | undefined;
+        partyShareCounts?: (number[] & number[] & { [K_1 in Exclude<keyof I["partyShareCounts"], keyof number[]>]: never; }) | undefined;
         myPartyIndex?: number | undefined;
         threshold?: number | undefined;
-    } & Record<Exclude<keyof I, keyof KeygenInit>, never>>(object: I): KeygenInit;
+    } & { [K_2 in Exclude<keyof I, keyof KeygenInit>]: never; }>(base?: I | undefined): KeygenInit;
+    fromPartial<I_1 extends {
+        newKeyUid?: string | undefined;
+        partyUids?: string[] | undefined;
+        partyShareCounts?: number[] | undefined;
+        myPartyIndex?: number | undefined;
+        threshold?: number | undefined;
+    } & {
+        newKeyUid?: string | undefined;
+        partyUids?: (string[] & string[] & { [K_3 in Exclude<keyof I_1["partyUids"], keyof string[]>]: never; }) | undefined;
+        partyShareCounts?: (number[] & number[] & { [K_4 in Exclude<keyof I_1["partyShareCounts"], keyof number[]>]: never; }) | undefined;
+        myPartyIndex?: number | undefined;
+        threshold?: number | undefined;
+    } & { [K_5 in Exclude<keyof I_1, keyof KeygenInit>]: never; }>(object: I_1): KeygenInit;
 };
 export declare const SignInit: {
     encode(message: SignInit, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): SignInit;
     fromJSON(object: any): SignInit;
     toJSON(message: SignInit): unknown;
-    fromPartial<I extends {
+    create<I extends {
         newSigUid?: string | undefined;
         keyUid?: string | undefined;
         partyUids?: string[] | undefined;
-        messageToSign?: Uint8Array | undefined;
+        messageToSign?: Buffer | undefined;
     } & {
         newSigUid?: string | undefined;
         keyUid?: string | undefined;
-        partyUids?: (string[] & string[] & Record<Exclude<keyof I["partyUids"], keyof string[]>, never>) | undefined;
-        messageToSign?: Uint8Array | undefined;
-    } & Record<Exclude<keyof I, keyof SignInit>, never>>(object: I): SignInit;
+        partyUids?: (string[] & string[] & { [K in Exclude<keyof I["partyUids"], keyof string[]>]: never; }) | undefined;
+        messageToSign?: Buffer | undefined;
+    } & { [K_1 in Exclude<keyof I, keyof SignInit>]: never; }>(base?: I | undefined): SignInit;
+    fromPartial<I_1 extends {
+        newSigUid?: string | undefined;
+        keyUid?: string | undefined;
+        partyUids?: string[] | undefined;
+        messageToSign?: Buffer | undefined;
+    } & {
+        newSigUid?: string | undefined;
+        keyUid?: string | undefined;
+        partyUids?: (string[] & string[] & { [K_2 in Exclude<keyof I_1["partyUids"], keyof string[]>]: never; }) | undefined;
+        messageToSign?: Buffer | undefined;
+    } & { [K_3 in Exclude<keyof I_1, keyof SignInit>]: never; }>(object: I_1): SignInit;
 };
 declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
 declare type KeysOfUnion<T> = T extends T ? keyof T : never;
 export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
-} & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
+} & {
+    [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+};
 export {};

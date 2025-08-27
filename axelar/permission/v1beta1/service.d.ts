@@ -1,5 +1,5 @@
-import { RegisterControllerResponse, DeregisterControllerResponse, UpdateGovernanceKeyResponse, RegisterControllerRequest, DeregisterControllerRequest, UpdateGovernanceKeyRequest } from "../../../axelar/permission/v1beta1/tx";
-import { QueryGovernanceKeyResponse, ParamsResponse, QueryGovernanceKeyRequest, ParamsRequest } from "../../../axelar/permission/v1beta1/query";
+import { ParamsRequest, ParamsResponse, QueryGovernanceKeyRequest, QueryGovernanceKeyResponse } from "./query";
+import { DeregisterControllerRequest, DeregisterControllerResponse, RegisterControllerRequest, RegisterControllerResponse, UpdateGovernanceKeyRequest, UpdateGovernanceKeyResponse } from "./tx";
 export declare const protobufPackage = "axelar.permission.v1beta1";
 /** Msg defines the gov Msg service. */
 export interface Msg {
@@ -7,9 +7,13 @@ export interface Msg {
     DeregisterController(request: DeregisterControllerRequest): Promise<DeregisterControllerResponse>;
     UpdateGovernanceKey(request: UpdateGovernanceKeyRequest): Promise<UpdateGovernanceKeyResponse>;
 }
+export declare const MsgServiceName = "axelar.permission.v1beta1.Msg";
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
-    constructor(rpc: Rpc);
+    private readonly service;
+    constructor(rpc: Rpc, opts?: {
+        service?: string;
+    });
     RegisterController(request: RegisterControllerRequest): Promise<RegisterControllerResponse>;
     DeregisterController(request: DeregisterControllerRequest): Promise<DeregisterControllerResponse>;
     UpdateGovernanceKey(request: UpdateGovernanceKeyRequest): Promise<UpdateGovernanceKeyResponse>;
@@ -20,9 +24,13 @@ export interface Query {
     GovernanceKey(request: QueryGovernanceKeyRequest): Promise<QueryGovernanceKeyResponse>;
     Params(request: ParamsRequest): Promise<ParamsResponse>;
 }
+export declare const QueryServiceName = "axelar.permission.v1beta1.Query";
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
-    constructor(rpc: Rpc);
+    private readonly service;
+    constructor(rpc: Rpc, opts?: {
+        service?: string;
+    });
     GovernanceKey(request: QueryGovernanceKeyRequest): Promise<QueryGovernanceKeyResponse>;
     Params(request: ParamsRequest): Promise<ParamsResponse>;
 }

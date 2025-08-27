@@ -1,22 +1,30 @@
-import { HeartBeatResponse, HeartBeatRequest } from "../../../axelar/tss/v1beta1/tx";
-import { ParamsResponse, ParamsRequest } from "../../../axelar/tss/v1beta1/query";
+import { ParamsRequest, ParamsResponse } from "./query";
+import { HeartBeatRequest, HeartBeatResponse } from "./tx";
 export declare const protobufPackage = "axelar.tss.v1beta1";
 /** Msg defines the tss Msg service. */
 export interface MsgService {
     HeartBeat(request: HeartBeatRequest): Promise<HeartBeatResponse>;
 }
+export declare const MsgServiceServiceName = "axelar.tss.v1beta1.MsgService";
 export declare class MsgServiceClientImpl implements MsgService {
     private readonly rpc;
-    constructor(rpc: Rpc);
+    private readonly service;
+    constructor(rpc: Rpc, opts?: {
+        service?: string;
+    });
     HeartBeat(request: HeartBeatRequest): Promise<HeartBeatResponse>;
 }
 /** Query defines the gRPC querier service. */
 export interface QueryService {
     Params(request: ParamsRequest): Promise<ParamsResponse>;
 }
+export declare const QueryServiceServiceName = "axelar.tss.v1beta1.QueryService";
 export declare class QueryServiceClientImpl implements QueryService {
     private readonly rpc;
-    constructor(rpc: Rpc);
+    private readonly service;
+    constructor(rpc: Rpc, opts?: {
+        service?: string;
+    });
     Params(request: ParamsRequest): Promise<ParamsResponse>;
 }
 interface Rpc {

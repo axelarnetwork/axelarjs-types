@@ -1,5 +1,5 @@
-import { StartKeygenResponse, SubmitPubKeyResponse, SubmitSignatureResponse, RotateKeyResponse, KeygenOptOutResponse, KeygenOptInResponse, StartKeygenRequest, SubmitPubKeyRequest, SubmitSignatureRequest, RotateKeyRequest, KeygenOptOutRequest, KeygenOptInRequest } from "../../../axelar/multisig/v1beta1/tx";
-import { KeyIDResponse, NextKeyIDResponse, KeyResponse, KeygenSessionResponse, ParamsResponse, KeyIDRequest, NextKeyIDRequest, KeyRequest, KeygenSessionRequest, ParamsRequest } from "../../../axelar/multisig/v1beta1/query";
+import { KeygenSessionRequest, KeygenSessionResponse, KeyIDRequest, KeyIDResponse, KeyRequest, KeyResponse, NextKeyIDRequest, NextKeyIDResponse, ParamsRequest, ParamsResponse } from "./query";
+import { KeygenOptInRequest, KeygenOptInResponse, KeygenOptOutRequest, KeygenOptOutResponse, RotateKeyRequest, RotateKeyResponse, StartKeygenRequest, StartKeygenResponse, SubmitPubKeyRequest, SubmitPubKeyResponse, SubmitSignatureRequest, SubmitSignatureResponse } from "./tx";
 export declare const protobufPackage = "axelar.multisig.v1beta1";
 /** Msg defines the multisig Msg service. */
 export interface MsgService {
@@ -10,9 +10,13 @@ export interface MsgService {
     KeygenOptOut(request: KeygenOptOutRequest): Promise<KeygenOptOutResponse>;
     KeygenOptIn(request: KeygenOptInRequest): Promise<KeygenOptInResponse>;
 }
+export declare const MsgServiceServiceName = "axelar.multisig.v1beta1.MsgService";
 export declare class MsgServiceClientImpl implements MsgService {
     private readonly rpc;
-    constructor(rpc: Rpc);
+    private readonly service;
+    constructor(rpc: Rpc, opts?: {
+        service?: string;
+    });
     StartKeygen(request: StartKeygenRequest): Promise<StartKeygenResponse>;
     SubmitPubKey(request: SubmitPubKeyRequest): Promise<SubmitPubKeyResponse>;
     SubmitSignature(request: SubmitSignatureRequest): Promise<SubmitSignatureResponse>;
@@ -45,9 +49,13 @@ export interface QueryService {
     KeygenSession(request: KeygenSessionRequest): Promise<KeygenSessionResponse>;
     Params(request: ParamsRequest): Promise<ParamsResponse>;
 }
+export declare const QueryServiceServiceName = "axelar.multisig.v1beta1.QueryService";
 export declare class QueryServiceClientImpl implements QueryService {
     private readonly rpc;
-    constructor(rpc: Rpc);
+    private readonly service;
+    constructor(rpc: Rpc, opts?: {
+        service?: string;
+    });
     KeyID(request: KeyIDRequest): Promise<KeyIDResponse>;
     NextKeyID(request: NextKeyIDRequest): Promise<NextKeyIDResponse>;
     Key(request: KeyRequest): Promise<KeyResponse>;

@@ -1,8 +1,8 @@
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
+import _m0 from "protobufjs/minimal";
 export declare const protobufPackage = "axelar.utils.v1beta1";
 export interface Bitmap {
-    trueCountCache?: CircularBuffer;
+    trueCountCache?: CircularBuffer | undefined;
 }
 export interface CircularBuffer {
     cumulativeValue: Long[];
@@ -14,7 +14,7 @@ export declare const Bitmap: {
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Bitmap;
     fromJSON(object: any): Bitmap;
     toJSON(message: Bitmap): unknown;
-    fromPartial<I extends {
+    create<I extends {
         trueCountCache?: {
             cumulativeValue?: (string | number | Long.Long)[] | undefined;
             index?: number | undefined;
@@ -83,18 +83,92 @@ export declare const Bitmap: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["trueCountCache"]["cumulativeValue"][number], keyof Long.Long>, never>))[] & Record<Exclude<keyof I["trueCountCache"]["cumulativeValue"], keyof (string | number | Long.Long)[]>, never>) | undefined;
+            } & { [K in Exclude<keyof I["trueCountCache"]["cumulativeValue"][number], keyof Long.Long>]: never; }))[] & { [K_1 in Exclude<keyof I["trueCountCache"]["cumulativeValue"], keyof (string | number | Long.Long)[]>]: never; }) | undefined;
             index?: number | undefined;
             maxSize?: number | undefined;
-        } & Record<Exclude<keyof I["trueCountCache"], keyof CircularBuffer>, never>) | undefined;
-    } & Record<Exclude<keyof I, "trueCountCache">, never>>(object: I): Bitmap;
+        } & { [K_2 in Exclude<keyof I["trueCountCache"], keyof CircularBuffer>]: never; }) | undefined;
+    } & { [K_3 in Exclude<keyof I, "trueCountCache">]: never; }>(base?: I | undefined): Bitmap;
+    fromPartial<I_1 extends {
+        trueCountCache?: {
+            cumulativeValue?: (string | number | Long.Long)[] | undefined;
+            index?: number | undefined;
+            maxSize?: number | undefined;
+        } | undefined;
+    } & {
+        trueCountCache?: ({
+            cumulativeValue?: (string | number | Long.Long)[] | undefined;
+            index?: number | undefined;
+            maxSize?: number | undefined;
+        } & {
+            cumulativeValue?: ((string | number | Long.Long)[] & (string | number | (Long.Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long.Long) => Long.Long;
+                and: (other: string | number | Long.Long) => Long.Long;
+                compare: (other: string | number | Long.Long) => number;
+                comp: (other: string | number | Long.Long) => number;
+                divide: (divisor: string | number | Long.Long) => Long.Long;
+                div: (divisor: string | number | Long.Long) => Long.Long;
+                equals: (other: string | number | Long.Long) => boolean;
+                eq: (other: string | number | Long.Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long.Long) => boolean;
+                gt: (other: string | number | Long.Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                gte: (other: string | number | Long.Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                lessThan: (other: string | number | Long.Long) => boolean;
+                lt: (other: string | number | Long.Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                lte: (other: string | number | Long.Long) => boolean;
+                modulo: (other: string | number | Long.Long) => Long.Long;
+                mod: (other: string | number | Long.Long) => Long.Long;
+                multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                mul: (multiplier: string | number | Long.Long) => Long.Long;
+                negate: () => Long.Long;
+                neg: () => Long.Long;
+                not: () => Long.Long;
+                notEquals: (other: string | number | Long.Long) => boolean;
+                neq: (other: string | number | Long.Long) => boolean;
+                or: (other: string | number | Long.Long) => Long.Long;
+                shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                shl: (numBits: number | Long.Long) => Long.Long;
+                shiftRight: (numBits: number | Long.Long) => Long.Long;
+                shr: (numBits: number | Long.Long) => Long.Long;
+                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                shru: (numBits: number | Long.Long) => Long.Long;
+                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long.Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long.Long;
+                xor: (other: string | number | Long.Long) => Long.Long;
+            } & { [K_4 in Exclude<keyof I_1["trueCountCache"]["cumulativeValue"][number], keyof Long.Long>]: never; }))[] & { [K_5 in Exclude<keyof I_1["trueCountCache"]["cumulativeValue"], keyof (string | number | Long.Long)[]>]: never; }) | undefined;
+            index?: number | undefined;
+            maxSize?: number | undefined;
+        } & { [K_6 in Exclude<keyof I_1["trueCountCache"], keyof CircularBuffer>]: never; }) | undefined;
+    } & { [K_7 in Exclude<keyof I_1, "trueCountCache">]: never; }>(object: I_1): Bitmap;
 };
 export declare const CircularBuffer: {
     encode(message: CircularBuffer, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): CircularBuffer;
     fromJSON(object: any): CircularBuffer;
     toJSON(message: CircularBuffer): unknown;
-    fromPartial<I extends {
+    create<I extends {
         cumulativeValue?: (string | number | Long.Long)[] | undefined;
         index?: number | undefined;
         maxSize?: number | undefined;
@@ -156,17 +230,85 @@ export declare const CircularBuffer: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["cumulativeValue"][number], keyof Long.Long>, never>))[] & Record<Exclude<keyof I["cumulativeValue"], keyof (string | number | Long.Long)[]>, never>) | undefined;
+        } & { [K in Exclude<keyof I["cumulativeValue"][number], keyof Long.Long>]: never; }))[] & { [K_1 in Exclude<keyof I["cumulativeValue"], keyof (string | number | Long.Long)[]>]: never; }) | undefined;
         index?: number | undefined;
         maxSize?: number | undefined;
-    } & Record<Exclude<keyof I, keyof CircularBuffer>, never>>(object: I): CircularBuffer;
+    } & { [K_2 in Exclude<keyof I, keyof CircularBuffer>]: never; }>(base?: I | undefined): CircularBuffer;
+    fromPartial<I_1 extends {
+        cumulativeValue?: (string | number | Long.Long)[] | undefined;
+        index?: number | undefined;
+        maxSize?: number | undefined;
+    } & {
+        cumulativeValue?: ((string | number | Long.Long)[] & (string | number | (Long.Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long.Long) => Long.Long;
+            and: (other: string | number | Long.Long) => Long.Long;
+            compare: (other: string | number | Long.Long) => number;
+            comp: (other: string | number | Long.Long) => number;
+            divide: (divisor: string | number | Long.Long) => Long.Long;
+            div: (divisor: string | number | Long.Long) => Long.Long;
+            equals: (other: string | number | Long.Long) => boolean;
+            eq: (other: string | number | Long.Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long.Long) => boolean;
+            gt: (other: string | number | Long.Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+            gte: (other: string | number | Long.Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            lessThan: (other: string | number | Long.Long) => boolean;
+            lt: (other: string | number | Long.Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+            lte: (other: string | number | Long.Long) => boolean;
+            modulo: (other: string | number | Long.Long) => Long.Long;
+            mod: (other: string | number | Long.Long) => Long.Long;
+            multiply: (multiplier: string | number | Long.Long) => Long.Long;
+            mul: (multiplier: string | number | Long.Long) => Long.Long;
+            negate: () => Long.Long;
+            neg: () => Long.Long;
+            not: () => Long.Long;
+            notEquals: (other: string | number | Long.Long) => boolean;
+            neq: (other: string | number | Long.Long) => boolean;
+            or: (other: string | number | Long.Long) => Long.Long;
+            shiftLeft: (numBits: number | Long.Long) => Long.Long;
+            shl: (numBits: number | Long.Long) => Long.Long;
+            shiftRight: (numBits: number | Long.Long) => Long.Long;
+            shr: (numBits: number | Long.Long) => Long.Long;
+            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+            shru: (numBits: number | Long.Long) => Long.Long;
+            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+            sub: (subtrahend: string | number | Long.Long) => Long.Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long.Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long.Long;
+            xor: (other: string | number | Long.Long) => Long.Long;
+        } & { [K_3 in Exclude<keyof I_1["cumulativeValue"][number], keyof Long.Long>]: never; }))[] & { [K_4 in Exclude<keyof I_1["cumulativeValue"], keyof (string | number | Long.Long)[]>]: never; }) | undefined;
+        index?: number | undefined;
+        maxSize?: number | undefined;
+    } & { [K_5 in Exclude<keyof I_1, keyof CircularBuffer>]: never; }>(object: I_1): CircularBuffer;
 };
 declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
 declare type KeysOfUnion<T> = T extends T ? keyof T : never;
 export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
-} & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
+} & {
+    [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+};
 export {};
