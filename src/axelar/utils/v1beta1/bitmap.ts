@@ -7,24 +7,29 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { messageTypeRegistry } from "../../../typeRegistry";
 
 export const protobufPackage = "axelar.utils.v1beta1";
 
 export interface Bitmap {
+  $type: "axelar.utils.v1beta1.Bitmap";
   trueCountCache?: CircularBuffer | undefined;
 }
 
 export interface CircularBuffer {
+  $type: "axelar.utils.v1beta1.CircularBuffer";
   cumulativeValue: Long[];
   index: number;
   maxSize: number;
 }
 
 function createBaseBitmap(): Bitmap {
-  return { trueCountCache: undefined };
+  return { $type: "axelar.utils.v1beta1.Bitmap", trueCountCache: undefined };
 }
 
 export const Bitmap = {
+  $type: "axelar.utils.v1beta1.Bitmap" as const,
+
   encode(message: Bitmap, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.trueCountCache !== undefined) {
       CircularBuffer.encode(message.trueCountCache, writer.uint32(18).fork()).ldelim();
@@ -57,6 +62,7 @@ export const Bitmap = {
 
   fromJSON(object: any): Bitmap {
     return {
+      $type: Bitmap.$type,
       trueCountCache: isSet(object.trueCountCache)
         ? CircularBuffer.fromJSON(object.trueCountCache)
         : undefined,
@@ -84,11 +90,15 @@ export const Bitmap = {
   },
 };
 
+messageTypeRegistry.set(Bitmap.$type, Bitmap);
+
 function createBaseCircularBuffer(): CircularBuffer {
-  return { cumulativeValue: [], index: 0, maxSize: 0 };
+  return { $type: "axelar.utils.v1beta1.CircularBuffer", cumulativeValue: [], index: 0, maxSize: 0 };
 }
 
 export const CircularBuffer = {
+  $type: "axelar.utils.v1beta1.CircularBuffer" as const,
+
   encode(message: CircularBuffer, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     writer.uint32(10).fork();
     for (const v of message.cumulativeValue) {
@@ -153,6 +163,7 @@ export const CircularBuffer = {
 
   fromJSON(object: any): CircularBuffer {
     return {
+      $type: CircularBuffer.$type,
       cumulativeValue: gt.Array.isArray(object?.cumulativeValue)
         ? object.cumulativeValue.map((e: any) => Long.fromValue(e))
         : [],
@@ -187,6 +198,8 @@ export const CircularBuffer = {
   },
 };
 
+messageTypeRegistry.set(CircularBuffer.$type, CircularBuffer);
+
 declare const self: any | undefined;
 declare const window: any | undefined;
 declare const global: any | undefined;
@@ -217,13 +230,13 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

@@ -65,6 +65,8 @@ import {
   SetGatewayResponse,
   SignCommandsRequest,
   SignCommandsResponse,
+  UpdateParamsRequest,
+  UpdateParamsResponse,
 } from "./tx";
 
 export const protobufPackage = "axelar.evm.v1beta1";
@@ -88,6 +90,7 @@ export interface MsgService {
   SignCommands(request: SignCommandsRequest): Promise<SignCommandsResponse>;
   AddChain(request: AddChainRequest): Promise<AddChainResponse>;
   RetryFailedEvent(request: RetryFailedEventRequest): Promise<RetryFailedEventResponse>;
+  UpdateParams(request: UpdateParamsRequest): Promise<UpdateParamsResponse>;
 }
 
 export const MsgServiceServiceName = "axelar.evm.v1beta1.MsgService";
@@ -111,6 +114,7 @@ export class MsgServiceClientImpl implements MsgService {
     this.SignCommands = this.SignCommands.bind(this);
     this.AddChain = this.AddChain.bind(this);
     this.RetryFailedEvent = this.RetryFailedEvent.bind(this);
+    this.UpdateParams = this.UpdateParams.bind(this);
   }
   SetGateway(request: SetGatewayRequest): Promise<SetGatewayResponse> {
     const data = SetGatewayRequest.encode(request).finish();
@@ -196,6 +200,12 @@ export class MsgServiceClientImpl implements MsgService {
     const data = RetryFailedEventRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "RetryFailedEvent", data);
     return promise.then((data) => RetryFailedEventResponse.decode(_m0.Reader.create(data)));
+  }
+
+  UpdateParams(request: UpdateParamsRequest): Promise<UpdateParamsResponse> {
+    const data = UpdateParamsRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "UpdateParams", data);
+    return promise.then((data) => UpdateParamsResponse.decode(_m0.Reader.create(data)));
   }
 }
 

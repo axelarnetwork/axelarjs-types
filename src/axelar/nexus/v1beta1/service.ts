@@ -47,6 +47,8 @@ import {
   RegisterChainMaintainerResponse,
   SetTransferRateLimitRequest,
   SetTransferRateLimitResponse,
+  UpdateParamsRequest,
+  UpdateParamsResponse,
 } from "./tx";
 
 export const protobufPackage = "axelar.nexus.v1beta1";
@@ -61,6 +63,7 @@ export interface MsgService {
   DeactivateChain(request: DeactivateChainRequest): Promise<DeactivateChainResponse>;
   RegisterAssetFee(request: RegisterAssetFeeRequest): Promise<RegisterAssetFeeResponse>;
   SetTransferRateLimit(request: SetTransferRateLimitRequest): Promise<SetTransferRateLimitResponse>;
+  UpdateParams(request: UpdateParamsRequest): Promise<UpdateParamsResponse>;
 }
 
 export const MsgServiceServiceName = "axelar.nexus.v1beta1.MsgService";
@@ -76,6 +79,7 @@ export class MsgServiceClientImpl implements MsgService {
     this.DeactivateChain = this.DeactivateChain.bind(this);
     this.RegisterAssetFee = this.RegisterAssetFee.bind(this);
     this.SetTransferRateLimit = this.SetTransferRateLimit.bind(this);
+    this.UpdateParams = this.UpdateParams.bind(this);
   }
   RegisterChainMaintainer(request: RegisterChainMaintainerRequest): Promise<RegisterChainMaintainerResponse> {
     const data = RegisterChainMaintainerRequest.encode(request).finish();
@@ -113,6 +117,12 @@ export class MsgServiceClientImpl implements MsgService {
     const data = SetTransferRateLimitRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "SetTransferRateLimit", data);
     return promise.then((data) => SetTransferRateLimitResponse.decode(_m0.Reader.create(data)));
+  }
+
+  UpdateParams(request: UpdateParamsRequest): Promise<UpdateParamsResponse> {
+    const data = UpdateParamsRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "UpdateParams", data);
+    return promise.then((data) => UpdateParamsResponse.decode(_m0.Reader.create(data)));
   }
 }
 

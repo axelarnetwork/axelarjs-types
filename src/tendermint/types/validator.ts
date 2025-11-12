@@ -7,6 +7,7 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { messageTypeRegistry } from "../../typeRegistry";
 import { PublicKey } from "../crypto/keys";
 
 export const protobufPackage = "tendermint.types";
@@ -62,12 +63,14 @@ export function blockIDFlagToJSON(object: BlockIDFlag): string {
 }
 
 export interface ValidatorSet {
+  $type: "tendermint.types.ValidatorSet";
   validators: Validator[];
   proposer?: Validator | undefined;
   totalVotingPower: Long;
 }
 
 export interface Validator {
+  $type: "tendermint.types.Validator";
   address: Buffer;
   pubKey?: PublicKey | undefined;
   votingPower: Long;
@@ -75,15 +78,23 @@ export interface Validator {
 }
 
 export interface SimpleValidator {
+  $type: "tendermint.types.SimpleValidator";
   pubKey?: PublicKey | undefined;
   votingPower: Long;
 }
 
 function createBaseValidatorSet(): ValidatorSet {
-  return { validators: [], proposer: undefined, totalVotingPower: Long.ZERO };
+  return {
+    $type: "tendermint.types.ValidatorSet",
+    validators: [],
+    proposer: undefined,
+    totalVotingPower: Long.ZERO,
+  };
 }
 
 export const ValidatorSet = {
+  $type: "tendermint.types.ValidatorSet" as const,
+
   encode(message: ValidatorSet, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.validators) {
       Validator.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -136,6 +147,7 @@ export const ValidatorSet = {
 
   fromJSON(object: any): ValidatorSet {
     return {
+      $type: ValidatorSet.$type,
       validators: gt.Array.isArray(object?.validators)
         ? object.validators.map((e: any) => Validator.fromJSON(e))
         : [],
@@ -176,11 +188,21 @@ export const ValidatorSet = {
   },
 };
 
+messageTypeRegistry.set(ValidatorSet.$type, ValidatorSet);
+
 function createBaseValidator(): Validator {
-  return { address: Buffer.alloc(0), pubKey: undefined, votingPower: Long.ZERO, proposerPriority: Long.ZERO };
+  return {
+    $type: "tendermint.types.Validator",
+    address: Buffer.alloc(0),
+    pubKey: undefined,
+    votingPower: Long.ZERO,
+    proposerPriority: Long.ZERO,
+  };
 }
 
 export const Validator = {
+  $type: "tendermint.types.Validator" as const,
+
   encode(message: Validator, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.address.length !== 0) {
       writer.uint32(10).bytes(message.address);
@@ -243,6 +265,7 @@ export const Validator = {
 
   fromJSON(object: any): Validator {
     return {
+      $type: Validator.$type,
       address: isSet(object.address) ? Buffer.from(bytesFromBase64(object.address)) : Buffer.alloc(0),
       pubKey: isSet(object.pubKey) ? PublicKey.fromJSON(object.pubKey) : undefined,
       votingPower: isSet(object.votingPower) ? Long.fromValue(object.votingPower) : Long.ZERO,
@@ -289,11 +312,15 @@ export const Validator = {
   },
 };
 
+messageTypeRegistry.set(Validator.$type, Validator);
+
 function createBaseSimpleValidator(): SimpleValidator {
-  return { pubKey: undefined, votingPower: Long.ZERO };
+  return { $type: "tendermint.types.SimpleValidator", pubKey: undefined, votingPower: Long.ZERO };
 }
 
 export const SimpleValidator = {
+  $type: "tendermint.types.SimpleValidator" as const,
+
   encode(message: SimpleValidator, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.pubKey !== undefined) {
       PublicKey.encode(message.pubKey, writer.uint32(10).fork()).ldelim();
@@ -336,6 +363,7 @@ export const SimpleValidator = {
 
   fromJSON(object: any): SimpleValidator {
     return {
+      $type: SimpleValidator.$type,
       pubKey: isSet(object.pubKey) ? PublicKey.fromJSON(object.pubKey) : undefined,
       votingPower: isSet(object.votingPower) ? Long.fromValue(object.votingPower) : Long.ZERO,
     };
@@ -368,6 +396,8 @@ export const SimpleValidator = {
     return message;
   },
 };
+
+messageTypeRegistry.set(SimpleValidator.$type, SimpleValidator);
 
 declare const self: any | undefined;
 declare const window: any | undefined;
@@ -407,13 +437,13 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

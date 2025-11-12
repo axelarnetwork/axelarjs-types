@@ -7,13 +7,14 @@
 /* eslint-disable */
 import _m0 from "protobufjs/minimal";
 import { ParamsRequest, ParamsResponse } from "./query";
-import { VoteRequest, VoteResponse } from "./tx";
+import { UpdateParamsRequest, UpdateParamsResponse, VoteRequest, VoteResponse } from "./tx";
 
 export const protobufPackage = "axelar.vote.v1beta1";
 
 /** Msg defines the vote Msg service. */
 export interface MsgService {
   Vote(request: VoteRequest): Promise<VoteResponse>;
+  UpdateParams(request: UpdateParamsRequest): Promise<UpdateParamsResponse>;
 }
 
 export const MsgServiceServiceName = "axelar.vote.v1beta1.MsgService";
@@ -24,11 +25,18 @@ export class MsgServiceClientImpl implements MsgService {
     this.service = opts?.service || MsgServiceServiceName;
     this.rpc = rpc;
     this.Vote = this.Vote.bind(this);
+    this.UpdateParams = this.UpdateParams.bind(this);
   }
   Vote(request: VoteRequest): Promise<VoteResponse> {
     const data = VoteRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "Vote", data);
     return promise.then((data) => VoteResponse.decode(_m0.Reader.create(data)));
+  }
+
+  UpdateParams(request: UpdateParamsRequest): Promise<UpdateParamsResponse> {
+    const data = UpdateParamsRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "UpdateParams", data);
+    return promise.then((data) => UpdateParamsResponse.decode(_m0.Reader.create(data)));
   }
 }
 

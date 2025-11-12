@@ -7,21 +7,29 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { messageTypeRegistry } from "../../../typeRegistry";
 import { Threshold } from "../../utils/v1beta1/threshold";
 
 export const protobufPackage = "axelar.vote.v1beta1";
 
 /** Params represent the genesis parameters for the module */
 export interface Params {
+  $type: "axelar.vote.v1beta1.Params";
   defaultVotingThreshold?: Threshold | undefined;
   endBlockerLimit: Long;
 }
 
 function createBaseParams(): Params {
-  return { defaultVotingThreshold: undefined, endBlockerLimit: Long.ZERO };
+  return {
+    $type: "axelar.vote.v1beta1.Params",
+    defaultVotingThreshold: undefined,
+    endBlockerLimit: Long.ZERO,
+  };
 }
 
 export const Params = {
+  $type: "axelar.vote.v1beta1.Params" as const,
+
   encode(message: Params, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.defaultVotingThreshold !== undefined) {
       Threshold.encode(message.defaultVotingThreshold, writer.uint32(10).fork()).ldelim();
@@ -64,6 +72,7 @@ export const Params = {
 
   fromJSON(object: any): Params {
     return {
+      $type: Params.$type,
       defaultVotingThreshold: isSet(object.defaultVotingThreshold)
         ? Threshold.fromJSON(object.defaultVotingThreshold)
         : undefined,
@@ -99,6 +108,8 @@ export const Params = {
   },
 };
 
+messageTypeRegistry.set(Params.$type, Params);
+
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 export type DeepPartial<T> = T extends Builtin
@@ -110,13 +121,13 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

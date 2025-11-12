@@ -8,6 +8,7 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { Duration } from "../../google/protobuf/duration";
+import { messageTypeRegistry } from "../../typeRegistry";
 
 export const protobufPackage = "tendermint.types";
 
@@ -16,6 +17,7 @@ export const protobufPackage = "tendermint.types";
  * validity of blocks.
  */
 export interface ConsensusParams {
+  $type: "tendermint.types.ConsensusParams";
   block?: BlockParams | undefined;
   evidence?: EvidenceParams | undefined;
   validator?: ValidatorParams | undefined;
@@ -25,6 +27,7 @@ export interface ConsensusParams {
 
 /** BlockParams contains limits on the block size. */
 export interface BlockParams {
+  $type: "tendermint.types.BlockParams";
   /**
    * Max block size, in bytes.
    * Note: must be greater than 0
@@ -39,6 +42,7 @@ export interface BlockParams {
 
 /** EvidenceParams determine how we handle evidence of malfeasance. */
 export interface EvidenceParams {
+  $type: "tendermint.types.EvidenceParams";
   /**
    * Max age of evidence, in blocks.
    *
@@ -67,11 +71,13 @@ export interface EvidenceParams {
  * NOTE: uses ABCI pubkey naming, not Amino names.
  */
 export interface ValidatorParams {
+  $type: "tendermint.types.ValidatorParams";
   pubKeyTypes: string[];
 }
 
 /** VersionParams contains the ABCI application version. */
 export interface VersionParams {
+  $type: "tendermint.types.VersionParams";
   app: Long;
 }
 
@@ -81,12 +87,14 @@ export interface VersionParams {
  * It is hashed into the Header.ConsensusHash.
  */
 export interface HashedParams {
+  $type: "tendermint.types.HashedParams";
   blockMaxBytes: Long;
   blockMaxGas: Long;
 }
 
 /** ABCIParams configure functionality specific to the Application Blockchain Interface. */
 export interface ABCIParams {
+  $type: "tendermint.types.ABCIParams";
   /**
    * vote_extensions_enable_height configures the first height during which
    * vote extensions will be enabled. During this specified height, and for all
@@ -102,10 +110,19 @@ export interface ABCIParams {
 }
 
 function createBaseConsensusParams(): ConsensusParams {
-  return { block: undefined, evidence: undefined, validator: undefined, version: undefined, abci: undefined };
+  return {
+    $type: "tendermint.types.ConsensusParams",
+    block: undefined,
+    evidence: undefined,
+    validator: undefined,
+    version: undefined,
+    abci: undefined,
+  };
 }
 
 export const ConsensusParams = {
+  $type: "tendermint.types.ConsensusParams" as const,
+
   encode(message: ConsensusParams, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.block !== undefined) {
       BlockParams.encode(message.block, writer.uint32(10).fork()).ldelim();
@@ -178,6 +195,7 @@ export const ConsensusParams = {
 
   fromJSON(object: any): ConsensusParams {
     return {
+      $type: ConsensusParams.$type,
       block: isSet(object.block) ? BlockParams.fromJSON(object.block) : undefined,
       evidence: isSet(object.evidence) ? EvidenceParams.fromJSON(object.evidence) : undefined,
       validator: isSet(object.validator) ? ValidatorParams.fromJSON(object.validator) : undefined,
@@ -231,11 +249,15 @@ export const ConsensusParams = {
   },
 };
 
+messageTypeRegistry.set(ConsensusParams.$type, ConsensusParams);
+
 function createBaseBlockParams(): BlockParams {
-  return { maxBytes: Long.ZERO, maxGas: Long.ZERO };
+  return { $type: "tendermint.types.BlockParams", maxBytes: Long.ZERO, maxGas: Long.ZERO };
 }
 
 export const BlockParams = {
+  $type: "tendermint.types.BlockParams" as const,
+
   encode(message: BlockParams, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.maxBytes.equals(Long.ZERO)) {
       writer.uint32(8).int64(message.maxBytes);
@@ -278,6 +300,7 @@ export const BlockParams = {
 
   fromJSON(object: any): BlockParams {
     return {
+      $type: BlockParams.$type,
       maxBytes: isSet(object.maxBytes) ? Long.fromValue(object.maxBytes) : Long.ZERO,
       maxGas: isSet(object.maxGas) ? Long.fromValue(object.maxGas) : Long.ZERO,
     };
@@ -307,11 +330,20 @@ export const BlockParams = {
   },
 };
 
+messageTypeRegistry.set(BlockParams.$type, BlockParams);
+
 function createBaseEvidenceParams(): EvidenceParams {
-  return { maxAgeNumBlocks: Long.ZERO, maxAgeDuration: undefined, maxBytes: Long.ZERO };
+  return {
+    $type: "tendermint.types.EvidenceParams",
+    maxAgeNumBlocks: Long.ZERO,
+    maxAgeDuration: undefined,
+    maxBytes: Long.ZERO,
+  };
 }
 
 export const EvidenceParams = {
+  $type: "tendermint.types.EvidenceParams" as const,
+
   encode(message: EvidenceParams, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.maxAgeNumBlocks.equals(Long.ZERO)) {
       writer.uint32(8).int64(message.maxAgeNumBlocks);
@@ -364,6 +396,7 @@ export const EvidenceParams = {
 
   fromJSON(object: any): EvidenceParams {
     return {
+      $type: EvidenceParams.$type,
       maxAgeNumBlocks: isSet(object.maxAgeNumBlocks) ? Long.fromValue(object.maxAgeNumBlocks) : Long.ZERO,
       maxAgeDuration: isSet(object.maxAgeDuration) ? Duration.fromJSON(object.maxAgeDuration) : undefined,
       maxBytes: isSet(object.maxBytes) ? Long.fromValue(object.maxBytes) : Long.ZERO,
@@ -403,11 +436,15 @@ export const EvidenceParams = {
   },
 };
 
+messageTypeRegistry.set(EvidenceParams.$type, EvidenceParams);
+
 function createBaseValidatorParams(): ValidatorParams {
-  return { pubKeyTypes: [] };
+  return { $type: "tendermint.types.ValidatorParams", pubKeyTypes: [] };
 }
 
 export const ValidatorParams = {
+  $type: "tendermint.types.ValidatorParams" as const,
+
   encode(message: ValidatorParams, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.pubKeyTypes) {
       writer.uint32(10).string(v!);
@@ -440,6 +477,7 @@ export const ValidatorParams = {
 
   fromJSON(object: any): ValidatorParams {
     return {
+      $type: ValidatorParams.$type,
       pubKeyTypes: gt.Array.isArray(object?.pubKeyTypes)
         ? object.pubKeyTypes.map((e: any) => gt.String(e))
         : [],
@@ -464,11 +502,15 @@ export const ValidatorParams = {
   },
 };
 
+messageTypeRegistry.set(ValidatorParams.$type, ValidatorParams);
+
 function createBaseVersionParams(): VersionParams {
-  return { app: Long.UZERO };
+  return { $type: "tendermint.types.VersionParams", app: Long.UZERO };
 }
 
 export const VersionParams = {
+  $type: "tendermint.types.VersionParams" as const,
+
   encode(message: VersionParams, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.app.equals(Long.UZERO)) {
       writer.uint32(8).uint64(message.app);
@@ -500,7 +542,7 @@ export const VersionParams = {
   },
 
   fromJSON(object: any): VersionParams {
-    return { app: isSet(object.app) ? Long.fromValue(object.app) : Long.UZERO };
+    return { $type: VersionParams.$type, app: isSet(object.app) ? Long.fromValue(object.app) : Long.UZERO };
   },
 
   toJSON(message: VersionParams): unknown {
@@ -521,11 +563,15 @@ export const VersionParams = {
   },
 };
 
+messageTypeRegistry.set(VersionParams.$type, VersionParams);
+
 function createBaseHashedParams(): HashedParams {
-  return { blockMaxBytes: Long.ZERO, blockMaxGas: Long.ZERO };
+  return { $type: "tendermint.types.HashedParams", blockMaxBytes: Long.ZERO, blockMaxGas: Long.ZERO };
 }
 
 export const HashedParams = {
+  $type: "tendermint.types.HashedParams" as const,
+
   encode(message: HashedParams, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.blockMaxBytes.equals(Long.ZERO)) {
       writer.uint32(8).int64(message.blockMaxBytes);
@@ -568,6 +614,7 @@ export const HashedParams = {
 
   fromJSON(object: any): HashedParams {
     return {
+      $type: HashedParams.$type,
       blockMaxBytes: isSet(object.blockMaxBytes) ? Long.fromValue(object.blockMaxBytes) : Long.ZERO,
       blockMaxGas: isSet(object.blockMaxGas) ? Long.fromValue(object.blockMaxGas) : Long.ZERO,
     };
@@ -601,11 +648,15 @@ export const HashedParams = {
   },
 };
 
+messageTypeRegistry.set(HashedParams.$type, HashedParams);
+
 function createBaseABCIParams(): ABCIParams {
-  return { voteExtensionsEnableHeight: Long.ZERO };
+  return { $type: "tendermint.types.ABCIParams", voteExtensionsEnableHeight: Long.ZERO };
 }
 
 export const ABCIParams = {
+  $type: "tendermint.types.ABCIParams" as const,
+
   encode(message: ABCIParams, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.voteExtensionsEnableHeight.equals(Long.ZERO)) {
       writer.uint32(8).int64(message.voteExtensionsEnableHeight);
@@ -638,6 +689,7 @@ export const ABCIParams = {
 
   fromJSON(object: any): ABCIParams {
     return {
+      $type: ABCIParams.$type,
       voteExtensionsEnableHeight: isSet(object.voteExtensionsEnableHeight)
         ? Long.fromValue(object.voteExtensionsEnableHeight)
         : Long.ZERO,
@@ -664,6 +716,8 @@ export const ABCIParams = {
     return message;
   },
 };
+
+messageTypeRegistry.set(ABCIParams.$type, ABCIParams);
 
 declare const self: any | undefined;
 declare const window: any | undefined;
@@ -695,13 +749,13 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

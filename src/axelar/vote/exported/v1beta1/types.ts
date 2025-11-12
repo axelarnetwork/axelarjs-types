@@ -8,6 +8,7 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { Any } from "../../../../google/protobuf/any";
+import { messageTypeRegistry } from "../../../../typeRegistry";
 import { Snapshot } from "../../../snapshot/exported/v1beta1/types";
 import { Threshold } from "../../../utils/v1beta1/threshold";
 
@@ -63,6 +64,7 @@ export function pollStateToJSON(object: PollState): string {
  * vote can have any data type
  */
 export interface PollMetadata {
+  $type: "axelar.vote.exported.v1beta1.PollMetadata";
   expiresAt: Long;
   result?: Any | undefined;
   votingThreshold?: Threshold | undefined;
@@ -83,18 +85,21 @@ export interface PollMetadata {
  * @deprecated
  */
 export interface PollKey {
+  $type: "axelar.vote.exported.v1beta1.PollKey";
   module: string;
   id: string;
 }
 
 /** PollParticipants should be embedded in poll events in other modules */
 export interface PollParticipants {
+  $type: "axelar.vote.exported.v1beta1.PollParticipants";
   pollId: Long;
   participants: Buffer[];
 }
 
 function createBasePollMetadata(): PollMetadata {
   return {
+    $type: "axelar.vote.exported.v1beta1.PollMetadata",
     expiresAt: Long.ZERO,
     result: undefined,
     votingThreshold: undefined,
@@ -111,6 +116,8 @@ function createBasePollMetadata(): PollMetadata {
 }
 
 export const PollMetadata = {
+  $type: "axelar.vote.exported.v1beta1.PollMetadata" as const,
+
   encode(message: PollMetadata, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.expiresAt.equals(Long.ZERO)) {
       writer.uint32(24).int64(message.expiresAt);
@@ -253,6 +260,7 @@ export const PollMetadata = {
 
   fromJSON(object: any): PollMetadata {
     return {
+      $type: PollMetadata.$type,
       expiresAt: isSet(object.expiresAt) ? Long.fromValue(object.expiresAt) : Long.ZERO,
       result: isSet(object.result) ? Any.fromJSON(object.result) : undefined,
       votingThreshold: isSet(object.votingThreshold) ? Threshold.fromJSON(object.votingThreshold) : undefined,
@@ -352,11 +360,15 @@ export const PollMetadata = {
   },
 };
 
+messageTypeRegistry.set(PollMetadata.$type, PollMetadata);
+
 function createBasePollKey(): PollKey {
-  return { module: "", id: "" };
+  return { $type: "axelar.vote.exported.v1beta1.PollKey", module: "", id: "" };
 }
 
 export const PollKey = {
+  $type: "axelar.vote.exported.v1beta1.PollKey" as const,
+
   encode(message: PollKey, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.module !== "") {
       writer.uint32(10).string(message.module);
@@ -399,6 +411,7 @@ export const PollKey = {
 
   fromJSON(object: any): PollKey {
     return {
+      $type: PollKey.$type,
       module: isSet(object.module) ? gt.String(object.module) : "",
       id: isSet(object.id) ? gt.String(object.id) : "",
     };
@@ -426,11 +439,15 @@ export const PollKey = {
   },
 };
 
+messageTypeRegistry.set(PollKey.$type, PollKey);
+
 function createBasePollParticipants(): PollParticipants {
-  return { pollId: Long.UZERO, participants: [] };
+  return { $type: "axelar.vote.exported.v1beta1.PollParticipants", pollId: Long.UZERO, participants: [] };
 }
 
 export const PollParticipants = {
+  $type: "axelar.vote.exported.v1beta1.PollParticipants" as const,
+
   encode(message: PollParticipants, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.pollId.equals(Long.UZERO)) {
       writer.uint32(8).uint64(message.pollId);
@@ -473,6 +490,7 @@ export const PollParticipants = {
 
   fromJSON(object: any): PollParticipants {
     return {
+      $type: PollParticipants.$type,
       pollId: isSet(object.pollId) ? Long.fromValue(object.pollId) : Long.UZERO,
       participants: gt.Array.isArray(object?.participants)
         ? object.participants.map((e: any) => Buffer.from(bytesFromBase64(e)))
@@ -502,6 +520,8 @@ export const PollParticipants = {
     return message;
   },
 };
+
+messageTypeRegistry.set(PollParticipants.$type, PollParticipants);
 
 declare const self: any | undefined;
 declare const window: any | undefined;
@@ -541,13 +561,13 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

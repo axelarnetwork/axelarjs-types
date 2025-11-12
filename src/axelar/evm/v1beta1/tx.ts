@@ -7,39 +7,51 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { messageTypeRegistry } from "../../../typeRegistry";
 import { KeyType, keyTypeFromJSON, keyTypeToJSON } from "../../tss/exported/v1beta1/types";
+import { Params } from "./params";
 import { Asset, TokenDetails } from "./types";
 
 export const protobufPackage = "axelar.evm.v1beta1";
 
 export interface SetGatewayRequest {
+  $type: "axelar.evm.v1beta1.SetGatewayRequest";
   chain: string;
   address: Buffer;
   sender: string;
 }
 
-export interface SetGatewayResponse {}
+export interface SetGatewayResponse {
+  $type: "axelar.evm.v1beta1.SetGatewayResponse";
+}
 
 /** @deprecated */
 export interface ConfirmGatewayTxRequest {
+  $type: "axelar.evm.v1beta1.ConfirmGatewayTxRequest";
   chain: string;
   txId: Buffer;
   sender: string;
 }
 
 /** @deprecated */
-export interface ConfirmGatewayTxResponse {}
+export interface ConfirmGatewayTxResponse {
+  $type: "axelar.evm.v1beta1.ConfirmGatewayTxResponse";
+}
 
 export interface ConfirmGatewayTxsRequest {
+  $type: "axelar.evm.v1beta1.ConfirmGatewayTxsRequest";
   chain: string;
   txIds: Buffer[];
   sender: string;
 }
 
-export interface ConfirmGatewayTxsResponse {}
+export interface ConfirmGatewayTxsResponse {
+  $type: "axelar.evm.v1beta1.ConfirmGatewayTxsResponse";
+}
 
 /** MsgConfirmDeposit represents an erc20 deposit confirmation message */
 export interface ConfirmDepositRequest {
+  $type: "axelar.evm.v1beta1.ConfirmDepositRequest";
   chain: string;
   txId: Buffer;
   /** @deprecated */
@@ -48,31 +60,40 @@ export interface ConfirmDepositRequest {
   sender: string;
 }
 
-export interface ConfirmDepositResponse {}
+export interface ConfirmDepositResponse {
+  $type: "axelar.evm.v1beta1.ConfirmDepositResponse";
+}
 
 /** MsgConfirmToken represents a token deploy confirmation message */
 export interface ConfirmTokenRequest {
+  $type: "axelar.evm.v1beta1.ConfirmTokenRequest";
   chain: string;
   txId: Buffer;
   asset?: Asset | undefined;
   sender: string;
 }
 
-export interface ConfirmTokenResponse {}
+export interface ConfirmTokenResponse {
+  $type: "axelar.evm.v1beta1.ConfirmTokenResponse";
+}
 
 export interface ConfirmTransferKeyRequest {
+  $type: "axelar.evm.v1beta1.ConfirmTransferKeyRequest";
   chain: string;
   txId: Buffer;
   sender: string;
 }
 
-export interface ConfirmTransferKeyResponse {}
+export interface ConfirmTransferKeyResponse {
+  $type: "axelar.evm.v1beta1.ConfirmTransferKeyResponse";
+}
 
 /**
  * MsgLink represents the message that links a cross chain address to a burner
  * address
  */
 export interface LinkRequest {
+  $type: "axelar.evm.v1beta1.LinkRequest";
   chain: string;
   recipientAddr: string;
   asset: string;
@@ -81,6 +102,7 @@ export interface LinkRequest {
 }
 
 export interface LinkResponse {
+  $type: "axelar.evm.v1beta1.LinkResponse";
   depositAddr: string;
 }
 
@@ -89,17 +111,21 @@ export interface LinkResponse {
  * tokens with AxelarGateway
  */
 export interface CreateBurnTokensRequest {
+  $type: "axelar.evm.v1beta1.CreateBurnTokensRequest";
   chain: string;
   sender: string;
 }
 
-export interface CreateBurnTokensResponse {}
+export interface CreateBurnTokensResponse {
+  $type: "axelar.evm.v1beta1.CreateBurnTokensResponse";
+}
 
 /**
  * CreateDeployTokenRequest represents the message to create a deploy token
  * command for AxelarGateway
  */
 export interface CreateDeployTokenRequest {
+  $type: "axelar.evm.v1beta1.CreateDeployTokenRequest";
   chain: string;
   asset?: Asset | undefined;
   tokenDetails?: TokenDetails | undefined;
@@ -108,48 +134,62 @@ export interface CreateDeployTokenRequest {
   sender: string;
 }
 
-export interface CreateDeployTokenResponse {}
+export interface CreateDeployTokenResponse {
+  $type: "axelar.evm.v1beta1.CreateDeployTokenResponse";
+}
 
 /**
  * CreatePendingTransfersRequest represents a message to trigger the creation of
  * commands handling all pending transfers
  */
 export interface CreatePendingTransfersRequest {
+  $type: "axelar.evm.v1beta1.CreatePendingTransfersRequest";
   chain: string;
   sender: string;
 }
 
-export interface CreatePendingTransfersResponse {}
+export interface CreatePendingTransfersResponse {
+  $type: "axelar.evm.v1beta1.CreatePendingTransfersResponse";
+}
 
 /** @deprecated */
 export interface CreateTransferOwnershipRequest {
+  $type: "axelar.evm.v1beta1.CreateTransferOwnershipRequest";
   chain: string;
   keyId: string;
   sender: string;
 }
 
 /** @deprecated */
-export interface CreateTransferOwnershipResponse {}
+export interface CreateTransferOwnershipResponse {
+  $type: "axelar.evm.v1beta1.CreateTransferOwnershipResponse";
+}
 
 export interface CreateTransferOperatorshipRequest {
+  $type: "axelar.evm.v1beta1.CreateTransferOperatorshipRequest";
   chain: string;
   keyId: string;
   sender: string;
 }
 
-export interface CreateTransferOperatorshipResponse {}
+export interface CreateTransferOperatorshipResponse {
+  $type: "axelar.evm.v1beta1.CreateTransferOperatorshipResponse";
+}
 
 export interface SignCommandsRequest {
+  $type: "axelar.evm.v1beta1.SignCommandsRequest";
   chain: string;
   sender: string;
 }
 
 export interface SignCommandsResponse {
+  $type: "axelar.evm.v1beta1.SignCommandsResponse";
   batchedCommandsId: Buffer;
   commandCount: number;
 }
 
 export interface AddChainRequest {
+  $type: "axelar.evm.v1beta1.AddChainRequest";
   name: string;
   /** @deprecated */
   keyType: KeyType;
@@ -157,21 +197,38 @@ export interface AddChainRequest {
   sender: string;
 }
 
-export interface AddChainResponse {}
+export interface AddChainResponse {
+  $type: "axelar.evm.v1beta1.AddChainResponse";
+}
 
 export interface RetryFailedEventRequest {
+  $type: "axelar.evm.v1beta1.RetryFailedEventRequest";
   chain: string;
   eventId: string;
   sender: string;
 }
 
-export interface RetryFailedEventResponse {}
+export interface RetryFailedEventResponse {
+  $type: "axelar.evm.v1beta1.RetryFailedEventResponse";
+}
+
+export interface UpdateParamsRequest {
+  $type: "axelar.evm.v1beta1.UpdateParamsRequest";
+  authority: string;
+  params?: Params | undefined;
+}
+
+export interface UpdateParamsResponse {
+  $type: "axelar.evm.v1beta1.UpdateParamsResponse";
+}
 
 function createBaseSetGatewayRequest(): SetGatewayRequest {
-  return { chain: "", address: Buffer.alloc(0), sender: "" };
+  return { $type: "axelar.evm.v1beta1.SetGatewayRequest", chain: "", address: Buffer.alloc(0), sender: "" };
 }
 
 export const SetGatewayRequest = {
+  $type: "axelar.evm.v1beta1.SetGatewayRequest" as const,
+
   encode(message: SetGatewayRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.chain !== "") {
       writer.uint32(18).string(message.chain);
@@ -224,6 +281,7 @@ export const SetGatewayRequest = {
 
   fromJSON(object: any): SetGatewayRequest {
     return {
+      $type: SetGatewayRequest.$type,
       chain: isSet(object.chain) ? gt.String(object.chain) : "",
       address: isSet(object.address) ? Buffer.from(bytesFromBase64(object.address)) : Buffer.alloc(0),
       sender: isSet(object.sender) ? gt.String(object.sender) : "",
@@ -256,11 +314,15 @@ export const SetGatewayRequest = {
   },
 };
 
+messageTypeRegistry.set(SetGatewayRequest.$type, SetGatewayRequest);
+
 function createBaseSetGatewayResponse(): SetGatewayResponse {
-  return {};
+  return { $type: "axelar.evm.v1beta1.SetGatewayResponse" };
 }
 
 export const SetGatewayResponse = {
+  $type: "axelar.evm.v1beta1.SetGatewayResponse" as const,
+
   encode(_: SetGatewayResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
@@ -282,7 +344,7 @@ export const SetGatewayResponse = {
   },
 
   fromJSON(_: any): SetGatewayResponse {
-    return {};
+    return { $type: SetGatewayResponse.$type };
   },
 
   toJSON(_: SetGatewayResponse): unknown {
@@ -299,11 +361,20 @@ export const SetGatewayResponse = {
   },
 };
 
+messageTypeRegistry.set(SetGatewayResponse.$type, SetGatewayResponse);
+
 function createBaseConfirmGatewayTxRequest(): ConfirmGatewayTxRequest {
-  return { chain: "", txId: Buffer.alloc(0), sender: "" };
+  return {
+    $type: "axelar.evm.v1beta1.ConfirmGatewayTxRequest",
+    chain: "",
+    txId: Buffer.alloc(0),
+    sender: "",
+  };
 }
 
 export const ConfirmGatewayTxRequest = {
+  $type: "axelar.evm.v1beta1.ConfirmGatewayTxRequest" as const,
+
   encode(message: ConfirmGatewayTxRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.chain !== "") {
       writer.uint32(18).string(message.chain);
@@ -356,6 +427,7 @@ export const ConfirmGatewayTxRequest = {
 
   fromJSON(object: any): ConfirmGatewayTxRequest {
     return {
+      $type: ConfirmGatewayTxRequest.$type,
       chain: isSet(object.chain) ? gt.String(object.chain) : "",
       txId: isSet(object.txId) ? Buffer.from(bytesFromBase64(object.txId)) : Buffer.alloc(0),
       sender: isSet(object.sender) ? gt.String(object.sender) : "",
@@ -388,11 +460,15 @@ export const ConfirmGatewayTxRequest = {
   },
 };
 
+messageTypeRegistry.set(ConfirmGatewayTxRequest.$type, ConfirmGatewayTxRequest);
+
 function createBaseConfirmGatewayTxResponse(): ConfirmGatewayTxResponse {
-  return {};
+  return { $type: "axelar.evm.v1beta1.ConfirmGatewayTxResponse" };
 }
 
 export const ConfirmGatewayTxResponse = {
+  $type: "axelar.evm.v1beta1.ConfirmGatewayTxResponse" as const,
+
   encode(_: ConfirmGatewayTxResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
@@ -414,7 +490,7 @@ export const ConfirmGatewayTxResponse = {
   },
 
   fromJSON(_: any): ConfirmGatewayTxResponse {
-    return {};
+    return { $type: ConfirmGatewayTxResponse.$type };
   },
 
   toJSON(_: ConfirmGatewayTxResponse): unknown {
@@ -431,11 +507,15 @@ export const ConfirmGatewayTxResponse = {
   },
 };
 
+messageTypeRegistry.set(ConfirmGatewayTxResponse.$type, ConfirmGatewayTxResponse);
+
 function createBaseConfirmGatewayTxsRequest(): ConfirmGatewayTxsRequest {
-  return { chain: "", txIds: [], sender: "" };
+  return { $type: "axelar.evm.v1beta1.ConfirmGatewayTxsRequest", chain: "", txIds: [], sender: "" };
 }
 
 export const ConfirmGatewayTxsRequest = {
+  $type: "axelar.evm.v1beta1.ConfirmGatewayTxsRequest" as const,
+
   encode(message: ConfirmGatewayTxsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.chain !== "") {
       writer.uint32(18).string(message.chain);
@@ -488,6 +568,7 @@ export const ConfirmGatewayTxsRequest = {
 
   fromJSON(object: any): ConfirmGatewayTxsRequest {
     return {
+      $type: ConfirmGatewayTxsRequest.$type,
       chain: isSet(object.chain) ? gt.String(object.chain) : "",
       txIds: gt.Array.isArray(object?.txIds)
         ? object.txIds.map((e: any) => Buffer.from(bytesFromBase64(e)))
@@ -524,11 +605,15 @@ export const ConfirmGatewayTxsRequest = {
   },
 };
 
+messageTypeRegistry.set(ConfirmGatewayTxsRequest.$type, ConfirmGatewayTxsRequest);
+
 function createBaseConfirmGatewayTxsResponse(): ConfirmGatewayTxsResponse {
-  return {};
+  return { $type: "axelar.evm.v1beta1.ConfirmGatewayTxsResponse" };
 }
 
 export const ConfirmGatewayTxsResponse = {
+  $type: "axelar.evm.v1beta1.ConfirmGatewayTxsResponse" as const,
+
   encode(_: ConfirmGatewayTxsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
@@ -550,7 +635,7 @@ export const ConfirmGatewayTxsResponse = {
   },
 
   fromJSON(_: any): ConfirmGatewayTxsResponse {
-    return {};
+    return { $type: ConfirmGatewayTxsResponse.$type };
   },
 
   toJSON(_: ConfirmGatewayTxsResponse): unknown {
@@ -567,8 +652,11 @@ export const ConfirmGatewayTxsResponse = {
   },
 };
 
+messageTypeRegistry.set(ConfirmGatewayTxsResponse.$type, ConfirmGatewayTxsResponse);
+
 function createBaseConfirmDepositRequest(): ConfirmDepositRequest {
   return {
+    $type: "axelar.evm.v1beta1.ConfirmDepositRequest",
     chain: "",
     txId: Buffer.alloc(0),
     amount: Buffer.alloc(0),
@@ -578,6 +666,8 @@ function createBaseConfirmDepositRequest(): ConfirmDepositRequest {
 }
 
 export const ConfirmDepositRequest = {
+  $type: "axelar.evm.v1beta1.ConfirmDepositRequest" as const,
+
   encode(message: ConfirmDepositRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.chain !== "") {
       writer.uint32(18).string(message.chain);
@@ -650,6 +740,7 @@ export const ConfirmDepositRequest = {
 
   fromJSON(object: any): ConfirmDepositRequest {
     return {
+      $type: ConfirmDepositRequest.$type,
       chain: isSet(object.chain) ? gt.String(object.chain) : "",
       txId: isSet(object.txId) ? Buffer.from(bytesFromBase64(object.txId)) : Buffer.alloc(0),
       amount: isSet(object.amount) ? Buffer.from(bytesFromBase64(object.amount)) : Buffer.alloc(0),
@@ -694,11 +785,15 @@ export const ConfirmDepositRequest = {
   },
 };
 
+messageTypeRegistry.set(ConfirmDepositRequest.$type, ConfirmDepositRequest);
+
 function createBaseConfirmDepositResponse(): ConfirmDepositResponse {
-  return {};
+  return { $type: "axelar.evm.v1beta1.ConfirmDepositResponse" };
 }
 
 export const ConfirmDepositResponse = {
+  $type: "axelar.evm.v1beta1.ConfirmDepositResponse" as const,
+
   encode(_: ConfirmDepositResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
@@ -720,7 +815,7 @@ export const ConfirmDepositResponse = {
   },
 
   fromJSON(_: any): ConfirmDepositResponse {
-    return {};
+    return { $type: ConfirmDepositResponse.$type };
   },
 
   toJSON(_: ConfirmDepositResponse): unknown {
@@ -737,11 +832,21 @@ export const ConfirmDepositResponse = {
   },
 };
 
+messageTypeRegistry.set(ConfirmDepositResponse.$type, ConfirmDepositResponse);
+
 function createBaseConfirmTokenRequest(): ConfirmTokenRequest {
-  return { chain: "", txId: Buffer.alloc(0), asset: undefined, sender: "" };
+  return {
+    $type: "axelar.evm.v1beta1.ConfirmTokenRequest",
+    chain: "",
+    txId: Buffer.alloc(0),
+    asset: undefined,
+    sender: "",
+  };
 }
 
 export const ConfirmTokenRequest = {
+  $type: "axelar.evm.v1beta1.ConfirmTokenRequest" as const,
+
   encode(message: ConfirmTokenRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.chain !== "") {
       writer.uint32(18).string(message.chain);
@@ -804,6 +909,7 @@ export const ConfirmTokenRequest = {
 
   fromJSON(object: any): ConfirmTokenRequest {
     return {
+      $type: ConfirmTokenRequest.$type,
       chain: isSet(object.chain) ? gt.String(object.chain) : "",
       txId: isSet(object.txId) ? Buffer.from(bytesFromBase64(object.txId)) : Buffer.alloc(0),
       asset: isSet(object.asset) ? Asset.fromJSON(object.asset) : undefined,
@@ -842,11 +948,15 @@ export const ConfirmTokenRequest = {
   },
 };
 
+messageTypeRegistry.set(ConfirmTokenRequest.$type, ConfirmTokenRequest);
+
 function createBaseConfirmTokenResponse(): ConfirmTokenResponse {
-  return {};
+  return { $type: "axelar.evm.v1beta1.ConfirmTokenResponse" };
 }
 
 export const ConfirmTokenResponse = {
+  $type: "axelar.evm.v1beta1.ConfirmTokenResponse" as const,
+
   encode(_: ConfirmTokenResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
@@ -868,7 +978,7 @@ export const ConfirmTokenResponse = {
   },
 
   fromJSON(_: any): ConfirmTokenResponse {
-    return {};
+    return { $type: ConfirmTokenResponse.$type };
   },
 
   toJSON(_: ConfirmTokenResponse): unknown {
@@ -885,11 +995,20 @@ export const ConfirmTokenResponse = {
   },
 };
 
+messageTypeRegistry.set(ConfirmTokenResponse.$type, ConfirmTokenResponse);
+
 function createBaseConfirmTransferKeyRequest(): ConfirmTransferKeyRequest {
-  return { chain: "", txId: Buffer.alloc(0), sender: "" };
+  return {
+    $type: "axelar.evm.v1beta1.ConfirmTransferKeyRequest",
+    chain: "",
+    txId: Buffer.alloc(0),
+    sender: "",
+  };
 }
 
 export const ConfirmTransferKeyRequest = {
+  $type: "axelar.evm.v1beta1.ConfirmTransferKeyRequest" as const,
+
   encode(message: ConfirmTransferKeyRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.chain !== "") {
       writer.uint32(18).string(message.chain);
@@ -942,6 +1061,7 @@ export const ConfirmTransferKeyRequest = {
 
   fromJSON(object: any): ConfirmTransferKeyRequest {
     return {
+      $type: ConfirmTransferKeyRequest.$type,
       chain: isSet(object.chain) ? gt.String(object.chain) : "",
       txId: isSet(object.txId) ? Buffer.from(bytesFromBase64(object.txId)) : Buffer.alloc(0),
       sender: isSet(object.sender) ? gt.String(object.sender) : "",
@@ -976,11 +1096,15 @@ export const ConfirmTransferKeyRequest = {
   },
 };
 
+messageTypeRegistry.set(ConfirmTransferKeyRequest.$type, ConfirmTransferKeyRequest);
+
 function createBaseConfirmTransferKeyResponse(): ConfirmTransferKeyResponse {
-  return {};
+  return { $type: "axelar.evm.v1beta1.ConfirmTransferKeyResponse" };
 }
 
 export const ConfirmTransferKeyResponse = {
+  $type: "axelar.evm.v1beta1.ConfirmTransferKeyResponse" as const,
+
   encode(_: ConfirmTransferKeyResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
@@ -1002,7 +1126,7 @@ export const ConfirmTransferKeyResponse = {
   },
 
   fromJSON(_: any): ConfirmTransferKeyResponse {
-    return {};
+    return { $type: ConfirmTransferKeyResponse.$type };
   },
 
   toJSON(_: ConfirmTransferKeyResponse): unknown {
@@ -1019,11 +1143,22 @@ export const ConfirmTransferKeyResponse = {
   },
 };
 
+messageTypeRegistry.set(ConfirmTransferKeyResponse.$type, ConfirmTransferKeyResponse);
+
 function createBaseLinkRequest(): LinkRequest {
-  return { chain: "", recipientAddr: "", asset: "", recipientChain: "", sender: "" };
+  return {
+    $type: "axelar.evm.v1beta1.LinkRequest",
+    chain: "",
+    recipientAddr: "",
+    asset: "",
+    recipientChain: "",
+    sender: "",
+  };
 }
 
 export const LinkRequest = {
+  $type: "axelar.evm.v1beta1.LinkRequest" as const,
+
   encode(message: LinkRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.chain !== "") {
       writer.uint32(18).string(message.chain);
@@ -1096,6 +1231,7 @@ export const LinkRequest = {
 
   fromJSON(object: any): LinkRequest {
     return {
+      $type: LinkRequest.$type,
       chain: isSet(object.chain) ? gt.String(object.chain) : "",
       recipientAddr: isSet(object.recipientAddr) ? gt.String(object.recipientAddr) : "",
       asset: isSet(object.asset) ? gt.String(object.asset) : "",
@@ -1138,11 +1274,15 @@ export const LinkRequest = {
   },
 };
 
+messageTypeRegistry.set(LinkRequest.$type, LinkRequest);
+
 function createBaseLinkResponse(): LinkResponse {
-  return { depositAddr: "" };
+  return { $type: "axelar.evm.v1beta1.LinkResponse", depositAddr: "" };
 }
 
 export const LinkResponse = {
+  $type: "axelar.evm.v1beta1.LinkResponse" as const,
+
   encode(message: LinkResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.depositAddr !== "") {
       writer.uint32(10).string(message.depositAddr);
@@ -1174,7 +1314,10 @@ export const LinkResponse = {
   },
 
   fromJSON(object: any): LinkResponse {
-    return { depositAddr: isSet(object.depositAddr) ? gt.String(object.depositAddr) : "" };
+    return {
+      $type: LinkResponse.$type,
+      depositAddr: isSet(object.depositAddr) ? gt.String(object.depositAddr) : "",
+    };
   },
 
   toJSON(message: LinkResponse): unknown {
@@ -1195,11 +1338,15 @@ export const LinkResponse = {
   },
 };
 
+messageTypeRegistry.set(LinkResponse.$type, LinkResponse);
+
 function createBaseCreateBurnTokensRequest(): CreateBurnTokensRequest {
-  return { chain: "", sender: "" };
+  return { $type: "axelar.evm.v1beta1.CreateBurnTokensRequest", chain: "", sender: "" };
 }
 
 export const CreateBurnTokensRequest = {
+  $type: "axelar.evm.v1beta1.CreateBurnTokensRequest" as const,
+
   encode(message: CreateBurnTokensRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.chain !== "") {
       writer.uint32(18).string(message.chain);
@@ -1242,6 +1389,7 @@ export const CreateBurnTokensRequest = {
 
   fromJSON(object: any): CreateBurnTokensRequest {
     return {
+      $type: CreateBurnTokensRequest.$type,
       chain: isSet(object.chain) ? gt.String(object.chain) : "",
       sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
@@ -1269,11 +1417,15 @@ export const CreateBurnTokensRequest = {
   },
 };
 
+messageTypeRegistry.set(CreateBurnTokensRequest.$type, CreateBurnTokensRequest);
+
 function createBaseCreateBurnTokensResponse(): CreateBurnTokensResponse {
-  return {};
+  return { $type: "axelar.evm.v1beta1.CreateBurnTokensResponse" };
 }
 
 export const CreateBurnTokensResponse = {
+  $type: "axelar.evm.v1beta1.CreateBurnTokensResponse" as const,
+
   encode(_: CreateBurnTokensResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
@@ -1295,7 +1447,7 @@ export const CreateBurnTokensResponse = {
   },
 
   fromJSON(_: any): CreateBurnTokensResponse {
-    return {};
+    return { $type: CreateBurnTokensResponse.$type };
   },
 
   toJSON(_: CreateBurnTokensResponse): unknown {
@@ -1312,8 +1464,11 @@ export const CreateBurnTokensResponse = {
   },
 };
 
+messageTypeRegistry.set(CreateBurnTokensResponse.$type, CreateBurnTokensResponse);
+
 function createBaseCreateDeployTokenRequest(): CreateDeployTokenRequest {
   return {
+    $type: "axelar.evm.v1beta1.CreateDeployTokenRequest",
     chain: "",
     asset: undefined,
     tokenDetails: undefined,
@@ -1324,6 +1479,8 @@ function createBaseCreateDeployTokenRequest(): CreateDeployTokenRequest {
 }
 
 export const CreateDeployTokenRequest = {
+  $type: "axelar.evm.v1beta1.CreateDeployTokenRequest" as const,
+
   encode(message: CreateDeployTokenRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.chain !== "") {
       writer.uint32(18).string(message.chain);
@@ -1406,6 +1563,7 @@ export const CreateDeployTokenRequest = {
 
   fromJSON(object: any): CreateDeployTokenRequest {
     return {
+      $type: CreateDeployTokenRequest.$type,
       chain: isSet(object.chain) ? gt.String(object.chain) : "",
       asset: isSet(object.asset) ? Asset.fromJSON(object.asset) : undefined,
       tokenDetails: isSet(object.tokenDetails) ? TokenDetails.fromJSON(object.tokenDetails) : undefined,
@@ -1459,11 +1617,15 @@ export const CreateDeployTokenRequest = {
   },
 };
 
+messageTypeRegistry.set(CreateDeployTokenRequest.$type, CreateDeployTokenRequest);
+
 function createBaseCreateDeployTokenResponse(): CreateDeployTokenResponse {
-  return {};
+  return { $type: "axelar.evm.v1beta1.CreateDeployTokenResponse" };
 }
 
 export const CreateDeployTokenResponse = {
+  $type: "axelar.evm.v1beta1.CreateDeployTokenResponse" as const,
+
   encode(_: CreateDeployTokenResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
@@ -1485,7 +1647,7 @@ export const CreateDeployTokenResponse = {
   },
 
   fromJSON(_: any): CreateDeployTokenResponse {
-    return {};
+    return { $type: CreateDeployTokenResponse.$type };
   },
 
   toJSON(_: CreateDeployTokenResponse): unknown {
@@ -1502,11 +1664,15 @@ export const CreateDeployTokenResponse = {
   },
 };
 
+messageTypeRegistry.set(CreateDeployTokenResponse.$type, CreateDeployTokenResponse);
+
 function createBaseCreatePendingTransfersRequest(): CreatePendingTransfersRequest {
-  return { chain: "", sender: "" };
+  return { $type: "axelar.evm.v1beta1.CreatePendingTransfersRequest", chain: "", sender: "" };
 }
 
 export const CreatePendingTransfersRequest = {
+  $type: "axelar.evm.v1beta1.CreatePendingTransfersRequest" as const,
+
   encode(message: CreatePendingTransfersRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.chain !== "") {
       writer.uint32(18).string(message.chain);
@@ -1549,6 +1715,7 @@ export const CreatePendingTransfersRequest = {
 
   fromJSON(object: any): CreatePendingTransfersRequest {
     return {
+      $type: CreatePendingTransfersRequest.$type,
       chain: isSet(object.chain) ? gt.String(object.chain) : "",
       sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
@@ -1580,11 +1747,15 @@ export const CreatePendingTransfersRequest = {
   },
 };
 
+messageTypeRegistry.set(CreatePendingTransfersRequest.$type, CreatePendingTransfersRequest);
+
 function createBaseCreatePendingTransfersResponse(): CreatePendingTransfersResponse {
-  return {};
+  return { $type: "axelar.evm.v1beta1.CreatePendingTransfersResponse" };
 }
 
 export const CreatePendingTransfersResponse = {
+  $type: "axelar.evm.v1beta1.CreatePendingTransfersResponse" as const,
+
   encode(_: CreatePendingTransfersResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
@@ -1606,7 +1777,7 @@ export const CreatePendingTransfersResponse = {
   },
 
   fromJSON(_: any): CreatePendingTransfersResponse {
-    return {};
+    return { $type: CreatePendingTransfersResponse.$type };
   },
 
   toJSON(_: CreatePendingTransfersResponse): unknown {
@@ -1627,11 +1798,15 @@ export const CreatePendingTransfersResponse = {
   },
 };
 
+messageTypeRegistry.set(CreatePendingTransfersResponse.$type, CreatePendingTransfersResponse);
+
 function createBaseCreateTransferOwnershipRequest(): CreateTransferOwnershipRequest {
-  return { chain: "", keyId: "", sender: "" };
+  return { $type: "axelar.evm.v1beta1.CreateTransferOwnershipRequest", chain: "", keyId: "", sender: "" };
 }
 
 export const CreateTransferOwnershipRequest = {
+  $type: "axelar.evm.v1beta1.CreateTransferOwnershipRequest" as const,
+
   encode(message: CreateTransferOwnershipRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.chain !== "") {
       writer.uint32(18).string(message.chain);
@@ -1684,6 +1859,7 @@ export const CreateTransferOwnershipRequest = {
 
   fromJSON(object: any): CreateTransferOwnershipRequest {
     return {
+      $type: CreateTransferOwnershipRequest.$type,
       chain: isSet(object.chain) ? gt.String(object.chain) : "",
       keyId: isSet(object.keyId) ? gt.String(object.keyId) : "",
       sender: isSet(object.sender) ? gt.String(object.sender) : "",
@@ -1720,11 +1896,15 @@ export const CreateTransferOwnershipRequest = {
   },
 };
 
+messageTypeRegistry.set(CreateTransferOwnershipRequest.$type, CreateTransferOwnershipRequest);
+
 function createBaseCreateTransferOwnershipResponse(): CreateTransferOwnershipResponse {
-  return {};
+  return { $type: "axelar.evm.v1beta1.CreateTransferOwnershipResponse" };
 }
 
 export const CreateTransferOwnershipResponse = {
+  $type: "axelar.evm.v1beta1.CreateTransferOwnershipResponse" as const,
+
   encode(_: CreateTransferOwnershipResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
@@ -1746,7 +1926,7 @@ export const CreateTransferOwnershipResponse = {
   },
 
   fromJSON(_: any): CreateTransferOwnershipResponse {
-    return {};
+    return { $type: CreateTransferOwnershipResponse.$type };
   },
 
   toJSON(_: CreateTransferOwnershipResponse): unknown {
@@ -1767,11 +1947,15 @@ export const CreateTransferOwnershipResponse = {
   },
 };
 
+messageTypeRegistry.set(CreateTransferOwnershipResponse.$type, CreateTransferOwnershipResponse);
+
 function createBaseCreateTransferOperatorshipRequest(): CreateTransferOperatorshipRequest {
-  return { chain: "", keyId: "", sender: "" };
+  return { $type: "axelar.evm.v1beta1.CreateTransferOperatorshipRequest", chain: "", keyId: "", sender: "" };
 }
 
 export const CreateTransferOperatorshipRequest = {
+  $type: "axelar.evm.v1beta1.CreateTransferOperatorshipRequest" as const,
+
   encode(message: CreateTransferOperatorshipRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.chain !== "") {
       writer.uint32(18).string(message.chain);
@@ -1824,6 +2008,7 @@ export const CreateTransferOperatorshipRequest = {
 
   fromJSON(object: any): CreateTransferOperatorshipRequest {
     return {
+      $type: CreateTransferOperatorshipRequest.$type,
       chain: isSet(object.chain) ? gt.String(object.chain) : "",
       keyId: isSet(object.keyId) ? gt.String(object.keyId) : "",
       sender: isSet(object.sender) ? gt.String(object.sender) : "",
@@ -1860,11 +2045,15 @@ export const CreateTransferOperatorshipRequest = {
   },
 };
 
+messageTypeRegistry.set(CreateTransferOperatorshipRequest.$type, CreateTransferOperatorshipRequest);
+
 function createBaseCreateTransferOperatorshipResponse(): CreateTransferOperatorshipResponse {
-  return {};
+  return { $type: "axelar.evm.v1beta1.CreateTransferOperatorshipResponse" };
 }
 
 export const CreateTransferOperatorshipResponse = {
+  $type: "axelar.evm.v1beta1.CreateTransferOperatorshipResponse" as const,
+
   encode(_: CreateTransferOperatorshipResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
@@ -1886,7 +2075,7 @@ export const CreateTransferOperatorshipResponse = {
   },
 
   fromJSON(_: any): CreateTransferOperatorshipResponse {
-    return {};
+    return { $type: CreateTransferOperatorshipResponse.$type };
   },
 
   toJSON(_: CreateTransferOperatorshipResponse): unknown {
@@ -1907,11 +2096,15 @@ export const CreateTransferOperatorshipResponse = {
   },
 };
 
+messageTypeRegistry.set(CreateTransferOperatorshipResponse.$type, CreateTransferOperatorshipResponse);
+
 function createBaseSignCommandsRequest(): SignCommandsRequest {
-  return { chain: "", sender: "" };
+  return { $type: "axelar.evm.v1beta1.SignCommandsRequest", chain: "", sender: "" };
 }
 
 export const SignCommandsRequest = {
+  $type: "axelar.evm.v1beta1.SignCommandsRequest" as const,
+
   encode(message: SignCommandsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.chain !== "") {
       writer.uint32(18).string(message.chain);
@@ -1954,6 +2147,7 @@ export const SignCommandsRequest = {
 
   fromJSON(object: any): SignCommandsRequest {
     return {
+      $type: SignCommandsRequest.$type,
       chain: isSet(object.chain) ? gt.String(object.chain) : "",
       sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
@@ -1981,11 +2175,19 @@ export const SignCommandsRequest = {
   },
 };
 
+messageTypeRegistry.set(SignCommandsRequest.$type, SignCommandsRequest);
+
 function createBaseSignCommandsResponse(): SignCommandsResponse {
-  return { batchedCommandsId: Buffer.alloc(0), commandCount: 0 };
+  return {
+    $type: "axelar.evm.v1beta1.SignCommandsResponse",
+    batchedCommandsId: Buffer.alloc(0),
+    commandCount: 0,
+  };
 }
 
 export const SignCommandsResponse = {
+  $type: "axelar.evm.v1beta1.SignCommandsResponse" as const,
+
   encode(message: SignCommandsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.batchedCommandsId.length !== 0) {
       writer.uint32(10).bytes(message.batchedCommandsId);
@@ -2028,6 +2230,7 @@ export const SignCommandsResponse = {
 
   fromJSON(object: any): SignCommandsResponse {
     return {
+      $type: SignCommandsResponse.$type,
       batchedCommandsId: isSet(object.batchedCommandsId)
         ? Buffer.from(bytesFromBase64(object.batchedCommandsId))
         : Buffer.alloc(0),
@@ -2057,11 +2260,21 @@ export const SignCommandsResponse = {
   },
 };
 
+messageTypeRegistry.set(SignCommandsResponse.$type, SignCommandsResponse);
+
 function createBaseAddChainRequest(): AddChainRequest {
-  return { name: "", keyType: 0, params: Buffer.alloc(0), sender: "" };
+  return {
+    $type: "axelar.evm.v1beta1.AddChainRequest",
+    name: "",
+    keyType: 0,
+    params: Buffer.alloc(0),
+    sender: "",
+  };
 }
 
 export const AddChainRequest = {
+  $type: "axelar.evm.v1beta1.AddChainRequest" as const,
+
   encode(message: AddChainRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.name !== "") {
       writer.uint32(18).string(message.name);
@@ -2124,6 +2337,7 @@ export const AddChainRequest = {
 
   fromJSON(object: any): AddChainRequest {
     return {
+      $type: AddChainRequest.$type,
       name: isSet(object.name) ? gt.String(object.name) : "",
       keyType: isSet(object.keyType) ? keyTypeFromJSON(object.keyType) : 0,
       params: isSet(object.params) ? Buffer.from(bytesFromBase64(object.params)) : Buffer.alloc(0),
@@ -2161,11 +2375,15 @@ export const AddChainRequest = {
   },
 };
 
+messageTypeRegistry.set(AddChainRequest.$type, AddChainRequest);
+
 function createBaseAddChainResponse(): AddChainResponse {
-  return {};
+  return { $type: "axelar.evm.v1beta1.AddChainResponse" };
 }
 
 export const AddChainResponse = {
+  $type: "axelar.evm.v1beta1.AddChainResponse" as const,
+
   encode(_: AddChainResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
@@ -2187,7 +2405,7 @@ export const AddChainResponse = {
   },
 
   fromJSON(_: any): AddChainResponse {
-    return {};
+    return { $type: AddChainResponse.$type };
   },
 
   toJSON(_: AddChainResponse): unknown {
@@ -2204,11 +2422,15 @@ export const AddChainResponse = {
   },
 };
 
+messageTypeRegistry.set(AddChainResponse.$type, AddChainResponse);
+
 function createBaseRetryFailedEventRequest(): RetryFailedEventRequest {
-  return { chain: "", eventId: "", sender: "" };
+  return { $type: "axelar.evm.v1beta1.RetryFailedEventRequest", chain: "", eventId: "", sender: "" };
 }
 
 export const RetryFailedEventRequest = {
+  $type: "axelar.evm.v1beta1.RetryFailedEventRequest" as const,
+
   encode(message: RetryFailedEventRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.chain !== "") {
       writer.uint32(18).string(message.chain);
@@ -2261,6 +2483,7 @@ export const RetryFailedEventRequest = {
 
   fromJSON(object: any): RetryFailedEventRequest {
     return {
+      $type: RetryFailedEventRequest.$type,
       chain: isSet(object.chain) ? gt.String(object.chain) : "",
       eventId: isSet(object.eventId) ? gt.String(object.eventId) : "",
       sender: isSet(object.sender) ? gt.String(object.sender) : "",
@@ -2293,11 +2516,15 @@ export const RetryFailedEventRequest = {
   },
 };
 
+messageTypeRegistry.set(RetryFailedEventRequest.$type, RetryFailedEventRequest);
+
 function createBaseRetryFailedEventResponse(): RetryFailedEventResponse {
-  return {};
+  return { $type: "axelar.evm.v1beta1.RetryFailedEventResponse" };
 }
 
 export const RetryFailedEventResponse = {
+  $type: "axelar.evm.v1beta1.RetryFailedEventResponse" as const,
+
   encode(_: RetryFailedEventResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
@@ -2319,7 +2546,7 @@ export const RetryFailedEventResponse = {
   },
 
   fromJSON(_: any): RetryFailedEventResponse {
-    return {};
+    return { $type: RetryFailedEventResponse.$type };
   },
 
   toJSON(_: RetryFailedEventResponse): unknown {
@@ -2335,6 +2562,135 @@ export const RetryFailedEventResponse = {
     return message;
   },
 };
+
+messageTypeRegistry.set(RetryFailedEventResponse.$type, RetryFailedEventResponse);
+
+function createBaseUpdateParamsRequest(): UpdateParamsRequest {
+  return { $type: "axelar.evm.v1beta1.UpdateParamsRequest", authority: "", params: undefined };
+}
+
+export const UpdateParamsRequest = {
+  $type: "axelar.evm.v1beta1.UpdateParamsRequest" as const,
+
+  encode(message: UpdateParamsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.authority !== "") {
+      writer.uint32(10).string(message.authority);
+    }
+    if (message.params !== undefined) {
+      Params.encode(message.params, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): UpdateParamsRequest {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseUpdateParamsRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 10) {
+            break;
+          }
+
+          message.authority = reader.string();
+          continue;
+        case 2:
+          if (tag !== 18) {
+            break;
+          }
+
+          message.params = Params.decode(reader, reader.uint32());
+          continue;
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): UpdateParamsRequest {
+    return {
+      $type: UpdateParamsRequest.$type,
+      authority: isSet(object.authority) ? gt.String(object.authority) : "",
+      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
+    };
+  },
+
+  toJSON(message: UpdateParamsRequest): unknown {
+    const obj: any = {};
+    if (message.authority !== "") {
+      obj.authority = message.authority;
+    }
+    if (message.params !== undefined) {
+      obj.params = Params.toJSON(message.params);
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<UpdateParamsRequest>, I>>(base?: I): UpdateParamsRequest {
+    return UpdateParamsRequest.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<UpdateParamsRequest>, I>>(object: I): UpdateParamsRequest {
+    const message = createBaseUpdateParamsRequest();
+    message.authority = object.authority ?? "";
+    message.params =
+      object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
+    return message;
+  },
+};
+
+messageTypeRegistry.set(UpdateParamsRequest.$type, UpdateParamsRequest);
+
+function createBaseUpdateParamsResponse(): UpdateParamsResponse {
+  return { $type: "axelar.evm.v1beta1.UpdateParamsResponse" };
+}
+
+export const UpdateParamsResponse = {
+  $type: "axelar.evm.v1beta1.UpdateParamsResponse" as const,
+
+  encode(_: UpdateParamsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): UpdateParamsResponse {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseUpdateParamsResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(_: any): UpdateParamsResponse {
+    return { $type: UpdateParamsResponse.$type };
+  },
+
+  toJSON(_: UpdateParamsResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<UpdateParamsResponse>, I>>(base?: I): UpdateParamsResponse {
+    return UpdateParamsResponse.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<UpdateParamsResponse>, I>>(_: I): UpdateParamsResponse {
+    const message = createBaseUpdateParamsResponse();
+    return message;
+  },
+};
+
+messageTypeRegistry.set(UpdateParamsResponse.$type, UpdateParamsResponse);
 
 declare const self: any | undefined;
 declare const window: any | undefined;
@@ -2374,13 +2730,13 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

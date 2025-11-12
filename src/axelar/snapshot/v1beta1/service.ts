@@ -19,6 +19,8 @@ import {
   DeactivateProxyResponse,
   RegisterProxyRequest,
   RegisterProxyResponse,
+  UpdateParamsRequest,
+  UpdateParamsResponse,
 } from "./tx";
 
 export const protobufPackage = "axelar.snapshot.v1beta1";
@@ -32,6 +34,7 @@ export interface MsgService {
   RegisterProxy(request: RegisterProxyRequest): Promise<RegisterProxyResponse>;
   /** DeactivateProxy defines a method for deregistering a proxy account. */
   DeactivateProxy(request: DeactivateProxyRequest): Promise<DeactivateProxyResponse>;
+  UpdateParams(request: UpdateParamsRequest): Promise<UpdateParamsResponse>;
 }
 
 export const MsgServiceServiceName = "axelar.snapshot.v1beta1.MsgService";
@@ -43,6 +46,7 @@ export class MsgServiceClientImpl implements MsgService {
     this.rpc = rpc;
     this.RegisterProxy = this.RegisterProxy.bind(this);
     this.DeactivateProxy = this.DeactivateProxy.bind(this);
+    this.UpdateParams = this.UpdateParams.bind(this);
   }
   RegisterProxy(request: RegisterProxyRequest): Promise<RegisterProxyResponse> {
     const data = RegisterProxyRequest.encode(request).finish();
@@ -54,6 +58,12 @@ export class MsgServiceClientImpl implements MsgService {
     const data = DeactivateProxyRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "DeactivateProxy", data);
     return promise.then((data) => DeactivateProxyResponse.decode(_m0.Reader.create(data)));
+  }
+
+  UpdateParams(request: UpdateParamsRequest): Promise<UpdateParamsResponse> {
+    const data = UpdateParamsRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "UpdateParams", data);
+    return promise.then((data) => UpdateParamsResponse.decode(_m0.Reader.create(data)));
   }
 }
 

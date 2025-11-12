@@ -10,6 +10,7 @@ import _m0 from "protobufjs/minimal";
 import { PageRequest, PageResponse } from "../../../cosmos/base/query/v1beta1/pagination";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import { Duration } from "../../../google/protobuf/duration";
+import { messageTypeRegistry } from "../../../typeRegistry";
 import {
   CrossChainTransfer,
   FeeInfo,
@@ -67,10 +68,12 @@ export function chainStatusToJSON(object: ChainStatus): string {
  * the chain maintainers for the specified chain
  */
 export interface ChainMaintainersRequest {
+  $type: "axelar.nexus.v1beta1.ChainMaintainersRequest";
   chain: string;
 }
 
 export interface ChainMaintainersResponse {
+  $type: "axelar.nexus.v1beta1.ChainMaintainersResponse";
   maintainers: Buffer[];
 }
 
@@ -79,12 +82,14 @@ export interface ChainMaintainersResponse {
  * address by recipient address
  */
 export interface LatestDepositAddressRequest {
+  $type: "axelar.nexus.v1beta1.LatestDepositAddressRequest";
   recipientAddr: string;
   recipientChain: string;
   depositChain: string;
 }
 
 export interface LatestDepositAddressResponse {
+  $type: "axelar.nexus.v1beta1.LatestDepositAddressResponse";
   depositAddr: string;
 }
 
@@ -93,12 +98,14 @@ export interface LatestDepositAddressResponse {
  * transfers for the specified chain
  */
 export interface TransfersForChainRequest {
+  $type: "axelar.nexus.v1beta1.TransfersForChainRequest";
   chain: string;
   state: TransferState;
   pagination?: PageRequest | undefined;
 }
 
 export interface TransfersForChainResponse {
+  $type: "axelar.nexus.v1beta1.TransfersForChainResponse";
   transfers: CrossChainTransfer[];
   pagination?: PageResponse | undefined;
 }
@@ -108,11 +115,13 @@ export interface TransfersForChainResponse {
  * to an asset on a chain
  */
 export interface FeeInfoRequest {
+  $type: "axelar.nexus.v1beta1.FeeInfoRequest";
   chain: string;
   asset: string;
 }
 
 export interface FeeInfoResponse {
+  $type: "axelar.nexus.v1beta1.FeeInfoResponse";
   feeInfo?: FeeInfo | undefined;
 }
 
@@ -121,12 +130,14 @@ export interface FeeInfoResponse {
  * the network for a cross-chain transfer
  */
 export interface TransferFeeRequest {
+  $type: "axelar.nexus.v1beta1.TransferFeeRequest";
   sourceChain: string;
   destinationChain: string;
   amount: string;
 }
 
 export interface TransferFeeResponse {
+  $type: "axelar.nexus.v1beta1.TransferFeeResponse";
   fee?: Coin | undefined;
 }
 
@@ -135,10 +146,12 @@ export interface TransferFeeResponse {
  * registered on the network
  */
 export interface ChainsRequest {
+  $type: "axelar.nexus.v1beta1.ChainsRequest";
   status: ChainStatus;
 }
 
 export interface ChainsResponse {
+  $type: "axelar.nexus.v1beta1.ChainsResponse";
   chains: string[];
 }
 
@@ -147,10 +160,12 @@ export interface ChainsResponse {
  * chain
  */
 export interface AssetsRequest {
+  $type: "axelar.nexus.v1beta1.AssetsRequest";
   chain: string;
 }
 
 export interface AssetsResponse {
+  $type: "axelar.nexus.v1beta1.AssetsResponse";
   assets: string[];
 }
 
@@ -159,10 +174,12 @@ export interface AssetsResponse {
  * registered on the network
  */
 export interface ChainStateRequest {
+  $type: "axelar.nexus.v1beta1.ChainStateRequest";
   chain: string;
 }
 
 export interface ChainStateResponse {
+  $type: "axelar.nexus.v1beta1.ChainStateResponse";
   state?: ChainState | undefined;
 }
 
@@ -171,10 +188,12 @@ export interface ChainStateResponse {
  * that support an asset on the network
  */
 export interface ChainsByAssetRequest {
+  $type: "axelar.nexus.v1beta1.ChainsByAssetRequest";
   asset: string;
 }
 
 export interface ChainsByAssetResponse {
+  $type: "axelar.nexus.v1beta1.ChainsByAssetResponse";
   chains: string[];
 }
 
@@ -183,11 +202,13 @@ export interface ChainsByAssetResponse {
  * recipient address for a given deposit address
  */
 export interface RecipientAddressRequest {
+  $type: "axelar.nexus.v1beta1.RecipientAddressRequest";
   depositAddr: string;
   depositChain: string;
 }
 
 export interface RecipientAddressResponse {
+  $type: "axelar.nexus.v1beta1.RecipientAddressResponse";
   recipientAddr: string;
   recipientChain: string;
 }
@@ -197,15 +218,18 @@ export interface RecipientAddressResponse {
  * transfer rate limit and current transfer amounts for a given chain and asset
  */
 export interface TransferRateLimitRequest {
+  $type: "axelar.nexus.v1beta1.TransferRateLimitRequest";
   chain: string;
   asset: string;
 }
 
 export interface TransferRateLimitResponse {
+  $type: "axelar.nexus.v1beta1.TransferRateLimitResponse";
   transferRateLimit?: TransferRateLimit | undefined;
 }
 
 export interface TransferRateLimit {
+  $type: "axelar.nexus.v1beta1.TransferRateLimit";
   limit: Buffer;
   window?: Duration | undefined;
   /** @deprecated */
@@ -219,25 +243,32 @@ export interface TransferRateLimit {
 }
 
 export interface MessageRequest {
+  $type: "axelar.nexus.v1beta1.MessageRequest";
   id: string;
 }
 
 export interface MessageResponse {
+  $type: "axelar.nexus.v1beta1.MessageResponse";
   message?: GeneralMessage | undefined;
 }
 
 /** ParamsRequest represents a message that queries the params */
-export interface ParamsRequest {}
+export interface ParamsRequest {
+  $type: "axelar.nexus.v1beta1.ParamsRequest";
+}
 
 export interface ParamsResponse {
+  $type: "axelar.nexus.v1beta1.ParamsResponse";
   params?: Params | undefined;
 }
 
 function createBaseChainMaintainersRequest(): ChainMaintainersRequest {
-  return { chain: "" };
+  return { $type: "axelar.nexus.v1beta1.ChainMaintainersRequest", chain: "" };
 }
 
 export const ChainMaintainersRequest = {
+  $type: "axelar.nexus.v1beta1.ChainMaintainersRequest" as const,
+
   encode(message: ChainMaintainersRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.chain !== "") {
       writer.uint32(10).string(message.chain);
@@ -269,7 +300,10 @@ export const ChainMaintainersRequest = {
   },
 
   fromJSON(object: any): ChainMaintainersRequest {
-    return { chain: isSet(object.chain) ? gt.String(object.chain) : "" };
+    return {
+      $type: ChainMaintainersRequest.$type,
+      chain: isSet(object.chain) ? gt.String(object.chain) : "",
+    };
   },
 
   toJSON(message: ChainMaintainersRequest): unknown {
@@ -290,11 +324,15 @@ export const ChainMaintainersRequest = {
   },
 };
 
+messageTypeRegistry.set(ChainMaintainersRequest.$type, ChainMaintainersRequest);
+
 function createBaseChainMaintainersResponse(): ChainMaintainersResponse {
-  return { maintainers: [] };
+  return { $type: "axelar.nexus.v1beta1.ChainMaintainersResponse", maintainers: [] };
 }
 
 export const ChainMaintainersResponse = {
+  $type: "axelar.nexus.v1beta1.ChainMaintainersResponse" as const,
+
   encode(message: ChainMaintainersResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.maintainers) {
       writer.uint32(10).bytes(v!);
@@ -327,6 +365,7 @@ export const ChainMaintainersResponse = {
 
   fromJSON(object: any): ChainMaintainersResponse {
     return {
+      $type: ChainMaintainersResponse.$type,
       maintainers: gt.Array.isArray(object?.maintainers)
         ? object.maintainers.map((e: any) => Buffer.from(bytesFromBase64(e)))
         : [],
@@ -353,11 +392,20 @@ export const ChainMaintainersResponse = {
   },
 };
 
+messageTypeRegistry.set(ChainMaintainersResponse.$type, ChainMaintainersResponse);
+
 function createBaseLatestDepositAddressRequest(): LatestDepositAddressRequest {
-  return { recipientAddr: "", recipientChain: "", depositChain: "" };
+  return {
+    $type: "axelar.nexus.v1beta1.LatestDepositAddressRequest",
+    recipientAddr: "",
+    recipientChain: "",
+    depositChain: "",
+  };
 }
 
 export const LatestDepositAddressRequest = {
+  $type: "axelar.nexus.v1beta1.LatestDepositAddressRequest" as const,
+
   encode(message: LatestDepositAddressRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.recipientAddr !== "") {
       writer.uint32(10).string(message.recipientAddr);
@@ -410,6 +458,7 @@ export const LatestDepositAddressRequest = {
 
   fromJSON(object: any): LatestDepositAddressRequest {
     return {
+      $type: LatestDepositAddressRequest.$type,
       recipientAddr: isSet(object.recipientAddr) ? gt.String(object.recipientAddr) : "",
       recipientChain: isSet(object.recipientChain) ? gt.String(object.recipientChain) : "",
       depositChain: isSet(object.depositChain) ? gt.String(object.depositChain) : "",
@@ -446,11 +495,15 @@ export const LatestDepositAddressRequest = {
   },
 };
 
+messageTypeRegistry.set(LatestDepositAddressRequest.$type, LatestDepositAddressRequest);
+
 function createBaseLatestDepositAddressResponse(): LatestDepositAddressResponse {
-  return { depositAddr: "" };
+  return { $type: "axelar.nexus.v1beta1.LatestDepositAddressResponse", depositAddr: "" };
 }
 
 export const LatestDepositAddressResponse = {
+  $type: "axelar.nexus.v1beta1.LatestDepositAddressResponse" as const,
+
   encode(message: LatestDepositAddressResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.depositAddr !== "") {
       writer.uint32(10).string(message.depositAddr);
@@ -482,7 +535,10 @@ export const LatestDepositAddressResponse = {
   },
 
   fromJSON(object: any): LatestDepositAddressResponse {
-    return { depositAddr: isSet(object.depositAddr) ? gt.String(object.depositAddr) : "" };
+    return {
+      $type: LatestDepositAddressResponse.$type,
+      depositAddr: isSet(object.depositAddr) ? gt.String(object.depositAddr) : "",
+    };
   },
 
   toJSON(message: LatestDepositAddressResponse): unknown {
@@ -507,11 +563,20 @@ export const LatestDepositAddressResponse = {
   },
 };
 
+messageTypeRegistry.set(LatestDepositAddressResponse.$type, LatestDepositAddressResponse);
+
 function createBaseTransfersForChainRequest(): TransfersForChainRequest {
-  return { chain: "", state: 0, pagination: undefined };
+  return {
+    $type: "axelar.nexus.v1beta1.TransfersForChainRequest",
+    chain: "",
+    state: 0,
+    pagination: undefined,
+  };
 }
 
 export const TransfersForChainRequest = {
+  $type: "axelar.nexus.v1beta1.TransfersForChainRequest" as const,
+
   encode(message: TransfersForChainRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.chain !== "") {
       writer.uint32(10).string(message.chain);
@@ -564,6 +629,7 @@ export const TransfersForChainRequest = {
 
   fromJSON(object: any): TransfersForChainRequest {
     return {
+      $type: TransfersForChainRequest.$type,
       chain: isSet(object.chain) ? gt.String(object.chain) : "",
       state: isSet(object.state) ? transferStateFromJSON(object.state) : 0,
       pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
@@ -601,11 +667,15 @@ export const TransfersForChainRequest = {
   },
 };
 
+messageTypeRegistry.set(TransfersForChainRequest.$type, TransfersForChainRequest);
+
 function createBaseTransfersForChainResponse(): TransfersForChainResponse {
-  return { transfers: [], pagination: undefined };
+  return { $type: "axelar.nexus.v1beta1.TransfersForChainResponse", transfers: [], pagination: undefined };
 }
 
 export const TransfersForChainResponse = {
+  $type: "axelar.nexus.v1beta1.TransfersForChainResponse" as const,
+
   encode(message: TransfersForChainResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.transfers) {
       CrossChainTransfer.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -648,6 +718,7 @@ export const TransfersForChainResponse = {
 
   fromJSON(object: any): TransfersForChainResponse {
     return {
+      $type: TransfersForChainResponse.$type,
       transfers: gt.Array.isArray(object?.transfers)
         ? object.transfers.map((e: any) => CrossChainTransfer.fromJSON(e))
         : [],
@@ -682,11 +753,15 @@ export const TransfersForChainResponse = {
   },
 };
 
+messageTypeRegistry.set(TransfersForChainResponse.$type, TransfersForChainResponse);
+
 function createBaseFeeInfoRequest(): FeeInfoRequest {
-  return { chain: "", asset: "" };
+  return { $type: "axelar.nexus.v1beta1.FeeInfoRequest", chain: "", asset: "" };
 }
 
 export const FeeInfoRequest = {
+  $type: "axelar.nexus.v1beta1.FeeInfoRequest" as const,
+
   encode(message: FeeInfoRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.chain !== "") {
       writer.uint32(10).string(message.chain);
@@ -729,6 +804,7 @@ export const FeeInfoRequest = {
 
   fromJSON(object: any): FeeInfoRequest {
     return {
+      $type: FeeInfoRequest.$type,
       chain: isSet(object.chain) ? gt.String(object.chain) : "",
       asset: isSet(object.asset) ? gt.String(object.asset) : "",
     };
@@ -756,11 +832,15 @@ export const FeeInfoRequest = {
   },
 };
 
+messageTypeRegistry.set(FeeInfoRequest.$type, FeeInfoRequest);
+
 function createBaseFeeInfoResponse(): FeeInfoResponse {
-  return { feeInfo: undefined };
+  return { $type: "axelar.nexus.v1beta1.FeeInfoResponse", feeInfo: undefined };
 }
 
 export const FeeInfoResponse = {
+  $type: "axelar.nexus.v1beta1.FeeInfoResponse" as const,
+
   encode(message: FeeInfoResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.feeInfo !== undefined) {
       FeeInfo.encode(message.feeInfo, writer.uint32(10).fork()).ldelim();
@@ -792,7 +872,10 @@ export const FeeInfoResponse = {
   },
 
   fromJSON(object: any): FeeInfoResponse {
-    return { feeInfo: isSet(object.feeInfo) ? FeeInfo.fromJSON(object.feeInfo) : undefined };
+    return {
+      $type: FeeInfoResponse.$type,
+      feeInfo: isSet(object.feeInfo) ? FeeInfo.fromJSON(object.feeInfo) : undefined,
+    };
   },
 
   toJSON(message: FeeInfoResponse): unknown {
@@ -816,11 +899,20 @@ export const FeeInfoResponse = {
   },
 };
 
+messageTypeRegistry.set(FeeInfoResponse.$type, FeeInfoResponse);
+
 function createBaseTransferFeeRequest(): TransferFeeRequest {
-  return { sourceChain: "", destinationChain: "", amount: "" };
+  return {
+    $type: "axelar.nexus.v1beta1.TransferFeeRequest",
+    sourceChain: "",
+    destinationChain: "",
+    amount: "",
+  };
 }
 
 export const TransferFeeRequest = {
+  $type: "axelar.nexus.v1beta1.TransferFeeRequest" as const,
+
   encode(message: TransferFeeRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.sourceChain !== "") {
       writer.uint32(10).string(message.sourceChain);
@@ -873,6 +965,7 @@ export const TransferFeeRequest = {
 
   fromJSON(object: any): TransferFeeRequest {
     return {
+      $type: TransferFeeRequest.$type,
       sourceChain: isSet(object.sourceChain) ? gt.String(object.sourceChain) : "",
       destinationChain: isSet(object.destinationChain) ? gt.String(object.destinationChain) : "",
       amount: isSet(object.amount) ? gt.String(object.amount) : "",
@@ -905,11 +998,15 @@ export const TransferFeeRequest = {
   },
 };
 
+messageTypeRegistry.set(TransferFeeRequest.$type, TransferFeeRequest);
+
 function createBaseTransferFeeResponse(): TransferFeeResponse {
-  return { fee: undefined };
+  return { $type: "axelar.nexus.v1beta1.TransferFeeResponse", fee: undefined };
 }
 
 export const TransferFeeResponse = {
+  $type: "axelar.nexus.v1beta1.TransferFeeResponse" as const,
+
   encode(message: TransferFeeResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.fee !== undefined) {
       Coin.encode(message.fee, writer.uint32(10).fork()).ldelim();
@@ -941,7 +1038,10 @@ export const TransferFeeResponse = {
   },
 
   fromJSON(object: any): TransferFeeResponse {
-    return { fee: isSet(object.fee) ? Coin.fromJSON(object.fee) : undefined };
+    return {
+      $type: TransferFeeResponse.$type,
+      fee: isSet(object.fee) ? Coin.fromJSON(object.fee) : undefined,
+    };
   },
 
   toJSON(message: TransferFeeResponse): unknown {
@@ -962,11 +1062,15 @@ export const TransferFeeResponse = {
   },
 };
 
+messageTypeRegistry.set(TransferFeeResponse.$type, TransferFeeResponse);
+
 function createBaseChainsRequest(): ChainsRequest {
-  return { status: 0 };
+  return { $type: "axelar.nexus.v1beta1.ChainsRequest", status: 0 };
 }
 
 export const ChainsRequest = {
+  $type: "axelar.nexus.v1beta1.ChainsRequest" as const,
+
   encode(message: ChainsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.status !== 0) {
       writer.uint32(8).int32(message.status);
@@ -998,7 +1102,10 @@ export const ChainsRequest = {
   },
 
   fromJSON(object: any): ChainsRequest {
-    return { status: isSet(object.status) ? chainStatusFromJSON(object.status) : 0 };
+    return {
+      $type: ChainsRequest.$type,
+      status: isSet(object.status) ? chainStatusFromJSON(object.status) : 0,
+    };
   },
 
   toJSON(message: ChainsRequest): unknown {
@@ -1019,11 +1126,15 @@ export const ChainsRequest = {
   },
 };
 
+messageTypeRegistry.set(ChainsRequest.$type, ChainsRequest);
+
 function createBaseChainsResponse(): ChainsResponse {
-  return { chains: [] };
+  return { $type: "axelar.nexus.v1beta1.ChainsResponse", chains: [] };
 }
 
 export const ChainsResponse = {
+  $type: "axelar.nexus.v1beta1.ChainsResponse" as const,
+
   encode(message: ChainsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.chains) {
       writer.uint32(10).string(v!);
@@ -1055,7 +1166,10 @@ export const ChainsResponse = {
   },
 
   fromJSON(object: any): ChainsResponse {
-    return { chains: gt.Array.isArray(object?.chains) ? object.chains.map((e: any) => gt.String(e)) : [] };
+    return {
+      $type: ChainsResponse.$type,
+      chains: gt.Array.isArray(object?.chains) ? object.chains.map((e: any) => gt.String(e)) : [],
+    };
   },
 
   toJSON(message: ChainsResponse): unknown {
@@ -1076,11 +1190,15 @@ export const ChainsResponse = {
   },
 };
 
+messageTypeRegistry.set(ChainsResponse.$type, ChainsResponse);
+
 function createBaseAssetsRequest(): AssetsRequest {
-  return { chain: "" };
+  return { $type: "axelar.nexus.v1beta1.AssetsRequest", chain: "" };
 }
 
 export const AssetsRequest = {
+  $type: "axelar.nexus.v1beta1.AssetsRequest" as const,
+
   encode(message: AssetsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.chain !== "") {
       writer.uint32(10).string(message.chain);
@@ -1112,7 +1230,7 @@ export const AssetsRequest = {
   },
 
   fromJSON(object: any): AssetsRequest {
-    return { chain: isSet(object.chain) ? gt.String(object.chain) : "" };
+    return { $type: AssetsRequest.$type, chain: isSet(object.chain) ? gt.String(object.chain) : "" };
   },
 
   toJSON(message: AssetsRequest): unknown {
@@ -1133,11 +1251,15 @@ export const AssetsRequest = {
   },
 };
 
+messageTypeRegistry.set(AssetsRequest.$type, AssetsRequest);
+
 function createBaseAssetsResponse(): AssetsResponse {
-  return { assets: [] };
+  return { $type: "axelar.nexus.v1beta1.AssetsResponse", assets: [] };
 }
 
 export const AssetsResponse = {
+  $type: "axelar.nexus.v1beta1.AssetsResponse" as const,
+
   encode(message: AssetsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.assets) {
       writer.uint32(10).string(v!);
@@ -1169,7 +1291,10 @@ export const AssetsResponse = {
   },
 
   fromJSON(object: any): AssetsResponse {
-    return { assets: gt.Array.isArray(object?.assets) ? object.assets.map((e: any) => gt.String(e)) : [] };
+    return {
+      $type: AssetsResponse.$type,
+      assets: gt.Array.isArray(object?.assets) ? object.assets.map((e: any) => gt.String(e)) : [],
+    };
   },
 
   toJSON(message: AssetsResponse): unknown {
@@ -1190,11 +1315,15 @@ export const AssetsResponse = {
   },
 };
 
+messageTypeRegistry.set(AssetsResponse.$type, AssetsResponse);
+
 function createBaseChainStateRequest(): ChainStateRequest {
-  return { chain: "" };
+  return { $type: "axelar.nexus.v1beta1.ChainStateRequest", chain: "" };
 }
 
 export const ChainStateRequest = {
+  $type: "axelar.nexus.v1beta1.ChainStateRequest" as const,
+
   encode(message: ChainStateRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.chain !== "") {
       writer.uint32(10).string(message.chain);
@@ -1226,7 +1355,7 @@ export const ChainStateRequest = {
   },
 
   fromJSON(object: any): ChainStateRequest {
-    return { chain: isSet(object.chain) ? gt.String(object.chain) : "" };
+    return { $type: ChainStateRequest.$type, chain: isSet(object.chain) ? gt.String(object.chain) : "" };
   },
 
   toJSON(message: ChainStateRequest): unknown {
@@ -1247,11 +1376,15 @@ export const ChainStateRequest = {
   },
 };
 
+messageTypeRegistry.set(ChainStateRequest.$type, ChainStateRequest);
+
 function createBaseChainStateResponse(): ChainStateResponse {
-  return { state: undefined };
+  return { $type: "axelar.nexus.v1beta1.ChainStateResponse", state: undefined };
 }
 
 export const ChainStateResponse = {
+  $type: "axelar.nexus.v1beta1.ChainStateResponse" as const,
+
   encode(message: ChainStateResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.state !== undefined) {
       ChainState.encode(message.state, writer.uint32(10).fork()).ldelim();
@@ -1283,7 +1416,10 @@ export const ChainStateResponse = {
   },
 
   fromJSON(object: any): ChainStateResponse {
-    return { state: isSet(object.state) ? ChainState.fromJSON(object.state) : undefined };
+    return {
+      $type: ChainStateResponse.$type,
+      state: isSet(object.state) ? ChainState.fromJSON(object.state) : undefined,
+    };
   },
 
   toJSON(message: ChainStateResponse): unknown {
@@ -1305,11 +1441,15 @@ export const ChainStateResponse = {
   },
 };
 
+messageTypeRegistry.set(ChainStateResponse.$type, ChainStateResponse);
+
 function createBaseChainsByAssetRequest(): ChainsByAssetRequest {
-  return { asset: "" };
+  return { $type: "axelar.nexus.v1beta1.ChainsByAssetRequest", asset: "" };
 }
 
 export const ChainsByAssetRequest = {
+  $type: "axelar.nexus.v1beta1.ChainsByAssetRequest" as const,
+
   encode(message: ChainsByAssetRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.asset !== "") {
       writer.uint32(10).string(message.asset);
@@ -1341,7 +1481,7 @@ export const ChainsByAssetRequest = {
   },
 
   fromJSON(object: any): ChainsByAssetRequest {
-    return { asset: isSet(object.asset) ? gt.String(object.asset) : "" };
+    return { $type: ChainsByAssetRequest.$type, asset: isSet(object.asset) ? gt.String(object.asset) : "" };
   },
 
   toJSON(message: ChainsByAssetRequest): unknown {
@@ -1362,11 +1502,15 @@ export const ChainsByAssetRequest = {
   },
 };
 
+messageTypeRegistry.set(ChainsByAssetRequest.$type, ChainsByAssetRequest);
+
 function createBaseChainsByAssetResponse(): ChainsByAssetResponse {
-  return { chains: [] };
+  return { $type: "axelar.nexus.v1beta1.ChainsByAssetResponse", chains: [] };
 }
 
 export const ChainsByAssetResponse = {
+  $type: "axelar.nexus.v1beta1.ChainsByAssetResponse" as const,
+
   encode(message: ChainsByAssetResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.chains) {
       writer.uint32(10).string(v!);
@@ -1398,7 +1542,10 @@ export const ChainsByAssetResponse = {
   },
 
   fromJSON(object: any): ChainsByAssetResponse {
-    return { chains: gt.Array.isArray(object?.chains) ? object.chains.map((e: any) => gt.String(e)) : [] };
+    return {
+      $type: ChainsByAssetResponse.$type,
+      chains: gt.Array.isArray(object?.chains) ? object.chains.map((e: any) => gt.String(e)) : [],
+    };
   },
 
   toJSON(message: ChainsByAssetResponse): unknown {
@@ -1419,11 +1566,15 @@ export const ChainsByAssetResponse = {
   },
 };
 
+messageTypeRegistry.set(ChainsByAssetResponse.$type, ChainsByAssetResponse);
+
 function createBaseRecipientAddressRequest(): RecipientAddressRequest {
-  return { depositAddr: "", depositChain: "" };
+  return { $type: "axelar.nexus.v1beta1.RecipientAddressRequest", depositAddr: "", depositChain: "" };
 }
 
 export const RecipientAddressRequest = {
+  $type: "axelar.nexus.v1beta1.RecipientAddressRequest" as const,
+
   encode(message: RecipientAddressRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.depositAddr !== "") {
       writer.uint32(10).string(message.depositAddr);
@@ -1466,6 +1617,7 @@ export const RecipientAddressRequest = {
 
   fromJSON(object: any): RecipientAddressRequest {
     return {
+      $type: RecipientAddressRequest.$type,
       depositAddr: isSet(object.depositAddr) ? gt.String(object.depositAddr) : "",
       depositChain: isSet(object.depositChain) ? gt.String(object.depositChain) : "",
     };
@@ -1493,11 +1645,15 @@ export const RecipientAddressRequest = {
   },
 };
 
+messageTypeRegistry.set(RecipientAddressRequest.$type, RecipientAddressRequest);
+
 function createBaseRecipientAddressResponse(): RecipientAddressResponse {
-  return { recipientAddr: "", recipientChain: "" };
+  return { $type: "axelar.nexus.v1beta1.RecipientAddressResponse", recipientAddr: "", recipientChain: "" };
 }
 
 export const RecipientAddressResponse = {
+  $type: "axelar.nexus.v1beta1.RecipientAddressResponse" as const,
+
   encode(message: RecipientAddressResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.recipientAddr !== "") {
       writer.uint32(10).string(message.recipientAddr);
@@ -1540,6 +1696,7 @@ export const RecipientAddressResponse = {
 
   fromJSON(object: any): RecipientAddressResponse {
     return {
+      $type: RecipientAddressResponse.$type,
       recipientAddr: isSet(object.recipientAddr) ? gt.String(object.recipientAddr) : "",
       recipientChain: isSet(object.recipientChain) ? gt.String(object.recipientChain) : "",
     };
@@ -1569,11 +1726,15 @@ export const RecipientAddressResponse = {
   },
 };
 
+messageTypeRegistry.set(RecipientAddressResponse.$type, RecipientAddressResponse);
+
 function createBaseTransferRateLimitRequest(): TransferRateLimitRequest {
-  return { chain: "", asset: "" };
+  return { $type: "axelar.nexus.v1beta1.TransferRateLimitRequest", chain: "", asset: "" };
 }
 
 export const TransferRateLimitRequest = {
+  $type: "axelar.nexus.v1beta1.TransferRateLimitRequest" as const,
+
   encode(message: TransferRateLimitRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.chain !== "") {
       writer.uint32(10).string(message.chain);
@@ -1616,6 +1777,7 @@ export const TransferRateLimitRequest = {
 
   fromJSON(object: any): TransferRateLimitRequest {
     return {
+      $type: TransferRateLimitRequest.$type,
       chain: isSet(object.chain) ? gt.String(object.chain) : "",
       asset: isSet(object.asset) ? gt.String(object.asset) : "",
     };
@@ -1645,11 +1807,15 @@ export const TransferRateLimitRequest = {
   },
 };
 
+messageTypeRegistry.set(TransferRateLimitRequest.$type, TransferRateLimitRequest);
+
 function createBaseTransferRateLimitResponse(): TransferRateLimitResponse {
-  return { transferRateLimit: undefined };
+  return { $type: "axelar.nexus.v1beta1.TransferRateLimitResponse", transferRateLimit: undefined };
 }
 
 export const TransferRateLimitResponse = {
+  $type: "axelar.nexus.v1beta1.TransferRateLimitResponse" as const,
+
   encode(message: TransferRateLimitResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.transferRateLimit !== undefined) {
       TransferRateLimit.encode(message.transferRateLimit, writer.uint32(10).fork()).ldelim();
@@ -1682,6 +1848,7 @@ export const TransferRateLimitResponse = {
 
   fromJSON(object: any): TransferRateLimitResponse {
     return {
+      $type: TransferRateLimitResponse.$type,
       transferRateLimit: isSet(object.transferRateLimit)
         ? TransferRateLimit.fromJSON(object.transferRateLimit)
         : undefined,
@@ -1711,8 +1878,11 @@ export const TransferRateLimitResponse = {
   },
 };
 
+messageTypeRegistry.set(TransferRateLimitResponse.$type, TransferRateLimitResponse);
+
 function createBaseTransferRateLimit(): TransferRateLimit {
   return {
+    $type: "axelar.nexus.v1beta1.TransferRateLimit",
     limit: Buffer.alloc(0),
     window: undefined,
     incoming: Buffer.alloc(0),
@@ -1724,6 +1894,8 @@ function createBaseTransferRateLimit(): TransferRateLimit {
 }
 
 export const TransferRateLimit = {
+  $type: "axelar.nexus.v1beta1.TransferRateLimit" as const,
+
   encode(message: TransferRateLimit, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.limit.length !== 0) {
       writer.uint32(10).bytes(message.limit);
@@ -1816,6 +1988,7 @@ export const TransferRateLimit = {
 
   fromJSON(object: any): TransferRateLimit {
     return {
+      $type: TransferRateLimit.$type,
       limit: isSet(object.limit) ? Buffer.from(bytesFromBase64(object.limit)) : Buffer.alloc(0),
       window: isSet(object.window) ? Duration.fromJSON(object.window) : undefined,
       incoming: isSet(object.incoming) ? Buffer.from(bytesFromBase64(object.incoming)) : Buffer.alloc(0),
@@ -1872,11 +2045,15 @@ export const TransferRateLimit = {
   },
 };
 
+messageTypeRegistry.set(TransferRateLimit.$type, TransferRateLimit);
+
 function createBaseMessageRequest(): MessageRequest {
-  return { id: "" };
+  return { $type: "axelar.nexus.v1beta1.MessageRequest", id: "" };
 }
 
 export const MessageRequest = {
+  $type: "axelar.nexus.v1beta1.MessageRequest" as const,
+
   encode(message: MessageRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.id !== "") {
       writer.uint32(10).string(message.id);
@@ -1908,7 +2085,7 @@ export const MessageRequest = {
   },
 
   fromJSON(object: any): MessageRequest {
-    return { id: isSet(object.id) ? gt.String(object.id) : "" };
+    return { $type: MessageRequest.$type, id: isSet(object.id) ? gt.String(object.id) : "" };
   },
 
   toJSON(message: MessageRequest): unknown {
@@ -1929,11 +2106,15 @@ export const MessageRequest = {
   },
 };
 
+messageTypeRegistry.set(MessageRequest.$type, MessageRequest);
+
 function createBaseMessageResponse(): MessageResponse {
-  return { message: undefined };
+  return { $type: "axelar.nexus.v1beta1.MessageResponse", message: undefined };
 }
 
 export const MessageResponse = {
+  $type: "axelar.nexus.v1beta1.MessageResponse" as const,
+
   encode(message: MessageResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.message !== undefined) {
       GeneralMessage.encode(message.message, writer.uint32(10).fork()).ldelim();
@@ -1965,7 +2146,10 @@ export const MessageResponse = {
   },
 
   fromJSON(object: any): MessageResponse {
-    return { message: isSet(object.message) ? GeneralMessage.fromJSON(object.message) : undefined };
+    return {
+      $type: MessageResponse.$type,
+      message: isSet(object.message) ? GeneralMessage.fromJSON(object.message) : undefined,
+    };
   },
 
   toJSON(message: MessageResponse): unknown {
@@ -1989,11 +2173,15 @@ export const MessageResponse = {
   },
 };
 
+messageTypeRegistry.set(MessageResponse.$type, MessageResponse);
+
 function createBaseParamsRequest(): ParamsRequest {
-  return {};
+  return { $type: "axelar.nexus.v1beta1.ParamsRequest" };
 }
 
 export const ParamsRequest = {
+  $type: "axelar.nexus.v1beta1.ParamsRequest" as const,
+
   encode(_: ParamsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
@@ -2015,7 +2203,7 @@ export const ParamsRequest = {
   },
 
   fromJSON(_: any): ParamsRequest {
-    return {};
+    return { $type: ParamsRequest.$type };
   },
 
   toJSON(_: ParamsRequest): unknown {
@@ -2032,11 +2220,15 @@ export const ParamsRequest = {
   },
 };
 
+messageTypeRegistry.set(ParamsRequest.$type, ParamsRequest);
+
 function createBaseParamsResponse(): ParamsResponse {
-  return { params: undefined };
+  return { $type: "axelar.nexus.v1beta1.ParamsResponse", params: undefined };
 }
 
 export const ParamsResponse = {
+  $type: "axelar.nexus.v1beta1.ParamsResponse" as const,
+
   encode(message: ParamsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
@@ -2068,7 +2260,10 @@ export const ParamsResponse = {
   },
 
   fromJSON(object: any): ParamsResponse {
-    return { params: isSet(object.params) ? Params.fromJSON(object.params) : undefined };
+    return {
+      $type: ParamsResponse.$type,
+      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
+    };
   },
 
   toJSON(message: ParamsResponse): unknown {
@@ -2089,6 +2284,8 @@ export const ParamsResponse = {
     return message;
   },
 };
+
+messageTypeRegistry.set(ParamsResponse.$type, ParamsResponse);
 
 declare const self: any | undefined;
 declare const window: any | undefined;
@@ -2128,13 +2325,13 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

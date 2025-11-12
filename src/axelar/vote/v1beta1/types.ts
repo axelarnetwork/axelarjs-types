@@ -8,6 +8,7 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { Any } from "../../../google/protobuf/any";
+import { messageTypeRegistry } from "../../../typeRegistry";
 
 export const protobufPackage = "axelar.vote.v1beta1";
 
@@ -16,6 +17,7 @@ export const protobufPackage = "axelar.vote.v1beta1";
  * validators voting for the same data
  */
 export interface TalliedVote {
+  $type: "axelar.vote.v1beta1.TalliedVote";
   tally: Buffer;
   data?: Any | undefined;
   pollId: Long;
@@ -23,15 +25,24 @@ export interface TalliedVote {
 }
 
 export interface TalliedVote_IsVoterLateEntry {
+  $type: "axelar.vote.v1beta1.TalliedVote.IsVoterLateEntry";
   key: string;
   value: boolean;
 }
 
 function createBaseTalliedVote(): TalliedVote {
-  return { tally: Buffer.alloc(0), data: undefined, pollId: Long.UZERO, isVoterLate: {} };
+  return {
+    $type: "axelar.vote.v1beta1.TalliedVote",
+    tally: Buffer.alloc(0),
+    data: undefined,
+    pollId: Long.UZERO,
+    isVoterLate: {},
+  };
 }
 
 export const TalliedVote = {
+  $type: "axelar.vote.v1beta1.TalliedVote" as const,
+
   encode(message: TalliedVote, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.tally.length !== 0) {
       writer.uint32(10).bytes(message.tally);
@@ -43,7 +54,14 @@ export const TalliedVote = {
       writer.uint32(32).uint64(message.pollId);
     }
     Object.entries(message.isVoterLate).forEach(([key, value]) => {
-      TalliedVote_IsVoterLateEntry.encode({ key: key as any, value }, writer.uint32(42).fork()).ldelim();
+      TalliedVote_IsVoterLateEntry.encode(
+        {
+          $type: "axelar.vote.v1beta1.TalliedVote.IsVoterLateEntry",
+          key: key as any,
+          value,
+        },
+        writer.uint32(42).fork(),
+      ).ldelim();
     });
     return writer;
   },
@@ -97,6 +115,7 @@ export const TalliedVote = {
 
   fromJSON(object: any): TalliedVote {
     return {
+      $type: TalliedVote.$type,
       tally: isSet(object.tally) ? Buffer.from(bytesFromBase64(object.tally)) : Buffer.alloc(0),
       data: isSet(object.data) ? Any.fromJSON(object.data) : undefined,
       pollId: isSet(object.pollId) ? Long.fromValue(object.pollId) : Long.UZERO,
@@ -155,11 +174,15 @@ export const TalliedVote = {
   },
 };
 
+messageTypeRegistry.set(TalliedVote.$type, TalliedVote);
+
 function createBaseTalliedVote_IsVoterLateEntry(): TalliedVote_IsVoterLateEntry {
-  return { key: "", value: false };
+  return { $type: "axelar.vote.v1beta1.TalliedVote.IsVoterLateEntry", key: "", value: false };
 }
 
 export const TalliedVote_IsVoterLateEntry = {
+  $type: "axelar.vote.v1beta1.TalliedVote.IsVoterLateEntry" as const,
+
   encode(message: TalliedVote_IsVoterLateEntry, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.key !== "") {
       writer.uint32(10).string(message.key);
@@ -202,6 +225,7 @@ export const TalliedVote_IsVoterLateEntry = {
 
   fromJSON(object: any): TalliedVote_IsVoterLateEntry {
     return {
+      $type: TalliedVote_IsVoterLateEntry.$type,
       key: isSet(object.key) ? gt.String(object.key) : "",
       value: isSet(object.value) ? gt.Boolean(object.value) : false,
     };
@@ -232,6 +256,8 @@ export const TalliedVote_IsVoterLateEntry = {
     return message;
   },
 };
+
+messageTypeRegistry.set(TalliedVote_IsVoterLateEntry.$type, TalliedVote_IsVoterLateEntry);
 
 declare const self: any | undefined;
 declare const window: any | undefined;
@@ -271,13 +297,13 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

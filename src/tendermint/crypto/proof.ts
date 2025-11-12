@@ -7,10 +7,12 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { messageTypeRegistry } from "../../typeRegistry";
 
 export const protobufPackage = "tendermint.crypto";
 
 export interface Proof {
+  $type: "tendermint.crypto.Proof";
   total: Long;
   index: Long;
   leafHash: Buffer;
@@ -18,6 +20,7 @@ export interface Proof {
 }
 
 export interface ValueOp {
+  $type: "tendermint.crypto.ValueOp";
   /** Encoded in ProofOp.Key. */
   key: Buffer;
   /** To encode in ProofOp.Data */
@@ -25,6 +28,7 @@ export interface ValueOp {
 }
 
 export interface DominoOp {
+  $type: "tendermint.crypto.DominoOp";
   key: string;
   input: string;
   output: string;
@@ -36,6 +40,7 @@ export interface DominoOp {
  * for example neighbouring node hash
  */
 export interface ProofOp {
+  $type: "tendermint.crypto.ProofOp";
   type: string;
   key: Buffer;
   data: Buffer;
@@ -43,14 +48,23 @@ export interface ProofOp {
 
 /** ProofOps is Merkle proof defined by the list of ProofOps */
 export interface ProofOps {
+  $type: "tendermint.crypto.ProofOps";
   ops: ProofOp[];
 }
 
 function createBaseProof(): Proof {
-  return { total: Long.ZERO, index: Long.ZERO, leafHash: Buffer.alloc(0), aunts: [] };
+  return {
+    $type: "tendermint.crypto.Proof",
+    total: Long.ZERO,
+    index: Long.ZERO,
+    leafHash: Buffer.alloc(0),
+    aunts: [],
+  };
 }
 
 export const Proof = {
+  $type: "tendermint.crypto.Proof" as const,
+
   encode(message: Proof, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.total.equals(Long.ZERO)) {
       writer.uint32(8).int64(message.total);
@@ -113,6 +127,7 @@ export const Proof = {
 
   fromJSON(object: any): Proof {
     return {
+      $type: Proof.$type,
       total: isSet(object.total) ? Long.fromValue(object.total) : Long.ZERO,
       index: isSet(object.index) ? Long.fromValue(object.index) : Long.ZERO,
       leafHash: isSet(object.leafHash) ? Buffer.from(bytesFromBase64(object.leafHash)) : Buffer.alloc(0),
@@ -154,11 +169,15 @@ export const Proof = {
   },
 };
 
+messageTypeRegistry.set(Proof.$type, Proof);
+
 function createBaseValueOp(): ValueOp {
-  return { key: Buffer.alloc(0), proof: undefined };
+  return { $type: "tendermint.crypto.ValueOp", key: Buffer.alloc(0), proof: undefined };
 }
 
 export const ValueOp = {
+  $type: "tendermint.crypto.ValueOp" as const,
+
   encode(message: ValueOp, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.key.length !== 0) {
       writer.uint32(10).bytes(message.key);
@@ -201,6 +220,7 @@ export const ValueOp = {
 
   fromJSON(object: any): ValueOp {
     return {
+      $type: ValueOp.$type,
       key: isSet(object.key) ? Buffer.from(bytesFromBase64(object.key)) : Buffer.alloc(0),
       proof: isSet(object.proof) ? Proof.fromJSON(object.proof) : undefined,
     };
@@ -229,11 +249,15 @@ export const ValueOp = {
   },
 };
 
+messageTypeRegistry.set(ValueOp.$type, ValueOp);
+
 function createBaseDominoOp(): DominoOp {
-  return { key: "", input: "", output: "" };
+  return { $type: "tendermint.crypto.DominoOp", key: "", input: "", output: "" };
 }
 
 export const DominoOp = {
+  $type: "tendermint.crypto.DominoOp" as const,
+
   encode(message: DominoOp, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.key !== "") {
       writer.uint32(10).string(message.key);
@@ -286,6 +310,7 @@ export const DominoOp = {
 
   fromJSON(object: any): DominoOp {
     return {
+      $type: DominoOp.$type,
       key: isSet(object.key) ? gt.String(object.key) : "",
       input: isSet(object.input) ? gt.String(object.input) : "",
       output: isSet(object.output) ? gt.String(object.output) : "",
@@ -318,11 +343,15 @@ export const DominoOp = {
   },
 };
 
+messageTypeRegistry.set(DominoOp.$type, DominoOp);
+
 function createBaseProofOp(): ProofOp {
-  return { type: "", key: Buffer.alloc(0), data: Buffer.alloc(0) };
+  return { $type: "tendermint.crypto.ProofOp", type: "", key: Buffer.alloc(0), data: Buffer.alloc(0) };
 }
 
 export const ProofOp = {
+  $type: "tendermint.crypto.ProofOp" as const,
+
   encode(message: ProofOp, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.type !== "") {
       writer.uint32(10).string(message.type);
@@ -375,6 +404,7 @@ export const ProofOp = {
 
   fromJSON(object: any): ProofOp {
     return {
+      $type: ProofOp.$type,
       type: isSet(object.type) ? gt.String(object.type) : "",
       key: isSet(object.key) ? Buffer.from(bytesFromBase64(object.key)) : Buffer.alloc(0),
       data: isSet(object.data) ? Buffer.from(bytesFromBase64(object.data)) : Buffer.alloc(0),
@@ -407,11 +437,15 @@ export const ProofOp = {
   },
 };
 
+messageTypeRegistry.set(ProofOp.$type, ProofOp);
+
 function createBaseProofOps(): ProofOps {
-  return { ops: [] };
+  return { $type: "tendermint.crypto.ProofOps", ops: [] };
 }
 
 export const ProofOps = {
+  $type: "tendermint.crypto.ProofOps" as const,
+
   encode(message: ProofOps, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.ops) {
       ProofOp.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -443,7 +477,10 @@ export const ProofOps = {
   },
 
   fromJSON(object: any): ProofOps {
-    return { ops: gt.Array.isArray(object?.ops) ? object.ops.map((e: any) => ProofOp.fromJSON(e)) : [] };
+    return {
+      $type: ProofOps.$type,
+      ops: gt.Array.isArray(object?.ops) ? object.ops.map((e: any) => ProofOp.fromJSON(e)) : [],
+    };
   },
 
   toJSON(message: ProofOps): unknown {
@@ -463,6 +500,8 @@ export const ProofOps = {
     return message;
   },
 };
+
+messageTypeRegistry.set(ProofOps.$type, ProofOps);
 
 declare const self: any | undefined;
 declare const window: any | undefined;
@@ -502,13 +541,13 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

@@ -7,17 +7,20 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { messageTypeRegistry } from "../../../../typeRegistry";
 
 export const protobufPackage = "axelar.tss.tofnd.v1beta1";
 
 /** File copied from golang tofnd with minor tweaks */
 
 export interface RecoverRequest {
+  $type: "axelar.tss.tofnd.v1beta1.RecoverRequest";
   keygenInit?: KeygenInit | undefined;
   keygenOutput?: KeygenOutput | undefined;
 }
 
 export interface RecoverResponse {
+  $type: "axelar.tss.tofnd.v1beta1.RecoverResponse";
   response: RecoverResponse_Response;
 }
 
@@ -62,6 +65,7 @@ export function recoverResponse_ResponseToJSON(object: RecoverResponse_Response)
 
 /** Keygen's success response */
 export interface KeygenOutput {
+  $type: "axelar.tss.tofnd.v1beta1.KeygenOutput";
   /** pub_key; common for all parties */
   pubKey: Buffer;
   /** recover info of all parties' shares; common for all parties */
@@ -71,6 +75,7 @@ export interface KeygenOutput {
 }
 
 export interface MessageIn {
+  $type: "axelar.tss.tofnd.v1beta1.MessageIn";
   /** first message only, Keygen */
   keygenInit?: KeygenInit | undefined;
   /** first message only, Sign */
@@ -82,6 +87,7 @@ export interface MessageIn {
 }
 
 export interface MessageOut {
+  $type: "axelar.tss.tofnd.v1beta1.MessageOut";
   /** all but final message */
   traffic?: TrafficOut | undefined;
   /** final message only, Keygen */
@@ -94,6 +100,7 @@ export interface MessageOut {
 
 /** Keygen's response types */
 export interface MessageOut_KeygenResult {
+  $type: "axelar.tss.tofnd.v1beta1.MessageOut.KeygenResult";
   /** Success response */
   data?: KeygenOutput | undefined;
   /** Faiilure response */
@@ -102,6 +109,7 @@ export interface MessageOut_KeygenResult {
 
 /** Sign's response types */
 export interface MessageOut_SignResult {
+  $type: "axelar.tss.tofnd.v1beta1.MessageOut.SignResult";
   /** Success response */
   signature?: Buffer | undefined;
   /** Failure response */
@@ -110,10 +118,12 @@ export interface MessageOut_SignResult {
 
 /** Keygen/Sign failure response message */
 export interface MessageOut_CriminalList {
+  $type: "axelar.tss.tofnd.v1beta1.MessageOut.CriminalList";
   criminals: MessageOut_CriminalList_Criminal[];
 }
 
 export interface MessageOut_CriminalList_Criminal {
+  $type: "axelar.tss.tofnd.v1beta1.MessageOut.CriminalList.Criminal";
   partyUid: string;
   crimeType: MessageOut_CriminalList_Criminal_CrimeType;
 }
@@ -162,18 +172,21 @@ export function messageOut_CriminalList_Criminal_CrimeTypeToJSON(
 }
 
 export interface TrafficIn {
+  $type: "axelar.tss.tofnd.v1beta1.TrafficIn";
   fromPartyUid: string;
   payload: Buffer;
   isBroadcast: boolean;
 }
 
 export interface TrafficOut {
+  $type: "axelar.tss.tofnd.v1beta1.TrafficOut";
   toPartyUid: string;
   payload: Buffer;
   isBroadcast: boolean;
 }
 
 export interface KeygenInit {
+  $type: "axelar.tss.tofnd.v1beta1.KeygenInit";
   newKeyUid: string;
   partyUids: string[];
   partyShareCounts: number[];
@@ -183,6 +196,7 @@ export interface KeygenInit {
 }
 
 export interface SignInit {
+  $type: "axelar.tss.tofnd.v1beta1.SignInit";
   newSigUid: string;
   keyUid: string;
   /** TODO replace this with a subset of indices? */
@@ -191,10 +205,12 @@ export interface SignInit {
 }
 
 function createBaseRecoverRequest(): RecoverRequest {
-  return { keygenInit: undefined, keygenOutput: undefined };
+  return { $type: "axelar.tss.tofnd.v1beta1.RecoverRequest", keygenInit: undefined, keygenOutput: undefined };
 }
 
 export const RecoverRequest = {
+  $type: "axelar.tss.tofnd.v1beta1.RecoverRequest" as const,
+
   encode(message: RecoverRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.keygenInit !== undefined) {
       KeygenInit.encode(message.keygenInit, writer.uint32(10).fork()).ldelim();
@@ -237,6 +253,7 @@ export const RecoverRequest = {
 
   fromJSON(object: any): RecoverRequest {
     return {
+      $type: RecoverRequest.$type,
       keygenInit: isSet(object.keygenInit) ? KeygenInit.fromJSON(object.keygenInit) : undefined,
       keygenOutput: isSet(object.keygenOutput) ? KeygenOutput.fromJSON(object.keygenOutput) : undefined,
     };
@@ -270,11 +287,15 @@ export const RecoverRequest = {
   },
 };
 
+messageTypeRegistry.set(RecoverRequest.$type, RecoverRequest);
+
 function createBaseRecoverResponse(): RecoverResponse {
-  return { response: 0 };
+  return { $type: "axelar.tss.tofnd.v1beta1.RecoverResponse", response: 0 };
 }
 
 export const RecoverResponse = {
+  $type: "axelar.tss.tofnd.v1beta1.RecoverResponse" as const,
+
   encode(message: RecoverResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.response !== 0) {
       writer.uint32(8).int32(message.response);
@@ -306,7 +327,10 @@ export const RecoverResponse = {
   },
 
   fromJSON(object: any): RecoverResponse {
-    return { response: isSet(object.response) ? recoverResponse_ResponseFromJSON(object.response) : 0 };
+    return {
+      $type: RecoverResponse.$type,
+      response: isSet(object.response) ? recoverResponse_ResponseFromJSON(object.response) : 0,
+    };
   },
 
   toJSON(message: RecoverResponse): unknown {
@@ -327,11 +351,20 @@ export const RecoverResponse = {
   },
 };
 
+messageTypeRegistry.set(RecoverResponse.$type, RecoverResponse);
+
 function createBaseKeygenOutput(): KeygenOutput {
-  return { pubKey: Buffer.alloc(0), groupRecoverInfo: Buffer.alloc(0), privateRecoverInfo: Buffer.alloc(0) };
+  return {
+    $type: "axelar.tss.tofnd.v1beta1.KeygenOutput",
+    pubKey: Buffer.alloc(0),
+    groupRecoverInfo: Buffer.alloc(0),
+    privateRecoverInfo: Buffer.alloc(0),
+  };
 }
 
 export const KeygenOutput = {
+  $type: "axelar.tss.tofnd.v1beta1.KeygenOutput" as const,
+
   encode(message: KeygenOutput, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.pubKey.length !== 0) {
       writer.uint32(10).bytes(message.pubKey);
@@ -384,6 +417,7 @@ export const KeygenOutput = {
 
   fromJSON(object: any): KeygenOutput {
     return {
+      $type: KeygenOutput.$type,
       pubKey: isSet(object.pubKey) ? Buffer.from(bytesFromBase64(object.pubKey)) : Buffer.alloc(0),
       groupRecoverInfo: isSet(object.groupRecoverInfo)
         ? Buffer.from(bytesFromBase64(object.groupRecoverInfo))
@@ -420,11 +454,21 @@ export const KeygenOutput = {
   },
 };
 
+messageTypeRegistry.set(KeygenOutput.$type, KeygenOutput);
+
 function createBaseMessageIn(): MessageIn {
-  return { keygenInit: undefined, signInit: undefined, traffic: undefined, abort: undefined };
+  return {
+    $type: "axelar.tss.tofnd.v1beta1.MessageIn",
+    keygenInit: undefined,
+    signInit: undefined,
+    traffic: undefined,
+    abort: undefined,
+  };
 }
 
 export const MessageIn = {
+  $type: "axelar.tss.tofnd.v1beta1.MessageIn" as const,
+
   encode(message: MessageIn, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.keygenInit !== undefined) {
       KeygenInit.encode(message.keygenInit, writer.uint32(10).fork()).ldelim();
@@ -487,6 +531,7 @@ export const MessageIn = {
 
   fromJSON(object: any): MessageIn {
     return {
+      $type: MessageIn.$type,
       keygenInit: isSet(object.keygenInit) ? KeygenInit.fromJSON(object.keygenInit) : undefined,
       signInit: isSet(object.signInit) ? SignInit.fromJSON(object.signInit) : undefined,
       traffic: isSet(object.traffic) ? TrafficIn.fromJSON(object.traffic) : undefined,
@@ -533,11 +578,21 @@ export const MessageIn = {
   },
 };
 
+messageTypeRegistry.set(MessageIn.$type, MessageIn);
+
 function createBaseMessageOut(): MessageOut {
-  return { traffic: undefined, keygenResult: undefined, signResult: undefined, needRecover: undefined };
+  return {
+    $type: "axelar.tss.tofnd.v1beta1.MessageOut",
+    traffic: undefined,
+    keygenResult: undefined,
+    signResult: undefined,
+    needRecover: undefined,
+  };
 }
 
 export const MessageOut = {
+  $type: "axelar.tss.tofnd.v1beta1.MessageOut" as const,
+
   encode(message: MessageOut, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.traffic !== undefined) {
       TrafficOut.encode(message.traffic, writer.uint32(10).fork()).ldelim();
@@ -600,6 +655,7 @@ export const MessageOut = {
 
   fromJSON(object: any): MessageOut {
     return {
+      $type: MessageOut.$type,
       traffic: isSet(object.traffic) ? TrafficOut.fromJSON(object.traffic) : undefined,
       keygenResult: isSet(object.keygenResult)
         ? MessageOut_KeygenResult.fromJSON(object.keygenResult)
@@ -648,11 +704,15 @@ export const MessageOut = {
   },
 };
 
+messageTypeRegistry.set(MessageOut.$type, MessageOut);
+
 function createBaseMessageOut_KeygenResult(): MessageOut_KeygenResult {
-  return { data: undefined, criminals: undefined };
+  return { $type: "axelar.tss.tofnd.v1beta1.MessageOut.KeygenResult", data: undefined, criminals: undefined };
 }
 
 export const MessageOut_KeygenResult = {
+  $type: "axelar.tss.tofnd.v1beta1.MessageOut.KeygenResult" as const,
+
   encode(message: MessageOut_KeygenResult, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.data !== undefined) {
       KeygenOutput.encode(message.data, writer.uint32(10).fork()).ldelim();
@@ -695,6 +755,7 @@ export const MessageOut_KeygenResult = {
 
   fromJSON(object: any): MessageOut_KeygenResult {
     return {
+      $type: MessageOut_KeygenResult.$type,
       data: isSet(object.data) ? KeygenOutput.fromJSON(object.data) : undefined,
       criminals: isSet(object.criminals) ? MessageOut_CriminalList.fromJSON(object.criminals) : undefined,
     };
@@ -726,11 +787,19 @@ export const MessageOut_KeygenResult = {
   },
 };
 
+messageTypeRegistry.set(MessageOut_KeygenResult.$type, MessageOut_KeygenResult);
+
 function createBaseMessageOut_SignResult(): MessageOut_SignResult {
-  return { signature: undefined, criminals: undefined };
+  return {
+    $type: "axelar.tss.tofnd.v1beta1.MessageOut.SignResult",
+    signature: undefined,
+    criminals: undefined,
+  };
 }
 
 export const MessageOut_SignResult = {
+  $type: "axelar.tss.tofnd.v1beta1.MessageOut.SignResult" as const,
+
   encode(message: MessageOut_SignResult, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.signature !== undefined) {
       writer.uint32(10).bytes(message.signature);
@@ -773,6 +842,7 @@ export const MessageOut_SignResult = {
 
   fromJSON(object: any): MessageOut_SignResult {
     return {
+      $type: MessageOut_SignResult.$type,
       signature: isSet(object.signature) ? Buffer.from(bytesFromBase64(object.signature)) : undefined,
       criminals: isSet(object.criminals) ? MessageOut_CriminalList.fromJSON(object.criminals) : undefined,
     };
@@ -803,11 +873,15 @@ export const MessageOut_SignResult = {
   },
 };
 
+messageTypeRegistry.set(MessageOut_SignResult.$type, MessageOut_SignResult);
+
 function createBaseMessageOut_CriminalList(): MessageOut_CriminalList {
-  return { criminals: [] };
+  return { $type: "axelar.tss.tofnd.v1beta1.MessageOut.CriminalList", criminals: [] };
 }
 
 export const MessageOut_CriminalList = {
+  $type: "axelar.tss.tofnd.v1beta1.MessageOut.CriminalList" as const,
+
   encode(message: MessageOut_CriminalList, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.criminals) {
       MessageOut_CriminalList_Criminal.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -840,6 +914,7 @@ export const MessageOut_CriminalList = {
 
   fromJSON(object: any): MessageOut_CriminalList {
     return {
+      $type: MessageOut_CriminalList.$type,
       criminals: gt.Array.isArray(object?.criminals)
         ? object.criminals.map((e: any) => MessageOut_CriminalList_Criminal.fromJSON(e))
         : [],
@@ -864,11 +939,15 @@ export const MessageOut_CriminalList = {
   },
 };
 
+messageTypeRegistry.set(MessageOut_CriminalList.$type, MessageOut_CriminalList);
+
 function createBaseMessageOut_CriminalList_Criminal(): MessageOut_CriminalList_Criminal {
-  return { partyUid: "", crimeType: 0 };
+  return { $type: "axelar.tss.tofnd.v1beta1.MessageOut.CriminalList.Criminal", partyUid: "", crimeType: 0 };
 }
 
 export const MessageOut_CriminalList_Criminal = {
+  $type: "axelar.tss.tofnd.v1beta1.MessageOut.CriminalList.Criminal" as const,
+
   encode(message: MessageOut_CriminalList_Criminal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.partyUid !== "") {
       writer.uint32(10).string(message.partyUid);
@@ -911,6 +990,7 @@ export const MessageOut_CriminalList_Criminal = {
 
   fromJSON(object: any): MessageOut_CriminalList_Criminal {
     return {
+      $type: MessageOut_CriminalList_Criminal.$type,
       partyUid: isSet(object.partyUid) ? gt.String(object.partyUid) : "",
       crimeType: isSet(object.crimeType)
         ? messageOut_CriminalList_Criminal_CrimeTypeFromJSON(object.crimeType)
@@ -944,11 +1024,20 @@ export const MessageOut_CriminalList_Criminal = {
   },
 };
 
+messageTypeRegistry.set(MessageOut_CriminalList_Criminal.$type, MessageOut_CriminalList_Criminal);
+
 function createBaseTrafficIn(): TrafficIn {
-  return { fromPartyUid: "", payload: Buffer.alloc(0), isBroadcast: false };
+  return {
+    $type: "axelar.tss.tofnd.v1beta1.TrafficIn",
+    fromPartyUid: "",
+    payload: Buffer.alloc(0),
+    isBroadcast: false,
+  };
 }
 
 export const TrafficIn = {
+  $type: "axelar.tss.tofnd.v1beta1.TrafficIn" as const,
+
   encode(message: TrafficIn, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.fromPartyUid !== "") {
       writer.uint32(10).string(message.fromPartyUid);
@@ -1001,6 +1090,7 @@ export const TrafficIn = {
 
   fromJSON(object: any): TrafficIn {
     return {
+      $type: TrafficIn.$type,
       fromPartyUid: isSet(object.fromPartyUid) ? gt.String(object.fromPartyUid) : "",
       payload: isSet(object.payload) ? Buffer.from(bytesFromBase64(object.payload)) : Buffer.alloc(0),
       isBroadcast: isSet(object.isBroadcast) ? gt.Boolean(object.isBroadcast) : false,
@@ -1033,11 +1123,20 @@ export const TrafficIn = {
   },
 };
 
+messageTypeRegistry.set(TrafficIn.$type, TrafficIn);
+
 function createBaseTrafficOut(): TrafficOut {
-  return { toPartyUid: "", payload: Buffer.alloc(0), isBroadcast: false };
+  return {
+    $type: "axelar.tss.tofnd.v1beta1.TrafficOut",
+    toPartyUid: "",
+    payload: Buffer.alloc(0),
+    isBroadcast: false,
+  };
 }
 
 export const TrafficOut = {
+  $type: "axelar.tss.tofnd.v1beta1.TrafficOut" as const,
+
   encode(message: TrafficOut, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.toPartyUid !== "") {
       writer.uint32(10).string(message.toPartyUid);
@@ -1090,6 +1189,7 @@ export const TrafficOut = {
 
   fromJSON(object: any): TrafficOut {
     return {
+      $type: TrafficOut.$type,
       toPartyUid: isSet(object.toPartyUid) ? gt.String(object.toPartyUid) : "",
       payload: isSet(object.payload) ? Buffer.from(bytesFromBase64(object.payload)) : Buffer.alloc(0),
       isBroadcast: isSet(object.isBroadcast) ? gt.Boolean(object.isBroadcast) : false,
@@ -1122,11 +1222,22 @@ export const TrafficOut = {
   },
 };
 
+messageTypeRegistry.set(TrafficOut.$type, TrafficOut);
+
 function createBaseKeygenInit(): KeygenInit {
-  return { newKeyUid: "", partyUids: [], partyShareCounts: [], myPartyIndex: 0, threshold: 0 };
+  return {
+    $type: "axelar.tss.tofnd.v1beta1.KeygenInit",
+    newKeyUid: "",
+    partyUids: [],
+    partyShareCounts: [],
+    myPartyIndex: 0,
+    threshold: 0,
+  };
 }
 
 export const KeygenInit = {
+  $type: "axelar.tss.tofnd.v1beta1.KeygenInit" as const,
+
   encode(message: KeygenInit, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.newKeyUid !== "") {
       writer.uint32(10).string(message.newKeyUid);
@@ -1211,6 +1322,7 @@ export const KeygenInit = {
 
   fromJSON(object: any): KeygenInit {
     return {
+      $type: KeygenInit.$type,
       newKeyUid: isSet(object.newKeyUid) ? gt.String(object.newKeyUid) : "",
       partyUids: gt.Array.isArray(object?.partyUids) ? object.partyUids.map((e: any) => gt.String(e)) : [],
       partyShareCounts: gt.Array.isArray(object?.partyShareCounts)
@@ -1255,11 +1367,21 @@ export const KeygenInit = {
   },
 };
 
+messageTypeRegistry.set(KeygenInit.$type, KeygenInit);
+
 function createBaseSignInit(): SignInit {
-  return { newSigUid: "", keyUid: "", partyUids: [], messageToSign: Buffer.alloc(0) };
+  return {
+    $type: "axelar.tss.tofnd.v1beta1.SignInit",
+    newSigUid: "",
+    keyUid: "",
+    partyUids: [],
+    messageToSign: Buffer.alloc(0),
+  };
 }
 
 export const SignInit = {
+  $type: "axelar.tss.tofnd.v1beta1.SignInit" as const,
+
   encode(message: SignInit, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.newSigUid !== "") {
       writer.uint32(10).string(message.newSigUid);
@@ -1322,6 +1444,7 @@ export const SignInit = {
 
   fromJSON(object: any): SignInit {
     return {
+      $type: SignInit.$type,
       newSigUid: isSet(object.newSigUid) ? gt.String(object.newSigUid) : "",
       keyUid: isSet(object.keyUid) ? gt.String(object.keyUid) : "",
       partyUids: gt.Array.isArray(object?.partyUids) ? object.partyUids.map((e: any) => gt.String(e)) : [],
@@ -1361,6 +1484,8 @@ export const SignInit = {
   },
 };
 
+messageTypeRegistry.set(SignInit.$type, SignInit);
+
 declare const self: any | undefined;
 declare const window: any | undefined;
 declare const global: any | undefined;
@@ -1399,13 +1524,13 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

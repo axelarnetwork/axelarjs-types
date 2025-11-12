@@ -9,6 +9,7 @@ import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import { Duration } from "../../../google/protobuf/duration";
+import { messageTypeRegistry } from "../../../typeRegistry";
 import { Bitmap } from "../../utils/v1beta1/bitmap";
 import {
   Asset,
@@ -22,6 +23,7 @@ import {
 export const protobufPackage = "axelar.nexus.v1beta1";
 
 export interface MaintainerState {
+  $type: "axelar.nexus.v1beta1.MaintainerState";
   address: Buffer;
   missingVotes?: Bitmap | undefined;
   incorrectVotes?: Bitmap | undefined;
@@ -30,6 +32,7 @@ export interface MaintainerState {
 
 /** ChainState represents the state of a registered blockchain */
 export interface ChainState {
+  $type: "axelar.nexus.v1beta1.ChainState";
   chain?: Chain | undefined;
   activated: boolean;
   assets: Asset[];
@@ -38,17 +41,20 @@ export interface ChainState {
 }
 
 export interface LinkedAddresses {
+  $type: "axelar.nexus.v1beta1.LinkedAddresses";
   depositAddress?: CrossChainAddress | undefined;
   recipientAddress?: CrossChainAddress | undefined;
 }
 
 export interface RateLimit {
+  $type: "axelar.nexus.v1beta1.RateLimit";
   chain: string;
   limit?: Coin | undefined;
   window?: Duration | undefined;
 }
 
 export interface TransferEpoch {
+  $type: "axelar.nexus.v1beta1.TransferEpoch";
   chain: string;
   amount?: Coin | undefined;
   epoch: Long;
@@ -57,10 +63,18 @@ export interface TransferEpoch {
 }
 
 function createBaseMaintainerState(): MaintainerState {
-  return { address: Buffer.alloc(0), missingVotes: undefined, incorrectVotes: undefined, chain: "" };
+  return {
+    $type: "axelar.nexus.v1beta1.MaintainerState",
+    address: Buffer.alloc(0),
+    missingVotes: undefined,
+    incorrectVotes: undefined,
+    chain: "",
+  };
 }
 
 export const MaintainerState = {
+  $type: "axelar.nexus.v1beta1.MaintainerState" as const,
+
   encode(message: MaintainerState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.address.length !== 0) {
       writer.uint32(10).bytes(message.address);
@@ -123,6 +137,7 @@ export const MaintainerState = {
 
   fromJSON(object: any): MaintainerState {
     return {
+      $type: MaintainerState.$type,
       address: isSet(object.address) ? Buffer.from(bytesFromBase64(object.address)) : Buffer.alloc(0),
       missingVotes: isSet(object.missingVotes) ? Bitmap.fromJSON(object.missingVotes) : undefined,
       incorrectVotes: isSet(object.incorrectVotes) ? Bitmap.fromJSON(object.incorrectVotes) : undefined,
@@ -166,11 +181,21 @@ export const MaintainerState = {
   },
 };
 
+messageTypeRegistry.set(MaintainerState.$type, MaintainerState);
+
 function createBaseChainState(): ChainState {
-  return { chain: undefined, activated: false, assets: [], maintainerStates: [] };
+  return {
+    $type: "axelar.nexus.v1beta1.ChainState",
+    chain: undefined,
+    activated: false,
+    assets: [],
+    maintainerStates: [],
+  };
 }
 
 export const ChainState = {
+  $type: "axelar.nexus.v1beta1.ChainState" as const,
+
   encode(message: ChainState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.chain !== undefined) {
       Chain.encode(message.chain, writer.uint32(10).fork()).ldelim();
@@ -233,6 +258,7 @@ export const ChainState = {
 
   fromJSON(object: any): ChainState {
     return {
+      $type: ChainState.$type,
       chain: isSet(object.chain) ? Chain.fromJSON(object.chain) : undefined,
       activated: isSet(object.activated) ? gt.Boolean(object.activated) : false,
       assets: gt.Array.isArray(object?.assets) ? object.assets.map((e: any) => Asset.fromJSON(e)) : [],
@@ -273,11 +299,19 @@ export const ChainState = {
   },
 };
 
+messageTypeRegistry.set(ChainState.$type, ChainState);
+
 function createBaseLinkedAddresses(): LinkedAddresses {
-  return { depositAddress: undefined, recipientAddress: undefined };
+  return {
+    $type: "axelar.nexus.v1beta1.LinkedAddresses",
+    depositAddress: undefined,
+    recipientAddress: undefined,
+  };
 }
 
 export const LinkedAddresses = {
+  $type: "axelar.nexus.v1beta1.LinkedAddresses" as const,
+
   encode(message: LinkedAddresses, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.depositAddress !== undefined) {
       CrossChainAddress.encode(message.depositAddress, writer.uint32(10).fork()).ldelim();
@@ -320,6 +354,7 @@ export const LinkedAddresses = {
 
   fromJSON(object: any): LinkedAddresses {
     return {
+      $type: LinkedAddresses.$type,
       depositAddress: isSet(object.depositAddress)
         ? CrossChainAddress.fromJSON(object.depositAddress)
         : undefined,
@@ -357,11 +392,15 @@ export const LinkedAddresses = {
   },
 };
 
+messageTypeRegistry.set(LinkedAddresses.$type, LinkedAddresses);
+
 function createBaseRateLimit(): RateLimit {
-  return { chain: "", limit: undefined, window: undefined };
+  return { $type: "axelar.nexus.v1beta1.RateLimit", chain: "", limit: undefined, window: undefined };
 }
 
 export const RateLimit = {
+  $type: "axelar.nexus.v1beta1.RateLimit" as const,
+
   encode(message: RateLimit, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.chain !== "") {
       writer.uint32(10).string(message.chain);
@@ -414,6 +453,7 @@ export const RateLimit = {
 
   fromJSON(object: any): RateLimit {
     return {
+      $type: RateLimit.$type,
       chain: isSet(object.chain) ? gt.String(object.chain) : "",
       limit: isSet(object.limit) ? Coin.fromJSON(object.limit) : undefined,
       window: isSet(object.window) ? Duration.fromJSON(object.window) : undefined,
@@ -448,11 +488,21 @@ export const RateLimit = {
   },
 };
 
+messageTypeRegistry.set(RateLimit.$type, RateLimit);
+
 function createBaseTransferEpoch(): TransferEpoch {
-  return { chain: "", amount: undefined, epoch: Long.UZERO, direction: 0 };
+  return {
+    $type: "axelar.nexus.v1beta1.TransferEpoch",
+    chain: "",
+    amount: undefined,
+    epoch: Long.UZERO,
+    direction: 0,
+  };
 }
 
 export const TransferEpoch = {
+  $type: "axelar.nexus.v1beta1.TransferEpoch" as const,
+
   encode(message: TransferEpoch, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.chain !== "") {
       writer.uint32(10).string(message.chain);
@@ -515,6 +565,7 @@ export const TransferEpoch = {
 
   fromJSON(object: any): TransferEpoch {
     return {
+      $type: TransferEpoch.$type,
       chain: isSet(object.chain) ? gt.String(object.chain) : "",
       amount: isSet(object.amount) ? Coin.fromJSON(object.amount) : undefined,
       epoch: isSet(object.epoch) ? Long.fromValue(object.epoch) : Long.UZERO,
@@ -554,6 +605,8 @@ export const TransferEpoch = {
   },
 };
 
+messageTypeRegistry.set(TransferEpoch.$type, TransferEpoch);
+
 declare const self: any | undefined;
 declare const window: any | undefined;
 declare const global: any | undefined;
@@ -592,13 +645,13 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

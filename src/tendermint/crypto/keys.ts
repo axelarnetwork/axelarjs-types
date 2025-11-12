@@ -7,20 +7,24 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { messageTypeRegistry } from "../../typeRegistry";
 
 export const protobufPackage = "tendermint.crypto";
 
 /** PublicKey defines the keys available for use with Validators */
 export interface PublicKey {
+  $type: "tendermint.crypto.PublicKey";
   ed25519?: Buffer | undefined;
   secp256k1?: Buffer | undefined;
 }
 
 function createBasePublicKey(): PublicKey {
-  return { ed25519: undefined, secp256k1: undefined };
+  return { $type: "tendermint.crypto.PublicKey", ed25519: undefined, secp256k1: undefined };
 }
 
 export const PublicKey = {
+  $type: "tendermint.crypto.PublicKey" as const,
+
   encode(message: PublicKey, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.ed25519 !== undefined) {
       writer.uint32(10).bytes(message.ed25519);
@@ -63,6 +67,7 @@ export const PublicKey = {
 
   fromJSON(object: any): PublicKey {
     return {
+      $type: PublicKey.$type,
       ed25519: isSet(object.ed25519) ? Buffer.from(bytesFromBase64(object.ed25519)) : undefined,
       secp256k1: isSet(object.secp256k1) ? Buffer.from(bytesFromBase64(object.secp256k1)) : undefined,
     };
@@ -89,6 +94,8 @@ export const PublicKey = {
     return message;
   },
 };
+
+messageTypeRegistry.set(PublicKey.$type, PublicKey);
 
 declare const self: any | undefined;
 declare const window: any | undefined;
@@ -128,13 +135,13 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

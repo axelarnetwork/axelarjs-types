@@ -8,18 +8,22 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
+import { messageTypeRegistry } from "../../../typeRegistry";
 
 export const protobufPackage = "axelar.distribution.v1beta1";
 
 export interface FeesBurned {
+  $type: "axelar.distribution.v1beta1.FeesBurned";
   coins: Coin[];
 }
 
 function createBaseFeesBurned(): FeesBurned {
-  return { coins: [] };
+  return { $type: "axelar.distribution.v1beta1.FeesBurned", coins: [] };
 }
 
 export const FeesBurned = {
+  $type: "axelar.distribution.v1beta1.FeesBurned" as const,
+
   encode(message: FeesBurned, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.coins) {
       Coin.encode(v!, writer.uint32(18).fork()).ldelim();
@@ -51,7 +55,10 @@ export const FeesBurned = {
   },
 
   fromJSON(object: any): FeesBurned {
-    return { coins: gt.Array.isArray(object?.coins) ? object.coins.map((e: any) => Coin.fromJSON(e)) : [] };
+    return {
+      $type: FeesBurned.$type,
+      coins: gt.Array.isArray(object?.coins) ? object.coins.map((e: any) => Coin.fromJSON(e)) : [],
+    };
   },
 
   toJSON(message: FeesBurned): unknown {
@@ -71,6 +78,8 @@ export const FeesBurned = {
     return message;
   },
 };
+
+messageTypeRegistry.set(FeesBurned.$type, FeesBurned);
 
 declare const self: any | undefined;
 declare const window: any | undefined;
@@ -102,13 +111,13 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

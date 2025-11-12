@@ -7,25 +7,33 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { messageTypeRegistry } from "../../../typeRegistry";
 import { Params } from "./params";
 
 export const protobufPackage = "axelar.axelarnet.v1beta1";
 
-export interface PendingIBCTransferCountRequest {}
+export interface PendingIBCTransferCountRequest {
+  $type: "axelar.axelarnet.v1beta1.PendingIBCTransferCountRequest";
+}
 
 export interface PendingIBCTransferCountResponse {
+  $type: "axelar.axelarnet.v1beta1.PendingIBCTransferCountResponse";
   transfersByChain: { [key: string]: number };
 }
 
 export interface PendingIBCTransferCountResponse_TransfersByChainEntry {
+  $type: "axelar.axelarnet.v1beta1.PendingIBCTransferCountResponse.TransfersByChainEntry";
   key: string;
   value: number;
 }
 
 /** ParamsRequest represents a message that queries the params */
-export interface ParamsRequest {}
+export interface ParamsRequest {
+  $type: "axelar.axelarnet.v1beta1.ParamsRequest";
+}
 
 export interface ParamsResponse {
+  $type: "axelar.axelarnet.v1beta1.ParamsResponse";
   params?: Params | undefined;
 }
 
@@ -34,10 +42,12 @@ export interface ParamsResponse {
  * a given chain
  */
 export interface IBCPathRequest {
+  $type: "axelar.axelarnet.v1beta1.IBCPathRequest";
   chain: string;
 }
 
 export interface IBCPathResponse {
+  $type: "axelar.axelarnet.v1beta1.IBCPathResponse";
   ibcPath: string;
 }
 
@@ -46,18 +56,22 @@ export interface IBCPathResponse {
  * path is registered to
  */
 export interface ChainByIBCPathRequest {
+  $type: "axelar.axelarnet.v1beta1.ChainByIBCPathRequest";
   ibcPath: string;
 }
 
 export interface ChainByIBCPathResponse {
+  $type: "axelar.axelarnet.v1beta1.ChainByIBCPathResponse";
   chain: string;
 }
 
 function createBasePendingIBCTransferCountRequest(): PendingIBCTransferCountRequest {
-  return {};
+  return { $type: "axelar.axelarnet.v1beta1.PendingIBCTransferCountRequest" };
 }
 
 export const PendingIBCTransferCountRequest = {
+  $type: "axelar.axelarnet.v1beta1.PendingIBCTransferCountRequest" as const,
+
   encode(_: PendingIBCTransferCountRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
@@ -79,7 +93,7 @@ export const PendingIBCTransferCountRequest = {
   },
 
   fromJSON(_: any): PendingIBCTransferCountRequest {
-    return {};
+    return { $type: PendingIBCTransferCountRequest.$type };
   },
 
   toJSON(_: PendingIBCTransferCountRequest): unknown {
@@ -100,15 +114,23 @@ export const PendingIBCTransferCountRequest = {
   },
 };
 
+messageTypeRegistry.set(PendingIBCTransferCountRequest.$type, PendingIBCTransferCountRequest);
+
 function createBasePendingIBCTransferCountResponse(): PendingIBCTransferCountResponse {
-  return { transfersByChain: {} };
+  return { $type: "axelar.axelarnet.v1beta1.PendingIBCTransferCountResponse", transfersByChain: {} };
 }
 
 export const PendingIBCTransferCountResponse = {
+  $type: "axelar.axelarnet.v1beta1.PendingIBCTransferCountResponse" as const,
+
   encode(message: PendingIBCTransferCountResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     Object.entries(message.transfersByChain).forEach(([key, value]) => {
       PendingIBCTransferCountResponse_TransfersByChainEntry.encode(
-        { key: key as any, value },
+        {
+          $type: "axelar.axelarnet.v1beta1.PendingIBCTransferCountResponse.TransfersByChainEntry",
+          key: key as any,
+          value,
+        },
         writer.uint32(10).fork(),
       ).ldelim();
     });
@@ -146,6 +168,7 @@ export const PendingIBCTransferCountResponse = {
 
   fromJSON(object: any): PendingIBCTransferCountResponse {
     return {
+      $type: PendingIBCTransferCountResponse.$type,
       transfersByChain: isObject(object.transfersByChain)
         ? Object.entries(object.transfersByChain).reduce<{ [key: string]: number }>((acc, [key, value]) => {
             acc[key] = Number(value);
@@ -190,11 +213,19 @@ export const PendingIBCTransferCountResponse = {
   },
 };
 
+messageTypeRegistry.set(PendingIBCTransferCountResponse.$type, PendingIBCTransferCountResponse);
+
 function createBasePendingIBCTransferCountResponse_TransfersByChainEntry(): PendingIBCTransferCountResponse_TransfersByChainEntry {
-  return { key: "", value: 0 };
+  return {
+    $type: "axelar.axelarnet.v1beta1.PendingIBCTransferCountResponse.TransfersByChainEntry",
+    key: "",
+    value: 0,
+  };
 }
 
 export const PendingIBCTransferCountResponse_TransfersByChainEntry = {
+  $type: "axelar.axelarnet.v1beta1.PendingIBCTransferCountResponse.TransfersByChainEntry" as const,
+
   encode(
     message: PendingIBCTransferCountResponse_TransfersByChainEntry,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -243,6 +274,7 @@ export const PendingIBCTransferCountResponse_TransfersByChainEntry = {
 
   fromJSON(object: any): PendingIBCTransferCountResponse_TransfersByChainEntry {
     return {
+      $type: PendingIBCTransferCountResponse_TransfersByChainEntry.$type,
       key: isSet(object.key) ? gt.String(object.key) : "",
       value: isSet(object.value) ? gt.Number(object.value) : 0,
     };
@@ -274,11 +306,18 @@ export const PendingIBCTransferCountResponse_TransfersByChainEntry = {
   },
 };
 
+messageTypeRegistry.set(
+  PendingIBCTransferCountResponse_TransfersByChainEntry.$type,
+  PendingIBCTransferCountResponse_TransfersByChainEntry,
+);
+
 function createBaseParamsRequest(): ParamsRequest {
-  return {};
+  return { $type: "axelar.axelarnet.v1beta1.ParamsRequest" };
 }
 
 export const ParamsRequest = {
+  $type: "axelar.axelarnet.v1beta1.ParamsRequest" as const,
+
   encode(_: ParamsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
@@ -300,7 +339,7 @@ export const ParamsRequest = {
   },
 
   fromJSON(_: any): ParamsRequest {
-    return {};
+    return { $type: ParamsRequest.$type };
   },
 
   toJSON(_: ParamsRequest): unknown {
@@ -317,11 +356,15 @@ export const ParamsRequest = {
   },
 };
 
+messageTypeRegistry.set(ParamsRequest.$type, ParamsRequest);
+
 function createBaseParamsResponse(): ParamsResponse {
-  return { params: undefined };
+  return { $type: "axelar.axelarnet.v1beta1.ParamsResponse", params: undefined };
 }
 
 export const ParamsResponse = {
+  $type: "axelar.axelarnet.v1beta1.ParamsResponse" as const,
+
   encode(message: ParamsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
@@ -353,7 +396,10 @@ export const ParamsResponse = {
   },
 
   fromJSON(object: any): ParamsResponse {
-    return { params: isSet(object.params) ? Params.fromJSON(object.params) : undefined };
+    return {
+      $type: ParamsResponse.$type,
+      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
+    };
   },
 
   toJSON(message: ParamsResponse): unknown {
@@ -375,11 +421,15 @@ export const ParamsResponse = {
   },
 };
 
+messageTypeRegistry.set(ParamsResponse.$type, ParamsResponse);
+
 function createBaseIBCPathRequest(): IBCPathRequest {
-  return { chain: "" };
+  return { $type: "axelar.axelarnet.v1beta1.IBCPathRequest", chain: "" };
 }
 
 export const IBCPathRequest = {
+  $type: "axelar.axelarnet.v1beta1.IBCPathRequest" as const,
+
   encode(message: IBCPathRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.chain !== "") {
       writer.uint32(10).string(message.chain);
@@ -411,7 +461,7 @@ export const IBCPathRequest = {
   },
 
   fromJSON(object: any): IBCPathRequest {
-    return { chain: isSet(object.chain) ? gt.String(object.chain) : "" };
+    return { $type: IBCPathRequest.$type, chain: isSet(object.chain) ? gt.String(object.chain) : "" };
   },
 
   toJSON(message: IBCPathRequest): unknown {
@@ -432,11 +482,15 @@ export const IBCPathRequest = {
   },
 };
 
+messageTypeRegistry.set(IBCPathRequest.$type, IBCPathRequest);
+
 function createBaseIBCPathResponse(): IBCPathResponse {
-  return { ibcPath: "" };
+  return { $type: "axelar.axelarnet.v1beta1.IBCPathResponse", ibcPath: "" };
 }
 
 export const IBCPathResponse = {
+  $type: "axelar.axelarnet.v1beta1.IBCPathResponse" as const,
+
   encode(message: IBCPathResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.ibcPath !== "") {
       writer.uint32(10).string(message.ibcPath);
@@ -468,7 +522,7 @@ export const IBCPathResponse = {
   },
 
   fromJSON(object: any): IBCPathResponse {
-    return { ibcPath: isSet(object.ibcPath) ? gt.String(object.ibcPath) : "" };
+    return { $type: IBCPathResponse.$type, ibcPath: isSet(object.ibcPath) ? gt.String(object.ibcPath) : "" };
   },
 
   toJSON(message: IBCPathResponse): unknown {
@@ -489,11 +543,15 @@ export const IBCPathResponse = {
   },
 };
 
+messageTypeRegistry.set(IBCPathResponse.$type, IBCPathResponse);
+
 function createBaseChainByIBCPathRequest(): ChainByIBCPathRequest {
-  return { ibcPath: "" };
+  return { $type: "axelar.axelarnet.v1beta1.ChainByIBCPathRequest", ibcPath: "" };
 }
 
 export const ChainByIBCPathRequest = {
+  $type: "axelar.axelarnet.v1beta1.ChainByIBCPathRequest" as const,
+
   encode(message: ChainByIBCPathRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.ibcPath !== "") {
       writer.uint32(10).string(message.ibcPath);
@@ -525,7 +583,10 @@ export const ChainByIBCPathRequest = {
   },
 
   fromJSON(object: any): ChainByIBCPathRequest {
-    return { ibcPath: isSet(object.ibcPath) ? gt.String(object.ibcPath) : "" };
+    return {
+      $type: ChainByIBCPathRequest.$type,
+      ibcPath: isSet(object.ibcPath) ? gt.String(object.ibcPath) : "",
+    };
   },
 
   toJSON(message: ChainByIBCPathRequest): unknown {
@@ -546,11 +607,15 @@ export const ChainByIBCPathRequest = {
   },
 };
 
+messageTypeRegistry.set(ChainByIBCPathRequest.$type, ChainByIBCPathRequest);
+
 function createBaseChainByIBCPathResponse(): ChainByIBCPathResponse {
-  return { chain: "" };
+  return { $type: "axelar.axelarnet.v1beta1.ChainByIBCPathResponse", chain: "" };
 }
 
 export const ChainByIBCPathResponse = {
+  $type: "axelar.axelarnet.v1beta1.ChainByIBCPathResponse" as const,
+
   encode(message: ChainByIBCPathResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.chain !== "") {
       writer.uint32(10).string(message.chain);
@@ -582,7 +647,7 @@ export const ChainByIBCPathResponse = {
   },
 
   fromJSON(object: any): ChainByIBCPathResponse {
-    return { chain: isSet(object.chain) ? gt.String(object.chain) : "" };
+    return { $type: ChainByIBCPathResponse.$type, chain: isSet(object.chain) ? gt.String(object.chain) : "" };
   },
 
   toJSON(message: ChainByIBCPathResponse): unknown {
@@ -602,6 +667,8 @@ export const ChainByIBCPathResponse = {
     return message;
   },
 };
+
+messageTypeRegistry.set(ChainByIBCPathResponse.$type, ChainByIBCPathResponse);
 
 declare const self: any | undefined;
 declare const window: any | undefined;
@@ -633,13 +700,13 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

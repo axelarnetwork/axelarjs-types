@@ -7,6 +7,7 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { messageTypeRegistry } from "../../../typeRegistry";
 import {
   KeyRole,
   keyRoleFromJSON,
@@ -19,18 +20,21 @@ import {
 export const protobufPackage = "axelar.tss.v1beta1";
 
 export interface KeygenVoteData {
+  $type: "axelar.tss.v1beta1.KeygenVoteData";
   pubKey: Buffer;
   groupRecoveryInfo: Buffer;
 }
 
 /** KeyInfo holds information about a key */
 export interface KeyInfo {
+  $type: "axelar.tss.v1beta1.KeyInfo";
   keyId: string;
   keyRole: KeyRole;
   keyType: KeyType;
 }
 
 export interface MultisigInfo {
+  $type: "axelar.tss.v1beta1.MultisigInfo";
   id: string;
   timeout: Long;
   targetNum: Long;
@@ -38,36 +42,47 @@ export interface MultisigInfo {
 }
 
 export interface MultisigInfo_Info {
+  $type: "axelar.tss.v1beta1.MultisigInfo.Info";
   participant: Buffer;
   data: Buffer[];
 }
 
 export interface KeyRecoveryInfo {
+  $type: "axelar.tss.v1beta1.KeyRecoveryInfo";
   keyId: string;
   public: Buffer;
   private: { [key: string]: Buffer };
 }
 
 export interface KeyRecoveryInfo_PrivateEntry {
+  $type: "axelar.tss.v1beta1.KeyRecoveryInfo.PrivateEntry";
   key: string;
   value: Buffer;
 }
 
 export interface ExternalKeys {
+  $type: "axelar.tss.v1beta1.ExternalKeys";
   chain: string;
   keyIds: string[];
 }
 
 export interface ValidatorStatus {
+  $type: "axelar.tss.v1beta1.ValidatorStatus";
   validator: Buffer;
   suspendedUntil: Long;
 }
 
 function createBaseKeygenVoteData(): KeygenVoteData {
-  return { pubKey: Buffer.alloc(0), groupRecoveryInfo: Buffer.alloc(0) };
+  return {
+    $type: "axelar.tss.v1beta1.KeygenVoteData",
+    pubKey: Buffer.alloc(0),
+    groupRecoveryInfo: Buffer.alloc(0),
+  };
 }
 
 export const KeygenVoteData = {
+  $type: "axelar.tss.v1beta1.KeygenVoteData" as const,
+
   encode(message: KeygenVoteData, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.pubKey.length !== 0) {
       writer.uint32(10).bytes(message.pubKey);
@@ -110,6 +125,7 @@ export const KeygenVoteData = {
 
   fromJSON(object: any): KeygenVoteData {
     return {
+      $type: KeygenVoteData.$type,
       pubKey: isSet(object.pubKey) ? Buffer.from(bytesFromBase64(object.pubKey)) : Buffer.alloc(0),
       groupRecoveryInfo: isSet(object.groupRecoveryInfo)
         ? Buffer.from(bytesFromBase64(object.groupRecoveryInfo))
@@ -139,11 +155,15 @@ export const KeygenVoteData = {
   },
 };
 
+messageTypeRegistry.set(KeygenVoteData.$type, KeygenVoteData);
+
 function createBaseKeyInfo(): KeyInfo {
-  return { keyId: "", keyRole: 0, keyType: 0 };
+  return { $type: "axelar.tss.v1beta1.KeyInfo", keyId: "", keyRole: 0, keyType: 0 };
 }
 
 export const KeyInfo = {
+  $type: "axelar.tss.v1beta1.KeyInfo" as const,
+
   encode(message: KeyInfo, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.keyId !== "") {
       writer.uint32(10).string(message.keyId);
@@ -196,6 +216,7 @@ export const KeyInfo = {
 
   fromJSON(object: any): KeyInfo {
     return {
+      $type: KeyInfo.$type,
       keyId: isSet(object.keyId) ? gt.String(object.keyId) : "",
       keyRole: isSet(object.keyRole) ? keyRoleFromJSON(object.keyRole) : 0,
       keyType: isSet(object.keyType) ? keyTypeFromJSON(object.keyType) : 0,
@@ -228,11 +249,21 @@ export const KeyInfo = {
   },
 };
 
+messageTypeRegistry.set(KeyInfo.$type, KeyInfo);
+
 function createBaseMultisigInfo(): MultisigInfo {
-  return { id: "", timeout: Long.ZERO, targetNum: Long.ZERO, infos: [] };
+  return {
+    $type: "axelar.tss.v1beta1.MultisigInfo",
+    id: "",
+    timeout: Long.ZERO,
+    targetNum: Long.ZERO,
+    infos: [],
+  };
 }
 
 export const MultisigInfo = {
+  $type: "axelar.tss.v1beta1.MultisigInfo" as const,
+
   encode(message: MultisigInfo, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.id !== "") {
       writer.uint32(10).string(message.id);
@@ -295,6 +326,7 @@ export const MultisigInfo = {
 
   fromJSON(object: any): MultisigInfo {
     return {
+      $type: MultisigInfo.$type,
       id: isSet(object.id) ? gt.String(object.id) : "",
       timeout: isSet(object.timeout) ? Long.fromValue(object.timeout) : Long.ZERO,
       targetNum: isSet(object.targetNum) ? Long.fromValue(object.targetNum) : Long.ZERO,
@@ -338,11 +370,15 @@ export const MultisigInfo = {
   },
 };
 
+messageTypeRegistry.set(MultisigInfo.$type, MultisigInfo);
+
 function createBaseMultisigInfo_Info(): MultisigInfo_Info {
-  return { participant: Buffer.alloc(0), data: [] };
+  return { $type: "axelar.tss.v1beta1.MultisigInfo.Info", participant: Buffer.alloc(0), data: [] };
 }
 
 export const MultisigInfo_Info = {
+  $type: "axelar.tss.v1beta1.MultisigInfo.Info" as const,
+
   encode(message: MultisigInfo_Info, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.participant.length !== 0) {
       writer.uint32(10).bytes(message.participant);
@@ -385,6 +421,7 @@ export const MultisigInfo_Info = {
 
   fromJSON(object: any): MultisigInfo_Info {
     return {
+      $type: MultisigInfo_Info.$type,
       participant: isSet(object.participant)
         ? Buffer.from(bytesFromBase64(object.participant))
         : Buffer.alloc(0),
@@ -416,11 +453,15 @@ export const MultisigInfo_Info = {
   },
 };
 
+messageTypeRegistry.set(MultisigInfo_Info.$type, MultisigInfo_Info);
+
 function createBaseKeyRecoveryInfo(): KeyRecoveryInfo {
-  return { keyId: "", public: Buffer.alloc(0), private: {} };
+  return { $type: "axelar.tss.v1beta1.KeyRecoveryInfo", keyId: "", public: Buffer.alloc(0), private: {} };
 }
 
 export const KeyRecoveryInfo = {
+  $type: "axelar.tss.v1beta1.KeyRecoveryInfo" as const,
+
   encode(message: KeyRecoveryInfo, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.keyId !== "") {
       writer.uint32(10).string(message.keyId);
@@ -429,7 +470,14 @@ export const KeyRecoveryInfo = {
       writer.uint32(18).bytes(message.public);
     }
     Object.entries(message.private).forEach(([key, value]) => {
-      KeyRecoveryInfo_PrivateEntry.encode({ key: key as any, value }, writer.uint32(26).fork()).ldelim();
+      KeyRecoveryInfo_PrivateEntry.encode(
+        {
+          $type: "axelar.tss.v1beta1.KeyRecoveryInfo.PrivateEntry",
+          key: key as any,
+          value,
+        },
+        writer.uint32(26).fork(),
+      ).ldelim();
     });
     return writer;
   },
@@ -476,6 +524,7 @@ export const KeyRecoveryInfo = {
 
   fromJSON(object: any): KeyRecoveryInfo {
     return {
+      $type: KeyRecoveryInfo.$type,
       keyId: isSet(object.keyId) ? gt.String(object.keyId) : "",
       public: isSet(object.public) ? Buffer.from(bytesFromBase64(object.public)) : Buffer.alloc(0),
       private: isObject(object.private)
@@ -527,11 +576,15 @@ export const KeyRecoveryInfo = {
   },
 };
 
+messageTypeRegistry.set(KeyRecoveryInfo.$type, KeyRecoveryInfo);
+
 function createBaseKeyRecoveryInfo_PrivateEntry(): KeyRecoveryInfo_PrivateEntry {
-  return { key: "", value: Buffer.alloc(0) };
+  return { $type: "axelar.tss.v1beta1.KeyRecoveryInfo.PrivateEntry", key: "", value: Buffer.alloc(0) };
 }
 
 export const KeyRecoveryInfo_PrivateEntry = {
+  $type: "axelar.tss.v1beta1.KeyRecoveryInfo.PrivateEntry" as const,
+
   encode(message: KeyRecoveryInfo_PrivateEntry, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.key !== "") {
       writer.uint32(10).string(message.key);
@@ -574,6 +627,7 @@ export const KeyRecoveryInfo_PrivateEntry = {
 
   fromJSON(object: any): KeyRecoveryInfo_PrivateEntry {
     return {
+      $type: KeyRecoveryInfo_PrivateEntry.$type,
       key: isSet(object.key) ? gt.String(object.key) : "",
       value: isSet(object.value) ? Buffer.from(bytesFromBase64(object.value)) : Buffer.alloc(0),
     };
@@ -605,11 +659,15 @@ export const KeyRecoveryInfo_PrivateEntry = {
   },
 };
 
+messageTypeRegistry.set(KeyRecoveryInfo_PrivateEntry.$type, KeyRecoveryInfo_PrivateEntry);
+
 function createBaseExternalKeys(): ExternalKeys {
-  return { chain: "", keyIds: [] };
+  return { $type: "axelar.tss.v1beta1.ExternalKeys", chain: "", keyIds: [] };
 }
 
 export const ExternalKeys = {
+  $type: "axelar.tss.v1beta1.ExternalKeys" as const,
+
   encode(message: ExternalKeys, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.chain !== "") {
       writer.uint32(10).string(message.chain);
@@ -652,6 +710,7 @@ export const ExternalKeys = {
 
   fromJSON(object: any): ExternalKeys {
     return {
+      $type: ExternalKeys.$type,
       chain: isSet(object.chain) ? gt.String(object.chain) : "",
       keyIds: gt.Array.isArray(object?.keyIds) ? object.keyIds.map((e: any) => gt.String(e)) : [],
     };
@@ -679,11 +738,19 @@ export const ExternalKeys = {
   },
 };
 
+messageTypeRegistry.set(ExternalKeys.$type, ExternalKeys);
+
 function createBaseValidatorStatus(): ValidatorStatus {
-  return { validator: Buffer.alloc(0), suspendedUntil: Long.UZERO };
+  return {
+    $type: "axelar.tss.v1beta1.ValidatorStatus",
+    validator: Buffer.alloc(0),
+    suspendedUntil: Long.UZERO,
+  };
 }
 
 export const ValidatorStatus = {
+  $type: "axelar.tss.v1beta1.ValidatorStatus" as const,
+
   encode(message: ValidatorStatus, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.validator.length !== 0) {
       writer.uint32(10).bytes(message.validator);
@@ -726,6 +793,7 @@ export const ValidatorStatus = {
 
   fromJSON(object: any): ValidatorStatus {
     return {
+      $type: ValidatorStatus.$type,
       validator: isSet(object.validator) ? Buffer.from(bytesFromBase64(object.validator)) : Buffer.alloc(0),
       suspendedUntil: isSet(object.suspendedUntil) ? Long.fromValue(object.suspendedUntil) : Long.UZERO,
     };
@@ -755,6 +823,8 @@ export const ValidatorStatus = {
     return message;
   },
 };
+
+messageTypeRegistry.set(ValidatorStatus.$type, ValidatorStatus);
 
 declare const self: any | undefined;
 declare const window: any | undefined;
@@ -794,13 +864,13 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

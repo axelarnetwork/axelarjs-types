@@ -7,6 +7,7 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { messageTypeRegistry } from "../../../typeRegistry";
 
 export const protobufPackage = "cosmos.base.v1beta1";
 
@@ -17,6 +18,7 @@ export const protobufPackage = "cosmos.base.v1beta1";
  * signatures required by gogoproto.
  */
 export interface Coin {
+  $type: "cosmos.base.v1beta1.Coin";
   denom: string;
   amount: string;
 }
@@ -28,6 +30,7 @@ export interface Coin {
  * signatures required by gogoproto.
  */
 export interface DecCoin {
+  $type: "cosmos.base.v1beta1.DecCoin";
   denom: string;
   amount: string;
 }
@@ -37,6 +40,7 @@ export interface DecCoin {
  * Deprecated: Prefer to use math.Int directly. It supports binary Marshal and Unmarshal.
  */
 export interface IntProto {
+  $type: "cosmos.base.v1beta1.IntProto";
   int: string;
 }
 
@@ -45,14 +49,17 @@ export interface IntProto {
  * Deprecated: Prefer to use math.LegacyDec directly. It supports binary Marshal and Unmarshal.
  */
 export interface DecProto {
+  $type: "cosmos.base.v1beta1.DecProto";
   dec: string;
 }
 
 function createBaseCoin(): Coin {
-  return { denom: "", amount: "" };
+  return { $type: "cosmos.base.v1beta1.Coin", denom: "", amount: "" };
 }
 
 export const Coin = {
+  $type: "cosmos.base.v1beta1.Coin" as const,
+
   encode(message: Coin, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.denom !== "") {
       writer.uint32(10).string(message.denom);
@@ -95,6 +102,7 @@ export const Coin = {
 
   fromJSON(object: any): Coin {
     return {
+      $type: Coin.$type,
       denom: isSet(object.denom) ? gt.String(object.denom) : "",
       amount: isSet(object.amount) ? gt.String(object.amount) : "",
     };
@@ -122,11 +130,15 @@ export const Coin = {
   },
 };
 
+messageTypeRegistry.set(Coin.$type, Coin);
+
 function createBaseDecCoin(): DecCoin {
-  return { denom: "", amount: "" };
+  return { $type: "cosmos.base.v1beta1.DecCoin", denom: "", amount: "" };
 }
 
 export const DecCoin = {
+  $type: "cosmos.base.v1beta1.DecCoin" as const,
+
   encode(message: DecCoin, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.denom !== "") {
       writer.uint32(10).string(message.denom);
@@ -169,6 +181,7 @@ export const DecCoin = {
 
   fromJSON(object: any): DecCoin {
     return {
+      $type: DecCoin.$type,
       denom: isSet(object.denom) ? gt.String(object.denom) : "",
       amount: isSet(object.amount) ? gt.String(object.amount) : "",
     };
@@ -196,11 +209,15 @@ export const DecCoin = {
   },
 };
 
+messageTypeRegistry.set(DecCoin.$type, DecCoin);
+
 function createBaseIntProto(): IntProto {
-  return { int: "" };
+  return { $type: "cosmos.base.v1beta1.IntProto", int: "" };
 }
 
 export const IntProto = {
+  $type: "cosmos.base.v1beta1.IntProto" as const,
+
   encode(message: IntProto, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.int !== "") {
       writer.uint32(10).string(message.int);
@@ -232,7 +249,7 @@ export const IntProto = {
   },
 
   fromJSON(object: any): IntProto {
-    return { int: isSet(object.int) ? gt.String(object.int) : "" };
+    return { $type: IntProto.$type, int: isSet(object.int) ? gt.String(object.int) : "" };
   },
 
   toJSON(message: IntProto): unknown {
@@ -253,11 +270,15 @@ export const IntProto = {
   },
 };
 
+messageTypeRegistry.set(IntProto.$type, IntProto);
+
 function createBaseDecProto(): DecProto {
-  return { dec: "" };
+  return { $type: "cosmos.base.v1beta1.DecProto", dec: "" };
 }
 
 export const DecProto = {
+  $type: "cosmos.base.v1beta1.DecProto" as const,
+
   encode(message: DecProto, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.dec !== "") {
       writer.uint32(10).string(message.dec);
@@ -289,7 +310,7 @@ export const DecProto = {
   },
 
   fromJSON(object: any): DecProto {
-    return { dec: isSet(object.dec) ? gt.String(object.dec) : "" };
+    return { $type: DecProto.$type, dec: isSet(object.dec) ? gt.String(object.dec) : "" };
   },
 
   toJSON(message: DecProto): unknown {
@@ -309,6 +330,8 @@ export const DecProto = {
     return message;
   },
 };
+
+messageTypeRegistry.set(DecProto.$type, DecProto);
 
 declare const self: any | undefined;
 declare const window: any | undefined;
@@ -340,13 +363,13 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

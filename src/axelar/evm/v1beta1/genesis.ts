@@ -7,6 +7,7 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { messageTypeRegistry } from "../../../typeRegistry";
 import { QueueState } from "../../utils/v1beta1/queuer";
 import { Params } from "./params";
 import { BurnerInfo, CommandBatchMetadata, ERC20Deposit, ERC20TokenMetadata, Event, Gateway } from "./types";
@@ -15,10 +16,12 @@ export const protobufPackage = "axelar.evm.v1beta1";
 
 /** GenesisState represents the genesis state */
 export interface GenesisState {
+  $type: "axelar.evm.v1beta1.GenesisState";
   chains: GenesisState_Chain[];
 }
 
 export interface GenesisState_Chain {
+  $type: "axelar.evm.v1beta1.GenesisState.Chain";
   params?: Params | undefined;
   burnerInfos: BurnerInfo[];
   commandQueue?: QueueState | undefined;
@@ -34,10 +37,12 @@ export interface GenesisState_Chain {
 }
 
 function createBaseGenesisState(): GenesisState {
-  return { chains: [] };
+  return { $type: "axelar.evm.v1beta1.GenesisState", chains: [] };
 }
 
 export const GenesisState = {
+  $type: "axelar.evm.v1beta1.GenesisState" as const,
+
   encode(message: GenesisState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.chains) {
       GenesisState_Chain.encode(v!, writer.uint32(26).fork()).ldelim();
@@ -70,6 +75,7 @@ export const GenesisState = {
 
   fromJSON(object: any): GenesisState {
     return {
+      $type: GenesisState.$type,
       chains: gt.Array.isArray(object?.chains)
         ? object.chains.map((e: any) => GenesisState_Chain.fromJSON(e))
         : [],
@@ -94,8 +100,11 @@ export const GenesisState = {
   },
 };
 
+messageTypeRegistry.set(GenesisState.$type, GenesisState);
+
 function createBaseGenesisState_Chain(): GenesisState_Chain {
   return {
+    $type: "axelar.evm.v1beta1.GenesisState.Chain",
     params: undefined,
     burnerInfos: [],
     commandQueue: undefined,
@@ -112,6 +121,8 @@ function createBaseGenesisState_Chain(): GenesisState_Chain {
 }
 
 export const GenesisState_Chain = {
+  $type: "axelar.evm.v1beta1.GenesisState.Chain" as const,
+
   encode(message: GenesisState_Chain, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
@@ -254,6 +265,7 @@ export const GenesisState_Chain = {
 
   fromJSON(object: any): GenesisState_Chain {
     return {
+      $type: GenesisState_Chain.$type,
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
       burnerInfos: gt.Array.isArray(object?.burnerInfos)
         ? object.burnerInfos.map((e: any) => BurnerInfo.fromJSON(e))
@@ -358,6 +370,8 @@ export const GenesisState_Chain = {
   },
 };
 
+messageTypeRegistry.set(GenesisState_Chain.$type, GenesisState_Chain);
+
 declare const self: any | undefined;
 declare const window: any | undefined;
 declare const global: any | undefined;
@@ -388,13 +402,13 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

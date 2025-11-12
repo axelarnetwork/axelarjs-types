@@ -8,10 +8,12 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
+import { messageTypeRegistry } from "../../../typeRegistry";
 
 export const protobufPackage = "axelar.axelarnet.v1beta1";
 
 export interface IBCTransfer {
+  $type: "axelar.axelarnet.v1beta1.IBCTransfer";
   sender: Buffer;
   receiver: string;
   token?: Coin | undefined;
@@ -69,6 +71,7 @@ export function iBCTransfer_StatusToJSON(object: IBCTransfer_Status): string {
 }
 
 export interface CosmosChain {
+  $type: "axelar.axelarnet.v1beta1.CosmosChain";
   name: string;
   ibcPath: string;
   /** @deprecated */
@@ -78,11 +81,13 @@ export interface CosmosChain {
 
 /** @deprecated */
 export interface Asset {
+  $type: "axelar.axelarnet.v1beta1.Asset";
   denom: string;
   minAmount: Buffer;
 }
 
 export interface Fee {
+  $type: "axelar.axelarnet.v1beta1.Fee";
   amount?: Coin | undefined;
   recipient: Buffer;
   refundRecipient: Buffer;
@@ -90,6 +95,7 @@ export interface Fee {
 
 function createBaseIBCTransfer(): IBCTransfer {
   return {
+    $type: "axelar.axelarnet.v1beta1.IBCTransfer",
     sender: Buffer.alloc(0),
     receiver: "",
     token: undefined,
@@ -102,6 +108,8 @@ function createBaseIBCTransfer(): IBCTransfer {
 }
 
 export const IBCTransfer = {
+  $type: "axelar.axelarnet.v1beta1.IBCTransfer" as const,
+
   encode(message: IBCTransfer, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.sender.length !== 0) {
       writer.uint32(10).bytes(message.sender);
@@ -204,6 +212,7 @@ export const IBCTransfer = {
 
   fromJSON(object: any): IBCTransfer {
     return {
+      $type: IBCTransfer.$type,
       sender: isSet(object.sender) ? Buffer.from(bytesFromBase64(object.sender)) : Buffer.alloc(0),
       receiver: isSet(object.receiver) ? gt.String(object.receiver) : "",
       token: isSet(object.token) ? Coin.fromJSON(object.token) : undefined,
@@ -265,11 +274,15 @@ export const IBCTransfer = {
   },
 };
 
+messageTypeRegistry.set(IBCTransfer.$type, IBCTransfer);
+
 function createBaseCosmosChain(): CosmosChain {
-  return { name: "", ibcPath: "", assets: [], addrPrefix: "" };
+  return { $type: "axelar.axelarnet.v1beta1.CosmosChain", name: "", ibcPath: "", assets: [], addrPrefix: "" };
 }
 
 export const CosmosChain = {
+  $type: "axelar.axelarnet.v1beta1.CosmosChain" as const,
+
   encode(message: CosmosChain, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.name !== "") {
       writer.uint32(10).string(message.name);
@@ -332,6 +345,7 @@ export const CosmosChain = {
 
   fromJSON(object: any): CosmosChain {
     return {
+      $type: CosmosChain.$type,
       name: isSet(object.name) ? gt.String(object.name) : "",
       ibcPath: isSet(object.ibcPath) ? gt.String(object.ibcPath) : "",
       assets: gt.Array.isArray(object?.assets) ? object.assets.map((e: any) => Asset.fromJSON(e)) : [],
@@ -369,11 +383,15 @@ export const CosmosChain = {
   },
 };
 
+messageTypeRegistry.set(CosmosChain.$type, CosmosChain);
+
 function createBaseAsset(): Asset {
-  return { denom: "", minAmount: Buffer.alloc(0) };
+  return { $type: "axelar.axelarnet.v1beta1.Asset", denom: "", minAmount: Buffer.alloc(0) };
 }
 
 export const Asset = {
+  $type: "axelar.axelarnet.v1beta1.Asset" as const,
+
   encode(message: Asset, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.denom !== "") {
       writer.uint32(10).string(message.denom);
@@ -416,6 +434,7 @@ export const Asset = {
 
   fromJSON(object: any): Asset {
     return {
+      $type: Asset.$type,
       denom: isSet(object.denom) ? gt.String(object.denom) : "",
       minAmount: isSet(object.minAmount) ? Buffer.from(bytesFromBase64(object.minAmount)) : Buffer.alloc(0),
     };
@@ -443,11 +462,20 @@ export const Asset = {
   },
 };
 
+messageTypeRegistry.set(Asset.$type, Asset);
+
 function createBaseFee(): Fee {
-  return { amount: undefined, recipient: Buffer.alloc(0), refundRecipient: Buffer.alloc(0) };
+  return {
+    $type: "axelar.axelarnet.v1beta1.Fee",
+    amount: undefined,
+    recipient: Buffer.alloc(0),
+    refundRecipient: Buffer.alloc(0),
+  };
 }
 
 export const Fee = {
+  $type: "axelar.axelarnet.v1beta1.Fee" as const,
+
   encode(message: Fee, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.amount !== undefined) {
       Coin.encode(message.amount, writer.uint32(10).fork()).ldelim();
@@ -500,6 +528,7 @@ export const Fee = {
 
   fromJSON(object: any): Fee {
     return {
+      $type: Fee.$type,
       amount: isSet(object.amount) ? Coin.fromJSON(object.amount) : undefined,
       recipient: isSet(object.recipient) ? Buffer.from(bytesFromBase64(object.recipient)) : Buffer.alloc(0),
       refundRecipient: isSet(object.refundRecipient)
@@ -534,6 +563,8 @@ export const Fee = {
     return message;
   },
 };
+
+messageTypeRegistry.set(Fee.$type, Fee);
 
 declare const self: any | undefined;
 declare const window: any | undefined;
@@ -573,13 +604,13 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

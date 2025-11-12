@@ -7,6 +7,7 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { messageTypeRegistry } from "../../../../typeRegistry";
 import { Threshold } from "../../../utils/v1beta1/threshold";
 
 export const protobufPackage = "axelar.tss.exported.v1beta1";
@@ -142,6 +143,7 @@ export function keyShareDistributionPolicyToJSON(object: KeyShareDistributionPol
 
 /** KeyRequirement defines requirements for keys */
 export interface KeyRequirement {
+  $type: "axelar.tss.exported.v1beta1.KeyRequirement";
   keyRole: KeyRole;
   keyType: KeyType;
   minKeygenThreshold?: Threshold | undefined;
@@ -157,12 +159,14 @@ export interface KeyRequirement {
 
 /** PubKeyInfo holds a pubkey and a signature */
 export interface SigKeyPair {
+  $type: "axelar.tss.exported.v1beta1.SigKeyPair";
   pubKey: Buffer;
   signature: Buffer;
 }
 
 function createBaseKeyRequirement(): KeyRequirement {
   return {
+    $type: "axelar.tss.exported.v1beta1.KeyRequirement",
     keyRole: 0,
     keyType: 0,
     minKeygenThreshold: undefined,
@@ -178,6 +182,8 @@ function createBaseKeyRequirement(): KeyRequirement {
 }
 
 export const KeyRequirement = {
+  $type: "axelar.tss.exported.v1beta1.KeyRequirement" as const,
+
   encode(message: KeyRequirement, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.keyRole !== 0) {
       writer.uint32(8).int32(message.keyRole);
@@ -310,6 +316,7 @@ export const KeyRequirement = {
 
   fromJSON(object: any): KeyRequirement {
     return {
+      $type: KeyRequirement.$type,
       keyRole: isSet(object.keyRole) ? keyRoleFromJSON(object.keyRole) : 0,
       keyType: isSet(object.keyType) ? keyTypeFromJSON(object.keyType) : 0,
       minKeygenThreshold: isSet(object.minKeygenThreshold)
@@ -418,11 +425,19 @@ export const KeyRequirement = {
   },
 };
 
+messageTypeRegistry.set(KeyRequirement.$type, KeyRequirement);
+
 function createBaseSigKeyPair(): SigKeyPair {
-  return { pubKey: Buffer.alloc(0), signature: Buffer.alloc(0) };
+  return {
+    $type: "axelar.tss.exported.v1beta1.SigKeyPair",
+    pubKey: Buffer.alloc(0),
+    signature: Buffer.alloc(0),
+  };
 }
 
 export const SigKeyPair = {
+  $type: "axelar.tss.exported.v1beta1.SigKeyPair" as const,
+
   encode(message: SigKeyPair, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.pubKey.length !== 0) {
       writer.uint32(10).bytes(message.pubKey);
@@ -465,6 +480,7 @@ export const SigKeyPair = {
 
   fromJSON(object: any): SigKeyPair {
     return {
+      $type: SigKeyPair.$type,
       pubKey: isSet(object.pubKey) ? Buffer.from(bytesFromBase64(object.pubKey)) : Buffer.alloc(0),
       signature: isSet(object.signature) ? Buffer.from(bytesFromBase64(object.signature)) : Buffer.alloc(0),
     };
@@ -491,6 +507,8 @@ export const SigKeyPair = {
     return message;
   },
 };
+
+messageTypeRegistry.set(SigKeyPair.$type, SigKeyPair);
 
 declare const self: any | undefined;
 declare const window: any | undefined;
@@ -530,13 +548,13 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

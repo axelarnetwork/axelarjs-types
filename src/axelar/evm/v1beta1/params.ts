@@ -7,6 +7,7 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { messageTypeRegistry } from "../../../typeRegistry";
 import { Chain } from "../../nexus/exported/v1beta1/types";
 import { Threshold } from "../../utils/v1beta1/threshold";
 import { NetworkInfo } from "./types";
@@ -15,6 +16,7 @@ export const protobufPackage = "axelar.evm.v1beta1";
 
 /** Params is the parameter set for this module */
 export interface Params {
+  $type: "axelar.evm.v1beta1.Params";
   chain: string;
   confirmationHeight: Long;
   network: string;
@@ -31,12 +33,14 @@ export interface Params {
 }
 
 export interface PendingChain {
+  $type: "axelar.evm.v1beta1.PendingChain";
   params?: Params | undefined;
   chain?: Chain | undefined;
 }
 
 function createBaseParams(): Params {
   return {
+    $type: "axelar.evm.v1beta1.Params",
     chain: "",
     confirmationHeight: Long.UZERO,
     network: "",
@@ -54,6 +58,8 @@ function createBaseParams(): Params {
 }
 
 export const Params = {
+  $type: "axelar.evm.v1beta1.Params" as const,
+
   encode(message: Params, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.chain !== "") {
       writer.uint32(10).string(message.chain);
@@ -206,6 +212,7 @@ export const Params = {
 
   fromJSON(object: any): Params {
     return {
+      $type: Params.$type,
       chain: isSet(object.chain) ? gt.String(object.chain) : "",
       confirmationHeight: isSet(object.confirmationHeight)
         ? Long.fromValue(object.confirmationHeight)
@@ -317,11 +324,15 @@ export const Params = {
   },
 };
 
+messageTypeRegistry.set(Params.$type, Params);
+
 function createBasePendingChain(): PendingChain {
-  return { params: undefined, chain: undefined };
+  return { $type: "axelar.evm.v1beta1.PendingChain", params: undefined, chain: undefined };
 }
 
 export const PendingChain = {
+  $type: "axelar.evm.v1beta1.PendingChain" as const,
+
   encode(message: PendingChain, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
@@ -364,6 +375,7 @@ export const PendingChain = {
 
   fromJSON(object: any): PendingChain {
     return {
+      $type: PendingChain.$type,
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
       chain: isSet(object.chain) ? Chain.fromJSON(object.chain) : undefined,
     };
@@ -392,6 +404,8 @@ export const PendingChain = {
     return message;
   },
 };
+
+messageTypeRegistry.set(PendingChain.$type, PendingChain);
 
 declare const self: any | undefined;
 declare const window: any | undefined;
@@ -431,13 +445,13 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

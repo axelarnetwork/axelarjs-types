@@ -7,6 +7,7 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { messageTypeRegistry } from "../../../typeRegistry";
 
 export const protobufPackage = "axelar.axelarnet.v1beta1";
 
@@ -15,22 +16,31 @@ export const protobufPackage = "axelar.axelarnet.v1beta1";
  * chains
  */
 export interface CallContractsProposal {
+  $type: "axelar.axelarnet.v1beta1.CallContractsProposal";
   title: string;
   description: string;
   contractCalls: ContractCall[];
 }
 
 export interface ContractCall {
+  $type: "axelar.axelarnet.v1beta1.ContractCall";
   chain: string;
   contractAddress: string;
   payload: Buffer;
 }
 
 function createBaseCallContractsProposal(): CallContractsProposal {
-  return { title: "", description: "", contractCalls: [] };
+  return {
+    $type: "axelar.axelarnet.v1beta1.CallContractsProposal",
+    title: "",
+    description: "",
+    contractCalls: [],
+  };
 }
 
 export const CallContractsProposal = {
+  $type: "axelar.axelarnet.v1beta1.CallContractsProposal" as const,
+
   encode(message: CallContractsProposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
@@ -83,6 +93,7 @@ export const CallContractsProposal = {
 
   fromJSON(object: any): CallContractsProposal {
     return {
+      $type: CallContractsProposal.$type,
       title: isSet(object.title) ? gt.String(object.title) : "",
       description: isSet(object.description) ? gt.String(object.description) : "",
       contractCalls: gt.Array.isArray(object?.contractCalls)
@@ -117,11 +128,20 @@ export const CallContractsProposal = {
   },
 };
 
+messageTypeRegistry.set(CallContractsProposal.$type, CallContractsProposal);
+
 function createBaseContractCall(): ContractCall {
-  return { chain: "", contractAddress: "", payload: Buffer.alloc(0) };
+  return {
+    $type: "axelar.axelarnet.v1beta1.ContractCall",
+    chain: "",
+    contractAddress: "",
+    payload: Buffer.alloc(0),
+  };
 }
 
 export const ContractCall = {
+  $type: "axelar.axelarnet.v1beta1.ContractCall" as const,
+
   encode(message: ContractCall, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.chain !== "") {
       writer.uint32(10).string(message.chain);
@@ -174,6 +194,7 @@ export const ContractCall = {
 
   fromJSON(object: any): ContractCall {
     return {
+      $type: ContractCall.$type,
       chain: isSet(object.chain) ? gt.String(object.chain) : "",
       contractAddress: isSet(object.contractAddress) ? gt.String(object.contractAddress) : "",
       payload: isSet(object.payload) ? Buffer.from(bytesFromBase64(object.payload)) : Buffer.alloc(0),
@@ -205,6 +226,8 @@ export const ContractCall = {
     return message;
   },
 };
+
+messageTypeRegistry.set(ContractCall.$type, ContractCall);
 
 declare const self: any | undefined;
 declare const window: any | undefined;
@@ -244,13 +267,13 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

@@ -7,6 +7,7 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { messageTypeRegistry } from "../../../typeRegistry";
 import { Params } from "./params";
 import { Key, KeyEpoch, KeygenSession, SigningSession } from "./types";
 
@@ -14,6 +15,7 @@ export const protobufPackage = "axelar.multisig.v1beta1";
 
 /** GenesisState represents the genesis state */
 export interface GenesisState {
+  $type: "axelar.multisig.v1beta1.GenesisState";
   params?: Params | undefined;
   keygenSessions: KeygenSession[];
   signingSessions: SigningSession[];
@@ -22,10 +24,19 @@ export interface GenesisState {
 }
 
 function createBaseGenesisState(): GenesisState {
-  return { params: undefined, keygenSessions: [], signingSessions: [], keys: [], keyEpochs: [] };
+  return {
+    $type: "axelar.multisig.v1beta1.GenesisState",
+    params: undefined,
+    keygenSessions: [],
+    signingSessions: [],
+    keys: [],
+    keyEpochs: [],
+  };
 }
 
 export const GenesisState = {
+  $type: "axelar.multisig.v1beta1.GenesisState" as const,
+
   encode(message: GenesisState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
@@ -98,6 +109,7 @@ export const GenesisState = {
 
   fromJSON(object: any): GenesisState {
     return {
+      $type: GenesisState.$type,
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
       keygenSessions: gt.Array.isArray(object?.keygenSessions)
         ? object.keygenSessions.map((e: any) => KeygenSession.fromJSON(e))
@@ -147,6 +159,8 @@ export const GenesisState = {
   },
 };
 
+messageTypeRegistry.set(GenesisState.$type, GenesisState);
+
 declare const self: any | undefined;
 declare const window: any | undefined;
 declare const global: any | undefined;
@@ -177,13 +191,13 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

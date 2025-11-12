@@ -7,29 +7,49 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { messageTypeRegistry } from "../../../typeRegistry";
+import { Params } from "./params";
 
 export const protobufPackage = "axelar.snapshot.v1beta1";
 
 export interface RegisterProxyRequest {
+  $type: "axelar.snapshot.v1beta1.RegisterProxyRequest";
   proxyAddr: Buffer;
   sender: string;
 }
 
-export interface RegisterProxyResponse {}
+export interface RegisterProxyResponse {
+  $type: "axelar.snapshot.v1beta1.RegisterProxyResponse";
+}
 
 export interface DeactivateProxyRequest {
+  $type: "axelar.snapshot.v1beta1.DeactivateProxyRequest";
   /** @deprecated */
   senderBz: Buffer;
   sender: string;
 }
 
-export interface DeactivateProxyResponse {}
+export interface DeactivateProxyResponse {
+  $type: "axelar.snapshot.v1beta1.DeactivateProxyResponse";
+}
+
+export interface UpdateParamsRequest {
+  $type: "axelar.snapshot.v1beta1.UpdateParamsRequest";
+  authority: string;
+  params?: Params | undefined;
+}
+
+export interface UpdateParamsResponse {
+  $type: "axelar.snapshot.v1beta1.UpdateParamsResponse";
+}
 
 function createBaseRegisterProxyRequest(): RegisterProxyRequest {
-  return { proxyAddr: Buffer.alloc(0), sender: "" };
+  return { $type: "axelar.snapshot.v1beta1.RegisterProxyRequest", proxyAddr: Buffer.alloc(0), sender: "" };
 }
 
 export const RegisterProxyRequest = {
+  $type: "axelar.snapshot.v1beta1.RegisterProxyRequest" as const,
+
   encode(message: RegisterProxyRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.proxyAddr.length !== 0) {
       writer.uint32(18).bytes(message.proxyAddr);
@@ -72,6 +92,7 @@ export const RegisterProxyRequest = {
 
   fromJSON(object: any): RegisterProxyRequest {
     return {
+      $type: RegisterProxyRequest.$type,
       proxyAddr: isSet(object.proxyAddr) ? Buffer.from(bytesFromBase64(object.proxyAddr)) : Buffer.alloc(0),
       sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
@@ -99,11 +120,15 @@ export const RegisterProxyRequest = {
   },
 };
 
+messageTypeRegistry.set(RegisterProxyRequest.$type, RegisterProxyRequest);
+
 function createBaseRegisterProxyResponse(): RegisterProxyResponse {
-  return {};
+  return { $type: "axelar.snapshot.v1beta1.RegisterProxyResponse" };
 }
 
 export const RegisterProxyResponse = {
+  $type: "axelar.snapshot.v1beta1.RegisterProxyResponse" as const,
+
   encode(_: RegisterProxyResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
@@ -125,7 +150,7 @@ export const RegisterProxyResponse = {
   },
 
   fromJSON(_: any): RegisterProxyResponse {
-    return {};
+    return { $type: RegisterProxyResponse.$type };
   },
 
   toJSON(_: RegisterProxyResponse): unknown {
@@ -142,11 +167,15 @@ export const RegisterProxyResponse = {
   },
 };
 
+messageTypeRegistry.set(RegisterProxyResponse.$type, RegisterProxyResponse);
+
 function createBaseDeactivateProxyRequest(): DeactivateProxyRequest {
-  return { senderBz: Buffer.alloc(0), sender: "" };
+  return { $type: "axelar.snapshot.v1beta1.DeactivateProxyRequest", senderBz: Buffer.alloc(0), sender: "" };
 }
 
 export const DeactivateProxyRequest = {
+  $type: "axelar.snapshot.v1beta1.DeactivateProxyRequest" as const,
+
   encode(message: DeactivateProxyRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.senderBz.length !== 0) {
       writer.uint32(10).bytes(message.senderBz);
@@ -189,6 +218,7 @@ export const DeactivateProxyRequest = {
 
   fromJSON(object: any): DeactivateProxyRequest {
     return {
+      $type: DeactivateProxyRequest.$type,
       senderBz: isSet(object.senderBz) ? Buffer.from(bytesFromBase64(object.senderBz)) : Buffer.alloc(0),
       sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
@@ -216,11 +246,15 @@ export const DeactivateProxyRequest = {
   },
 };
 
+messageTypeRegistry.set(DeactivateProxyRequest.$type, DeactivateProxyRequest);
+
 function createBaseDeactivateProxyResponse(): DeactivateProxyResponse {
-  return {};
+  return { $type: "axelar.snapshot.v1beta1.DeactivateProxyResponse" };
 }
 
 export const DeactivateProxyResponse = {
+  $type: "axelar.snapshot.v1beta1.DeactivateProxyResponse" as const,
+
   encode(_: DeactivateProxyResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
@@ -242,7 +276,7 @@ export const DeactivateProxyResponse = {
   },
 
   fromJSON(_: any): DeactivateProxyResponse {
-    return {};
+    return { $type: DeactivateProxyResponse.$type };
   },
 
   toJSON(_: DeactivateProxyResponse): unknown {
@@ -258,6 +292,135 @@ export const DeactivateProxyResponse = {
     return message;
   },
 };
+
+messageTypeRegistry.set(DeactivateProxyResponse.$type, DeactivateProxyResponse);
+
+function createBaseUpdateParamsRequest(): UpdateParamsRequest {
+  return { $type: "axelar.snapshot.v1beta1.UpdateParamsRequest", authority: "", params: undefined };
+}
+
+export const UpdateParamsRequest = {
+  $type: "axelar.snapshot.v1beta1.UpdateParamsRequest" as const,
+
+  encode(message: UpdateParamsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.authority !== "") {
+      writer.uint32(10).string(message.authority);
+    }
+    if (message.params !== undefined) {
+      Params.encode(message.params, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): UpdateParamsRequest {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseUpdateParamsRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 10) {
+            break;
+          }
+
+          message.authority = reader.string();
+          continue;
+        case 2:
+          if (tag !== 18) {
+            break;
+          }
+
+          message.params = Params.decode(reader, reader.uint32());
+          continue;
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): UpdateParamsRequest {
+    return {
+      $type: UpdateParamsRequest.$type,
+      authority: isSet(object.authority) ? gt.String(object.authority) : "",
+      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
+    };
+  },
+
+  toJSON(message: UpdateParamsRequest): unknown {
+    const obj: any = {};
+    if (message.authority !== "") {
+      obj.authority = message.authority;
+    }
+    if (message.params !== undefined) {
+      obj.params = Params.toJSON(message.params);
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<UpdateParamsRequest>, I>>(base?: I): UpdateParamsRequest {
+    return UpdateParamsRequest.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<UpdateParamsRequest>, I>>(object: I): UpdateParamsRequest {
+    const message = createBaseUpdateParamsRequest();
+    message.authority = object.authority ?? "";
+    message.params =
+      object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
+    return message;
+  },
+};
+
+messageTypeRegistry.set(UpdateParamsRequest.$type, UpdateParamsRequest);
+
+function createBaseUpdateParamsResponse(): UpdateParamsResponse {
+  return { $type: "axelar.snapshot.v1beta1.UpdateParamsResponse" };
+}
+
+export const UpdateParamsResponse = {
+  $type: "axelar.snapshot.v1beta1.UpdateParamsResponse" as const,
+
+  encode(_: UpdateParamsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): UpdateParamsResponse {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseUpdateParamsResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(_: any): UpdateParamsResponse {
+    return { $type: UpdateParamsResponse.$type };
+  },
+
+  toJSON(_: UpdateParamsResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<UpdateParamsResponse>, I>>(base?: I): UpdateParamsResponse {
+    return UpdateParamsResponse.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<UpdateParamsResponse>, I>>(_: I): UpdateParamsResponse {
+    const message = createBaseUpdateParamsResponse();
+    return message;
+  },
+};
+
+messageTypeRegistry.set(UpdateParamsResponse.$type, UpdateParamsResponse);
 
 declare const self: any | undefined;
 declare const window: any | undefined;
@@ -297,13 +460,13 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

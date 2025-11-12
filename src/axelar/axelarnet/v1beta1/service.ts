@@ -37,6 +37,8 @@ import {
   RouteIBCTransfersResponse,
   RouteMessageRequest,
   RouteMessageResponse,
+  UpdateParamsRequest,
+  UpdateParamsResponse,
 } from "./tx";
 
 export const protobufPackage = "axelar.axelarnet.v1beta1";
@@ -53,6 +55,7 @@ export interface MsgService {
   RetryIBCTransfer(request: RetryIBCTransferRequest): Promise<RetryIBCTransferResponse>;
   RouteMessage(request: RouteMessageRequest): Promise<RouteMessageResponse>;
   CallContract(request: CallContractRequest): Promise<CallContractResponse>;
+  UpdateParams(request: UpdateParamsRequest): Promise<UpdateParamsResponse>;
 }
 
 export const MsgServiceServiceName = "axelar.axelarnet.v1beta1.MsgService";
@@ -72,6 +75,7 @@ export class MsgServiceClientImpl implements MsgService {
     this.RetryIBCTransfer = this.RetryIBCTransfer.bind(this);
     this.RouteMessage = this.RouteMessage.bind(this);
     this.CallContract = this.CallContract.bind(this);
+    this.UpdateParams = this.UpdateParams.bind(this);
   }
   Link(request: LinkRequest): Promise<LinkResponse> {
     const data = LinkRequest.encode(request).finish();
@@ -131,6 +135,12 @@ export class MsgServiceClientImpl implements MsgService {
     const data = CallContractRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "CallContract", data);
     return promise.then((data) => CallContractResponse.decode(_m0.Reader.create(data)));
+  }
+
+  UpdateParams(request: UpdateParamsRequest): Promise<UpdateParamsResponse> {
+    const data = UpdateParamsRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "UpdateParams", data);
+    return promise.then((data) => UpdateParamsResponse.decode(_m0.Reader.create(data)));
   }
 }
 

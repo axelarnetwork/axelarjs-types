@@ -9,69 +9,101 @@ import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import { Duration } from "../../../google/protobuf/duration";
+import { messageTypeRegistry } from "../../../typeRegistry";
 import { FeeInfo } from "../exported/v1beta1/types";
+import { Params } from "./params";
 
 export const protobufPackage = "axelar.nexus.v1beta1";
 
 export interface RegisterChainMaintainerRequest {
+  $type: "axelar.nexus.v1beta1.RegisterChainMaintainerRequest";
   chains: string[];
   sender: string;
 }
 
-export interface RegisterChainMaintainerResponse {}
+export interface RegisterChainMaintainerResponse {
+  $type: "axelar.nexus.v1beta1.RegisterChainMaintainerResponse";
+}
 
 export interface DeregisterChainMaintainerRequest {
+  $type: "axelar.nexus.v1beta1.DeregisterChainMaintainerRequest";
   chains: string[];
   sender: string;
 }
 
-export interface DeregisterChainMaintainerResponse {}
+export interface DeregisterChainMaintainerResponse {
+  $type: "axelar.nexus.v1beta1.DeregisterChainMaintainerResponse";
+}
 
 /** ActivateChainRequest represents a message to activate chains */
 export interface ActivateChainRequest {
+  $type: "axelar.nexus.v1beta1.ActivateChainRequest";
   chains: string[];
   sender: string;
 }
 
-export interface ActivateChainResponse {}
+export interface ActivateChainResponse {
+  $type: "axelar.nexus.v1beta1.ActivateChainResponse";
+}
 
 /** DeactivateChainRequest represents a message to deactivate chains */
 export interface DeactivateChainRequest {
+  $type: "axelar.nexus.v1beta1.DeactivateChainRequest";
   chains: string[];
   sender: string;
 }
 
-export interface DeactivateChainResponse {}
+export interface DeactivateChainResponse {
+  $type: "axelar.nexus.v1beta1.DeactivateChainResponse";
+}
 
 /**
  * RegisterAssetFeeRequest represents a message to register the transfer fee
  * info associated to an asset on a chain
  */
 export interface RegisterAssetFeeRequest {
+  $type: "axelar.nexus.v1beta1.RegisterAssetFeeRequest";
   feeInfo?: FeeInfo | undefined;
   sender: string;
 }
 
-export interface RegisterAssetFeeResponse {}
+export interface RegisterAssetFeeResponse {
+  $type: "axelar.nexus.v1beta1.RegisterAssetFeeResponse";
+}
 
 /**
  * SetTransferRateLimitRequest represents a message to set rate limits on
  * transfers
  */
 export interface SetTransferRateLimitRequest {
+  $type: "axelar.nexus.v1beta1.SetTransferRateLimitRequest";
   chain: string;
   limit?: Coin | undefined;
   window?: Duration | undefined;
   sender: string;
 }
 
-export interface SetTransferRateLimitResponse {}
+export interface SetTransferRateLimitResponse {
+  $type: "axelar.nexus.v1beta1.SetTransferRateLimitResponse";
+}
+
+export interface UpdateParamsRequest {
+  $type: "axelar.nexus.v1beta1.UpdateParamsRequest";
+  authority: string;
+  params?: Params | undefined;
+}
+
+export interface UpdateParamsResponse {
+  $type: "axelar.nexus.v1beta1.UpdateParamsResponse";
+}
 
 function createBaseRegisterChainMaintainerRequest(): RegisterChainMaintainerRequest {
-  return { chains: [], sender: "" };
+  return { $type: "axelar.nexus.v1beta1.RegisterChainMaintainerRequest", chains: [], sender: "" };
 }
 
 export const RegisterChainMaintainerRequest = {
+  $type: "axelar.nexus.v1beta1.RegisterChainMaintainerRequest" as const,
+
   encode(message: RegisterChainMaintainerRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.chains) {
       writer.uint32(18).string(v!);
@@ -114,6 +146,7 @@ export const RegisterChainMaintainerRequest = {
 
   fromJSON(object: any): RegisterChainMaintainerRequest {
     return {
+      $type: RegisterChainMaintainerRequest.$type,
       chains: gt.Array.isArray(object?.chains) ? object.chains.map((e: any) => gt.String(e)) : [],
       sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
@@ -145,11 +178,15 @@ export const RegisterChainMaintainerRequest = {
   },
 };
 
+messageTypeRegistry.set(RegisterChainMaintainerRequest.$type, RegisterChainMaintainerRequest);
+
 function createBaseRegisterChainMaintainerResponse(): RegisterChainMaintainerResponse {
-  return {};
+  return { $type: "axelar.nexus.v1beta1.RegisterChainMaintainerResponse" };
 }
 
 export const RegisterChainMaintainerResponse = {
+  $type: "axelar.nexus.v1beta1.RegisterChainMaintainerResponse" as const,
+
   encode(_: RegisterChainMaintainerResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
@@ -171,7 +208,7 @@ export const RegisterChainMaintainerResponse = {
   },
 
   fromJSON(_: any): RegisterChainMaintainerResponse {
-    return {};
+    return { $type: RegisterChainMaintainerResponse.$type };
   },
 
   toJSON(_: RegisterChainMaintainerResponse): unknown {
@@ -192,11 +229,15 @@ export const RegisterChainMaintainerResponse = {
   },
 };
 
+messageTypeRegistry.set(RegisterChainMaintainerResponse.$type, RegisterChainMaintainerResponse);
+
 function createBaseDeregisterChainMaintainerRequest(): DeregisterChainMaintainerRequest {
-  return { chains: [], sender: "" };
+  return { $type: "axelar.nexus.v1beta1.DeregisterChainMaintainerRequest", chains: [], sender: "" };
 }
 
 export const DeregisterChainMaintainerRequest = {
+  $type: "axelar.nexus.v1beta1.DeregisterChainMaintainerRequest" as const,
+
   encode(message: DeregisterChainMaintainerRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.chains) {
       writer.uint32(18).string(v!);
@@ -239,6 +280,7 @@ export const DeregisterChainMaintainerRequest = {
 
   fromJSON(object: any): DeregisterChainMaintainerRequest {
     return {
+      $type: DeregisterChainMaintainerRequest.$type,
       chains: gt.Array.isArray(object?.chains) ? object.chains.map((e: any) => gt.String(e)) : [],
       sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
@@ -270,11 +312,15 @@ export const DeregisterChainMaintainerRequest = {
   },
 };
 
+messageTypeRegistry.set(DeregisterChainMaintainerRequest.$type, DeregisterChainMaintainerRequest);
+
 function createBaseDeregisterChainMaintainerResponse(): DeregisterChainMaintainerResponse {
-  return {};
+  return { $type: "axelar.nexus.v1beta1.DeregisterChainMaintainerResponse" };
 }
 
 export const DeregisterChainMaintainerResponse = {
+  $type: "axelar.nexus.v1beta1.DeregisterChainMaintainerResponse" as const,
+
   encode(_: DeregisterChainMaintainerResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
@@ -296,7 +342,7 @@ export const DeregisterChainMaintainerResponse = {
   },
 
   fromJSON(_: any): DeregisterChainMaintainerResponse {
-    return {};
+    return { $type: DeregisterChainMaintainerResponse.$type };
   },
 
   toJSON(_: DeregisterChainMaintainerResponse): unknown {
@@ -317,11 +363,15 @@ export const DeregisterChainMaintainerResponse = {
   },
 };
 
+messageTypeRegistry.set(DeregisterChainMaintainerResponse.$type, DeregisterChainMaintainerResponse);
+
 function createBaseActivateChainRequest(): ActivateChainRequest {
-  return { chains: [], sender: "" };
+  return { $type: "axelar.nexus.v1beta1.ActivateChainRequest", chains: [], sender: "" };
 }
 
 export const ActivateChainRequest = {
+  $type: "axelar.nexus.v1beta1.ActivateChainRequest" as const,
+
   encode(message: ActivateChainRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.chains) {
       writer.uint32(18).string(v!);
@@ -364,6 +414,7 @@ export const ActivateChainRequest = {
 
   fromJSON(object: any): ActivateChainRequest {
     return {
+      $type: ActivateChainRequest.$type,
       chains: gt.Array.isArray(object?.chains) ? object.chains.map((e: any) => gt.String(e)) : [],
       sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
@@ -391,11 +442,15 @@ export const ActivateChainRequest = {
   },
 };
 
+messageTypeRegistry.set(ActivateChainRequest.$type, ActivateChainRequest);
+
 function createBaseActivateChainResponse(): ActivateChainResponse {
-  return {};
+  return { $type: "axelar.nexus.v1beta1.ActivateChainResponse" };
 }
 
 export const ActivateChainResponse = {
+  $type: "axelar.nexus.v1beta1.ActivateChainResponse" as const,
+
   encode(_: ActivateChainResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
@@ -417,7 +472,7 @@ export const ActivateChainResponse = {
   },
 
   fromJSON(_: any): ActivateChainResponse {
-    return {};
+    return { $type: ActivateChainResponse.$type };
   },
 
   toJSON(_: ActivateChainResponse): unknown {
@@ -434,11 +489,15 @@ export const ActivateChainResponse = {
   },
 };
 
+messageTypeRegistry.set(ActivateChainResponse.$type, ActivateChainResponse);
+
 function createBaseDeactivateChainRequest(): DeactivateChainRequest {
-  return { chains: [], sender: "" };
+  return { $type: "axelar.nexus.v1beta1.DeactivateChainRequest", chains: [], sender: "" };
 }
 
 export const DeactivateChainRequest = {
+  $type: "axelar.nexus.v1beta1.DeactivateChainRequest" as const,
+
   encode(message: DeactivateChainRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.chains) {
       writer.uint32(18).string(v!);
@@ -481,6 +540,7 @@ export const DeactivateChainRequest = {
 
   fromJSON(object: any): DeactivateChainRequest {
     return {
+      $type: DeactivateChainRequest.$type,
       chains: gt.Array.isArray(object?.chains) ? object.chains.map((e: any) => gt.String(e)) : [],
       sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
@@ -508,11 +568,15 @@ export const DeactivateChainRequest = {
   },
 };
 
+messageTypeRegistry.set(DeactivateChainRequest.$type, DeactivateChainRequest);
+
 function createBaseDeactivateChainResponse(): DeactivateChainResponse {
-  return {};
+  return { $type: "axelar.nexus.v1beta1.DeactivateChainResponse" };
 }
 
 export const DeactivateChainResponse = {
+  $type: "axelar.nexus.v1beta1.DeactivateChainResponse" as const,
+
   encode(_: DeactivateChainResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
@@ -534,7 +598,7 @@ export const DeactivateChainResponse = {
   },
 
   fromJSON(_: any): DeactivateChainResponse {
-    return {};
+    return { $type: DeactivateChainResponse.$type };
   },
 
   toJSON(_: DeactivateChainResponse): unknown {
@@ -551,11 +615,15 @@ export const DeactivateChainResponse = {
   },
 };
 
+messageTypeRegistry.set(DeactivateChainResponse.$type, DeactivateChainResponse);
+
 function createBaseRegisterAssetFeeRequest(): RegisterAssetFeeRequest {
-  return { feeInfo: undefined, sender: "" };
+  return { $type: "axelar.nexus.v1beta1.RegisterAssetFeeRequest", feeInfo: undefined, sender: "" };
 }
 
 export const RegisterAssetFeeRequest = {
+  $type: "axelar.nexus.v1beta1.RegisterAssetFeeRequest" as const,
+
   encode(message: RegisterAssetFeeRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.feeInfo !== undefined) {
       FeeInfo.encode(message.feeInfo, writer.uint32(18).fork()).ldelim();
@@ -598,6 +666,7 @@ export const RegisterAssetFeeRequest = {
 
   fromJSON(object: any): RegisterAssetFeeRequest {
     return {
+      $type: RegisterAssetFeeRequest.$type,
       feeInfo: isSet(object.feeInfo) ? FeeInfo.fromJSON(object.feeInfo) : undefined,
       sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
@@ -628,11 +697,15 @@ export const RegisterAssetFeeRequest = {
   },
 };
 
+messageTypeRegistry.set(RegisterAssetFeeRequest.$type, RegisterAssetFeeRequest);
+
 function createBaseRegisterAssetFeeResponse(): RegisterAssetFeeResponse {
-  return {};
+  return { $type: "axelar.nexus.v1beta1.RegisterAssetFeeResponse" };
 }
 
 export const RegisterAssetFeeResponse = {
+  $type: "axelar.nexus.v1beta1.RegisterAssetFeeResponse" as const,
+
   encode(_: RegisterAssetFeeResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
@@ -654,7 +727,7 @@ export const RegisterAssetFeeResponse = {
   },
 
   fromJSON(_: any): RegisterAssetFeeResponse {
-    return {};
+    return { $type: RegisterAssetFeeResponse.$type };
   },
 
   toJSON(_: RegisterAssetFeeResponse): unknown {
@@ -671,11 +744,21 @@ export const RegisterAssetFeeResponse = {
   },
 };
 
+messageTypeRegistry.set(RegisterAssetFeeResponse.$type, RegisterAssetFeeResponse);
+
 function createBaseSetTransferRateLimitRequest(): SetTransferRateLimitRequest {
-  return { chain: "", limit: undefined, window: undefined, sender: "" };
+  return {
+    $type: "axelar.nexus.v1beta1.SetTransferRateLimitRequest",
+    chain: "",
+    limit: undefined,
+    window: undefined,
+    sender: "",
+  };
 }
 
 export const SetTransferRateLimitRequest = {
+  $type: "axelar.nexus.v1beta1.SetTransferRateLimitRequest" as const,
+
   encode(message: SetTransferRateLimitRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.chain !== "") {
       writer.uint32(18).string(message.chain);
@@ -738,6 +821,7 @@ export const SetTransferRateLimitRequest = {
 
   fromJSON(object: any): SetTransferRateLimitRequest {
     return {
+      $type: SetTransferRateLimitRequest.$type,
       chain: isSet(object.chain) ? gt.String(object.chain) : "",
       limit: isSet(object.limit) ? Coin.fromJSON(object.limit) : undefined,
       window: isSet(object.window) ? Duration.fromJSON(object.window) : undefined,
@@ -781,11 +865,15 @@ export const SetTransferRateLimitRequest = {
   },
 };
 
+messageTypeRegistry.set(SetTransferRateLimitRequest.$type, SetTransferRateLimitRequest);
+
 function createBaseSetTransferRateLimitResponse(): SetTransferRateLimitResponse {
-  return {};
+  return { $type: "axelar.nexus.v1beta1.SetTransferRateLimitResponse" };
 }
 
 export const SetTransferRateLimitResponse = {
+  $type: "axelar.nexus.v1beta1.SetTransferRateLimitResponse" as const,
+
   encode(_: SetTransferRateLimitResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
@@ -807,7 +895,7 @@ export const SetTransferRateLimitResponse = {
   },
 
   fromJSON(_: any): SetTransferRateLimitResponse {
-    return {};
+    return { $type: SetTransferRateLimitResponse.$type };
   },
 
   toJSON(_: SetTransferRateLimitResponse): unknown {
@@ -827,6 +915,135 @@ export const SetTransferRateLimitResponse = {
     return message;
   },
 };
+
+messageTypeRegistry.set(SetTransferRateLimitResponse.$type, SetTransferRateLimitResponse);
+
+function createBaseUpdateParamsRequest(): UpdateParamsRequest {
+  return { $type: "axelar.nexus.v1beta1.UpdateParamsRequest", authority: "", params: undefined };
+}
+
+export const UpdateParamsRequest = {
+  $type: "axelar.nexus.v1beta1.UpdateParamsRequest" as const,
+
+  encode(message: UpdateParamsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.authority !== "") {
+      writer.uint32(10).string(message.authority);
+    }
+    if (message.params !== undefined) {
+      Params.encode(message.params, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): UpdateParamsRequest {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseUpdateParamsRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 10) {
+            break;
+          }
+
+          message.authority = reader.string();
+          continue;
+        case 2:
+          if (tag !== 18) {
+            break;
+          }
+
+          message.params = Params.decode(reader, reader.uint32());
+          continue;
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): UpdateParamsRequest {
+    return {
+      $type: UpdateParamsRequest.$type,
+      authority: isSet(object.authority) ? gt.String(object.authority) : "",
+      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
+    };
+  },
+
+  toJSON(message: UpdateParamsRequest): unknown {
+    const obj: any = {};
+    if (message.authority !== "") {
+      obj.authority = message.authority;
+    }
+    if (message.params !== undefined) {
+      obj.params = Params.toJSON(message.params);
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<UpdateParamsRequest>, I>>(base?: I): UpdateParamsRequest {
+    return UpdateParamsRequest.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<UpdateParamsRequest>, I>>(object: I): UpdateParamsRequest {
+    const message = createBaseUpdateParamsRequest();
+    message.authority = object.authority ?? "";
+    message.params =
+      object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
+    return message;
+  },
+};
+
+messageTypeRegistry.set(UpdateParamsRequest.$type, UpdateParamsRequest);
+
+function createBaseUpdateParamsResponse(): UpdateParamsResponse {
+  return { $type: "axelar.nexus.v1beta1.UpdateParamsResponse" };
+}
+
+export const UpdateParamsResponse = {
+  $type: "axelar.nexus.v1beta1.UpdateParamsResponse" as const,
+
+  encode(_: UpdateParamsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): UpdateParamsResponse {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseUpdateParamsResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(_: any): UpdateParamsResponse {
+    return { $type: UpdateParamsResponse.$type };
+  },
+
+  toJSON(_: UpdateParamsResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<UpdateParamsResponse>, I>>(base?: I): UpdateParamsResponse {
+    return UpdateParamsResponse.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<UpdateParamsResponse>, I>>(_: I): UpdateParamsResponse {
+    const message = createBaseUpdateParamsResponse();
+    return message;
+  },
+};
+
+messageTypeRegistry.set(UpdateParamsResponse.$type, UpdateParamsResponse);
 
 declare const self: any | undefined;
 declare const window: any | undefined;
@@ -858,13 +1075,13 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

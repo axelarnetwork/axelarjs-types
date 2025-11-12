@@ -9,11 +9,13 @@ import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import { Duration } from "../../../google/protobuf/duration";
+import { messageTypeRegistry } from "../../../typeRegistry";
 import { CrossChainAddress, WasmMessage } from "../exported/v1beta1/types";
 
 export const protobufPackage = "axelar.nexus.v1beta1";
 
 export interface FeeDeducted {
+  $type: "axelar.nexus.v1beta1.FeeDeducted";
   transferId: Long;
   recipientChain: string;
   recipientAddress: string;
@@ -22,6 +24,7 @@ export interface FeeDeducted {
 }
 
 export interface InsufficientFee {
+  $type: "axelar.nexus.v1beta1.InsufficientFee";
   transferId: Long;
   recipientChain: string;
   recipientAddress: string;
@@ -30,12 +33,14 @@ export interface InsufficientFee {
 }
 
 export interface RateLimitUpdated {
+  $type: "axelar.nexus.v1beta1.RateLimitUpdated";
   chain: string;
   limit?: Coin | undefined;
   window?: Duration | undefined;
 }
 
 export interface MessageReceived {
+  $type: "axelar.nexus.v1beta1.MessageReceived";
   id: string;
   payloadHash: Buffer;
   sender?: CrossChainAddress | undefined;
@@ -43,29 +48,34 @@ export interface MessageReceived {
 }
 
 export interface MessageProcessing {
+  $type: "axelar.nexus.v1beta1.MessageProcessing";
   id: string;
   sourceChain: string;
   destinationChain: string;
 }
 
 export interface MessageExecuted {
+  $type: "axelar.nexus.v1beta1.MessageExecuted";
   id: string;
   sourceChain: string;
   destinationChain: string;
 }
 
 export interface MessageFailed {
+  $type: "axelar.nexus.v1beta1.MessageFailed";
   id: string;
   sourceChain: string;
   destinationChain: string;
 }
 
 export interface WasmMessageRouted {
+  $type: "axelar.nexus.v1beta1.WasmMessageRouted";
   message?: WasmMessage | undefined;
 }
 
 function createBaseFeeDeducted(): FeeDeducted {
   return {
+    $type: "axelar.nexus.v1beta1.FeeDeducted",
     transferId: Long.UZERO,
     recipientChain: "",
     recipientAddress: "",
@@ -75,6 +85,8 @@ function createBaseFeeDeducted(): FeeDeducted {
 }
 
 export const FeeDeducted = {
+  $type: "axelar.nexus.v1beta1.FeeDeducted" as const,
+
   encode(message: FeeDeducted, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.transferId.equals(Long.UZERO)) {
       writer.uint32(8).uint64(message.transferId);
@@ -147,6 +159,7 @@ export const FeeDeducted = {
 
   fromJSON(object: any): FeeDeducted {
     return {
+      $type: FeeDeducted.$type,
       transferId: isSet(object.transferId) ? Long.fromValue(object.transferId) : Long.UZERO,
       recipientChain: isSet(object.recipientChain) ? gt.String(object.recipientChain) : "",
       recipientAddress: isSet(object.recipientAddress) ? gt.String(object.recipientAddress) : "",
@@ -193,8 +206,11 @@ export const FeeDeducted = {
   },
 };
 
+messageTypeRegistry.set(FeeDeducted.$type, FeeDeducted);
+
 function createBaseInsufficientFee(): InsufficientFee {
   return {
+    $type: "axelar.nexus.v1beta1.InsufficientFee",
     transferId: Long.UZERO,
     recipientChain: "",
     recipientAddress: "",
@@ -204,6 +220,8 @@ function createBaseInsufficientFee(): InsufficientFee {
 }
 
 export const InsufficientFee = {
+  $type: "axelar.nexus.v1beta1.InsufficientFee" as const,
+
   encode(message: InsufficientFee, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.transferId.equals(Long.UZERO)) {
       writer.uint32(8).uint64(message.transferId);
@@ -276,6 +294,7 @@ export const InsufficientFee = {
 
   fromJSON(object: any): InsufficientFee {
     return {
+      $type: InsufficientFee.$type,
       transferId: isSet(object.transferId) ? Long.fromValue(object.transferId) : Long.UZERO,
       recipientChain: isSet(object.recipientChain) ? gt.String(object.recipientChain) : "",
       recipientAddress: isSet(object.recipientAddress) ? gt.String(object.recipientAddress) : "",
@@ -322,11 +341,15 @@ export const InsufficientFee = {
   },
 };
 
+messageTypeRegistry.set(InsufficientFee.$type, InsufficientFee);
+
 function createBaseRateLimitUpdated(): RateLimitUpdated {
-  return { chain: "", limit: undefined, window: undefined };
+  return { $type: "axelar.nexus.v1beta1.RateLimitUpdated", chain: "", limit: undefined, window: undefined };
 }
 
 export const RateLimitUpdated = {
+  $type: "axelar.nexus.v1beta1.RateLimitUpdated" as const,
+
   encode(message: RateLimitUpdated, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.chain !== "") {
       writer.uint32(10).string(message.chain);
@@ -379,6 +402,7 @@ export const RateLimitUpdated = {
 
   fromJSON(object: any): RateLimitUpdated {
     return {
+      $type: RateLimitUpdated.$type,
       chain: isSet(object.chain) ? gt.String(object.chain) : "",
       limit: isSet(object.limit) ? Coin.fromJSON(object.limit) : undefined,
       window: isSet(object.window) ? Duration.fromJSON(object.window) : undefined,
@@ -413,11 +437,21 @@ export const RateLimitUpdated = {
   },
 };
 
+messageTypeRegistry.set(RateLimitUpdated.$type, RateLimitUpdated);
+
 function createBaseMessageReceived(): MessageReceived {
-  return { id: "", payloadHash: Buffer.alloc(0), sender: undefined, recipient: undefined };
+  return {
+    $type: "axelar.nexus.v1beta1.MessageReceived",
+    id: "",
+    payloadHash: Buffer.alloc(0),
+    sender: undefined,
+    recipient: undefined,
+  };
 }
 
 export const MessageReceived = {
+  $type: "axelar.nexus.v1beta1.MessageReceived" as const,
+
   encode(message: MessageReceived, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.id !== "") {
       writer.uint32(10).string(message.id);
@@ -480,6 +514,7 @@ export const MessageReceived = {
 
   fromJSON(object: any): MessageReceived {
     return {
+      $type: MessageReceived.$type,
       id: isSet(object.id) ? gt.String(object.id) : "",
       payloadHash: isSet(object.payloadHash)
         ? Buffer.from(bytesFromBase64(object.payloadHash))
@@ -525,11 +560,15 @@ export const MessageReceived = {
   },
 };
 
+messageTypeRegistry.set(MessageReceived.$type, MessageReceived);
+
 function createBaseMessageProcessing(): MessageProcessing {
-  return { id: "", sourceChain: "", destinationChain: "" };
+  return { $type: "axelar.nexus.v1beta1.MessageProcessing", id: "", sourceChain: "", destinationChain: "" };
 }
 
 export const MessageProcessing = {
+  $type: "axelar.nexus.v1beta1.MessageProcessing" as const,
+
   encode(message: MessageProcessing, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.id !== "") {
       writer.uint32(10).string(message.id);
@@ -582,6 +621,7 @@ export const MessageProcessing = {
 
   fromJSON(object: any): MessageProcessing {
     return {
+      $type: MessageProcessing.$type,
       id: isSet(object.id) ? gt.String(object.id) : "",
       sourceChain: isSet(object.sourceChain) ? gt.String(object.sourceChain) : "",
       destinationChain: isSet(object.destinationChain) ? gt.String(object.destinationChain) : "",
@@ -614,11 +654,15 @@ export const MessageProcessing = {
   },
 };
 
+messageTypeRegistry.set(MessageProcessing.$type, MessageProcessing);
+
 function createBaseMessageExecuted(): MessageExecuted {
-  return { id: "", sourceChain: "", destinationChain: "" };
+  return { $type: "axelar.nexus.v1beta1.MessageExecuted", id: "", sourceChain: "", destinationChain: "" };
 }
 
 export const MessageExecuted = {
+  $type: "axelar.nexus.v1beta1.MessageExecuted" as const,
+
   encode(message: MessageExecuted, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.id !== "") {
       writer.uint32(10).string(message.id);
@@ -671,6 +715,7 @@ export const MessageExecuted = {
 
   fromJSON(object: any): MessageExecuted {
     return {
+      $type: MessageExecuted.$type,
       id: isSet(object.id) ? gt.String(object.id) : "",
       sourceChain: isSet(object.sourceChain) ? gt.String(object.sourceChain) : "",
       destinationChain: isSet(object.destinationChain) ? gt.String(object.destinationChain) : "",
@@ -703,11 +748,15 @@ export const MessageExecuted = {
   },
 };
 
+messageTypeRegistry.set(MessageExecuted.$type, MessageExecuted);
+
 function createBaseMessageFailed(): MessageFailed {
-  return { id: "", sourceChain: "", destinationChain: "" };
+  return { $type: "axelar.nexus.v1beta1.MessageFailed", id: "", sourceChain: "", destinationChain: "" };
 }
 
 export const MessageFailed = {
+  $type: "axelar.nexus.v1beta1.MessageFailed" as const,
+
   encode(message: MessageFailed, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.id !== "") {
       writer.uint32(10).string(message.id);
@@ -760,6 +809,7 @@ export const MessageFailed = {
 
   fromJSON(object: any): MessageFailed {
     return {
+      $type: MessageFailed.$type,
       id: isSet(object.id) ? gt.String(object.id) : "",
       sourceChain: isSet(object.sourceChain) ? gt.String(object.sourceChain) : "",
       destinationChain: isSet(object.destinationChain) ? gt.String(object.destinationChain) : "",
@@ -792,11 +842,15 @@ export const MessageFailed = {
   },
 };
 
+messageTypeRegistry.set(MessageFailed.$type, MessageFailed);
+
 function createBaseWasmMessageRouted(): WasmMessageRouted {
-  return { message: undefined };
+  return { $type: "axelar.nexus.v1beta1.WasmMessageRouted", message: undefined };
 }
 
 export const WasmMessageRouted = {
+  $type: "axelar.nexus.v1beta1.WasmMessageRouted" as const,
+
   encode(message: WasmMessageRouted, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.message !== undefined) {
       WasmMessage.encode(message.message, writer.uint32(10).fork()).ldelim();
@@ -828,7 +882,10 @@ export const WasmMessageRouted = {
   },
 
   fromJSON(object: any): WasmMessageRouted {
-    return { message: isSet(object.message) ? WasmMessage.fromJSON(object.message) : undefined };
+    return {
+      $type: WasmMessageRouted.$type,
+      message: isSet(object.message) ? WasmMessage.fromJSON(object.message) : undefined,
+    };
   },
 
   toJSON(message: WasmMessageRouted): unknown {
@@ -851,6 +908,8 @@ export const WasmMessageRouted = {
     return message;
   },
 };
+
+messageTypeRegistry.set(WasmMessageRouted.$type, WasmMessageRouted);
 
 declare const self: any | undefined;
 declare const window: any | undefined;
@@ -890,13 +949,13 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

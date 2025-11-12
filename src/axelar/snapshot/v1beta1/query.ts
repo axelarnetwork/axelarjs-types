@@ -7,15 +7,18 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { messageTypeRegistry } from "../../../typeRegistry";
 import { Params } from "./params";
 
 export const protobufPackage = "axelar.snapshot.v1beta1";
 
 export interface QueryValidatorsResponse {
+  $type: "axelar.snapshot.v1beta1.QueryValidatorsResponse";
   validators: QueryValidatorsResponse_Validator[];
 }
 
 export interface QueryValidatorsResponse_TssIllegibilityInfo {
+  $type: "axelar.snapshot.v1beta1.QueryValidatorsResponse.TssIllegibilityInfo";
   tombstoned: boolean;
   jailed: boolean;
   missedTooManyBlocks: boolean;
@@ -26,15 +29,19 @@ export interface QueryValidatorsResponse_TssIllegibilityInfo {
 }
 
 export interface QueryValidatorsResponse_Validator {
+  $type: "axelar.snapshot.v1beta1.QueryValidatorsResponse.Validator";
   operatorAddress: string;
   moniker: string;
   tssIllegibilityInfo?: QueryValidatorsResponse_TssIllegibilityInfo | undefined;
 }
 
 /** ParamsRequest represents a message that queries the params */
-export interface ParamsRequest {}
+export interface ParamsRequest {
+  $type: "axelar.snapshot.v1beta1.ParamsRequest";
+}
 
 export interface ParamsResponse {
+  $type: "axelar.snapshot.v1beta1.ParamsResponse";
   params?: Params | undefined;
 }
 
@@ -43,10 +50,12 @@ export interface ParamsResponse {
  * proxy address
  */
 export interface OperatorByProxyRequest {
+  $type: "axelar.snapshot.v1beta1.OperatorByProxyRequest";
   proxyAddress: string;
 }
 
 export interface OperatorByProxyResponse {
+  $type: "axelar.snapshot.v1beta1.OperatorByProxyResponse";
   operatorAddress: string;
 }
 
@@ -55,10 +64,12 @@ export interface OperatorByProxyResponse {
  * operator address
  */
 export interface ProxyByOperatorRequest {
+  $type: "axelar.snapshot.v1beta1.ProxyByOperatorRequest";
   operatorAddress: string;
 }
 
 export interface ProxyByOperatorResponse {
+  $type: "axelar.snapshot.v1beta1.ProxyByOperatorResponse";
   proxyAddress: string;
   status: ProxyByOperatorResponse_Status;
 }
@@ -103,10 +114,12 @@ export function proxyByOperatorResponse_StatusToJSON(object: ProxyByOperatorResp
 }
 
 function createBaseQueryValidatorsResponse(): QueryValidatorsResponse {
-  return { validators: [] };
+  return { $type: "axelar.snapshot.v1beta1.QueryValidatorsResponse", validators: [] };
 }
 
 export const QueryValidatorsResponse = {
+  $type: "axelar.snapshot.v1beta1.QueryValidatorsResponse" as const,
+
   encode(message: QueryValidatorsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.validators) {
       QueryValidatorsResponse_Validator.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -139,6 +152,7 @@ export const QueryValidatorsResponse = {
 
   fromJSON(object: any): QueryValidatorsResponse {
     return {
+      $type: QueryValidatorsResponse.$type,
       validators: gt.Array.isArray(object?.validators)
         ? object.validators.map((e: any) => QueryValidatorsResponse_Validator.fromJSON(e))
         : [],
@@ -164,8 +178,11 @@ export const QueryValidatorsResponse = {
   },
 };
 
+messageTypeRegistry.set(QueryValidatorsResponse.$type, QueryValidatorsResponse);
+
 function createBaseQueryValidatorsResponse_TssIllegibilityInfo(): QueryValidatorsResponse_TssIllegibilityInfo {
   return {
+    $type: "axelar.snapshot.v1beta1.QueryValidatorsResponse.TssIllegibilityInfo",
     tombstoned: false,
     jailed: false,
     missedTooManyBlocks: false,
@@ -177,6 +194,8 @@ function createBaseQueryValidatorsResponse_TssIllegibilityInfo(): QueryValidator
 }
 
 export const QueryValidatorsResponse_TssIllegibilityInfo = {
+  $type: "axelar.snapshot.v1beta1.QueryValidatorsResponse.TssIllegibilityInfo" as const,
+
   encode(
     message: QueryValidatorsResponse_TssIllegibilityInfo,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -272,6 +291,7 @@ export const QueryValidatorsResponse_TssIllegibilityInfo = {
 
   fromJSON(object: any): QueryValidatorsResponse_TssIllegibilityInfo {
     return {
+      $type: QueryValidatorsResponse_TssIllegibilityInfo.$type,
       tombstoned: isSet(object.tombstoned) ? gt.Boolean(object.tombstoned) : false,
       jailed: isSet(object.jailed) ? gt.Boolean(object.jailed) : false,
       missedTooManyBlocks: isSet(object.missedTooManyBlocks) ? gt.Boolean(object.missedTooManyBlocks) : false,
@@ -330,11 +350,23 @@ export const QueryValidatorsResponse_TssIllegibilityInfo = {
   },
 };
 
+messageTypeRegistry.set(
+  QueryValidatorsResponse_TssIllegibilityInfo.$type,
+  QueryValidatorsResponse_TssIllegibilityInfo,
+);
+
 function createBaseQueryValidatorsResponse_Validator(): QueryValidatorsResponse_Validator {
-  return { operatorAddress: "", moniker: "", tssIllegibilityInfo: undefined };
+  return {
+    $type: "axelar.snapshot.v1beta1.QueryValidatorsResponse.Validator",
+    operatorAddress: "",
+    moniker: "",
+    tssIllegibilityInfo: undefined,
+  };
 }
 
 export const QueryValidatorsResponse_Validator = {
+  $type: "axelar.snapshot.v1beta1.QueryValidatorsResponse.Validator" as const,
+
   encode(message: QueryValidatorsResponse_Validator, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.operatorAddress !== "") {
       writer.uint32(10).string(message.operatorAddress);
@@ -393,6 +425,7 @@ export const QueryValidatorsResponse_Validator = {
 
   fromJSON(object: any): QueryValidatorsResponse_Validator {
     return {
+      $type: QueryValidatorsResponse_Validator.$type,
       operatorAddress: isSet(object.operatorAddress) ? gt.String(object.operatorAddress) : "",
       moniker: isSet(object.moniker) ? gt.String(object.moniker) : "",
       tssIllegibilityInfo: isSet(object.tssIllegibilityInfo)
@@ -436,11 +469,15 @@ export const QueryValidatorsResponse_Validator = {
   },
 };
 
+messageTypeRegistry.set(QueryValidatorsResponse_Validator.$type, QueryValidatorsResponse_Validator);
+
 function createBaseParamsRequest(): ParamsRequest {
-  return {};
+  return { $type: "axelar.snapshot.v1beta1.ParamsRequest" };
 }
 
 export const ParamsRequest = {
+  $type: "axelar.snapshot.v1beta1.ParamsRequest" as const,
+
   encode(_: ParamsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
@@ -462,7 +499,7 @@ export const ParamsRequest = {
   },
 
   fromJSON(_: any): ParamsRequest {
-    return {};
+    return { $type: ParamsRequest.$type };
   },
 
   toJSON(_: ParamsRequest): unknown {
@@ -479,11 +516,15 @@ export const ParamsRequest = {
   },
 };
 
+messageTypeRegistry.set(ParamsRequest.$type, ParamsRequest);
+
 function createBaseParamsResponse(): ParamsResponse {
-  return { params: undefined };
+  return { $type: "axelar.snapshot.v1beta1.ParamsResponse", params: undefined };
 }
 
 export const ParamsResponse = {
+  $type: "axelar.snapshot.v1beta1.ParamsResponse" as const,
+
   encode(message: ParamsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
@@ -515,7 +556,10 @@ export const ParamsResponse = {
   },
 
   fromJSON(object: any): ParamsResponse {
-    return { params: isSet(object.params) ? Params.fromJSON(object.params) : undefined };
+    return {
+      $type: ParamsResponse.$type,
+      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
+    };
   },
 
   toJSON(message: ParamsResponse): unknown {
@@ -537,11 +581,15 @@ export const ParamsResponse = {
   },
 };
 
+messageTypeRegistry.set(ParamsResponse.$type, ParamsResponse);
+
 function createBaseOperatorByProxyRequest(): OperatorByProxyRequest {
-  return { proxyAddress: "" };
+  return { $type: "axelar.snapshot.v1beta1.OperatorByProxyRequest", proxyAddress: "" };
 }
 
 export const OperatorByProxyRequest = {
+  $type: "axelar.snapshot.v1beta1.OperatorByProxyRequest" as const,
+
   encode(message: OperatorByProxyRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.proxyAddress !== "") {
       writer.uint32(10).string(message.proxyAddress);
@@ -573,7 +621,10 @@ export const OperatorByProxyRequest = {
   },
 
   fromJSON(object: any): OperatorByProxyRequest {
-    return { proxyAddress: isSet(object.proxyAddress) ? gt.String(object.proxyAddress) : "" };
+    return {
+      $type: OperatorByProxyRequest.$type,
+      proxyAddress: isSet(object.proxyAddress) ? gt.String(object.proxyAddress) : "",
+    };
   },
 
   toJSON(message: OperatorByProxyRequest): unknown {
@@ -594,11 +645,15 @@ export const OperatorByProxyRequest = {
   },
 };
 
+messageTypeRegistry.set(OperatorByProxyRequest.$type, OperatorByProxyRequest);
+
 function createBaseOperatorByProxyResponse(): OperatorByProxyResponse {
-  return { operatorAddress: "" };
+  return { $type: "axelar.snapshot.v1beta1.OperatorByProxyResponse", operatorAddress: "" };
 }
 
 export const OperatorByProxyResponse = {
+  $type: "axelar.snapshot.v1beta1.OperatorByProxyResponse" as const,
+
   encode(message: OperatorByProxyResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.operatorAddress !== "") {
       writer.uint32(10).string(message.operatorAddress);
@@ -630,7 +685,10 @@ export const OperatorByProxyResponse = {
   },
 
   fromJSON(object: any): OperatorByProxyResponse {
-    return { operatorAddress: isSet(object.operatorAddress) ? gt.String(object.operatorAddress) : "" };
+    return {
+      $type: OperatorByProxyResponse.$type,
+      operatorAddress: isSet(object.operatorAddress) ? gt.String(object.operatorAddress) : "",
+    };
   },
 
   toJSON(message: OperatorByProxyResponse): unknown {
@@ -651,11 +709,15 @@ export const OperatorByProxyResponse = {
   },
 };
 
+messageTypeRegistry.set(OperatorByProxyResponse.$type, OperatorByProxyResponse);
+
 function createBaseProxyByOperatorRequest(): ProxyByOperatorRequest {
-  return { operatorAddress: "" };
+  return { $type: "axelar.snapshot.v1beta1.ProxyByOperatorRequest", operatorAddress: "" };
 }
 
 export const ProxyByOperatorRequest = {
+  $type: "axelar.snapshot.v1beta1.ProxyByOperatorRequest" as const,
+
   encode(message: ProxyByOperatorRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.operatorAddress !== "") {
       writer.uint32(10).string(message.operatorAddress);
@@ -687,7 +749,10 @@ export const ProxyByOperatorRequest = {
   },
 
   fromJSON(object: any): ProxyByOperatorRequest {
-    return { operatorAddress: isSet(object.operatorAddress) ? gt.String(object.operatorAddress) : "" };
+    return {
+      $type: ProxyByOperatorRequest.$type,
+      operatorAddress: isSet(object.operatorAddress) ? gt.String(object.operatorAddress) : "",
+    };
   },
 
   toJSON(message: ProxyByOperatorRequest): unknown {
@@ -708,11 +773,15 @@ export const ProxyByOperatorRequest = {
   },
 };
 
+messageTypeRegistry.set(ProxyByOperatorRequest.$type, ProxyByOperatorRequest);
+
 function createBaseProxyByOperatorResponse(): ProxyByOperatorResponse {
-  return { proxyAddress: "", status: 0 };
+  return { $type: "axelar.snapshot.v1beta1.ProxyByOperatorResponse", proxyAddress: "", status: 0 };
 }
 
 export const ProxyByOperatorResponse = {
+  $type: "axelar.snapshot.v1beta1.ProxyByOperatorResponse" as const,
+
   encode(message: ProxyByOperatorResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.proxyAddress !== "") {
       writer.uint32(10).string(message.proxyAddress);
@@ -755,6 +824,7 @@ export const ProxyByOperatorResponse = {
 
   fromJSON(object: any): ProxyByOperatorResponse {
     return {
+      $type: ProxyByOperatorResponse.$type,
       proxyAddress: isSet(object.proxyAddress) ? gt.String(object.proxyAddress) : "",
       status: isSet(object.status) ? proxyByOperatorResponse_StatusFromJSON(object.status) : 0,
     };
@@ -781,6 +851,8 @@ export const ProxyByOperatorResponse = {
     return message;
   },
 };
+
+messageTypeRegistry.set(ProxyByOperatorResponse.$type, ProxyByOperatorResponse);
 
 declare const self: any | undefined;
 declare const window: any | undefined;
@@ -812,13 +884,13 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

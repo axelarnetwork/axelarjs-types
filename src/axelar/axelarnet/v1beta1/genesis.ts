@@ -7,6 +7,7 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { messageTypeRegistry } from "../../../typeRegistry";
 import { QueueState } from "../../utils/v1beta1/queuer";
 import { Params } from "./params";
 import { CosmosChain, IBCTransfer } from "./types";
@@ -14,6 +15,7 @@ import { CosmosChain, IBCTransfer } from "./types";
 export const protobufPackage = "axelar.axelarnet.v1beta1";
 
 export interface GenesisState {
+  $type: "axelar.axelarnet.v1beta1.GenesisState";
   params?: Params | undefined;
   collectorAddress: Buffer;
   chains: CosmosChain[];
@@ -23,12 +25,14 @@ export interface GenesisState {
 }
 
 export interface GenesisState_SeqIdMappingEntry {
+  $type: "axelar.axelarnet.v1beta1.GenesisState.SeqIdMappingEntry";
   key: string;
   value: Long;
 }
 
 function createBaseGenesisState(): GenesisState {
   return {
+    $type: "axelar.axelarnet.v1beta1.GenesisState",
     params: undefined,
     collectorAddress: Buffer.alloc(0),
     chains: [],
@@ -39,6 +43,8 @@ function createBaseGenesisState(): GenesisState {
 }
 
 export const GenesisState = {
+  $type: "axelar.axelarnet.v1beta1.GenesisState" as const,
+
   encode(message: GenesisState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
@@ -56,7 +62,14 @@ export const GenesisState = {
       IBCTransfer.encode(v!, writer.uint32(58).fork()).ldelim();
     }
     Object.entries(message.seqIdMapping).forEach(([key, value]) => {
-      GenesisState_SeqIdMappingEntry.encode({ key: key as any, value }, writer.uint32(66).fork()).ldelim();
+      GenesisState_SeqIdMappingEntry.encode(
+        {
+          $type: "axelar.axelarnet.v1beta1.GenesisState.SeqIdMappingEntry",
+          key: key as any,
+          value,
+        },
+        writer.uint32(66).fork(),
+      ).ldelim();
     });
     return writer;
   },
@@ -124,6 +137,7 @@ export const GenesisState = {
 
   fromJSON(object: any): GenesisState {
     return {
+      $type: GenesisState.$type,
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
       collectorAddress: isSet(object.collectorAddress)
         ? Buffer.from(bytesFromBase64(object.collectorAddress))
@@ -198,11 +212,15 @@ export const GenesisState = {
   },
 };
 
+messageTypeRegistry.set(GenesisState.$type, GenesisState);
+
 function createBaseGenesisState_SeqIdMappingEntry(): GenesisState_SeqIdMappingEntry {
-  return { key: "", value: Long.UZERO };
+  return { $type: "axelar.axelarnet.v1beta1.GenesisState.SeqIdMappingEntry", key: "", value: Long.UZERO };
 }
 
 export const GenesisState_SeqIdMappingEntry = {
+  $type: "axelar.axelarnet.v1beta1.GenesisState.SeqIdMappingEntry" as const,
+
   encode(message: GenesisState_SeqIdMappingEntry, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.key !== "") {
       writer.uint32(10).string(message.key);
@@ -245,6 +263,7 @@ export const GenesisState_SeqIdMappingEntry = {
 
   fromJSON(object: any): GenesisState_SeqIdMappingEntry {
     return {
+      $type: GenesisState_SeqIdMappingEntry.$type,
       key: isSet(object.key) ? gt.String(object.key) : "",
       value: isSet(object.value) ? Long.fromValue(object.value) : Long.UZERO,
     };
@@ -276,6 +295,8 @@ export const GenesisState_SeqIdMappingEntry = {
     return message;
   },
 };
+
+messageTypeRegistry.set(GenesisState_SeqIdMappingEntry.$type, GenesisState_SeqIdMappingEntry);
 
 declare const self: any | undefined;
 declare const window: any | undefined;
@@ -315,13 +336,13 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

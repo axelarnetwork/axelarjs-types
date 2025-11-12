@@ -19,6 +19,8 @@ import {
   RegisterControllerResponse,
   UpdateGovernanceKeyRequest,
   UpdateGovernanceKeyResponse,
+  UpdateParamsRequest,
+  UpdateParamsResponse,
 } from "./tx";
 
 export const protobufPackage = "axelar.permission.v1beta1";
@@ -28,6 +30,7 @@ export interface Msg {
   RegisterController(request: RegisterControllerRequest): Promise<RegisterControllerResponse>;
   DeregisterController(request: DeregisterControllerRequest): Promise<DeregisterControllerResponse>;
   UpdateGovernanceKey(request: UpdateGovernanceKeyRequest): Promise<UpdateGovernanceKeyResponse>;
+  UpdateParams(request: UpdateParamsRequest): Promise<UpdateParamsResponse>;
 }
 
 export const MsgServiceName = "axelar.permission.v1beta1.Msg";
@@ -40,6 +43,7 @@ export class MsgClientImpl implements Msg {
     this.RegisterController = this.RegisterController.bind(this);
     this.DeregisterController = this.DeregisterController.bind(this);
     this.UpdateGovernanceKey = this.UpdateGovernanceKey.bind(this);
+    this.UpdateParams = this.UpdateParams.bind(this);
   }
   RegisterController(request: RegisterControllerRequest): Promise<RegisterControllerResponse> {
     const data = RegisterControllerRequest.encode(request).finish();
@@ -57,6 +61,12 @@ export class MsgClientImpl implements Msg {
     const data = UpdateGovernanceKeyRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "UpdateGovernanceKey", data);
     return promise.then((data) => UpdateGovernanceKeyResponse.decode(_m0.Reader.create(data)));
+  }
+
+  UpdateParams(request: UpdateParamsRequest): Promise<UpdateParamsResponse> {
+    const data = UpdateParamsRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "UpdateParams", data);
+    return promise.then((data) => UpdateParamsResponse.decode(_m0.Reader.create(data)));
   }
 }
 

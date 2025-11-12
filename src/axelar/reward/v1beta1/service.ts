@@ -7,13 +7,14 @@
 /* eslint-disable */
 import _m0 from "protobufjs/minimal";
 import { InflationRateRequest, InflationRateResponse, ParamsRequest, ParamsResponse } from "./query";
-import { RefundMsgRequest, RefundMsgResponse } from "./tx";
+import { RefundMsgRequest, RefundMsgResponse, UpdateParamsRequest, UpdateParamsResponse } from "./tx";
 
 export const protobufPackage = "axelar.reward.v1beta1";
 
 /** Msg defines the axelarnet Msg service. */
 export interface MsgService {
   RefundMsg(request: RefundMsgRequest): Promise<RefundMsgResponse>;
+  UpdateParams(request: UpdateParamsRequest): Promise<UpdateParamsResponse>;
 }
 
 export const MsgServiceServiceName = "axelar.reward.v1beta1.MsgService";
@@ -24,11 +25,18 @@ export class MsgServiceClientImpl implements MsgService {
     this.service = opts?.service || MsgServiceServiceName;
     this.rpc = rpc;
     this.RefundMsg = this.RefundMsg.bind(this);
+    this.UpdateParams = this.UpdateParams.bind(this);
   }
   RefundMsg(request: RefundMsgRequest): Promise<RefundMsgResponse> {
     const data = RefundMsgRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "RefundMsg", data);
     return promise.then((data) => RefundMsgResponse.decode(_m0.Reader.create(data)));
+  }
+
+  UpdateParams(request: UpdateParamsRequest): Promise<UpdateParamsResponse> {
+    const data = UpdateParamsRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "UpdateParams", data);
+    return promise.then((data) => UpdateParamsResponse.decode(_m0.Reader.create(data)));
   }
 }
 

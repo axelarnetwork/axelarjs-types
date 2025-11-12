@@ -7,6 +7,7 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { messageTypeRegistry } from "../../../typeRegistry";
 import { Threshold } from "../../utils/v1beta1/threshold";
 import { KeyRequirement } from "../exported/v1beta1/types";
 
@@ -14,6 +15,7 @@ export const protobufPackage = "axelar.tss.v1beta1";
 
 /** Params is the parameter set for this module */
 export interface Params {
+  $type: "axelar.tss.v1beta1.Params";
   /** KeyRequirements defines the requirement for each key role */
   keyRequirements: KeyRequirement[];
   /**
@@ -37,6 +39,7 @@ export interface Params {
 
 function createBaseParams(): Params {
   return {
+    $type: "axelar.tss.v1beta1.Params",
     keyRequirements: [],
     suspendDurationInBlocks: Long.ZERO,
     heartbeatPeriodInBlocks: Long.ZERO,
@@ -50,6 +53,8 @@ function createBaseParams(): Params {
 }
 
 export const Params = {
+  $type: "axelar.tss.v1beta1.Params" as const,
+
   encode(message: Params, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.keyRequirements) {
       KeyRequirement.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -162,6 +167,7 @@ export const Params = {
 
   fromJSON(object: any): Params {
     return {
+      $type: Params.$type,
       keyRequirements: gt.Array.isArray(object?.keyRequirements)
         ? object.keyRequirements.map((e: any) => KeyRequirement.fromJSON(e))
         : [],
@@ -267,6 +273,8 @@ export const Params = {
   },
 };
 
+messageTypeRegistry.set(Params.$type, Params);
+
 declare const self: any | undefined;
 declare const window: any | undefined;
 declare const global: any | undefined;
@@ -297,13 +305,13 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

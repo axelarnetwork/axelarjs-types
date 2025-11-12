@@ -7,6 +7,7 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { messageTypeRegistry } from "../typeRegistry";
 
 export const protobufPackage = "cosmos_proto";
 
@@ -54,6 +55,7 @@ export function scalarTypeToJSON(object: ScalarType): string {
  * accepts_interface and implements_interface and declared by declare_interface.
  */
 export interface InterfaceDescriptor {
+  $type: "cosmos_proto.InterfaceDescriptor";
   /**
    * name is the name of the interface. It should be a short-name (without
    * a period) such that the fully qualified name of the interface will be
@@ -78,6 +80,7 @@ export interface InterfaceDescriptor {
  * i.e. the encoding should be deterministic.
  */
 export interface ScalarDescriptor {
+  $type: "cosmos_proto.ScalarDescriptor";
   /**
    * name is the name of the scalar. It should be a short-name (without
    * a period) such that the fully qualified name of the scalar will be
@@ -101,10 +104,12 @@ export interface ScalarDescriptor {
 }
 
 function createBaseInterfaceDescriptor(): InterfaceDescriptor {
-  return { name: "", description: "" };
+  return { $type: "cosmos_proto.InterfaceDescriptor", name: "", description: "" };
 }
 
 export const InterfaceDescriptor = {
+  $type: "cosmos_proto.InterfaceDescriptor" as const,
+
   encode(message: InterfaceDescriptor, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.name !== "") {
       writer.uint32(10).string(message.name);
@@ -147,6 +152,7 @@ export const InterfaceDescriptor = {
 
   fromJSON(object: any): InterfaceDescriptor {
     return {
+      $type: InterfaceDescriptor.$type,
       name: isSet(object.name) ? gt.String(object.name) : "",
       description: isSet(object.description) ? gt.String(object.description) : "",
     };
@@ -174,11 +180,15 @@ export const InterfaceDescriptor = {
   },
 };
 
+messageTypeRegistry.set(InterfaceDescriptor.$type, InterfaceDescriptor);
+
 function createBaseScalarDescriptor(): ScalarDescriptor {
-  return { name: "", description: "", fieldType: [] };
+  return { $type: "cosmos_proto.ScalarDescriptor", name: "", description: "", fieldType: [] };
 }
 
 export const ScalarDescriptor = {
+  $type: "cosmos_proto.ScalarDescriptor" as const,
+
   encode(message: ScalarDescriptor, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.name !== "") {
       writer.uint32(10).string(message.name);
@@ -243,6 +253,7 @@ export const ScalarDescriptor = {
 
   fromJSON(object: any): ScalarDescriptor {
     return {
+      $type: ScalarDescriptor.$type,
       name: isSet(object.name) ? gt.String(object.name) : "",
       description: isSet(object.description) ? gt.String(object.description) : "",
       fieldType: gt.Array.isArray(object?.fieldType)
@@ -277,6 +288,8 @@ export const ScalarDescriptor = {
   },
 };
 
+messageTypeRegistry.set(ScalarDescriptor.$type, ScalarDescriptor);
+
 declare const self: any | undefined;
 declare const window: any | undefined;
 declare const global: any | undefined;
@@ -307,13 +320,13 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

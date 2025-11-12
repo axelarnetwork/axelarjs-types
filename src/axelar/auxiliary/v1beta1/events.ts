@@ -7,19 +7,23 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { messageTypeRegistry } from "../../../typeRegistry";
 
 export const protobufPackage = "axelar.auxiliary.v1beta1";
 
 export interface BatchedMessageFailed {
+  $type: "axelar.auxiliary.v1beta1.BatchedMessageFailed";
   index: number;
   error: string;
 }
 
 function createBaseBatchedMessageFailed(): BatchedMessageFailed {
-  return { index: 0, error: "" };
+  return { $type: "axelar.auxiliary.v1beta1.BatchedMessageFailed", index: 0, error: "" };
 }
 
 export const BatchedMessageFailed = {
+  $type: "axelar.auxiliary.v1beta1.BatchedMessageFailed" as const,
+
   encode(message: BatchedMessageFailed, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.index !== 0) {
       writer.uint32(8).int32(message.index);
@@ -62,6 +66,7 @@ export const BatchedMessageFailed = {
 
   fromJSON(object: any): BatchedMessageFailed {
     return {
+      $type: BatchedMessageFailed.$type,
       index: isSet(object.index) ? gt.Number(object.index) : 0,
       error: isSet(object.error) ? gt.String(object.error) : "",
     };
@@ -88,6 +93,8 @@ export const BatchedMessageFailed = {
     return message;
   },
 };
+
+messageTypeRegistry.set(BatchedMessageFailed.$type, BatchedMessageFailed);
 
 declare const self: any | undefined;
 declare const window: any | undefined;
@@ -119,13 +126,13 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

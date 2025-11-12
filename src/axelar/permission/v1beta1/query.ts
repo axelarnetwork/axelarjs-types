@@ -8,6 +8,7 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { LegacyAminoPubKey } from "../../../cosmos/crypto/multisig/keys";
+import { messageTypeRegistry } from "../../../typeRegistry";
 import { Params } from "./params";
 
 export const protobufPackage = "axelar.permission.v1beta1";
@@ -16,28 +17,36 @@ export const protobufPackage = "axelar.permission.v1beta1";
  * QueryGovernanceKeyRequest is the request type for the
  * Query/GovernanceKey RPC method
  */
-export interface QueryGovernanceKeyRequest {}
+export interface QueryGovernanceKeyRequest {
+  $type: "axelar.permission.v1beta1.QueryGovernanceKeyRequest";
+}
 
 /**
  * QueryGovernanceKeyResponse is the response type for the
  * Query/GovernanceKey RPC method
  */
 export interface QueryGovernanceKeyResponse {
+  $type: "axelar.permission.v1beta1.QueryGovernanceKeyResponse";
   governanceKey?: LegacyAminoPubKey | undefined;
 }
 
 /** ParamsRequest represents a message that queries the params */
-export interface ParamsRequest {}
+export interface ParamsRequest {
+  $type: "axelar.permission.v1beta1.ParamsRequest";
+}
 
 export interface ParamsResponse {
+  $type: "axelar.permission.v1beta1.ParamsResponse";
   params?: Params | undefined;
 }
 
 function createBaseQueryGovernanceKeyRequest(): QueryGovernanceKeyRequest {
-  return {};
+  return { $type: "axelar.permission.v1beta1.QueryGovernanceKeyRequest" };
 }
 
 export const QueryGovernanceKeyRequest = {
+  $type: "axelar.permission.v1beta1.QueryGovernanceKeyRequest" as const,
+
   encode(_: QueryGovernanceKeyRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
@@ -59,7 +68,7 @@ export const QueryGovernanceKeyRequest = {
   },
 
   fromJSON(_: any): QueryGovernanceKeyRequest {
-    return {};
+    return { $type: QueryGovernanceKeyRequest.$type };
   },
 
   toJSON(_: QueryGovernanceKeyRequest): unknown {
@@ -76,11 +85,15 @@ export const QueryGovernanceKeyRequest = {
   },
 };
 
+messageTypeRegistry.set(QueryGovernanceKeyRequest.$type, QueryGovernanceKeyRequest);
+
 function createBaseQueryGovernanceKeyResponse(): QueryGovernanceKeyResponse {
-  return { governanceKey: undefined };
+  return { $type: "axelar.permission.v1beta1.QueryGovernanceKeyResponse", governanceKey: undefined };
 }
 
 export const QueryGovernanceKeyResponse = {
+  $type: "axelar.permission.v1beta1.QueryGovernanceKeyResponse" as const,
+
   encode(message: QueryGovernanceKeyResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.governanceKey !== undefined) {
       LegacyAminoPubKey.encode(message.governanceKey, writer.uint32(10).fork()).ldelim();
@@ -113,6 +126,7 @@ export const QueryGovernanceKeyResponse = {
 
   fromJSON(object: any): QueryGovernanceKeyResponse {
     return {
+      $type: QueryGovernanceKeyResponse.$type,
       governanceKey: isSet(object.governanceKey)
         ? LegacyAminoPubKey.fromJSON(object.governanceKey)
         : undefined,
@@ -142,11 +156,15 @@ export const QueryGovernanceKeyResponse = {
   },
 };
 
+messageTypeRegistry.set(QueryGovernanceKeyResponse.$type, QueryGovernanceKeyResponse);
+
 function createBaseParamsRequest(): ParamsRequest {
-  return {};
+  return { $type: "axelar.permission.v1beta1.ParamsRequest" };
 }
 
 export const ParamsRequest = {
+  $type: "axelar.permission.v1beta1.ParamsRequest" as const,
+
   encode(_: ParamsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
@@ -168,7 +186,7 @@ export const ParamsRequest = {
   },
 
   fromJSON(_: any): ParamsRequest {
-    return {};
+    return { $type: ParamsRequest.$type };
   },
 
   toJSON(_: ParamsRequest): unknown {
@@ -185,11 +203,15 @@ export const ParamsRequest = {
   },
 };
 
+messageTypeRegistry.set(ParamsRequest.$type, ParamsRequest);
+
 function createBaseParamsResponse(): ParamsResponse {
-  return { params: undefined };
+  return { $type: "axelar.permission.v1beta1.ParamsResponse", params: undefined };
 }
 
 export const ParamsResponse = {
+  $type: "axelar.permission.v1beta1.ParamsResponse" as const,
+
   encode(message: ParamsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
@@ -221,7 +243,10 @@ export const ParamsResponse = {
   },
 
   fromJSON(object: any): ParamsResponse {
-    return { params: isSet(object.params) ? Params.fromJSON(object.params) : undefined };
+    return {
+      $type: ParamsResponse.$type,
+      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
+    };
   },
 
   toJSON(message: ParamsResponse): unknown {
@@ -243,6 +268,8 @@ export const ParamsResponse = {
   },
 };
 
+messageTypeRegistry.set(ParamsResponse.$type, ParamsResponse);
+
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 export type DeepPartial<T> = T extends Builtin
@@ -254,13 +281,13 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

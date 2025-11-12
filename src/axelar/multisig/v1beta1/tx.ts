@@ -7,58 +7,90 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { messageTypeRegistry } from "../../../typeRegistry";
+import { Params } from "./params";
 
 export const protobufPackage = "axelar.multisig.v1beta1";
 
 export interface StartKeygenRequest {
+  $type: "axelar.multisig.v1beta1.StartKeygenRequest";
   sender: string;
   keyId: string;
 }
 
-export interface StartKeygenResponse {}
+export interface StartKeygenResponse {
+  $type: "axelar.multisig.v1beta1.StartKeygenResponse";
+}
 
 export interface SubmitPubKeyRequest {
+  $type: "axelar.multisig.v1beta1.SubmitPubKeyRequest";
   sender: string;
   keyId: string;
   pubKey: Buffer;
   signature: Buffer;
 }
 
-export interface SubmitPubKeyResponse {}
+export interface SubmitPubKeyResponse {
+  $type: "axelar.multisig.v1beta1.SubmitPubKeyResponse";
+}
 
 export interface SubmitSignatureRequest {
+  $type: "axelar.multisig.v1beta1.SubmitSignatureRequest";
   sender: string;
   sigId: Long;
   signature: Buffer;
 }
 
-export interface SubmitSignatureResponse {}
+export interface SubmitSignatureResponse {
+  $type: "axelar.multisig.v1beta1.SubmitSignatureResponse";
+}
 
 export interface RotateKeyRequest {
+  $type: "axelar.multisig.v1beta1.RotateKeyRequest";
   sender: string;
   chain: string;
   keyId: string;
 }
 
-export interface RotateKeyResponse {}
+export interface RotateKeyResponse {
+  $type: "axelar.multisig.v1beta1.RotateKeyResponse";
+}
 
 export interface KeygenOptOutRequest {
+  $type: "axelar.multisig.v1beta1.KeygenOptOutRequest";
   sender: string;
 }
 
-export interface KeygenOptOutResponse {}
+export interface KeygenOptOutResponse {
+  $type: "axelar.multisig.v1beta1.KeygenOptOutResponse";
+}
 
 export interface KeygenOptInRequest {
+  $type: "axelar.multisig.v1beta1.KeygenOptInRequest";
   sender: string;
 }
 
-export interface KeygenOptInResponse {}
+export interface KeygenOptInResponse {
+  $type: "axelar.multisig.v1beta1.KeygenOptInResponse";
+}
+
+export interface UpdateParamsRequest {
+  $type: "axelar.multisig.v1beta1.UpdateParamsRequest";
+  authority: string;
+  params?: Params | undefined;
+}
+
+export interface UpdateParamsResponse {
+  $type: "axelar.multisig.v1beta1.UpdateParamsResponse";
+}
 
 function createBaseStartKeygenRequest(): StartKeygenRequest {
-  return { sender: "", keyId: "" };
+  return { $type: "axelar.multisig.v1beta1.StartKeygenRequest", sender: "", keyId: "" };
 }
 
 export const StartKeygenRequest = {
+  $type: "axelar.multisig.v1beta1.StartKeygenRequest" as const,
+
   encode(message: StartKeygenRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.sender !== "") {
       writer.uint32(10).string(message.sender);
@@ -101,6 +133,7 @@ export const StartKeygenRequest = {
 
   fromJSON(object: any): StartKeygenRequest {
     return {
+      $type: StartKeygenRequest.$type,
       sender: isSet(object.sender) ? gt.String(object.sender) : "",
       keyId: isSet(object.keyId) ? gt.String(object.keyId) : "",
     };
@@ -128,11 +161,15 @@ export const StartKeygenRequest = {
   },
 };
 
+messageTypeRegistry.set(StartKeygenRequest.$type, StartKeygenRequest);
+
 function createBaseStartKeygenResponse(): StartKeygenResponse {
-  return {};
+  return { $type: "axelar.multisig.v1beta1.StartKeygenResponse" };
 }
 
 export const StartKeygenResponse = {
+  $type: "axelar.multisig.v1beta1.StartKeygenResponse" as const,
+
   encode(_: StartKeygenResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
@@ -154,7 +191,7 @@ export const StartKeygenResponse = {
   },
 
   fromJSON(_: any): StartKeygenResponse {
-    return {};
+    return { $type: StartKeygenResponse.$type };
   },
 
   toJSON(_: StartKeygenResponse): unknown {
@@ -171,11 +208,21 @@ export const StartKeygenResponse = {
   },
 };
 
+messageTypeRegistry.set(StartKeygenResponse.$type, StartKeygenResponse);
+
 function createBaseSubmitPubKeyRequest(): SubmitPubKeyRequest {
-  return { sender: "", keyId: "", pubKey: Buffer.alloc(0), signature: Buffer.alloc(0) };
+  return {
+    $type: "axelar.multisig.v1beta1.SubmitPubKeyRequest",
+    sender: "",
+    keyId: "",
+    pubKey: Buffer.alloc(0),
+    signature: Buffer.alloc(0),
+  };
 }
 
 export const SubmitPubKeyRequest = {
+  $type: "axelar.multisig.v1beta1.SubmitPubKeyRequest" as const,
+
   encode(message: SubmitPubKeyRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.sender !== "") {
       writer.uint32(10).string(message.sender);
@@ -238,6 +285,7 @@ export const SubmitPubKeyRequest = {
 
   fromJSON(object: any): SubmitPubKeyRequest {
     return {
+      $type: SubmitPubKeyRequest.$type,
       sender: isSet(object.sender) ? gt.String(object.sender) : "",
       keyId: isSet(object.keyId) ? gt.String(object.keyId) : "",
       pubKey: isSet(object.pubKey) ? Buffer.from(bytesFromBase64(object.pubKey)) : Buffer.alloc(0),
@@ -275,11 +323,15 @@ export const SubmitPubKeyRequest = {
   },
 };
 
+messageTypeRegistry.set(SubmitPubKeyRequest.$type, SubmitPubKeyRequest);
+
 function createBaseSubmitPubKeyResponse(): SubmitPubKeyResponse {
-  return {};
+  return { $type: "axelar.multisig.v1beta1.SubmitPubKeyResponse" };
 }
 
 export const SubmitPubKeyResponse = {
+  $type: "axelar.multisig.v1beta1.SubmitPubKeyResponse" as const,
+
   encode(_: SubmitPubKeyResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
@@ -301,7 +353,7 @@ export const SubmitPubKeyResponse = {
   },
 
   fromJSON(_: any): SubmitPubKeyResponse {
-    return {};
+    return { $type: SubmitPubKeyResponse.$type };
   },
 
   toJSON(_: SubmitPubKeyResponse): unknown {
@@ -318,11 +370,20 @@ export const SubmitPubKeyResponse = {
   },
 };
 
+messageTypeRegistry.set(SubmitPubKeyResponse.$type, SubmitPubKeyResponse);
+
 function createBaseSubmitSignatureRequest(): SubmitSignatureRequest {
-  return { sender: "", sigId: Long.UZERO, signature: Buffer.alloc(0) };
+  return {
+    $type: "axelar.multisig.v1beta1.SubmitSignatureRequest",
+    sender: "",
+    sigId: Long.UZERO,
+    signature: Buffer.alloc(0),
+  };
 }
 
 export const SubmitSignatureRequest = {
+  $type: "axelar.multisig.v1beta1.SubmitSignatureRequest" as const,
+
   encode(message: SubmitSignatureRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.sender !== "") {
       writer.uint32(10).string(message.sender);
@@ -375,6 +436,7 @@ export const SubmitSignatureRequest = {
 
   fromJSON(object: any): SubmitSignatureRequest {
     return {
+      $type: SubmitSignatureRequest.$type,
       sender: isSet(object.sender) ? gt.String(object.sender) : "",
       sigId: isSet(object.sigId) ? Long.fromValue(object.sigId) : Long.UZERO,
       signature: isSet(object.signature) ? Buffer.from(bytesFromBase64(object.signature)) : Buffer.alloc(0),
@@ -408,11 +470,15 @@ export const SubmitSignatureRequest = {
   },
 };
 
+messageTypeRegistry.set(SubmitSignatureRequest.$type, SubmitSignatureRequest);
+
 function createBaseSubmitSignatureResponse(): SubmitSignatureResponse {
-  return {};
+  return { $type: "axelar.multisig.v1beta1.SubmitSignatureResponse" };
 }
 
 export const SubmitSignatureResponse = {
+  $type: "axelar.multisig.v1beta1.SubmitSignatureResponse" as const,
+
   encode(_: SubmitSignatureResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
@@ -434,7 +500,7 @@ export const SubmitSignatureResponse = {
   },
 
   fromJSON(_: any): SubmitSignatureResponse {
-    return {};
+    return { $type: SubmitSignatureResponse.$type };
   },
 
   toJSON(_: SubmitSignatureResponse): unknown {
@@ -451,11 +517,15 @@ export const SubmitSignatureResponse = {
   },
 };
 
+messageTypeRegistry.set(SubmitSignatureResponse.$type, SubmitSignatureResponse);
+
 function createBaseRotateKeyRequest(): RotateKeyRequest {
-  return { sender: "", chain: "", keyId: "" };
+  return { $type: "axelar.multisig.v1beta1.RotateKeyRequest", sender: "", chain: "", keyId: "" };
 }
 
 export const RotateKeyRequest = {
+  $type: "axelar.multisig.v1beta1.RotateKeyRequest" as const,
+
   encode(message: RotateKeyRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.sender !== "") {
       writer.uint32(10).string(message.sender);
@@ -508,6 +578,7 @@ export const RotateKeyRequest = {
 
   fromJSON(object: any): RotateKeyRequest {
     return {
+      $type: RotateKeyRequest.$type,
       sender: isSet(object.sender) ? gt.String(object.sender) : "",
       chain: isSet(object.chain) ? gt.String(object.chain) : "",
       keyId: isSet(object.keyId) ? gt.String(object.keyId) : "",
@@ -540,11 +611,15 @@ export const RotateKeyRequest = {
   },
 };
 
+messageTypeRegistry.set(RotateKeyRequest.$type, RotateKeyRequest);
+
 function createBaseRotateKeyResponse(): RotateKeyResponse {
-  return {};
+  return { $type: "axelar.multisig.v1beta1.RotateKeyResponse" };
 }
 
 export const RotateKeyResponse = {
+  $type: "axelar.multisig.v1beta1.RotateKeyResponse" as const,
+
   encode(_: RotateKeyResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
@@ -566,7 +641,7 @@ export const RotateKeyResponse = {
   },
 
   fromJSON(_: any): RotateKeyResponse {
-    return {};
+    return { $type: RotateKeyResponse.$type };
   },
 
   toJSON(_: RotateKeyResponse): unknown {
@@ -583,11 +658,15 @@ export const RotateKeyResponse = {
   },
 };
 
+messageTypeRegistry.set(RotateKeyResponse.$type, RotateKeyResponse);
+
 function createBaseKeygenOptOutRequest(): KeygenOptOutRequest {
-  return { sender: "" };
+  return { $type: "axelar.multisig.v1beta1.KeygenOptOutRequest", sender: "" };
 }
 
 export const KeygenOptOutRequest = {
+  $type: "axelar.multisig.v1beta1.KeygenOptOutRequest" as const,
+
   encode(message: KeygenOptOutRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.sender !== "") {
       writer.uint32(18).string(message.sender);
@@ -619,7 +698,7 @@ export const KeygenOptOutRequest = {
   },
 
   fromJSON(object: any): KeygenOptOutRequest {
-    return { sender: isSet(object.sender) ? gt.String(object.sender) : "" };
+    return { $type: KeygenOptOutRequest.$type, sender: isSet(object.sender) ? gt.String(object.sender) : "" };
   },
 
   toJSON(message: KeygenOptOutRequest): unknown {
@@ -640,11 +719,15 @@ export const KeygenOptOutRequest = {
   },
 };
 
+messageTypeRegistry.set(KeygenOptOutRequest.$type, KeygenOptOutRequest);
+
 function createBaseKeygenOptOutResponse(): KeygenOptOutResponse {
-  return {};
+  return { $type: "axelar.multisig.v1beta1.KeygenOptOutResponse" };
 }
 
 export const KeygenOptOutResponse = {
+  $type: "axelar.multisig.v1beta1.KeygenOptOutResponse" as const,
+
   encode(_: KeygenOptOutResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
@@ -666,7 +749,7 @@ export const KeygenOptOutResponse = {
   },
 
   fromJSON(_: any): KeygenOptOutResponse {
-    return {};
+    return { $type: KeygenOptOutResponse.$type };
   },
 
   toJSON(_: KeygenOptOutResponse): unknown {
@@ -683,11 +766,15 @@ export const KeygenOptOutResponse = {
   },
 };
 
+messageTypeRegistry.set(KeygenOptOutResponse.$type, KeygenOptOutResponse);
+
 function createBaseKeygenOptInRequest(): KeygenOptInRequest {
-  return { sender: "" };
+  return { $type: "axelar.multisig.v1beta1.KeygenOptInRequest", sender: "" };
 }
 
 export const KeygenOptInRequest = {
+  $type: "axelar.multisig.v1beta1.KeygenOptInRequest" as const,
+
   encode(message: KeygenOptInRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.sender !== "") {
       writer.uint32(18).string(message.sender);
@@ -719,7 +806,7 @@ export const KeygenOptInRequest = {
   },
 
   fromJSON(object: any): KeygenOptInRequest {
-    return { sender: isSet(object.sender) ? gt.String(object.sender) : "" };
+    return { $type: KeygenOptInRequest.$type, sender: isSet(object.sender) ? gt.String(object.sender) : "" };
   },
 
   toJSON(message: KeygenOptInRequest): unknown {
@@ -740,11 +827,15 @@ export const KeygenOptInRequest = {
   },
 };
 
+messageTypeRegistry.set(KeygenOptInRequest.$type, KeygenOptInRequest);
+
 function createBaseKeygenOptInResponse(): KeygenOptInResponse {
-  return {};
+  return { $type: "axelar.multisig.v1beta1.KeygenOptInResponse" };
 }
 
 export const KeygenOptInResponse = {
+  $type: "axelar.multisig.v1beta1.KeygenOptInResponse" as const,
+
   encode(_: KeygenOptInResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
@@ -766,7 +857,7 @@ export const KeygenOptInResponse = {
   },
 
   fromJSON(_: any): KeygenOptInResponse {
-    return {};
+    return { $type: KeygenOptInResponse.$type };
   },
 
   toJSON(_: KeygenOptInResponse): unknown {
@@ -782,6 +873,135 @@ export const KeygenOptInResponse = {
     return message;
   },
 };
+
+messageTypeRegistry.set(KeygenOptInResponse.$type, KeygenOptInResponse);
+
+function createBaseUpdateParamsRequest(): UpdateParamsRequest {
+  return { $type: "axelar.multisig.v1beta1.UpdateParamsRequest", authority: "", params: undefined };
+}
+
+export const UpdateParamsRequest = {
+  $type: "axelar.multisig.v1beta1.UpdateParamsRequest" as const,
+
+  encode(message: UpdateParamsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.authority !== "") {
+      writer.uint32(10).string(message.authority);
+    }
+    if (message.params !== undefined) {
+      Params.encode(message.params, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): UpdateParamsRequest {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseUpdateParamsRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 10) {
+            break;
+          }
+
+          message.authority = reader.string();
+          continue;
+        case 2:
+          if (tag !== 18) {
+            break;
+          }
+
+          message.params = Params.decode(reader, reader.uint32());
+          continue;
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): UpdateParamsRequest {
+    return {
+      $type: UpdateParamsRequest.$type,
+      authority: isSet(object.authority) ? gt.String(object.authority) : "",
+      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
+    };
+  },
+
+  toJSON(message: UpdateParamsRequest): unknown {
+    const obj: any = {};
+    if (message.authority !== "") {
+      obj.authority = message.authority;
+    }
+    if (message.params !== undefined) {
+      obj.params = Params.toJSON(message.params);
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<UpdateParamsRequest>, I>>(base?: I): UpdateParamsRequest {
+    return UpdateParamsRequest.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<UpdateParamsRequest>, I>>(object: I): UpdateParamsRequest {
+    const message = createBaseUpdateParamsRequest();
+    message.authority = object.authority ?? "";
+    message.params =
+      object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
+    return message;
+  },
+};
+
+messageTypeRegistry.set(UpdateParamsRequest.$type, UpdateParamsRequest);
+
+function createBaseUpdateParamsResponse(): UpdateParamsResponse {
+  return { $type: "axelar.multisig.v1beta1.UpdateParamsResponse" };
+}
+
+export const UpdateParamsResponse = {
+  $type: "axelar.multisig.v1beta1.UpdateParamsResponse" as const,
+
+  encode(_: UpdateParamsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): UpdateParamsResponse {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseUpdateParamsResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(_: any): UpdateParamsResponse {
+    return { $type: UpdateParamsResponse.$type };
+  },
+
+  toJSON(_: UpdateParamsResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<UpdateParamsResponse>, I>>(base?: I): UpdateParamsResponse {
+    return UpdateParamsResponse.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<UpdateParamsResponse>, I>>(_: I): UpdateParamsResponse {
+    const message = createBaseUpdateParamsResponse();
+    return message;
+  },
+};
+
+messageTypeRegistry.set(UpdateParamsResponse.$type, UpdateParamsResponse);
 
 declare const self: any | undefined;
 declare const window: any | undefined;
@@ -821,13 +1041,13 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

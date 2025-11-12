@@ -7,17 +7,22 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { messageTypeRegistry } from "../../../typeRegistry";
 
 export const protobufPackage = "axelar.permission.v1beta1";
 
 /** Params represent the genesis parameters for the module */
-export interface Params {}
+export interface Params {
+  $type: "axelar.permission.v1beta1.Params";
+}
 
 function createBaseParams(): Params {
-  return {};
+  return { $type: "axelar.permission.v1beta1.Params" };
 }
 
 export const Params = {
+  $type: "axelar.permission.v1beta1.Params" as const,
+
   encode(_: Params, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
@@ -39,7 +44,7 @@ export const Params = {
   },
 
   fromJSON(_: any): Params {
-    return {};
+    return { $type: Params.$type };
   },
 
   toJSON(_: Params): unknown {
@@ -56,6 +61,8 @@ export const Params = {
   },
 };
 
+messageTypeRegistry.set(Params.$type, Params);
+
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 export type DeepPartial<T> = T extends Builtin
@@ -67,13 +74,13 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

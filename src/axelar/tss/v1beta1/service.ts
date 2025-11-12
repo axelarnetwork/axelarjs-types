@@ -7,13 +7,14 @@
 /* eslint-disable */
 import _m0 from "protobufjs/minimal";
 import { ParamsRequest, ParamsResponse } from "./query";
-import { HeartBeatRequest, HeartBeatResponse } from "./tx";
+import { HeartBeatRequest, HeartBeatResponse, UpdateParamsRequest, UpdateParamsResponse } from "./tx";
 
 export const protobufPackage = "axelar.tss.v1beta1";
 
 /** Msg defines the tss Msg service. */
 export interface MsgService {
   HeartBeat(request: HeartBeatRequest): Promise<HeartBeatResponse>;
+  UpdateParams(request: UpdateParamsRequest): Promise<UpdateParamsResponse>;
 }
 
 export const MsgServiceServiceName = "axelar.tss.v1beta1.MsgService";
@@ -24,11 +25,18 @@ export class MsgServiceClientImpl implements MsgService {
     this.service = opts?.service || MsgServiceServiceName;
     this.rpc = rpc;
     this.HeartBeat = this.HeartBeat.bind(this);
+    this.UpdateParams = this.UpdateParams.bind(this);
   }
   HeartBeat(request: HeartBeatRequest): Promise<HeartBeatResponse> {
     const data = HeartBeatRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "HeartBeat", data);
     return promise.then((data) => HeartBeatResponse.decode(_m0.Reader.create(data)));
+  }
+
+  UpdateParams(request: UpdateParamsRequest): Promise<UpdateParamsResponse> {
+    const data = UpdateParamsRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "UpdateParams", data);
+    return promise.then((data) => UpdateParamsResponse.decode(_m0.Reader.create(data)));
   }
 }
 

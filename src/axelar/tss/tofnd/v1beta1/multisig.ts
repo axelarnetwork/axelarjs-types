@@ -7,18 +7,21 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { messageTypeRegistry } from "../../../../typeRegistry";
 
 export const protobufPackage = "axelar.tss.tofnd.v1beta1";
 
 /** File copied from golang tofnd with minor tweaks */
 
 export interface KeygenRequest {
+  $type: "axelar.tss.tofnd.v1beta1.KeygenRequest";
   keyUid: string;
   /** used only for logging */
   partyUid: string;
 }
 
 export interface KeygenResponse {
+  $type: "axelar.tss.tofnd.v1beta1.KeygenResponse";
   /** SEC1-encoded compressed curve point */
   pubKey?: Buffer | undefined;
   /** reply with an error message if keygen fails */
@@ -26,6 +29,7 @@ export interface KeygenResponse {
 }
 
 export interface SignRequest {
+  $type: "axelar.tss.tofnd.v1beta1.SignRequest";
   keyUid: string;
   /** 32-byte pre-hashed message digest */
   msgToSign: Buffer;
@@ -36,6 +40,7 @@ export interface SignRequest {
 }
 
 export interface SignResponse {
+  $type: "axelar.tss.tofnd.v1beta1.SignResponse";
   /** ASN.1 DER-encoded ECDSA signature */
   signature?: Buffer | undefined;
   /** reply with an error message if sign fails */
@@ -43,10 +48,12 @@ export interface SignResponse {
 }
 
 function createBaseKeygenRequest(): KeygenRequest {
-  return { keyUid: "", partyUid: "" };
+  return { $type: "axelar.tss.tofnd.v1beta1.KeygenRequest", keyUid: "", partyUid: "" };
 }
 
 export const KeygenRequest = {
+  $type: "axelar.tss.tofnd.v1beta1.KeygenRequest" as const,
+
   encode(message: KeygenRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.keyUid !== "") {
       writer.uint32(10).string(message.keyUid);
@@ -89,6 +96,7 @@ export const KeygenRequest = {
 
   fromJSON(object: any): KeygenRequest {
     return {
+      $type: KeygenRequest.$type,
       keyUid: isSet(object.keyUid) ? gt.String(object.keyUid) : "",
       partyUid: isSet(object.partyUid) ? gt.String(object.partyUid) : "",
     };
@@ -116,11 +124,15 @@ export const KeygenRequest = {
   },
 };
 
+messageTypeRegistry.set(KeygenRequest.$type, KeygenRequest);
+
 function createBaseKeygenResponse(): KeygenResponse {
-  return { pubKey: undefined, error: undefined };
+  return { $type: "axelar.tss.tofnd.v1beta1.KeygenResponse", pubKey: undefined, error: undefined };
 }
 
 export const KeygenResponse = {
+  $type: "axelar.tss.tofnd.v1beta1.KeygenResponse" as const,
+
   encode(message: KeygenResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.pubKey !== undefined) {
       writer.uint32(10).bytes(message.pubKey);
@@ -163,6 +175,7 @@ export const KeygenResponse = {
 
   fromJSON(object: any): KeygenResponse {
     return {
+      $type: KeygenResponse.$type,
       pubKey: isSet(object.pubKey) ? Buffer.from(bytesFromBase64(object.pubKey)) : undefined,
       error: isSet(object.error) ? gt.String(object.error) : undefined,
     };
@@ -190,11 +203,21 @@ export const KeygenResponse = {
   },
 };
 
+messageTypeRegistry.set(KeygenResponse.$type, KeygenResponse);
+
 function createBaseSignRequest(): SignRequest {
-  return { keyUid: "", msgToSign: Buffer.alloc(0), partyUid: "", pubKey: Buffer.alloc(0) };
+  return {
+    $type: "axelar.tss.tofnd.v1beta1.SignRequest",
+    keyUid: "",
+    msgToSign: Buffer.alloc(0),
+    partyUid: "",
+    pubKey: Buffer.alloc(0),
+  };
 }
 
 export const SignRequest = {
+  $type: "axelar.tss.tofnd.v1beta1.SignRequest" as const,
+
   encode(message: SignRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.keyUid !== "") {
       writer.uint32(10).string(message.keyUid);
@@ -257,6 +280,7 @@ export const SignRequest = {
 
   fromJSON(object: any): SignRequest {
     return {
+      $type: SignRequest.$type,
       keyUid: isSet(object.keyUid) ? gt.String(object.keyUid) : "",
       msgToSign: isSet(object.msgToSign) ? Buffer.from(bytesFromBase64(object.msgToSign)) : Buffer.alloc(0),
       partyUid: isSet(object.partyUid) ? gt.String(object.partyUid) : "",
@@ -294,11 +318,15 @@ export const SignRequest = {
   },
 };
 
+messageTypeRegistry.set(SignRequest.$type, SignRequest);
+
 function createBaseSignResponse(): SignResponse {
-  return { signature: undefined, error: undefined };
+  return { $type: "axelar.tss.tofnd.v1beta1.SignResponse", signature: undefined, error: undefined };
 }
 
 export const SignResponse = {
+  $type: "axelar.tss.tofnd.v1beta1.SignResponse" as const,
+
   encode(message: SignResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.signature !== undefined) {
       writer.uint32(10).bytes(message.signature);
@@ -341,6 +369,7 @@ export const SignResponse = {
 
   fromJSON(object: any): SignResponse {
     return {
+      $type: SignResponse.$type,
       signature: isSet(object.signature) ? Buffer.from(bytesFromBase64(object.signature)) : undefined,
       error: isSet(object.error) ? gt.String(object.error) : undefined,
     };
@@ -367,6 +396,8 @@ export const SignResponse = {
     return message;
   },
 };
+
+messageTypeRegistry.set(SignResponse.$type, SignResponse);
 
 declare const self: any | undefined;
 declare const window: any | undefined;
@@ -406,13 +437,13 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

@@ -8,15 +8,18 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { Timestamp } from "../../../../google/protobuf/timestamp";
+import { messageTypeRegistry } from "../../../../typeRegistry";
 
 export const protobufPackage = "axelar.snapshot.exported.v1beta1";
 
 export interface Participant {
+  $type: "axelar.snapshot.exported.v1beta1.Participant";
   address: Buffer;
   weight: Buffer;
 }
 
 export interface Snapshot {
+  $type: "axelar.snapshot.exported.v1beta1.Snapshot";
   timestamp?: Timestamp | undefined;
   height: Long;
   participants: { [key: string]: Participant };
@@ -24,15 +27,22 @@ export interface Snapshot {
 }
 
 export interface Snapshot_ParticipantsEntry {
+  $type: "axelar.snapshot.exported.v1beta1.Snapshot.ParticipantsEntry";
   key: string;
   value?: Participant | undefined;
 }
 
 function createBaseParticipant(): Participant {
-  return { address: Buffer.alloc(0), weight: Buffer.alloc(0) };
+  return {
+    $type: "axelar.snapshot.exported.v1beta1.Participant",
+    address: Buffer.alloc(0),
+    weight: Buffer.alloc(0),
+  };
 }
 
 export const Participant = {
+  $type: "axelar.snapshot.exported.v1beta1.Participant" as const,
+
   encode(message: Participant, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.address.length !== 0) {
       writer.uint32(10).bytes(message.address);
@@ -75,6 +85,7 @@ export const Participant = {
 
   fromJSON(object: any): Participant {
     return {
+      $type: Participant.$type,
       address: isSet(object.address) ? Buffer.from(bytesFromBase64(object.address)) : Buffer.alloc(0),
       weight: isSet(object.weight) ? Buffer.from(bytesFromBase64(object.weight)) : Buffer.alloc(0),
     };
@@ -102,11 +113,21 @@ export const Participant = {
   },
 };
 
+messageTypeRegistry.set(Participant.$type, Participant);
+
 function createBaseSnapshot(): Snapshot {
-  return { timestamp: undefined, height: Long.ZERO, participants: {}, bondedWeight: Buffer.alloc(0) };
+  return {
+    $type: "axelar.snapshot.exported.v1beta1.Snapshot",
+    timestamp: undefined,
+    height: Long.ZERO,
+    participants: {},
+    bondedWeight: Buffer.alloc(0),
+  };
 }
 
 export const Snapshot = {
+  $type: "axelar.snapshot.exported.v1beta1.Snapshot" as const,
+
   encode(message: Snapshot, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.timestamp !== undefined) {
       Timestamp.encode(message.timestamp, writer.uint32(18).fork()).ldelim();
@@ -115,7 +136,14 @@ export const Snapshot = {
       writer.uint32(24).int64(message.height);
     }
     Object.entries(message.participants).forEach(([key, value]) => {
-      Snapshot_ParticipantsEntry.encode({ key: key as any, value }, writer.uint32(66).fork()).ldelim();
+      Snapshot_ParticipantsEntry.encode(
+        {
+          $type: "axelar.snapshot.exported.v1beta1.Snapshot.ParticipantsEntry",
+          key: key as any,
+          value,
+        },
+        writer.uint32(66).fork(),
+      ).ldelim();
     });
     if (message.bondedWeight.length !== 0) {
       writer.uint32(74).bytes(message.bondedWeight);
@@ -172,6 +200,7 @@ export const Snapshot = {
 
   fromJSON(object: any): Snapshot {
     return {
+      $type: Snapshot.$type,
       timestamp: isSet(object.timestamp) ? fromJsonTimestamp(object.timestamp) : undefined,
       height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
       participants: isObject(object.participants)
@@ -234,11 +263,15 @@ export const Snapshot = {
   },
 };
 
+messageTypeRegistry.set(Snapshot.$type, Snapshot);
+
 function createBaseSnapshot_ParticipantsEntry(): Snapshot_ParticipantsEntry {
-  return { key: "", value: undefined };
+  return { $type: "axelar.snapshot.exported.v1beta1.Snapshot.ParticipantsEntry", key: "", value: undefined };
 }
 
 export const Snapshot_ParticipantsEntry = {
+  $type: "axelar.snapshot.exported.v1beta1.Snapshot.ParticipantsEntry" as const,
+
   encode(message: Snapshot_ParticipantsEntry, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.key !== "") {
       writer.uint32(10).string(message.key);
@@ -281,6 +314,7 @@ export const Snapshot_ParticipantsEntry = {
 
   fromJSON(object: any): Snapshot_ParticipantsEntry {
     return {
+      $type: Snapshot_ParticipantsEntry.$type,
       key: isSet(object.key) ? gt.String(object.key) : "",
       value: isSet(object.value) ? Participant.fromJSON(object.value) : undefined,
     };
@@ -310,6 +344,8 @@ export const Snapshot_ParticipantsEntry = {
     return message;
   },
 };
+
+messageTypeRegistry.set(Snapshot_ParticipantsEntry.$type, Snapshot_ParticipantsEntry);
 
 declare const self: any | undefined;
 declare const window: any | undefined;
@@ -349,18 +385,18 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never };
 
 function toTimestamp(date: Date): Timestamp {
   const seconds = numberToLong(Math.trunc(date.getTime() / 1_000));
   const nanos = (date.getTime() % 1_000) * 1_000_000;
-  return { seconds, nanos };
+  return { $type: "google.protobuf.Timestamp", seconds, nanos };
 }
 
 function fromTimestamp(t: Timestamp): Date {

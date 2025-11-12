@@ -7,26 +7,31 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { messageTypeRegistry } from "../../../typeRegistry";
 
 export const protobufPackage = "axelar.multisig.v1beta1";
 
 export interface KeygenStarted {
+  $type: "axelar.multisig.v1beta1.KeygenStarted";
   module: string;
   keyId: string;
   participants: Buffer[];
 }
 
 export interface KeygenCompleted {
+  $type: "axelar.multisig.v1beta1.KeygenCompleted";
   module: string;
   keyId: string;
 }
 
 export interface KeygenExpired {
+  $type: "axelar.multisig.v1beta1.KeygenExpired";
   module: string;
   keyId: string;
 }
 
 export interface PubKeySubmitted {
+  $type: "axelar.multisig.v1beta1.PubKeySubmitted";
   module: string;
   keyId: string;
   participant: Buffer;
@@ -34,6 +39,7 @@ export interface PubKeySubmitted {
 }
 
 export interface SigningStarted {
+  $type: "axelar.multisig.v1beta1.SigningStarted";
   module: string;
   sigId: Long;
   keyId: string;
@@ -43,21 +49,25 @@ export interface SigningStarted {
 }
 
 export interface SigningStarted_PubKeysEntry {
+  $type: "axelar.multisig.v1beta1.SigningStarted.PubKeysEntry";
   key: string;
   value: Buffer;
 }
 
 export interface SigningCompleted {
+  $type: "axelar.multisig.v1beta1.SigningCompleted";
   module: string;
   sigId: Long;
 }
 
 export interface SigningExpired {
+  $type: "axelar.multisig.v1beta1.SigningExpired";
   module: string;
   sigId: Long;
 }
 
 export interface SignatureSubmitted {
+  $type: "axelar.multisig.v1beta1.SignatureSubmitted";
   module: string;
   sigId: Long;
   participant: Buffer;
@@ -65,30 +75,36 @@ export interface SignatureSubmitted {
 }
 
 export interface KeyAssigned {
+  $type: "axelar.multisig.v1beta1.KeyAssigned";
   module: string;
   chain: string;
   keyId: string;
 }
 
 export interface KeyRotated {
+  $type: "axelar.multisig.v1beta1.KeyRotated";
   module: string;
   chain: string;
   keyId: string;
 }
 
 export interface KeygenOptOut {
+  $type: "axelar.multisig.v1beta1.KeygenOptOut";
   participant: Buffer;
 }
 
 export interface KeygenOptIn {
+  $type: "axelar.multisig.v1beta1.KeygenOptIn";
   participant: Buffer;
 }
 
 function createBaseKeygenStarted(): KeygenStarted {
-  return { module: "", keyId: "", participants: [] };
+  return { $type: "axelar.multisig.v1beta1.KeygenStarted", module: "", keyId: "", participants: [] };
 }
 
 export const KeygenStarted = {
+  $type: "axelar.multisig.v1beta1.KeygenStarted" as const,
+
   encode(message: KeygenStarted, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.module !== "") {
       writer.uint32(10).string(message.module);
@@ -141,6 +157,7 @@ export const KeygenStarted = {
 
   fromJSON(object: any): KeygenStarted {
     return {
+      $type: KeygenStarted.$type,
       module: isSet(object.module) ? gt.String(object.module) : "",
       keyId: isSet(object.keyId) ? gt.String(object.keyId) : "",
       participants: gt.Array.isArray(object?.participants)
@@ -175,11 +192,15 @@ export const KeygenStarted = {
   },
 };
 
+messageTypeRegistry.set(KeygenStarted.$type, KeygenStarted);
+
 function createBaseKeygenCompleted(): KeygenCompleted {
-  return { module: "", keyId: "" };
+  return { $type: "axelar.multisig.v1beta1.KeygenCompleted", module: "", keyId: "" };
 }
 
 export const KeygenCompleted = {
+  $type: "axelar.multisig.v1beta1.KeygenCompleted" as const,
+
   encode(message: KeygenCompleted, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.module !== "") {
       writer.uint32(10).string(message.module);
@@ -222,6 +243,7 @@ export const KeygenCompleted = {
 
   fromJSON(object: any): KeygenCompleted {
     return {
+      $type: KeygenCompleted.$type,
       module: isSet(object.module) ? gt.String(object.module) : "",
       keyId: isSet(object.keyId) ? gt.String(object.keyId) : "",
     };
@@ -249,11 +271,15 @@ export const KeygenCompleted = {
   },
 };
 
+messageTypeRegistry.set(KeygenCompleted.$type, KeygenCompleted);
+
 function createBaseKeygenExpired(): KeygenExpired {
-  return { module: "", keyId: "" };
+  return { $type: "axelar.multisig.v1beta1.KeygenExpired", module: "", keyId: "" };
 }
 
 export const KeygenExpired = {
+  $type: "axelar.multisig.v1beta1.KeygenExpired" as const,
+
   encode(message: KeygenExpired, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.module !== "") {
       writer.uint32(10).string(message.module);
@@ -296,6 +322,7 @@ export const KeygenExpired = {
 
   fromJSON(object: any): KeygenExpired {
     return {
+      $type: KeygenExpired.$type,
       module: isSet(object.module) ? gt.String(object.module) : "",
       keyId: isSet(object.keyId) ? gt.String(object.keyId) : "",
     };
@@ -323,11 +350,21 @@ export const KeygenExpired = {
   },
 };
 
+messageTypeRegistry.set(KeygenExpired.$type, KeygenExpired);
+
 function createBasePubKeySubmitted(): PubKeySubmitted {
-  return { module: "", keyId: "", participant: Buffer.alloc(0), pubKey: Buffer.alloc(0) };
+  return {
+    $type: "axelar.multisig.v1beta1.PubKeySubmitted",
+    module: "",
+    keyId: "",
+    participant: Buffer.alloc(0),
+    pubKey: Buffer.alloc(0),
+  };
 }
 
 export const PubKeySubmitted = {
+  $type: "axelar.multisig.v1beta1.PubKeySubmitted" as const,
+
   encode(message: PubKeySubmitted, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.module !== "") {
       writer.uint32(10).string(message.module);
@@ -390,6 +427,7 @@ export const PubKeySubmitted = {
 
   fromJSON(object: any): PubKeySubmitted {
     return {
+      $type: PubKeySubmitted.$type,
       module: isSet(object.module) ? gt.String(object.module) : "",
       keyId: isSet(object.keyId) ? gt.String(object.keyId) : "",
       participant: isSet(object.participant)
@@ -429,8 +467,11 @@ export const PubKeySubmitted = {
   },
 };
 
+messageTypeRegistry.set(PubKeySubmitted.$type, PubKeySubmitted);
+
 function createBaseSigningStarted(): SigningStarted {
   return {
+    $type: "axelar.multisig.v1beta1.SigningStarted",
     module: "",
     sigId: Long.UZERO,
     keyId: "",
@@ -441,6 +482,8 @@ function createBaseSigningStarted(): SigningStarted {
 }
 
 export const SigningStarted = {
+  $type: "axelar.multisig.v1beta1.SigningStarted" as const,
+
   encode(message: SigningStarted, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.module !== "") {
       writer.uint32(10).string(message.module);
@@ -452,7 +495,14 @@ export const SigningStarted = {
       writer.uint32(26).string(message.keyId);
     }
     Object.entries(message.pubKeys).forEach(([key, value]) => {
-      SigningStarted_PubKeysEntry.encode({ key: key as any, value }, writer.uint32(34).fork()).ldelim();
+      SigningStarted_PubKeysEntry.encode(
+        {
+          $type: "axelar.multisig.v1beta1.SigningStarted.PubKeysEntry",
+          key: key as any,
+          value,
+        },
+        writer.uint32(34).fork(),
+      ).ldelim();
     });
     if (message.payloadHash.length !== 0) {
       writer.uint32(42).bytes(message.payloadHash);
@@ -526,6 +576,7 @@ export const SigningStarted = {
 
   fromJSON(object: any): SigningStarted {
     return {
+      $type: SigningStarted.$type,
       module: isSet(object.module) ? gt.String(object.module) : "",
       sigId: isSet(object.sigId) ? Long.fromValue(object.sigId) : Long.UZERO,
       keyId: isSet(object.keyId) ? gt.String(object.keyId) : "",
@@ -595,11 +646,15 @@ export const SigningStarted = {
   },
 };
 
+messageTypeRegistry.set(SigningStarted.$type, SigningStarted);
+
 function createBaseSigningStarted_PubKeysEntry(): SigningStarted_PubKeysEntry {
-  return { key: "", value: Buffer.alloc(0) };
+  return { $type: "axelar.multisig.v1beta1.SigningStarted.PubKeysEntry", key: "", value: Buffer.alloc(0) };
 }
 
 export const SigningStarted_PubKeysEntry = {
+  $type: "axelar.multisig.v1beta1.SigningStarted.PubKeysEntry" as const,
+
   encode(message: SigningStarted_PubKeysEntry, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.key !== "") {
       writer.uint32(10).string(message.key);
@@ -642,6 +697,7 @@ export const SigningStarted_PubKeysEntry = {
 
   fromJSON(object: any): SigningStarted_PubKeysEntry {
     return {
+      $type: SigningStarted_PubKeysEntry.$type,
       key: isSet(object.key) ? gt.String(object.key) : "",
       value: isSet(object.value) ? Buffer.from(bytesFromBase64(object.value)) : Buffer.alloc(0),
     };
@@ -673,11 +729,15 @@ export const SigningStarted_PubKeysEntry = {
   },
 };
 
+messageTypeRegistry.set(SigningStarted_PubKeysEntry.$type, SigningStarted_PubKeysEntry);
+
 function createBaseSigningCompleted(): SigningCompleted {
-  return { module: "", sigId: Long.UZERO };
+  return { $type: "axelar.multisig.v1beta1.SigningCompleted", module: "", sigId: Long.UZERO };
 }
 
 export const SigningCompleted = {
+  $type: "axelar.multisig.v1beta1.SigningCompleted" as const,
+
   encode(message: SigningCompleted, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.module !== "") {
       writer.uint32(10).string(message.module);
@@ -720,6 +780,7 @@ export const SigningCompleted = {
 
   fromJSON(object: any): SigningCompleted {
     return {
+      $type: SigningCompleted.$type,
       module: isSet(object.module) ? gt.String(object.module) : "",
       sigId: isSet(object.sigId) ? Long.fromValue(object.sigId) : Long.UZERO,
     };
@@ -748,11 +809,15 @@ export const SigningCompleted = {
   },
 };
 
+messageTypeRegistry.set(SigningCompleted.$type, SigningCompleted);
+
 function createBaseSigningExpired(): SigningExpired {
-  return { module: "", sigId: Long.UZERO };
+  return { $type: "axelar.multisig.v1beta1.SigningExpired", module: "", sigId: Long.UZERO };
 }
 
 export const SigningExpired = {
+  $type: "axelar.multisig.v1beta1.SigningExpired" as const,
+
   encode(message: SigningExpired, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.module !== "") {
       writer.uint32(10).string(message.module);
@@ -795,6 +860,7 @@ export const SigningExpired = {
 
   fromJSON(object: any): SigningExpired {
     return {
+      $type: SigningExpired.$type,
       module: isSet(object.module) ? gt.String(object.module) : "",
       sigId: isSet(object.sigId) ? Long.fromValue(object.sigId) : Long.UZERO,
     };
@@ -823,11 +889,21 @@ export const SigningExpired = {
   },
 };
 
+messageTypeRegistry.set(SigningExpired.$type, SigningExpired);
+
 function createBaseSignatureSubmitted(): SignatureSubmitted {
-  return { module: "", sigId: Long.UZERO, participant: Buffer.alloc(0), signature: Buffer.alloc(0) };
+  return {
+    $type: "axelar.multisig.v1beta1.SignatureSubmitted",
+    module: "",
+    sigId: Long.UZERO,
+    participant: Buffer.alloc(0),
+    signature: Buffer.alloc(0),
+  };
 }
 
 export const SignatureSubmitted = {
+  $type: "axelar.multisig.v1beta1.SignatureSubmitted" as const,
+
   encode(message: SignatureSubmitted, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.module !== "") {
       writer.uint32(10).string(message.module);
@@ -890,6 +966,7 @@ export const SignatureSubmitted = {
 
   fromJSON(object: any): SignatureSubmitted {
     return {
+      $type: SignatureSubmitted.$type,
       module: isSet(object.module) ? gt.String(object.module) : "",
       sigId: isSet(object.sigId) ? Long.fromValue(object.sigId) : Long.UZERO,
       participant: isSet(object.participant)
@@ -930,11 +1007,15 @@ export const SignatureSubmitted = {
   },
 };
 
+messageTypeRegistry.set(SignatureSubmitted.$type, SignatureSubmitted);
+
 function createBaseKeyAssigned(): KeyAssigned {
-  return { module: "", chain: "", keyId: "" };
+  return { $type: "axelar.multisig.v1beta1.KeyAssigned", module: "", chain: "", keyId: "" };
 }
 
 export const KeyAssigned = {
+  $type: "axelar.multisig.v1beta1.KeyAssigned" as const,
+
   encode(message: KeyAssigned, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.module !== "") {
       writer.uint32(10).string(message.module);
@@ -987,6 +1068,7 @@ export const KeyAssigned = {
 
   fromJSON(object: any): KeyAssigned {
     return {
+      $type: KeyAssigned.$type,
       module: isSet(object.module) ? gt.String(object.module) : "",
       chain: isSet(object.chain) ? gt.String(object.chain) : "",
       keyId: isSet(object.keyId) ? gt.String(object.keyId) : "",
@@ -1019,11 +1101,15 @@ export const KeyAssigned = {
   },
 };
 
+messageTypeRegistry.set(KeyAssigned.$type, KeyAssigned);
+
 function createBaseKeyRotated(): KeyRotated {
-  return { module: "", chain: "", keyId: "" };
+  return { $type: "axelar.multisig.v1beta1.KeyRotated", module: "", chain: "", keyId: "" };
 }
 
 export const KeyRotated = {
+  $type: "axelar.multisig.v1beta1.KeyRotated" as const,
+
   encode(message: KeyRotated, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.module !== "") {
       writer.uint32(10).string(message.module);
@@ -1076,6 +1162,7 @@ export const KeyRotated = {
 
   fromJSON(object: any): KeyRotated {
     return {
+      $type: KeyRotated.$type,
       module: isSet(object.module) ? gt.String(object.module) : "",
       chain: isSet(object.chain) ? gt.String(object.chain) : "",
       keyId: isSet(object.keyId) ? gt.String(object.keyId) : "",
@@ -1108,11 +1195,15 @@ export const KeyRotated = {
   },
 };
 
+messageTypeRegistry.set(KeyRotated.$type, KeyRotated);
+
 function createBaseKeygenOptOut(): KeygenOptOut {
-  return { participant: Buffer.alloc(0) };
+  return { $type: "axelar.multisig.v1beta1.KeygenOptOut", participant: Buffer.alloc(0) };
 }
 
 export const KeygenOptOut = {
+  $type: "axelar.multisig.v1beta1.KeygenOptOut" as const,
+
   encode(message: KeygenOptOut, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.participant.length !== 0) {
       writer.uint32(10).bytes(message.participant);
@@ -1145,6 +1236,7 @@ export const KeygenOptOut = {
 
   fromJSON(object: any): KeygenOptOut {
     return {
+      $type: KeygenOptOut.$type,
       participant: isSet(object.participant)
         ? Buffer.from(bytesFromBase64(object.participant))
         : Buffer.alloc(0),
@@ -1169,11 +1261,15 @@ export const KeygenOptOut = {
   },
 };
 
+messageTypeRegistry.set(KeygenOptOut.$type, KeygenOptOut);
+
 function createBaseKeygenOptIn(): KeygenOptIn {
-  return { participant: Buffer.alloc(0) };
+  return { $type: "axelar.multisig.v1beta1.KeygenOptIn", participant: Buffer.alloc(0) };
 }
 
 export const KeygenOptIn = {
+  $type: "axelar.multisig.v1beta1.KeygenOptIn" as const,
+
   encode(message: KeygenOptIn, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.participant.length !== 0) {
       writer.uint32(10).bytes(message.participant);
@@ -1206,6 +1302,7 @@ export const KeygenOptIn = {
 
   fromJSON(object: any): KeygenOptIn {
     return {
+      $type: KeygenOptIn.$type,
       participant: isSet(object.participant)
         ? Buffer.from(bytesFromBase64(object.participant))
         : Buffer.alloc(0),
@@ -1229,6 +1326,8 @@ export const KeygenOptIn = {
     return message;
   },
 };
+
+messageTypeRegistry.set(KeygenOptIn.$type, KeygenOptIn);
 
 declare const self: any | undefined;
 declare const window: any | undefined;
@@ -1268,13 +1367,13 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

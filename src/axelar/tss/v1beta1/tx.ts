@@ -7,71 +7,90 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { messageTypeRegistry } from "../../../typeRegistry";
 import { PollKey } from "../../vote/exported/v1beta1/types";
 import { KeyRole, keyRoleFromJSON, keyRoleToJSON, SigKeyPair } from "../exported/v1beta1/types";
 import { MessageOut_KeygenResult, MessageOut_SignResult, TrafficOut } from "../tofnd/v1beta1/tofnd";
+import { Params } from "./params";
 import { KeyInfo } from "./types";
 
 export const protobufPackage = "axelar.tss.v1beta1";
 
 /** StartKeygenRequest indicate the start of keygen */
 export interface StartKeygenRequest {
+  $type: "axelar.tss.v1beta1.StartKeygenRequest";
   sender: string;
   keyInfo?: KeyInfo | undefined;
 }
 
-export interface StartKeygenResponse {}
+export interface StartKeygenResponse {
+  $type: "axelar.tss.v1beta1.StartKeygenResponse";
+}
 
 export interface RotateKeyRequest {
+  $type: "axelar.tss.v1beta1.RotateKeyRequest";
   chain: string;
   keyRole: KeyRole;
   keyId: string;
   sender: string;
 }
 
-export interface RotateKeyResponse {}
+export interface RotateKeyResponse {
+  $type: "axelar.tss.v1beta1.RotateKeyResponse";
+}
 
 /** ProcessKeygenTrafficRequest protocol message */
 export interface ProcessKeygenTrafficRequest {
+  $type: "axelar.tss.v1beta1.ProcessKeygenTrafficRequest";
   sessionId: string;
   payload?: TrafficOut | undefined;
   sender: string;
 }
 
-export interface ProcessKeygenTrafficResponse {}
+export interface ProcessKeygenTrafficResponse {
+  $type: "axelar.tss.v1beta1.ProcessKeygenTrafficResponse";
+}
 
 /** ProcessSignTrafficRequest protocol message */
 export interface ProcessSignTrafficRequest {
+  $type: "axelar.tss.v1beta1.ProcessSignTrafficRequest";
   sessionId: string;
   payload?: TrafficOut | undefined;
   sender: string;
 }
 
-export interface ProcessSignTrafficResponse {}
+export interface ProcessSignTrafficResponse {
+  $type: "axelar.tss.v1beta1.ProcessSignTrafficResponse";
+}
 
 /** VotePubKeyRequest represents the message to vote on a public key */
 export interface VotePubKeyRequest {
+  $type: "axelar.tss.v1beta1.VotePubKeyRequest";
   pollKey?: PollKey | undefined;
   result?: MessageOut_KeygenResult | undefined;
   sender: string;
 }
 
 export interface VotePubKeyResponse {
+  $type: "axelar.tss.v1beta1.VotePubKeyResponse";
   log: string;
 }
 
 /** VoteSigRequest represents a message to vote for a signature */
 export interface VoteSigRequest {
+  $type: "axelar.tss.v1beta1.VoteSigRequest";
   pollKey?: PollKey | undefined;
   result?: MessageOut_SignResult | undefined;
   sender: string;
 }
 
 export interface VoteSigResponse {
+  $type: "axelar.tss.v1beta1.VoteSigResponse";
   log: string;
 }
 
 export interface HeartBeatRequest {
+  $type: "axelar.tss.v1beta1.HeartBeatRequest";
   /**
    * Deprecated: this field will be removed in the next release
    *
@@ -81,42 +100,66 @@ export interface HeartBeatRequest {
   sender: string;
 }
 
-export interface HeartBeatResponse {}
+export interface HeartBeatResponse {
+  $type: "axelar.tss.v1beta1.HeartBeatResponse";
+}
 
 export interface RegisterExternalKeysRequest {
+  $type: "axelar.tss.v1beta1.RegisterExternalKeysRequest";
   chain: string;
   externalKeys: RegisterExternalKeysRequest_ExternalKey[];
   sender: string;
 }
 
 export interface RegisterExternalKeysRequest_ExternalKey {
+  $type: "axelar.tss.v1beta1.RegisterExternalKeysRequest.ExternalKey";
   id: string;
   pubKey: Buffer;
 }
 
-export interface RegisterExternalKeysResponse {}
+export interface RegisterExternalKeysResponse {
+  $type: "axelar.tss.v1beta1.RegisterExternalKeysResponse";
+}
 
 export interface SubmitMultisigPubKeysRequest {
+  $type: "axelar.tss.v1beta1.SubmitMultisigPubKeysRequest";
   keyId: string;
   sigKeyPairs: SigKeyPair[];
   sender: string;
 }
 
-export interface SubmitMultisigPubKeysResponse {}
+export interface SubmitMultisigPubKeysResponse {
+  $type: "axelar.tss.v1beta1.SubmitMultisigPubKeysResponse";
+}
 
 export interface SubmitMultisigSignaturesRequest {
+  $type: "axelar.tss.v1beta1.SubmitMultisigSignaturesRequest";
   sigId: string;
   signatures: Buffer[];
   sender: string;
 }
 
-export interface SubmitMultisigSignaturesResponse {}
+export interface SubmitMultisigSignaturesResponse {
+  $type: "axelar.tss.v1beta1.SubmitMultisigSignaturesResponse";
+}
+
+export interface UpdateParamsRequest {
+  $type: "axelar.tss.v1beta1.UpdateParamsRequest";
+  authority: string;
+  params?: Params | undefined;
+}
+
+export interface UpdateParamsResponse {
+  $type: "axelar.tss.v1beta1.UpdateParamsResponse";
+}
 
 function createBaseStartKeygenRequest(): StartKeygenRequest {
-  return { sender: "", keyInfo: undefined };
+  return { $type: "axelar.tss.v1beta1.StartKeygenRequest", sender: "", keyInfo: undefined };
 }
 
 export const StartKeygenRequest = {
+  $type: "axelar.tss.v1beta1.StartKeygenRequest" as const,
+
   encode(message: StartKeygenRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.sender !== "") {
       writer.uint32(10).string(message.sender);
@@ -159,6 +202,7 @@ export const StartKeygenRequest = {
 
   fromJSON(object: any): StartKeygenRequest {
     return {
+      $type: StartKeygenRequest.$type,
       sender: isSet(object.sender) ? gt.String(object.sender) : "",
       keyInfo: isSet(object.keyInfo) ? KeyInfo.fromJSON(object.keyInfo) : undefined,
     };
@@ -189,11 +233,15 @@ export const StartKeygenRequest = {
   },
 };
 
+messageTypeRegistry.set(StartKeygenRequest.$type, StartKeygenRequest);
+
 function createBaseStartKeygenResponse(): StartKeygenResponse {
-  return {};
+  return { $type: "axelar.tss.v1beta1.StartKeygenResponse" };
 }
 
 export const StartKeygenResponse = {
+  $type: "axelar.tss.v1beta1.StartKeygenResponse" as const,
+
   encode(_: StartKeygenResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
@@ -215,7 +263,7 @@ export const StartKeygenResponse = {
   },
 
   fromJSON(_: any): StartKeygenResponse {
-    return {};
+    return { $type: StartKeygenResponse.$type };
   },
 
   toJSON(_: StartKeygenResponse): unknown {
@@ -232,11 +280,15 @@ export const StartKeygenResponse = {
   },
 };
 
+messageTypeRegistry.set(StartKeygenResponse.$type, StartKeygenResponse);
+
 function createBaseRotateKeyRequest(): RotateKeyRequest {
-  return { chain: "", keyRole: 0, keyId: "", sender: "" };
+  return { $type: "axelar.tss.v1beta1.RotateKeyRequest", chain: "", keyRole: 0, keyId: "", sender: "" };
 }
 
 export const RotateKeyRequest = {
+  $type: "axelar.tss.v1beta1.RotateKeyRequest" as const,
+
   encode(message: RotateKeyRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.chain !== "") {
       writer.uint32(18).string(message.chain);
@@ -299,6 +351,7 @@ export const RotateKeyRequest = {
 
   fromJSON(object: any): RotateKeyRequest {
     return {
+      $type: RotateKeyRequest.$type,
       chain: isSet(object.chain) ? gt.String(object.chain) : "",
       keyRole: isSet(object.keyRole) ? keyRoleFromJSON(object.keyRole) : 0,
       keyId: isSet(object.keyId) ? gt.String(object.keyId) : "",
@@ -336,11 +389,15 @@ export const RotateKeyRequest = {
   },
 };
 
+messageTypeRegistry.set(RotateKeyRequest.$type, RotateKeyRequest);
+
 function createBaseRotateKeyResponse(): RotateKeyResponse {
-  return {};
+  return { $type: "axelar.tss.v1beta1.RotateKeyResponse" };
 }
 
 export const RotateKeyResponse = {
+  $type: "axelar.tss.v1beta1.RotateKeyResponse" as const,
+
   encode(_: RotateKeyResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
@@ -362,7 +419,7 @@ export const RotateKeyResponse = {
   },
 
   fromJSON(_: any): RotateKeyResponse {
-    return {};
+    return { $type: RotateKeyResponse.$type };
   },
 
   toJSON(_: RotateKeyResponse): unknown {
@@ -379,11 +436,20 @@ export const RotateKeyResponse = {
   },
 };
 
+messageTypeRegistry.set(RotateKeyResponse.$type, RotateKeyResponse);
+
 function createBaseProcessKeygenTrafficRequest(): ProcessKeygenTrafficRequest {
-  return { sessionId: "", payload: undefined, sender: "" };
+  return {
+    $type: "axelar.tss.v1beta1.ProcessKeygenTrafficRequest",
+    sessionId: "",
+    payload: undefined,
+    sender: "",
+  };
 }
 
 export const ProcessKeygenTrafficRequest = {
+  $type: "axelar.tss.v1beta1.ProcessKeygenTrafficRequest" as const,
+
   encode(message: ProcessKeygenTrafficRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.sessionId !== "") {
       writer.uint32(18).string(message.sessionId);
@@ -436,6 +502,7 @@ export const ProcessKeygenTrafficRequest = {
 
   fromJSON(object: any): ProcessKeygenTrafficRequest {
     return {
+      $type: ProcessKeygenTrafficRequest.$type,
       sessionId: isSet(object.sessionId) ? gt.String(object.sessionId) : "",
       payload: isSet(object.payload) ? TrafficOut.fromJSON(object.payload) : undefined,
       sender: isSet(object.sender) ? gt.String(object.sender) : "",
@@ -475,11 +542,15 @@ export const ProcessKeygenTrafficRequest = {
   },
 };
 
+messageTypeRegistry.set(ProcessKeygenTrafficRequest.$type, ProcessKeygenTrafficRequest);
+
 function createBaseProcessKeygenTrafficResponse(): ProcessKeygenTrafficResponse {
-  return {};
+  return { $type: "axelar.tss.v1beta1.ProcessKeygenTrafficResponse" };
 }
 
 export const ProcessKeygenTrafficResponse = {
+  $type: "axelar.tss.v1beta1.ProcessKeygenTrafficResponse" as const,
+
   encode(_: ProcessKeygenTrafficResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
@@ -501,7 +572,7 @@ export const ProcessKeygenTrafficResponse = {
   },
 
   fromJSON(_: any): ProcessKeygenTrafficResponse {
-    return {};
+    return { $type: ProcessKeygenTrafficResponse.$type };
   },
 
   toJSON(_: ProcessKeygenTrafficResponse): unknown {
@@ -522,11 +593,20 @@ export const ProcessKeygenTrafficResponse = {
   },
 };
 
+messageTypeRegistry.set(ProcessKeygenTrafficResponse.$type, ProcessKeygenTrafficResponse);
+
 function createBaseProcessSignTrafficRequest(): ProcessSignTrafficRequest {
-  return { sessionId: "", payload: undefined, sender: "" };
+  return {
+    $type: "axelar.tss.v1beta1.ProcessSignTrafficRequest",
+    sessionId: "",
+    payload: undefined,
+    sender: "",
+  };
 }
 
 export const ProcessSignTrafficRequest = {
+  $type: "axelar.tss.v1beta1.ProcessSignTrafficRequest" as const,
+
   encode(message: ProcessSignTrafficRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.sessionId !== "") {
       writer.uint32(18).string(message.sessionId);
@@ -579,6 +659,7 @@ export const ProcessSignTrafficRequest = {
 
   fromJSON(object: any): ProcessSignTrafficRequest {
     return {
+      $type: ProcessSignTrafficRequest.$type,
       sessionId: isSet(object.sessionId) ? gt.String(object.sessionId) : "",
       payload: isSet(object.payload) ? TrafficOut.fromJSON(object.payload) : undefined,
       sender: isSet(object.sender) ? gt.String(object.sender) : "",
@@ -616,11 +697,15 @@ export const ProcessSignTrafficRequest = {
   },
 };
 
+messageTypeRegistry.set(ProcessSignTrafficRequest.$type, ProcessSignTrafficRequest);
+
 function createBaseProcessSignTrafficResponse(): ProcessSignTrafficResponse {
-  return {};
+  return { $type: "axelar.tss.v1beta1.ProcessSignTrafficResponse" };
 }
 
 export const ProcessSignTrafficResponse = {
+  $type: "axelar.tss.v1beta1.ProcessSignTrafficResponse" as const,
+
   encode(_: ProcessSignTrafficResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
@@ -642,7 +727,7 @@ export const ProcessSignTrafficResponse = {
   },
 
   fromJSON(_: any): ProcessSignTrafficResponse {
-    return {};
+    return { $type: ProcessSignTrafficResponse.$type };
   },
 
   toJSON(_: ProcessSignTrafficResponse): unknown {
@@ -659,11 +744,15 @@ export const ProcessSignTrafficResponse = {
   },
 };
 
+messageTypeRegistry.set(ProcessSignTrafficResponse.$type, ProcessSignTrafficResponse);
+
 function createBaseVotePubKeyRequest(): VotePubKeyRequest {
-  return { pollKey: undefined, result: undefined, sender: "" };
+  return { $type: "axelar.tss.v1beta1.VotePubKeyRequest", pollKey: undefined, result: undefined, sender: "" };
 }
 
 export const VotePubKeyRequest = {
+  $type: "axelar.tss.v1beta1.VotePubKeyRequest" as const,
+
   encode(message: VotePubKeyRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.pollKey !== undefined) {
       PollKey.encode(message.pollKey, writer.uint32(18).fork()).ldelim();
@@ -716,6 +805,7 @@ export const VotePubKeyRequest = {
 
   fromJSON(object: any): VotePubKeyRequest {
     return {
+      $type: VotePubKeyRequest.$type,
       pollKey: isSet(object.pollKey) ? PollKey.fromJSON(object.pollKey) : undefined,
       result: isSet(object.result) ? MessageOut_KeygenResult.fromJSON(object.result) : undefined,
       sender: isSet(object.sender) ? gt.String(object.sender) : "",
@@ -754,11 +844,15 @@ export const VotePubKeyRequest = {
   },
 };
 
+messageTypeRegistry.set(VotePubKeyRequest.$type, VotePubKeyRequest);
+
 function createBaseVotePubKeyResponse(): VotePubKeyResponse {
-  return { log: "" };
+  return { $type: "axelar.tss.v1beta1.VotePubKeyResponse", log: "" };
 }
 
 export const VotePubKeyResponse = {
+  $type: "axelar.tss.v1beta1.VotePubKeyResponse" as const,
+
   encode(message: VotePubKeyResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.log !== "") {
       writer.uint32(10).string(message.log);
@@ -790,7 +884,7 @@ export const VotePubKeyResponse = {
   },
 
   fromJSON(object: any): VotePubKeyResponse {
-    return { log: isSet(object.log) ? gt.String(object.log) : "" };
+    return { $type: VotePubKeyResponse.$type, log: isSet(object.log) ? gt.String(object.log) : "" };
   },
 
   toJSON(message: VotePubKeyResponse): unknown {
@@ -811,11 +905,15 @@ export const VotePubKeyResponse = {
   },
 };
 
+messageTypeRegistry.set(VotePubKeyResponse.$type, VotePubKeyResponse);
+
 function createBaseVoteSigRequest(): VoteSigRequest {
-  return { pollKey: undefined, result: undefined, sender: "" };
+  return { $type: "axelar.tss.v1beta1.VoteSigRequest", pollKey: undefined, result: undefined, sender: "" };
 }
 
 export const VoteSigRequest = {
+  $type: "axelar.tss.v1beta1.VoteSigRequest" as const,
+
   encode(message: VoteSigRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.pollKey !== undefined) {
       PollKey.encode(message.pollKey, writer.uint32(18).fork()).ldelim();
@@ -868,6 +966,7 @@ export const VoteSigRequest = {
 
   fromJSON(object: any): VoteSigRequest {
     return {
+      $type: VoteSigRequest.$type,
       pollKey: isSet(object.pollKey) ? PollKey.fromJSON(object.pollKey) : undefined,
       result: isSet(object.result) ? MessageOut_SignResult.fromJSON(object.result) : undefined,
       sender: isSet(object.sender) ? gt.String(object.sender) : "",
@@ -906,11 +1005,15 @@ export const VoteSigRequest = {
   },
 };
 
+messageTypeRegistry.set(VoteSigRequest.$type, VoteSigRequest);
+
 function createBaseVoteSigResponse(): VoteSigResponse {
-  return { log: "" };
+  return { $type: "axelar.tss.v1beta1.VoteSigResponse", log: "" };
 }
 
 export const VoteSigResponse = {
+  $type: "axelar.tss.v1beta1.VoteSigResponse" as const,
+
   encode(message: VoteSigResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.log !== "") {
       writer.uint32(10).string(message.log);
@@ -942,7 +1045,7 @@ export const VoteSigResponse = {
   },
 
   fromJSON(object: any): VoteSigResponse {
-    return { log: isSet(object.log) ? gt.String(object.log) : "" };
+    return { $type: VoteSigResponse.$type, log: isSet(object.log) ? gt.String(object.log) : "" };
   },
 
   toJSON(message: VoteSigResponse): unknown {
@@ -963,11 +1066,15 @@ export const VoteSigResponse = {
   },
 };
 
+messageTypeRegistry.set(VoteSigResponse.$type, VoteSigResponse);
+
 function createBaseHeartBeatRequest(): HeartBeatRequest {
-  return { keyIds: [], sender: "" };
+  return { $type: "axelar.tss.v1beta1.HeartBeatRequest", keyIds: [], sender: "" };
 }
 
 export const HeartBeatRequest = {
+  $type: "axelar.tss.v1beta1.HeartBeatRequest" as const,
+
   encode(message: HeartBeatRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.keyIds) {
       writer.uint32(18).string(v!);
@@ -1010,6 +1117,7 @@ export const HeartBeatRequest = {
 
   fromJSON(object: any): HeartBeatRequest {
     return {
+      $type: HeartBeatRequest.$type,
       keyIds: gt.Array.isArray(object?.keyIds) ? object.keyIds.map((e: any) => gt.String(e)) : [],
       sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
@@ -1037,11 +1145,15 @@ export const HeartBeatRequest = {
   },
 };
 
+messageTypeRegistry.set(HeartBeatRequest.$type, HeartBeatRequest);
+
 function createBaseHeartBeatResponse(): HeartBeatResponse {
-  return {};
+  return { $type: "axelar.tss.v1beta1.HeartBeatResponse" };
 }
 
 export const HeartBeatResponse = {
+  $type: "axelar.tss.v1beta1.HeartBeatResponse" as const,
+
   encode(_: HeartBeatResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
@@ -1063,7 +1175,7 @@ export const HeartBeatResponse = {
   },
 
   fromJSON(_: any): HeartBeatResponse {
-    return {};
+    return { $type: HeartBeatResponse.$type };
   },
 
   toJSON(_: HeartBeatResponse): unknown {
@@ -1080,11 +1192,15 @@ export const HeartBeatResponse = {
   },
 };
 
+messageTypeRegistry.set(HeartBeatResponse.$type, HeartBeatResponse);
+
 function createBaseRegisterExternalKeysRequest(): RegisterExternalKeysRequest {
-  return { chain: "", externalKeys: [], sender: "" };
+  return { $type: "axelar.tss.v1beta1.RegisterExternalKeysRequest", chain: "", externalKeys: [], sender: "" };
 }
 
 export const RegisterExternalKeysRequest = {
+  $type: "axelar.tss.v1beta1.RegisterExternalKeysRequest" as const,
+
   encode(message: RegisterExternalKeysRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.chain !== "") {
       writer.uint32(18).string(message.chain);
@@ -1137,6 +1253,7 @@ export const RegisterExternalKeysRequest = {
 
   fromJSON(object: any): RegisterExternalKeysRequest {
     return {
+      $type: RegisterExternalKeysRequest.$type,
       chain: isSet(object.chain) ? gt.String(object.chain) : "",
       externalKeys: gt.Array.isArray(object?.externalKeys)
         ? object.externalKeys.map((e: any) => RegisterExternalKeysRequest_ExternalKey.fromJSON(e))
@@ -1176,11 +1293,19 @@ export const RegisterExternalKeysRequest = {
   },
 };
 
+messageTypeRegistry.set(RegisterExternalKeysRequest.$type, RegisterExternalKeysRequest);
+
 function createBaseRegisterExternalKeysRequest_ExternalKey(): RegisterExternalKeysRequest_ExternalKey {
-  return { id: "", pubKey: Buffer.alloc(0) };
+  return {
+    $type: "axelar.tss.v1beta1.RegisterExternalKeysRequest.ExternalKey",
+    id: "",
+    pubKey: Buffer.alloc(0),
+  };
 }
 
 export const RegisterExternalKeysRequest_ExternalKey = {
+  $type: "axelar.tss.v1beta1.RegisterExternalKeysRequest.ExternalKey" as const,
+
   encode(
     message: RegisterExternalKeysRequest_ExternalKey,
     writer: _m0.Writer = _m0.Writer.create(),
@@ -1226,6 +1351,7 @@ export const RegisterExternalKeysRequest_ExternalKey = {
 
   fromJSON(object: any): RegisterExternalKeysRequest_ExternalKey {
     return {
+      $type: RegisterExternalKeysRequest_ExternalKey.$type,
       id: isSet(object.id) ? gt.String(object.id) : "",
       pubKey: isSet(object.pubKey) ? Buffer.from(bytesFromBase64(object.pubKey)) : Buffer.alloc(0),
     };
@@ -1257,11 +1383,18 @@ export const RegisterExternalKeysRequest_ExternalKey = {
   },
 };
 
+messageTypeRegistry.set(
+  RegisterExternalKeysRequest_ExternalKey.$type,
+  RegisterExternalKeysRequest_ExternalKey,
+);
+
 function createBaseRegisterExternalKeysResponse(): RegisterExternalKeysResponse {
-  return {};
+  return { $type: "axelar.tss.v1beta1.RegisterExternalKeysResponse" };
 }
 
 export const RegisterExternalKeysResponse = {
+  $type: "axelar.tss.v1beta1.RegisterExternalKeysResponse" as const,
+
   encode(_: RegisterExternalKeysResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
@@ -1283,7 +1416,7 @@ export const RegisterExternalKeysResponse = {
   },
 
   fromJSON(_: any): RegisterExternalKeysResponse {
-    return {};
+    return { $type: RegisterExternalKeysResponse.$type };
   },
 
   toJSON(_: RegisterExternalKeysResponse): unknown {
@@ -1304,11 +1437,15 @@ export const RegisterExternalKeysResponse = {
   },
 };
 
+messageTypeRegistry.set(RegisterExternalKeysResponse.$type, RegisterExternalKeysResponse);
+
 function createBaseSubmitMultisigPubKeysRequest(): SubmitMultisigPubKeysRequest {
-  return { keyId: "", sigKeyPairs: [], sender: "" };
+  return { $type: "axelar.tss.v1beta1.SubmitMultisigPubKeysRequest", keyId: "", sigKeyPairs: [], sender: "" };
 }
 
 export const SubmitMultisigPubKeysRequest = {
+  $type: "axelar.tss.v1beta1.SubmitMultisigPubKeysRequest" as const,
+
   encode(message: SubmitMultisigPubKeysRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.keyId !== "") {
       writer.uint32(18).string(message.keyId);
@@ -1361,6 +1498,7 @@ export const SubmitMultisigPubKeysRequest = {
 
   fromJSON(object: any): SubmitMultisigPubKeysRequest {
     return {
+      $type: SubmitMultisigPubKeysRequest.$type,
       keyId: isSet(object.keyId) ? gt.String(object.keyId) : "",
       sigKeyPairs: gt.Array.isArray(object?.sigKeyPairs)
         ? object.sigKeyPairs.map((e: any) => SigKeyPair.fromJSON(e))
@@ -1399,11 +1537,15 @@ export const SubmitMultisigPubKeysRequest = {
   },
 };
 
+messageTypeRegistry.set(SubmitMultisigPubKeysRequest.$type, SubmitMultisigPubKeysRequest);
+
 function createBaseSubmitMultisigPubKeysResponse(): SubmitMultisigPubKeysResponse {
-  return {};
+  return { $type: "axelar.tss.v1beta1.SubmitMultisigPubKeysResponse" };
 }
 
 export const SubmitMultisigPubKeysResponse = {
+  $type: "axelar.tss.v1beta1.SubmitMultisigPubKeysResponse" as const,
+
   encode(_: SubmitMultisigPubKeysResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
@@ -1425,7 +1567,7 @@ export const SubmitMultisigPubKeysResponse = {
   },
 
   fromJSON(_: any): SubmitMultisigPubKeysResponse {
-    return {};
+    return { $type: SubmitMultisigPubKeysResponse.$type };
   },
 
   toJSON(_: SubmitMultisigPubKeysResponse): unknown {
@@ -1446,11 +1588,20 @@ export const SubmitMultisigPubKeysResponse = {
   },
 };
 
+messageTypeRegistry.set(SubmitMultisigPubKeysResponse.$type, SubmitMultisigPubKeysResponse);
+
 function createBaseSubmitMultisigSignaturesRequest(): SubmitMultisigSignaturesRequest {
-  return { sigId: "", signatures: [], sender: "" };
+  return {
+    $type: "axelar.tss.v1beta1.SubmitMultisigSignaturesRequest",
+    sigId: "",
+    signatures: [],
+    sender: "",
+  };
 }
 
 export const SubmitMultisigSignaturesRequest = {
+  $type: "axelar.tss.v1beta1.SubmitMultisigSignaturesRequest" as const,
+
   encode(message: SubmitMultisigSignaturesRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.sigId !== "") {
       writer.uint32(18).string(message.sigId);
@@ -1503,6 +1654,7 @@ export const SubmitMultisigSignaturesRequest = {
 
   fromJSON(object: any): SubmitMultisigSignaturesRequest {
     return {
+      $type: SubmitMultisigSignaturesRequest.$type,
       sigId: isSet(object.sigId) ? gt.String(object.sigId) : "",
       signatures: gt.Array.isArray(object?.signatures)
         ? object.signatures.map((e: any) => Buffer.from(bytesFromBase64(e)))
@@ -1541,11 +1693,15 @@ export const SubmitMultisigSignaturesRequest = {
   },
 };
 
+messageTypeRegistry.set(SubmitMultisigSignaturesRequest.$type, SubmitMultisigSignaturesRequest);
+
 function createBaseSubmitMultisigSignaturesResponse(): SubmitMultisigSignaturesResponse {
-  return {};
+  return { $type: "axelar.tss.v1beta1.SubmitMultisigSignaturesResponse" };
 }
 
 export const SubmitMultisigSignaturesResponse = {
+  $type: "axelar.tss.v1beta1.SubmitMultisigSignaturesResponse" as const,
+
   encode(_: SubmitMultisigSignaturesResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
@@ -1567,7 +1723,7 @@ export const SubmitMultisigSignaturesResponse = {
   },
 
   fromJSON(_: any): SubmitMultisigSignaturesResponse {
-    return {};
+    return { $type: SubmitMultisigSignaturesResponse.$type };
   },
 
   toJSON(_: SubmitMultisigSignaturesResponse): unknown {
@@ -1587,6 +1743,135 @@ export const SubmitMultisigSignaturesResponse = {
     return message;
   },
 };
+
+messageTypeRegistry.set(SubmitMultisigSignaturesResponse.$type, SubmitMultisigSignaturesResponse);
+
+function createBaseUpdateParamsRequest(): UpdateParamsRequest {
+  return { $type: "axelar.tss.v1beta1.UpdateParamsRequest", authority: "", params: undefined };
+}
+
+export const UpdateParamsRequest = {
+  $type: "axelar.tss.v1beta1.UpdateParamsRequest" as const,
+
+  encode(message: UpdateParamsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.authority !== "") {
+      writer.uint32(10).string(message.authority);
+    }
+    if (message.params !== undefined) {
+      Params.encode(message.params, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): UpdateParamsRequest {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseUpdateParamsRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 10) {
+            break;
+          }
+
+          message.authority = reader.string();
+          continue;
+        case 2:
+          if (tag !== 18) {
+            break;
+          }
+
+          message.params = Params.decode(reader, reader.uint32());
+          continue;
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): UpdateParamsRequest {
+    return {
+      $type: UpdateParamsRequest.$type,
+      authority: isSet(object.authority) ? gt.String(object.authority) : "",
+      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
+    };
+  },
+
+  toJSON(message: UpdateParamsRequest): unknown {
+    const obj: any = {};
+    if (message.authority !== "") {
+      obj.authority = message.authority;
+    }
+    if (message.params !== undefined) {
+      obj.params = Params.toJSON(message.params);
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<UpdateParamsRequest>, I>>(base?: I): UpdateParamsRequest {
+    return UpdateParamsRequest.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<UpdateParamsRequest>, I>>(object: I): UpdateParamsRequest {
+    const message = createBaseUpdateParamsRequest();
+    message.authority = object.authority ?? "";
+    message.params =
+      object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
+    return message;
+  },
+};
+
+messageTypeRegistry.set(UpdateParamsRequest.$type, UpdateParamsRequest);
+
+function createBaseUpdateParamsResponse(): UpdateParamsResponse {
+  return { $type: "axelar.tss.v1beta1.UpdateParamsResponse" };
+}
+
+export const UpdateParamsResponse = {
+  $type: "axelar.tss.v1beta1.UpdateParamsResponse" as const,
+
+  encode(_: UpdateParamsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): UpdateParamsResponse {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseUpdateParamsResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(_: any): UpdateParamsResponse {
+    return { $type: UpdateParamsResponse.$type };
+  },
+
+  toJSON(_: UpdateParamsResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<UpdateParamsResponse>, I>>(base?: I): UpdateParamsResponse {
+    return UpdateParamsResponse.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<UpdateParamsResponse>, I>>(_: I): UpdateParamsResponse {
+    const message = createBaseUpdateParamsResponse();
+    return message;
+  },
+};
+
+messageTypeRegistry.set(UpdateParamsResponse.$type, UpdateParamsResponse);
 
 declare const self: any | undefined;
 declare const window: any | undefined;
@@ -1626,13 +1911,13 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

@@ -8,6 +8,7 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { Any } from "../../../google/protobuf/any";
+import { messageTypeRegistry } from "../../../typeRegistry";
 
 export const protobufPackage = "cosmos.crypto.multisig";
 
@@ -17,15 +18,18 @@ export const protobufPackage = "cosmos.crypto.multisig";
  * it uses legacy amino address rules.
  */
 export interface LegacyAminoPubKey {
+  $type: "cosmos.crypto.multisig.LegacyAminoPubKey";
   threshold: number;
   publicKeys: Any[];
 }
 
 function createBaseLegacyAminoPubKey(): LegacyAminoPubKey {
-  return { threshold: 0, publicKeys: [] };
+  return { $type: "cosmos.crypto.multisig.LegacyAminoPubKey", threshold: 0, publicKeys: [] };
 }
 
 export const LegacyAminoPubKey = {
+  $type: "cosmos.crypto.multisig.LegacyAminoPubKey" as const,
+
   encode(message: LegacyAminoPubKey, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.threshold !== 0) {
       writer.uint32(8).uint32(message.threshold);
@@ -68,6 +72,7 @@ export const LegacyAminoPubKey = {
 
   fromJSON(object: any): LegacyAminoPubKey {
     return {
+      $type: LegacyAminoPubKey.$type,
       threshold: isSet(object.threshold) ? gt.Number(object.threshold) : 0,
       publicKeys: gt.Array.isArray(object?.publicKeys)
         ? object.publicKeys.map((e: any) => Any.fromJSON(e))
@@ -96,6 +101,8 @@ export const LegacyAminoPubKey = {
     return message;
   },
 };
+
+messageTypeRegistry.set(LegacyAminoPubKey.$type, LegacyAminoPubKey);
 
 declare const self: any | undefined;
 declare const window: any | undefined;
@@ -127,13 +134,13 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

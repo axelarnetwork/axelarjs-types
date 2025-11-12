@@ -8,10 +8,12 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
+import { messageTypeRegistry } from "../../../typeRegistry";
 
 export const protobufPackage = "axelar.axelarnet.v1beta1";
 
 export interface IBCTransferSent {
+  $type: "axelar.axelarnet.v1beta1.IBCTransferSent";
   id: Long;
   /** @deprecated */
   receipient: string;
@@ -23,6 +25,7 @@ export interface IBCTransferSent {
 }
 
 export interface IBCTransferCompleted {
+  $type: "axelar.axelarnet.v1beta1.IBCTransferCompleted";
   id: Long;
   sequence: Long;
   portId: string;
@@ -30,6 +33,7 @@ export interface IBCTransferCompleted {
 }
 
 export interface IBCTransferFailed {
+  $type: "axelar.axelarnet.v1beta1.IBCTransferFailed";
   id: Long;
   sequence: Long;
   portId: string;
@@ -37,6 +41,7 @@ export interface IBCTransferFailed {
 }
 
 export interface IBCTransferRetried {
+  $type: "axelar.axelarnet.v1beta1.IBCTransferRetried";
   id: Long;
   /** @deprecated */
   receipient: string;
@@ -48,6 +53,7 @@ export interface IBCTransferRetried {
 }
 
 export interface AxelarTransferCompleted {
+  $type: "axelar.axelarnet.v1beta1.AxelarTransferCompleted";
   id: Long;
   /** @deprecated */
   receipient: string;
@@ -56,11 +62,13 @@ export interface AxelarTransferCompleted {
 }
 
 export interface FeeCollected {
+  $type: "axelar.axelarnet.v1beta1.FeeCollected";
   collector: Buffer;
   fee?: Coin | undefined;
 }
 
 export interface FeePaid {
+  $type: "axelar.axelarnet.v1beta1.FeePaid";
   messageId: string;
   recipient: Buffer;
   fee?: Coin | undefined;
@@ -72,6 +80,7 @@ export interface FeePaid {
 }
 
 export interface ContractCallSubmitted {
+  $type: "axelar.axelarnet.v1beta1.ContractCallSubmitted";
   messageId: string;
   sender: string;
   sourceChain: string;
@@ -82,6 +91,7 @@ export interface ContractCallSubmitted {
 }
 
 export interface ContractCallWithTokenSubmitted {
+  $type: "axelar.axelarnet.v1beta1.ContractCallWithTokenSubmitted";
   messageId: string;
   sender: string;
   sourceChain: string;
@@ -93,6 +103,7 @@ export interface ContractCallWithTokenSubmitted {
 }
 
 export interface TokenSent {
+  $type: "axelar.axelarnet.v1beta1.TokenSent";
   transferId: Long;
   sender: string;
   sourceChain: string;
@@ -103,6 +114,7 @@ export interface TokenSent {
 
 function createBaseIBCTransferSent(): IBCTransferSent {
   return {
+    $type: "axelar.axelarnet.v1beta1.IBCTransferSent",
     id: Long.UZERO,
     receipient: "",
     asset: undefined,
@@ -114,6 +126,8 @@ function createBaseIBCTransferSent(): IBCTransferSent {
 }
 
 export const IBCTransferSent = {
+  $type: "axelar.axelarnet.v1beta1.IBCTransferSent" as const,
+
   encode(message: IBCTransferSent, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.id.equals(Long.UZERO)) {
       writer.uint32(8).uint64(message.id);
@@ -206,6 +220,7 @@ export const IBCTransferSent = {
 
   fromJSON(object: any): IBCTransferSent {
     return {
+      $type: IBCTransferSent.$type,
       id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
       receipient: isSet(object.receipient) ? gt.String(object.receipient) : "",
       asset: isSet(object.asset) ? Coin.fromJSON(object.asset) : undefined,
@@ -262,11 +277,21 @@ export const IBCTransferSent = {
   },
 };
 
+messageTypeRegistry.set(IBCTransferSent.$type, IBCTransferSent);
+
 function createBaseIBCTransferCompleted(): IBCTransferCompleted {
-  return { id: Long.UZERO, sequence: Long.UZERO, portId: "", channelId: "" };
+  return {
+    $type: "axelar.axelarnet.v1beta1.IBCTransferCompleted",
+    id: Long.UZERO,
+    sequence: Long.UZERO,
+    portId: "",
+    channelId: "",
+  };
 }
 
 export const IBCTransferCompleted = {
+  $type: "axelar.axelarnet.v1beta1.IBCTransferCompleted" as const,
+
   encode(message: IBCTransferCompleted, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.id.equals(Long.UZERO)) {
       writer.uint32(8).uint64(message.id);
@@ -329,6 +354,7 @@ export const IBCTransferCompleted = {
 
   fromJSON(object: any): IBCTransferCompleted {
     return {
+      $type: IBCTransferCompleted.$type,
       id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
       sequence: isSet(object.sequence) ? Long.fromValue(object.sequence) : Long.UZERO,
       portId: isSet(object.portId) ? gt.String(object.portId) : "",
@@ -369,11 +395,21 @@ export const IBCTransferCompleted = {
   },
 };
 
+messageTypeRegistry.set(IBCTransferCompleted.$type, IBCTransferCompleted);
+
 function createBaseIBCTransferFailed(): IBCTransferFailed {
-  return { id: Long.UZERO, sequence: Long.UZERO, portId: "", channelId: "" };
+  return {
+    $type: "axelar.axelarnet.v1beta1.IBCTransferFailed",
+    id: Long.UZERO,
+    sequence: Long.UZERO,
+    portId: "",
+    channelId: "",
+  };
 }
 
 export const IBCTransferFailed = {
+  $type: "axelar.axelarnet.v1beta1.IBCTransferFailed" as const,
+
   encode(message: IBCTransferFailed, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.id.equals(Long.UZERO)) {
       writer.uint32(8).uint64(message.id);
@@ -436,6 +472,7 @@ export const IBCTransferFailed = {
 
   fromJSON(object: any): IBCTransferFailed {
     return {
+      $type: IBCTransferFailed.$type,
       id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
       sequence: isSet(object.sequence) ? Long.fromValue(object.sequence) : Long.UZERO,
       portId: isSet(object.portId) ? gt.String(object.portId) : "",
@@ -476,8 +513,11 @@ export const IBCTransferFailed = {
   },
 };
 
+messageTypeRegistry.set(IBCTransferFailed.$type, IBCTransferFailed);
+
 function createBaseIBCTransferRetried(): IBCTransferRetried {
   return {
+    $type: "axelar.axelarnet.v1beta1.IBCTransferRetried",
     id: Long.UZERO,
     receipient: "",
     asset: undefined,
@@ -489,6 +529,8 @@ function createBaseIBCTransferRetried(): IBCTransferRetried {
 }
 
 export const IBCTransferRetried = {
+  $type: "axelar.axelarnet.v1beta1.IBCTransferRetried" as const,
+
   encode(message: IBCTransferRetried, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.id.equals(Long.UZERO)) {
       writer.uint32(8).uint64(message.id);
@@ -581,6 +623,7 @@ export const IBCTransferRetried = {
 
   fromJSON(object: any): IBCTransferRetried {
     return {
+      $type: IBCTransferRetried.$type,
       id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
       receipient: isSet(object.receipient) ? gt.String(object.receipient) : "",
       asset: isSet(object.asset) ? Coin.fromJSON(object.asset) : undefined,
@@ -637,11 +680,21 @@ export const IBCTransferRetried = {
   },
 };
 
+messageTypeRegistry.set(IBCTransferRetried.$type, IBCTransferRetried);
+
 function createBaseAxelarTransferCompleted(): AxelarTransferCompleted {
-  return { id: Long.UZERO, receipient: "", asset: undefined, recipient: "" };
+  return {
+    $type: "axelar.axelarnet.v1beta1.AxelarTransferCompleted",
+    id: Long.UZERO,
+    receipient: "",
+    asset: undefined,
+    recipient: "",
+  };
 }
 
 export const AxelarTransferCompleted = {
+  $type: "axelar.axelarnet.v1beta1.AxelarTransferCompleted" as const,
+
   encode(message: AxelarTransferCompleted, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.id.equals(Long.UZERO)) {
       writer.uint32(8).uint64(message.id);
@@ -704,6 +757,7 @@ export const AxelarTransferCompleted = {
 
   fromJSON(object: any): AxelarTransferCompleted {
     return {
+      $type: AxelarTransferCompleted.$type,
       id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
       receipient: isSet(object.receipient) ? gt.String(object.receipient) : "",
       asset: isSet(object.asset) ? Coin.fromJSON(object.asset) : undefined,
@@ -742,11 +796,15 @@ export const AxelarTransferCompleted = {
   },
 };
 
+messageTypeRegistry.set(AxelarTransferCompleted.$type, AxelarTransferCompleted);
+
 function createBaseFeeCollected(): FeeCollected {
-  return { collector: Buffer.alloc(0), fee: undefined };
+  return { $type: "axelar.axelarnet.v1beta1.FeeCollected", collector: Buffer.alloc(0), fee: undefined };
 }
 
 export const FeeCollected = {
+  $type: "axelar.axelarnet.v1beta1.FeeCollected" as const,
+
   encode(message: FeeCollected, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.collector.length !== 0) {
       writer.uint32(10).bytes(message.collector);
@@ -789,6 +847,7 @@ export const FeeCollected = {
 
   fromJSON(object: any): FeeCollected {
     return {
+      $type: FeeCollected.$type,
       collector: isSet(object.collector) ? Buffer.from(bytesFromBase64(object.collector)) : Buffer.alloc(0),
       fee: isSet(object.fee) ? Coin.fromJSON(object.fee) : undefined,
     };
@@ -816,8 +875,11 @@ export const FeeCollected = {
   },
 };
 
+messageTypeRegistry.set(FeeCollected.$type, FeeCollected);
+
 function createBaseFeePaid(): FeePaid {
   return {
+    $type: "axelar.axelarnet.v1beta1.FeePaid",
     messageId: "",
     recipient: Buffer.alloc(0),
     fee: undefined,
@@ -829,6 +891,8 @@ function createBaseFeePaid(): FeePaid {
 }
 
 export const FeePaid = {
+  $type: "axelar.axelarnet.v1beta1.FeePaid" as const,
+
   encode(message: FeePaid, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.messageId !== "") {
       writer.uint32(10).string(message.messageId);
@@ -921,6 +985,7 @@ export const FeePaid = {
 
   fromJSON(object: any): FeePaid {
     return {
+      $type: FeePaid.$type,
       messageId: isSet(object.messageId) ? gt.String(object.messageId) : "",
       recipient: isSet(object.recipient) ? Buffer.from(bytesFromBase64(object.recipient)) : Buffer.alloc(0),
       fee: isSet(object.fee) ? Coin.fromJSON(object.fee) : undefined,
@@ -973,8 +1038,11 @@ export const FeePaid = {
   },
 };
 
+messageTypeRegistry.set(FeePaid.$type, FeePaid);
+
 function createBaseContractCallSubmitted(): ContractCallSubmitted {
   return {
+    $type: "axelar.axelarnet.v1beta1.ContractCallSubmitted",
     messageId: "",
     sender: "",
     sourceChain: "",
@@ -986,6 +1054,8 @@ function createBaseContractCallSubmitted(): ContractCallSubmitted {
 }
 
 export const ContractCallSubmitted = {
+  $type: "axelar.axelarnet.v1beta1.ContractCallSubmitted" as const,
+
   encode(message: ContractCallSubmitted, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.messageId !== "") {
       writer.uint32(10).string(message.messageId);
@@ -1078,6 +1148,7 @@ export const ContractCallSubmitted = {
 
   fromJSON(object: any): ContractCallSubmitted {
     return {
+      $type: ContractCallSubmitted.$type,
       messageId: isSet(object.messageId) ? gt.String(object.messageId) : "",
       sender: isSet(object.sender) ? gt.String(object.sender) : "",
       sourceChain: isSet(object.sourceChain) ? gt.String(object.sourceChain) : "",
@@ -1132,8 +1203,11 @@ export const ContractCallSubmitted = {
   },
 };
 
+messageTypeRegistry.set(ContractCallSubmitted.$type, ContractCallSubmitted);
+
 function createBaseContractCallWithTokenSubmitted(): ContractCallWithTokenSubmitted {
   return {
+    $type: "axelar.axelarnet.v1beta1.ContractCallWithTokenSubmitted",
     messageId: "",
     sender: "",
     sourceChain: "",
@@ -1146,6 +1220,8 @@ function createBaseContractCallWithTokenSubmitted(): ContractCallWithTokenSubmit
 }
 
 export const ContractCallWithTokenSubmitted = {
+  $type: "axelar.axelarnet.v1beta1.ContractCallWithTokenSubmitted" as const,
+
   encode(message: ContractCallWithTokenSubmitted, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.messageId !== "") {
       writer.uint32(10).string(message.messageId);
@@ -1248,6 +1324,7 @@ export const ContractCallWithTokenSubmitted = {
 
   fromJSON(object: any): ContractCallWithTokenSubmitted {
     return {
+      $type: ContractCallWithTokenSubmitted.$type,
       messageId: isSet(object.messageId) ? gt.String(object.messageId) : "",
       sender: isSet(object.sender) ? gt.String(object.sender) : "",
       sourceChain: isSet(object.sourceChain) ? gt.String(object.sourceChain) : "",
@@ -1312,8 +1389,11 @@ export const ContractCallWithTokenSubmitted = {
   },
 };
 
+messageTypeRegistry.set(ContractCallWithTokenSubmitted.$type, ContractCallWithTokenSubmitted);
+
 function createBaseTokenSent(): TokenSent {
   return {
+    $type: "axelar.axelarnet.v1beta1.TokenSent",
     transferId: Long.UZERO,
     sender: "",
     sourceChain: "",
@@ -1324,6 +1404,8 @@ function createBaseTokenSent(): TokenSent {
 }
 
 export const TokenSent = {
+  $type: "axelar.axelarnet.v1beta1.TokenSent" as const,
+
   encode(message: TokenSent, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.transferId.equals(Long.UZERO)) {
       writer.uint32(8).uint64(message.transferId);
@@ -1406,6 +1488,7 @@ export const TokenSent = {
 
   fromJSON(object: any): TokenSent {
     return {
+      $type: TokenSent.$type,
       transferId: isSet(object.transferId) ? Long.fromValue(object.transferId) : Long.UZERO,
       sender: isSet(object.sender) ? gt.String(object.sender) : "",
       sourceChain: isSet(object.sourceChain) ? gt.String(object.sourceChain) : "",
@@ -1457,6 +1540,8 @@ export const TokenSent = {
   },
 };
 
+messageTypeRegistry.set(TokenSent.$type, TokenSent);
+
 declare const self: any | undefined;
 declare const window: any | undefined;
 declare const global: any | undefined;
@@ -1495,13 +1580,13 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

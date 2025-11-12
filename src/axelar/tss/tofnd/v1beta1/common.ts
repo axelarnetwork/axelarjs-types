@@ -7,6 +7,7 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { messageTypeRegistry } from "../../../../typeRegistry";
 
 export const protobufPackage = "axelar.tss.tofnd.v1beta1";
 
@@ -14,12 +15,14 @@ export const protobufPackage = "axelar.tss.tofnd.v1beta1";
 
 /** Key presence check types */
 export interface KeyPresenceRequest {
+  $type: "axelar.tss.tofnd.v1beta1.KeyPresenceRequest";
   keyUid: string;
   /** SEC1-encoded compressed pub key bytes to find the right */
   pubKey: Buffer;
 }
 
 export interface KeyPresenceResponse {
+  $type: "axelar.tss.tofnd.v1beta1.KeyPresenceResponse";
   response: KeyPresenceResponse_Response;
 }
 
@@ -69,10 +72,12 @@ export function keyPresenceResponse_ResponseToJSON(object: KeyPresenceResponse_R
 }
 
 function createBaseKeyPresenceRequest(): KeyPresenceRequest {
-  return { keyUid: "", pubKey: Buffer.alloc(0) };
+  return { $type: "axelar.tss.tofnd.v1beta1.KeyPresenceRequest", keyUid: "", pubKey: Buffer.alloc(0) };
 }
 
 export const KeyPresenceRequest = {
+  $type: "axelar.tss.tofnd.v1beta1.KeyPresenceRequest" as const,
+
   encode(message: KeyPresenceRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.keyUid !== "") {
       writer.uint32(10).string(message.keyUid);
@@ -115,6 +120,7 @@ export const KeyPresenceRequest = {
 
   fromJSON(object: any): KeyPresenceRequest {
     return {
+      $type: KeyPresenceRequest.$type,
       keyUid: isSet(object.keyUid) ? gt.String(object.keyUid) : "",
       pubKey: isSet(object.pubKey) ? Buffer.from(bytesFromBase64(object.pubKey)) : Buffer.alloc(0),
     };
@@ -142,11 +148,15 @@ export const KeyPresenceRequest = {
   },
 };
 
+messageTypeRegistry.set(KeyPresenceRequest.$type, KeyPresenceRequest);
+
 function createBaseKeyPresenceResponse(): KeyPresenceResponse {
-  return { response: 0 };
+  return { $type: "axelar.tss.tofnd.v1beta1.KeyPresenceResponse", response: 0 };
 }
 
 export const KeyPresenceResponse = {
+  $type: "axelar.tss.tofnd.v1beta1.KeyPresenceResponse" as const,
+
   encode(message: KeyPresenceResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.response !== 0) {
       writer.uint32(8).int32(message.response);
@@ -178,7 +188,10 @@ export const KeyPresenceResponse = {
   },
 
   fromJSON(object: any): KeyPresenceResponse {
-    return { response: isSet(object.response) ? keyPresenceResponse_ResponseFromJSON(object.response) : 0 };
+    return {
+      $type: KeyPresenceResponse.$type,
+      response: isSet(object.response) ? keyPresenceResponse_ResponseFromJSON(object.response) : 0,
+    };
   },
 
   toJSON(message: KeyPresenceResponse): unknown {
@@ -198,6 +211,8 @@ export const KeyPresenceResponse = {
     return message;
   },
 };
+
+messageTypeRegistry.set(KeyPresenceResponse.$type, KeyPresenceResponse);
 
 declare const self: any | undefined;
 declare const window: any | undefined;
@@ -237,13 +252,13 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

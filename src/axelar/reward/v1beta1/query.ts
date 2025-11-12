@@ -7,6 +7,7 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { messageTypeRegistry } from "../../../typeRegistry";
 import { Params } from "./params";
 
 export const protobufPackage = "axelar.reward.v1beta1";
@@ -19,25 +20,32 @@ export const protobufPackage = "axelar.reward.v1beta1";
  * string is used for this request instead.
  */
 export interface InflationRateRequest {
+  $type: "axelar.reward.v1beta1.InflationRateRequest";
   validator: string;
 }
 
 export interface InflationRateResponse {
+  $type: "axelar.reward.v1beta1.InflationRateResponse";
   inflationRate: Buffer;
 }
 
 /** ParamsRequest represents a message that queries the params */
-export interface ParamsRequest {}
+export interface ParamsRequest {
+  $type: "axelar.reward.v1beta1.ParamsRequest";
+}
 
 export interface ParamsResponse {
+  $type: "axelar.reward.v1beta1.ParamsResponse";
   params?: Params | undefined;
 }
 
 function createBaseInflationRateRequest(): InflationRateRequest {
-  return { validator: "" };
+  return { $type: "axelar.reward.v1beta1.InflationRateRequest", validator: "" };
 }
 
 export const InflationRateRequest = {
+  $type: "axelar.reward.v1beta1.InflationRateRequest" as const,
+
   encode(message: InflationRateRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.validator !== "") {
       writer.uint32(10).string(message.validator);
@@ -69,7 +77,10 @@ export const InflationRateRequest = {
   },
 
   fromJSON(object: any): InflationRateRequest {
-    return { validator: isSet(object.validator) ? gt.String(object.validator) : "" };
+    return {
+      $type: InflationRateRequest.$type,
+      validator: isSet(object.validator) ? gt.String(object.validator) : "",
+    };
   },
 
   toJSON(message: InflationRateRequest): unknown {
@@ -90,11 +101,15 @@ export const InflationRateRequest = {
   },
 };
 
+messageTypeRegistry.set(InflationRateRequest.$type, InflationRateRequest);
+
 function createBaseInflationRateResponse(): InflationRateResponse {
-  return { inflationRate: Buffer.alloc(0) };
+  return { $type: "axelar.reward.v1beta1.InflationRateResponse", inflationRate: Buffer.alloc(0) };
 }
 
 export const InflationRateResponse = {
+  $type: "axelar.reward.v1beta1.InflationRateResponse" as const,
+
   encode(message: InflationRateResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.inflationRate.length !== 0) {
       writer.uint32(10).bytes(message.inflationRate);
@@ -127,6 +142,7 @@ export const InflationRateResponse = {
 
   fromJSON(object: any): InflationRateResponse {
     return {
+      $type: InflationRateResponse.$type,
       inflationRate: isSet(object.inflationRate)
         ? Buffer.from(bytesFromBase64(object.inflationRate))
         : Buffer.alloc(0),
@@ -151,11 +167,15 @@ export const InflationRateResponse = {
   },
 };
 
+messageTypeRegistry.set(InflationRateResponse.$type, InflationRateResponse);
+
 function createBaseParamsRequest(): ParamsRequest {
-  return {};
+  return { $type: "axelar.reward.v1beta1.ParamsRequest" };
 }
 
 export const ParamsRequest = {
+  $type: "axelar.reward.v1beta1.ParamsRequest" as const,
+
   encode(_: ParamsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
@@ -177,7 +197,7 @@ export const ParamsRequest = {
   },
 
   fromJSON(_: any): ParamsRequest {
-    return {};
+    return { $type: ParamsRequest.$type };
   },
 
   toJSON(_: ParamsRequest): unknown {
@@ -194,11 +214,15 @@ export const ParamsRequest = {
   },
 };
 
+messageTypeRegistry.set(ParamsRequest.$type, ParamsRequest);
+
 function createBaseParamsResponse(): ParamsResponse {
-  return { params: undefined };
+  return { $type: "axelar.reward.v1beta1.ParamsResponse", params: undefined };
 }
 
 export const ParamsResponse = {
+  $type: "axelar.reward.v1beta1.ParamsResponse" as const,
+
   encode(message: ParamsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
@@ -230,7 +254,10 @@ export const ParamsResponse = {
   },
 
   fromJSON(object: any): ParamsResponse {
-    return { params: isSet(object.params) ? Params.fromJSON(object.params) : undefined };
+    return {
+      $type: ParamsResponse.$type,
+      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
+    };
   },
 
   toJSON(message: ParamsResponse): unknown {
@@ -251,6 +278,8 @@ export const ParamsResponse = {
     return message;
   },
 };
+
+messageTypeRegistry.set(ParamsResponse.$type, ParamsResponse);
 
 declare const self: any | undefined;
 declare const window: any | undefined;
@@ -290,13 +319,13 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

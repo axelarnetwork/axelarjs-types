@@ -7,31 +7,40 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { messageTypeRegistry } from "../../../typeRegistry";
 
 export const protobufPackage = "axelar.utils.v1beta1";
 
 export interface QueueState {
+  $type: "axelar.utils.v1beta1.QueueState";
   items: { [key: string]: QueueState_Item };
 }
 
 export interface QueueState_Item {
+  $type: "axelar.utils.v1beta1.QueueState.Item";
   key: Buffer;
   value: Buffer;
 }
 
 export interface QueueState_ItemsEntry {
+  $type: "axelar.utils.v1beta1.QueueState.ItemsEntry";
   key: string;
   value?: QueueState_Item | undefined;
 }
 
 function createBaseQueueState(): QueueState {
-  return { items: {} };
+  return { $type: "axelar.utils.v1beta1.QueueState", items: {} };
 }
 
 export const QueueState = {
+  $type: "axelar.utils.v1beta1.QueueState" as const,
+
   encode(message: QueueState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     Object.entries(message.items).forEach(([key, value]) => {
-      QueueState_ItemsEntry.encode({ key: key as any, value }, writer.uint32(10).fork()).ldelim();
+      QueueState_ItemsEntry.encode(
+        { $type: "axelar.utils.v1beta1.QueueState.ItemsEntry", key: key as any, value },
+        writer.uint32(10).fork(),
+      ).ldelim();
     });
     return writer;
   },
@@ -64,6 +73,7 @@ export const QueueState = {
 
   fromJSON(object: any): QueueState {
     return {
+      $type: QueueState.$type,
       items: isObject(object.items)
         ? Object.entries(object.items).reduce<{ [key: string]: QueueState_Item }>((acc, [key, value]) => {
             acc[key] = QueueState_Item.fromJSON(value);
@@ -105,11 +115,15 @@ export const QueueState = {
   },
 };
 
+messageTypeRegistry.set(QueueState.$type, QueueState);
+
 function createBaseQueueState_Item(): QueueState_Item {
-  return { key: Buffer.alloc(0), value: Buffer.alloc(0) };
+  return { $type: "axelar.utils.v1beta1.QueueState.Item", key: Buffer.alloc(0), value: Buffer.alloc(0) };
 }
 
 export const QueueState_Item = {
+  $type: "axelar.utils.v1beta1.QueueState.Item" as const,
+
   encode(message: QueueState_Item, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.key.length !== 0) {
       writer.uint32(10).bytes(message.key);
@@ -152,6 +166,7 @@ export const QueueState_Item = {
 
   fromJSON(object: any): QueueState_Item {
     return {
+      $type: QueueState_Item.$type,
       key: isSet(object.key) ? Buffer.from(bytesFromBase64(object.key)) : Buffer.alloc(0),
       value: isSet(object.value) ? Buffer.from(bytesFromBase64(object.value)) : Buffer.alloc(0),
     };
@@ -179,11 +194,15 @@ export const QueueState_Item = {
   },
 };
 
+messageTypeRegistry.set(QueueState_Item.$type, QueueState_Item);
+
 function createBaseQueueState_ItemsEntry(): QueueState_ItemsEntry {
-  return { key: "", value: undefined };
+  return { $type: "axelar.utils.v1beta1.QueueState.ItemsEntry", key: "", value: undefined };
 }
 
 export const QueueState_ItemsEntry = {
+  $type: "axelar.utils.v1beta1.QueueState.ItemsEntry" as const,
+
   encode(message: QueueState_ItemsEntry, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.key !== "") {
       writer.uint32(10).string(message.key);
@@ -226,6 +245,7 @@ export const QueueState_ItemsEntry = {
 
   fromJSON(object: any): QueueState_ItemsEntry {
     return {
+      $type: QueueState_ItemsEntry.$type,
       key: isSet(object.key) ? gt.String(object.key) : "",
       value: isSet(object.value) ? QueueState_Item.fromJSON(object.value) : undefined,
     };
@@ -255,6 +275,8 @@ export const QueueState_ItemsEntry = {
     return message;
   },
 };
+
+messageTypeRegistry.set(QueueState_ItemsEntry.$type, QueueState_ItemsEntry);
 
 declare const self: any | undefined;
 declare const window: any | undefined;
@@ -294,13 +316,13 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

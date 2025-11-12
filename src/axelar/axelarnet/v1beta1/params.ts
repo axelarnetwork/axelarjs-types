@@ -8,11 +8,13 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
+import { messageTypeRegistry } from "../../../typeRegistry";
 
 export const protobufPackage = "axelar.axelarnet.v1beta1";
 
 /** Params represent the genesis parameters for the module */
 export interface Params {
+  $type: "axelar.axelarnet.v1beta1.Params";
   /** IBC packet route timeout window */
   routeTimeoutWindow: Long;
   transferLimit: Long;
@@ -21,6 +23,7 @@ export interface Params {
 }
 
 export interface CallContractProposalMinDeposit {
+  $type: "axelar.axelarnet.v1beta1.CallContractProposalMinDeposit";
   chain: string;
   contractAddress: string;
   minDeposits: Coin[];
@@ -28,6 +31,7 @@ export interface CallContractProposalMinDeposit {
 
 function createBaseParams(): Params {
   return {
+    $type: "axelar.axelarnet.v1beta1.Params",
     routeTimeoutWindow: Long.UZERO,
     transferLimit: Long.UZERO,
     endBlockerLimit: Long.UZERO,
@@ -36,6 +40,8 @@ function createBaseParams(): Params {
 }
 
 export const Params = {
+  $type: "axelar.axelarnet.v1beta1.Params" as const,
+
   encode(message: Params, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.routeTimeoutWindow.equals(Long.UZERO)) {
       writer.uint32(8).uint64(message.routeTimeoutWindow);
@@ -100,6 +106,7 @@ export const Params = {
 
   fromJSON(object: any): Params {
     return {
+      $type: Params.$type,
       routeTimeoutWindow: isSet(object.routeTimeoutWindow)
         ? Long.fromValue(object.routeTimeoutWindow)
         : Long.UZERO,
@@ -154,11 +161,20 @@ export const Params = {
   },
 };
 
+messageTypeRegistry.set(Params.$type, Params);
+
 function createBaseCallContractProposalMinDeposit(): CallContractProposalMinDeposit {
-  return { chain: "", contractAddress: "", minDeposits: [] };
+  return {
+    $type: "axelar.axelarnet.v1beta1.CallContractProposalMinDeposit",
+    chain: "",
+    contractAddress: "",
+    minDeposits: [],
+  };
 }
 
 export const CallContractProposalMinDeposit = {
+  $type: "axelar.axelarnet.v1beta1.CallContractProposalMinDeposit" as const,
+
   encode(message: CallContractProposalMinDeposit, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.chain !== "") {
       writer.uint32(10).string(message.chain);
@@ -211,6 +227,7 @@ export const CallContractProposalMinDeposit = {
 
   fromJSON(object: any): CallContractProposalMinDeposit {
     return {
+      $type: CallContractProposalMinDeposit.$type,
       chain: isSet(object.chain) ? gt.String(object.chain) : "",
       contractAddress: isSet(object.contractAddress) ? gt.String(object.contractAddress) : "",
       minDeposits: gt.Array.isArray(object?.minDeposits)
@@ -249,6 +266,8 @@ export const CallContractProposalMinDeposit = {
   },
 };
 
+messageTypeRegistry.set(CallContractProposalMinDeposit.$type, CallContractProposalMinDeposit);
+
 declare const self: any | undefined;
 declare const window: any | undefined;
 declare const global: any | undefined;
@@ -279,13 +298,13 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

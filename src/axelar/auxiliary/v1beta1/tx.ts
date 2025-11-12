@@ -9,28 +9,34 @@ import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { Result } from "../../../cosmos/base/abci/v1beta1/abci";
 import { Any } from "../../../google/protobuf/any";
+import { messageTypeRegistry } from "../../../typeRegistry";
 
 export const protobufPackage = "axelar.auxiliary.v1beta1";
 
 export interface BatchRequest {
+  $type: "axelar.auxiliary.v1beta1.BatchRequest";
   messages: Any[];
   sender: string;
 }
 
 export interface BatchResponse {
+  $type: "axelar.auxiliary.v1beta1.BatchResponse";
   responses: BatchResponse_Response[];
 }
 
 export interface BatchResponse_Response {
+  $type: "axelar.auxiliary.v1beta1.BatchResponse.Response";
   result?: Result | undefined;
   err?: string | undefined;
 }
 
 function createBaseBatchRequest(): BatchRequest {
-  return { messages: [], sender: "" };
+  return { $type: "axelar.auxiliary.v1beta1.BatchRequest", messages: [], sender: "" };
 }
 
 export const BatchRequest = {
+  $type: "axelar.auxiliary.v1beta1.BatchRequest" as const,
+
   encode(message: BatchRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.messages) {
       Any.encode(v!, writer.uint32(18).fork()).ldelim();
@@ -73,6 +79,7 @@ export const BatchRequest = {
 
   fromJSON(object: any): BatchRequest {
     return {
+      $type: BatchRequest.$type,
       messages: gt.Array.isArray(object?.messages) ? object.messages.map((e: any) => Any.fromJSON(e)) : [],
       sender: isSet(object.sender) ? gt.String(object.sender) : "",
     };
@@ -100,11 +107,15 @@ export const BatchRequest = {
   },
 };
 
+messageTypeRegistry.set(BatchRequest.$type, BatchRequest);
+
 function createBaseBatchResponse(): BatchResponse {
-  return { responses: [] };
+  return { $type: "axelar.auxiliary.v1beta1.BatchResponse", responses: [] };
 }
 
 export const BatchResponse = {
+  $type: "axelar.auxiliary.v1beta1.BatchResponse" as const,
+
   encode(message: BatchResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.responses) {
       BatchResponse_Response.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -137,6 +148,7 @@ export const BatchResponse = {
 
   fromJSON(object: any): BatchResponse {
     return {
+      $type: BatchResponse.$type,
       responses: gt.Array.isArray(object?.responses)
         ? object.responses.map((e: any) => BatchResponse_Response.fromJSON(e))
         : [],
@@ -161,11 +173,15 @@ export const BatchResponse = {
   },
 };
 
+messageTypeRegistry.set(BatchResponse.$type, BatchResponse);
+
 function createBaseBatchResponse_Response(): BatchResponse_Response {
-  return { result: undefined, err: undefined };
+  return { $type: "axelar.auxiliary.v1beta1.BatchResponse.Response", result: undefined, err: undefined };
 }
 
 export const BatchResponse_Response = {
+  $type: "axelar.auxiliary.v1beta1.BatchResponse.Response" as const,
+
   encode(message: BatchResponse_Response, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.result !== undefined) {
       Result.encode(message.result, writer.uint32(10).fork()).ldelim();
@@ -208,6 +224,7 @@ export const BatchResponse_Response = {
 
   fromJSON(object: any): BatchResponse_Response {
     return {
+      $type: BatchResponse_Response.$type,
       result: isSet(object.result) ? Result.fromJSON(object.result) : undefined,
       err: isSet(object.err) ? gt.String(object.err) : undefined,
     };
@@ -235,6 +252,8 @@ export const BatchResponse_Response = {
     return message;
   },
 };
+
+messageTypeRegistry.set(BatchResponse_Response.$type, BatchResponse_Response);
 
 declare const self: any | undefined;
 declare const window: any | undefined;
@@ -266,13 +285,13 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

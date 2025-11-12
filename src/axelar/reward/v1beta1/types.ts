@@ -8,29 +8,35 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
+import { messageTypeRegistry } from "../../../typeRegistry";
 
 export const protobufPackage = "axelar.reward.v1beta1";
 
 export interface Pool {
+  $type: "axelar.reward.v1beta1.Pool";
   name: string;
   rewards: Pool_Reward[];
 }
 
 export interface Pool_Reward {
+  $type: "axelar.reward.v1beta1.Pool.Reward";
   validator: Buffer;
   coins: Coin[];
 }
 
 export interface Refund {
+  $type: "axelar.reward.v1beta1.Refund";
   payer: Buffer;
   fees: Coin[];
 }
 
 function createBasePool(): Pool {
-  return { name: "", rewards: [] };
+  return { $type: "axelar.reward.v1beta1.Pool", name: "", rewards: [] };
 }
 
 export const Pool = {
+  $type: "axelar.reward.v1beta1.Pool" as const,
+
   encode(message: Pool, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.name !== "") {
       writer.uint32(10).string(message.name);
@@ -73,6 +79,7 @@ export const Pool = {
 
   fromJSON(object: any): Pool {
     return {
+      $type: Pool.$type,
       name: isSet(object.name) ? gt.String(object.name) : "",
       rewards: gt.Array.isArray(object?.rewards)
         ? object.rewards.map((e: any) => Pool_Reward.fromJSON(e))
@@ -102,11 +109,15 @@ export const Pool = {
   },
 };
 
+messageTypeRegistry.set(Pool.$type, Pool);
+
 function createBasePool_Reward(): Pool_Reward {
-  return { validator: Buffer.alloc(0), coins: [] };
+  return { $type: "axelar.reward.v1beta1.Pool.Reward", validator: Buffer.alloc(0), coins: [] };
 }
 
 export const Pool_Reward = {
+  $type: "axelar.reward.v1beta1.Pool.Reward" as const,
+
   encode(message: Pool_Reward, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.validator.length !== 0) {
       writer.uint32(10).bytes(message.validator);
@@ -149,6 +160,7 @@ export const Pool_Reward = {
 
   fromJSON(object: any): Pool_Reward {
     return {
+      $type: Pool_Reward.$type,
       validator: isSet(object.validator) ? Buffer.from(bytesFromBase64(object.validator)) : Buffer.alloc(0),
       coins: gt.Array.isArray(object?.coins) ? object.coins.map((e: any) => Coin.fromJSON(e)) : [],
     };
@@ -176,11 +188,15 @@ export const Pool_Reward = {
   },
 };
 
+messageTypeRegistry.set(Pool_Reward.$type, Pool_Reward);
+
 function createBaseRefund(): Refund {
-  return { payer: Buffer.alloc(0), fees: [] };
+  return { $type: "axelar.reward.v1beta1.Refund", payer: Buffer.alloc(0), fees: [] };
 }
 
 export const Refund = {
+  $type: "axelar.reward.v1beta1.Refund" as const,
+
   encode(message: Refund, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.payer.length !== 0) {
       writer.uint32(10).bytes(message.payer);
@@ -223,6 +239,7 @@ export const Refund = {
 
   fromJSON(object: any): Refund {
     return {
+      $type: Refund.$type,
       payer: isSet(object.payer) ? Buffer.from(bytesFromBase64(object.payer)) : Buffer.alloc(0),
       fees: gt.Array.isArray(object?.fees) ? object.fees.map((e: any) => Coin.fromJSON(e)) : [],
     };
@@ -249,6 +266,8 @@ export const Refund = {
     return message;
   },
 };
+
+messageTypeRegistry.set(Refund.$type, Refund);
 
 declare const self: any | undefined;
 declare const window: any | undefined;
@@ -288,13 +307,13 @@ export type DeepPartial<T> = T extends Builtin
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
   : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  ? { [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
