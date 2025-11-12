@@ -13,7 +13,8 @@
   "files": [
     "axelar/",
     "cosmos/",
-    "google/"
+    "google/",
+    "typeRegistry.*"
   ],
   "scripts": {
     "format": "prettier --write --loglevel warn \"./src/**/*.ts\"",
