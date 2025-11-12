@@ -7,7 +7,7 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
-import { messageTypeRegistry } from "../../typeRegistry";
+import { messageTypeRegistry, MessageType } from "../../typeRegistry";
 
 export const protobufPackage = "google.protobuf";
 
@@ -1166,7 +1166,10 @@ function createBaseFileDescriptorSet(): FileDescriptorSet {
   return { $type: "google.protobuf.FileDescriptorSet", file: [] };
 }
 
-export const FileDescriptorSet = {
+export const FileDescriptorSet: MessageType<FileDescriptorSet> & {
+  create: Function;
+  fromPartial: Function;
+} = {
   $type: "google.protobuf.FileDescriptorSet" as const,
 
   encode(message: FileDescriptorSet, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -1246,7 +1249,10 @@ function createBaseFileDescriptorProto(): FileDescriptorProto {
   };
 }
 
-export const FileDescriptorProto = {
+export const FileDescriptorProto: MessageType<FileDescriptorProto> & {
+  create: Function;
+  fromPartial: Function;
+} = {
   $type: "google.protobuf.FileDescriptorProto" as const,
 
   encode(message: FileDescriptorProto, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -1531,7 +1537,10 @@ function createBaseDescriptorProto(): DescriptorProto {
   };
 }
 
-export const DescriptorProto = {
+export const DescriptorProto: MessageType<DescriptorProto> & {
+  create: Function;
+  fromPartial: Function;
+} = {
   $type: "google.protobuf.DescriptorProto" as const,
 
   encode(message: DescriptorProto, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
