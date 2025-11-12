@@ -8,18 +8,27 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CallContractResponse = exports.CallContractRequest = exports.RouteMessageResponse = exports.RouteMessageRequest = exports.RetryIBCTransferResponse = exports.RetryIBCTransferRequest = exports.RegisterFeeCollectorResponse = exports.RegisterFeeCollectorRequest = exports.RouteIBCTransfersResponse = exports.RouteIBCTransfersRequest = exports.RegisterAssetResponse = exports.RegisterAssetRequest = exports.AddCosmosBasedChainResponse = exports.AddCosmosBasedChainRequest = exports.RegisterIBCPathResponse = exports.RegisterIBCPathRequest = exports.ExecutePendingTransfersResponse = exports.ExecutePendingTransfersRequest = exports.ConfirmDepositResponse = exports.ConfirmDepositRequest = exports.LinkResponse = exports.LinkRequest = exports.protobufPackage = void 0;
+exports.UpdateParamsResponse = exports.UpdateParamsRequest = exports.CallContractResponse = exports.CallContractRequest = exports.RouteMessageResponse = exports.RouteMessageRequest = exports.RetryIBCTransferResponse = exports.RetryIBCTransferRequest = exports.RegisterFeeCollectorResponse = exports.RegisterFeeCollectorRequest = exports.RouteIBCTransfersResponse = exports.RouteIBCTransfersRequest = exports.RegisterAssetResponse = exports.RegisterAssetRequest = exports.AddCosmosBasedChainResponse = exports.AddCosmosBasedChainRequest = exports.RegisterIBCPathResponse = exports.RegisterIBCPathRequest = exports.ExecutePendingTransfersResponse = exports.ExecutePendingTransfersRequest = exports.ConfirmDepositResponse = exports.ConfirmDepositRequest = exports.LinkResponse = exports.LinkRequest = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
 const duration_1 = require("../../../google/protobuf/duration");
+const typeRegistry_1 = require("../../../typeRegistry");
 const types_1 = require("../../nexus/exported/v1beta1/types");
+const params_1 = require("./params");
 const types_2 = require("./types");
 exports.protobufPackage = "axelar.axelarnet.v1beta1";
 function createBaseLinkRequest() {
-    return { recipientAddr: "", recipientChain: "", asset: "", sender: "" };
+    return {
+        $type: "axelar.axelarnet.v1beta1.LinkRequest",
+        recipientAddr: "",
+        recipientChain: "",
+        asset: "",
+        sender: "",
+    };
 }
 exports.LinkRequest = {
+    $type: "axelar.axelarnet.v1beta1.LinkRequest",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.recipientAddr !== "") {
             writer.uint32(18).string(message.recipientAddr);
@@ -76,6 +85,7 @@ exports.LinkRequest = {
     },
     fromJSON(object) {
         return {
+            $type: exports.LinkRequest.$type,
             recipientAddr: isSet(object.recipientAddr) ? gt.String(object.recipientAddr) : "",
             recipientChain: isSet(object.recipientChain) ? gt.String(object.recipientChain) : "",
             asset: isSet(object.asset) ? gt.String(object.asset) : "",
@@ -111,10 +121,12 @@ exports.LinkRequest = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.LinkRequest.$type, exports.LinkRequest);
 function createBaseLinkResponse() {
-    return { depositAddr: "" };
+    return { $type: "axelar.axelarnet.v1beta1.LinkResponse", depositAddr: "" };
 }
 exports.LinkResponse = {
+    $type: "axelar.axelarnet.v1beta1.LinkResponse",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.depositAddr !== "") {
             writer.uint32(10).string(message.depositAddr);
@@ -143,7 +155,10 @@ exports.LinkResponse = {
         return message;
     },
     fromJSON(object) {
-        return { depositAddr: isSet(object.depositAddr) ? gt.String(object.depositAddr) : "" };
+        return {
+            $type: exports.LinkResponse.$type,
+            depositAddr: isSet(object.depositAddr) ? gt.String(object.depositAddr) : "",
+        };
     },
     toJSON(message) {
         const obj = {};
@@ -162,10 +177,17 @@ exports.LinkResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.LinkResponse.$type, exports.LinkResponse);
 function createBaseConfirmDepositRequest() {
-    return { depositAddress: Buffer.alloc(0), denom: "", sender: "" };
+    return {
+        $type: "axelar.axelarnet.v1beta1.ConfirmDepositRequest",
+        depositAddress: Buffer.alloc(0),
+        denom: "",
+        sender: "",
+    };
 }
 exports.ConfirmDepositRequest = {
+    $type: "axelar.axelarnet.v1beta1.ConfirmDepositRequest",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.depositAddress.length !== 0) {
             writer.uint32(34).bytes(message.depositAddress);
@@ -213,6 +235,7 @@ exports.ConfirmDepositRequest = {
     },
     fromJSON(object) {
         return {
+            $type: exports.ConfirmDepositRequest.$type,
             depositAddress: isSet(object.depositAddress)
                 ? Buffer.from(bytesFromBase64(object.depositAddress))
                 : Buffer.alloc(0),
@@ -245,10 +268,12 @@ exports.ConfirmDepositRequest = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.ConfirmDepositRequest.$type, exports.ConfirmDepositRequest);
 function createBaseConfirmDepositResponse() {
-    return {};
+    return { $type: "axelar.axelarnet.v1beta1.ConfirmDepositResponse" };
 }
 exports.ConfirmDepositResponse = {
+    $type: "axelar.axelarnet.v1beta1.ConfirmDepositResponse",
     encode(_, writer = minimal_1.default.Writer.create()) {
         return writer;
     },
@@ -268,7 +293,7 @@ exports.ConfirmDepositResponse = {
         return message;
     },
     fromJSON(_) {
-        return {};
+        return { $type: exports.ConfirmDepositResponse.$type };
     },
     toJSON(_) {
         const obj = {};
@@ -282,10 +307,12 @@ exports.ConfirmDepositResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.ConfirmDepositResponse.$type, exports.ConfirmDepositResponse);
 function createBaseExecutePendingTransfersRequest() {
-    return { sender: "" };
+    return { $type: "axelar.axelarnet.v1beta1.ExecutePendingTransfersRequest", sender: "" };
 }
 exports.ExecutePendingTransfersRequest = {
+    $type: "axelar.axelarnet.v1beta1.ExecutePendingTransfersRequest",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.sender !== "") {
             writer.uint32(18).string(message.sender);
@@ -314,7 +341,10 @@ exports.ExecutePendingTransfersRequest = {
         return message;
     },
     fromJSON(object) {
-        return { sender: isSet(object.sender) ? gt.String(object.sender) : "" };
+        return {
+            $type: exports.ExecutePendingTransfersRequest.$type,
+            sender: isSet(object.sender) ? gt.String(object.sender) : "",
+        };
     },
     toJSON(message) {
         const obj = {};
@@ -333,10 +363,12 @@ exports.ExecutePendingTransfersRequest = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.ExecutePendingTransfersRequest.$type, exports.ExecutePendingTransfersRequest);
 function createBaseExecutePendingTransfersResponse() {
-    return {};
+    return { $type: "axelar.axelarnet.v1beta1.ExecutePendingTransfersResponse" };
 }
 exports.ExecutePendingTransfersResponse = {
+    $type: "axelar.axelarnet.v1beta1.ExecutePendingTransfersResponse",
     encode(_, writer = minimal_1.default.Writer.create()) {
         return writer;
     },
@@ -356,7 +388,7 @@ exports.ExecutePendingTransfersResponse = {
         return message;
     },
     fromJSON(_) {
-        return {};
+        return { $type: exports.ExecutePendingTransfersResponse.$type };
     },
     toJSON(_) {
         const obj = {};
@@ -370,10 +402,12 @@ exports.ExecutePendingTransfersResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.ExecutePendingTransfersResponse.$type, exports.ExecutePendingTransfersResponse);
 function createBaseRegisterIBCPathRequest() {
-    return { chain: "", path: "", sender: "" };
+    return { $type: "axelar.axelarnet.v1beta1.RegisterIBCPathRequest", chain: "", path: "", sender: "" };
 }
 exports.RegisterIBCPathRequest = {
+    $type: "axelar.axelarnet.v1beta1.RegisterIBCPathRequest",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.chain !== "") {
             writer.uint32(18).string(message.chain);
@@ -421,6 +455,7 @@ exports.RegisterIBCPathRequest = {
     },
     fromJSON(object) {
         return {
+            $type: exports.RegisterIBCPathRequest.$type,
             chain: isSet(object.chain) ? gt.String(object.chain) : "",
             path: isSet(object.path) ? gt.String(object.path) : "",
             sender: isSet(object.sender) ? gt.String(object.sender) : "",
@@ -451,10 +486,12 @@ exports.RegisterIBCPathRequest = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.RegisterIBCPathRequest.$type, exports.RegisterIBCPathRequest);
 function createBaseRegisterIBCPathResponse() {
-    return {};
+    return { $type: "axelar.axelarnet.v1beta1.RegisterIBCPathResponse" };
 }
 exports.RegisterIBCPathResponse = {
+    $type: "axelar.axelarnet.v1beta1.RegisterIBCPathResponse",
     encode(_, writer = minimal_1.default.Writer.create()) {
         return writer;
     },
@@ -474,7 +511,7 @@ exports.RegisterIBCPathResponse = {
         return message;
     },
     fromJSON(_) {
-        return {};
+        return { $type: exports.RegisterIBCPathResponse.$type };
     },
     toJSON(_) {
         const obj = {};
@@ -488,10 +525,20 @@ exports.RegisterIBCPathResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.RegisterIBCPathResponse.$type, exports.RegisterIBCPathResponse);
 function createBaseAddCosmosBasedChainRequest() {
-    return { chain: undefined, addrPrefix: "", nativeAssets: [], cosmosChain: "", ibcPath: "", sender: "" };
+    return {
+        $type: "axelar.axelarnet.v1beta1.AddCosmosBasedChainRequest",
+        chain: undefined,
+        addrPrefix: "",
+        nativeAssets: [],
+        cosmosChain: "",
+        ibcPath: "",
+        sender: "",
+    };
 }
 exports.AddCosmosBasedChainRequest = {
+    $type: "axelar.axelarnet.v1beta1.AddCosmosBasedChainRequest",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.chain !== undefined) {
             types_1.Chain.encode(message.chain, writer.uint32(18).fork()).ldelim();
@@ -566,6 +613,7 @@ exports.AddCosmosBasedChainRequest = {
     },
     fromJSON(object) {
         return {
+            $type: exports.AddCosmosBasedChainRequest.$type,
             chain: isSet(object.chain) ? types_1.Chain.fromJSON(object.chain) : undefined,
             addrPrefix: isSet(object.addrPrefix) ? gt.String(object.addrPrefix) : "",
             nativeAssets: gt.Array.isArray(object === null || object === void 0 ? void 0 : object.nativeAssets)
@@ -615,10 +663,12 @@ exports.AddCosmosBasedChainRequest = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.AddCosmosBasedChainRequest.$type, exports.AddCosmosBasedChainRequest);
 function createBaseAddCosmosBasedChainResponse() {
-    return {};
+    return { $type: "axelar.axelarnet.v1beta1.AddCosmosBasedChainResponse" };
 }
 exports.AddCosmosBasedChainResponse = {
+    $type: "axelar.axelarnet.v1beta1.AddCosmosBasedChainResponse",
     encode(_, writer = minimal_1.default.Writer.create()) {
         return writer;
     },
@@ -638,7 +688,7 @@ exports.AddCosmosBasedChainResponse = {
         return message;
     },
     fromJSON(_) {
-        return {};
+        return { $type: exports.AddCosmosBasedChainResponse.$type };
     },
     toJSON(_) {
         const obj = {};
@@ -652,10 +702,19 @@ exports.AddCosmosBasedChainResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.AddCosmosBasedChainResponse.$type, exports.AddCosmosBasedChainResponse);
 function createBaseRegisterAssetRequest() {
-    return { chain: "", asset: undefined, limit: Buffer.alloc(0), window: undefined, sender: "" };
+    return {
+        $type: "axelar.axelarnet.v1beta1.RegisterAssetRequest",
+        chain: "",
+        asset: undefined,
+        limit: Buffer.alloc(0),
+        window: undefined,
+        sender: "",
+    };
 }
 exports.RegisterAssetRequest = {
+    $type: "axelar.axelarnet.v1beta1.RegisterAssetRequest",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.chain !== "") {
             writer.uint32(18).string(message.chain);
@@ -721,6 +780,7 @@ exports.RegisterAssetRequest = {
     },
     fromJSON(object) {
         return {
+            $type: exports.RegisterAssetRequest.$type,
             chain: isSet(object.chain) ? gt.String(object.chain) : "",
             asset: isSet(object.asset) ? types_1.Asset.fromJSON(object.asset) : undefined,
             limit: isSet(object.limit) ? Buffer.from(bytesFromBase64(object.limit)) : Buffer.alloc(0),
@@ -763,10 +823,12 @@ exports.RegisterAssetRequest = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.RegisterAssetRequest.$type, exports.RegisterAssetRequest);
 function createBaseRegisterAssetResponse() {
-    return {};
+    return { $type: "axelar.axelarnet.v1beta1.RegisterAssetResponse" };
 }
 exports.RegisterAssetResponse = {
+    $type: "axelar.axelarnet.v1beta1.RegisterAssetResponse",
     encode(_, writer = minimal_1.default.Writer.create()) {
         return writer;
     },
@@ -786,7 +848,7 @@ exports.RegisterAssetResponse = {
         return message;
     },
     fromJSON(_) {
-        return {};
+        return { $type: exports.RegisterAssetResponse.$type };
     },
     toJSON(_) {
         const obj = {};
@@ -800,10 +862,12 @@ exports.RegisterAssetResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.RegisterAssetResponse.$type, exports.RegisterAssetResponse);
 function createBaseRouteIBCTransfersRequest() {
-    return { sender: "" };
+    return { $type: "axelar.axelarnet.v1beta1.RouteIBCTransfersRequest", sender: "" };
 }
 exports.RouteIBCTransfersRequest = {
+    $type: "axelar.axelarnet.v1beta1.RouteIBCTransfersRequest",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.sender !== "") {
             writer.uint32(18).string(message.sender);
@@ -832,7 +896,10 @@ exports.RouteIBCTransfersRequest = {
         return message;
     },
     fromJSON(object) {
-        return { sender: isSet(object.sender) ? gt.String(object.sender) : "" };
+        return {
+            $type: exports.RouteIBCTransfersRequest.$type,
+            sender: isSet(object.sender) ? gt.String(object.sender) : "",
+        };
     },
     toJSON(message) {
         const obj = {};
@@ -851,10 +918,12 @@ exports.RouteIBCTransfersRequest = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.RouteIBCTransfersRequest.$type, exports.RouteIBCTransfersRequest);
 function createBaseRouteIBCTransfersResponse() {
-    return {};
+    return { $type: "axelar.axelarnet.v1beta1.RouteIBCTransfersResponse" };
 }
 exports.RouteIBCTransfersResponse = {
+    $type: "axelar.axelarnet.v1beta1.RouteIBCTransfersResponse",
     encode(_, writer = minimal_1.default.Writer.create()) {
         return writer;
     },
@@ -874,7 +943,7 @@ exports.RouteIBCTransfersResponse = {
         return message;
     },
     fromJSON(_) {
-        return {};
+        return { $type: exports.RouteIBCTransfersResponse.$type };
     },
     toJSON(_) {
         const obj = {};
@@ -888,10 +957,16 @@ exports.RouteIBCTransfersResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.RouteIBCTransfersResponse.$type, exports.RouteIBCTransfersResponse);
 function createBaseRegisterFeeCollectorRequest() {
-    return { feeCollector: Buffer.alloc(0), sender: "" };
+    return {
+        $type: "axelar.axelarnet.v1beta1.RegisterFeeCollectorRequest",
+        feeCollector: Buffer.alloc(0),
+        sender: "",
+    };
 }
 exports.RegisterFeeCollectorRequest = {
+    $type: "axelar.axelarnet.v1beta1.RegisterFeeCollectorRequest",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.feeCollector.length !== 0) {
             writer.uint32(18).bytes(message.feeCollector);
@@ -930,6 +1005,7 @@ exports.RegisterFeeCollectorRequest = {
     },
     fromJSON(object) {
         return {
+            $type: exports.RegisterFeeCollectorRequest.$type,
             feeCollector: isSet(object.feeCollector)
                 ? Buffer.from(bytesFromBase64(object.feeCollector))
                 : Buffer.alloc(0),
@@ -957,10 +1033,12 @@ exports.RegisterFeeCollectorRequest = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.RegisterFeeCollectorRequest.$type, exports.RegisterFeeCollectorRequest);
 function createBaseRegisterFeeCollectorResponse() {
-    return {};
+    return { $type: "axelar.axelarnet.v1beta1.RegisterFeeCollectorResponse" };
 }
 exports.RegisterFeeCollectorResponse = {
+    $type: "axelar.axelarnet.v1beta1.RegisterFeeCollectorResponse",
     encode(_, writer = minimal_1.default.Writer.create()) {
         return writer;
     },
@@ -980,7 +1058,7 @@ exports.RegisterFeeCollectorResponse = {
         return message;
     },
     fromJSON(_) {
-        return {};
+        return { $type: exports.RegisterFeeCollectorResponse.$type };
     },
     toJSON(_) {
         const obj = {};
@@ -994,10 +1072,12 @@ exports.RegisterFeeCollectorResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.RegisterFeeCollectorResponse.$type, exports.RegisterFeeCollectorResponse);
 function createBaseRetryIBCTransferRequest() {
-    return { chain: "", id: long_1.default.UZERO, sender: "" };
+    return { $type: "axelar.axelarnet.v1beta1.RetryIBCTransferRequest", chain: "", id: long_1.default.UZERO, sender: "" };
 }
 exports.RetryIBCTransferRequest = {
+    $type: "axelar.axelarnet.v1beta1.RetryIBCTransferRequest",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.chain !== "") {
             writer.uint32(18).string(message.chain);
@@ -1045,6 +1125,7 @@ exports.RetryIBCTransferRequest = {
     },
     fromJSON(object) {
         return {
+            $type: exports.RetryIBCTransferRequest.$type,
             chain: isSet(object.chain) ? gt.String(object.chain) : "",
             id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
             sender: isSet(object.sender) ? gt.String(object.sender) : "",
@@ -1075,10 +1156,12 @@ exports.RetryIBCTransferRequest = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.RetryIBCTransferRequest.$type, exports.RetryIBCTransferRequest);
 function createBaseRetryIBCTransferResponse() {
-    return {};
+    return { $type: "axelar.axelarnet.v1beta1.RetryIBCTransferResponse" };
 }
 exports.RetryIBCTransferResponse = {
+    $type: "axelar.axelarnet.v1beta1.RetryIBCTransferResponse",
     encode(_, writer = minimal_1.default.Writer.create()) {
         return writer;
     },
@@ -1098,7 +1181,7 @@ exports.RetryIBCTransferResponse = {
         return message;
     },
     fromJSON(_) {
-        return {};
+        return { $type: exports.RetryIBCTransferResponse.$type };
     },
     toJSON(_) {
         const obj = {};
@@ -1112,10 +1195,18 @@ exports.RetryIBCTransferResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.RetryIBCTransferResponse.$type, exports.RetryIBCTransferResponse);
 function createBaseRouteMessageRequest() {
-    return { id: "", payload: Buffer.alloc(0), feegranter: Buffer.alloc(0), sender: "" };
+    return {
+        $type: "axelar.axelarnet.v1beta1.RouteMessageRequest",
+        id: "",
+        payload: Buffer.alloc(0),
+        feegranter: Buffer.alloc(0),
+        sender: "",
+    };
 }
 exports.RouteMessageRequest = {
+    $type: "axelar.axelarnet.v1beta1.RouteMessageRequest",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.id !== "") {
             writer.uint32(18).string(message.id);
@@ -1172,6 +1263,7 @@ exports.RouteMessageRequest = {
     },
     fromJSON(object) {
         return {
+            $type: exports.RouteMessageRequest.$type,
             id: isSet(object.id) ? gt.String(object.id) : "",
             payload: isSet(object.payload) ? Buffer.from(bytesFromBase64(object.payload)) : Buffer.alloc(0),
             feegranter: isSet(object.feegranter)
@@ -1209,10 +1301,12 @@ exports.RouteMessageRequest = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.RouteMessageRequest.$type, exports.RouteMessageRequest);
 function createBaseRouteMessageResponse() {
-    return {};
+    return { $type: "axelar.axelarnet.v1beta1.RouteMessageResponse" };
 }
 exports.RouteMessageResponse = {
+    $type: "axelar.axelarnet.v1beta1.RouteMessageResponse",
     encode(_, writer = minimal_1.default.Writer.create()) {
         return writer;
     },
@@ -1232,7 +1326,7 @@ exports.RouteMessageResponse = {
         return message;
     },
     fromJSON(_) {
-        return {};
+        return { $type: exports.RouteMessageResponse.$type };
     },
     toJSON(_) {
         const obj = {};
@@ -1246,10 +1340,19 @@ exports.RouteMessageResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.RouteMessageResponse.$type, exports.RouteMessageResponse);
 function createBaseCallContractRequest() {
-    return { chain: "", contractAddress: "", payload: Buffer.alloc(0), fee: undefined, sender: "" };
+    return {
+        $type: "axelar.axelarnet.v1beta1.CallContractRequest",
+        chain: "",
+        contractAddress: "",
+        payload: Buffer.alloc(0),
+        fee: undefined,
+        sender: "",
+    };
 }
 exports.CallContractRequest = {
+    $type: "axelar.axelarnet.v1beta1.CallContractRequest",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.chain !== "") {
             writer.uint32(18).string(message.chain);
@@ -1315,6 +1418,7 @@ exports.CallContractRequest = {
     },
     fromJSON(object) {
         return {
+            $type: exports.CallContractRequest.$type,
             chain: isSet(object.chain) ? gt.String(object.chain) : "",
             contractAddress: isSet(object.contractAddress) ? gt.String(object.contractAddress) : "",
             payload: isSet(object.payload) ? Buffer.from(bytesFromBase64(object.payload)) : Buffer.alloc(0),
@@ -1355,10 +1459,12 @@ exports.CallContractRequest = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.CallContractRequest.$type, exports.CallContractRequest);
 function createBaseCallContractResponse() {
-    return {};
+    return { $type: "axelar.axelarnet.v1beta1.CallContractResponse" };
 }
 exports.CallContractResponse = {
+    $type: "axelar.axelarnet.v1beta1.CallContractResponse",
     encode(_, writer = minimal_1.default.Writer.create()) {
         return writer;
     },
@@ -1378,7 +1484,7 @@ exports.CallContractResponse = {
         return message;
     },
     fromJSON(_) {
-        return {};
+        return { $type: exports.CallContractResponse.$type };
     },
     toJSON(_) {
         const obj = {};
@@ -1392,6 +1498,117 @@ exports.CallContractResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.CallContractResponse.$type, exports.CallContractResponse);
+function createBaseUpdateParamsRequest() {
+    return { $type: "axelar.axelarnet.v1beta1.UpdateParamsRequest", authority: "", params: undefined };
+}
+exports.UpdateParamsRequest = {
+    $type: "axelar.axelarnet.v1beta1.UpdateParamsRequest",
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (message.authority !== "") {
+            writer.uint32(10).string(message.authority);
+        }
+        if (message.params !== undefined) {
+            params_1.Params.encode(message.params, writer.uint32(18).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseUpdateParamsRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    if (tag !== 10) {
+                        break;
+                    }
+                    message.authority = reader.string();
+                    continue;
+                case 2:
+                    if (tag !== 18) {
+                        break;
+                    }
+                    message.params = params_1.Params.decode(reader, reader.uint32());
+                    continue;
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            $type: exports.UpdateParamsRequest.$type,
+            authority: isSet(object.authority) ? gt.String(object.authority) : "",
+            params: isSet(object.params) ? params_1.Params.fromJSON(object.params) : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.authority !== "") {
+            obj.authority = message.authority;
+        }
+        if (message.params !== undefined) {
+            obj.params = params_1.Params.toJSON(message.params);
+        }
+        return obj;
+    },
+    create(base) {
+        return exports.UpdateParamsRequest.fromPartial(base !== null && base !== void 0 ? base : {});
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseUpdateParamsRequest();
+        message.authority = (_a = object.authority) !== null && _a !== void 0 ? _a : "";
+        message.params =
+            object.params !== undefined && object.params !== null ? params_1.Params.fromPartial(object.params) : undefined;
+        return message;
+    },
+};
+typeRegistry_1.messageTypeRegistry.set(exports.UpdateParamsRequest.$type, exports.UpdateParamsRequest);
+function createBaseUpdateParamsResponse() {
+    return { $type: "axelar.axelarnet.v1beta1.UpdateParamsResponse" };
+}
+exports.UpdateParamsResponse = {
+    $type: "axelar.axelarnet.v1beta1.UpdateParamsResponse",
+    encode(_, writer = minimal_1.default.Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseUpdateParamsResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(_) {
+        return { $type: exports.UpdateParamsResponse.$type };
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    create(base) {
+        return exports.UpdateParamsResponse.fromPartial(base !== null && base !== void 0 ? base : {});
+    },
+    fromPartial(_) {
+        const message = createBaseUpdateParamsResponse();
+        return message;
+    },
+};
+typeRegistry_1.messageTypeRegistry.set(exports.UpdateParamsResponse.$type, exports.UpdateParamsResponse);
 const gt = (() => {
     if (typeof globalThis !== "undefined") {
         return globalThis;

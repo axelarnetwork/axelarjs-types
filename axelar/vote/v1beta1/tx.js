@@ -8,16 +8,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.VoteResponse = exports.VoteRequest = exports.protobufPackage = void 0;
+exports.UpdateParamsResponse = exports.UpdateParamsRequest = exports.VoteResponse = exports.VoteRequest = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
 const any_1 = require("../../../google/protobuf/any");
+const typeRegistry_1 = require("../../../typeRegistry");
+const params_1 = require("./params");
 exports.protobufPackage = "axelar.vote.v1beta1";
 function createBaseVoteRequest() {
-    return { pollId: long_1.default.UZERO, vote: undefined, sender: "" };
+    return { $type: "axelar.vote.v1beta1.VoteRequest", pollId: long_1.default.UZERO, vote: undefined, sender: "" };
 }
 exports.VoteRequest = {
+    $type: "axelar.vote.v1beta1.VoteRequest",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.pollId.equals(long_1.default.UZERO)) {
             writer.uint32(32).uint64(message.pollId);
@@ -65,6 +68,7 @@ exports.VoteRequest = {
     },
     fromJSON(object) {
         return {
+            $type: exports.VoteRequest.$type,
             pollId: isSet(object.pollId) ? long_1.default.fromValue(object.pollId) : long_1.default.UZERO,
             vote: isSet(object.vote) ? any_1.Any.fromJSON(object.vote) : undefined,
             sender: isSet(object.sender) ? gt.String(object.sender) : "",
@@ -97,10 +101,12 @@ exports.VoteRequest = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.VoteRequest.$type, exports.VoteRequest);
 function createBaseVoteResponse() {
-    return { log: "" };
+    return { $type: "axelar.vote.v1beta1.VoteResponse", log: "" };
 }
 exports.VoteResponse = {
+    $type: "axelar.vote.v1beta1.VoteResponse",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.log !== "") {
             writer.uint32(10).string(message.log);
@@ -129,7 +135,7 @@ exports.VoteResponse = {
         return message;
     },
     fromJSON(object) {
-        return { log: isSet(object.log) ? gt.String(object.log) : "" };
+        return { $type: exports.VoteResponse.$type, log: isSet(object.log) ? gt.String(object.log) : "" };
     },
     toJSON(message) {
         const obj = {};
@@ -148,6 +154,117 @@ exports.VoteResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.VoteResponse.$type, exports.VoteResponse);
+function createBaseUpdateParamsRequest() {
+    return { $type: "axelar.vote.v1beta1.UpdateParamsRequest", authority: "", params: undefined };
+}
+exports.UpdateParamsRequest = {
+    $type: "axelar.vote.v1beta1.UpdateParamsRequest",
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (message.authority !== "") {
+            writer.uint32(10).string(message.authority);
+        }
+        if (message.params !== undefined) {
+            params_1.Params.encode(message.params, writer.uint32(18).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseUpdateParamsRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    if (tag !== 10) {
+                        break;
+                    }
+                    message.authority = reader.string();
+                    continue;
+                case 2:
+                    if (tag !== 18) {
+                        break;
+                    }
+                    message.params = params_1.Params.decode(reader, reader.uint32());
+                    continue;
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            $type: exports.UpdateParamsRequest.$type,
+            authority: isSet(object.authority) ? gt.String(object.authority) : "",
+            params: isSet(object.params) ? params_1.Params.fromJSON(object.params) : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.authority !== "") {
+            obj.authority = message.authority;
+        }
+        if (message.params !== undefined) {
+            obj.params = params_1.Params.toJSON(message.params);
+        }
+        return obj;
+    },
+    create(base) {
+        return exports.UpdateParamsRequest.fromPartial(base !== null && base !== void 0 ? base : {});
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseUpdateParamsRequest();
+        message.authority = (_a = object.authority) !== null && _a !== void 0 ? _a : "";
+        message.params =
+            object.params !== undefined && object.params !== null ? params_1.Params.fromPartial(object.params) : undefined;
+        return message;
+    },
+};
+typeRegistry_1.messageTypeRegistry.set(exports.UpdateParamsRequest.$type, exports.UpdateParamsRequest);
+function createBaseUpdateParamsResponse() {
+    return { $type: "axelar.vote.v1beta1.UpdateParamsResponse" };
+}
+exports.UpdateParamsResponse = {
+    $type: "axelar.vote.v1beta1.UpdateParamsResponse",
+    encode(_, writer = minimal_1.default.Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseUpdateParamsResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(_) {
+        return { $type: exports.UpdateParamsResponse.$type };
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    create(base) {
+        return exports.UpdateParamsResponse.fromPartial(base !== null && base !== void 0 ? base : {});
+    },
+    fromPartial(_) {
+        const message = createBaseUpdateParamsResponse();
+        return message;
+    },
+};
+typeRegistry_1.messageTypeRegistry.set(exports.UpdateParamsResponse.$type, exports.UpdateParamsResponse);
 const gt = (() => {
     if (typeof globalThis !== "undefined") {
         return globalThis;

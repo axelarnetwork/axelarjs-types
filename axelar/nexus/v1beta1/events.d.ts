@@ -6,6 +6,7 @@ import { Duration } from "../../../google/protobuf/duration";
 import { CrossChainAddress, WasmMessage } from "../exported/v1beta1/types";
 export declare const protobufPackage = "axelar.nexus.v1beta1";
 export interface FeeDeducted {
+    $type: "axelar.nexus.v1beta1.FeeDeducted";
     transferId: Long;
     recipientChain: string;
     recipientAddress: string;
@@ -13,6 +14,7 @@ export interface FeeDeducted {
     fee?: Coin | undefined;
 }
 export interface InsufficientFee {
+    $type: "axelar.nexus.v1beta1.InsufficientFee";
     transferId: Long;
     recipientChain: string;
     recipientAddress: string;
@@ -20,43 +22,47 @@ export interface InsufficientFee {
     fee?: Coin | undefined;
 }
 export interface RateLimitUpdated {
+    $type: "axelar.nexus.v1beta1.RateLimitUpdated";
     chain: string;
     limit?: Coin | undefined;
     window?: Duration | undefined;
 }
 export interface MessageReceived {
+    $type: "axelar.nexus.v1beta1.MessageReceived";
     id: string;
     payloadHash: Buffer;
     sender?: CrossChainAddress | undefined;
     recipient?: CrossChainAddress | undefined;
 }
 export interface MessageProcessing {
+    $type: "axelar.nexus.v1beta1.MessageProcessing";
     id: string;
     sourceChain: string;
     destinationChain: string;
 }
 export interface MessageExecuted {
+    $type: "axelar.nexus.v1beta1.MessageExecuted";
     id: string;
     sourceChain: string;
     destinationChain: string;
 }
 export interface MessageFailed {
+    $type: "axelar.nexus.v1beta1.MessageFailed";
     id: string;
     sourceChain: string;
     destinationChain: string;
 }
 export interface WasmMessageRouted {
+    $type: "axelar.nexus.v1beta1.WasmMessageRouted";
     message?: WasmMessage | undefined;
 }
 export declare const FeeDeducted: {
+    $type: "axelar.nexus.v1beta1.FeeDeducted";
     encode(message: FeeDeducted, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): FeeDeducted;
     fromJSON(object: any): FeeDeducted;
     toJSON(message: FeeDeducted): unknown;
     create<I extends {
-        transferId?: string | number | Long.Long | undefined;
-        recipientChain?: string | undefined;
-        recipientAddress?: string | undefined;
         amount?: {
             denom?: string | undefined;
             amount?: string | undefined;
@@ -65,7 +71,24 @@ export declare const FeeDeducted: {
             denom?: string | undefined;
             amount?: string | undefined;
         } | undefined;
+        transferId?: string | number | Long.Long | undefined;
+        recipientChain?: string | undefined;
+        recipientAddress?: string | undefined;
     } & {
+        amount?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & { [K in Exclude<keyof I["amount"], "$type" | "denom" | "amount">]: never; }) | undefined;
+        fee?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & { [K_1 in Exclude<keyof I["fee"], "$type" | "denom" | "amount">]: never; }) | undefined;
         transferId?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -123,28 +146,11 @@ export declare const FeeDeducted: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K in Exclude<keyof I["transferId"], keyof Long.Long>]: never; }) | undefined;
+        } & { [K_2 in Exclude<keyof I["transferId"], "$type" | keyof Long.Long>]: never; }) | undefined;
         recipientChain?: string | undefined;
         recipientAddress?: string | undefined;
-        amount?: ({
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } & {
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } & { [K_1 in Exclude<keyof I["amount"], keyof Coin>]: never; }) | undefined;
-        fee?: ({
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } & {
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } & { [K_2 in Exclude<keyof I["fee"], keyof Coin>]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I, keyof FeeDeducted>]: never; }>(base?: I | undefined): FeeDeducted;
+    } & { [K_3 in Exclude<keyof I, "$type" | "amount" | "fee" | "transferId" | "recipientChain" | "recipientAddress">]: never; }>(base?: I | undefined): FeeDeducted;
     fromPartial<I_1 extends {
-        transferId?: string | number | Long.Long | undefined;
-        recipientChain?: string | undefined;
-        recipientAddress?: string | undefined;
         amount?: {
             denom?: string | undefined;
             amount?: string | undefined;
@@ -153,7 +159,24 @@ export declare const FeeDeducted: {
             denom?: string | undefined;
             amount?: string | undefined;
         } | undefined;
+        transferId?: string | number | Long.Long | undefined;
+        recipientChain?: string | undefined;
+        recipientAddress?: string | undefined;
     } & {
+        amount?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & { [K_4 in Exclude<keyof I_1["amount"], "$type" | "denom" | "amount">]: never; }) | undefined;
+        fee?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & { [K_5 in Exclude<keyof I_1["fee"], "$type" | "denom" | "amount">]: never; }) | undefined;
         transferId?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -211,34 +234,18 @@ export declare const FeeDeducted: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_4 in Exclude<keyof I_1["transferId"], keyof Long.Long>]: never; }) | undefined;
+        } & { [K_6 in Exclude<keyof I_1["transferId"], "$type" | keyof Long.Long>]: never; }) | undefined;
         recipientChain?: string | undefined;
         recipientAddress?: string | undefined;
-        amount?: ({
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } & {
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } & { [K_5 in Exclude<keyof I_1["amount"], keyof Coin>]: never; }) | undefined;
-        fee?: ({
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } & {
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } & { [K_6 in Exclude<keyof I_1["fee"], keyof Coin>]: never; }) | undefined;
-    } & { [K_7 in Exclude<keyof I_1, keyof FeeDeducted>]: never; }>(object: I_1): FeeDeducted;
+    } & { [K_7 in Exclude<keyof I_1, "$type" | "amount" | "fee" | "transferId" | "recipientChain" | "recipientAddress">]: never; }>(object: I_1): FeeDeducted;
 };
 export declare const InsufficientFee: {
+    $type: "axelar.nexus.v1beta1.InsufficientFee";
     encode(message: InsufficientFee, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): InsufficientFee;
     fromJSON(object: any): InsufficientFee;
     toJSON(message: InsufficientFee): unknown;
     create<I extends {
-        transferId?: string | number | Long.Long | undefined;
-        recipientChain?: string | undefined;
-        recipientAddress?: string | undefined;
         amount?: {
             denom?: string | undefined;
             amount?: string | undefined;
@@ -247,7 +254,24 @@ export declare const InsufficientFee: {
             denom?: string | undefined;
             amount?: string | undefined;
         } | undefined;
+        transferId?: string | number | Long.Long | undefined;
+        recipientChain?: string | undefined;
+        recipientAddress?: string | undefined;
     } & {
+        amount?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & { [K in Exclude<keyof I["amount"], "$type" | "denom" | "amount">]: never; }) | undefined;
+        fee?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & { [K_1 in Exclude<keyof I["fee"], "$type" | "denom" | "amount">]: never; }) | undefined;
         transferId?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -305,28 +329,11 @@ export declare const InsufficientFee: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K in Exclude<keyof I["transferId"], keyof Long.Long>]: never; }) | undefined;
+        } & { [K_2 in Exclude<keyof I["transferId"], "$type" | keyof Long.Long>]: never; }) | undefined;
         recipientChain?: string | undefined;
         recipientAddress?: string | undefined;
-        amount?: ({
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } & {
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } & { [K_1 in Exclude<keyof I["amount"], keyof Coin>]: never; }) | undefined;
-        fee?: ({
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } & {
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } & { [K_2 in Exclude<keyof I["fee"], keyof Coin>]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I, keyof InsufficientFee>]: never; }>(base?: I | undefined): InsufficientFee;
+    } & { [K_3 in Exclude<keyof I, "$type" | "amount" | "fee" | "transferId" | "recipientChain" | "recipientAddress">]: never; }>(base?: I | undefined): InsufficientFee;
     fromPartial<I_1 extends {
-        transferId?: string | number | Long.Long | undefined;
-        recipientChain?: string | undefined;
-        recipientAddress?: string | undefined;
         amount?: {
             denom?: string | undefined;
             amount?: string | undefined;
@@ -335,7 +342,24 @@ export declare const InsufficientFee: {
             denom?: string | undefined;
             amount?: string | undefined;
         } | undefined;
+        transferId?: string | number | Long.Long | undefined;
+        recipientChain?: string | undefined;
+        recipientAddress?: string | undefined;
     } & {
+        amount?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & { [K_4 in Exclude<keyof I_1["amount"], "$type" | "denom" | "amount">]: never; }) | undefined;
+        fee?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & { [K_5 in Exclude<keyof I_1["fee"], "$type" | "denom" | "amount">]: never; }) | undefined;
         transferId?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -393,49 +417,36 @@ export declare const InsufficientFee: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_4 in Exclude<keyof I_1["transferId"], keyof Long.Long>]: never; }) | undefined;
+        } & { [K_6 in Exclude<keyof I_1["transferId"], "$type" | keyof Long.Long>]: never; }) | undefined;
         recipientChain?: string | undefined;
         recipientAddress?: string | undefined;
-        amount?: ({
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } & {
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } & { [K_5 in Exclude<keyof I_1["amount"], keyof Coin>]: never; }) | undefined;
-        fee?: ({
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } & {
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } & { [K_6 in Exclude<keyof I_1["fee"], keyof Coin>]: never; }) | undefined;
-    } & { [K_7 in Exclude<keyof I_1, keyof InsufficientFee>]: never; }>(object: I_1): InsufficientFee;
+    } & { [K_7 in Exclude<keyof I_1, "$type" | "amount" | "fee" | "transferId" | "recipientChain" | "recipientAddress">]: never; }>(object: I_1): InsufficientFee;
 };
 export declare const RateLimitUpdated: {
+    $type: "axelar.nexus.v1beta1.RateLimitUpdated";
     encode(message: RateLimitUpdated, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): RateLimitUpdated;
     fromJSON(object: any): RateLimitUpdated;
     toJSON(message: RateLimitUpdated): unknown;
     create<I extends {
-        chain?: string | undefined;
         limit?: {
             denom?: string | undefined;
             amount?: string | undefined;
         } | undefined;
+        chain?: string | undefined;
         window?: {
             seconds?: string | number | Long.Long | undefined;
             nanos?: number | undefined;
         } | undefined;
     } & {
-        chain?: string | undefined;
         limit?: ({
             denom?: string | undefined;
             amount?: string | undefined;
         } & {
             denom?: string | undefined;
             amount?: string | undefined;
-        } & { [K in Exclude<keyof I["limit"], keyof Coin>]: never; }) | undefined;
+        } & { [K in Exclude<keyof I["limit"], "$type" | "denom" | "amount">]: never; }) | undefined;
+        chain?: string | undefined;
         window?: ({
             seconds?: string | number | Long.Long | undefined;
             nanos?: number | undefined;
@@ -497,29 +508,29 @@ export declare const RateLimitUpdated: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_1 in Exclude<keyof I["window"]["seconds"], keyof Long.Long>]: never; }) | undefined;
+            } & { [K_1 in Exclude<keyof I["window"]["seconds"], "$type" | keyof Long.Long>]: never; }) | undefined;
             nanos?: number | undefined;
-        } & { [K_2 in Exclude<keyof I["window"], keyof Duration>]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I, keyof RateLimitUpdated>]: never; }>(base?: I | undefined): RateLimitUpdated;
+        } & { [K_2 in Exclude<keyof I["window"], "$type" | "seconds" | "nanos">]: never; }) | undefined;
+    } & { [K_3 in Exclude<keyof I, "$type" | "limit" | "chain" | "window">]: never; }>(base?: I | undefined): RateLimitUpdated;
     fromPartial<I_1 extends {
-        chain?: string | undefined;
         limit?: {
             denom?: string | undefined;
             amount?: string | undefined;
         } | undefined;
+        chain?: string | undefined;
         window?: {
             seconds?: string | number | Long.Long | undefined;
             nanos?: number | undefined;
         } | undefined;
     } & {
-        chain?: string | undefined;
         limit?: ({
             denom?: string | undefined;
             amount?: string | undefined;
         } & {
             denom?: string | undefined;
             amount?: string | undefined;
-        } & { [K_4 in Exclude<keyof I_1["limit"], keyof Coin>]: never; }) | undefined;
+        } & { [K_4 in Exclude<keyof I_1["limit"], "$type" | "denom" | "amount">]: never; }) | undefined;
+        chain?: string | undefined;
         window?: ({
             seconds?: string | number | Long.Long | undefined;
             nanos?: number | undefined;
@@ -581,156 +592,158 @@ export declare const RateLimitUpdated: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_5 in Exclude<keyof I_1["window"]["seconds"], keyof Long.Long>]: never; }) | undefined;
+            } & { [K_5 in Exclude<keyof I_1["window"]["seconds"], "$type" | keyof Long.Long>]: never; }) | undefined;
             nanos?: number | undefined;
-        } & { [K_6 in Exclude<keyof I_1["window"], keyof Duration>]: never; }) | undefined;
-    } & { [K_7 in Exclude<keyof I_1, keyof RateLimitUpdated>]: never; }>(object: I_1): RateLimitUpdated;
+        } & { [K_6 in Exclude<keyof I_1["window"], "$type" | "seconds" | "nanos">]: never; }) | undefined;
+    } & { [K_7 in Exclude<keyof I_1, "$type" | "limit" | "chain" | "window">]: never; }>(object: I_1): RateLimitUpdated;
 };
 export declare const MessageReceived: {
+    $type: "axelar.nexus.v1beta1.MessageReceived";
     encode(message: MessageReceived, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MessageReceived;
     fromJSON(object: any): MessageReceived;
     toJSON(message: MessageReceived): unknown;
     create<I extends {
-        id?: string | undefined;
-        payloadHash?: Buffer | undefined;
         sender?: {
+            address?: string | undefined;
             chain?: {
                 name?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
-            address?: string | undefined;
         } | undefined;
-        recipient?: {
-            chain?: {
-                name?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
-                keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
-                module?: string | undefined;
-            } | undefined;
-            address?: string | undefined;
-        } | undefined;
-    } & {
         id?: string | undefined;
+        recipient?: {
+            address?: string | undefined;
+            chain?: {
+                name?: string | undefined;
+                keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                supportsForeignAssets?: boolean | undefined;
+                module?: string | undefined;
+            } | undefined;
+        } | undefined;
         payloadHash?: Buffer | undefined;
+    } & {
         sender?: ({
+            address?: string | undefined;
             chain?: {
                 name?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
-            address?: string | undefined;
         } & {
+            address?: string | undefined;
             chain?: ({
                 name?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } & {
                 name?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
-            } & { [K in Exclude<keyof I["sender"]["chain"], keyof import("../exported/v1beta1/types").Chain>]: never; }) | undefined;
-            address?: string | undefined;
-        } & { [K_1 in Exclude<keyof I["sender"], keyof CrossChainAddress>]: never; }) | undefined;
+            } & { [K in Exclude<keyof I["sender"]["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+        } & { [K_1 in Exclude<keyof I["sender"], "$type" | "address" | "chain">]: never; }) | undefined;
+        id?: string | undefined;
         recipient?: ({
+            address?: string | undefined;
             chain?: {
                 name?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
-            address?: string | undefined;
         } & {
+            address?: string | undefined;
             chain?: ({
                 name?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } & {
                 name?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
-            } & { [K_2 in Exclude<keyof I["recipient"]["chain"], keyof import("../exported/v1beta1/types").Chain>]: never; }) | undefined;
-            address?: string | undefined;
-        } & { [K_3 in Exclude<keyof I["recipient"], keyof CrossChainAddress>]: never; }) | undefined;
-    } & { [K_4 in Exclude<keyof I, keyof MessageReceived>]: never; }>(base?: I | undefined): MessageReceived;
+            } & { [K_2 in Exclude<keyof I["recipient"]["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+        } & { [K_3 in Exclude<keyof I["recipient"], "$type" | "address" | "chain">]: never; }) | undefined;
+        payloadHash?: Buffer | undefined;
+    } & { [K_4 in Exclude<keyof I, "$type" | "sender" | "id" | "recipient" | "payloadHash">]: never; }>(base?: I | undefined): MessageReceived;
     fromPartial<I_1 extends {
-        id?: string | undefined;
-        payloadHash?: Buffer | undefined;
         sender?: {
+            address?: string | undefined;
             chain?: {
                 name?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
-            address?: string | undefined;
         } | undefined;
-        recipient?: {
-            chain?: {
-                name?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
-                keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
-                module?: string | undefined;
-            } | undefined;
-            address?: string | undefined;
-        } | undefined;
-    } & {
         id?: string | undefined;
+        recipient?: {
+            address?: string | undefined;
+            chain?: {
+                name?: string | undefined;
+                keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                supportsForeignAssets?: boolean | undefined;
+                module?: string | undefined;
+            } | undefined;
+        } | undefined;
         payloadHash?: Buffer | undefined;
+    } & {
         sender?: ({
+            address?: string | undefined;
             chain?: {
                 name?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
-            address?: string | undefined;
         } & {
+            address?: string | undefined;
             chain?: ({
                 name?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } & {
                 name?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
-            } & { [K_5 in Exclude<keyof I_1["sender"]["chain"], keyof import("../exported/v1beta1/types").Chain>]: never; }) | undefined;
-            address?: string | undefined;
-        } & { [K_6 in Exclude<keyof I_1["sender"], keyof CrossChainAddress>]: never; }) | undefined;
+            } & { [K_5 in Exclude<keyof I_1["sender"]["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+        } & { [K_6 in Exclude<keyof I_1["sender"], "$type" | "address" | "chain">]: never; }) | undefined;
+        id?: string | undefined;
         recipient?: ({
+            address?: string | undefined;
             chain?: {
                 name?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
-            address?: string | undefined;
         } & {
+            address?: string | undefined;
             chain?: ({
                 name?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } & {
                 name?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
-            } & { [K_7 in Exclude<keyof I_1["recipient"]["chain"], keyof import("../exported/v1beta1/types").Chain>]: never; }) | undefined;
-            address?: string | undefined;
-        } & { [K_8 in Exclude<keyof I_1["recipient"], keyof CrossChainAddress>]: never; }) | undefined;
-    } & { [K_9 in Exclude<keyof I_1, keyof MessageReceived>]: never; }>(object: I_1): MessageReceived;
+            } & { [K_7 in Exclude<keyof I_1["recipient"]["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+        } & { [K_8 in Exclude<keyof I_1["recipient"], "$type" | "address" | "chain">]: never; }) | undefined;
+        payloadHash?: Buffer | undefined;
+    } & { [K_9 in Exclude<keyof I_1, "$type" | "sender" | "id" | "recipient" | "payloadHash">]: never; }>(object: I_1): MessageReceived;
 };
 export declare const MessageProcessing: {
+    $type: "axelar.nexus.v1beta1.MessageProcessing";
     encode(message: MessageProcessing, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MessageProcessing;
     fromJSON(object: any): MessageProcessing;
@@ -743,7 +756,7 @@ export declare const MessageProcessing: {
         id?: string | undefined;
         sourceChain?: string | undefined;
         destinationChain?: string | undefined;
-    } & { [K in Exclude<keyof I, keyof MessageProcessing>]: never; }>(base?: I | undefined): MessageProcessing;
+    } & { [K in Exclude<keyof I, "$type" | "id" | "sourceChain" | "destinationChain">]: never; }>(base?: I | undefined): MessageProcessing;
     fromPartial<I_1 extends {
         id?: string | undefined;
         sourceChain?: string | undefined;
@@ -752,9 +765,10 @@ export declare const MessageProcessing: {
         id?: string | undefined;
         sourceChain?: string | undefined;
         destinationChain?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, keyof MessageProcessing>]: never; }>(object: I_1): MessageProcessing;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "id" | "sourceChain" | "destinationChain">]: never; }>(object: I_1): MessageProcessing;
 };
 export declare const MessageExecuted: {
+    $type: "axelar.nexus.v1beta1.MessageExecuted";
     encode(message: MessageExecuted, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MessageExecuted;
     fromJSON(object: any): MessageExecuted;
@@ -767,7 +781,7 @@ export declare const MessageExecuted: {
         id?: string | undefined;
         sourceChain?: string | undefined;
         destinationChain?: string | undefined;
-    } & { [K in Exclude<keyof I, keyof MessageExecuted>]: never; }>(base?: I | undefined): MessageExecuted;
+    } & { [K in Exclude<keyof I, "$type" | "id" | "sourceChain" | "destinationChain">]: never; }>(base?: I | undefined): MessageExecuted;
     fromPartial<I_1 extends {
         id?: string | undefined;
         sourceChain?: string | undefined;
@@ -776,9 +790,10 @@ export declare const MessageExecuted: {
         id?: string | undefined;
         sourceChain?: string | undefined;
         destinationChain?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, keyof MessageExecuted>]: never; }>(object: I_1): MessageExecuted;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "id" | "sourceChain" | "destinationChain">]: never; }>(object: I_1): MessageExecuted;
 };
 export declare const MessageFailed: {
+    $type: "axelar.nexus.v1beta1.MessageFailed";
     encode(message: MessageFailed, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MessageFailed;
     fromJSON(object: any): MessageFailed;
@@ -791,7 +806,7 @@ export declare const MessageFailed: {
         id?: string | undefined;
         sourceChain?: string | undefined;
         destinationChain?: string | undefined;
-    } & { [K in Exclude<keyof I, keyof MessageFailed>]: never; }>(base?: I | undefined): MessageFailed;
+    } & { [K in Exclude<keyof I, "$type" | "id" | "sourceChain" | "destinationChain">]: never; }>(base?: I | undefined): MessageFailed;
     fromPartial<I_1 extends {
         id?: string | undefined;
         sourceChain?: string | undefined;
@@ -800,42 +815,44 @@ export declare const MessageFailed: {
         id?: string | undefined;
         sourceChain?: string | undefined;
         destinationChain?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, keyof MessageFailed>]: never; }>(object: I_1): MessageFailed;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "id" | "sourceChain" | "destinationChain">]: never; }>(object: I_1): MessageFailed;
 };
 export declare const WasmMessageRouted: {
+    $type: "axelar.nexus.v1beta1.WasmMessageRouted";
     encode(message: WasmMessageRouted, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): WasmMessageRouted;
     fromJSON(object: any): WasmMessageRouted;
     toJSON(message: WasmMessageRouted): unknown;
     create<I extends {
         message?: {
-            sourceChain?: string | undefined;
-            sourceAddress?: string | undefined;
-            destinationChain?: string | undefined;
-            destinationAddress?: string | undefined;
-            payloadHash?: Buffer | undefined;
-            sourceTxId?: Buffer | undefined;
-            sourceTxIndex?: string | number | Long.Long | undefined;
             sender?: Buffer | undefined;
             id?: string | undefined;
+            sourceChain?: string | undefined;
+            destinationChain?: string | undefined;
+            payloadHash?: Buffer | undefined;
+            destinationAddress?: string | undefined;
+            sourceTxId?: Buffer | undefined;
+            sourceTxIndex?: string | number | Long.Long | undefined;
+            sourceAddress?: string | undefined;
         } | undefined;
     } & {
         message?: ({
-            sourceChain?: string | undefined;
-            sourceAddress?: string | undefined;
-            destinationChain?: string | undefined;
-            destinationAddress?: string | undefined;
-            payloadHash?: Buffer | undefined;
-            sourceTxId?: Buffer | undefined;
-            sourceTxIndex?: string | number | Long.Long | undefined;
             sender?: Buffer | undefined;
             id?: string | undefined;
-        } & {
             sourceChain?: string | undefined;
-            sourceAddress?: string | undefined;
             destinationChain?: string | undefined;
-            destinationAddress?: string | undefined;
             payloadHash?: Buffer | undefined;
+            destinationAddress?: string | undefined;
+            sourceTxId?: Buffer | undefined;
+            sourceTxIndex?: string | number | Long.Long | undefined;
+            sourceAddress?: string | undefined;
+        } & {
+            sender?: Buffer | undefined;
+            id?: string | undefined;
+            sourceChain?: string | undefined;
+            destinationChain?: string | undefined;
+            payloadHash?: Buffer | undefined;
+            destinationAddress?: string | undefined;
             sourceTxId?: Buffer | undefined;
             sourceTxIndex?: string | number | (Long.Long & {
                 high: number;
@@ -894,40 +911,40 @@ export declare const WasmMessageRouted: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K in Exclude<keyof I["message"]["sourceTxIndex"], keyof Long.Long>]: never; }) | undefined;
-            sender?: Buffer | undefined;
-            id?: string | undefined;
-        } & { [K_1 in Exclude<keyof I["message"], keyof WasmMessage>]: never; }) | undefined;
-    } & { [K_2 in Exclude<keyof I, "message">]: never; }>(base?: I | undefined): WasmMessageRouted;
+            } & { [K in Exclude<keyof I["message"]["sourceTxIndex"], "$type" | keyof Long.Long>]: never; }) | undefined;
+            sourceAddress?: string | undefined;
+        } & { [K_1 in Exclude<keyof I["message"], "$type" | "sender" | "id" | "sourceChain" | "destinationChain" | "payloadHash" | "destinationAddress" | "sourceTxId" | "sourceTxIndex" | "sourceAddress">]: never; }) | undefined;
+    } & { [K_2 in Exclude<keyof I, "$type" | "message">]: never; }>(base?: I | undefined): WasmMessageRouted;
     fromPartial<I_1 extends {
         message?: {
-            sourceChain?: string | undefined;
-            sourceAddress?: string | undefined;
-            destinationChain?: string | undefined;
-            destinationAddress?: string | undefined;
-            payloadHash?: Buffer | undefined;
-            sourceTxId?: Buffer | undefined;
-            sourceTxIndex?: string | number | Long.Long | undefined;
             sender?: Buffer | undefined;
             id?: string | undefined;
+            sourceChain?: string | undefined;
+            destinationChain?: string | undefined;
+            payloadHash?: Buffer | undefined;
+            destinationAddress?: string | undefined;
+            sourceTxId?: Buffer | undefined;
+            sourceTxIndex?: string | number | Long.Long | undefined;
+            sourceAddress?: string | undefined;
         } | undefined;
     } & {
         message?: ({
-            sourceChain?: string | undefined;
-            sourceAddress?: string | undefined;
-            destinationChain?: string | undefined;
-            destinationAddress?: string | undefined;
-            payloadHash?: Buffer | undefined;
-            sourceTxId?: Buffer | undefined;
-            sourceTxIndex?: string | number | Long.Long | undefined;
             sender?: Buffer | undefined;
             id?: string | undefined;
-        } & {
             sourceChain?: string | undefined;
-            sourceAddress?: string | undefined;
             destinationChain?: string | undefined;
-            destinationAddress?: string | undefined;
             payloadHash?: Buffer | undefined;
+            destinationAddress?: string | undefined;
+            sourceTxId?: Buffer | undefined;
+            sourceTxIndex?: string | number | Long.Long | undefined;
+            sourceAddress?: string | undefined;
+        } & {
+            sender?: Buffer | undefined;
+            id?: string | undefined;
+            sourceChain?: string | undefined;
+            destinationChain?: string | undefined;
+            payloadHash?: Buffer | undefined;
+            destinationAddress?: string | undefined;
             sourceTxId?: Buffer | undefined;
             sourceTxIndex?: string | number | (Long.Long & {
                 high: number;
@@ -986,20 +1003,19 @@ export declare const WasmMessageRouted: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_3 in Exclude<keyof I_1["message"]["sourceTxIndex"], keyof Long.Long>]: never; }) | undefined;
-            sender?: Buffer | undefined;
-            id?: string | undefined;
-        } & { [K_4 in Exclude<keyof I_1["message"], keyof WasmMessage>]: never; }) | undefined;
-    } & { [K_5 in Exclude<keyof I_1, "message">]: never; }>(object: I_1): WasmMessageRouted;
+            } & { [K_3 in Exclude<keyof I_1["message"]["sourceTxIndex"], "$type" | keyof Long.Long>]: never; }) | undefined;
+            sourceAddress?: string | undefined;
+        } & { [K_4 in Exclude<keyof I_1["message"], "$type" | "sender" | "id" | "sourceChain" | "destinationChain" | "payloadHash" | "destinationAddress" | "sourceTxId" | "sourceTxIndex" | "sourceAddress">]: never; }) | undefined;
+    } & { [K_5 in Exclude<keyof I_1, "$type" | "message">]: never; }>(object: I_1): WasmMessageRouted;
 };
 declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
-    [K in keyof T]?: DeepPartial<T[K]>;
+    [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]>;
 } : Partial<T>;
 declare type KeysOfUnion<T> = T extends T ? keyof T : never;
 export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & {
-    [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+    [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never;
 };
 export {};

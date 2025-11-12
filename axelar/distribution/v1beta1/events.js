@@ -13,11 +13,13 @@ exports.FeesBurned = exports.protobufPackage = void 0;
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
 const coin_1 = require("../../../cosmos/base/v1beta1/coin");
+const typeRegistry_1 = require("../../../typeRegistry");
 exports.protobufPackage = "axelar.distribution.v1beta1";
 function createBaseFeesBurned() {
-    return { coins: [] };
+    return { $type: "axelar.distribution.v1beta1.FeesBurned", coins: [] };
 }
 exports.FeesBurned = {
+    $type: "axelar.distribution.v1beta1.FeesBurned",
     encode(message, writer = minimal_1.default.Writer.create()) {
         for (const v of message.coins) {
             coin_1.Coin.encode(v, writer.uint32(18).fork()).ldelim();
@@ -46,7 +48,10 @@ exports.FeesBurned = {
         return message;
     },
     fromJSON(object) {
-        return { coins: gt.Array.isArray(object === null || object === void 0 ? void 0 : object.coins) ? object.coins.map((e) => coin_1.Coin.fromJSON(e)) : [] };
+        return {
+            $type: exports.FeesBurned.$type,
+            coins: gt.Array.isArray(object === null || object === void 0 ? void 0 : object.coins) ? object.coins.map((e) => coin_1.Coin.fromJSON(e)) : [],
+        };
     },
     toJSON(message) {
         var _a;
@@ -66,6 +71,7 @@ exports.FeesBurned = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.FeesBurned.$type, exports.FeesBurned);
 const gt = (() => {
     if (typeof globalThis !== "undefined") {
         return globalThis;

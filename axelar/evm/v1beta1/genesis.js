@@ -12,14 +12,16 @@ exports.GenesisState_Chain = exports.GenesisState = exports.protobufPackage = vo
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const typeRegistry_1 = require("../../../typeRegistry");
 const queuer_1 = require("../../utils/v1beta1/queuer");
 const params_1 = require("./params");
 const types_1 = require("./types");
 exports.protobufPackage = "axelar.evm.v1beta1";
 function createBaseGenesisState() {
-    return { chains: [] };
+    return { $type: "axelar.evm.v1beta1.GenesisState", chains: [] };
 }
 exports.GenesisState = {
+    $type: "axelar.evm.v1beta1.GenesisState",
     encode(message, writer = minimal_1.default.Writer.create()) {
         for (const v of message.chains) {
             exports.GenesisState_Chain.encode(v, writer.uint32(26).fork()).ldelim();
@@ -49,6 +51,7 @@ exports.GenesisState = {
     },
     fromJSON(object) {
         return {
+            $type: exports.GenesisState.$type,
             chains: gt.Array.isArray(object === null || object === void 0 ? void 0 : object.chains)
                 ? object.chains.map((e) => exports.GenesisState_Chain.fromJSON(e))
                 : [],
@@ -72,8 +75,10 @@ exports.GenesisState = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.GenesisState.$type, exports.GenesisState);
 function createBaseGenesisState_Chain() {
     return {
+        $type: "axelar.evm.v1beta1.GenesisState.Chain",
         params: undefined,
         burnerInfos: [],
         commandQueue: undefined,
@@ -89,6 +94,7 @@ function createBaseGenesisState_Chain() {
     };
 }
 exports.GenesisState_Chain = {
+    $type: "axelar.evm.v1beta1.GenesisState.Chain",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.params !== undefined) {
             params_1.Params.encode(message.params, writer.uint32(10).fork()).ldelim();
@@ -217,6 +223,7 @@ exports.GenesisState_Chain = {
     },
     fromJSON(object) {
         return {
+            $type: exports.GenesisState_Chain.$type,
             params: isSet(object.params) ? params_1.Params.fromJSON(object.params) : undefined,
             burnerInfos: gt.Array.isArray(object === null || object === void 0 ? void 0 : object.burnerInfos)
                 ? object.burnerInfos.map((e) => types_1.BurnerInfo.fromJSON(e))
@@ -320,6 +327,7 @@ exports.GenesisState_Chain = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.GenesisState_Chain.$type, exports.GenesisState_Chain);
 const gt = (() => {
     if (typeof globalThis !== "undefined") {
         return globalThis;

@@ -13,13 +13,15 @@ exports.ParamsResponse = exports.ParamsRequest = exports.KeygenSessionResponse =
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
 const timestamp_1 = require("../../../google/protobuf/timestamp");
+const typeRegistry_1 = require("../../../typeRegistry");
 const types_1 = require("../exported/v1beta1/types");
 const params_1 = require("./params");
 exports.protobufPackage = "axelar.multisig.v1beta1";
 function createBaseKeyIDRequest() {
-    return { chain: "" };
+    return { $type: "axelar.multisig.v1beta1.KeyIDRequest", chain: "" };
 }
 exports.KeyIDRequest = {
+    $type: "axelar.multisig.v1beta1.KeyIDRequest",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.chain !== "") {
             writer.uint32(10).string(message.chain);
@@ -48,7 +50,7 @@ exports.KeyIDRequest = {
         return message;
     },
     fromJSON(object) {
-        return { chain: isSet(object.chain) ? gt.String(object.chain) : "" };
+        return { $type: exports.KeyIDRequest.$type, chain: isSet(object.chain) ? gt.String(object.chain) : "" };
     },
     toJSON(message) {
         const obj = {};
@@ -67,10 +69,12 @@ exports.KeyIDRequest = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.KeyIDRequest.$type, exports.KeyIDRequest);
 function createBaseKeyIDResponse() {
-    return { keyId: "" };
+    return { $type: "axelar.multisig.v1beta1.KeyIDResponse", keyId: "" };
 }
 exports.KeyIDResponse = {
+    $type: "axelar.multisig.v1beta1.KeyIDResponse",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.keyId !== "") {
             writer.uint32(10).string(message.keyId);
@@ -99,7 +103,7 @@ exports.KeyIDResponse = {
         return message;
     },
     fromJSON(object) {
-        return { keyId: isSet(object.keyId) ? gt.String(object.keyId) : "" };
+        return { $type: exports.KeyIDResponse.$type, keyId: isSet(object.keyId) ? gt.String(object.keyId) : "" };
     },
     toJSON(message) {
         const obj = {};
@@ -118,10 +122,12 @@ exports.KeyIDResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.KeyIDResponse.$type, exports.KeyIDResponse);
 function createBaseNextKeyIDRequest() {
-    return { chain: "" };
+    return { $type: "axelar.multisig.v1beta1.NextKeyIDRequest", chain: "" };
 }
 exports.NextKeyIDRequest = {
+    $type: "axelar.multisig.v1beta1.NextKeyIDRequest",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.chain !== "") {
             writer.uint32(10).string(message.chain);
@@ -150,7 +156,7 @@ exports.NextKeyIDRequest = {
         return message;
     },
     fromJSON(object) {
-        return { chain: isSet(object.chain) ? gt.String(object.chain) : "" };
+        return { $type: exports.NextKeyIDRequest.$type, chain: isSet(object.chain) ? gt.String(object.chain) : "" };
     },
     toJSON(message) {
         const obj = {};
@@ -169,10 +175,12 @@ exports.NextKeyIDRequest = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.NextKeyIDRequest.$type, exports.NextKeyIDRequest);
 function createBaseNextKeyIDResponse() {
-    return { keyId: "" };
+    return { $type: "axelar.multisig.v1beta1.NextKeyIDResponse", keyId: "" };
 }
 exports.NextKeyIDResponse = {
+    $type: "axelar.multisig.v1beta1.NextKeyIDResponse",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.keyId !== "") {
             writer.uint32(10).string(message.keyId);
@@ -201,7 +209,7 @@ exports.NextKeyIDResponse = {
         return message;
     },
     fromJSON(object) {
-        return { keyId: isSet(object.keyId) ? gt.String(object.keyId) : "" };
+        return { $type: exports.NextKeyIDResponse.$type, keyId: isSet(object.keyId) ? gt.String(object.keyId) : "" };
     },
     toJSON(message) {
         const obj = {};
@@ -220,10 +228,12 @@ exports.NextKeyIDResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.NextKeyIDResponse.$type, exports.NextKeyIDResponse);
 function createBaseKeyRequest() {
-    return { keyId: "" };
+    return { $type: "axelar.multisig.v1beta1.KeyRequest", keyId: "" };
 }
 exports.KeyRequest = {
+    $type: "axelar.multisig.v1beta1.KeyRequest",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.keyId !== "") {
             writer.uint32(10).string(message.keyId);
@@ -252,7 +262,7 @@ exports.KeyRequest = {
         return message;
     },
     fromJSON(object) {
-        return { keyId: isSet(object.keyId) ? gt.String(object.keyId) : "" };
+        return { $type: exports.KeyRequest.$type, keyId: isSet(object.keyId) ? gt.String(object.keyId) : "" };
     },
     toJSON(message) {
         const obj = {};
@@ -271,10 +281,17 @@ exports.KeyRequest = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.KeyRequest.$type, exports.KeyRequest);
 function createBaseKeygenParticipant() {
-    return { address: "", weight: Buffer.alloc(0), pubKey: "" };
+    return {
+        $type: "axelar.multisig.v1beta1.KeygenParticipant",
+        address: "",
+        weight: Buffer.alloc(0),
+        pubKey: "",
+    };
 }
 exports.KeygenParticipant = {
+    $type: "axelar.multisig.v1beta1.KeygenParticipant",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.address !== "") {
             writer.uint32(10).string(message.address);
@@ -322,6 +339,7 @@ exports.KeygenParticipant = {
     },
     fromJSON(object) {
         return {
+            $type: exports.KeygenParticipant.$type,
             address: isSet(object.address) ? gt.String(object.address) : "",
             weight: isSet(object.weight) ? Buffer.from(bytesFromBase64(object.weight)) : Buffer.alloc(0),
             pubKey: isSet(object.pubKey) ? gt.String(object.pubKey) : "",
@@ -352,8 +370,10 @@ exports.KeygenParticipant = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.KeygenParticipant.$type, exports.KeygenParticipant);
 function createBaseKeyResponse() {
     return {
+        $type: "axelar.multisig.v1beta1.KeyResponse",
         keyId: "",
         state: 0,
         startedAt: long_1.default.ZERO,
@@ -364,6 +384,7 @@ function createBaseKeyResponse() {
     };
 }
 exports.KeyResponse = {
+    $type: "axelar.multisig.v1beta1.KeyResponse",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.keyId !== "") {
             writer.uint32(10).string(message.keyId);
@@ -447,6 +468,7 @@ exports.KeyResponse = {
     },
     fromJSON(object) {
         return {
+            $type: exports.KeyResponse.$type,
             keyId: isSet(object.keyId) ? gt.String(object.keyId) : "",
             state: isSet(object.state) ? (0, types_1.keyStateFromJSON)(object.state) : 0,
             startedAt: isSet(object.startedAt) ? long_1.default.fromValue(object.startedAt) : long_1.default.ZERO,
@@ -512,10 +534,12 @@ exports.KeyResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.KeyResponse.$type, exports.KeyResponse);
 function createBaseKeygenSessionRequest() {
-    return { keyId: "" };
+    return { $type: "axelar.multisig.v1beta1.KeygenSessionRequest", keyId: "" };
 }
 exports.KeygenSessionRequest = {
+    $type: "axelar.multisig.v1beta1.KeygenSessionRequest",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.keyId !== "") {
             writer.uint32(10).string(message.keyId);
@@ -544,7 +568,7 @@ exports.KeygenSessionRequest = {
         return message;
     },
     fromJSON(object) {
-        return { keyId: isSet(object.keyId) ? gt.String(object.keyId) : "" };
+        return { $type: exports.KeygenSessionRequest.$type, keyId: isSet(object.keyId) ? gt.String(object.keyId) : "" };
     },
     toJSON(message) {
         const obj = {};
@@ -563,8 +587,10 @@ exports.KeygenSessionRequest = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.KeygenSessionRequest.$type, exports.KeygenSessionRequest);
 function createBaseKeygenSessionResponse() {
     return {
+        $type: "axelar.multisig.v1beta1.KeygenSessionResponse",
         startedAt: long_1.default.ZERO,
         startedAtTimestamp: undefined,
         expiresAt: long_1.default.ZERO,
@@ -578,6 +604,7 @@ function createBaseKeygenSessionResponse() {
     };
 }
 exports.KeygenSessionResponse = {
+    $type: "axelar.multisig.v1beta1.KeygenSessionResponse",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.startedAt.equals(long_1.default.ZERO)) {
             writer.uint32(8).int64(message.startedAt);
@@ -688,6 +715,7 @@ exports.KeygenSessionResponse = {
     },
     fromJSON(object) {
         return {
+            $type: exports.KeygenSessionResponse.$type,
             startedAt: isSet(object.startedAt) ? long_1.default.fromValue(object.startedAt) : long_1.default.ZERO,
             startedAtTimestamp: isSet(object.startedAtTimestamp)
                 ? fromJsonTimestamp(object.startedAtTimestamp)
@@ -779,10 +807,12 @@ exports.KeygenSessionResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.KeygenSessionResponse.$type, exports.KeygenSessionResponse);
 function createBaseParamsRequest() {
-    return {};
+    return { $type: "axelar.multisig.v1beta1.ParamsRequest" };
 }
 exports.ParamsRequest = {
+    $type: "axelar.multisig.v1beta1.ParamsRequest",
     encode(_, writer = minimal_1.default.Writer.create()) {
         return writer;
     },
@@ -802,7 +832,7 @@ exports.ParamsRequest = {
         return message;
     },
     fromJSON(_) {
-        return {};
+        return { $type: exports.ParamsRequest.$type };
     },
     toJSON(_) {
         const obj = {};
@@ -816,10 +846,12 @@ exports.ParamsRequest = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.ParamsRequest.$type, exports.ParamsRequest);
 function createBaseParamsResponse() {
-    return { params: undefined };
+    return { $type: "axelar.multisig.v1beta1.ParamsResponse", params: undefined };
 }
 exports.ParamsResponse = {
+    $type: "axelar.multisig.v1beta1.ParamsResponse",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.params !== undefined) {
             params_1.Params.encode(message.params, writer.uint32(10).fork()).ldelim();
@@ -848,7 +880,10 @@ exports.ParamsResponse = {
         return message;
     },
     fromJSON(object) {
-        return { params: isSet(object.params) ? params_1.Params.fromJSON(object.params) : undefined };
+        return {
+            $type: exports.ParamsResponse.$type,
+            params: isSet(object.params) ? params_1.Params.fromJSON(object.params) : undefined,
+        };
     },
     toJSON(message) {
         const obj = {};
@@ -867,6 +902,7 @@ exports.ParamsResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.ParamsResponse.$type, exports.ParamsResponse);
 const gt = (() => {
     if (typeof globalThis !== "undefined") {
         return globalThis;
@@ -891,7 +927,7 @@ function base64FromBytes(arr) {
 function toTimestamp(date) {
     const seconds = numberToLong(Math.trunc(date.getTime() / 1000));
     const nanos = (date.getTime() % 1000) * 1000000;
-    return { seconds, nanos };
+    return { $type: "google.protobuf.Timestamp", seconds, nanos };
 }
 function fromTimestamp(t) {
     let millis = (t.seconds.toNumber() || 0) * 1000;

@@ -5,10 +5,12 @@ import { ProxiedValidator } from "./types";
 export declare const protobufPackage = "axelar.snapshot.v1beta1";
 /** GenesisState represents the genesis state */
 export interface GenesisState {
+    $type: "axelar.snapshot.v1beta1.GenesisState";
     params?: Params | undefined;
     proxiedValidators: ProxiedValidator[];
 }
 export declare const GenesisState: {
+    $type: "axelar.snapshot.v1beta1.GenesisState";
     encode(message: GenesisState, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): GenesisState;
     fromJSON(object: any): GenesisState;
@@ -83,8 +85,8 @@ export declare const GenesisState: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K in Exclude<keyof I["params"]["minProxyBalance"], keyof Long.Long>]: never; }) | undefined;
-        } & { [K_1 in Exclude<keyof I["params"], "minProxyBalance">]: never; }) | undefined;
+            } & { [K in Exclude<keyof I["params"]["minProxyBalance"], "$type" | keyof Long.Long>]: never; }) | undefined;
+        } & { [K_1 in Exclude<keyof I["params"], "$type" | "minProxyBalance">]: never; }) | undefined;
         proxiedValidators?: ({
             validator?: Buffer | undefined;
             proxy?: Buffer | undefined;
@@ -97,12 +99,12 @@ export declare const GenesisState: {
             validator?: Buffer | undefined;
             proxy?: Buffer | undefined;
             active?: boolean | undefined;
-        } & { [K_2 in Exclude<keyof I["proxiedValidators"][number], keyof ProxiedValidator>]: never; })[] & { [K_3 in Exclude<keyof I["proxiedValidators"], keyof {
+        } & { [K_2 in Exclude<keyof I["proxiedValidators"][number], "$type" | "validator" | "proxy" | "active">]: never; })[] & { [K_3 in Exclude<keyof I["proxiedValidators"], "$type" | keyof {
             validator?: Buffer | undefined;
             proxy?: Buffer | undefined;
             active?: boolean | undefined;
         }[]>]: never; }) | undefined;
-    } & { [K_4 in Exclude<keyof I, keyof GenesisState>]: never; }>(base?: I | undefined): GenesisState;
+    } & { [K_4 in Exclude<keyof I, "$type" | "params" | "proxiedValidators">]: never; }>(base?: I | undefined): GenesisState;
     fromPartial<I_1 extends {
         params?: {
             minProxyBalance?: string | number | Long.Long | undefined;
@@ -173,8 +175,8 @@ export declare const GenesisState: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_5 in Exclude<keyof I_1["params"]["minProxyBalance"], keyof Long.Long>]: never; }) | undefined;
-        } & { [K_6 in Exclude<keyof I_1["params"], "minProxyBalance">]: never; }) | undefined;
+            } & { [K_5 in Exclude<keyof I_1["params"]["minProxyBalance"], "$type" | keyof Long.Long>]: never; }) | undefined;
+        } & { [K_6 in Exclude<keyof I_1["params"], "$type" | "minProxyBalance">]: never; }) | undefined;
         proxiedValidators?: ({
             validator?: Buffer | undefined;
             proxy?: Buffer | undefined;
@@ -187,21 +189,21 @@ export declare const GenesisState: {
             validator?: Buffer | undefined;
             proxy?: Buffer | undefined;
             active?: boolean | undefined;
-        } & { [K_7 in Exclude<keyof I_1["proxiedValidators"][number], keyof ProxiedValidator>]: never; })[] & { [K_8 in Exclude<keyof I_1["proxiedValidators"], keyof {
+        } & { [K_7 in Exclude<keyof I_1["proxiedValidators"][number], "$type" | "validator" | "proxy" | "active">]: never; })[] & { [K_8 in Exclude<keyof I_1["proxiedValidators"], "$type" | keyof {
             validator?: Buffer | undefined;
             proxy?: Buffer | undefined;
             active?: boolean | undefined;
         }[]>]: never; }) | undefined;
-    } & { [K_9 in Exclude<keyof I_1, keyof GenesisState>]: never; }>(object: I_1): GenesisState;
+    } & { [K_9 in Exclude<keyof I_1, "$type" | "params" | "proxiedValidators">]: never; }>(object: I_1): GenesisState;
 };
 declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
-    [K in keyof T]?: DeepPartial<T[K]>;
+    [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]>;
 } : Partial<T>;
 declare type KeysOfUnion<T> = T extends T ? keyof T : never;
 export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & {
-    [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+    [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never;
 };
 export {};

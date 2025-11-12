@@ -12,13 +12,22 @@ exports.GenesisState = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const typeRegistry_1 = require("../../../typeRegistry");
 const params_1 = require("./params");
 const types_1 = require("./types");
 exports.protobufPackage = "axelar.multisig.v1beta1";
 function createBaseGenesisState() {
-    return { params: undefined, keygenSessions: [], signingSessions: [], keys: [], keyEpochs: [] };
+    return {
+        $type: "axelar.multisig.v1beta1.GenesisState",
+        params: undefined,
+        keygenSessions: [],
+        signingSessions: [],
+        keys: [],
+        keyEpochs: [],
+    };
 }
 exports.GenesisState = {
+    $type: "axelar.multisig.v1beta1.GenesisState",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.params !== undefined) {
             params_1.Params.encode(message.params, writer.uint32(10).fork()).ldelim();
@@ -84,6 +93,7 @@ exports.GenesisState = {
     },
     fromJSON(object) {
         return {
+            $type: exports.GenesisState.$type,
             params: isSet(object.params) ? params_1.Params.fromJSON(object.params) : undefined,
             keygenSessions: gt.Array.isArray(object === null || object === void 0 ? void 0 : object.keygenSessions)
                 ? object.keygenSessions.map((e) => types_1.KeygenSession.fromJSON(e))
@@ -132,6 +142,7 @@ exports.GenesisState = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.GenesisState.$type, exports.GenesisState);
 const gt = (() => {
     if (typeof globalThis !== "undefined") {
         return globalThis;

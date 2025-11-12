@@ -12,14 +12,16 @@ exports.QueueState_ItemsEntry = exports.QueueState_Item = exports.QueueState = e
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const typeRegistry_1 = require("../../../typeRegistry");
 exports.protobufPackage = "axelar.utils.v1beta1";
 function createBaseQueueState() {
-    return { items: {} };
+    return { $type: "axelar.utils.v1beta1.QueueState", items: {} };
 }
 exports.QueueState = {
+    $type: "axelar.utils.v1beta1.QueueState",
     encode(message, writer = minimal_1.default.Writer.create()) {
         Object.entries(message.items).forEach(([key, value]) => {
-            exports.QueueState_ItemsEntry.encode({ key: key, value }, writer.uint32(10).fork()).ldelim();
+            exports.QueueState_ItemsEntry.encode({ $type: "axelar.utils.v1beta1.QueueState.ItemsEntry", key: key, value }, writer.uint32(10).fork()).ldelim();
         });
         return writer;
     },
@@ -49,6 +51,7 @@ exports.QueueState = {
     },
     fromJSON(object) {
         return {
+            $type: exports.QueueState.$type,
             items: isObject(object.items)
                 ? Object.entries(object.items).reduce((acc, [key, value]) => {
                     acc[key] = exports.QueueState_Item.fromJSON(value);
@@ -85,10 +88,12 @@ exports.QueueState = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.QueueState.$type, exports.QueueState);
 function createBaseQueueState_Item() {
-    return { key: Buffer.alloc(0), value: Buffer.alloc(0) };
+    return { $type: "axelar.utils.v1beta1.QueueState.Item", key: Buffer.alloc(0), value: Buffer.alloc(0) };
 }
 exports.QueueState_Item = {
+    $type: "axelar.utils.v1beta1.QueueState.Item",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.key.length !== 0) {
             writer.uint32(10).bytes(message.key);
@@ -127,6 +132,7 @@ exports.QueueState_Item = {
     },
     fromJSON(object) {
         return {
+            $type: exports.QueueState_Item.$type,
             key: isSet(object.key) ? Buffer.from(bytesFromBase64(object.key)) : Buffer.alloc(0),
             value: isSet(object.value) ? Buffer.from(bytesFromBase64(object.value)) : Buffer.alloc(0),
         };
@@ -152,10 +158,12 @@ exports.QueueState_Item = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.QueueState_Item.$type, exports.QueueState_Item);
 function createBaseQueueState_ItemsEntry() {
-    return { key: "", value: undefined };
+    return { $type: "axelar.utils.v1beta1.QueueState.ItemsEntry", key: "", value: undefined };
 }
 exports.QueueState_ItemsEntry = {
+    $type: "axelar.utils.v1beta1.QueueState.ItemsEntry",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.key !== "") {
             writer.uint32(10).string(message.key);
@@ -194,6 +202,7 @@ exports.QueueState_ItemsEntry = {
     },
     fromJSON(object) {
         return {
+            $type: exports.QueueState_ItemsEntry.$type,
             key: isSet(object.key) ? gt.String(object.key) : "",
             value: isSet(object.value) ? exports.QueueState_Item.fromJSON(object.value) : undefined,
         };
@@ -222,6 +231,7 @@ exports.QueueState_ItemsEntry = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.QueueState_ItemsEntry.$type, exports.QueueState_ItemsEntry);
 const gt = (() => {
     if (typeof globalThis !== "undefined") {
         return globalThis;

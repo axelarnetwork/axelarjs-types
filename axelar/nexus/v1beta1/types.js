@@ -14,13 +14,21 @@ const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
 const coin_1 = require("../../../cosmos/base/v1beta1/coin");
 const duration_1 = require("../../../google/protobuf/duration");
+const typeRegistry_1 = require("../../../typeRegistry");
 const bitmap_1 = require("../../utils/v1beta1/bitmap");
 const types_1 = require("../exported/v1beta1/types");
 exports.protobufPackage = "axelar.nexus.v1beta1";
 function createBaseMaintainerState() {
-    return { address: Buffer.alloc(0), missingVotes: undefined, incorrectVotes: undefined, chain: "" };
+    return {
+        $type: "axelar.nexus.v1beta1.MaintainerState",
+        address: Buffer.alloc(0),
+        missingVotes: undefined,
+        incorrectVotes: undefined,
+        chain: "",
+    };
 }
 exports.MaintainerState = {
+    $type: "axelar.nexus.v1beta1.MaintainerState",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.address.length !== 0) {
             writer.uint32(10).bytes(message.address);
@@ -77,6 +85,7 @@ exports.MaintainerState = {
     },
     fromJSON(object) {
         return {
+            $type: exports.MaintainerState.$type,
             address: isSet(object.address) ? Buffer.from(bytesFromBase64(object.address)) : Buffer.alloc(0),
             missingVotes: isSet(object.missingVotes) ? bitmap_1.Bitmap.fromJSON(object.missingVotes) : undefined,
             incorrectVotes: isSet(object.incorrectVotes) ? bitmap_1.Bitmap.fromJSON(object.incorrectVotes) : undefined,
@@ -118,10 +127,18 @@ exports.MaintainerState = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.MaintainerState.$type, exports.MaintainerState);
 function createBaseChainState() {
-    return { chain: undefined, activated: false, assets: [], maintainerStates: [] };
+    return {
+        $type: "axelar.nexus.v1beta1.ChainState",
+        chain: undefined,
+        activated: false,
+        assets: [],
+        maintainerStates: [],
+    };
 }
 exports.ChainState = {
+    $type: "axelar.nexus.v1beta1.ChainState",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.chain !== undefined) {
             types_1.Chain.encode(message.chain, writer.uint32(10).fork()).ldelim();
@@ -178,6 +195,7 @@ exports.ChainState = {
     },
     fromJSON(object) {
         return {
+            $type: exports.ChainState.$type,
             chain: isSet(object.chain) ? types_1.Chain.fromJSON(object.chain) : undefined,
             activated: isSet(object.activated) ? gt.Boolean(object.activated) : false,
             assets: gt.Array.isArray(object === null || object === void 0 ? void 0 : object.assets) ? object.assets.map((e) => types_1.Asset.fromJSON(e)) : [],
@@ -217,10 +235,16 @@ exports.ChainState = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.ChainState.$type, exports.ChainState);
 function createBaseLinkedAddresses() {
-    return { depositAddress: undefined, recipientAddress: undefined };
+    return {
+        $type: "axelar.nexus.v1beta1.LinkedAddresses",
+        depositAddress: undefined,
+        recipientAddress: undefined,
+    };
 }
 exports.LinkedAddresses = {
+    $type: "axelar.nexus.v1beta1.LinkedAddresses",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.depositAddress !== undefined) {
             types_1.CrossChainAddress.encode(message.depositAddress, writer.uint32(10).fork()).ldelim();
@@ -259,6 +283,7 @@ exports.LinkedAddresses = {
     },
     fromJSON(object) {
         return {
+            $type: exports.LinkedAddresses.$type,
             depositAddress: isSet(object.depositAddress)
                 ? types_1.CrossChainAddress.fromJSON(object.depositAddress)
                 : undefined,
@@ -293,10 +318,12 @@ exports.LinkedAddresses = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.LinkedAddresses.$type, exports.LinkedAddresses);
 function createBaseRateLimit() {
-    return { chain: "", limit: undefined, window: undefined };
+    return { $type: "axelar.nexus.v1beta1.RateLimit", chain: "", limit: undefined, window: undefined };
 }
 exports.RateLimit = {
+    $type: "axelar.nexus.v1beta1.RateLimit",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.chain !== "") {
             writer.uint32(10).string(message.chain);
@@ -344,6 +371,7 @@ exports.RateLimit = {
     },
     fromJSON(object) {
         return {
+            $type: exports.RateLimit.$type,
             chain: isSet(object.chain) ? gt.String(object.chain) : "",
             limit: isSet(object.limit) ? coin_1.Coin.fromJSON(object.limit) : undefined,
             window: isSet(object.window) ? duration_1.Duration.fromJSON(object.window) : undefined,
@@ -376,10 +404,18 @@ exports.RateLimit = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.RateLimit.$type, exports.RateLimit);
 function createBaseTransferEpoch() {
-    return { chain: "", amount: undefined, epoch: long_1.default.UZERO, direction: 0 };
+    return {
+        $type: "axelar.nexus.v1beta1.TransferEpoch",
+        chain: "",
+        amount: undefined,
+        epoch: long_1.default.UZERO,
+        direction: 0,
+    };
 }
 exports.TransferEpoch = {
+    $type: "axelar.nexus.v1beta1.TransferEpoch",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.chain !== "") {
             writer.uint32(10).string(message.chain);
@@ -436,6 +472,7 @@ exports.TransferEpoch = {
     },
     fromJSON(object) {
         return {
+            $type: exports.TransferEpoch.$type,
             chain: isSet(object.chain) ? gt.String(object.chain) : "",
             amount: isSet(object.amount) ? coin_1.Coin.fromJSON(object.amount) : undefined,
             epoch: isSet(object.epoch) ? long_1.default.fromValue(object.epoch) : long_1.default.UZERO,
@@ -473,6 +510,7 @@ exports.TransferEpoch = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.TransferEpoch.$type, exports.TransferEpoch);
 const gt = (() => {
     if (typeof globalThis !== "undefined") {
         return globalThis;

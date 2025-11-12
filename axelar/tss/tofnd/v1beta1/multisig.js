@@ -12,11 +12,13 @@ exports.SignResponse = exports.SignRequest = exports.KeygenResponse = exports.Ke
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const typeRegistry_1 = require("../../../../typeRegistry");
 exports.protobufPackage = "axelar.tss.tofnd.v1beta1";
 function createBaseKeygenRequest() {
-    return { keyUid: "", partyUid: "" };
+    return { $type: "axelar.tss.tofnd.v1beta1.KeygenRequest", keyUid: "", partyUid: "" };
 }
 exports.KeygenRequest = {
+    $type: "axelar.tss.tofnd.v1beta1.KeygenRequest",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.keyUid !== "") {
             writer.uint32(10).string(message.keyUid);
@@ -55,6 +57,7 @@ exports.KeygenRequest = {
     },
     fromJSON(object) {
         return {
+            $type: exports.KeygenRequest.$type,
             keyUid: isSet(object.keyUid) ? gt.String(object.keyUid) : "",
             partyUid: isSet(object.partyUid) ? gt.String(object.partyUid) : "",
         };
@@ -80,10 +83,12 @@ exports.KeygenRequest = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.KeygenRequest.$type, exports.KeygenRequest);
 function createBaseKeygenResponse() {
-    return { pubKey: undefined, error: undefined };
+    return { $type: "axelar.tss.tofnd.v1beta1.KeygenResponse", pubKey: undefined, error: undefined };
 }
 exports.KeygenResponse = {
+    $type: "axelar.tss.tofnd.v1beta1.KeygenResponse",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.pubKey !== undefined) {
             writer.uint32(10).bytes(message.pubKey);
@@ -122,6 +127,7 @@ exports.KeygenResponse = {
     },
     fromJSON(object) {
         return {
+            $type: exports.KeygenResponse.$type,
             pubKey: isSet(object.pubKey) ? Buffer.from(bytesFromBase64(object.pubKey)) : undefined,
             error: isSet(object.error) ? gt.String(object.error) : undefined,
         };
@@ -147,10 +153,18 @@ exports.KeygenResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.KeygenResponse.$type, exports.KeygenResponse);
 function createBaseSignRequest() {
-    return { keyUid: "", msgToSign: Buffer.alloc(0), partyUid: "", pubKey: Buffer.alloc(0) };
+    return {
+        $type: "axelar.tss.tofnd.v1beta1.SignRequest",
+        keyUid: "",
+        msgToSign: Buffer.alloc(0),
+        partyUid: "",
+        pubKey: Buffer.alloc(0),
+    };
 }
 exports.SignRequest = {
+    $type: "axelar.tss.tofnd.v1beta1.SignRequest",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.keyUid !== "") {
             writer.uint32(10).string(message.keyUid);
@@ -207,6 +221,7 @@ exports.SignRequest = {
     },
     fromJSON(object) {
         return {
+            $type: exports.SignRequest.$type,
             keyUid: isSet(object.keyUid) ? gt.String(object.keyUid) : "",
             msgToSign: isSet(object.msgToSign) ? Buffer.from(bytesFromBase64(object.msgToSign)) : Buffer.alloc(0),
             partyUid: isSet(object.partyUid) ? gt.String(object.partyUid) : "",
@@ -242,10 +257,12 @@ exports.SignRequest = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.SignRequest.$type, exports.SignRequest);
 function createBaseSignResponse() {
-    return { signature: undefined, error: undefined };
+    return { $type: "axelar.tss.tofnd.v1beta1.SignResponse", signature: undefined, error: undefined };
 }
 exports.SignResponse = {
+    $type: "axelar.tss.tofnd.v1beta1.SignResponse",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.signature !== undefined) {
             writer.uint32(10).bytes(message.signature);
@@ -284,6 +301,7 @@ exports.SignResponse = {
     },
     fromJSON(object) {
         return {
+            $type: exports.SignResponse.$type,
             signature: isSet(object.signature) ? Buffer.from(bytesFromBase64(object.signature)) : undefined,
             error: isSet(object.error) ? gt.String(object.error) : undefined,
         };
@@ -309,6 +327,7 @@ exports.SignResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.SignResponse.$type, exports.SignResponse);
 const gt = (() => {
     if (typeof globalThis !== "undefined") {
         return globalThis;

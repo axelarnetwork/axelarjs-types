@@ -13,9 +13,11 @@ exports.CallContractProposalMinDeposit = exports.Params = exports.protobufPackag
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
 const coin_1 = require("../../../cosmos/base/v1beta1/coin");
+const typeRegistry_1 = require("../../../typeRegistry");
 exports.protobufPackage = "axelar.axelarnet.v1beta1";
 function createBaseParams() {
     return {
+        $type: "axelar.axelarnet.v1beta1.Params",
         routeTimeoutWindow: long_1.default.UZERO,
         transferLimit: long_1.default.UZERO,
         endBlockerLimit: long_1.default.UZERO,
@@ -23,6 +25,7 @@ function createBaseParams() {
     };
 }
 exports.Params = {
+    $type: "axelar.axelarnet.v1beta1.Params",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.routeTimeoutWindow.equals(long_1.default.UZERO)) {
             writer.uint32(8).uint64(message.routeTimeoutWindow);
@@ -79,6 +82,7 @@ exports.Params = {
     },
     fromJSON(object) {
         return {
+            $type: exports.Params.$type,
             routeTimeoutWindow: isSet(object.routeTimeoutWindow)
                 ? long_1.default.fromValue(object.routeTimeoutWindow)
                 : long_1.default.UZERO,
@@ -130,10 +134,17 @@ exports.Params = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.Params.$type, exports.Params);
 function createBaseCallContractProposalMinDeposit() {
-    return { chain: "", contractAddress: "", minDeposits: [] };
+    return {
+        $type: "axelar.axelarnet.v1beta1.CallContractProposalMinDeposit",
+        chain: "",
+        contractAddress: "",
+        minDeposits: [],
+    };
 }
 exports.CallContractProposalMinDeposit = {
+    $type: "axelar.axelarnet.v1beta1.CallContractProposalMinDeposit",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.chain !== "") {
             writer.uint32(10).string(message.chain);
@@ -181,6 +192,7 @@ exports.CallContractProposalMinDeposit = {
     },
     fromJSON(object) {
         return {
+            $type: exports.CallContractProposalMinDeposit.$type,
             chain: isSet(object.chain) ? gt.String(object.chain) : "",
             contractAddress: isSet(object.contractAddress) ? gt.String(object.contractAddress) : "",
             minDeposits: gt.Array.isArray(object === null || object === void 0 ? void 0 : object.minDeposits)
@@ -214,6 +226,7 @@ exports.CallContractProposalMinDeposit = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.CallContractProposalMinDeposit.$type, exports.CallContractProposalMinDeposit);
 const gt = (() => {
     if (typeof globalThis !== "undefined") {
         return globalThis;

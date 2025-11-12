@@ -13,6 +13,7 @@ exports.WasmMessage = exports.GeneralMessage = exports.Asset = exports.FeeInfo =
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
 const coin_1 = require("../../../../cosmos/base/v1beta1/coin");
+const typeRegistry_1 = require("../../../../typeRegistry");
 const types_1 = require("../../../tss/exported/v1beta1/types");
 exports.protobufPackage = "axelar.nexus.exported.v1beta1";
 var TransferState;
@@ -157,9 +158,16 @@ function generalMessage_StatusToJSON(object) {
 }
 exports.generalMessage_StatusToJSON = generalMessage_StatusToJSON;
 function createBaseChain() {
-    return { name: "", supportsForeignAssets: false, keyType: 0, module: "" };
+    return {
+        $type: "axelar.nexus.exported.v1beta1.Chain",
+        name: "",
+        supportsForeignAssets: false,
+        keyType: 0,
+        module: "",
+    };
 }
 exports.Chain = {
+    $type: "axelar.nexus.exported.v1beta1.Chain",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.name !== "") {
             writer.uint32(10).string(message.name);
@@ -216,6 +224,7 @@ exports.Chain = {
     },
     fromJSON(object) {
         return {
+            $type: exports.Chain.$type,
             name: isSet(object.name) ? gt.String(object.name) : "",
             supportsForeignAssets: isSet(object.supportsForeignAssets)
                 ? gt.Boolean(object.supportsForeignAssets)
@@ -253,10 +262,12 @@ exports.Chain = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.Chain.$type, exports.Chain);
 function createBaseCrossChainAddress() {
-    return { chain: undefined, address: "" };
+    return { $type: "axelar.nexus.exported.v1beta1.CrossChainAddress", chain: undefined, address: "" };
 }
 exports.CrossChainAddress = {
+    $type: "axelar.nexus.exported.v1beta1.CrossChainAddress",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.chain !== undefined) {
             exports.Chain.encode(message.chain, writer.uint32(10).fork()).ldelim();
@@ -295,6 +306,7 @@ exports.CrossChainAddress = {
     },
     fromJSON(object) {
         return {
+            $type: exports.CrossChainAddress.$type,
             chain: isSet(object.chain) ? exports.Chain.fromJSON(object.chain) : undefined,
             address: isSet(object.address) ? gt.String(object.address) : "",
         };
@@ -321,10 +333,18 @@ exports.CrossChainAddress = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.CrossChainAddress.$type, exports.CrossChainAddress);
 function createBaseCrossChainTransfer() {
-    return { recipient: undefined, asset: undefined, id: long_1.default.UZERO, state: 0 };
+    return {
+        $type: "axelar.nexus.exported.v1beta1.CrossChainTransfer",
+        recipient: undefined,
+        asset: undefined,
+        id: long_1.default.UZERO,
+        state: 0,
+    };
 }
 exports.CrossChainTransfer = {
+    $type: "axelar.nexus.exported.v1beta1.CrossChainTransfer",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.recipient !== undefined) {
             exports.CrossChainAddress.encode(message.recipient, writer.uint32(10).fork()).ldelim();
@@ -381,6 +401,7 @@ exports.CrossChainTransfer = {
     },
     fromJSON(object) {
         return {
+            $type: exports.CrossChainTransfer.$type,
             recipient: isSet(object.recipient) ? exports.CrossChainAddress.fromJSON(object.recipient) : undefined,
             asset: isSet(object.asset) ? coin_1.Coin.fromJSON(object.asset) : undefined,
             id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
@@ -420,10 +441,12 @@ exports.CrossChainTransfer = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.CrossChainTransfer.$type, exports.CrossChainTransfer);
 function createBaseTransferFee() {
-    return { coins: [] };
+    return { $type: "axelar.nexus.exported.v1beta1.TransferFee", coins: [] };
 }
 exports.TransferFee = {
+    $type: "axelar.nexus.exported.v1beta1.TransferFee",
     encode(message, writer = minimal_1.default.Writer.create()) {
         for (const v of message.coins) {
             coin_1.Coin.encode(v, writer.uint32(10).fork()).ldelim();
@@ -452,7 +475,10 @@ exports.TransferFee = {
         return message;
     },
     fromJSON(object) {
-        return { coins: gt.Array.isArray(object === null || object === void 0 ? void 0 : object.coins) ? object.coins.map((e) => coin_1.Coin.fromJSON(e)) : [] };
+        return {
+            $type: exports.TransferFee.$type,
+            coins: gt.Array.isArray(object === null || object === void 0 ? void 0 : object.coins) ? object.coins.map((e) => coin_1.Coin.fromJSON(e)) : [],
+        };
     },
     toJSON(message) {
         var _a;
@@ -472,10 +498,19 @@ exports.TransferFee = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.TransferFee.$type, exports.TransferFee);
 function createBaseFeeInfo() {
-    return { chain: "", asset: "", feeRate: Buffer.alloc(0), minFee: Buffer.alloc(0), maxFee: Buffer.alloc(0) };
+    return {
+        $type: "axelar.nexus.exported.v1beta1.FeeInfo",
+        chain: "",
+        asset: "",
+        feeRate: Buffer.alloc(0),
+        minFee: Buffer.alloc(0),
+        maxFee: Buffer.alloc(0),
+    };
 }
 exports.FeeInfo = {
+    $type: "axelar.nexus.exported.v1beta1.FeeInfo",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.chain !== "") {
             writer.uint32(10).string(message.chain);
@@ -541,6 +576,7 @@ exports.FeeInfo = {
     },
     fromJSON(object) {
         return {
+            $type: exports.FeeInfo.$type,
             chain: isSet(object.chain) ? gt.String(object.chain) : "",
             asset: isSet(object.asset) ? gt.String(object.asset) : "",
             feeRate: isSet(object.feeRate) ? Buffer.from(bytesFromBase64(object.feeRate)) : Buffer.alloc(0),
@@ -581,10 +617,12 @@ exports.FeeInfo = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.FeeInfo.$type, exports.FeeInfo);
 function createBaseAsset() {
-    return { denom: "", isNativeAsset: false };
+    return { $type: "axelar.nexus.exported.v1beta1.Asset", denom: "", isNativeAsset: false };
 }
 exports.Asset = {
+    $type: "axelar.nexus.exported.v1beta1.Asset",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.denom !== "") {
             writer.uint32(10).string(message.denom);
@@ -623,6 +661,7 @@ exports.Asset = {
     },
     fromJSON(object) {
         return {
+            $type: exports.Asset.$type,
             denom: isSet(object.denom) ? gt.String(object.denom) : "",
             isNativeAsset: isSet(object.isNativeAsset) ? gt.Boolean(object.isNativeAsset) : false,
         };
@@ -648,8 +687,10 @@ exports.Asset = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.Asset.$type, exports.Asset);
 function createBaseGeneralMessage() {
     return {
+        $type: "axelar.nexus.exported.v1beta1.GeneralMessage",
         id: "",
         sender: undefined,
         recipient: undefined,
@@ -661,6 +702,7 @@ function createBaseGeneralMessage() {
     };
 }
 exports.GeneralMessage = {
+    $type: "axelar.nexus.exported.v1beta1.GeneralMessage",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.id !== "") {
             writer.uint32(10).string(message.id);
@@ -753,6 +795,7 @@ exports.GeneralMessage = {
     },
     fromJSON(object) {
         return {
+            $type: exports.GeneralMessage.$type,
             id: isSet(object.id) ? gt.String(object.id) : "",
             sender: isSet(object.sender) ? exports.CrossChainAddress.fromJSON(object.sender) : undefined,
             recipient: isSet(object.recipient) ? exports.CrossChainAddress.fromJSON(object.recipient) : undefined,
@@ -822,8 +865,10 @@ exports.GeneralMessage = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.GeneralMessage.$type, exports.GeneralMessage);
 function createBaseWasmMessage() {
     return {
+        $type: "axelar.nexus.exported.v1beta1.WasmMessage",
         sourceChain: "",
         sourceAddress: "",
         destinationChain: "",
@@ -836,6 +881,7 @@ function createBaseWasmMessage() {
     };
 }
 exports.WasmMessage = {
+    $type: "axelar.nexus.exported.v1beta1.WasmMessage",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.sourceChain !== "") {
             writer.uint32(10).string(message.sourceChain);
@@ -937,6 +983,7 @@ exports.WasmMessage = {
     },
     fromJSON(object) {
         return {
+            $type: exports.WasmMessage.$type,
             sourceChain: isSet(object.sourceChain) ? gt.String(object.sourceChain) : "",
             sourceAddress: isSet(object.sourceAddress) ? gt.String(object.sourceAddress) : "",
             destinationChain: isSet(object.destinationChain) ? gt.String(object.destinationChain) : "",
@@ -1004,6 +1051,7 @@ exports.WasmMessage = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.WasmMessage.$type, exports.WasmMessage);
 const gt = (() => {
     if (typeof globalThis !== "undefined") {
         return globalThis;

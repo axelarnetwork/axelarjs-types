@@ -12,12 +12,14 @@ exports.GenesisState = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const typeRegistry_1 = require("../../../typeRegistry");
 const params_1 = require("./params");
 exports.protobufPackage = "axelar.tss.v1beta1";
 function createBaseGenesisState() {
-    return { params: undefined };
+    return { $type: "axelar.tss.v1beta1.GenesisState", params: undefined };
 }
 exports.GenesisState = {
+    $type: "axelar.tss.v1beta1.GenesisState",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.params !== undefined) {
             params_1.Params.encode(message.params, writer.uint32(10).fork()).ldelim();
@@ -46,7 +48,10 @@ exports.GenesisState = {
         return message;
     },
     fromJSON(object) {
-        return { params: isSet(object.params) ? params_1.Params.fromJSON(object.params) : undefined };
+        return {
+            $type: exports.GenesisState.$type,
+            params: isSet(object.params) ? params_1.Params.fromJSON(object.params) : undefined,
+        };
     },
     toJSON(message) {
         const obj = {};
@@ -65,6 +70,7 @@ exports.GenesisState = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.GenesisState.$type, exports.GenesisState);
 if (minimal_1.default.util.Long !== long_1.default) {
     minimal_1.default.util.Long = long_1.default;
     minimal_1.default.configure();

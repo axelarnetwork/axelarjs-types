@@ -12,10 +12,12 @@ exports.Params = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const typeRegistry_1 = require("../../../typeRegistry");
 const threshold_1 = require("../../utils/v1beta1/threshold");
 exports.protobufPackage = "axelar.nexus.v1beta1";
 function createBaseParams() {
     return {
+        $type: "axelar.nexus.v1beta1.Params",
         chainActivationThreshold: undefined,
         chainMaintainerMissingVoteThreshold: undefined,
         chainMaintainerIncorrectVoteThreshold: undefined,
@@ -25,6 +27,7 @@ function createBaseParams() {
     };
 }
 exports.Params = {
+    $type: "axelar.nexus.v1beta1.Params",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.chainActivationThreshold !== undefined) {
             threshold_1.Threshold.encode(message.chainActivationThreshold, writer.uint32(10).fork()).ldelim();
@@ -99,6 +102,7 @@ exports.Params = {
     },
     fromJSON(object) {
         return {
+            $type: exports.Params.$type,
             chainActivationThreshold: isSet(object.chainActivationThreshold)
                 ? threshold_1.Threshold.fromJSON(object.chainActivationThreshold)
                 : undefined,
@@ -166,6 +170,7 @@ exports.Params = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.Params.$type, exports.Params);
 const gt = (() => {
     if (typeof globalThis !== "undefined") {
         return globalThis;

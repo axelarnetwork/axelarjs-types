@@ -1,9 +1,10 @@
 import { InflationRateRequest, InflationRateResponse, ParamsRequest, ParamsResponse } from "./query";
-import { RefundMsgRequest, RefundMsgResponse } from "./tx";
+import { RefundMsgRequest, RefundMsgResponse, UpdateParamsRequest, UpdateParamsResponse } from "./tx";
 export declare const protobufPackage = "axelar.reward.v1beta1";
 /** Msg defines the axelarnet Msg service. */
 export interface MsgService {
     RefundMsg(request: RefundMsgRequest): Promise<RefundMsgResponse>;
+    UpdateParams(request: UpdateParamsRequest): Promise<UpdateParamsResponse>;
 }
 export declare const MsgServiceServiceName = "axelar.reward.v1beta1.MsgService";
 export declare class MsgServiceClientImpl implements MsgService {
@@ -13,6 +14,7 @@ export declare class MsgServiceClientImpl implements MsgService {
         service?: string;
     });
     RefundMsg(request: RefundMsgRequest): Promise<RefundMsgResponse>;
+    UpdateParams(request: UpdateParamsRequest): Promise<UpdateParamsResponse>;
 }
 /** QueryService defines the gRPC querier service. */
 export interface QueryService {

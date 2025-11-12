@@ -3,25 +3,30 @@ import Long from "long";
 import _m0 from "protobufjs/minimal";
 export declare const protobufPackage = "axelar.multisig.v1beta1";
 export interface KeygenStarted {
+    $type: "axelar.multisig.v1beta1.KeygenStarted";
     module: string;
     keyId: string;
     participants: Buffer[];
 }
 export interface KeygenCompleted {
+    $type: "axelar.multisig.v1beta1.KeygenCompleted";
     module: string;
     keyId: string;
 }
 export interface KeygenExpired {
+    $type: "axelar.multisig.v1beta1.KeygenExpired";
     module: string;
     keyId: string;
 }
 export interface PubKeySubmitted {
+    $type: "axelar.multisig.v1beta1.PubKeySubmitted";
     module: string;
     keyId: string;
     participant: Buffer;
     pubKey: Buffer;
 }
 export interface SigningStarted {
+    $type: "axelar.multisig.v1beta1.SigningStarted";
     module: string;
     sigId: Long;
     keyId: string;
@@ -32,40 +37,49 @@ export interface SigningStarted {
     requestingModule: string;
 }
 export interface SigningStarted_PubKeysEntry {
+    $type: "axelar.multisig.v1beta1.SigningStarted.PubKeysEntry";
     key: string;
     value: Buffer;
 }
 export interface SigningCompleted {
+    $type: "axelar.multisig.v1beta1.SigningCompleted";
     module: string;
     sigId: Long;
 }
 export interface SigningExpired {
+    $type: "axelar.multisig.v1beta1.SigningExpired";
     module: string;
     sigId: Long;
 }
 export interface SignatureSubmitted {
+    $type: "axelar.multisig.v1beta1.SignatureSubmitted";
     module: string;
     sigId: Long;
     participant: Buffer;
     signature: Buffer;
 }
 export interface KeyAssigned {
+    $type: "axelar.multisig.v1beta1.KeyAssigned";
     module: string;
     chain: string;
     keyId: string;
 }
 export interface KeyRotated {
+    $type: "axelar.multisig.v1beta1.KeyRotated";
     module: string;
     chain: string;
     keyId: string;
 }
 export interface KeygenOptOut {
+    $type: "axelar.multisig.v1beta1.KeygenOptOut";
     participant: Buffer;
 }
 export interface KeygenOptIn {
+    $type: "axelar.multisig.v1beta1.KeygenOptIn";
     participant: Buffer;
 }
 export declare const KeygenStarted: {
+    $type: "axelar.multisig.v1beta1.KeygenStarted";
     encode(message: KeygenStarted, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): KeygenStarted;
     fromJSON(object: any): KeygenStarted;
@@ -77,8 +91,8 @@ export declare const KeygenStarted: {
     } & {
         module?: string | undefined;
         keyId?: string | undefined;
-        participants?: (Buffer[] & Buffer[] & { [K in Exclude<keyof I["participants"], keyof Buffer[]>]: never; }) | undefined;
-    } & { [K_1 in Exclude<keyof I, keyof KeygenStarted>]: never; }>(base?: I | undefined): KeygenStarted;
+        participants?: (Buffer[] & Buffer[] & { [K in Exclude<keyof I["participants"], "$type" | keyof Buffer[]>]: never; }) | undefined;
+    } & { [K_1 in Exclude<keyof I, "$type" | "module" | "keyId" | "participants">]: never; }>(base?: I | undefined): KeygenStarted;
     fromPartial<I_1 extends {
         module?: string | undefined;
         keyId?: string | undefined;
@@ -86,10 +100,11 @@ export declare const KeygenStarted: {
     } & {
         module?: string | undefined;
         keyId?: string | undefined;
-        participants?: (Buffer[] & Buffer[] & { [K_2 in Exclude<keyof I_1["participants"], keyof Buffer[]>]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I_1, keyof KeygenStarted>]: never; }>(object: I_1): KeygenStarted;
+        participants?: (Buffer[] & Buffer[] & { [K_2 in Exclude<keyof I_1["participants"], "$type" | keyof Buffer[]>]: never; }) | undefined;
+    } & { [K_3 in Exclude<keyof I_1, "$type" | "module" | "keyId" | "participants">]: never; }>(object: I_1): KeygenStarted;
 };
 export declare const KeygenCompleted: {
+    $type: "axelar.multisig.v1beta1.KeygenCompleted";
     encode(message: KeygenCompleted, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): KeygenCompleted;
     fromJSON(object: any): KeygenCompleted;
@@ -100,16 +115,17 @@ export declare const KeygenCompleted: {
     } & {
         module?: string | undefined;
         keyId?: string | undefined;
-    } & { [K in Exclude<keyof I, keyof KeygenCompleted>]: never; }>(base?: I | undefined): KeygenCompleted;
+    } & { [K in Exclude<keyof I, "$type" | "module" | "keyId">]: never; }>(base?: I | undefined): KeygenCompleted;
     fromPartial<I_1 extends {
         module?: string | undefined;
         keyId?: string | undefined;
     } & {
         module?: string | undefined;
         keyId?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, keyof KeygenCompleted>]: never; }>(object: I_1): KeygenCompleted;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "module" | "keyId">]: never; }>(object: I_1): KeygenCompleted;
 };
 export declare const KeygenExpired: {
+    $type: "axelar.multisig.v1beta1.KeygenExpired";
     encode(message: KeygenExpired, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): KeygenExpired;
     fromJSON(object: any): KeygenExpired;
@@ -120,59 +136,64 @@ export declare const KeygenExpired: {
     } & {
         module?: string | undefined;
         keyId?: string | undefined;
-    } & { [K in Exclude<keyof I, keyof KeygenExpired>]: never; }>(base?: I | undefined): KeygenExpired;
+    } & { [K in Exclude<keyof I, "$type" | "module" | "keyId">]: never; }>(base?: I | undefined): KeygenExpired;
     fromPartial<I_1 extends {
         module?: string | undefined;
         keyId?: string | undefined;
     } & {
         module?: string | undefined;
         keyId?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, keyof KeygenExpired>]: never; }>(object: I_1): KeygenExpired;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "module" | "keyId">]: never; }>(object: I_1): KeygenExpired;
 };
 export declare const PubKeySubmitted: {
+    $type: "axelar.multisig.v1beta1.PubKeySubmitted";
     encode(message: PubKeySubmitted, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): PubKeySubmitted;
     fromJSON(object: any): PubKeySubmitted;
     toJSON(message: PubKeySubmitted): unknown;
     create<I extends {
+        pubKey?: Buffer | undefined;
         module?: string | undefined;
         keyId?: string | undefined;
         participant?: Buffer | undefined;
-        pubKey?: Buffer | undefined;
     } & {
+        pubKey?: Buffer | undefined;
         module?: string | undefined;
         keyId?: string | undefined;
         participant?: Buffer | undefined;
-        pubKey?: Buffer | undefined;
-    } & { [K in Exclude<keyof I, keyof PubKeySubmitted>]: never; }>(base?: I | undefined): PubKeySubmitted;
+    } & { [K in Exclude<keyof I, "$type" | "pubKey" | "module" | "keyId" | "participant">]: never; }>(base?: I | undefined): PubKeySubmitted;
     fromPartial<I_1 extends {
+        pubKey?: Buffer | undefined;
         module?: string | undefined;
         keyId?: string | undefined;
         participant?: Buffer | undefined;
-        pubKey?: Buffer | undefined;
     } & {
+        pubKey?: Buffer | undefined;
         module?: string | undefined;
         keyId?: string | undefined;
         participant?: Buffer | undefined;
-        pubKey?: Buffer | undefined;
-    } & { [K_1 in Exclude<keyof I_1, keyof PubKeySubmitted>]: never; }>(object: I_1): PubKeySubmitted;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "pubKey" | "module" | "keyId" | "participant">]: never; }>(object: I_1): PubKeySubmitted;
 };
 export declare const SigningStarted: {
+    $type: "axelar.multisig.v1beta1.SigningStarted";
     encode(message: SigningStarted, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): SigningStarted;
     fromJSON(object: any): SigningStarted;
     toJSON(message: SigningStarted): unknown;
     create<I extends {
+        payloadHash?: Buffer | undefined;
         module?: string | undefined;
-        sigId?: string | number | Long.Long | undefined;
         keyId?: string | undefined;
+        sigId?: string | number | Long.Long | undefined;
         pubKeys?: {
             [x: string]: Buffer | undefined;
+            [x: number]: Buffer | undefined;
         } | undefined;
-        payloadHash?: Buffer | undefined;
         requestingModule?: string | undefined;
     } & {
+        payloadHash?: Buffer | undefined;
         module?: string | undefined;
+        keyId?: string | undefined;
         sigId?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -230,27 +251,30 @@ export declare const SigningStarted: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K in Exclude<keyof I["sigId"], keyof Long.Long>]: never; }) | undefined;
-        keyId?: string | undefined;
+        } & { [K in Exclude<keyof I["sigId"], "$type" | keyof Long.Long>]: never; }) | undefined;
         pubKeys?: ({
             [x: string]: Buffer | undefined;
+            [x: number]: Buffer | undefined;
         } & {
             [x: string]: Buffer | undefined;
+            [x: number]: Buffer | undefined;
         } & { [K_1 in Exclude<keyof I["pubKeys"], string | number>]: never; }) | undefined;
-        payloadHash?: Buffer | undefined;
         requestingModule?: string | undefined;
-    } & { [K_2 in Exclude<keyof I, keyof SigningStarted>]: never; }>(base?: I | undefined): SigningStarted;
+    } & { [K_2 in Exclude<keyof I, "$type" | "payloadHash" | "module" | "keyId" | "sigId" | "pubKeys" | "requestingModule">]: never; }>(base?: I | undefined): SigningStarted;
     fromPartial<I_1 extends {
+        payloadHash?: Buffer | undefined;
         module?: string | undefined;
-        sigId?: string | number | Long.Long | undefined;
         keyId?: string | undefined;
+        sigId?: string | number | Long.Long | undefined;
         pubKeys?: {
             [x: string]: Buffer | undefined;
+            [x: number]: Buffer | undefined;
         } | undefined;
-        payloadHash?: Buffer | undefined;
         requestingModule?: string | undefined;
     } & {
+        payloadHash?: Buffer | undefined;
         module?: string | undefined;
+        keyId?: string | undefined;
         sigId?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -308,38 +332,40 @@ export declare const SigningStarted: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_3 in Exclude<keyof I_1["sigId"], keyof Long.Long>]: never; }) | undefined;
-        keyId?: string | undefined;
+        } & { [K_3 in Exclude<keyof I_1["sigId"], "$type" | keyof Long.Long>]: never; }) | undefined;
         pubKeys?: ({
             [x: string]: Buffer | undefined;
+            [x: number]: Buffer | undefined;
         } & {
             [x: string]: Buffer | undefined;
+            [x: number]: Buffer | undefined;
         } & { [K_4 in Exclude<keyof I_1["pubKeys"], string | number>]: never; }) | undefined;
-        payloadHash?: Buffer | undefined;
         requestingModule?: string | undefined;
-    } & { [K_5 in Exclude<keyof I_1, keyof SigningStarted>]: never; }>(object: I_1): SigningStarted;
+    } & { [K_5 in Exclude<keyof I_1, "$type" | "payloadHash" | "module" | "keyId" | "sigId" | "pubKeys" | "requestingModule">]: never; }>(object: I_1): SigningStarted;
 };
 export declare const SigningStarted_PubKeysEntry: {
+    $type: "axelar.multisig.v1beta1.SigningStarted.PubKeysEntry";
     encode(message: SigningStarted_PubKeysEntry, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): SigningStarted_PubKeysEntry;
     fromJSON(object: any): SigningStarted_PubKeysEntry;
     toJSON(message: SigningStarted_PubKeysEntry): unknown;
     create<I extends {
-        key?: string | undefined;
         value?: Buffer | undefined;
+        key?: string | undefined;
     } & {
-        key?: string | undefined;
         value?: Buffer | undefined;
-    } & { [K in Exclude<keyof I, keyof SigningStarted_PubKeysEntry>]: never; }>(base?: I | undefined): SigningStarted_PubKeysEntry;
+        key?: string | undefined;
+    } & { [K in Exclude<keyof I, "$type" | "value" | "key">]: never; }>(base?: I | undefined): SigningStarted_PubKeysEntry;
     fromPartial<I_1 extends {
-        key?: string | undefined;
         value?: Buffer | undefined;
+        key?: string | undefined;
     } & {
-        key?: string | undefined;
         value?: Buffer | undefined;
-    } & { [K_1 in Exclude<keyof I_1, keyof SigningStarted_PubKeysEntry>]: never; }>(object: I_1): SigningStarted_PubKeysEntry;
+        key?: string | undefined;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "value" | "key">]: never; }>(object: I_1): SigningStarted_PubKeysEntry;
 };
 export declare const SigningCompleted: {
+    $type: "axelar.multisig.v1beta1.SigningCompleted";
     encode(message: SigningCompleted, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): SigningCompleted;
     fromJSON(object: any): SigningCompleted;
@@ -406,8 +432,8 @@ export declare const SigningCompleted: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K in Exclude<keyof I["sigId"], keyof Long.Long>]: never; }) | undefined;
-    } & { [K_1 in Exclude<keyof I, keyof SigningCompleted>]: never; }>(base?: I | undefined): SigningCompleted;
+        } & { [K in Exclude<keyof I["sigId"], "$type" | keyof Long.Long>]: never; }) | undefined;
+    } & { [K_1 in Exclude<keyof I, "$type" | "module" | "sigId">]: never; }>(base?: I | undefined): SigningCompleted;
     fromPartial<I_1 extends {
         module?: string | undefined;
         sigId?: string | number | Long.Long | undefined;
@@ -470,10 +496,11 @@ export declare const SigningCompleted: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_2 in Exclude<keyof I_1["sigId"], keyof Long.Long>]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I_1, keyof SigningCompleted>]: never; }>(object: I_1): SigningCompleted;
+        } & { [K_2 in Exclude<keyof I_1["sigId"], "$type" | keyof Long.Long>]: never; }) | undefined;
+    } & { [K_3 in Exclude<keyof I_1, "$type" | "module" | "sigId">]: never; }>(object: I_1): SigningCompleted;
 };
 export declare const SigningExpired: {
+    $type: "axelar.multisig.v1beta1.SigningExpired";
     encode(message: SigningExpired, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): SigningExpired;
     fromJSON(object: any): SigningExpired;
@@ -540,8 +567,8 @@ export declare const SigningExpired: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K in Exclude<keyof I["sigId"], keyof Long.Long>]: never; }) | undefined;
-    } & { [K_1 in Exclude<keyof I, keyof SigningExpired>]: never; }>(base?: I | undefined): SigningExpired;
+        } & { [K in Exclude<keyof I["sigId"], "$type" | keyof Long.Long>]: never; }) | undefined;
+    } & { [K_1 in Exclude<keyof I, "$type" | "module" | "sigId">]: never; }>(base?: I | undefined): SigningExpired;
     fromPartial<I_1 extends {
         module?: string | undefined;
         sigId?: string | number | Long.Long | undefined;
@@ -604,21 +631,24 @@ export declare const SigningExpired: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_2 in Exclude<keyof I_1["sigId"], keyof Long.Long>]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I_1, keyof SigningExpired>]: never; }>(object: I_1): SigningExpired;
+        } & { [K_2 in Exclude<keyof I_1["sigId"], "$type" | keyof Long.Long>]: never; }) | undefined;
+    } & { [K_3 in Exclude<keyof I_1, "$type" | "module" | "sigId">]: never; }>(object: I_1): SigningExpired;
 };
 export declare const SignatureSubmitted: {
+    $type: "axelar.multisig.v1beta1.SignatureSubmitted";
     encode(message: SignatureSubmitted, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): SignatureSubmitted;
     fromJSON(object: any): SignatureSubmitted;
     toJSON(message: SignatureSubmitted): unknown;
     create<I extends {
-        module?: string | undefined;
-        sigId?: string | number | Long.Long | undefined;
-        participant?: Buffer | undefined;
         signature?: Buffer | undefined;
-    } & {
         module?: string | undefined;
+        participant?: Buffer | undefined;
+        sigId?: string | number | Long.Long | undefined;
+    } & {
+        signature?: Buffer | undefined;
+        module?: string | undefined;
+        participant?: Buffer | undefined;
         sigId?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -676,17 +706,17 @@ export declare const SignatureSubmitted: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K in Exclude<keyof I["sigId"], keyof Long.Long>]: never; }) | undefined;
-        participant?: Buffer | undefined;
-        signature?: Buffer | undefined;
-    } & { [K_1 in Exclude<keyof I, keyof SignatureSubmitted>]: never; }>(base?: I | undefined): SignatureSubmitted;
+        } & { [K in Exclude<keyof I["sigId"], "$type" | keyof Long.Long>]: never; }) | undefined;
+    } & { [K_1 in Exclude<keyof I, "$type" | "signature" | "module" | "participant" | "sigId">]: never; }>(base?: I | undefined): SignatureSubmitted;
     fromPartial<I_1 extends {
-        module?: string | undefined;
-        sigId?: string | number | Long.Long | undefined;
-        participant?: Buffer | undefined;
         signature?: Buffer | undefined;
-    } & {
         module?: string | undefined;
+        participant?: Buffer | undefined;
+        sigId?: string | number | Long.Long | undefined;
+    } & {
+        signature?: Buffer | undefined;
+        module?: string | undefined;
+        participant?: Buffer | undefined;
         sigId?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -744,60 +774,61 @@ export declare const SignatureSubmitted: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_2 in Exclude<keyof I_1["sigId"], keyof Long.Long>]: never; }) | undefined;
-        participant?: Buffer | undefined;
-        signature?: Buffer | undefined;
-    } & { [K_3 in Exclude<keyof I_1, keyof SignatureSubmitted>]: never; }>(object: I_1): SignatureSubmitted;
+        } & { [K_2 in Exclude<keyof I_1["sigId"], "$type" | keyof Long.Long>]: never; }) | undefined;
+    } & { [K_3 in Exclude<keyof I_1, "$type" | "signature" | "module" | "participant" | "sigId">]: never; }>(object: I_1): SignatureSubmitted;
 };
 export declare const KeyAssigned: {
+    $type: "axelar.multisig.v1beta1.KeyAssigned";
     encode(message: KeyAssigned, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): KeyAssigned;
     fromJSON(object: any): KeyAssigned;
     toJSON(message: KeyAssigned): unknown;
     create<I extends {
-        module?: string | undefined;
         chain?: string | undefined;
+        module?: string | undefined;
         keyId?: string | undefined;
     } & {
-        module?: string | undefined;
         chain?: string | undefined;
+        module?: string | undefined;
         keyId?: string | undefined;
-    } & { [K in Exclude<keyof I, keyof KeyAssigned>]: never; }>(base?: I | undefined): KeyAssigned;
+    } & { [K in Exclude<keyof I, "$type" | "chain" | "module" | "keyId">]: never; }>(base?: I | undefined): KeyAssigned;
     fromPartial<I_1 extends {
-        module?: string | undefined;
         chain?: string | undefined;
+        module?: string | undefined;
         keyId?: string | undefined;
     } & {
-        module?: string | undefined;
         chain?: string | undefined;
+        module?: string | undefined;
         keyId?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, keyof KeyAssigned>]: never; }>(object: I_1): KeyAssigned;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "chain" | "module" | "keyId">]: never; }>(object: I_1): KeyAssigned;
 };
 export declare const KeyRotated: {
+    $type: "axelar.multisig.v1beta1.KeyRotated";
     encode(message: KeyRotated, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): KeyRotated;
     fromJSON(object: any): KeyRotated;
     toJSON(message: KeyRotated): unknown;
     create<I extends {
-        module?: string | undefined;
         chain?: string | undefined;
+        module?: string | undefined;
         keyId?: string | undefined;
     } & {
-        module?: string | undefined;
         chain?: string | undefined;
+        module?: string | undefined;
         keyId?: string | undefined;
-    } & { [K in Exclude<keyof I, keyof KeyRotated>]: never; }>(base?: I | undefined): KeyRotated;
+    } & { [K in Exclude<keyof I, "$type" | "chain" | "module" | "keyId">]: never; }>(base?: I | undefined): KeyRotated;
     fromPartial<I_1 extends {
-        module?: string | undefined;
         chain?: string | undefined;
+        module?: string | undefined;
         keyId?: string | undefined;
     } & {
-        module?: string | undefined;
         chain?: string | undefined;
+        module?: string | undefined;
         keyId?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, keyof KeyRotated>]: never; }>(object: I_1): KeyRotated;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "chain" | "module" | "keyId">]: never; }>(object: I_1): KeyRotated;
 };
 export declare const KeygenOptOut: {
+    $type: "axelar.multisig.v1beta1.KeygenOptOut";
     encode(message: KeygenOptOut, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): KeygenOptOut;
     fromJSON(object: any): KeygenOptOut;
@@ -806,14 +837,15 @@ export declare const KeygenOptOut: {
         participant?: Buffer | undefined;
     } & {
         participant?: Buffer | undefined;
-    } & { [K in Exclude<keyof I, "participant">]: never; }>(base?: I | undefined): KeygenOptOut;
+    } & { [K in Exclude<keyof I, "$type" | "participant">]: never; }>(base?: I | undefined): KeygenOptOut;
     fromPartial<I_1 extends {
         participant?: Buffer | undefined;
     } & {
         participant?: Buffer | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "participant">]: never; }>(object: I_1): KeygenOptOut;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "participant">]: never; }>(object: I_1): KeygenOptOut;
 };
 export declare const KeygenOptIn: {
+    $type: "axelar.multisig.v1beta1.KeygenOptIn";
     encode(message: KeygenOptIn, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): KeygenOptIn;
     fromJSON(object: any): KeygenOptIn;
@@ -822,21 +854,21 @@ export declare const KeygenOptIn: {
         participant?: Buffer | undefined;
     } & {
         participant?: Buffer | undefined;
-    } & { [K in Exclude<keyof I, "participant">]: never; }>(base?: I | undefined): KeygenOptIn;
+    } & { [K in Exclude<keyof I, "$type" | "participant">]: never; }>(base?: I | undefined): KeygenOptIn;
     fromPartial<I_1 extends {
         participant?: Buffer | undefined;
     } & {
         participant?: Buffer | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "participant">]: never; }>(object: I_1): KeygenOptIn;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "participant">]: never; }>(object: I_1): KeygenOptIn;
 };
 declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
-    [K in keyof T]?: DeepPartial<T[K]>;
+    [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]>;
 } : Partial<T>;
 declare type KeysOfUnion<T> = T extends T ? keyof T : never;
 export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & {
-    [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+    [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never;
 };
 export {};

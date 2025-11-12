@@ -21,9 +21,11 @@ export declare function chainStatusToJSON(object: ChainStatus): string;
  * the chain maintainers for the specified chain
  */
 export interface ChainMaintainersRequest {
+    $type: "axelar.nexus.v1beta1.ChainMaintainersRequest";
     chain: string;
 }
 export interface ChainMaintainersResponse {
+    $type: "axelar.nexus.v1beta1.ChainMaintainersResponse";
     maintainers: Buffer[];
 }
 /**
@@ -31,11 +33,13 @@ export interface ChainMaintainersResponse {
  * address by recipient address
  */
 export interface LatestDepositAddressRequest {
+    $type: "axelar.nexus.v1beta1.LatestDepositAddressRequest";
     recipientAddr: string;
     recipientChain: string;
     depositChain: string;
 }
 export interface LatestDepositAddressResponse {
+    $type: "axelar.nexus.v1beta1.LatestDepositAddressResponse";
     depositAddr: string;
 }
 /**
@@ -43,11 +47,13 @@ export interface LatestDepositAddressResponse {
  * transfers for the specified chain
  */
 export interface TransfersForChainRequest {
+    $type: "axelar.nexus.v1beta1.TransfersForChainRequest";
     chain: string;
     state: TransferState;
     pagination?: PageRequest | undefined;
 }
 export interface TransfersForChainResponse {
+    $type: "axelar.nexus.v1beta1.TransfersForChainResponse";
     transfers: CrossChainTransfer[];
     pagination?: PageResponse | undefined;
 }
@@ -56,10 +62,12 @@ export interface TransfersForChainResponse {
  * to an asset on a chain
  */
 export interface FeeInfoRequest {
+    $type: "axelar.nexus.v1beta1.FeeInfoRequest";
     chain: string;
     asset: string;
 }
 export interface FeeInfoResponse {
+    $type: "axelar.nexus.v1beta1.FeeInfoResponse";
     feeInfo?: FeeInfo | undefined;
 }
 /**
@@ -67,11 +75,13 @@ export interface FeeInfoResponse {
  * the network for a cross-chain transfer
  */
 export interface TransferFeeRequest {
+    $type: "axelar.nexus.v1beta1.TransferFeeRequest";
     sourceChain: string;
     destinationChain: string;
     amount: string;
 }
 export interface TransferFeeResponse {
+    $type: "axelar.nexus.v1beta1.TransferFeeResponse";
     fee?: Coin | undefined;
 }
 /**
@@ -79,9 +89,11 @@ export interface TransferFeeResponse {
  * registered on the network
  */
 export interface ChainsRequest {
+    $type: "axelar.nexus.v1beta1.ChainsRequest";
     status: ChainStatus;
 }
 export interface ChainsResponse {
+    $type: "axelar.nexus.v1beta1.ChainsResponse";
     chains: string[];
 }
 /**
@@ -89,9 +101,11 @@ export interface ChainsResponse {
  * chain
  */
 export interface AssetsRequest {
+    $type: "axelar.nexus.v1beta1.AssetsRequest";
     chain: string;
 }
 export interface AssetsResponse {
+    $type: "axelar.nexus.v1beta1.AssetsResponse";
     assets: string[];
 }
 /**
@@ -99,9 +113,11 @@ export interface AssetsResponse {
  * registered on the network
  */
 export interface ChainStateRequest {
+    $type: "axelar.nexus.v1beta1.ChainStateRequest";
     chain: string;
 }
 export interface ChainStateResponse {
+    $type: "axelar.nexus.v1beta1.ChainStateResponse";
     state?: ChainState | undefined;
 }
 /**
@@ -109,9 +125,11 @@ export interface ChainStateResponse {
  * that support an asset on the network
  */
 export interface ChainsByAssetRequest {
+    $type: "axelar.nexus.v1beta1.ChainsByAssetRequest";
     asset: string;
 }
 export interface ChainsByAssetResponse {
+    $type: "axelar.nexus.v1beta1.ChainsByAssetResponse";
     chains: string[];
 }
 /**
@@ -119,10 +137,12 @@ export interface ChainsByAssetResponse {
  * recipient address for a given deposit address
  */
 export interface RecipientAddressRequest {
+    $type: "axelar.nexus.v1beta1.RecipientAddressRequest";
     depositAddr: string;
     depositChain: string;
 }
 export interface RecipientAddressResponse {
+    $type: "axelar.nexus.v1beta1.RecipientAddressResponse";
     recipientAddr: string;
     recipientChain: string;
 }
@@ -131,13 +151,16 @@ export interface RecipientAddressResponse {
  * transfer rate limit and current transfer amounts for a given chain and asset
  */
 export interface TransferRateLimitRequest {
+    $type: "axelar.nexus.v1beta1.TransferRateLimitRequest";
     chain: string;
     asset: string;
 }
 export interface TransferRateLimitResponse {
+    $type: "axelar.nexus.v1beta1.TransferRateLimitResponse";
     transferRateLimit?: TransferRateLimit | undefined;
 }
 export interface TransferRateLimit {
+    $type: "axelar.nexus.v1beta1.TransferRateLimit";
     limit: Buffer;
     window?: Duration | undefined;
     /** @deprecated */
@@ -150,18 +173,23 @@ export interface TransferRateLimit {
     to: Buffer;
 }
 export interface MessageRequest {
+    $type: "axelar.nexus.v1beta1.MessageRequest";
     id: string;
 }
 export interface MessageResponse {
+    $type: "axelar.nexus.v1beta1.MessageResponse";
     message?: GeneralMessage | undefined;
 }
 /** ParamsRequest represents a message that queries the params */
 export interface ParamsRequest {
+    $type: "axelar.nexus.v1beta1.ParamsRequest";
 }
 export interface ParamsResponse {
+    $type: "axelar.nexus.v1beta1.ParamsResponse";
     params?: Params | undefined;
 }
 export declare const ChainMaintainersRequest: {
+    $type: "axelar.nexus.v1beta1.ChainMaintainersRequest";
     encode(message: ChainMaintainersRequest, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ChainMaintainersRequest;
     fromJSON(object: any): ChainMaintainersRequest;
@@ -170,14 +198,15 @@ export declare const ChainMaintainersRequest: {
         chain?: string | undefined;
     } & {
         chain?: string | undefined;
-    } & { [K in Exclude<keyof I, "chain">]: never; }>(base?: I | undefined): ChainMaintainersRequest;
+    } & { [K in Exclude<keyof I, "$type" | "chain">]: never; }>(base?: I | undefined): ChainMaintainersRequest;
     fromPartial<I_1 extends {
         chain?: string | undefined;
     } & {
         chain?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "chain">]: never; }>(object: I_1): ChainMaintainersRequest;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "chain">]: never; }>(object: I_1): ChainMaintainersRequest;
 };
 export declare const ChainMaintainersResponse: {
+    $type: "axelar.nexus.v1beta1.ChainMaintainersResponse";
     encode(message: ChainMaintainersResponse, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ChainMaintainersResponse;
     fromJSON(object: any): ChainMaintainersResponse;
@@ -185,15 +214,16 @@ export declare const ChainMaintainersResponse: {
     create<I extends {
         maintainers?: Buffer[] | undefined;
     } & {
-        maintainers?: (Buffer[] & Buffer[] & { [K in Exclude<keyof I["maintainers"], keyof Buffer[]>]: never; }) | undefined;
-    } & { [K_1 in Exclude<keyof I, "maintainers">]: never; }>(base?: I | undefined): ChainMaintainersResponse;
+        maintainers?: (Buffer[] & Buffer[] & { [K in Exclude<keyof I["maintainers"], "$type" | keyof Buffer[]>]: never; }) | undefined;
+    } & { [K_1 in Exclude<keyof I, "$type" | "maintainers">]: never; }>(base?: I | undefined): ChainMaintainersResponse;
     fromPartial<I_1 extends {
         maintainers?: Buffer[] | undefined;
     } & {
-        maintainers?: (Buffer[] & Buffer[] & { [K_2 in Exclude<keyof I_1["maintainers"], keyof Buffer[]>]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I_1, "maintainers">]: never; }>(object: I_1): ChainMaintainersResponse;
+        maintainers?: (Buffer[] & Buffer[] & { [K_2 in Exclude<keyof I_1["maintainers"], "$type" | keyof Buffer[]>]: never; }) | undefined;
+    } & { [K_3 in Exclude<keyof I_1, "$type" | "maintainers">]: never; }>(object: I_1): ChainMaintainersResponse;
 };
 export declare const LatestDepositAddressRequest: {
+    $type: "axelar.nexus.v1beta1.LatestDepositAddressRequest";
     encode(message: LatestDepositAddressRequest, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): LatestDepositAddressRequest;
     fromJSON(object: any): LatestDepositAddressRequest;
@@ -206,7 +236,7 @@ export declare const LatestDepositAddressRequest: {
         recipientAddr?: string | undefined;
         recipientChain?: string | undefined;
         depositChain?: string | undefined;
-    } & { [K in Exclude<keyof I, keyof LatestDepositAddressRequest>]: never; }>(base?: I | undefined): LatestDepositAddressRequest;
+    } & { [K in Exclude<keyof I, "$type" | "recipientAddr" | "recipientChain" | "depositChain">]: never; }>(base?: I | undefined): LatestDepositAddressRequest;
     fromPartial<I_1 extends {
         recipientAddr?: string | undefined;
         recipientChain?: string | undefined;
@@ -215,9 +245,10 @@ export declare const LatestDepositAddressRequest: {
         recipientAddr?: string | undefined;
         recipientChain?: string | undefined;
         depositChain?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, keyof LatestDepositAddressRequest>]: never; }>(object: I_1): LatestDepositAddressRequest;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "recipientAddr" | "recipientChain" | "depositChain">]: never; }>(object: I_1): LatestDepositAddressRequest;
 };
 export declare const LatestDepositAddressResponse: {
+    $type: "axelar.nexus.v1beta1.LatestDepositAddressResponse";
     encode(message: LatestDepositAddressResponse, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): LatestDepositAddressResponse;
     fromJSON(object: any): LatestDepositAddressResponse;
@@ -226,14 +257,15 @@ export declare const LatestDepositAddressResponse: {
         depositAddr?: string | undefined;
     } & {
         depositAddr?: string | undefined;
-    } & { [K in Exclude<keyof I, "depositAddr">]: never; }>(base?: I | undefined): LatestDepositAddressResponse;
+    } & { [K in Exclude<keyof I, "$type" | "depositAddr">]: never; }>(base?: I | undefined): LatestDepositAddressResponse;
     fromPartial<I_1 extends {
         depositAddr?: string | undefined;
     } & {
         depositAddr?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "depositAddr">]: never; }>(object: I_1): LatestDepositAddressResponse;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "depositAddr">]: never; }>(object: I_1): LatestDepositAddressResponse;
 };
 export declare const TransfersForChainRequest: {
+    $type: "axelar.nexus.v1beta1.TransfersForChainRequest";
     encode(message: TransfersForChainRequest, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): TransfersForChainRequest;
     fromJSON(object: any): TransfersForChainRequest;
@@ -242,81 +274,24 @@ export declare const TransfersForChainRequest: {
         chain?: string | undefined;
         state?: TransferState | undefined;
         pagination?: {
-            key?: Buffer | undefined;
-            offset?: string | number | Long.Long | undefined;
-            limit?: string | number | Long.Long | undefined;
-            countTotal?: boolean | undefined;
             reverse?: boolean | undefined;
+            key?: Buffer | undefined;
+            limit?: string | number | Long.Long | undefined;
+            offset?: string | number | Long.Long | undefined;
+            countTotal?: boolean | undefined;
         } | undefined;
     } & {
         chain?: string | undefined;
         state?: TransferState | undefined;
         pagination?: ({
-            key?: Buffer | undefined;
-            offset?: string | number | Long.Long | undefined;
-            limit?: string | number | Long.Long | undefined;
-            countTotal?: boolean | undefined;
             reverse?: boolean | undefined;
-        } & {
             key?: Buffer | undefined;
-            offset?: string | number | (Long.Long & {
-                high: number;
-                low: number;
-                unsigned: boolean;
-                add: (addend: string | number | Long.Long) => Long.Long;
-                and: (other: string | number | Long.Long) => Long.Long;
-                compare: (other: string | number | Long.Long) => number;
-                comp: (other: string | number | Long.Long) => number;
-                divide: (divisor: string | number | Long.Long) => Long.Long;
-                div: (divisor: string | number | Long.Long) => Long.Long;
-                equals: (other: string | number | Long.Long) => boolean;
-                eq: (other: string | number | Long.Long) => boolean;
-                getHighBits: () => number;
-                getHighBitsUnsigned: () => number;
-                getLowBits: () => number;
-                getLowBitsUnsigned: () => number;
-                getNumBitsAbs: () => number;
-                greaterThan: (other: string | number | Long.Long) => boolean;
-                gt: (other: string | number | Long.Long) => boolean;
-                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-                gte: (other: string | number | Long.Long) => boolean;
-                isEven: () => boolean;
-                isNegative: () => boolean;
-                isOdd: () => boolean;
-                isPositive: () => boolean;
-                isZero: () => boolean;
-                lessThan: (other: string | number | Long.Long) => boolean;
-                lt: (other: string | number | Long.Long) => boolean;
-                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-                lte: (other: string | number | Long.Long) => boolean;
-                modulo: (other: string | number | Long.Long) => Long.Long;
-                mod: (other: string | number | Long.Long) => Long.Long;
-                multiply: (multiplier: string | number | Long.Long) => Long.Long;
-                mul: (multiplier: string | number | Long.Long) => Long.Long;
-                negate: () => Long.Long;
-                neg: () => Long.Long;
-                not: () => Long.Long;
-                notEquals: (other: string | number | Long.Long) => boolean;
-                neq: (other: string | number | Long.Long) => boolean;
-                or: (other: string | number | Long.Long) => Long.Long;
-                shiftLeft: (numBits: number | Long.Long) => Long.Long;
-                shl: (numBits: number | Long.Long) => Long.Long;
-                shiftRight: (numBits: number | Long.Long) => Long.Long;
-                shr: (numBits: number | Long.Long) => Long.Long;
-                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-                shru: (numBits: number | Long.Long) => Long.Long;
-                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-                sub: (subtrahend: string | number | Long.Long) => Long.Long;
-                toInt: () => number;
-                toNumber: () => number;
-                toBytes: (le?: boolean | undefined) => number[];
-                toBytesLE: () => number[];
-                toBytesBE: () => number[];
-                toSigned: () => Long.Long;
-                toString: (radix?: number | undefined) => string;
-                toUnsigned: () => Long.Long;
-                xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K in Exclude<keyof I["pagination"]["offset"], keyof Long.Long>]: never; }) | undefined;
+            limit?: string | number | Long.Long | undefined;
+            offset?: string | number | Long.Long | undefined;
+            countTotal?: boolean | undefined;
+        } & {
+            reverse?: boolean | undefined;
+            key?: Buffer | undefined;
             limit?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -374,90 +349,90 @@ export declare const TransfersForChainRequest: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_1 in Exclude<keyof I["pagination"]["limit"], keyof Long.Long>]: never; }) | undefined;
+            } & { [K in Exclude<keyof I["pagination"]["limit"], "$type" | keyof Long.Long>]: never; }) | undefined;
+            offset?: string | number | (Long.Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long.Long) => Long.Long;
+                and: (other: string | number | Long.Long) => Long.Long;
+                compare: (other: string | number | Long.Long) => number;
+                comp: (other: string | number | Long.Long) => number;
+                divide: (divisor: string | number | Long.Long) => Long.Long;
+                div: (divisor: string | number | Long.Long) => Long.Long;
+                equals: (other: string | number | Long.Long) => boolean;
+                eq: (other: string | number | Long.Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long.Long) => boolean;
+                gt: (other: string | number | Long.Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                gte: (other: string | number | Long.Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                lessThan: (other: string | number | Long.Long) => boolean;
+                lt: (other: string | number | Long.Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                lte: (other: string | number | Long.Long) => boolean;
+                modulo: (other: string | number | Long.Long) => Long.Long;
+                mod: (other: string | number | Long.Long) => Long.Long;
+                multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                mul: (multiplier: string | number | Long.Long) => Long.Long;
+                negate: () => Long.Long;
+                neg: () => Long.Long;
+                not: () => Long.Long;
+                notEquals: (other: string | number | Long.Long) => boolean;
+                neq: (other: string | number | Long.Long) => boolean;
+                or: (other: string | number | Long.Long) => Long.Long;
+                shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                shl: (numBits: number | Long.Long) => Long.Long;
+                shiftRight: (numBits: number | Long.Long) => Long.Long;
+                shr: (numBits: number | Long.Long) => Long.Long;
+                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                shru: (numBits: number | Long.Long) => Long.Long;
+                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long.Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long.Long;
+                xor: (other: string | number | Long.Long) => Long.Long;
+            } & { [K_1 in Exclude<keyof I["pagination"]["offset"], "$type" | keyof Long.Long>]: never; }) | undefined;
             countTotal?: boolean | undefined;
-            reverse?: boolean | undefined;
-        } & { [K_2 in Exclude<keyof I["pagination"], keyof PageRequest>]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I, keyof TransfersForChainRequest>]: never; }>(base?: I | undefined): TransfersForChainRequest;
+        } & { [K_2 in Exclude<keyof I["pagination"], "$type" | "reverse" | "key" | "limit" | "offset" | "countTotal">]: never; }) | undefined;
+    } & { [K_3 in Exclude<keyof I, "$type" | "chain" | "state" | "pagination">]: never; }>(base?: I | undefined): TransfersForChainRequest;
     fromPartial<I_1 extends {
         chain?: string | undefined;
         state?: TransferState | undefined;
         pagination?: {
-            key?: Buffer | undefined;
-            offset?: string | number | Long.Long | undefined;
-            limit?: string | number | Long.Long | undefined;
-            countTotal?: boolean | undefined;
             reverse?: boolean | undefined;
+            key?: Buffer | undefined;
+            limit?: string | number | Long.Long | undefined;
+            offset?: string | number | Long.Long | undefined;
+            countTotal?: boolean | undefined;
         } | undefined;
     } & {
         chain?: string | undefined;
         state?: TransferState | undefined;
         pagination?: ({
-            key?: Buffer | undefined;
-            offset?: string | number | Long.Long | undefined;
-            limit?: string | number | Long.Long | undefined;
-            countTotal?: boolean | undefined;
             reverse?: boolean | undefined;
-        } & {
             key?: Buffer | undefined;
-            offset?: string | number | (Long.Long & {
-                high: number;
-                low: number;
-                unsigned: boolean;
-                add: (addend: string | number | Long.Long) => Long.Long;
-                and: (other: string | number | Long.Long) => Long.Long;
-                compare: (other: string | number | Long.Long) => number;
-                comp: (other: string | number | Long.Long) => number;
-                divide: (divisor: string | number | Long.Long) => Long.Long;
-                div: (divisor: string | number | Long.Long) => Long.Long;
-                equals: (other: string | number | Long.Long) => boolean;
-                eq: (other: string | number | Long.Long) => boolean;
-                getHighBits: () => number;
-                getHighBitsUnsigned: () => number;
-                getLowBits: () => number;
-                getLowBitsUnsigned: () => number;
-                getNumBitsAbs: () => number;
-                greaterThan: (other: string | number | Long.Long) => boolean;
-                gt: (other: string | number | Long.Long) => boolean;
-                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-                gte: (other: string | number | Long.Long) => boolean;
-                isEven: () => boolean;
-                isNegative: () => boolean;
-                isOdd: () => boolean;
-                isPositive: () => boolean;
-                isZero: () => boolean;
-                lessThan: (other: string | number | Long.Long) => boolean;
-                lt: (other: string | number | Long.Long) => boolean;
-                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-                lte: (other: string | number | Long.Long) => boolean;
-                modulo: (other: string | number | Long.Long) => Long.Long;
-                mod: (other: string | number | Long.Long) => Long.Long;
-                multiply: (multiplier: string | number | Long.Long) => Long.Long;
-                mul: (multiplier: string | number | Long.Long) => Long.Long;
-                negate: () => Long.Long;
-                neg: () => Long.Long;
-                not: () => Long.Long;
-                notEquals: (other: string | number | Long.Long) => boolean;
-                neq: (other: string | number | Long.Long) => boolean;
-                or: (other: string | number | Long.Long) => Long.Long;
-                shiftLeft: (numBits: number | Long.Long) => Long.Long;
-                shl: (numBits: number | Long.Long) => Long.Long;
-                shiftRight: (numBits: number | Long.Long) => Long.Long;
-                shr: (numBits: number | Long.Long) => Long.Long;
-                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-                shru: (numBits: number | Long.Long) => Long.Long;
-                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-                sub: (subtrahend: string | number | Long.Long) => Long.Long;
-                toInt: () => number;
-                toNumber: () => number;
-                toBytes: (le?: boolean | undefined) => number[];
-                toBytesLE: () => number[];
-                toBytesBE: () => number[];
-                toSigned: () => Long.Long;
-                toString: (radix?: number | undefined) => string;
-                toUnsigned: () => Long.Long;
-                xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_4 in Exclude<keyof I_1["pagination"]["offset"], keyof Long.Long>]: never; }) | undefined;
+            limit?: string | number | Long.Long | undefined;
+            offset?: string | number | Long.Long | undefined;
+            countTotal?: boolean | undefined;
+        } & {
+            reverse?: boolean | undefined;
+            key?: Buffer | undefined;
             limit?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -515,102 +490,131 @@ export declare const TransfersForChainRequest: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_5 in Exclude<keyof I_1["pagination"]["limit"], keyof Long.Long>]: never; }) | undefined;
+            } & { [K_4 in Exclude<keyof I_1["pagination"]["limit"], "$type" | keyof Long.Long>]: never; }) | undefined;
+            offset?: string | number | (Long.Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long.Long) => Long.Long;
+                and: (other: string | number | Long.Long) => Long.Long;
+                compare: (other: string | number | Long.Long) => number;
+                comp: (other: string | number | Long.Long) => number;
+                divide: (divisor: string | number | Long.Long) => Long.Long;
+                div: (divisor: string | number | Long.Long) => Long.Long;
+                equals: (other: string | number | Long.Long) => boolean;
+                eq: (other: string | number | Long.Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long.Long) => boolean;
+                gt: (other: string | number | Long.Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                gte: (other: string | number | Long.Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                lessThan: (other: string | number | Long.Long) => boolean;
+                lt: (other: string | number | Long.Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                lte: (other: string | number | Long.Long) => boolean;
+                modulo: (other: string | number | Long.Long) => Long.Long;
+                mod: (other: string | number | Long.Long) => Long.Long;
+                multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                mul: (multiplier: string | number | Long.Long) => Long.Long;
+                negate: () => Long.Long;
+                neg: () => Long.Long;
+                not: () => Long.Long;
+                notEquals: (other: string | number | Long.Long) => boolean;
+                neq: (other: string | number | Long.Long) => boolean;
+                or: (other: string | number | Long.Long) => Long.Long;
+                shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                shl: (numBits: number | Long.Long) => Long.Long;
+                shiftRight: (numBits: number | Long.Long) => Long.Long;
+                shr: (numBits: number | Long.Long) => Long.Long;
+                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                shru: (numBits: number | Long.Long) => Long.Long;
+                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long.Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long.Long;
+                xor: (other: string | number | Long.Long) => Long.Long;
+            } & { [K_5 in Exclude<keyof I_1["pagination"]["offset"], "$type" | keyof Long.Long>]: never; }) | undefined;
             countTotal?: boolean | undefined;
-            reverse?: boolean | undefined;
-        } & { [K_6 in Exclude<keyof I_1["pagination"], keyof PageRequest>]: never; }) | undefined;
-    } & { [K_7 in Exclude<keyof I_1, keyof TransfersForChainRequest>]: never; }>(object: I_1): TransfersForChainRequest;
+        } & { [K_6 in Exclude<keyof I_1["pagination"], "$type" | "reverse" | "key" | "limit" | "offset" | "countTotal">]: never; }) | undefined;
+    } & { [K_7 in Exclude<keyof I_1, "$type" | "chain" | "state" | "pagination">]: never; }>(object: I_1): TransfersForChainRequest;
 };
 export declare const TransfersForChainResponse: {
+    $type: "axelar.nexus.v1beta1.TransfersForChainResponse";
     encode(message: TransfersForChainResponse, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): TransfersForChainResponse;
     fromJSON(object: any): TransfersForChainResponse;
     toJSON(message: TransfersForChainResponse): unknown;
     create<I extends {
         transfers?: {
-            recipient?: {
-                chain?: {
-                    name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
-                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
-                    module?: string | undefined;
-                } | undefined;
-                address?: string | undefined;
-            } | undefined;
+            id?: string | number | Long.Long | undefined;
             asset?: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             } | undefined;
-            id?: string | number | Long.Long | undefined;
+            recipient?: {
+                address?: string | undefined;
+                chain?: {
+                    name?: string | undefined;
+                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    supportsForeignAssets?: boolean | undefined;
+                    module?: string | undefined;
+                } | undefined;
+            } | undefined;
             state?: TransferState | undefined;
         }[] | undefined;
         pagination?: {
-            nextKey?: Buffer | undefined;
             total?: string | number | Long.Long | undefined;
+            nextKey?: Buffer | undefined;
         } | undefined;
     } & {
         transfers?: ({
-            recipient?: {
-                chain?: {
-                    name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
-                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
-                    module?: string | undefined;
-                } | undefined;
-                address?: string | undefined;
-            } | undefined;
+            id?: string | number | Long.Long | undefined;
             asset?: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             } | undefined;
-            id?: string | number | Long.Long | undefined;
+            recipient?: {
+                address?: string | undefined;
+                chain?: {
+                    name?: string | undefined;
+                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    supportsForeignAssets?: boolean | undefined;
+                    module?: string | undefined;
+                } | undefined;
+            } | undefined;
             state?: TransferState | undefined;
         }[] & ({
-            recipient?: {
-                chain?: {
-                    name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
-                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
-                    module?: string | undefined;
-                } | undefined;
-                address?: string | undefined;
-            } | undefined;
+            id?: string | number | Long.Long | undefined;
             asset?: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             } | undefined;
-            id?: string | number | Long.Long | undefined;
-            state?: TransferState | undefined;
-        } & {
-            recipient?: ({
+            recipient?: {
+                address?: string | undefined;
                 chain?: {
                     name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
-                address?: string | undefined;
-            } & {
-                chain?: ({
-                    name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
-                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
-                    module?: string | undefined;
-                } & {
-                    name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
-                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
-                    module?: string | undefined;
-                } & { [K in Exclude<keyof I["transfers"][number]["recipient"]["chain"], keyof import("../exported/v1beta1/types").Chain>]: never; }) | undefined;
-                address?: string | undefined;
-            } & { [K_1 in Exclude<keyof I["transfers"][number]["recipient"], keyof import("../exported/v1beta1/types").CrossChainAddress>]: never; }) | undefined;
-            asset?: ({
-                denom?: string | undefined;
-                amount?: string | undefined;
-            } & {
-                denom?: string | undefined;
-                amount?: string | undefined;
-            } & { [K_2 in Exclude<keyof I["transfers"][number]["asset"], keyof Coin>]: never; }) | undefined;
+            } | undefined;
+            state?: TransferState | undefined;
+        } & {
             id?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -668,30 +672,58 @@ export declare const TransfersForChainResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_3 in Exclude<keyof I["transfers"][number]["id"], keyof Long.Long>]: never; }) | undefined;
-            state?: TransferState | undefined;
-        } & { [K_4 in Exclude<keyof I["transfers"][number], keyof CrossChainTransfer>]: never; })[] & { [K_5 in Exclude<keyof I["transfers"], keyof {
-            recipient?: {
+            } & { [K in Exclude<keyof I["transfers"][number]["id"], "$type" | keyof Long.Long>]: never; }) | undefined;
+            asset?: ({
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } & {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } & { [K_1 in Exclude<keyof I["transfers"][number]["asset"], "$type" | "denom" | "amount">]: never; }) | undefined;
+            recipient?: ({
+                address?: string | undefined;
                 chain?: {
                     name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
+            } & {
                 address?: string | undefined;
-            } | undefined;
+                chain?: ({
+                    name?: string | undefined;
+                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    supportsForeignAssets?: boolean | undefined;
+                    module?: string | undefined;
+                } & {
+                    name?: string | undefined;
+                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    supportsForeignAssets?: boolean | undefined;
+                    module?: string | undefined;
+                } & { [K_2 in Exclude<keyof I["transfers"][number]["recipient"]["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+            } & { [K_3 in Exclude<keyof I["transfers"][number]["recipient"], "$type" | "address" | "chain">]: never; }) | undefined;
+            state?: TransferState | undefined;
+        } & { [K_4 in Exclude<keyof I["transfers"][number], "$type" | "id" | "asset" | "recipient" | "state">]: never; })[] & { [K_5 in Exclude<keyof I["transfers"], "$type" | keyof {
+            id?: string | number | Long.Long | undefined;
             asset?: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             } | undefined;
-            id?: string | number | Long.Long | undefined;
+            recipient?: {
+                address?: string | undefined;
+                chain?: {
+                    name?: string | undefined;
+                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    supportsForeignAssets?: boolean | undefined;
+                    module?: string | undefined;
+                } | undefined;
+            } | undefined;
             state?: TransferState | undefined;
         }[]>]: never; }) | undefined;
         pagination?: ({
-            nextKey?: Buffer | undefined;
             total?: string | number | Long.Long | undefined;
-        } & {
             nextKey?: Buffer | undefined;
+        } & {
             total?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -749,94 +781,66 @@ export declare const TransfersForChainResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_6 in Exclude<keyof I["pagination"]["total"], keyof Long.Long>]: never; }) | undefined;
-        } & { [K_7 in Exclude<keyof I["pagination"], keyof PageResponse>]: never; }) | undefined;
-    } & { [K_8 in Exclude<keyof I, keyof TransfersForChainResponse>]: never; }>(base?: I | undefined): TransfersForChainResponse;
+            } & { [K_6 in Exclude<keyof I["pagination"]["total"], "$type" | keyof Long.Long>]: never; }) | undefined;
+            nextKey?: Buffer | undefined;
+        } & { [K_7 in Exclude<keyof I["pagination"], "$type" | "total" | "nextKey">]: never; }) | undefined;
+    } & { [K_8 in Exclude<keyof I, "$type" | "transfers" | "pagination">]: never; }>(base?: I | undefined): TransfersForChainResponse;
     fromPartial<I_1 extends {
         transfers?: {
-            recipient?: {
-                chain?: {
-                    name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
-                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
-                    module?: string | undefined;
-                } | undefined;
-                address?: string | undefined;
-            } | undefined;
+            id?: string | number | Long.Long | undefined;
             asset?: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             } | undefined;
-            id?: string | number | Long.Long | undefined;
+            recipient?: {
+                address?: string | undefined;
+                chain?: {
+                    name?: string | undefined;
+                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    supportsForeignAssets?: boolean | undefined;
+                    module?: string | undefined;
+                } | undefined;
+            } | undefined;
             state?: TransferState | undefined;
         }[] | undefined;
         pagination?: {
-            nextKey?: Buffer | undefined;
             total?: string | number | Long.Long | undefined;
+            nextKey?: Buffer | undefined;
         } | undefined;
     } & {
         transfers?: ({
-            recipient?: {
-                chain?: {
-                    name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
-                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
-                    module?: string | undefined;
-                } | undefined;
-                address?: string | undefined;
-            } | undefined;
+            id?: string | number | Long.Long | undefined;
             asset?: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             } | undefined;
-            id?: string | number | Long.Long | undefined;
+            recipient?: {
+                address?: string | undefined;
+                chain?: {
+                    name?: string | undefined;
+                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    supportsForeignAssets?: boolean | undefined;
+                    module?: string | undefined;
+                } | undefined;
+            } | undefined;
             state?: TransferState | undefined;
         }[] & ({
-            recipient?: {
-                chain?: {
-                    name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
-                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
-                    module?: string | undefined;
-                } | undefined;
-                address?: string | undefined;
-            } | undefined;
+            id?: string | number | Long.Long | undefined;
             asset?: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             } | undefined;
-            id?: string | number | Long.Long | undefined;
-            state?: TransferState | undefined;
-        } & {
-            recipient?: ({
+            recipient?: {
+                address?: string | undefined;
                 chain?: {
                     name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
-                address?: string | undefined;
-            } & {
-                chain?: ({
-                    name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
-                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
-                    module?: string | undefined;
-                } & {
-                    name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
-                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
-                    module?: string | undefined;
-                } & { [K_9 in Exclude<keyof I_1["transfers"][number]["recipient"]["chain"], keyof import("../exported/v1beta1/types").Chain>]: never; }) | undefined;
-                address?: string | undefined;
-            } & { [K_10 in Exclude<keyof I_1["transfers"][number]["recipient"], keyof import("../exported/v1beta1/types").CrossChainAddress>]: never; }) | undefined;
-            asset?: ({
-                denom?: string | undefined;
-                amount?: string | undefined;
-            } & {
-                denom?: string | undefined;
-                amount?: string | undefined;
-            } & { [K_11 in Exclude<keyof I_1["transfers"][number]["asset"], keyof Coin>]: never; }) | undefined;
+            } | undefined;
+            state?: TransferState | undefined;
+        } & {
             id?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -894,30 +898,58 @@ export declare const TransfersForChainResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_12 in Exclude<keyof I_1["transfers"][number]["id"], keyof Long.Long>]: never; }) | undefined;
-            state?: TransferState | undefined;
-        } & { [K_13 in Exclude<keyof I_1["transfers"][number], keyof CrossChainTransfer>]: never; })[] & { [K_14 in Exclude<keyof I_1["transfers"], keyof {
-            recipient?: {
+            } & { [K_9 in Exclude<keyof I_1["transfers"][number]["id"], "$type" | keyof Long.Long>]: never; }) | undefined;
+            asset?: ({
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } & {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } & { [K_10 in Exclude<keyof I_1["transfers"][number]["asset"], "$type" | "denom" | "amount">]: never; }) | undefined;
+            recipient?: ({
+                address?: string | undefined;
                 chain?: {
                     name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
+            } & {
                 address?: string | undefined;
-            } | undefined;
+                chain?: ({
+                    name?: string | undefined;
+                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    supportsForeignAssets?: boolean | undefined;
+                    module?: string | undefined;
+                } & {
+                    name?: string | undefined;
+                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    supportsForeignAssets?: boolean | undefined;
+                    module?: string | undefined;
+                } & { [K_11 in Exclude<keyof I_1["transfers"][number]["recipient"]["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+            } & { [K_12 in Exclude<keyof I_1["transfers"][number]["recipient"], "$type" | "address" | "chain">]: never; }) | undefined;
+            state?: TransferState | undefined;
+        } & { [K_13 in Exclude<keyof I_1["transfers"][number], "$type" | "id" | "asset" | "recipient" | "state">]: never; })[] & { [K_14 in Exclude<keyof I_1["transfers"], "$type" | keyof {
+            id?: string | number | Long.Long | undefined;
             asset?: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             } | undefined;
-            id?: string | number | Long.Long | undefined;
+            recipient?: {
+                address?: string | undefined;
+                chain?: {
+                    name?: string | undefined;
+                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    supportsForeignAssets?: boolean | undefined;
+                    module?: string | undefined;
+                } | undefined;
+            } | undefined;
             state?: TransferState | undefined;
         }[]>]: never; }) | undefined;
         pagination?: ({
-            nextKey?: Buffer | undefined;
             total?: string | number | Long.Long | undefined;
-        } & {
             nextKey?: Buffer | undefined;
+        } & {
             total?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -975,107 +1007,112 @@ export declare const TransfersForChainResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_15 in Exclude<keyof I_1["pagination"]["total"], keyof Long.Long>]: never; }) | undefined;
-        } & { [K_16 in Exclude<keyof I_1["pagination"], keyof PageResponse>]: never; }) | undefined;
-    } & { [K_17 in Exclude<keyof I_1, keyof TransfersForChainResponse>]: never; }>(object: I_1): TransfersForChainResponse;
+            } & { [K_15 in Exclude<keyof I_1["pagination"]["total"], "$type" | keyof Long.Long>]: never; }) | undefined;
+            nextKey?: Buffer | undefined;
+        } & { [K_16 in Exclude<keyof I_1["pagination"], "$type" | "total" | "nextKey">]: never; }) | undefined;
+    } & { [K_17 in Exclude<keyof I_1, "$type" | "transfers" | "pagination">]: never; }>(object: I_1): TransfersForChainResponse;
 };
 export declare const FeeInfoRequest: {
+    $type: "axelar.nexus.v1beta1.FeeInfoRequest";
     encode(message: FeeInfoRequest, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): FeeInfoRequest;
     fromJSON(object: any): FeeInfoRequest;
     toJSON(message: FeeInfoRequest): unknown;
     create<I extends {
-        chain?: string | undefined;
         asset?: string | undefined;
+        chain?: string | undefined;
     } & {
-        chain?: string | undefined;
         asset?: string | undefined;
-    } & { [K in Exclude<keyof I, keyof FeeInfoRequest>]: never; }>(base?: I | undefined): FeeInfoRequest;
+        chain?: string | undefined;
+    } & { [K in Exclude<keyof I, "$type" | "asset" | "chain">]: never; }>(base?: I | undefined): FeeInfoRequest;
     fromPartial<I_1 extends {
-        chain?: string | undefined;
         asset?: string | undefined;
+        chain?: string | undefined;
     } & {
-        chain?: string | undefined;
         asset?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, keyof FeeInfoRequest>]: never; }>(object: I_1): FeeInfoRequest;
+        chain?: string | undefined;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "asset" | "chain">]: never; }>(object: I_1): FeeInfoRequest;
 };
 export declare const FeeInfoResponse: {
+    $type: "axelar.nexus.v1beta1.FeeInfoResponse";
     encode(message: FeeInfoResponse, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): FeeInfoResponse;
     fromJSON(object: any): FeeInfoResponse;
     toJSON(message: FeeInfoResponse): unknown;
     create<I extends {
         feeInfo?: {
-            chain?: string | undefined;
             asset?: string | undefined;
+            chain?: string | undefined;
             feeRate?: Buffer | undefined;
             minFee?: Buffer | undefined;
             maxFee?: Buffer | undefined;
         } | undefined;
     } & {
         feeInfo?: ({
-            chain?: string | undefined;
             asset?: string | undefined;
+            chain?: string | undefined;
             feeRate?: Buffer | undefined;
             minFee?: Buffer | undefined;
             maxFee?: Buffer | undefined;
         } & {
-            chain?: string | undefined;
             asset?: string | undefined;
+            chain?: string | undefined;
             feeRate?: Buffer | undefined;
             minFee?: Buffer | undefined;
             maxFee?: Buffer | undefined;
-        } & { [K in Exclude<keyof I["feeInfo"], keyof FeeInfo>]: never; }) | undefined;
-    } & { [K_1 in Exclude<keyof I, "feeInfo">]: never; }>(base?: I | undefined): FeeInfoResponse;
+        } & { [K in Exclude<keyof I["feeInfo"], "$type" | "asset" | "chain" | "feeRate" | "minFee" | "maxFee">]: never; }) | undefined;
+    } & { [K_1 in Exclude<keyof I, "$type" | "feeInfo">]: never; }>(base?: I | undefined): FeeInfoResponse;
     fromPartial<I_1 extends {
         feeInfo?: {
-            chain?: string | undefined;
             asset?: string | undefined;
+            chain?: string | undefined;
             feeRate?: Buffer | undefined;
             minFee?: Buffer | undefined;
             maxFee?: Buffer | undefined;
         } | undefined;
     } & {
         feeInfo?: ({
-            chain?: string | undefined;
             asset?: string | undefined;
+            chain?: string | undefined;
             feeRate?: Buffer | undefined;
             minFee?: Buffer | undefined;
             maxFee?: Buffer | undefined;
         } & {
-            chain?: string | undefined;
             asset?: string | undefined;
+            chain?: string | undefined;
             feeRate?: Buffer | undefined;
             minFee?: Buffer | undefined;
             maxFee?: Buffer | undefined;
-        } & { [K_2 in Exclude<keyof I_1["feeInfo"], keyof FeeInfo>]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I_1, "feeInfo">]: never; }>(object: I_1): FeeInfoResponse;
+        } & { [K_2 in Exclude<keyof I_1["feeInfo"], "$type" | "asset" | "chain" | "feeRate" | "minFee" | "maxFee">]: never; }) | undefined;
+    } & { [K_3 in Exclude<keyof I_1, "$type" | "feeInfo">]: never; }>(object: I_1): FeeInfoResponse;
 };
 export declare const TransferFeeRequest: {
+    $type: "axelar.nexus.v1beta1.TransferFeeRequest";
     encode(message: TransferFeeRequest, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): TransferFeeRequest;
     fromJSON(object: any): TransferFeeRequest;
     toJSON(message: TransferFeeRequest): unknown;
     create<I extends {
+        amount?: string | undefined;
         sourceChain?: string | undefined;
         destinationChain?: string | undefined;
-        amount?: string | undefined;
     } & {
+        amount?: string | undefined;
         sourceChain?: string | undefined;
         destinationChain?: string | undefined;
-        amount?: string | undefined;
-    } & { [K in Exclude<keyof I, keyof TransferFeeRequest>]: never; }>(base?: I | undefined): TransferFeeRequest;
+    } & { [K in Exclude<keyof I, "$type" | "amount" | "sourceChain" | "destinationChain">]: never; }>(base?: I | undefined): TransferFeeRequest;
     fromPartial<I_1 extends {
+        amount?: string | undefined;
         sourceChain?: string | undefined;
         destinationChain?: string | undefined;
-        amount?: string | undefined;
     } & {
+        amount?: string | undefined;
         sourceChain?: string | undefined;
         destinationChain?: string | undefined;
-        amount?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, keyof TransferFeeRequest>]: never; }>(object: I_1): TransferFeeRequest;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "amount" | "sourceChain" | "destinationChain">]: never; }>(object: I_1): TransferFeeRequest;
 };
 export declare const TransferFeeResponse: {
+    $type: "axelar.nexus.v1beta1.TransferFeeResponse";
     encode(message: TransferFeeResponse, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): TransferFeeResponse;
     fromJSON(object: any): TransferFeeResponse;
@@ -1092,8 +1129,8 @@ export declare const TransferFeeResponse: {
         } & {
             denom?: string | undefined;
             amount?: string | undefined;
-        } & { [K in Exclude<keyof I["fee"], keyof Coin>]: never; }) | undefined;
-    } & { [K_1 in Exclude<keyof I, "fee">]: never; }>(base?: I | undefined): TransferFeeResponse;
+        } & { [K in Exclude<keyof I["fee"], "$type" | "denom" | "amount">]: never; }) | undefined;
+    } & { [K_1 in Exclude<keyof I, "$type" | "fee">]: never; }>(base?: I | undefined): TransferFeeResponse;
     fromPartial<I_1 extends {
         fee?: {
             denom?: string | undefined;
@@ -1106,10 +1143,11 @@ export declare const TransferFeeResponse: {
         } & {
             denom?: string | undefined;
             amount?: string | undefined;
-        } & { [K_2 in Exclude<keyof I_1["fee"], keyof Coin>]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I_1, "fee">]: never; }>(object: I_1): TransferFeeResponse;
+        } & { [K_2 in Exclude<keyof I_1["fee"], "$type" | "denom" | "amount">]: never; }) | undefined;
+    } & { [K_3 in Exclude<keyof I_1, "$type" | "fee">]: never; }>(object: I_1): TransferFeeResponse;
 };
 export declare const ChainsRequest: {
+    $type: "axelar.nexus.v1beta1.ChainsRequest";
     encode(message: ChainsRequest, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ChainsRequest;
     fromJSON(object: any): ChainsRequest;
@@ -1118,14 +1156,15 @@ export declare const ChainsRequest: {
         status?: ChainStatus | undefined;
     } & {
         status?: ChainStatus | undefined;
-    } & { [K in Exclude<keyof I, "status">]: never; }>(base?: I | undefined): ChainsRequest;
+    } & { [K in Exclude<keyof I, "$type" | "status">]: never; }>(base?: I | undefined): ChainsRequest;
     fromPartial<I_1 extends {
         status?: ChainStatus | undefined;
     } & {
         status?: ChainStatus | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "status">]: never; }>(object: I_1): ChainsRequest;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "status">]: never; }>(object: I_1): ChainsRequest;
 };
 export declare const ChainsResponse: {
+    $type: "axelar.nexus.v1beta1.ChainsResponse";
     encode(message: ChainsResponse, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ChainsResponse;
     fromJSON(object: any): ChainsResponse;
@@ -1133,15 +1172,16 @@ export declare const ChainsResponse: {
     create<I extends {
         chains?: string[] | undefined;
     } & {
-        chains?: (string[] & string[] & { [K in Exclude<keyof I["chains"], keyof string[]>]: never; }) | undefined;
-    } & { [K_1 in Exclude<keyof I, "chains">]: never; }>(base?: I | undefined): ChainsResponse;
+        chains?: (string[] & string[] & { [K in Exclude<keyof I["chains"], "$type" | keyof string[]>]: never; }) | undefined;
+    } & { [K_1 in Exclude<keyof I, "$type" | "chains">]: never; }>(base?: I | undefined): ChainsResponse;
     fromPartial<I_1 extends {
         chains?: string[] | undefined;
     } & {
-        chains?: (string[] & string[] & { [K_2 in Exclude<keyof I_1["chains"], keyof string[]>]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I_1, "chains">]: never; }>(object: I_1): ChainsResponse;
+        chains?: (string[] & string[] & { [K_2 in Exclude<keyof I_1["chains"], "$type" | keyof string[]>]: never; }) | undefined;
+    } & { [K_3 in Exclude<keyof I_1, "$type" | "chains">]: never; }>(object: I_1): ChainsResponse;
 };
 export declare const AssetsRequest: {
+    $type: "axelar.nexus.v1beta1.AssetsRequest";
     encode(message: AssetsRequest, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AssetsRequest;
     fromJSON(object: any): AssetsRequest;
@@ -1150,14 +1190,15 @@ export declare const AssetsRequest: {
         chain?: string | undefined;
     } & {
         chain?: string | undefined;
-    } & { [K in Exclude<keyof I, "chain">]: never; }>(base?: I | undefined): AssetsRequest;
+    } & { [K in Exclude<keyof I, "$type" | "chain">]: never; }>(base?: I | undefined): AssetsRequest;
     fromPartial<I_1 extends {
         chain?: string | undefined;
     } & {
         chain?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "chain">]: never; }>(object: I_1): AssetsRequest;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "chain">]: never; }>(object: I_1): AssetsRequest;
 };
 export declare const AssetsResponse: {
+    $type: "axelar.nexus.v1beta1.AssetsResponse";
     encode(message: AssetsResponse, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AssetsResponse;
     fromJSON(object: any): AssetsResponse;
@@ -1165,15 +1206,16 @@ export declare const AssetsResponse: {
     create<I extends {
         assets?: string[] | undefined;
     } & {
-        assets?: (string[] & string[] & { [K in Exclude<keyof I["assets"], keyof string[]>]: never; }) | undefined;
-    } & { [K_1 in Exclude<keyof I, "assets">]: never; }>(base?: I | undefined): AssetsResponse;
+        assets?: (string[] & string[] & { [K in Exclude<keyof I["assets"], "$type" | keyof string[]>]: never; }) | undefined;
+    } & { [K_1 in Exclude<keyof I, "$type" | "assets">]: never; }>(base?: I | undefined): AssetsResponse;
     fromPartial<I_1 extends {
         assets?: string[] | undefined;
     } & {
-        assets?: (string[] & string[] & { [K_2 in Exclude<keyof I_1["assets"], keyof string[]>]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I_1, "assets">]: never; }>(object: I_1): AssetsResponse;
+        assets?: (string[] & string[] & { [K_2 in Exclude<keyof I_1["assets"], "$type" | keyof string[]>]: never; }) | undefined;
+    } & { [K_3 in Exclude<keyof I_1, "$type" | "assets">]: never; }>(object: I_1): AssetsResponse;
 };
 export declare const ChainStateRequest: {
+    $type: "axelar.nexus.v1beta1.ChainStateRequest";
     encode(message: ChainStateRequest, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ChainStateRequest;
     fromJSON(object: any): ChainStateRequest;
@@ -1182,14 +1224,15 @@ export declare const ChainStateRequest: {
         chain?: string | undefined;
     } & {
         chain?: string | undefined;
-    } & { [K in Exclude<keyof I, "chain">]: never; }>(base?: I | undefined): ChainStateRequest;
+    } & { [K in Exclude<keyof I, "$type" | "chain">]: never; }>(base?: I | undefined): ChainStateRequest;
     fromPartial<I_1 extends {
         chain?: string | undefined;
     } & {
         chain?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "chain">]: never; }>(object: I_1): ChainStateRequest;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "chain">]: never; }>(object: I_1): ChainStateRequest;
 };
 export declare const ChainStateResponse: {
+    $type: "axelar.nexus.v1beta1.ChainStateResponse";
     encode(message: ChainStateResponse, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ChainStateResponse;
     fromJSON(object: any): ChainStateResponse;
@@ -1198,78 +1241,77 @@ export declare const ChainStateResponse: {
         state?: {
             chain?: {
                 name?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
-            activated?: boolean | undefined;
             assets?: {
                 denom?: string | undefined;
                 isNativeAsset?: boolean | undefined;
             }[] | undefined;
+            activated?: boolean | undefined;
             maintainerStates?: {
                 address?: Buffer | undefined;
+                chain?: string | undefined;
                 missingVotes?: {
                     trueCountCache?: {
-                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         index?: number | undefined;
+                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         maxSize?: number | undefined;
                     } | undefined;
                 } | undefined;
                 incorrectVotes?: {
                     trueCountCache?: {
-                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         index?: number | undefined;
+                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         maxSize?: number | undefined;
                     } | undefined;
                 } | undefined;
-                chain?: string | undefined;
             }[] | undefined;
         } | undefined;
     } & {
         state?: ({
             chain?: {
                 name?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
-            activated?: boolean | undefined;
             assets?: {
                 denom?: string | undefined;
                 isNativeAsset?: boolean | undefined;
             }[] | undefined;
+            activated?: boolean | undefined;
             maintainerStates?: {
                 address?: Buffer | undefined;
+                chain?: string | undefined;
                 missingVotes?: {
                     trueCountCache?: {
-                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         index?: number | undefined;
+                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         maxSize?: number | undefined;
                     } | undefined;
                 } | undefined;
                 incorrectVotes?: {
                     trueCountCache?: {
-                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         index?: number | undefined;
+                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         maxSize?: number | undefined;
                     } | undefined;
                 } | undefined;
-                chain?: string | undefined;
             }[] | undefined;
         } & {
             chain?: ({
                 name?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } & {
                 name?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
-            } & { [K in Exclude<keyof I["state"]["chain"], keyof import("../exported/v1beta1/types").Chain>]: never; }) | undefined;
-            activated?: boolean | undefined;
+            } & { [K in Exclude<keyof I["state"]["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
             assets?: ({
                 denom?: string | undefined;
                 isNativeAsset?: boolean | undefined;
@@ -1279,58 +1321,61 @@ export declare const ChainStateResponse: {
             } & {
                 denom?: string | undefined;
                 isNativeAsset?: boolean | undefined;
-            } & { [K_1 in Exclude<keyof I["state"]["assets"][number], keyof import("../exported/v1beta1/types").Asset>]: never; })[] & { [K_2 in Exclude<keyof I["state"]["assets"], keyof {
+            } & { [K_1 in Exclude<keyof I["state"]["assets"][number], "$type" | "denom" | "isNativeAsset">]: never; })[] & { [K_2 in Exclude<keyof I["state"]["assets"], "$type" | keyof {
                 denom?: string | undefined;
                 isNativeAsset?: boolean | undefined;
             }[]>]: never; }) | undefined;
+            activated?: boolean | undefined;
             maintainerStates?: ({
                 address?: Buffer | undefined;
+                chain?: string | undefined;
                 missingVotes?: {
                     trueCountCache?: {
-                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         index?: number | undefined;
+                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         maxSize?: number | undefined;
                     } | undefined;
                 } | undefined;
                 incorrectVotes?: {
                     trueCountCache?: {
-                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         index?: number | undefined;
+                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         maxSize?: number | undefined;
                     } | undefined;
                 } | undefined;
-                chain?: string | undefined;
             }[] & ({
                 address?: Buffer | undefined;
+                chain?: string | undefined;
                 missingVotes?: {
                     trueCountCache?: {
-                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         index?: number | undefined;
+                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         maxSize?: number | undefined;
                     } | undefined;
                 } | undefined;
                 incorrectVotes?: {
                     trueCountCache?: {
-                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         index?: number | undefined;
+                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         maxSize?: number | undefined;
                     } | undefined;
                 } | undefined;
-                chain?: string | undefined;
             } & {
                 address?: Buffer | undefined;
+                chain?: string | undefined;
                 missingVotes?: ({
                     trueCountCache?: {
-                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         index?: number | undefined;
+                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         maxSize?: number | undefined;
                     } | undefined;
                 } & {
                     trueCountCache?: ({
-                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         index?: number | undefined;
+                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         maxSize?: number | undefined;
                     } & {
+                        index?: number | undefined;
                         cumulativeValue?: ((string | number | Long.Long)[] & (string | number | (Long.Long & {
                             high: number;
                             low: number;
@@ -1388,23 +1433,23 @@ export declare const ChainStateResponse: {
                             toString: (radix?: number | undefined) => string;
                             toUnsigned: () => Long.Long;
                             xor: (other: string | number | Long.Long) => Long.Long;
-                        } & { [K_3 in Exclude<keyof I["state"]["maintainerStates"][number]["missingVotes"]["trueCountCache"]["cumulativeValue"][number], keyof Long.Long>]: never; }))[] & { [K_4 in Exclude<keyof I["state"]["maintainerStates"][number]["missingVotes"]["trueCountCache"]["cumulativeValue"], keyof (string | number | Long.Long)[]>]: never; }) | undefined;
-                        index?: number | undefined;
+                        } & { [K_3 in Exclude<keyof I["state"]["maintainerStates"][number]["missingVotes"]["trueCountCache"]["cumulativeValue"][number], "$type" | keyof Long.Long>]: never; }))[] & { [K_4 in Exclude<keyof I["state"]["maintainerStates"][number]["missingVotes"]["trueCountCache"]["cumulativeValue"], "$type" | keyof (string | number | Long.Long)[]>]: never; }) | undefined;
                         maxSize?: number | undefined;
-                    } & { [K_5 in Exclude<keyof I["state"]["maintainerStates"][number]["missingVotes"]["trueCountCache"], keyof import("../../utils/v1beta1/bitmap").CircularBuffer>]: never; }) | undefined;
-                } & { [K_6 in Exclude<keyof I["state"]["maintainerStates"][number]["missingVotes"], "trueCountCache">]: never; }) | undefined;
+                    } & { [K_5 in Exclude<keyof I["state"]["maintainerStates"][number]["missingVotes"]["trueCountCache"], "$type" | "index" | "cumulativeValue" | "maxSize">]: never; }) | undefined;
+                } & { [K_6 in Exclude<keyof I["state"]["maintainerStates"][number]["missingVotes"], "$type" | "trueCountCache">]: never; }) | undefined;
                 incorrectVotes?: ({
                     trueCountCache?: {
-                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         index?: number | undefined;
+                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         maxSize?: number | undefined;
                     } | undefined;
                 } & {
                     trueCountCache?: ({
-                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         index?: number | undefined;
+                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         maxSize?: number | undefined;
                     } & {
+                        index?: number | undefined;
                         cumulativeValue?: ((string | number | Long.Long)[] & (string | number | (Long.Long & {
                             high: number;
                             low: number;
@@ -1462,108 +1507,105 @@ export declare const ChainStateResponse: {
                             toString: (radix?: number | undefined) => string;
                             toUnsigned: () => Long.Long;
                             xor: (other: string | number | Long.Long) => Long.Long;
-                        } & { [K_7 in Exclude<keyof I["state"]["maintainerStates"][number]["incorrectVotes"]["trueCountCache"]["cumulativeValue"][number], keyof Long.Long>]: never; }))[] & { [K_8 in Exclude<keyof I["state"]["maintainerStates"][number]["incorrectVotes"]["trueCountCache"]["cumulativeValue"], keyof (string | number | Long.Long)[]>]: never; }) | undefined;
-                        index?: number | undefined;
+                        } & { [K_7 in Exclude<keyof I["state"]["maintainerStates"][number]["incorrectVotes"]["trueCountCache"]["cumulativeValue"][number], "$type" | keyof Long.Long>]: never; }))[] & { [K_8 in Exclude<keyof I["state"]["maintainerStates"][number]["incorrectVotes"]["trueCountCache"]["cumulativeValue"], "$type" | keyof (string | number | Long.Long)[]>]: never; }) | undefined;
                         maxSize?: number | undefined;
-                    } & { [K_9 in Exclude<keyof I["state"]["maintainerStates"][number]["incorrectVotes"]["trueCountCache"], keyof import("../../utils/v1beta1/bitmap").CircularBuffer>]: never; }) | undefined;
-                } & { [K_10 in Exclude<keyof I["state"]["maintainerStates"][number]["incorrectVotes"], "trueCountCache">]: never; }) | undefined;
-                chain?: string | undefined;
-            } & { [K_11 in Exclude<keyof I["state"]["maintainerStates"][number], keyof import("./types").MaintainerState>]: never; })[] & { [K_12 in Exclude<keyof I["state"]["maintainerStates"], keyof {
+                    } & { [K_9 in Exclude<keyof I["state"]["maintainerStates"][number]["incorrectVotes"]["trueCountCache"], "$type" | "index" | "cumulativeValue" | "maxSize">]: never; }) | undefined;
+                } & { [K_10 in Exclude<keyof I["state"]["maintainerStates"][number]["incorrectVotes"], "$type" | "trueCountCache">]: never; }) | undefined;
+            } & { [K_11 in Exclude<keyof I["state"]["maintainerStates"][number], "$type" | "address" | "chain" | "missingVotes" | "incorrectVotes">]: never; })[] & { [K_12 in Exclude<keyof I["state"]["maintainerStates"], "$type" | keyof {
                 address?: Buffer | undefined;
+                chain?: string | undefined;
                 missingVotes?: {
                     trueCountCache?: {
-                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         index?: number | undefined;
+                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         maxSize?: number | undefined;
                     } | undefined;
                 } | undefined;
                 incorrectVotes?: {
                     trueCountCache?: {
-                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         index?: number | undefined;
+                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         maxSize?: number | undefined;
                     } | undefined;
                 } | undefined;
-                chain?: string | undefined;
             }[]>]: never; }) | undefined;
-        } & { [K_13 in Exclude<keyof I["state"], keyof ChainState>]: never; }) | undefined;
-    } & { [K_14 in Exclude<keyof I, "state">]: never; }>(base?: I | undefined): ChainStateResponse;
+        } & { [K_13 in Exclude<keyof I["state"], "$type" | "chain" | "assets" | "activated" | "maintainerStates">]: never; }) | undefined;
+    } & { [K_14 in Exclude<keyof I, "$type" | "state">]: never; }>(base?: I | undefined): ChainStateResponse;
     fromPartial<I_1 extends {
         state?: {
             chain?: {
                 name?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
-            activated?: boolean | undefined;
             assets?: {
                 denom?: string | undefined;
                 isNativeAsset?: boolean | undefined;
             }[] | undefined;
+            activated?: boolean | undefined;
             maintainerStates?: {
                 address?: Buffer | undefined;
+                chain?: string | undefined;
                 missingVotes?: {
                     trueCountCache?: {
-                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         index?: number | undefined;
+                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         maxSize?: number | undefined;
                     } | undefined;
                 } | undefined;
                 incorrectVotes?: {
                     trueCountCache?: {
-                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         index?: number | undefined;
+                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         maxSize?: number | undefined;
                     } | undefined;
                 } | undefined;
-                chain?: string | undefined;
             }[] | undefined;
         } | undefined;
     } & {
         state?: ({
             chain?: {
                 name?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
-            activated?: boolean | undefined;
             assets?: {
                 denom?: string | undefined;
                 isNativeAsset?: boolean | undefined;
             }[] | undefined;
+            activated?: boolean | undefined;
             maintainerStates?: {
                 address?: Buffer | undefined;
+                chain?: string | undefined;
                 missingVotes?: {
                     trueCountCache?: {
-                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         index?: number | undefined;
+                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         maxSize?: number | undefined;
                     } | undefined;
                 } | undefined;
                 incorrectVotes?: {
                     trueCountCache?: {
-                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         index?: number | undefined;
+                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         maxSize?: number | undefined;
                     } | undefined;
                 } | undefined;
-                chain?: string | undefined;
             }[] | undefined;
         } & {
             chain?: ({
                 name?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } & {
                 name?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
-            } & { [K_15 in Exclude<keyof I_1["state"]["chain"], keyof import("../exported/v1beta1/types").Chain>]: never; }) | undefined;
-            activated?: boolean | undefined;
+            } & { [K_15 in Exclude<keyof I_1["state"]["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
             assets?: ({
                 denom?: string | undefined;
                 isNativeAsset?: boolean | undefined;
@@ -1573,58 +1615,61 @@ export declare const ChainStateResponse: {
             } & {
                 denom?: string | undefined;
                 isNativeAsset?: boolean | undefined;
-            } & { [K_16 in Exclude<keyof I_1["state"]["assets"][number], keyof import("../exported/v1beta1/types").Asset>]: never; })[] & { [K_17 in Exclude<keyof I_1["state"]["assets"], keyof {
+            } & { [K_16 in Exclude<keyof I_1["state"]["assets"][number], "$type" | "denom" | "isNativeAsset">]: never; })[] & { [K_17 in Exclude<keyof I_1["state"]["assets"], "$type" | keyof {
                 denom?: string | undefined;
                 isNativeAsset?: boolean | undefined;
             }[]>]: never; }) | undefined;
+            activated?: boolean | undefined;
             maintainerStates?: ({
                 address?: Buffer | undefined;
+                chain?: string | undefined;
                 missingVotes?: {
                     trueCountCache?: {
-                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         index?: number | undefined;
+                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         maxSize?: number | undefined;
                     } | undefined;
                 } | undefined;
                 incorrectVotes?: {
                     trueCountCache?: {
-                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         index?: number | undefined;
+                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         maxSize?: number | undefined;
                     } | undefined;
                 } | undefined;
-                chain?: string | undefined;
             }[] & ({
                 address?: Buffer | undefined;
+                chain?: string | undefined;
                 missingVotes?: {
                     trueCountCache?: {
-                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         index?: number | undefined;
+                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         maxSize?: number | undefined;
                     } | undefined;
                 } | undefined;
                 incorrectVotes?: {
                     trueCountCache?: {
-                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         index?: number | undefined;
+                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         maxSize?: number | undefined;
                     } | undefined;
                 } | undefined;
-                chain?: string | undefined;
             } & {
                 address?: Buffer | undefined;
+                chain?: string | undefined;
                 missingVotes?: ({
                     trueCountCache?: {
-                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         index?: number | undefined;
+                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         maxSize?: number | undefined;
                     } | undefined;
                 } & {
                     trueCountCache?: ({
-                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         index?: number | undefined;
+                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         maxSize?: number | undefined;
                     } & {
+                        index?: number | undefined;
                         cumulativeValue?: ((string | number | Long.Long)[] & (string | number | (Long.Long & {
                             high: number;
                             low: number;
@@ -1682,23 +1727,23 @@ export declare const ChainStateResponse: {
                             toString: (radix?: number | undefined) => string;
                             toUnsigned: () => Long.Long;
                             xor: (other: string | number | Long.Long) => Long.Long;
-                        } & { [K_18 in Exclude<keyof I_1["state"]["maintainerStates"][number]["missingVotes"]["trueCountCache"]["cumulativeValue"][number], keyof Long.Long>]: never; }))[] & { [K_19 in Exclude<keyof I_1["state"]["maintainerStates"][number]["missingVotes"]["trueCountCache"]["cumulativeValue"], keyof (string | number | Long.Long)[]>]: never; }) | undefined;
-                        index?: number | undefined;
+                        } & { [K_18 in Exclude<keyof I_1["state"]["maintainerStates"][number]["missingVotes"]["trueCountCache"]["cumulativeValue"][number], "$type" | keyof Long.Long>]: never; }))[] & { [K_19 in Exclude<keyof I_1["state"]["maintainerStates"][number]["missingVotes"]["trueCountCache"]["cumulativeValue"], "$type" | keyof (string | number | Long.Long)[]>]: never; }) | undefined;
                         maxSize?: number | undefined;
-                    } & { [K_20 in Exclude<keyof I_1["state"]["maintainerStates"][number]["missingVotes"]["trueCountCache"], keyof import("../../utils/v1beta1/bitmap").CircularBuffer>]: never; }) | undefined;
-                } & { [K_21 in Exclude<keyof I_1["state"]["maintainerStates"][number]["missingVotes"], "trueCountCache">]: never; }) | undefined;
+                    } & { [K_20 in Exclude<keyof I_1["state"]["maintainerStates"][number]["missingVotes"]["trueCountCache"], "$type" | "index" | "cumulativeValue" | "maxSize">]: never; }) | undefined;
+                } & { [K_21 in Exclude<keyof I_1["state"]["maintainerStates"][number]["missingVotes"], "$type" | "trueCountCache">]: never; }) | undefined;
                 incorrectVotes?: ({
                     trueCountCache?: {
-                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         index?: number | undefined;
+                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         maxSize?: number | undefined;
                     } | undefined;
                 } & {
                     trueCountCache?: ({
-                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         index?: number | undefined;
+                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         maxSize?: number | undefined;
                     } & {
+                        index?: number | undefined;
                         cumulativeValue?: ((string | number | Long.Long)[] & (string | number | (Long.Long & {
                             high: number;
                             low: number;
@@ -1756,34 +1801,33 @@ export declare const ChainStateResponse: {
                             toString: (radix?: number | undefined) => string;
                             toUnsigned: () => Long.Long;
                             xor: (other: string | number | Long.Long) => Long.Long;
-                        } & { [K_22 in Exclude<keyof I_1["state"]["maintainerStates"][number]["incorrectVotes"]["trueCountCache"]["cumulativeValue"][number], keyof Long.Long>]: never; }))[] & { [K_23 in Exclude<keyof I_1["state"]["maintainerStates"][number]["incorrectVotes"]["trueCountCache"]["cumulativeValue"], keyof (string | number | Long.Long)[]>]: never; }) | undefined;
-                        index?: number | undefined;
+                        } & { [K_22 in Exclude<keyof I_1["state"]["maintainerStates"][number]["incorrectVotes"]["trueCountCache"]["cumulativeValue"][number], "$type" | keyof Long.Long>]: never; }))[] & { [K_23 in Exclude<keyof I_1["state"]["maintainerStates"][number]["incorrectVotes"]["trueCountCache"]["cumulativeValue"], "$type" | keyof (string | number | Long.Long)[]>]: never; }) | undefined;
                         maxSize?: number | undefined;
-                    } & { [K_24 in Exclude<keyof I_1["state"]["maintainerStates"][number]["incorrectVotes"]["trueCountCache"], keyof import("../../utils/v1beta1/bitmap").CircularBuffer>]: never; }) | undefined;
-                } & { [K_25 in Exclude<keyof I_1["state"]["maintainerStates"][number]["incorrectVotes"], "trueCountCache">]: never; }) | undefined;
-                chain?: string | undefined;
-            } & { [K_26 in Exclude<keyof I_1["state"]["maintainerStates"][number], keyof import("./types").MaintainerState>]: never; })[] & { [K_27 in Exclude<keyof I_1["state"]["maintainerStates"], keyof {
+                    } & { [K_24 in Exclude<keyof I_1["state"]["maintainerStates"][number]["incorrectVotes"]["trueCountCache"], "$type" | "index" | "cumulativeValue" | "maxSize">]: never; }) | undefined;
+                } & { [K_25 in Exclude<keyof I_1["state"]["maintainerStates"][number]["incorrectVotes"], "$type" | "trueCountCache">]: never; }) | undefined;
+            } & { [K_26 in Exclude<keyof I_1["state"]["maintainerStates"][number], "$type" | "address" | "chain" | "missingVotes" | "incorrectVotes">]: never; })[] & { [K_27 in Exclude<keyof I_1["state"]["maintainerStates"], "$type" | keyof {
                 address?: Buffer | undefined;
+                chain?: string | undefined;
                 missingVotes?: {
                     trueCountCache?: {
-                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         index?: number | undefined;
+                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         maxSize?: number | undefined;
                     } | undefined;
                 } | undefined;
                 incorrectVotes?: {
                     trueCountCache?: {
-                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         index?: number | undefined;
+                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
                         maxSize?: number | undefined;
                     } | undefined;
                 } | undefined;
-                chain?: string | undefined;
             }[]>]: never; }) | undefined;
-        } & { [K_28 in Exclude<keyof I_1["state"], keyof ChainState>]: never; }) | undefined;
-    } & { [K_29 in Exclude<keyof I_1, "state">]: never; }>(object: I_1): ChainStateResponse;
+        } & { [K_28 in Exclude<keyof I_1["state"], "$type" | "chain" | "assets" | "activated" | "maintainerStates">]: never; }) | undefined;
+    } & { [K_29 in Exclude<keyof I_1, "$type" | "state">]: never; }>(object: I_1): ChainStateResponse;
 };
 export declare const ChainsByAssetRequest: {
+    $type: "axelar.nexus.v1beta1.ChainsByAssetRequest";
     encode(message: ChainsByAssetRequest, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ChainsByAssetRequest;
     fromJSON(object: any): ChainsByAssetRequest;
@@ -1792,14 +1836,15 @@ export declare const ChainsByAssetRequest: {
         asset?: string | undefined;
     } & {
         asset?: string | undefined;
-    } & { [K in Exclude<keyof I, "asset">]: never; }>(base?: I | undefined): ChainsByAssetRequest;
+    } & { [K in Exclude<keyof I, "$type" | "asset">]: never; }>(base?: I | undefined): ChainsByAssetRequest;
     fromPartial<I_1 extends {
         asset?: string | undefined;
     } & {
         asset?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "asset">]: never; }>(object: I_1): ChainsByAssetRequest;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "asset">]: never; }>(object: I_1): ChainsByAssetRequest;
 };
 export declare const ChainsByAssetResponse: {
+    $type: "axelar.nexus.v1beta1.ChainsByAssetResponse";
     encode(message: ChainsByAssetResponse, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ChainsByAssetResponse;
     fromJSON(object: any): ChainsByAssetResponse;
@@ -1807,15 +1852,16 @@ export declare const ChainsByAssetResponse: {
     create<I extends {
         chains?: string[] | undefined;
     } & {
-        chains?: (string[] & string[] & { [K in Exclude<keyof I["chains"], keyof string[]>]: never; }) | undefined;
-    } & { [K_1 in Exclude<keyof I, "chains">]: never; }>(base?: I | undefined): ChainsByAssetResponse;
+        chains?: (string[] & string[] & { [K in Exclude<keyof I["chains"], "$type" | keyof string[]>]: never; }) | undefined;
+    } & { [K_1 in Exclude<keyof I, "$type" | "chains">]: never; }>(base?: I | undefined): ChainsByAssetResponse;
     fromPartial<I_1 extends {
         chains?: string[] | undefined;
     } & {
-        chains?: (string[] & string[] & { [K_2 in Exclude<keyof I_1["chains"], keyof string[]>]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I_1, "chains">]: never; }>(object: I_1): ChainsByAssetResponse;
+        chains?: (string[] & string[] & { [K_2 in Exclude<keyof I_1["chains"], "$type" | keyof string[]>]: never; }) | undefined;
+    } & { [K_3 in Exclude<keyof I_1, "$type" | "chains">]: never; }>(object: I_1): ChainsByAssetResponse;
 };
 export declare const RecipientAddressRequest: {
+    $type: "axelar.nexus.v1beta1.RecipientAddressRequest";
     encode(message: RecipientAddressRequest, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): RecipientAddressRequest;
     fromJSON(object: any): RecipientAddressRequest;
@@ -1826,16 +1872,17 @@ export declare const RecipientAddressRequest: {
     } & {
         depositAddr?: string | undefined;
         depositChain?: string | undefined;
-    } & { [K in Exclude<keyof I, keyof RecipientAddressRequest>]: never; }>(base?: I | undefined): RecipientAddressRequest;
+    } & { [K in Exclude<keyof I, "$type" | "depositAddr" | "depositChain">]: never; }>(base?: I | undefined): RecipientAddressRequest;
     fromPartial<I_1 extends {
         depositAddr?: string | undefined;
         depositChain?: string | undefined;
     } & {
         depositAddr?: string | undefined;
         depositChain?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, keyof RecipientAddressRequest>]: never; }>(object: I_1): RecipientAddressRequest;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "depositAddr" | "depositChain">]: never; }>(object: I_1): RecipientAddressRequest;
 };
 export declare const RecipientAddressResponse: {
+    $type: "axelar.nexus.v1beta1.RecipientAddressResponse";
     encode(message: RecipientAddressResponse, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): RecipientAddressResponse;
     fromJSON(object: any): RecipientAddressResponse;
@@ -1846,36 +1893,38 @@ export declare const RecipientAddressResponse: {
     } & {
         recipientAddr?: string | undefined;
         recipientChain?: string | undefined;
-    } & { [K in Exclude<keyof I, keyof RecipientAddressResponse>]: never; }>(base?: I | undefined): RecipientAddressResponse;
+    } & { [K in Exclude<keyof I, "$type" | "recipientAddr" | "recipientChain">]: never; }>(base?: I | undefined): RecipientAddressResponse;
     fromPartial<I_1 extends {
         recipientAddr?: string | undefined;
         recipientChain?: string | undefined;
     } & {
         recipientAddr?: string | undefined;
         recipientChain?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, keyof RecipientAddressResponse>]: never; }>(object: I_1): RecipientAddressResponse;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "recipientAddr" | "recipientChain">]: never; }>(object: I_1): RecipientAddressResponse;
 };
 export declare const TransferRateLimitRequest: {
+    $type: "axelar.nexus.v1beta1.TransferRateLimitRequest";
     encode(message: TransferRateLimitRequest, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): TransferRateLimitRequest;
     fromJSON(object: any): TransferRateLimitRequest;
     toJSON(message: TransferRateLimitRequest): unknown;
     create<I extends {
-        chain?: string | undefined;
         asset?: string | undefined;
+        chain?: string | undefined;
     } & {
-        chain?: string | undefined;
         asset?: string | undefined;
-    } & { [K in Exclude<keyof I, keyof TransferRateLimitRequest>]: never; }>(base?: I | undefined): TransferRateLimitRequest;
+        chain?: string | undefined;
+    } & { [K in Exclude<keyof I, "$type" | "asset" | "chain">]: never; }>(base?: I | undefined): TransferRateLimitRequest;
     fromPartial<I_1 extends {
-        chain?: string | undefined;
         asset?: string | undefined;
+        chain?: string | undefined;
     } & {
-        chain?: string | undefined;
         asset?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, keyof TransferRateLimitRequest>]: never; }>(object: I_1): TransferRateLimitRequest;
+        chain?: string | undefined;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "asset" | "chain">]: never; }>(object: I_1): TransferRateLimitRequest;
 };
 export declare const TransferRateLimitResponse: {
+    $type: "axelar.nexus.v1beta1.TransferRateLimitResponse";
     encode(message: TransferRateLimitResponse, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): TransferRateLimitResponse;
     fromJSON(object: any): TransferRateLimitResponse;
@@ -1887,6 +1936,7 @@ export declare const TransferRateLimitResponse: {
                 seconds?: string | number | Long.Long | undefined;
                 nanos?: number | undefined;
             } | undefined;
+            to?: Buffer | undefined;
             incoming?: Buffer | undefined;
             outgoing?: Buffer | undefined;
             timeLeft?: {
@@ -1894,7 +1944,6 @@ export declare const TransferRateLimitResponse: {
                 nanos?: number | undefined;
             } | undefined;
             from?: Buffer | undefined;
-            to?: Buffer | undefined;
         } | undefined;
     } & {
         transferRateLimit?: ({
@@ -1903,6 +1952,7 @@ export declare const TransferRateLimitResponse: {
                 seconds?: string | number | Long.Long | undefined;
                 nanos?: number | undefined;
             } | undefined;
+            to?: Buffer | undefined;
             incoming?: Buffer | undefined;
             outgoing?: Buffer | undefined;
             timeLeft?: {
@@ -1910,7 +1960,6 @@ export declare const TransferRateLimitResponse: {
                 nanos?: number | undefined;
             } | undefined;
             from?: Buffer | undefined;
-            to?: Buffer | undefined;
         } & {
             limit?: Buffer | undefined;
             window?: ({
@@ -1974,9 +2023,10 @@ export declare const TransferRateLimitResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
-                } & { [K in Exclude<keyof I["transferRateLimit"]["window"]["seconds"], keyof Long.Long>]: never; }) | undefined;
+                } & { [K in Exclude<keyof I["transferRateLimit"]["window"]["seconds"], "$type" | keyof Long.Long>]: never; }) | undefined;
                 nanos?: number | undefined;
-            } & { [K_1 in Exclude<keyof I["transferRateLimit"]["window"], keyof Duration>]: never; }) | undefined;
+            } & { [K_1 in Exclude<keyof I["transferRateLimit"]["window"], "$type" | "seconds" | "nanos">]: never; }) | undefined;
+            to?: Buffer | undefined;
             incoming?: Buffer | undefined;
             outgoing?: Buffer | undefined;
             timeLeft?: ({
@@ -2040,13 +2090,12 @@ export declare const TransferRateLimitResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
-                } & { [K_2 in Exclude<keyof I["transferRateLimit"]["timeLeft"]["seconds"], keyof Long.Long>]: never; }) | undefined;
+                } & { [K_2 in Exclude<keyof I["transferRateLimit"]["timeLeft"]["seconds"], "$type" | keyof Long.Long>]: never; }) | undefined;
                 nanos?: number | undefined;
-            } & { [K_3 in Exclude<keyof I["transferRateLimit"]["timeLeft"], keyof Duration>]: never; }) | undefined;
+            } & { [K_3 in Exclude<keyof I["transferRateLimit"]["timeLeft"], "$type" | "seconds" | "nanos">]: never; }) | undefined;
             from?: Buffer | undefined;
-            to?: Buffer | undefined;
-        } & { [K_4 in Exclude<keyof I["transferRateLimit"], keyof TransferRateLimit>]: never; }) | undefined;
-    } & { [K_5 in Exclude<keyof I, "transferRateLimit">]: never; }>(base?: I | undefined): TransferRateLimitResponse;
+        } & { [K_4 in Exclude<keyof I["transferRateLimit"], "$type" | "limit" | "window" | "to" | "incoming" | "outgoing" | "timeLeft" | "from">]: never; }) | undefined;
+    } & { [K_5 in Exclude<keyof I, "$type" | "transferRateLimit">]: never; }>(base?: I | undefined): TransferRateLimitResponse;
     fromPartial<I_1 extends {
         transferRateLimit?: {
             limit?: Buffer | undefined;
@@ -2054,6 +2103,7 @@ export declare const TransferRateLimitResponse: {
                 seconds?: string | number | Long.Long | undefined;
                 nanos?: number | undefined;
             } | undefined;
+            to?: Buffer | undefined;
             incoming?: Buffer | undefined;
             outgoing?: Buffer | undefined;
             timeLeft?: {
@@ -2061,7 +2111,6 @@ export declare const TransferRateLimitResponse: {
                 nanos?: number | undefined;
             } | undefined;
             from?: Buffer | undefined;
-            to?: Buffer | undefined;
         } | undefined;
     } & {
         transferRateLimit?: ({
@@ -2070,6 +2119,7 @@ export declare const TransferRateLimitResponse: {
                 seconds?: string | number | Long.Long | undefined;
                 nanos?: number | undefined;
             } | undefined;
+            to?: Buffer | undefined;
             incoming?: Buffer | undefined;
             outgoing?: Buffer | undefined;
             timeLeft?: {
@@ -2077,7 +2127,6 @@ export declare const TransferRateLimitResponse: {
                 nanos?: number | undefined;
             } | undefined;
             from?: Buffer | undefined;
-            to?: Buffer | undefined;
         } & {
             limit?: Buffer | undefined;
             window?: ({
@@ -2141,9 +2190,10 @@ export declare const TransferRateLimitResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
-                } & { [K_6 in Exclude<keyof I_1["transferRateLimit"]["window"]["seconds"], keyof Long.Long>]: never; }) | undefined;
+                } & { [K_6 in Exclude<keyof I_1["transferRateLimit"]["window"]["seconds"], "$type" | keyof Long.Long>]: never; }) | undefined;
                 nanos?: number | undefined;
-            } & { [K_7 in Exclude<keyof I_1["transferRateLimit"]["window"], keyof Duration>]: never; }) | undefined;
+            } & { [K_7 in Exclude<keyof I_1["transferRateLimit"]["window"], "$type" | "seconds" | "nanos">]: never; }) | undefined;
+            to?: Buffer | undefined;
             incoming?: Buffer | undefined;
             outgoing?: Buffer | undefined;
             timeLeft?: ({
@@ -2207,15 +2257,15 @@ export declare const TransferRateLimitResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
-                } & { [K_8 in Exclude<keyof I_1["transferRateLimit"]["timeLeft"]["seconds"], keyof Long.Long>]: never; }) | undefined;
+                } & { [K_8 in Exclude<keyof I_1["transferRateLimit"]["timeLeft"]["seconds"], "$type" | keyof Long.Long>]: never; }) | undefined;
                 nanos?: number | undefined;
-            } & { [K_9 in Exclude<keyof I_1["transferRateLimit"]["timeLeft"], keyof Duration>]: never; }) | undefined;
+            } & { [K_9 in Exclude<keyof I_1["transferRateLimit"]["timeLeft"], "$type" | "seconds" | "nanos">]: never; }) | undefined;
             from?: Buffer | undefined;
-            to?: Buffer | undefined;
-        } & { [K_10 in Exclude<keyof I_1["transferRateLimit"], keyof TransferRateLimit>]: never; }) | undefined;
-    } & { [K_11 in Exclude<keyof I_1, "transferRateLimit">]: never; }>(object: I_1): TransferRateLimitResponse;
+        } & { [K_10 in Exclude<keyof I_1["transferRateLimit"], "$type" | "limit" | "window" | "to" | "incoming" | "outgoing" | "timeLeft" | "from">]: never; }) | undefined;
+    } & { [K_11 in Exclude<keyof I_1, "$type" | "transferRateLimit">]: never; }>(object: I_1): TransferRateLimitResponse;
 };
 export declare const TransferRateLimit: {
+    $type: "axelar.nexus.v1beta1.TransferRateLimit";
     encode(message: TransferRateLimit, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): TransferRateLimit;
     fromJSON(object: any): TransferRateLimit;
@@ -2226,6 +2276,7 @@ export declare const TransferRateLimit: {
             seconds?: string | number | Long.Long | undefined;
             nanos?: number | undefined;
         } | undefined;
+        to?: Buffer | undefined;
         incoming?: Buffer | undefined;
         outgoing?: Buffer | undefined;
         timeLeft?: {
@@ -2233,7 +2284,6 @@ export declare const TransferRateLimit: {
             nanos?: number | undefined;
         } | undefined;
         from?: Buffer | undefined;
-        to?: Buffer | undefined;
     } & {
         limit?: Buffer | undefined;
         window?: ({
@@ -2297,9 +2347,10 @@ export declare const TransferRateLimit: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K in Exclude<keyof I["window"]["seconds"], keyof Long.Long>]: never; }) | undefined;
+            } & { [K in Exclude<keyof I["window"]["seconds"], "$type" | keyof Long.Long>]: never; }) | undefined;
             nanos?: number | undefined;
-        } & { [K_1 in Exclude<keyof I["window"], keyof Duration>]: never; }) | undefined;
+        } & { [K_1 in Exclude<keyof I["window"], "$type" | "seconds" | "nanos">]: never; }) | undefined;
+        to?: Buffer | undefined;
         incoming?: Buffer | undefined;
         outgoing?: Buffer | undefined;
         timeLeft?: ({
@@ -2363,18 +2414,18 @@ export declare const TransferRateLimit: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_2 in Exclude<keyof I["timeLeft"]["seconds"], keyof Long.Long>]: never; }) | undefined;
+            } & { [K_2 in Exclude<keyof I["timeLeft"]["seconds"], "$type" | keyof Long.Long>]: never; }) | undefined;
             nanos?: number | undefined;
-        } & { [K_3 in Exclude<keyof I["timeLeft"], keyof Duration>]: never; }) | undefined;
+        } & { [K_3 in Exclude<keyof I["timeLeft"], "$type" | "seconds" | "nanos">]: never; }) | undefined;
         from?: Buffer | undefined;
-        to?: Buffer | undefined;
-    } & { [K_4 in Exclude<keyof I, keyof TransferRateLimit>]: never; }>(base?: I | undefined): TransferRateLimit;
+    } & { [K_4 in Exclude<keyof I, "$type" | "limit" | "window" | "to" | "incoming" | "outgoing" | "timeLeft" | "from">]: never; }>(base?: I | undefined): TransferRateLimit;
     fromPartial<I_1 extends {
         limit?: Buffer | undefined;
         window?: {
             seconds?: string | number | Long.Long | undefined;
             nanos?: number | undefined;
         } | undefined;
+        to?: Buffer | undefined;
         incoming?: Buffer | undefined;
         outgoing?: Buffer | undefined;
         timeLeft?: {
@@ -2382,7 +2433,6 @@ export declare const TransferRateLimit: {
             nanos?: number | undefined;
         } | undefined;
         from?: Buffer | undefined;
-        to?: Buffer | undefined;
     } & {
         limit?: Buffer | undefined;
         window?: ({
@@ -2446,9 +2496,10 @@ export declare const TransferRateLimit: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_5 in Exclude<keyof I_1["window"]["seconds"], keyof Long.Long>]: never; }) | undefined;
+            } & { [K_5 in Exclude<keyof I_1["window"]["seconds"], "$type" | keyof Long.Long>]: never; }) | undefined;
             nanos?: number | undefined;
-        } & { [K_6 in Exclude<keyof I_1["window"], keyof Duration>]: never; }) | undefined;
+        } & { [K_6 in Exclude<keyof I_1["window"], "$type" | "seconds" | "nanos">]: never; }) | undefined;
+        to?: Buffer | undefined;
         incoming?: Buffer | undefined;
         outgoing?: Buffer | undefined;
         timeLeft?: ({
@@ -2512,14 +2563,14 @@ export declare const TransferRateLimit: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_7 in Exclude<keyof I_1["timeLeft"]["seconds"], keyof Long.Long>]: never; }) | undefined;
+            } & { [K_7 in Exclude<keyof I_1["timeLeft"]["seconds"], "$type" | keyof Long.Long>]: never; }) | undefined;
             nanos?: number | undefined;
-        } & { [K_8 in Exclude<keyof I_1["timeLeft"], keyof Duration>]: never; }) | undefined;
+        } & { [K_8 in Exclude<keyof I_1["timeLeft"], "$type" | "seconds" | "nanos">]: never; }) | undefined;
         from?: Buffer | undefined;
-        to?: Buffer | undefined;
-    } & { [K_9 in Exclude<keyof I_1, keyof TransferRateLimit>]: never; }>(object: I_1): TransferRateLimit;
+    } & { [K_9 in Exclude<keyof I_1, "$type" | "limit" | "window" | "to" | "incoming" | "outgoing" | "timeLeft" | "from">]: never; }>(object: I_1): TransferRateLimit;
 };
 export declare const MessageRequest: {
+    $type: "axelar.nexus.v1beta1.MessageRequest";
     encode(message: MessageRequest, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MessageRequest;
     fromJSON(object: any): MessageRequest;
@@ -2528,132 +2579,133 @@ export declare const MessageRequest: {
         id?: string | undefined;
     } & {
         id?: string | undefined;
-    } & { [K in Exclude<keyof I, "id">]: never; }>(base?: I | undefined): MessageRequest;
+    } & { [K in Exclude<keyof I, "$type" | "id">]: never; }>(base?: I | undefined): MessageRequest;
     fromPartial<I_1 extends {
         id?: string | undefined;
     } & {
         id?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "id">]: never; }>(object: I_1): MessageRequest;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "id">]: never; }>(object: I_1): MessageRequest;
 };
 export declare const MessageResponse: {
+    $type: "axelar.nexus.v1beta1.MessageResponse";
     encode(message: MessageResponse, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MessageResponse;
     fromJSON(object: any): MessageResponse;
     toJSON(message: MessageResponse): unknown;
     create<I extends {
         message?: {
-            id?: string | undefined;
             sender?: {
+                address?: string | undefined;
                 chain?: {
                     name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
-                address?: string | undefined;
             } | undefined;
-            recipient?: {
-                chain?: {
-                    name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
-                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
-                    module?: string | undefined;
-                } | undefined;
-                address?: string | undefined;
-            } | undefined;
-            payloadHash?: Buffer | undefined;
             status?: import("../exported/v1beta1/types").GeneralMessage_Status | undefined;
+            id?: string | undefined;
             asset?: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             } | undefined;
+            recipient?: {
+                address?: string | undefined;
+                chain?: {
+                    name?: string | undefined;
+                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    supportsForeignAssets?: boolean | undefined;
+                    module?: string | undefined;
+                } | undefined;
+            } | undefined;
+            payloadHash?: Buffer | undefined;
             sourceTxId?: Buffer | undefined;
             sourceTxIndex?: string | number | Long.Long | undefined;
         } | undefined;
     } & {
         message?: ({
-            id?: string | undefined;
             sender?: {
+                address?: string | undefined;
                 chain?: {
                     name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
-                address?: string | undefined;
             } | undefined;
-            recipient?: {
-                chain?: {
-                    name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
-                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
-                    module?: string | undefined;
-                } | undefined;
-                address?: string | undefined;
-            } | undefined;
-            payloadHash?: Buffer | undefined;
             status?: import("../exported/v1beta1/types").GeneralMessage_Status | undefined;
+            id?: string | undefined;
             asset?: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             } | undefined;
+            recipient?: {
+                address?: string | undefined;
+                chain?: {
+                    name?: string | undefined;
+                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    supportsForeignAssets?: boolean | undefined;
+                    module?: string | undefined;
+                } | undefined;
+            } | undefined;
+            payloadHash?: Buffer | undefined;
             sourceTxId?: Buffer | undefined;
             sourceTxIndex?: string | number | Long.Long | undefined;
         } & {
-            id?: string | undefined;
             sender?: ({
+                address?: string | undefined;
                 chain?: {
                     name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
-                address?: string | undefined;
             } & {
+                address?: string | undefined;
                 chain?: ({
                     name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } & {
                     name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
-                    module?: string | undefined;
-                } & { [K in Exclude<keyof I["message"]["sender"]["chain"], keyof import("../exported/v1beta1/types").Chain>]: never; }) | undefined;
-                address?: string | undefined;
-            } & { [K_1 in Exclude<keyof I["message"]["sender"], keyof import("../exported/v1beta1/types").CrossChainAddress>]: never; }) | undefined;
-            recipient?: ({
-                chain?: {
-                    name?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
-                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
                     module?: string | undefined;
-                } | undefined;
-                address?: string | undefined;
-            } & {
-                chain?: ({
-                    name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
-                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
-                    module?: string | undefined;
-                } & {
-                    name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
-                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
-                    module?: string | undefined;
-                } & { [K_2 in Exclude<keyof I["message"]["recipient"]["chain"], keyof import("../exported/v1beta1/types").Chain>]: never; }) | undefined;
-                address?: string | undefined;
-            } & { [K_3 in Exclude<keyof I["message"]["recipient"], keyof import("../exported/v1beta1/types").CrossChainAddress>]: never; }) | undefined;
-            payloadHash?: Buffer | undefined;
+                } & { [K in Exclude<keyof I["message"]["sender"]["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+            } & { [K_1 in Exclude<keyof I["message"]["sender"], "$type" | "address" | "chain">]: never; }) | undefined;
             status?: import("../exported/v1beta1/types").GeneralMessage_Status | undefined;
+            id?: string | undefined;
             asset?: ({
                 denom?: string | undefined;
                 amount?: string | undefined;
             } & {
                 denom?: string | undefined;
                 amount?: string | undefined;
-            } & { [K_4 in Exclude<keyof I["message"]["asset"], keyof Coin>]: never; }) | undefined;
+            } & { [K_2 in Exclude<keyof I["message"]["asset"], "$type" | "denom" | "amount">]: never; }) | undefined;
+            recipient?: ({
+                address?: string | undefined;
+                chain?: {
+                    name?: string | undefined;
+                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    supportsForeignAssets?: boolean | undefined;
+                    module?: string | undefined;
+                } | undefined;
+            } & {
+                address?: string | undefined;
+                chain?: ({
+                    name?: string | undefined;
+                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    supportsForeignAssets?: boolean | undefined;
+                    module?: string | undefined;
+                } & {
+                    name?: string | undefined;
+                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    supportsForeignAssets?: boolean | undefined;
+                    module?: string | undefined;
+                } & { [K_3 in Exclude<keyof I["message"]["recipient"]["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+            } & { [K_4 in Exclude<keyof I["message"]["recipient"], "$type" | "address" | "chain">]: never; }) | undefined;
+            payloadHash?: Buffer | undefined;
             sourceTxId?: Buffer | undefined;
             sourceTxIndex?: string | number | (Long.Long & {
                 high: number;
@@ -2712,123 +2764,123 @@ export declare const MessageResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_5 in Exclude<keyof I["message"]["sourceTxIndex"], keyof Long.Long>]: never; }) | undefined;
-        } & { [K_6 in Exclude<keyof I["message"], keyof GeneralMessage>]: never; }) | undefined;
-    } & { [K_7 in Exclude<keyof I, "message">]: never; }>(base?: I | undefined): MessageResponse;
+            } & { [K_5 in Exclude<keyof I["message"]["sourceTxIndex"], "$type" | keyof Long.Long>]: never; }) | undefined;
+        } & { [K_6 in Exclude<keyof I["message"], "$type" | "sender" | "status" | "id" | "asset" | "recipient" | "payloadHash" | "sourceTxId" | "sourceTxIndex">]: never; }) | undefined;
+    } & { [K_7 in Exclude<keyof I, "$type" | "message">]: never; }>(base?: I | undefined): MessageResponse;
     fromPartial<I_1 extends {
         message?: {
-            id?: string | undefined;
             sender?: {
+                address?: string | undefined;
                 chain?: {
                     name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
-                address?: string | undefined;
             } | undefined;
-            recipient?: {
-                chain?: {
-                    name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
-                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
-                    module?: string | undefined;
-                } | undefined;
-                address?: string | undefined;
-            } | undefined;
-            payloadHash?: Buffer | undefined;
             status?: import("../exported/v1beta1/types").GeneralMessage_Status | undefined;
+            id?: string | undefined;
             asset?: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             } | undefined;
+            recipient?: {
+                address?: string | undefined;
+                chain?: {
+                    name?: string | undefined;
+                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    supportsForeignAssets?: boolean | undefined;
+                    module?: string | undefined;
+                } | undefined;
+            } | undefined;
+            payloadHash?: Buffer | undefined;
             sourceTxId?: Buffer | undefined;
             sourceTxIndex?: string | number | Long.Long | undefined;
         } | undefined;
     } & {
         message?: ({
-            id?: string | undefined;
             sender?: {
+                address?: string | undefined;
                 chain?: {
                     name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
-                address?: string | undefined;
             } | undefined;
-            recipient?: {
-                chain?: {
-                    name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
-                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
-                    module?: string | undefined;
-                } | undefined;
-                address?: string | undefined;
-            } | undefined;
-            payloadHash?: Buffer | undefined;
             status?: import("../exported/v1beta1/types").GeneralMessage_Status | undefined;
+            id?: string | undefined;
             asset?: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             } | undefined;
+            recipient?: {
+                address?: string | undefined;
+                chain?: {
+                    name?: string | undefined;
+                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    supportsForeignAssets?: boolean | undefined;
+                    module?: string | undefined;
+                } | undefined;
+            } | undefined;
+            payloadHash?: Buffer | undefined;
             sourceTxId?: Buffer | undefined;
             sourceTxIndex?: string | number | Long.Long | undefined;
         } & {
-            id?: string | undefined;
             sender?: ({
+                address?: string | undefined;
                 chain?: {
                     name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
-                address?: string | undefined;
             } & {
+                address?: string | undefined;
                 chain?: ({
                     name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } & {
                     name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
-                    module?: string | undefined;
-                } & { [K_8 in Exclude<keyof I_1["message"]["sender"]["chain"], keyof import("../exported/v1beta1/types").Chain>]: never; }) | undefined;
-                address?: string | undefined;
-            } & { [K_9 in Exclude<keyof I_1["message"]["sender"], keyof import("../exported/v1beta1/types").CrossChainAddress>]: never; }) | undefined;
-            recipient?: ({
-                chain?: {
-                    name?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
-                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
                     module?: string | undefined;
-                } | undefined;
-                address?: string | undefined;
-            } & {
-                chain?: ({
-                    name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
-                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
-                    module?: string | undefined;
-                } & {
-                    name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
-                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
-                    module?: string | undefined;
-                } & { [K_10 in Exclude<keyof I_1["message"]["recipient"]["chain"], keyof import("../exported/v1beta1/types").Chain>]: never; }) | undefined;
-                address?: string | undefined;
-            } & { [K_11 in Exclude<keyof I_1["message"]["recipient"], keyof import("../exported/v1beta1/types").CrossChainAddress>]: never; }) | undefined;
-            payloadHash?: Buffer | undefined;
+                } & { [K_8 in Exclude<keyof I_1["message"]["sender"]["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+            } & { [K_9 in Exclude<keyof I_1["message"]["sender"], "$type" | "address" | "chain">]: never; }) | undefined;
             status?: import("../exported/v1beta1/types").GeneralMessage_Status | undefined;
+            id?: string | undefined;
             asset?: ({
                 denom?: string | undefined;
                 amount?: string | undefined;
             } & {
                 denom?: string | undefined;
                 amount?: string | undefined;
-            } & { [K_12 in Exclude<keyof I_1["message"]["asset"], keyof Coin>]: never; }) | undefined;
+            } & { [K_10 in Exclude<keyof I_1["message"]["asset"], "$type" | "denom" | "amount">]: never; }) | undefined;
+            recipient?: ({
+                address?: string | undefined;
+                chain?: {
+                    name?: string | undefined;
+                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    supportsForeignAssets?: boolean | undefined;
+                    module?: string | undefined;
+                } | undefined;
+            } & {
+                address?: string | undefined;
+                chain?: ({
+                    name?: string | undefined;
+                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    supportsForeignAssets?: boolean | undefined;
+                    module?: string | undefined;
+                } & {
+                    name?: string | undefined;
+                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    supportsForeignAssets?: boolean | undefined;
+                    module?: string | undefined;
+                } & { [K_11 in Exclude<keyof I_1["message"]["recipient"]["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+            } & { [K_12 in Exclude<keyof I_1["message"]["recipient"], "$type" | "address" | "chain">]: never; }) | undefined;
+            payloadHash?: Buffer | undefined;
             sourceTxId?: Buffer | undefined;
             sourceTxIndex?: string | number | (Long.Long & {
                 high: number;
@@ -2887,25 +2939,29 @@ export declare const MessageResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_13 in Exclude<keyof I_1["message"]["sourceTxIndex"], keyof Long.Long>]: never; }) | undefined;
-        } & { [K_14 in Exclude<keyof I_1["message"], keyof GeneralMessage>]: never; }) | undefined;
-    } & { [K_15 in Exclude<keyof I_1, "message">]: never; }>(object: I_1): MessageResponse;
+            } & { [K_13 in Exclude<keyof I_1["message"]["sourceTxIndex"], "$type" | keyof Long.Long>]: never; }) | undefined;
+        } & { [K_14 in Exclude<keyof I_1["message"], "$type" | "sender" | "status" | "id" | "asset" | "recipient" | "payloadHash" | "sourceTxId" | "sourceTxIndex">]: never; }) | undefined;
+    } & { [K_15 in Exclude<keyof I_1, "$type" | "message">]: never; }>(object: I_1): MessageResponse;
 };
 export declare const ParamsRequest: {
+    $type: "axelar.nexus.v1beta1.ParamsRequest";
     encode(_: ParamsRequest, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ParamsRequest;
     fromJSON(_: any): ParamsRequest;
     toJSON(_: ParamsRequest): unknown;
-    create<I extends {} & {} & { [K in Exclude<keyof I, never>]: never; }>(base?: I | undefined): ParamsRequest;
-    fromPartial<I_1 extends {} & {} & { [K_1 in Exclude<keyof I_1, never>]: never; }>(_: I_1): ParamsRequest;
+    create<I extends {} & {} & { [K in Exclude<keyof I, "$type">]: never; }>(base?: I | undefined): ParamsRequest;
+    fromPartial<I_1 extends {} & {} & { [K_1 in Exclude<keyof I_1, "$type">]: never; }>(_: I_1): ParamsRequest;
 };
 export declare const ParamsResponse: {
+    $type: "axelar.nexus.v1beta1.ParamsResponse";
     encode(message: ParamsResponse, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ParamsResponse;
     fromJSON(object: any): ParamsResponse;
     toJSON(message: ParamsResponse): unknown;
     create<I extends {
         params?: {
+            endBlockerLimit?: string | number | Long.Long | undefined;
+            gateway?: Buffer | undefined;
             chainActivationThreshold?: {
                 numerator?: string | number | Long.Long | undefined;
                 denominator?: string | number | Long.Long | undefined;
@@ -2919,11 +2975,11 @@ export declare const ParamsResponse: {
                 denominator?: string | number | Long.Long | undefined;
             } | undefined;
             chainMaintainerCheckWindow?: number | undefined;
-            gateway?: Buffer | undefined;
-            endBlockerLimit?: string | number | Long.Long | undefined;
         } | undefined;
     } & {
         params?: ({
+            endBlockerLimit?: string | number | Long.Long | undefined;
+            gateway?: Buffer | undefined;
             chainActivationThreshold?: {
                 numerator?: string | number | Long.Long | undefined;
                 denominator?: string | number | Long.Long | undefined;
@@ -2937,9 +2993,66 @@ export declare const ParamsResponse: {
                 denominator?: string | number | Long.Long | undefined;
             } | undefined;
             chainMaintainerCheckWindow?: number | undefined;
-            gateway?: Buffer | undefined;
-            endBlockerLimit?: string | number | Long.Long | undefined;
         } & {
+            endBlockerLimit?: string | number | (Long.Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long.Long) => Long.Long;
+                and: (other: string | number | Long.Long) => Long.Long;
+                compare: (other: string | number | Long.Long) => number;
+                comp: (other: string | number | Long.Long) => number;
+                divide: (divisor: string | number | Long.Long) => Long.Long;
+                div: (divisor: string | number | Long.Long) => Long.Long;
+                equals: (other: string | number | Long.Long) => boolean;
+                eq: (other: string | number | Long.Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long.Long) => boolean;
+                gt: (other: string | number | Long.Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                gte: (other: string | number | Long.Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                lessThan: (other: string | number | Long.Long) => boolean;
+                lt: (other: string | number | Long.Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                lte: (other: string | number | Long.Long) => boolean;
+                modulo: (other: string | number | Long.Long) => Long.Long;
+                mod: (other: string | number | Long.Long) => Long.Long;
+                multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                mul: (multiplier: string | number | Long.Long) => Long.Long;
+                negate: () => Long.Long;
+                neg: () => Long.Long;
+                not: () => Long.Long;
+                notEquals: (other: string | number | Long.Long) => boolean;
+                neq: (other: string | number | Long.Long) => boolean;
+                or: (other: string | number | Long.Long) => Long.Long;
+                shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                shl: (numBits: number | Long.Long) => Long.Long;
+                shiftRight: (numBits: number | Long.Long) => Long.Long;
+                shr: (numBits: number | Long.Long) => Long.Long;
+                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                shru: (numBits: number | Long.Long) => Long.Long;
+                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long.Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long.Long;
+                xor: (other: string | number | Long.Long) => Long.Long;
+            } & { [K in Exclude<keyof I["params"]["endBlockerLimit"], "$type" | keyof Long.Long>]: never; }) | undefined;
+            gateway?: Buffer | undefined;
             chainActivationThreshold?: ({
                 numerator?: string | number | Long.Long | undefined;
                 denominator?: string | number | Long.Long | undefined;
@@ -3001,7 +3114,7 @@ export declare const ParamsResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
-                } & { [K in Exclude<keyof I["params"]["chainActivationThreshold"]["numerator"], keyof Long.Long>]: never; }) | undefined;
+                } & { [K_1 in Exclude<keyof I["params"]["chainActivationThreshold"]["numerator"], "$type" | keyof Long.Long>]: never; }) | undefined;
                 denominator?: string | number | (Long.Long & {
                     high: number;
                     low: number;
@@ -3059,8 +3172,8 @@ export declare const ParamsResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
-                } & { [K_1 in Exclude<keyof I["params"]["chainActivationThreshold"]["denominator"], keyof Long.Long>]: never; }) | undefined;
-            } & { [K_2 in Exclude<keyof I["params"]["chainActivationThreshold"], keyof import("../../utils/v1beta1/threshold").Threshold>]: never; }) | undefined;
+                } & { [K_2 in Exclude<keyof I["params"]["chainActivationThreshold"]["denominator"], "$type" | keyof Long.Long>]: never; }) | undefined;
+            } & { [K_3 in Exclude<keyof I["params"]["chainActivationThreshold"], "$type" | "numerator" | "denominator">]: never; }) | undefined;
             chainMaintainerMissingVoteThreshold?: ({
                 numerator?: string | number | Long.Long | undefined;
                 denominator?: string | number | Long.Long | undefined;
@@ -3122,7 +3235,7 @@ export declare const ParamsResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
-                } & { [K_3 in Exclude<keyof I["params"]["chainMaintainerMissingVoteThreshold"]["numerator"], keyof Long.Long>]: never; }) | undefined;
+                } & { [K_4 in Exclude<keyof I["params"]["chainMaintainerMissingVoteThreshold"]["numerator"], "$type" | keyof Long.Long>]: never; }) | undefined;
                 denominator?: string | number | (Long.Long & {
                     high: number;
                     low: number;
@@ -3180,8 +3293,8 @@ export declare const ParamsResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
-                } & { [K_4 in Exclude<keyof I["params"]["chainMaintainerMissingVoteThreshold"]["denominator"], keyof Long.Long>]: never; }) | undefined;
-            } & { [K_5 in Exclude<keyof I["params"]["chainMaintainerMissingVoteThreshold"], keyof import("../../utils/v1beta1/threshold").Threshold>]: never; }) | undefined;
+                } & { [K_5 in Exclude<keyof I["params"]["chainMaintainerMissingVoteThreshold"]["denominator"], "$type" | keyof Long.Long>]: never; }) | undefined;
+            } & { [K_6 in Exclude<keyof I["params"]["chainMaintainerMissingVoteThreshold"], "$type" | "numerator" | "denominator">]: never; }) | undefined;
             chainMaintainerIncorrectVoteThreshold?: ({
                 numerator?: string | number | Long.Long | undefined;
                 denominator?: string | number | Long.Long | undefined;
@@ -3243,7 +3356,7 @@ export declare const ParamsResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
-                } & { [K_6 in Exclude<keyof I["params"]["chainMaintainerIncorrectVoteThreshold"]["numerator"], keyof Long.Long>]: never; }) | undefined;
+                } & { [K_7 in Exclude<keyof I["params"]["chainMaintainerIncorrectVoteThreshold"]["numerator"], "$type" | keyof Long.Long>]: never; }) | undefined;
                 denominator?: string | number | (Long.Long & {
                     high: number;
                     low: number;
@@ -3301,72 +3414,15 @@ export declare const ParamsResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
-                } & { [K_7 in Exclude<keyof I["params"]["chainMaintainerIncorrectVoteThreshold"]["denominator"], keyof Long.Long>]: never; }) | undefined;
-            } & { [K_8 in Exclude<keyof I["params"]["chainMaintainerIncorrectVoteThreshold"], keyof import("../../utils/v1beta1/threshold").Threshold>]: never; }) | undefined;
+                } & { [K_8 in Exclude<keyof I["params"]["chainMaintainerIncorrectVoteThreshold"]["denominator"], "$type" | keyof Long.Long>]: never; }) | undefined;
+            } & { [K_9 in Exclude<keyof I["params"]["chainMaintainerIncorrectVoteThreshold"], "$type" | "numerator" | "denominator">]: never; }) | undefined;
             chainMaintainerCheckWindow?: number | undefined;
-            gateway?: Buffer | undefined;
-            endBlockerLimit?: string | number | (Long.Long & {
-                high: number;
-                low: number;
-                unsigned: boolean;
-                add: (addend: string | number | Long.Long) => Long.Long;
-                and: (other: string | number | Long.Long) => Long.Long;
-                compare: (other: string | number | Long.Long) => number;
-                comp: (other: string | number | Long.Long) => number;
-                divide: (divisor: string | number | Long.Long) => Long.Long;
-                div: (divisor: string | number | Long.Long) => Long.Long;
-                equals: (other: string | number | Long.Long) => boolean;
-                eq: (other: string | number | Long.Long) => boolean;
-                getHighBits: () => number;
-                getHighBitsUnsigned: () => number;
-                getLowBits: () => number;
-                getLowBitsUnsigned: () => number;
-                getNumBitsAbs: () => number;
-                greaterThan: (other: string | number | Long.Long) => boolean;
-                gt: (other: string | number | Long.Long) => boolean;
-                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-                gte: (other: string | number | Long.Long) => boolean;
-                isEven: () => boolean;
-                isNegative: () => boolean;
-                isOdd: () => boolean;
-                isPositive: () => boolean;
-                isZero: () => boolean;
-                lessThan: (other: string | number | Long.Long) => boolean;
-                lt: (other: string | number | Long.Long) => boolean;
-                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-                lte: (other: string | number | Long.Long) => boolean;
-                modulo: (other: string | number | Long.Long) => Long.Long;
-                mod: (other: string | number | Long.Long) => Long.Long;
-                multiply: (multiplier: string | number | Long.Long) => Long.Long;
-                mul: (multiplier: string | number | Long.Long) => Long.Long;
-                negate: () => Long.Long;
-                neg: () => Long.Long;
-                not: () => Long.Long;
-                notEquals: (other: string | number | Long.Long) => boolean;
-                neq: (other: string | number | Long.Long) => boolean;
-                or: (other: string | number | Long.Long) => Long.Long;
-                shiftLeft: (numBits: number | Long.Long) => Long.Long;
-                shl: (numBits: number | Long.Long) => Long.Long;
-                shiftRight: (numBits: number | Long.Long) => Long.Long;
-                shr: (numBits: number | Long.Long) => Long.Long;
-                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-                shru: (numBits: number | Long.Long) => Long.Long;
-                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-                sub: (subtrahend: string | number | Long.Long) => Long.Long;
-                toInt: () => number;
-                toNumber: () => number;
-                toBytes: (le?: boolean | undefined) => number[];
-                toBytesLE: () => number[];
-                toBytesBE: () => number[];
-                toSigned: () => Long.Long;
-                toString: (radix?: number | undefined) => string;
-                toUnsigned: () => Long.Long;
-                xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_9 in Exclude<keyof I["params"]["endBlockerLimit"], keyof Long.Long>]: never; }) | undefined;
-        } & { [K_10 in Exclude<keyof I["params"], keyof Params>]: never; }) | undefined;
-    } & { [K_11 in Exclude<keyof I, "params">]: never; }>(base?: I | undefined): ParamsResponse;
+        } & { [K_10 in Exclude<keyof I["params"], "$type" | "endBlockerLimit" | "gateway" | "chainActivationThreshold" | "chainMaintainerMissingVoteThreshold" | "chainMaintainerIncorrectVoteThreshold" | "chainMaintainerCheckWindow">]: never; }) | undefined;
+    } & { [K_11 in Exclude<keyof I, "$type" | "params">]: never; }>(base?: I | undefined): ParamsResponse;
     fromPartial<I_1 extends {
         params?: {
+            endBlockerLimit?: string | number | Long.Long | undefined;
+            gateway?: Buffer | undefined;
             chainActivationThreshold?: {
                 numerator?: string | number | Long.Long | undefined;
                 denominator?: string | number | Long.Long | undefined;
@@ -3380,11 +3436,11 @@ export declare const ParamsResponse: {
                 denominator?: string | number | Long.Long | undefined;
             } | undefined;
             chainMaintainerCheckWindow?: number | undefined;
-            gateway?: Buffer | undefined;
-            endBlockerLimit?: string | number | Long.Long | undefined;
         } | undefined;
     } & {
         params?: ({
+            endBlockerLimit?: string | number | Long.Long | undefined;
+            gateway?: Buffer | undefined;
             chainActivationThreshold?: {
                 numerator?: string | number | Long.Long | undefined;
                 denominator?: string | number | Long.Long | undefined;
@@ -3398,9 +3454,66 @@ export declare const ParamsResponse: {
                 denominator?: string | number | Long.Long | undefined;
             } | undefined;
             chainMaintainerCheckWindow?: number | undefined;
-            gateway?: Buffer | undefined;
-            endBlockerLimit?: string | number | Long.Long | undefined;
         } & {
+            endBlockerLimit?: string | number | (Long.Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long.Long) => Long.Long;
+                and: (other: string | number | Long.Long) => Long.Long;
+                compare: (other: string | number | Long.Long) => number;
+                comp: (other: string | number | Long.Long) => number;
+                divide: (divisor: string | number | Long.Long) => Long.Long;
+                div: (divisor: string | number | Long.Long) => Long.Long;
+                equals: (other: string | number | Long.Long) => boolean;
+                eq: (other: string | number | Long.Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long.Long) => boolean;
+                gt: (other: string | number | Long.Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                gte: (other: string | number | Long.Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                lessThan: (other: string | number | Long.Long) => boolean;
+                lt: (other: string | number | Long.Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                lte: (other: string | number | Long.Long) => boolean;
+                modulo: (other: string | number | Long.Long) => Long.Long;
+                mod: (other: string | number | Long.Long) => Long.Long;
+                multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                mul: (multiplier: string | number | Long.Long) => Long.Long;
+                negate: () => Long.Long;
+                neg: () => Long.Long;
+                not: () => Long.Long;
+                notEquals: (other: string | number | Long.Long) => boolean;
+                neq: (other: string | number | Long.Long) => boolean;
+                or: (other: string | number | Long.Long) => Long.Long;
+                shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                shl: (numBits: number | Long.Long) => Long.Long;
+                shiftRight: (numBits: number | Long.Long) => Long.Long;
+                shr: (numBits: number | Long.Long) => Long.Long;
+                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                shru: (numBits: number | Long.Long) => Long.Long;
+                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long.Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long.Long;
+                xor: (other: string | number | Long.Long) => Long.Long;
+            } & { [K_12 in Exclude<keyof I_1["params"]["endBlockerLimit"], "$type" | keyof Long.Long>]: never; }) | undefined;
+            gateway?: Buffer | undefined;
             chainActivationThreshold?: ({
                 numerator?: string | number | Long.Long | undefined;
                 denominator?: string | number | Long.Long | undefined;
@@ -3462,7 +3575,7 @@ export declare const ParamsResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
-                } & { [K_12 in Exclude<keyof I_1["params"]["chainActivationThreshold"]["numerator"], keyof Long.Long>]: never; }) | undefined;
+                } & { [K_13 in Exclude<keyof I_1["params"]["chainActivationThreshold"]["numerator"], "$type" | keyof Long.Long>]: never; }) | undefined;
                 denominator?: string | number | (Long.Long & {
                     high: number;
                     low: number;
@@ -3520,8 +3633,8 @@ export declare const ParamsResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
-                } & { [K_13 in Exclude<keyof I_1["params"]["chainActivationThreshold"]["denominator"], keyof Long.Long>]: never; }) | undefined;
-            } & { [K_14 in Exclude<keyof I_1["params"]["chainActivationThreshold"], keyof import("../../utils/v1beta1/threshold").Threshold>]: never; }) | undefined;
+                } & { [K_14 in Exclude<keyof I_1["params"]["chainActivationThreshold"]["denominator"], "$type" | keyof Long.Long>]: never; }) | undefined;
+            } & { [K_15 in Exclude<keyof I_1["params"]["chainActivationThreshold"], "$type" | "numerator" | "denominator">]: never; }) | undefined;
             chainMaintainerMissingVoteThreshold?: ({
                 numerator?: string | number | Long.Long | undefined;
                 denominator?: string | number | Long.Long | undefined;
@@ -3583,7 +3696,7 @@ export declare const ParamsResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
-                } & { [K_15 in Exclude<keyof I_1["params"]["chainMaintainerMissingVoteThreshold"]["numerator"], keyof Long.Long>]: never; }) | undefined;
+                } & { [K_16 in Exclude<keyof I_1["params"]["chainMaintainerMissingVoteThreshold"]["numerator"], "$type" | keyof Long.Long>]: never; }) | undefined;
                 denominator?: string | number | (Long.Long & {
                     high: number;
                     low: number;
@@ -3641,8 +3754,8 @@ export declare const ParamsResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
-                } & { [K_16 in Exclude<keyof I_1["params"]["chainMaintainerMissingVoteThreshold"]["denominator"], keyof Long.Long>]: never; }) | undefined;
-            } & { [K_17 in Exclude<keyof I_1["params"]["chainMaintainerMissingVoteThreshold"], keyof import("../../utils/v1beta1/threshold").Threshold>]: never; }) | undefined;
+                } & { [K_17 in Exclude<keyof I_1["params"]["chainMaintainerMissingVoteThreshold"]["denominator"], "$type" | keyof Long.Long>]: never; }) | undefined;
+            } & { [K_18 in Exclude<keyof I_1["params"]["chainMaintainerMissingVoteThreshold"], "$type" | "numerator" | "denominator">]: never; }) | undefined;
             chainMaintainerIncorrectVoteThreshold?: ({
                 numerator?: string | number | Long.Long | undefined;
                 denominator?: string | number | Long.Long | undefined;
@@ -3704,7 +3817,7 @@ export declare const ParamsResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
-                } & { [K_18 in Exclude<keyof I_1["params"]["chainMaintainerIncorrectVoteThreshold"]["numerator"], keyof Long.Long>]: never; }) | undefined;
+                } & { [K_19 in Exclude<keyof I_1["params"]["chainMaintainerIncorrectVoteThreshold"]["numerator"], "$type" | keyof Long.Long>]: never; }) | undefined;
                 denominator?: string | number | (Long.Long & {
                     high: number;
                     low: number;
@@ -3762,79 +3875,20 @@ export declare const ParamsResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
-                } & { [K_19 in Exclude<keyof I_1["params"]["chainMaintainerIncorrectVoteThreshold"]["denominator"], keyof Long.Long>]: never; }) | undefined;
-            } & { [K_20 in Exclude<keyof I_1["params"]["chainMaintainerIncorrectVoteThreshold"], keyof import("../../utils/v1beta1/threshold").Threshold>]: never; }) | undefined;
+                } & { [K_20 in Exclude<keyof I_1["params"]["chainMaintainerIncorrectVoteThreshold"]["denominator"], "$type" | keyof Long.Long>]: never; }) | undefined;
+            } & { [K_21 in Exclude<keyof I_1["params"]["chainMaintainerIncorrectVoteThreshold"], "$type" | "numerator" | "denominator">]: never; }) | undefined;
             chainMaintainerCheckWindow?: number | undefined;
-            gateway?: Buffer | undefined;
-            endBlockerLimit?: string | number | (Long.Long & {
-                high: number;
-                low: number;
-                unsigned: boolean;
-                add: (addend: string | number | Long.Long) => Long.Long;
-                and: (other: string | number | Long.Long) => Long.Long;
-                compare: (other: string | number | Long.Long) => number;
-                comp: (other: string | number | Long.Long) => number;
-                divide: (divisor: string | number | Long.Long) => Long.Long;
-                div: (divisor: string | number | Long.Long) => Long.Long;
-                equals: (other: string | number | Long.Long) => boolean;
-                eq: (other: string | number | Long.Long) => boolean;
-                getHighBits: () => number;
-                getHighBitsUnsigned: () => number;
-                getLowBits: () => number;
-                getLowBitsUnsigned: () => number;
-                getNumBitsAbs: () => number;
-                greaterThan: (other: string | number | Long.Long) => boolean;
-                gt: (other: string | number | Long.Long) => boolean;
-                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-                gte: (other: string | number | Long.Long) => boolean;
-                isEven: () => boolean;
-                isNegative: () => boolean;
-                isOdd: () => boolean;
-                isPositive: () => boolean;
-                isZero: () => boolean;
-                lessThan: (other: string | number | Long.Long) => boolean;
-                lt: (other: string | number | Long.Long) => boolean;
-                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-                lte: (other: string | number | Long.Long) => boolean;
-                modulo: (other: string | number | Long.Long) => Long.Long;
-                mod: (other: string | number | Long.Long) => Long.Long;
-                multiply: (multiplier: string | number | Long.Long) => Long.Long;
-                mul: (multiplier: string | number | Long.Long) => Long.Long;
-                negate: () => Long.Long;
-                neg: () => Long.Long;
-                not: () => Long.Long;
-                notEquals: (other: string | number | Long.Long) => boolean;
-                neq: (other: string | number | Long.Long) => boolean;
-                or: (other: string | number | Long.Long) => Long.Long;
-                shiftLeft: (numBits: number | Long.Long) => Long.Long;
-                shl: (numBits: number | Long.Long) => Long.Long;
-                shiftRight: (numBits: number | Long.Long) => Long.Long;
-                shr: (numBits: number | Long.Long) => Long.Long;
-                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-                shru: (numBits: number | Long.Long) => Long.Long;
-                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-                sub: (subtrahend: string | number | Long.Long) => Long.Long;
-                toInt: () => number;
-                toNumber: () => number;
-                toBytes: (le?: boolean | undefined) => number[];
-                toBytesLE: () => number[];
-                toBytesBE: () => number[];
-                toSigned: () => Long.Long;
-                toString: (radix?: number | undefined) => string;
-                toUnsigned: () => Long.Long;
-                xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_21 in Exclude<keyof I_1["params"]["endBlockerLimit"], keyof Long.Long>]: never; }) | undefined;
-        } & { [K_22 in Exclude<keyof I_1["params"], keyof Params>]: never; }) | undefined;
-    } & { [K_23 in Exclude<keyof I_1, "params">]: never; }>(object: I_1): ParamsResponse;
+        } & { [K_22 in Exclude<keyof I_1["params"], "$type" | "endBlockerLimit" | "gateway" | "chainActivationThreshold" | "chainMaintainerMissingVoteThreshold" | "chainMaintainerIncorrectVoteThreshold" | "chainMaintainerCheckWindow">]: never; }) | undefined;
+    } & { [K_23 in Exclude<keyof I_1, "$type" | "params">]: never; }>(object: I_1): ParamsResponse;
 };
 declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
-    [K in keyof T]?: DeepPartial<T[K]>;
+    [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]>;
 } : Partial<T>;
 declare type KeysOfUnion<T> = T extends T ? keyof T : never;
 export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & {
-    [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+    [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never;
 };
 export {};

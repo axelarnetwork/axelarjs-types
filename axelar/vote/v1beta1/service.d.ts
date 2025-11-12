@@ -1,9 +1,10 @@
 import { ParamsRequest, ParamsResponse } from "./query";
-import { VoteRequest, VoteResponse } from "./tx";
+import { UpdateParamsRequest, UpdateParamsResponse, VoteRequest, VoteResponse } from "./tx";
 export declare const protobufPackage = "axelar.vote.v1beta1";
 /** Msg defines the vote Msg service. */
 export interface MsgService {
     Vote(request: VoteRequest): Promise<VoteResponse>;
+    UpdateParams(request: UpdateParamsRequest): Promise<UpdateParamsResponse>;
 }
 export declare const MsgServiceServiceName = "axelar.vote.v1beta1.MsgService";
 export declare class MsgServiceClientImpl implements MsgService {
@@ -13,6 +14,7 @@ export declare class MsgServiceClientImpl implements MsgService {
         service?: string;
     });
     Vote(request: VoteRequest): Promise<VoteResponse>;
+    UpdateParams(request: UpdateParamsRequest): Promise<UpdateParamsResponse>;
 }
 /** QueryService defines the gRPC querier service. */
 export interface QueryService {

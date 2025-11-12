@@ -21,6 +21,7 @@ class MsgServiceClientImpl {
         this.rpc = rpc;
         this.RegisterProxy = this.RegisterProxy.bind(this);
         this.DeactivateProxy = this.DeactivateProxy.bind(this);
+        this.UpdateParams = this.UpdateParams.bind(this);
     }
     RegisterProxy(request) {
         const data = tx_1.RegisterProxyRequest.encode(request).finish();
@@ -31,6 +32,11 @@ class MsgServiceClientImpl {
         const data = tx_1.DeactivateProxyRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "DeactivateProxy", data);
         return promise.then((data) => tx_1.DeactivateProxyResponse.decode(minimal_1.default.Reader.create(data)));
+    }
+    UpdateParams(request) {
+        const data = tx_1.UpdateParamsRequest.encode(request).finish();
+        const promise = this.rpc.request(this.service, "UpdateParams", data);
+        return promise.then((data) => tx_1.UpdateParamsResponse.decode(minimal_1.default.Reader.create(data)));
     }
 }
 exports.MsgServiceClientImpl = MsgServiceClientImpl;

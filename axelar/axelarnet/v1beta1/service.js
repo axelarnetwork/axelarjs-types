@@ -29,6 +29,7 @@ class MsgServiceClientImpl {
         this.RetryIBCTransfer = this.RetryIBCTransfer.bind(this);
         this.RouteMessage = this.RouteMessage.bind(this);
         this.CallContract = this.CallContract.bind(this);
+        this.UpdateParams = this.UpdateParams.bind(this);
     }
     Link(request) {
         const data = tx_1.LinkRequest.encode(request).finish();
@@ -79,6 +80,11 @@ class MsgServiceClientImpl {
         const data = tx_1.CallContractRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "CallContract", data);
         return promise.then((data) => tx_1.CallContractResponse.decode(minimal_1.default.Reader.create(data)));
+    }
+    UpdateParams(request) {
+        const data = tx_1.UpdateParamsRequest.encode(request).finish();
+        const promise = this.rpc.request(this.service, "UpdateParams", data);
+        return promise.then((data) => tx_1.UpdateParamsResponse.decode(minimal_1.default.Reader.create(data)));
     }
 }
 exports.MsgServiceClientImpl = MsgServiceClientImpl;

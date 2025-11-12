@@ -12,11 +12,13 @@ exports.Params = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const typeRegistry_1 = require("../../../typeRegistry");
 const threshold_1 = require("../../utils/v1beta1/threshold");
 const types_1 = require("../exported/v1beta1/types");
 exports.protobufPackage = "axelar.tss.v1beta1";
 function createBaseParams() {
     return {
+        $type: "axelar.tss.v1beta1.Params",
         keyRequirements: [],
         suspendDurationInBlocks: long_1.default.ZERO,
         heartbeatPeriodInBlocks: long_1.default.ZERO,
@@ -29,6 +31,7 @@ function createBaseParams() {
     };
 }
 exports.Params = {
+    $type: "axelar.tss.v1beta1.Params",
     encode(message, writer = minimal_1.default.Writer.create()) {
         for (const v of message.keyRequirements) {
             types_1.KeyRequirement.encode(v, writer.uint32(10).fork()).ldelim();
@@ -130,6 +133,7 @@ exports.Params = {
     },
     fromJSON(object) {
         return {
+            $type: exports.Params.$type,
             keyRequirements: gt.Array.isArray(object === null || object === void 0 ? void 0 : object.keyRequirements)
                 ? object.keyRequirements.map((e) => types_1.KeyRequirement.fromJSON(e))
                 : [],
@@ -232,6 +236,7 @@ exports.Params = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.Params.$type, exports.Params);
 const gt = (() => {
     if (typeof globalThis !== "undefined") {
         return globalThis;

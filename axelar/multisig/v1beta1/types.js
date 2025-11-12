@@ -13,14 +13,23 @@ exports.KeyEpoch = exports.SigningSession = exports.MultiSig_SigsEntry = exports
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
 const any_1 = require("../../../google/protobuf/any");
+const typeRegistry_1 = require("../../../typeRegistry");
 const types_1 = require("../../snapshot/exported/v1beta1/types");
 const threshold_1 = require("../../utils/v1beta1/threshold");
 const types_2 = require("../exported/v1beta1/types");
 exports.protobufPackage = "axelar.multisig.v1beta1";
 function createBaseKey() {
-    return { id: "", snapshot: undefined, pubKeys: {}, signingThreshold: undefined, state: 0 };
+    return {
+        $type: "axelar.multisig.v1beta1.Key",
+        id: "",
+        snapshot: undefined,
+        pubKeys: {},
+        signingThreshold: undefined,
+        state: 0,
+    };
 }
 exports.Key = {
+    $type: "axelar.multisig.v1beta1.Key",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.id !== "") {
             writer.uint32(10).string(message.id);
@@ -29,7 +38,7 @@ exports.Key = {
             types_1.Snapshot.encode(message.snapshot, writer.uint32(18).fork()).ldelim();
         }
         Object.entries(message.pubKeys).forEach(([key, value]) => {
-            exports.Key_PubKeysEntry.encode({ key: key, value }, writer.uint32(26).fork()).ldelim();
+            exports.Key_PubKeysEntry.encode({ $type: "axelar.multisig.v1beta1.Key.PubKeysEntry", key: key, value }, writer.uint32(26).fork()).ldelim();
         });
         if (message.signingThreshold !== undefined) {
             threshold_1.Threshold.encode(message.signingThreshold, writer.uint32(34).fork()).ldelim();
@@ -89,6 +98,7 @@ exports.Key = {
     },
     fromJSON(object) {
         return {
+            $type: exports.Key.$type,
             id: isSet(object.id) ? gt.String(object.id) : "",
             snapshot: isSet(object.snapshot) ? types_1.Snapshot.fromJSON(object.snapshot) : undefined,
             pubKeys: isObject(object.pubKeys)
@@ -153,10 +163,12 @@ exports.Key = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.Key.$type, exports.Key);
 function createBaseKey_PubKeysEntry() {
-    return { key: "", value: Buffer.alloc(0) };
+    return { $type: "axelar.multisig.v1beta1.Key.PubKeysEntry", key: "", value: Buffer.alloc(0) };
 }
 exports.Key_PubKeysEntry = {
+    $type: "axelar.multisig.v1beta1.Key.PubKeysEntry",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.key !== "") {
             writer.uint32(10).string(message.key);
@@ -195,6 +207,7 @@ exports.Key_PubKeysEntry = {
     },
     fromJSON(object) {
         return {
+            $type: exports.Key_PubKeysEntry.$type,
             key: isSet(object.key) ? gt.String(object.key) : "",
             value: isSet(object.value) ? Buffer.from(bytesFromBase64(object.value)) : Buffer.alloc(0),
         };
@@ -220,8 +233,10 @@ exports.Key_PubKeysEntry = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.Key_PubKeysEntry.$type, exports.Key_PubKeysEntry);
 function createBaseKeygenSession() {
     return {
+        $type: "axelar.multisig.v1beta1.KeygenSession",
         key: undefined,
         state: 0,
         keygenThreshold: undefined,
@@ -232,6 +247,7 @@ function createBaseKeygenSession() {
     };
 }
 exports.KeygenSession = {
+    $type: "axelar.multisig.v1beta1.KeygenSession",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.key !== undefined) {
             exports.Key.encode(message.key, writer.uint32(10).fork()).ldelim();
@@ -249,7 +265,11 @@ exports.KeygenSession = {
             writer.uint32(40).int64(message.completedAt);
         }
         Object.entries(message.isPubKeyReceived).forEach(([key, value]) => {
-            exports.KeygenSession_IsPubKeyReceivedEntry.encode({ key: key, value }, writer.uint32(50).fork()).ldelim();
+            exports.KeygenSession_IsPubKeyReceivedEntry.encode({
+                $type: "axelar.multisig.v1beta1.KeygenSession.IsPubKeyReceivedEntry",
+                key: key,
+                value,
+            }, writer.uint32(50).fork()).ldelim();
         });
         if (!message.gracePeriod.equals(long_1.default.ZERO)) {
             writer.uint32(56).int64(message.gracePeriod);
@@ -318,6 +338,7 @@ exports.KeygenSession = {
     },
     fromJSON(object) {
         return {
+            $type: exports.KeygenSession.$type,
             key: isSet(object.key) ? exports.Key.fromJSON(object.key) : undefined,
             state: isSet(object.state) ? (0, types_2.multisigStateFromJSON)(object.state) : 0,
             keygenThreshold: isSet(object.keygenThreshold) ? threshold_1.Threshold.fromJSON(object.keygenThreshold) : undefined,
@@ -396,10 +417,12 @@ exports.KeygenSession = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.KeygenSession.$type, exports.KeygenSession);
 function createBaseKeygenSession_IsPubKeyReceivedEntry() {
-    return { key: "", value: false };
+    return { $type: "axelar.multisig.v1beta1.KeygenSession.IsPubKeyReceivedEntry", key: "", value: false };
 }
 exports.KeygenSession_IsPubKeyReceivedEntry = {
+    $type: "axelar.multisig.v1beta1.KeygenSession.IsPubKeyReceivedEntry",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.key !== "") {
             writer.uint32(10).string(message.key);
@@ -438,6 +461,7 @@ exports.KeygenSession_IsPubKeyReceivedEntry = {
     },
     fromJSON(object) {
         return {
+            $type: exports.KeygenSession_IsPubKeyReceivedEntry.$type,
             key: isSet(object.key) ? gt.String(object.key) : "",
             value: isSet(object.value) ? gt.Boolean(object.value) : false,
         };
@@ -463,10 +487,12 @@ exports.KeygenSession_IsPubKeyReceivedEntry = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.KeygenSession_IsPubKeyReceivedEntry.$type, exports.KeygenSession_IsPubKeyReceivedEntry);
 function createBaseMultiSig() {
-    return { keyId: "", payloadHash: Buffer.alloc(0), sigs: {} };
+    return { $type: "axelar.multisig.v1beta1.MultiSig", keyId: "", payloadHash: Buffer.alloc(0), sigs: {} };
 }
 exports.MultiSig = {
+    $type: "axelar.multisig.v1beta1.MultiSig",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.keyId !== "") {
             writer.uint32(10).string(message.keyId);
@@ -475,7 +501,7 @@ exports.MultiSig = {
             writer.uint32(18).bytes(message.payloadHash);
         }
         Object.entries(message.sigs).forEach(([key, value]) => {
-            exports.MultiSig_SigsEntry.encode({ key: key, value }, writer.uint32(26).fork()).ldelim();
+            exports.MultiSig_SigsEntry.encode({ $type: "axelar.multisig.v1beta1.MultiSig.SigsEntry", key: key, value }, writer.uint32(26).fork()).ldelim();
         });
         return writer;
     },
@@ -517,6 +543,7 @@ exports.MultiSig = {
     },
     fromJSON(object) {
         return {
+            $type: exports.MultiSig.$type,
             keyId: isSet(object.keyId) ? gt.String(object.keyId) : "",
             payloadHash: isSet(object.payloadHash)
                 ? Buffer.from(bytesFromBase64(object.payloadHash))
@@ -565,10 +592,12 @@ exports.MultiSig = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.MultiSig.$type, exports.MultiSig);
 function createBaseMultiSig_SigsEntry() {
-    return { key: "", value: Buffer.alloc(0) };
+    return { $type: "axelar.multisig.v1beta1.MultiSig.SigsEntry", key: "", value: Buffer.alloc(0) };
 }
 exports.MultiSig_SigsEntry = {
+    $type: "axelar.multisig.v1beta1.MultiSig.SigsEntry",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.key !== "") {
             writer.uint32(10).string(message.key);
@@ -607,6 +636,7 @@ exports.MultiSig_SigsEntry = {
     },
     fromJSON(object) {
         return {
+            $type: exports.MultiSig_SigsEntry.$type,
             key: isSet(object.key) ? gt.String(object.key) : "",
             value: isSet(object.value) ? Buffer.from(bytesFromBase64(object.value)) : Buffer.alloc(0),
         };
@@ -632,8 +662,10 @@ exports.MultiSig_SigsEntry = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.MultiSig_SigsEntry.$type, exports.MultiSig_SigsEntry);
 function createBaseSigningSession() {
     return {
+        $type: "axelar.multisig.v1beta1.SigningSession",
         id: long_1.default.UZERO,
         multiSig: undefined,
         state: 0,
@@ -646,6 +678,7 @@ function createBaseSigningSession() {
     };
 }
 exports.SigningSession = {
+    $type: "axelar.multisig.v1beta1.SigningSession",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.id.equals(long_1.default.UZERO)) {
             writer.uint32(8).uint64(message.id);
@@ -747,6 +780,7 @@ exports.SigningSession = {
     },
     fromJSON(object) {
         return {
+            $type: exports.SigningSession.$type,
             id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
             multiSig: isSet(object.multiSig) ? exports.MultiSig.fromJSON(object.multiSig) : undefined,
             state: isSet(object.state) ? (0, types_2.multisigStateFromJSON)(object.state) : 0,
@@ -822,10 +856,12 @@ exports.SigningSession = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.SigningSession.$type, exports.SigningSession);
 function createBaseKeyEpoch() {
-    return { epoch: long_1.default.UZERO, chain: "", keyId: "" };
+    return { $type: "axelar.multisig.v1beta1.KeyEpoch", epoch: long_1.default.UZERO, chain: "", keyId: "" };
 }
 exports.KeyEpoch = {
+    $type: "axelar.multisig.v1beta1.KeyEpoch",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.epoch.equals(long_1.default.UZERO)) {
             writer.uint32(8).uint64(message.epoch);
@@ -873,6 +909,7 @@ exports.KeyEpoch = {
     },
     fromJSON(object) {
         return {
+            $type: exports.KeyEpoch.$type,
             epoch: isSet(object.epoch) ? long_1.default.fromValue(object.epoch) : long_1.default.UZERO,
             chain: isSet(object.chain) ? gt.String(object.chain) : "",
             keyId: isSet(object.keyId) ? gt.String(object.keyId) : "",
@@ -904,6 +941,7 @@ exports.KeyEpoch = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.KeyEpoch.$type, exports.KeyEpoch);
 const gt = (() => {
     if (typeof globalThis !== "undefined") {
         return globalThis;

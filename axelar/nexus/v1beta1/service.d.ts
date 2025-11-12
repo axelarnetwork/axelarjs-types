@@ -1,5 +1,5 @@
 import { AssetsRequest, AssetsResponse, ChainMaintainersRequest, ChainMaintainersResponse, ChainsByAssetRequest, ChainsByAssetResponse, ChainsRequest, ChainsResponse, ChainStateRequest, ChainStateResponse, FeeInfoRequest, FeeInfoResponse, LatestDepositAddressRequest, LatestDepositAddressResponse, MessageRequest, MessageResponse, ParamsRequest, ParamsResponse, RecipientAddressRequest, RecipientAddressResponse, TransferFeeRequest, TransferFeeResponse, TransferRateLimitRequest, TransferRateLimitResponse, TransfersForChainRequest, TransfersForChainResponse } from "./query";
-import { ActivateChainRequest, ActivateChainResponse, DeactivateChainRequest, DeactivateChainResponse, DeregisterChainMaintainerRequest, DeregisterChainMaintainerResponse, RegisterAssetFeeRequest, RegisterAssetFeeResponse, RegisterChainMaintainerRequest, RegisterChainMaintainerResponse, SetTransferRateLimitRequest, SetTransferRateLimitResponse } from "./tx";
+import { ActivateChainRequest, ActivateChainResponse, DeactivateChainRequest, DeactivateChainResponse, DeregisterChainMaintainerRequest, DeregisterChainMaintainerResponse, RegisterAssetFeeRequest, RegisterAssetFeeResponse, RegisterChainMaintainerRequest, RegisterChainMaintainerResponse, SetTransferRateLimitRequest, SetTransferRateLimitResponse, UpdateParamsRequest, UpdateParamsResponse } from "./tx";
 export declare const protobufPackage = "axelar.nexus.v1beta1";
 /** Msg defines the nexus Msg service. */
 export interface MsgService {
@@ -9,6 +9,7 @@ export interface MsgService {
     DeactivateChain(request: DeactivateChainRequest): Promise<DeactivateChainResponse>;
     RegisterAssetFee(request: RegisterAssetFeeRequest): Promise<RegisterAssetFeeResponse>;
     SetTransferRateLimit(request: SetTransferRateLimitRequest): Promise<SetTransferRateLimitResponse>;
+    UpdateParams(request: UpdateParamsRequest): Promise<UpdateParamsResponse>;
 }
 export declare const MsgServiceServiceName = "axelar.nexus.v1beta1.MsgService";
 export declare class MsgServiceClientImpl implements MsgService {
@@ -23,6 +24,7 @@ export declare class MsgServiceClientImpl implements MsgService {
     DeactivateChain(request: DeactivateChainRequest): Promise<DeactivateChainResponse>;
     RegisterAssetFee(request: RegisterAssetFeeRequest): Promise<RegisterAssetFeeResponse>;
     SetTransferRateLimit(request: SetTransferRateLimitRequest): Promise<SetTransferRateLimitResponse>;
+    UpdateParams(request: UpdateParamsRequest): Promise<UpdateParamsResponse>;
 }
 /** QueryService defines the gRPC querier service. */
 export interface QueryService {

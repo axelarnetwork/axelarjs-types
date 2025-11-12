@@ -12,6 +12,7 @@ exports.SigKeyPair = exports.KeyRequirement = exports.keyShareDistributionPolicy
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const typeRegistry_1 = require("../../../../typeRegistry");
 const threshold_1 = require("../../../utils/v1beta1/threshold");
 exports.protobufPackage = "axelar.tss.exported.v1beta1";
 var KeyRole;
@@ -145,6 +146,7 @@ function keyShareDistributionPolicyToJSON(object) {
 exports.keyShareDistributionPolicyToJSON = keyShareDistributionPolicyToJSON;
 function createBaseKeyRequirement() {
     return {
+        $type: "axelar.tss.exported.v1beta1.KeyRequirement",
         keyRole: 0,
         keyType: 0,
         minKeygenThreshold: undefined,
@@ -159,6 +161,7 @@ function createBaseKeyRequirement() {
     };
 }
 exports.KeyRequirement = {
+    $type: "axelar.tss.exported.v1beta1.KeyRequirement",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.keyRole !== 0) {
             writer.uint32(8).int32(message.keyRole);
@@ -278,6 +281,7 @@ exports.KeyRequirement = {
     },
     fromJSON(object) {
         return {
+            $type: exports.KeyRequirement.$type,
             keyRole: isSet(object.keyRole) ? keyRoleFromJSON(object.keyRole) : 0,
             keyType: isSet(object.keyType) ? keyTypeFromJSON(object.keyType) : 0,
             minKeygenThreshold: isSet(object.minKeygenThreshold)
@@ -384,10 +388,16 @@ exports.KeyRequirement = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.KeyRequirement.$type, exports.KeyRequirement);
 function createBaseSigKeyPair() {
-    return { pubKey: Buffer.alloc(0), signature: Buffer.alloc(0) };
+    return {
+        $type: "axelar.tss.exported.v1beta1.SigKeyPair",
+        pubKey: Buffer.alloc(0),
+        signature: Buffer.alloc(0),
+    };
 }
 exports.SigKeyPair = {
+    $type: "axelar.tss.exported.v1beta1.SigKeyPair",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.pubKey.length !== 0) {
             writer.uint32(10).bytes(message.pubKey);
@@ -426,6 +436,7 @@ exports.SigKeyPair = {
     },
     fromJSON(object) {
         return {
+            $type: exports.SigKeyPair.$type,
             pubKey: isSet(object.pubKey) ? Buffer.from(bytesFromBase64(object.pubKey)) : Buffer.alloc(0),
             signature: isSet(object.signature) ? Buffer.from(bytesFromBase64(object.signature)) : Buffer.alloc(0),
         };
@@ -451,6 +462,7 @@ exports.SigKeyPair = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.SigKeyPair.$type, exports.SigKeyPair);
 const gt = (() => {
     if (typeof globalThis !== "undefined") {
         return globalThis;

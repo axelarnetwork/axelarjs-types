@@ -12,11 +12,13 @@ exports.GenesisState = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const typeRegistry_1 = require("../../../typeRegistry");
 exports.protobufPackage = "axelar.auxiliary.v1beta1";
 function createBaseGenesisState() {
-    return {};
+    return { $type: "axelar.auxiliary.v1beta1.GenesisState" };
 }
 exports.GenesisState = {
+    $type: "axelar.auxiliary.v1beta1.GenesisState",
     encode(_, writer = minimal_1.default.Writer.create()) {
         return writer;
     },
@@ -36,7 +38,7 @@ exports.GenesisState = {
         return message;
     },
     fromJSON(_) {
-        return {};
+        return { $type: exports.GenesisState.$type };
     },
     toJSON(_) {
         const obj = {};
@@ -50,6 +52,7 @@ exports.GenesisState = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.GenesisState.$type, exports.GenesisState);
 if (minimal_1.default.util.Long !== long_1.default) {
     minimal_1.default.util.Long = long_1.default;
     minimal_1.default.configure();

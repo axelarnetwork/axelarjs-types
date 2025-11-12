@@ -1,9 +1,10 @@
 import { ParamsRequest, ParamsResponse } from "./query";
-import { HeartBeatRequest, HeartBeatResponse } from "./tx";
+import { HeartBeatRequest, HeartBeatResponse, UpdateParamsRequest, UpdateParamsResponse } from "./tx";
 export declare const protobufPackage = "axelar.tss.v1beta1";
 /** Msg defines the tss Msg service. */
 export interface MsgService {
     HeartBeat(request: HeartBeatRequest): Promise<HeartBeatResponse>;
+    UpdateParams(request: UpdateParamsRequest): Promise<UpdateParamsResponse>;
 }
 export declare const MsgServiceServiceName = "axelar.tss.v1beta1.MsgService";
 export declare class MsgServiceClientImpl implements MsgService {
@@ -13,6 +14,7 @@ export declare class MsgServiceClientImpl implements MsgService {
         service?: string;
     });
     HeartBeat(request: HeartBeatRequest): Promise<HeartBeatResponse>;
+    UpdateParams(request: UpdateParamsRequest): Promise<UpdateParamsResponse>;
 }
 /** Query defines the gRPC querier service. */
 export interface QueryService {

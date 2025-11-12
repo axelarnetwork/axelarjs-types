@@ -12,12 +12,14 @@ exports.GovAccount = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const typeRegistry_1 = require("../../../typeRegistry");
 const types_1 = require("../exported/v1beta1/types");
 exports.protobufPackage = "axelar.permission.v1beta1";
 function createBaseGovAccount() {
-    return { address: Buffer.alloc(0), role: 0 };
+    return { $type: "axelar.permission.v1beta1.GovAccount", address: Buffer.alloc(0), role: 0 };
 }
 exports.GovAccount = {
+    $type: "axelar.permission.v1beta1.GovAccount",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.address.length !== 0) {
             writer.uint32(10).bytes(message.address);
@@ -56,6 +58,7 @@ exports.GovAccount = {
     },
     fromJSON(object) {
         return {
+            $type: exports.GovAccount.$type,
             address: isSet(object.address) ? Buffer.from(bytesFromBase64(object.address)) : Buffer.alloc(0),
             role: isSet(object.role) ? (0, types_1.roleFromJSON)(object.role) : 0,
         };
@@ -81,6 +84,7 @@ exports.GovAccount = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.GovAccount.$type, exports.GovAccount);
 const gt = (() => {
     if (typeof globalThis !== "undefined") {
         return globalThis;

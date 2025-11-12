@@ -12,11 +12,17 @@ exports.Params = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const typeRegistry_1 = require("../../../typeRegistry");
 exports.protobufPackage = "axelar.reward.v1beta1";
 function createBaseParams() {
-    return { externalChainVotingInflationRate: Buffer.alloc(0), keyMgmtRelativeInflationRate: Buffer.alloc(0) };
+    return {
+        $type: "axelar.reward.v1beta1.Params",
+        externalChainVotingInflationRate: Buffer.alloc(0),
+        keyMgmtRelativeInflationRate: Buffer.alloc(0),
+    };
 }
 exports.Params = {
+    $type: "axelar.reward.v1beta1.Params",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.externalChainVotingInflationRate.length !== 0) {
             writer.uint32(10).bytes(message.externalChainVotingInflationRate);
@@ -55,6 +61,7 @@ exports.Params = {
     },
     fromJSON(object) {
         return {
+            $type: exports.Params.$type,
             externalChainVotingInflationRate: isSet(object.externalChainVotingInflationRate)
                 ? Buffer.from(bytesFromBase64(object.externalChainVotingInflationRate))
                 : Buffer.alloc(0),
@@ -84,6 +91,7 @@ exports.Params = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.Params.$type, exports.Params);
 const gt = (() => {
     if (typeof globalThis !== "undefined") {
         return globalThis;

@@ -13,13 +13,20 @@ exports.GenesisState = exports.protobufPackage = void 0;
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
 const keys_1 = require("../../../cosmos/crypto/multisig/keys");
+const typeRegistry_1 = require("../../../typeRegistry");
 const params_1 = require("./params");
 const types_1 = require("./types");
 exports.protobufPackage = "axelar.permission.v1beta1";
 function createBaseGenesisState() {
-    return { params: undefined, governanceKey: undefined, govAccounts: [] };
+    return {
+        $type: "axelar.permission.v1beta1.GenesisState",
+        params: undefined,
+        governanceKey: undefined,
+        govAccounts: [],
+    };
 }
 exports.GenesisState = {
+    $type: "axelar.permission.v1beta1.GenesisState",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.params !== undefined) {
             params_1.Params.encode(message.params, writer.uint32(10).fork()).ldelim();
@@ -67,6 +74,7 @@ exports.GenesisState = {
     },
     fromJSON(object) {
         return {
+            $type: exports.GenesisState.$type,
             params: isSet(object.params) ? params_1.Params.fromJSON(object.params) : undefined,
             governanceKey: isSet(object.governanceKey)
                 ? keys_1.LegacyAminoPubKey.fromJSON(object.governanceKey)
@@ -106,6 +114,7 @@ exports.GenesisState = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.GenesisState.$type, exports.GenesisState);
 const gt = (() => {
     if (typeof globalThis !== "undefined") {
         return globalThis;

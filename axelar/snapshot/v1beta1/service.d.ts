@@ -1,5 +1,5 @@
 import { OperatorByProxyRequest, OperatorByProxyResponse, ParamsRequest, ParamsResponse, ProxyByOperatorRequest, ProxyByOperatorResponse } from "./query";
-import { DeactivateProxyRequest, DeactivateProxyResponse, RegisterProxyRequest, RegisterProxyResponse } from "./tx";
+import { DeactivateProxyRequest, DeactivateProxyResponse, RegisterProxyRequest, RegisterProxyResponse, UpdateParamsRequest, UpdateParamsResponse } from "./tx";
 export declare const protobufPackage = "axelar.snapshot.v1beta1";
 /** Msg defines the snapshot Msg service. */
 export interface MsgService {
@@ -10,6 +10,7 @@ export interface MsgService {
     RegisterProxy(request: RegisterProxyRequest): Promise<RegisterProxyResponse>;
     /** DeactivateProxy defines a method for deregistering a proxy account. */
     DeactivateProxy(request: DeactivateProxyRequest): Promise<DeactivateProxyResponse>;
+    UpdateParams(request: UpdateParamsRequest): Promise<UpdateParamsResponse>;
 }
 export declare const MsgServiceServiceName = "axelar.snapshot.v1beta1.MsgService";
 export declare class MsgServiceClientImpl implements MsgService {
@@ -20,6 +21,7 @@ export declare class MsgServiceClientImpl implements MsgService {
     });
     RegisterProxy(request: RegisterProxyRequest): Promise<RegisterProxyResponse>;
     DeactivateProxy(request: DeactivateProxyRequest): Promise<DeactivateProxyResponse>;
+    UpdateParams(request: UpdateParamsRequest): Promise<UpdateParamsResponse>;
 }
 /** QueryService defines the gRPC querier service. */
 export interface QueryService {

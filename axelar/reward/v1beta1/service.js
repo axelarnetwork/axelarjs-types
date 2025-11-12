@@ -20,11 +20,17 @@ class MsgServiceClientImpl {
         this.service = (opts === null || opts === void 0 ? void 0 : opts.service) || exports.MsgServiceServiceName;
         this.rpc = rpc;
         this.RefundMsg = this.RefundMsg.bind(this);
+        this.UpdateParams = this.UpdateParams.bind(this);
     }
     RefundMsg(request) {
         const data = tx_1.RefundMsgRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "RefundMsg", data);
         return promise.then((data) => tx_1.RefundMsgResponse.decode(minimal_1.default.Reader.create(data)));
+    }
+    UpdateParams(request) {
+        const data = tx_1.UpdateParamsRequest.encode(request).finish();
+        const promise = this.rpc.request(this.service, "UpdateParams", data);
+        return promise.then((data) => tx_1.UpdateParamsResponse.decode(minimal_1.default.Reader.create(data)));
     }
 }
 exports.MsgServiceClientImpl = MsgServiceClientImpl;

@@ -8,16 +8,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DeregisterControllerResponse = exports.DeregisterControllerRequest = exports.RegisterControllerResponse = exports.RegisterControllerRequest = exports.UpdateGovernanceKeyResponse = exports.UpdateGovernanceKeyRequest = exports.protobufPackage = void 0;
+exports.UpdateParamsResponse = exports.UpdateParamsRequest = exports.DeregisterControllerResponse = exports.DeregisterControllerRequest = exports.RegisterControllerResponse = exports.RegisterControllerRequest = exports.UpdateGovernanceKeyResponse = exports.UpdateGovernanceKeyRequest = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
 const keys_1 = require("../../../cosmos/crypto/multisig/keys");
+const typeRegistry_1 = require("../../../typeRegistry");
+const params_1 = require("./params");
 exports.protobufPackage = "axelar.permission.v1beta1";
 function createBaseUpdateGovernanceKeyRequest() {
-    return { governanceKey: undefined, sender: "" };
+    return {
+        $type: "axelar.permission.v1beta1.UpdateGovernanceKeyRequest",
+        governanceKey: undefined,
+        sender: "",
+    };
 }
 exports.UpdateGovernanceKeyRequest = {
+    $type: "axelar.permission.v1beta1.UpdateGovernanceKeyRequest",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.governanceKey !== undefined) {
             keys_1.LegacyAminoPubKey.encode(message.governanceKey, writer.uint32(18).fork()).ldelim();
@@ -56,6 +63,7 @@ exports.UpdateGovernanceKeyRequest = {
     },
     fromJSON(object) {
         return {
+            $type: exports.UpdateGovernanceKeyRequest.$type,
             governanceKey: isSet(object.governanceKey)
                 ? keys_1.LegacyAminoPubKey.fromJSON(object.governanceKey)
                 : undefined,
@@ -86,10 +94,12 @@ exports.UpdateGovernanceKeyRequest = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.UpdateGovernanceKeyRequest.$type, exports.UpdateGovernanceKeyRequest);
 function createBaseUpdateGovernanceKeyResponse() {
-    return {};
+    return { $type: "axelar.permission.v1beta1.UpdateGovernanceKeyResponse" };
 }
 exports.UpdateGovernanceKeyResponse = {
+    $type: "axelar.permission.v1beta1.UpdateGovernanceKeyResponse",
     encode(_, writer = minimal_1.default.Writer.create()) {
         return writer;
     },
@@ -109,7 +119,7 @@ exports.UpdateGovernanceKeyResponse = {
         return message;
     },
     fromJSON(_) {
-        return {};
+        return { $type: exports.UpdateGovernanceKeyResponse.$type };
     },
     toJSON(_) {
         const obj = {};
@@ -123,10 +133,16 @@ exports.UpdateGovernanceKeyResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.UpdateGovernanceKeyResponse.$type, exports.UpdateGovernanceKeyResponse);
 function createBaseRegisterControllerRequest() {
-    return { controller: Buffer.alloc(0), sender: "" };
+    return {
+        $type: "axelar.permission.v1beta1.RegisterControllerRequest",
+        controller: Buffer.alloc(0),
+        sender: "",
+    };
 }
 exports.RegisterControllerRequest = {
+    $type: "axelar.permission.v1beta1.RegisterControllerRequest",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.controller.length !== 0) {
             writer.uint32(18).bytes(message.controller);
@@ -165,6 +181,7 @@ exports.RegisterControllerRequest = {
     },
     fromJSON(object) {
         return {
+            $type: exports.RegisterControllerRequest.$type,
             controller: isSet(object.controller)
                 ? Buffer.from(bytesFromBase64(object.controller))
                 : Buffer.alloc(0),
@@ -192,10 +209,12 @@ exports.RegisterControllerRequest = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.RegisterControllerRequest.$type, exports.RegisterControllerRequest);
 function createBaseRegisterControllerResponse() {
-    return {};
+    return { $type: "axelar.permission.v1beta1.RegisterControllerResponse" };
 }
 exports.RegisterControllerResponse = {
+    $type: "axelar.permission.v1beta1.RegisterControllerResponse",
     encode(_, writer = minimal_1.default.Writer.create()) {
         return writer;
     },
@@ -215,7 +234,7 @@ exports.RegisterControllerResponse = {
         return message;
     },
     fromJSON(_) {
-        return {};
+        return { $type: exports.RegisterControllerResponse.$type };
     },
     toJSON(_) {
         const obj = {};
@@ -229,10 +248,16 @@ exports.RegisterControllerResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.RegisterControllerResponse.$type, exports.RegisterControllerResponse);
 function createBaseDeregisterControllerRequest() {
-    return { controller: Buffer.alloc(0), sender: "" };
+    return {
+        $type: "axelar.permission.v1beta1.DeregisterControllerRequest",
+        controller: Buffer.alloc(0),
+        sender: "",
+    };
 }
 exports.DeregisterControllerRequest = {
+    $type: "axelar.permission.v1beta1.DeregisterControllerRequest",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.controller.length !== 0) {
             writer.uint32(18).bytes(message.controller);
@@ -271,6 +296,7 @@ exports.DeregisterControllerRequest = {
     },
     fromJSON(object) {
         return {
+            $type: exports.DeregisterControllerRequest.$type,
             controller: isSet(object.controller)
                 ? Buffer.from(bytesFromBase64(object.controller))
                 : Buffer.alloc(0),
@@ -298,10 +324,12 @@ exports.DeregisterControllerRequest = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.DeregisterControllerRequest.$type, exports.DeregisterControllerRequest);
 function createBaseDeregisterControllerResponse() {
-    return {};
+    return { $type: "axelar.permission.v1beta1.DeregisterControllerResponse" };
 }
 exports.DeregisterControllerResponse = {
+    $type: "axelar.permission.v1beta1.DeregisterControllerResponse",
     encode(_, writer = minimal_1.default.Writer.create()) {
         return writer;
     },
@@ -321,7 +349,7 @@ exports.DeregisterControllerResponse = {
         return message;
     },
     fromJSON(_) {
-        return {};
+        return { $type: exports.DeregisterControllerResponse.$type };
     },
     toJSON(_) {
         const obj = {};
@@ -335,6 +363,117 @@ exports.DeregisterControllerResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.DeregisterControllerResponse.$type, exports.DeregisterControllerResponse);
+function createBaseUpdateParamsRequest() {
+    return { $type: "axelar.permission.v1beta1.UpdateParamsRequest", authority: "", params: undefined };
+}
+exports.UpdateParamsRequest = {
+    $type: "axelar.permission.v1beta1.UpdateParamsRequest",
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (message.authority !== "") {
+            writer.uint32(10).string(message.authority);
+        }
+        if (message.params !== undefined) {
+            params_1.Params.encode(message.params, writer.uint32(18).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseUpdateParamsRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    if (tag !== 10) {
+                        break;
+                    }
+                    message.authority = reader.string();
+                    continue;
+                case 2:
+                    if (tag !== 18) {
+                        break;
+                    }
+                    message.params = params_1.Params.decode(reader, reader.uint32());
+                    continue;
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            $type: exports.UpdateParamsRequest.$type,
+            authority: isSet(object.authority) ? gt.String(object.authority) : "",
+            params: isSet(object.params) ? params_1.Params.fromJSON(object.params) : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.authority !== "") {
+            obj.authority = message.authority;
+        }
+        if (message.params !== undefined) {
+            obj.params = params_1.Params.toJSON(message.params);
+        }
+        return obj;
+    },
+    create(base) {
+        return exports.UpdateParamsRequest.fromPartial(base !== null && base !== void 0 ? base : {});
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseUpdateParamsRequest();
+        message.authority = (_a = object.authority) !== null && _a !== void 0 ? _a : "";
+        message.params =
+            object.params !== undefined && object.params !== null ? params_1.Params.fromPartial(object.params) : undefined;
+        return message;
+    },
+};
+typeRegistry_1.messageTypeRegistry.set(exports.UpdateParamsRequest.$type, exports.UpdateParamsRequest);
+function createBaseUpdateParamsResponse() {
+    return { $type: "axelar.permission.v1beta1.UpdateParamsResponse" };
+}
+exports.UpdateParamsResponse = {
+    $type: "axelar.permission.v1beta1.UpdateParamsResponse",
+    encode(_, writer = minimal_1.default.Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseUpdateParamsResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(_) {
+        return { $type: exports.UpdateParamsResponse.$type };
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    create(base) {
+        return exports.UpdateParamsResponse.fromPartial(base !== null && base !== void 0 ? base : {});
+    },
+    fromPartial(_) {
+        const message = createBaseUpdateParamsResponse();
+        return message;
+    },
+};
+typeRegistry_1.messageTypeRegistry.set(exports.UpdateParamsResponse.$type, exports.UpdateParamsResponse);
 const gt = (() => {
     if (typeof globalThis !== "undefined") {
         return globalThis;

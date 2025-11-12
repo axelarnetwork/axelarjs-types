@@ -12,11 +12,18 @@ exports.ProxiedValidator = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const typeRegistry_1 = require("../../../typeRegistry");
 exports.protobufPackage = "axelar.snapshot.v1beta1";
 function createBaseProxiedValidator() {
-    return { validator: Buffer.alloc(0), proxy: Buffer.alloc(0), active: false };
+    return {
+        $type: "axelar.snapshot.v1beta1.ProxiedValidator",
+        validator: Buffer.alloc(0),
+        proxy: Buffer.alloc(0),
+        active: false,
+    };
 }
 exports.ProxiedValidator = {
+    $type: "axelar.snapshot.v1beta1.ProxiedValidator",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.validator.length !== 0) {
             writer.uint32(10).bytes(message.validator);
@@ -64,6 +71,7 @@ exports.ProxiedValidator = {
     },
     fromJSON(object) {
         return {
+            $type: exports.ProxiedValidator.$type,
             validator: isSet(object.validator) ? Buffer.from(bytesFromBase64(object.validator)) : Buffer.alloc(0),
             proxy: isSet(object.proxy) ? Buffer.from(bytesFromBase64(object.proxy)) : Buffer.alloc(0),
             active: isSet(object.active) ? gt.Boolean(object.active) : false,
@@ -94,6 +102,7 @@ exports.ProxiedValidator = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.ProxiedValidator.$type, exports.ProxiedValidator);
 const gt = (() => {
     if (typeof globalThis !== "undefined") {
         return globalThis;

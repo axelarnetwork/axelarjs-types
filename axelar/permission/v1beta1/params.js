@@ -12,11 +12,13 @@ exports.Params = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const typeRegistry_1 = require("../../../typeRegistry");
 exports.protobufPackage = "axelar.permission.v1beta1";
 function createBaseParams() {
-    return {};
+    return { $type: "axelar.permission.v1beta1.Params" };
 }
 exports.Params = {
+    $type: "axelar.permission.v1beta1.Params",
     encode(_, writer = minimal_1.default.Writer.create()) {
         return writer;
     },
@@ -36,7 +38,7 @@ exports.Params = {
         return message;
     },
     fromJSON(_) {
-        return {};
+        return { $type: exports.Params.$type };
     },
     toJSON(_) {
         const obj = {};
@@ -50,6 +52,7 @@ exports.Params = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.Params.$type, exports.Params);
 if (minimal_1.default.util.Long !== long_1.default) {
     minimal_1.default.util.Long = long_1.default;
     minimal_1.default.configure();

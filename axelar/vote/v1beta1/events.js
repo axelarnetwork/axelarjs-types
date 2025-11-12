@@ -12,11 +12,13 @@ exports.Voted = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const typeRegistry_1 = require("../../../typeRegistry");
 exports.protobufPackage = "axelar.vote.v1beta1";
 function createBaseVoted() {
-    return { module: "", action: "", poll: "", voter: "", state: "" };
+    return { $type: "axelar.vote.v1beta1.Voted", module: "", action: "", poll: "", voter: "", state: "" };
 }
 exports.Voted = {
+    $type: "axelar.vote.v1beta1.Voted",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.module !== "") {
             writer.uint32(10).string(message.module);
@@ -82,6 +84,7 @@ exports.Voted = {
     },
     fromJSON(object) {
         return {
+            $type: exports.Voted.$type,
             module: isSet(object.module) ? gt.String(object.module) : "",
             action: isSet(object.action) ? gt.String(object.action) : "",
             poll: isSet(object.poll) ? gt.String(object.poll) : "",
@@ -122,6 +125,7 @@ exports.Voted = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.Voted.$type, exports.Voted);
 const gt = (() => {
     if (typeof globalThis !== "undefined") {
         return globalThis;

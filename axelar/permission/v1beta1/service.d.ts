@@ -1,11 +1,12 @@
 import { ParamsRequest, ParamsResponse, QueryGovernanceKeyRequest, QueryGovernanceKeyResponse } from "./query";
-import { DeregisterControllerRequest, DeregisterControllerResponse, RegisterControllerRequest, RegisterControllerResponse, UpdateGovernanceKeyRequest, UpdateGovernanceKeyResponse } from "./tx";
+import { DeregisterControllerRequest, DeregisterControllerResponse, RegisterControllerRequest, RegisterControllerResponse, UpdateGovernanceKeyRequest, UpdateGovernanceKeyResponse, UpdateParamsRequest, UpdateParamsResponse } from "./tx";
 export declare const protobufPackage = "axelar.permission.v1beta1";
 /** Msg defines the gov Msg service. */
 export interface Msg {
     RegisterController(request: RegisterControllerRequest): Promise<RegisterControllerResponse>;
     DeregisterController(request: DeregisterControllerRequest): Promise<DeregisterControllerResponse>;
     UpdateGovernanceKey(request: UpdateGovernanceKeyRequest): Promise<UpdateGovernanceKeyResponse>;
+    UpdateParams(request: UpdateParamsRequest): Promise<UpdateParamsResponse>;
 }
 export declare const MsgServiceName = "axelar.permission.v1beta1.Msg";
 export declare class MsgClientImpl implements Msg {
@@ -17,6 +18,7 @@ export declare class MsgClientImpl implements Msg {
     RegisterController(request: RegisterControllerRequest): Promise<RegisterControllerResponse>;
     DeregisterController(request: DeregisterControllerRequest): Promise<DeregisterControllerResponse>;
     UpdateGovernanceKey(request: UpdateGovernanceKeyRequest): Promise<UpdateGovernanceKeyResponse>;
+    UpdateParams(request: UpdateParamsRequest): Promise<UpdateParamsResponse>;
 }
 /** Query defines the gRPC querier service. */
 export interface Query {

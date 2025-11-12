@@ -55,10 +55,12 @@ export declare enum DepositStatus {
 export declare function depositStatusFromJSON(object: any): DepositStatus;
 export declare function depositStatusToJSON(object: DepositStatus): string;
 export interface VoteEvents {
+    $type: "axelar.evm.v1beta1.VoteEvents";
     chain: string;
     events: Event[];
 }
 export interface Event {
+    $type: "axelar.evm.v1beta1.Event";
     chain: string;
     txId: Buffer;
     index: Long;
@@ -82,6 +84,7 @@ export declare enum Event_Status {
 export declare function event_StatusFromJSON(object: any): Event_Status;
 export declare function event_StatusToJSON(object: Event_Status): string;
 export interface EventTokenSent {
+    $type: "axelar.evm.v1beta1.EventTokenSent";
     sender: Buffer;
     destinationChain: string;
     destinationAddress: string;
@@ -89,12 +92,14 @@ export interface EventTokenSent {
     amount: Buffer;
 }
 export interface EventContractCall {
+    $type: "axelar.evm.v1beta1.EventContractCall";
     sender: Buffer;
     destinationChain: string;
     contractAddress: string;
     payloadHash: Buffer;
 }
 export interface EventContractCallWithToken {
+    $type: "axelar.evm.v1beta1.EventContractCallWithToken";
     sender: Buffer;
     destinationChain: string;
     contractAddress: string;
@@ -103,27 +108,32 @@ export interface EventContractCallWithToken {
     amount: Buffer;
 }
 export interface EventTransfer {
+    $type: "axelar.evm.v1beta1.EventTransfer";
     to: Buffer;
     amount: Buffer;
 }
 export interface EventTokenDeployed {
+    $type: "axelar.evm.v1beta1.EventTokenDeployed";
     symbol: string;
     tokenAddress: Buffer;
 }
 /** @deprecated */
 export interface EventMultisigOwnershipTransferred {
+    $type: "axelar.evm.v1beta1.EventMultisigOwnershipTransferred";
     preOwners: Buffer[];
     prevThreshold: Buffer;
     newOwners: Buffer[];
     newThreshold: Buffer;
 }
 export interface EventMultisigOperatorshipTransferred {
+    $type: "axelar.evm.v1beta1.EventMultisigOperatorshipTransferred";
     newOperators: Buffer[];
     newThreshold: Buffer;
     newWeights: Buffer[];
 }
 /** NetworkInfo describes information about a network */
 export interface NetworkInfo {
+    $type: "axelar.evm.v1beta1.NetworkInfo";
     name: string;
     id: Buffer;
 }
@@ -132,6 +142,7 @@ export interface NetworkInfo {
  * that is deposited by an user
  */
 export interface BurnerInfo {
+    $type: "axelar.evm.v1beta1.BurnerInfo";
     burnerAddress: Buffer;
     tokenAddress: Buffer;
     destinationChain: string;
@@ -141,6 +152,7 @@ export interface BurnerInfo {
 }
 /** ERC20Deposit contains information for an ERC20 deposit */
 export interface ERC20Deposit {
+    $type: "axelar.evm.v1beta1.ERC20Deposit";
     txId: Buffer;
     amount: Buffer;
     asset: string;
@@ -150,6 +162,7 @@ export interface ERC20Deposit {
 }
 /** ERC20TokenMetadata describes information about an ERC20 token */
 export interface ERC20TokenMetadata {
+    $type: "axelar.evm.v1beta1.ERC20TokenMetadata";
     asset: string;
     chainId: Buffer;
     details?: TokenDetails | undefined;
@@ -160,10 +173,12 @@ export interface ERC20TokenMetadata {
     burnerCode: Buffer;
 }
 export interface TransactionMetadata {
+    $type: "axelar.evm.v1beta1.TransactionMetadata";
     rawTx: Buffer;
     pubKey: Buffer;
 }
 export interface Command {
+    $type: "axelar.evm.v1beta1.Command";
     id: Buffer;
     /** @deprecated */
     command: string;
@@ -173,6 +188,7 @@ export interface Command {
     type: CommandType;
 }
 export interface CommandBatchMetadata {
+    $type: "axelar.evm.v1beta1.CommandBatchMetadata";
     id: Buffer;
     commandIds: Buffer[];
     data: Buffer;
@@ -187,50 +203,56 @@ export interface CommandBatchMetadata {
  * results to evm relay transaction types
  */
 export interface SigMetadata {
+    $type: "axelar.evm.v1beta1.SigMetadata";
     type: SigType;
     chain: string;
     commandBatchId: Buffer;
 }
 /** TransferKey contains information for a transfer operatorship */
 export interface TransferKey {
+    $type: "axelar.evm.v1beta1.TransferKey";
     txId: Buffer;
     nextKeyId: string;
 }
 export interface Asset {
+    $type: "axelar.evm.v1beta1.Asset";
     chain: string;
     name: string;
 }
 export interface TokenDetails {
+    $type: "axelar.evm.v1beta1.TokenDetails";
     tokenName: string;
     symbol: string;
     decimals: number;
     capacity: Buffer;
 }
 export interface Gateway {
+    $type: "axelar.evm.v1beta1.Gateway";
     address: Buffer;
 }
 export interface PollMetadata {
+    $type: "axelar.evm.v1beta1.PollMetadata";
     chain: string;
     txId: Buffer;
 }
 export declare const VoteEvents: {
+    $type: "axelar.evm.v1beta1.VoteEvents";
     encode(message: VoteEvents, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): VoteEvents;
     fromJSON(object: any): VoteEvents;
     toJSON(message: VoteEvents): unknown;
     create<I extends {
-        chain?: string | undefined;
         events?: {
-            chain?: string | undefined;
-            txId?: Buffer | undefined;
             index?: string | number | Long.Long | undefined;
             status?: Event_Status | undefined;
+            chain?: string | undefined;
+            txId?: Buffer | undefined;
             tokenSent?: {
+                symbol?: string | undefined;
                 sender?: Buffer | undefined;
+                amount?: Buffer | undefined;
                 destinationChain?: string | undefined;
                 destinationAddress?: string | undefined;
-                symbol?: string | undefined;
-                amount?: Buffer | undefined;
             } | undefined;
             contractCall?: {
                 sender?: Buffer | undefined;
@@ -239,16 +261,16 @@ export declare const VoteEvents: {
                 payloadHash?: Buffer | undefined;
             } | undefined;
             contractCallWithToken?: {
+                symbol?: string | undefined;
                 sender?: Buffer | undefined;
+                amount?: Buffer | undefined;
                 destinationChain?: string | undefined;
                 contractAddress?: string | undefined;
                 payloadHash?: Buffer | undefined;
-                symbol?: string | undefined;
-                amount?: Buffer | undefined;
             } | undefined;
             transfer?: {
-                to?: Buffer | undefined;
                 amount?: Buffer | undefined;
+                to?: Buffer | undefined;
             } | undefined;
             tokenDeployed?: {
                 symbol?: string | undefined;
@@ -261,24 +283,24 @@ export declare const VoteEvents: {
                 newThreshold?: Buffer | undefined;
             } | undefined;
             multisigOperatorshipTransferred?: {
-                newOperators?: Buffer[] | undefined;
                 newThreshold?: Buffer | undefined;
+                newOperators?: Buffer[] | undefined;
                 newWeights?: Buffer[] | undefined;
             } | undefined;
         }[] | undefined;
-    } & {
         chain?: string | undefined;
+    } & {
         events?: ({
-            chain?: string | undefined;
-            txId?: Buffer | undefined;
             index?: string | number | Long.Long | undefined;
             status?: Event_Status | undefined;
+            chain?: string | undefined;
+            txId?: Buffer | undefined;
             tokenSent?: {
+                symbol?: string | undefined;
                 sender?: Buffer | undefined;
+                amount?: Buffer | undefined;
                 destinationChain?: string | undefined;
                 destinationAddress?: string | undefined;
-                symbol?: string | undefined;
-                amount?: Buffer | undefined;
             } | undefined;
             contractCall?: {
                 sender?: Buffer | undefined;
@@ -287,16 +309,16 @@ export declare const VoteEvents: {
                 payloadHash?: Buffer | undefined;
             } | undefined;
             contractCallWithToken?: {
+                symbol?: string | undefined;
                 sender?: Buffer | undefined;
+                amount?: Buffer | undefined;
                 destinationChain?: string | undefined;
                 contractAddress?: string | undefined;
                 payloadHash?: Buffer | undefined;
-                symbol?: string | undefined;
-                amount?: Buffer | undefined;
             } | undefined;
             transfer?: {
-                to?: Buffer | undefined;
                 amount?: Buffer | undefined;
+                to?: Buffer | undefined;
             } | undefined;
             tokenDeployed?: {
                 symbol?: string | undefined;
@@ -309,21 +331,21 @@ export declare const VoteEvents: {
                 newThreshold?: Buffer | undefined;
             } | undefined;
             multisigOperatorshipTransferred?: {
-                newOperators?: Buffer[] | undefined;
                 newThreshold?: Buffer | undefined;
+                newOperators?: Buffer[] | undefined;
                 newWeights?: Buffer[] | undefined;
             } | undefined;
         }[] & ({
-            chain?: string | undefined;
-            txId?: Buffer | undefined;
             index?: string | number | Long.Long | undefined;
             status?: Event_Status | undefined;
+            chain?: string | undefined;
+            txId?: Buffer | undefined;
             tokenSent?: {
+                symbol?: string | undefined;
                 sender?: Buffer | undefined;
+                amount?: Buffer | undefined;
                 destinationChain?: string | undefined;
                 destinationAddress?: string | undefined;
-                symbol?: string | undefined;
-                amount?: Buffer | undefined;
             } | undefined;
             contractCall?: {
                 sender?: Buffer | undefined;
@@ -332,16 +354,16 @@ export declare const VoteEvents: {
                 payloadHash?: Buffer | undefined;
             } | undefined;
             contractCallWithToken?: {
+                symbol?: string | undefined;
                 sender?: Buffer | undefined;
+                amount?: Buffer | undefined;
                 destinationChain?: string | undefined;
                 contractAddress?: string | undefined;
                 payloadHash?: Buffer | undefined;
-                symbol?: string | undefined;
-                amount?: Buffer | undefined;
             } | undefined;
             transfer?: {
-                to?: Buffer | undefined;
                 amount?: Buffer | undefined;
+                to?: Buffer | undefined;
             } | undefined;
             tokenDeployed?: {
                 symbol?: string | undefined;
@@ -354,13 +376,11 @@ export declare const VoteEvents: {
                 newThreshold?: Buffer | undefined;
             } | undefined;
             multisigOperatorshipTransferred?: {
-                newOperators?: Buffer[] | undefined;
                 newThreshold?: Buffer | undefined;
+                newOperators?: Buffer[] | undefined;
                 newWeights?: Buffer[] | undefined;
             } | undefined;
         } & {
-            chain?: string | undefined;
-            txId?: Buffer | undefined;
             index?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -418,21 +438,23 @@ export declare const VoteEvents: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K in Exclude<keyof I["events"][number]["index"], keyof Long.Long>]: never; }) | undefined;
+            } & { [K in Exclude<keyof I["events"][number]["index"], "$type" | keyof Long.Long>]: never; }) | undefined;
             status?: Event_Status | undefined;
+            chain?: string | undefined;
+            txId?: Buffer | undefined;
             tokenSent?: ({
+                symbol?: string | undefined;
                 sender?: Buffer | undefined;
+                amount?: Buffer | undefined;
                 destinationChain?: string | undefined;
                 destinationAddress?: string | undefined;
-                symbol?: string | undefined;
-                amount?: Buffer | undefined;
             } & {
+                symbol?: string | undefined;
                 sender?: Buffer | undefined;
+                amount?: Buffer | undefined;
                 destinationChain?: string | undefined;
                 destinationAddress?: string | undefined;
-                symbol?: string | undefined;
-                amount?: Buffer | undefined;
-            } & { [K_1 in Exclude<keyof I["events"][number]["tokenSent"], keyof EventTokenSent>]: never; }) | undefined;
+            } & { [K_1 in Exclude<keyof I["events"][number]["tokenSent"], "symbol" | "$type" | "sender" | "amount" | "destinationChain" | "destinationAddress">]: never; }) | undefined;
             contractCall?: ({
                 sender?: Buffer | undefined;
                 destinationChain?: string | undefined;
@@ -443,67 +465,67 @@ export declare const VoteEvents: {
                 destinationChain?: string | undefined;
                 contractAddress?: string | undefined;
                 payloadHash?: Buffer | undefined;
-            } & { [K_2 in Exclude<keyof I["events"][number]["contractCall"], keyof EventContractCall>]: never; }) | undefined;
+            } & { [K_2 in Exclude<keyof I["events"][number]["contractCall"], "$type" | "sender" | "destinationChain" | "contractAddress" | "payloadHash">]: never; }) | undefined;
             contractCallWithToken?: ({
+                symbol?: string | undefined;
                 sender?: Buffer | undefined;
+                amount?: Buffer | undefined;
                 destinationChain?: string | undefined;
                 contractAddress?: string | undefined;
                 payloadHash?: Buffer | undefined;
-                symbol?: string | undefined;
-                amount?: Buffer | undefined;
             } & {
+                symbol?: string | undefined;
                 sender?: Buffer | undefined;
+                amount?: Buffer | undefined;
                 destinationChain?: string | undefined;
                 contractAddress?: string | undefined;
                 payloadHash?: Buffer | undefined;
-                symbol?: string | undefined;
-                amount?: Buffer | undefined;
-            } & { [K_3 in Exclude<keyof I["events"][number]["contractCallWithToken"], keyof EventContractCallWithToken>]: never; }) | undefined;
+            } & { [K_3 in Exclude<keyof I["events"][number]["contractCallWithToken"], "symbol" | "$type" | "sender" | "amount" | "destinationChain" | "contractAddress" | "payloadHash">]: never; }) | undefined;
             transfer?: ({
-                to?: Buffer | undefined;
                 amount?: Buffer | undefined;
+                to?: Buffer | undefined;
             } & {
-                to?: Buffer | undefined;
                 amount?: Buffer | undefined;
-            } & { [K_4 in Exclude<keyof I["events"][number]["transfer"], keyof EventTransfer>]: never; }) | undefined;
+                to?: Buffer | undefined;
+            } & { [K_4 in Exclude<keyof I["events"][number]["transfer"], "$type" | "amount" | "to">]: never; }) | undefined;
             tokenDeployed?: ({
                 symbol?: string | undefined;
                 tokenAddress?: Buffer | undefined;
             } & {
                 symbol?: string | undefined;
                 tokenAddress?: Buffer | undefined;
-            } & { [K_5 in Exclude<keyof I["events"][number]["tokenDeployed"], keyof EventTokenDeployed>]: never; }) | undefined;
+            } & { [K_5 in Exclude<keyof I["events"][number]["tokenDeployed"], "symbol" | "$type" | "tokenAddress">]: never; }) | undefined;
             multisigOwnershipTransferred?: ({
                 preOwners?: Buffer[] | undefined;
                 prevThreshold?: Buffer | undefined;
                 newOwners?: Buffer[] | undefined;
                 newThreshold?: Buffer | undefined;
             } & {
-                preOwners?: (Buffer[] & Buffer[] & { [K_6 in Exclude<keyof I["events"][number]["multisigOwnershipTransferred"]["preOwners"], keyof Buffer[]>]: never; }) | undefined;
+                preOwners?: (Buffer[] & Buffer[] & { [K_6 in Exclude<keyof I["events"][number]["multisigOwnershipTransferred"]["preOwners"], "$type" | keyof Buffer[]>]: never; }) | undefined;
                 prevThreshold?: Buffer | undefined;
-                newOwners?: (Buffer[] & Buffer[] & { [K_7 in Exclude<keyof I["events"][number]["multisigOwnershipTransferred"]["newOwners"], keyof Buffer[]>]: never; }) | undefined;
+                newOwners?: (Buffer[] & Buffer[] & { [K_7 in Exclude<keyof I["events"][number]["multisigOwnershipTransferred"]["newOwners"], "$type" | keyof Buffer[]>]: never; }) | undefined;
                 newThreshold?: Buffer | undefined;
-            } & { [K_8 in Exclude<keyof I["events"][number]["multisigOwnershipTransferred"], keyof EventMultisigOwnershipTransferred>]: never; }) | undefined;
+            } & { [K_8 in Exclude<keyof I["events"][number]["multisigOwnershipTransferred"], "$type" | "preOwners" | "prevThreshold" | "newOwners" | "newThreshold">]: never; }) | undefined;
             multisigOperatorshipTransferred?: ({
-                newOperators?: Buffer[] | undefined;
                 newThreshold?: Buffer | undefined;
+                newOperators?: Buffer[] | undefined;
                 newWeights?: Buffer[] | undefined;
             } & {
-                newOperators?: (Buffer[] & Buffer[] & { [K_9 in Exclude<keyof I["events"][number]["multisigOperatorshipTransferred"]["newOperators"], keyof Buffer[]>]: never; }) | undefined;
                 newThreshold?: Buffer | undefined;
-                newWeights?: (Buffer[] & Buffer[] & { [K_10 in Exclude<keyof I["events"][number]["multisigOperatorshipTransferred"]["newWeights"], keyof Buffer[]>]: never; }) | undefined;
-            } & { [K_11 in Exclude<keyof I["events"][number]["multisigOperatorshipTransferred"], keyof EventMultisigOperatorshipTransferred>]: never; }) | undefined;
-        } & { [K_12 in Exclude<keyof I["events"][number], keyof Event>]: never; })[] & { [K_13 in Exclude<keyof I["events"], keyof {
-            chain?: string | undefined;
-            txId?: Buffer | undefined;
+                newOperators?: (Buffer[] & Buffer[] & { [K_9 in Exclude<keyof I["events"][number]["multisigOperatorshipTransferred"]["newOperators"], "$type" | keyof Buffer[]>]: never; }) | undefined;
+                newWeights?: (Buffer[] & Buffer[] & { [K_10 in Exclude<keyof I["events"][number]["multisigOperatorshipTransferred"]["newWeights"], "$type" | keyof Buffer[]>]: never; }) | undefined;
+            } & { [K_11 in Exclude<keyof I["events"][number]["multisigOperatorshipTransferred"], "$type" | "newThreshold" | "newOperators" | "newWeights">]: never; }) | undefined;
+        } & { [K_12 in Exclude<keyof I["events"][number], "$type" | "index" | "status" | "chain" | "txId" | "tokenSent" | "contractCall" | "contractCallWithToken" | "transfer" | "tokenDeployed" | "multisigOwnershipTransferred" | "multisigOperatorshipTransferred">]: never; })[] & { [K_13 in Exclude<keyof I["events"], "$type" | keyof {
             index?: string | number | Long.Long | undefined;
             status?: Event_Status | undefined;
+            chain?: string | undefined;
+            txId?: Buffer | undefined;
             tokenSent?: {
+                symbol?: string | undefined;
                 sender?: Buffer | undefined;
+                amount?: Buffer | undefined;
                 destinationChain?: string | undefined;
                 destinationAddress?: string | undefined;
-                symbol?: string | undefined;
-                amount?: Buffer | undefined;
             } | undefined;
             contractCall?: {
                 sender?: Buffer | undefined;
@@ -512,16 +534,16 @@ export declare const VoteEvents: {
                 payloadHash?: Buffer | undefined;
             } | undefined;
             contractCallWithToken?: {
+                symbol?: string | undefined;
                 sender?: Buffer | undefined;
+                amount?: Buffer | undefined;
                 destinationChain?: string | undefined;
                 contractAddress?: string | undefined;
                 payloadHash?: Buffer | undefined;
-                symbol?: string | undefined;
-                amount?: Buffer | undefined;
             } | undefined;
             transfer?: {
-                to?: Buffer | undefined;
                 amount?: Buffer | undefined;
+                to?: Buffer | undefined;
             } | undefined;
             tokenDeployed?: {
                 symbol?: string | undefined;
@@ -534,25 +556,25 @@ export declare const VoteEvents: {
                 newThreshold?: Buffer | undefined;
             } | undefined;
             multisigOperatorshipTransferred?: {
-                newOperators?: Buffer[] | undefined;
                 newThreshold?: Buffer | undefined;
+                newOperators?: Buffer[] | undefined;
                 newWeights?: Buffer[] | undefined;
             } | undefined;
         }[]>]: never; }) | undefined;
-    } & { [K_14 in Exclude<keyof I, keyof VoteEvents>]: never; }>(base?: I | undefined): VoteEvents;
+        chain?: string | undefined;
+    } & { [K_14 in Exclude<keyof I, "$type" | "events" | "chain">]: never; }>(base?: I | undefined): VoteEvents;
     fromPartial<I_1 extends {
-        chain?: string | undefined;
         events?: {
-            chain?: string | undefined;
-            txId?: Buffer | undefined;
             index?: string | number | Long.Long | undefined;
             status?: Event_Status | undefined;
+            chain?: string | undefined;
+            txId?: Buffer | undefined;
             tokenSent?: {
+                symbol?: string | undefined;
                 sender?: Buffer | undefined;
+                amount?: Buffer | undefined;
                 destinationChain?: string | undefined;
                 destinationAddress?: string | undefined;
-                symbol?: string | undefined;
-                amount?: Buffer | undefined;
             } | undefined;
             contractCall?: {
                 sender?: Buffer | undefined;
@@ -561,16 +583,16 @@ export declare const VoteEvents: {
                 payloadHash?: Buffer | undefined;
             } | undefined;
             contractCallWithToken?: {
+                symbol?: string | undefined;
                 sender?: Buffer | undefined;
+                amount?: Buffer | undefined;
                 destinationChain?: string | undefined;
                 contractAddress?: string | undefined;
                 payloadHash?: Buffer | undefined;
-                symbol?: string | undefined;
-                amount?: Buffer | undefined;
             } | undefined;
             transfer?: {
-                to?: Buffer | undefined;
                 amount?: Buffer | undefined;
+                to?: Buffer | undefined;
             } | undefined;
             tokenDeployed?: {
                 symbol?: string | undefined;
@@ -583,24 +605,24 @@ export declare const VoteEvents: {
                 newThreshold?: Buffer | undefined;
             } | undefined;
             multisigOperatorshipTransferred?: {
-                newOperators?: Buffer[] | undefined;
                 newThreshold?: Buffer | undefined;
+                newOperators?: Buffer[] | undefined;
                 newWeights?: Buffer[] | undefined;
             } | undefined;
         }[] | undefined;
-    } & {
         chain?: string | undefined;
+    } & {
         events?: ({
-            chain?: string | undefined;
-            txId?: Buffer | undefined;
             index?: string | number | Long.Long | undefined;
             status?: Event_Status | undefined;
+            chain?: string | undefined;
+            txId?: Buffer | undefined;
             tokenSent?: {
+                symbol?: string | undefined;
                 sender?: Buffer | undefined;
+                amount?: Buffer | undefined;
                 destinationChain?: string | undefined;
                 destinationAddress?: string | undefined;
-                symbol?: string | undefined;
-                amount?: Buffer | undefined;
             } | undefined;
             contractCall?: {
                 sender?: Buffer | undefined;
@@ -609,16 +631,16 @@ export declare const VoteEvents: {
                 payloadHash?: Buffer | undefined;
             } | undefined;
             contractCallWithToken?: {
+                symbol?: string | undefined;
                 sender?: Buffer | undefined;
+                amount?: Buffer | undefined;
                 destinationChain?: string | undefined;
                 contractAddress?: string | undefined;
                 payloadHash?: Buffer | undefined;
-                symbol?: string | undefined;
-                amount?: Buffer | undefined;
             } | undefined;
             transfer?: {
-                to?: Buffer | undefined;
                 amount?: Buffer | undefined;
+                to?: Buffer | undefined;
             } | undefined;
             tokenDeployed?: {
                 symbol?: string | undefined;
@@ -631,21 +653,21 @@ export declare const VoteEvents: {
                 newThreshold?: Buffer | undefined;
             } | undefined;
             multisigOperatorshipTransferred?: {
-                newOperators?: Buffer[] | undefined;
                 newThreshold?: Buffer | undefined;
+                newOperators?: Buffer[] | undefined;
                 newWeights?: Buffer[] | undefined;
             } | undefined;
         }[] & ({
-            chain?: string | undefined;
-            txId?: Buffer | undefined;
             index?: string | number | Long.Long | undefined;
             status?: Event_Status | undefined;
+            chain?: string | undefined;
+            txId?: Buffer | undefined;
             tokenSent?: {
+                symbol?: string | undefined;
                 sender?: Buffer | undefined;
+                amount?: Buffer | undefined;
                 destinationChain?: string | undefined;
                 destinationAddress?: string | undefined;
-                symbol?: string | undefined;
-                amount?: Buffer | undefined;
             } | undefined;
             contractCall?: {
                 sender?: Buffer | undefined;
@@ -654,16 +676,16 @@ export declare const VoteEvents: {
                 payloadHash?: Buffer | undefined;
             } | undefined;
             contractCallWithToken?: {
+                symbol?: string | undefined;
                 sender?: Buffer | undefined;
+                amount?: Buffer | undefined;
                 destinationChain?: string | undefined;
                 contractAddress?: string | undefined;
                 payloadHash?: Buffer | undefined;
-                symbol?: string | undefined;
-                amount?: Buffer | undefined;
             } | undefined;
             transfer?: {
-                to?: Buffer | undefined;
                 amount?: Buffer | undefined;
+                to?: Buffer | undefined;
             } | undefined;
             tokenDeployed?: {
                 symbol?: string | undefined;
@@ -676,13 +698,11 @@ export declare const VoteEvents: {
                 newThreshold?: Buffer | undefined;
             } | undefined;
             multisigOperatorshipTransferred?: {
-                newOperators?: Buffer[] | undefined;
                 newThreshold?: Buffer | undefined;
+                newOperators?: Buffer[] | undefined;
                 newWeights?: Buffer[] | undefined;
             } | undefined;
         } & {
-            chain?: string | undefined;
-            txId?: Buffer | undefined;
             index?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -740,21 +760,23 @@ export declare const VoteEvents: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_15 in Exclude<keyof I_1["events"][number]["index"], keyof Long.Long>]: never; }) | undefined;
+            } & { [K_15 in Exclude<keyof I_1["events"][number]["index"], "$type" | keyof Long.Long>]: never; }) | undefined;
             status?: Event_Status | undefined;
+            chain?: string | undefined;
+            txId?: Buffer | undefined;
             tokenSent?: ({
+                symbol?: string | undefined;
                 sender?: Buffer | undefined;
+                amount?: Buffer | undefined;
                 destinationChain?: string | undefined;
                 destinationAddress?: string | undefined;
-                symbol?: string | undefined;
-                amount?: Buffer | undefined;
             } & {
+                symbol?: string | undefined;
                 sender?: Buffer | undefined;
+                amount?: Buffer | undefined;
                 destinationChain?: string | undefined;
                 destinationAddress?: string | undefined;
-                symbol?: string | undefined;
-                amount?: Buffer | undefined;
-            } & { [K_16 in Exclude<keyof I_1["events"][number]["tokenSent"], keyof EventTokenSent>]: never; }) | undefined;
+            } & { [K_16 in Exclude<keyof I_1["events"][number]["tokenSent"], "symbol" | "$type" | "sender" | "amount" | "destinationChain" | "destinationAddress">]: never; }) | undefined;
             contractCall?: ({
                 sender?: Buffer | undefined;
                 destinationChain?: string | undefined;
@@ -765,67 +787,67 @@ export declare const VoteEvents: {
                 destinationChain?: string | undefined;
                 contractAddress?: string | undefined;
                 payloadHash?: Buffer | undefined;
-            } & { [K_17 in Exclude<keyof I_1["events"][number]["contractCall"], keyof EventContractCall>]: never; }) | undefined;
+            } & { [K_17 in Exclude<keyof I_1["events"][number]["contractCall"], "$type" | "sender" | "destinationChain" | "contractAddress" | "payloadHash">]: never; }) | undefined;
             contractCallWithToken?: ({
+                symbol?: string | undefined;
                 sender?: Buffer | undefined;
+                amount?: Buffer | undefined;
                 destinationChain?: string | undefined;
                 contractAddress?: string | undefined;
                 payloadHash?: Buffer | undefined;
-                symbol?: string | undefined;
-                amount?: Buffer | undefined;
             } & {
+                symbol?: string | undefined;
                 sender?: Buffer | undefined;
+                amount?: Buffer | undefined;
                 destinationChain?: string | undefined;
                 contractAddress?: string | undefined;
                 payloadHash?: Buffer | undefined;
-                symbol?: string | undefined;
-                amount?: Buffer | undefined;
-            } & { [K_18 in Exclude<keyof I_1["events"][number]["contractCallWithToken"], keyof EventContractCallWithToken>]: never; }) | undefined;
+            } & { [K_18 in Exclude<keyof I_1["events"][number]["contractCallWithToken"], "symbol" | "$type" | "sender" | "amount" | "destinationChain" | "contractAddress" | "payloadHash">]: never; }) | undefined;
             transfer?: ({
-                to?: Buffer | undefined;
                 amount?: Buffer | undefined;
+                to?: Buffer | undefined;
             } & {
-                to?: Buffer | undefined;
                 amount?: Buffer | undefined;
-            } & { [K_19 in Exclude<keyof I_1["events"][number]["transfer"], keyof EventTransfer>]: never; }) | undefined;
+                to?: Buffer | undefined;
+            } & { [K_19 in Exclude<keyof I_1["events"][number]["transfer"], "$type" | "amount" | "to">]: never; }) | undefined;
             tokenDeployed?: ({
                 symbol?: string | undefined;
                 tokenAddress?: Buffer | undefined;
             } & {
                 symbol?: string | undefined;
                 tokenAddress?: Buffer | undefined;
-            } & { [K_20 in Exclude<keyof I_1["events"][number]["tokenDeployed"], keyof EventTokenDeployed>]: never; }) | undefined;
+            } & { [K_20 in Exclude<keyof I_1["events"][number]["tokenDeployed"], "symbol" | "$type" | "tokenAddress">]: never; }) | undefined;
             multisigOwnershipTransferred?: ({
                 preOwners?: Buffer[] | undefined;
                 prevThreshold?: Buffer | undefined;
                 newOwners?: Buffer[] | undefined;
                 newThreshold?: Buffer | undefined;
             } & {
-                preOwners?: (Buffer[] & Buffer[] & { [K_21 in Exclude<keyof I_1["events"][number]["multisigOwnershipTransferred"]["preOwners"], keyof Buffer[]>]: never; }) | undefined;
+                preOwners?: (Buffer[] & Buffer[] & { [K_21 in Exclude<keyof I_1["events"][number]["multisigOwnershipTransferred"]["preOwners"], "$type" | keyof Buffer[]>]: never; }) | undefined;
                 prevThreshold?: Buffer | undefined;
-                newOwners?: (Buffer[] & Buffer[] & { [K_22 in Exclude<keyof I_1["events"][number]["multisigOwnershipTransferred"]["newOwners"], keyof Buffer[]>]: never; }) | undefined;
+                newOwners?: (Buffer[] & Buffer[] & { [K_22 in Exclude<keyof I_1["events"][number]["multisigOwnershipTransferred"]["newOwners"], "$type" | keyof Buffer[]>]: never; }) | undefined;
                 newThreshold?: Buffer | undefined;
-            } & { [K_23 in Exclude<keyof I_1["events"][number]["multisigOwnershipTransferred"], keyof EventMultisigOwnershipTransferred>]: never; }) | undefined;
+            } & { [K_23 in Exclude<keyof I_1["events"][number]["multisigOwnershipTransferred"], "$type" | "preOwners" | "prevThreshold" | "newOwners" | "newThreshold">]: never; }) | undefined;
             multisigOperatorshipTransferred?: ({
-                newOperators?: Buffer[] | undefined;
                 newThreshold?: Buffer | undefined;
+                newOperators?: Buffer[] | undefined;
                 newWeights?: Buffer[] | undefined;
             } & {
-                newOperators?: (Buffer[] & Buffer[] & { [K_24 in Exclude<keyof I_1["events"][number]["multisigOperatorshipTransferred"]["newOperators"], keyof Buffer[]>]: never; }) | undefined;
                 newThreshold?: Buffer | undefined;
-                newWeights?: (Buffer[] & Buffer[] & { [K_25 in Exclude<keyof I_1["events"][number]["multisigOperatorshipTransferred"]["newWeights"], keyof Buffer[]>]: never; }) | undefined;
-            } & { [K_26 in Exclude<keyof I_1["events"][number]["multisigOperatorshipTransferred"], keyof EventMultisigOperatorshipTransferred>]: never; }) | undefined;
-        } & { [K_27 in Exclude<keyof I_1["events"][number], keyof Event>]: never; })[] & { [K_28 in Exclude<keyof I_1["events"], keyof {
-            chain?: string | undefined;
-            txId?: Buffer | undefined;
+                newOperators?: (Buffer[] & Buffer[] & { [K_24 in Exclude<keyof I_1["events"][number]["multisigOperatorshipTransferred"]["newOperators"], "$type" | keyof Buffer[]>]: never; }) | undefined;
+                newWeights?: (Buffer[] & Buffer[] & { [K_25 in Exclude<keyof I_1["events"][number]["multisigOperatorshipTransferred"]["newWeights"], "$type" | keyof Buffer[]>]: never; }) | undefined;
+            } & { [K_26 in Exclude<keyof I_1["events"][number]["multisigOperatorshipTransferred"], "$type" | "newThreshold" | "newOperators" | "newWeights">]: never; }) | undefined;
+        } & { [K_27 in Exclude<keyof I_1["events"][number], "$type" | "index" | "status" | "chain" | "txId" | "tokenSent" | "contractCall" | "contractCallWithToken" | "transfer" | "tokenDeployed" | "multisigOwnershipTransferred" | "multisigOperatorshipTransferred">]: never; })[] & { [K_28 in Exclude<keyof I_1["events"], "$type" | keyof {
             index?: string | number | Long.Long | undefined;
             status?: Event_Status | undefined;
+            chain?: string | undefined;
+            txId?: Buffer | undefined;
             tokenSent?: {
+                symbol?: string | undefined;
                 sender?: Buffer | undefined;
+                amount?: Buffer | undefined;
                 destinationChain?: string | undefined;
                 destinationAddress?: string | undefined;
-                symbol?: string | undefined;
-                amount?: Buffer | undefined;
             } | undefined;
             contractCall?: {
                 sender?: Buffer | undefined;
@@ -834,16 +856,16 @@ export declare const VoteEvents: {
                 payloadHash?: Buffer | undefined;
             } | undefined;
             contractCallWithToken?: {
+                symbol?: string | undefined;
                 sender?: Buffer | undefined;
+                amount?: Buffer | undefined;
                 destinationChain?: string | undefined;
                 contractAddress?: string | undefined;
                 payloadHash?: Buffer | undefined;
-                symbol?: string | undefined;
-                amount?: Buffer | undefined;
             } | undefined;
             transfer?: {
-                to?: Buffer | undefined;
                 amount?: Buffer | undefined;
+                to?: Buffer | undefined;
             } | undefined;
             tokenDeployed?: {
                 symbol?: string | undefined;
@@ -856,29 +878,31 @@ export declare const VoteEvents: {
                 newThreshold?: Buffer | undefined;
             } | undefined;
             multisigOperatorshipTransferred?: {
-                newOperators?: Buffer[] | undefined;
                 newThreshold?: Buffer | undefined;
+                newOperators?: Buffer[] | undefined;
                 newWeights?: Buffer[] | undefined;
             } | undefined;
         }[]>]: never; }) | undefined;
-    } & { [K_29 in Exclude<keyof I_1, keyof VoteEvents>]: never; }>(object: I_1): VoteEvents;
+        chain?: string | undefined;
+    } & { [K_29 in Exclude<keyof I_1, "$type" | "events" | "chain">]: never; }>(object: I_1): VoteEvents;
 };
 export declare const Event: {
+    $type: "axelar.evm.v1beta1.Event";
     encode(message: Event, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Event;
     fromJSON(object: any): Event;
     toJSON(message: Event): unknown;
     create<I extends {
-        chain?: string | undefined;
-        txId?: Buffer | undefined;
         index?: string | number | Long.Long | undefined;
         status?: Event_Status | undefined;
+        chain?: string | undefined;
+        txId?: Buffer | undefined;
         tokenSent?: {
+            symbol?: string | undefined;
             sender?: Buffer | undefined;
+            amount?: Buffer | undefined;
             destinationChain?: string | undefined;
             destinationAddress?: string | undefined;
-            symbol?: string | undefined;
-            amount?: Buffer | undefined;
         } | undefined;
         contractCall?: {
             sender?: Buffer | undefined;
@@ -887,16 +911,16 @@ export declare const Event: {
             payloadHash?: Buffer | undefined;
         } | undefined;
         contractCallWithToken?: {
+            symbol?: string | undefined;
             sender?: Buffer | undefined;
+            amount?: Buffer | undefined;
             destinationChain?: string | undefined;
             contractAddress?: string | undefined;
             payloadHash?: Buffer | undefined;
-            symbol?: string | undefined;
-            amount?: Buffer | undefined;
         } | undefined;
         transfer?: {
-            to?: Buffer | undefined;
             amount?: Buffer | undefined;
+            to?: Buffer | undefined;
         } | undefined;
         tokenDeployed?: {
             symbol?: string | undefined;
@@ -909,13 +933,11 @@ export declare const Event: {
             newThreshold?: Buffer | undefined;
         } | undefined;
         multisigOperatorshipTransferred?: {
-            newOperators?: Buffer[] | undefined;
             newThreshold?: Buffer | undefined;
+            newOperators?: Buffer[] | undefined;
             newWeights?: Buffer[] | undefined;
         } | undefined;
     } & {
-        chain?: string | undefined;
-        txId?: Buffer | undefined;
         index?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -973,21 +995,23 @@ export declare const Event: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K in Exclude<keyof I["index"], keyof Long.Long>]: never; }) | undefined;
+        } & { [K in Exclude<keyof I["index"], "$type" | keyof Long.Long>]: never; }) | undefined;
         status?: Event_Status | undefined;
+        chain?: string | undefined;
+        txId?: Buffer | undefined;
         tokenSent?: ({
+            symbol?: string | undefined;
             sender?: Buffer | undefined;
+            amount?: Buffer | undefined;
             destinationChain?: string | undefined;
             destinationAddress?: string | undefined;
-            symbol?: string | undefined;
-            amount?: Buffer | undefined;
         } & {
+            symbol?: string | undefined;
             sender?: Buffer | undefined;
+            amount?: Buffer | undefined;
             destinationChain?: string | undefined;
             destinationAddress?: string | undefined;
-            symbol?: string | undefined;
-            amount?: Buffer | undefined;
-        } & { [K_1 in Exclude<keyof I["tokenSent"], keyof EventTokenSent>]: never; }) | undefined;
+        } & { [K_1 in Exclude<keyof I["tokenSent"], "symbol" | "$type" | "sender" | "amount" | "destinationChain" | "destinationAddress">]: never; }) | undefined;
         contractCall?: ({
             sender?: Buffer | undefined;
             destinationChain?: string | undefined;
@@ -998,68 +1022,68 @@ export declare const Event: {
             destinationChain?: string | undefined;
             contractAddress?: string | undefined;
             payloadHash?: Buffer | undefined;
-        } & { [K_2 in Exclude<keyof I["contractCall"], keyof EventContractCall>]: never; }) | undefined;
+        } & { [K_2 in Exclude<keyof I["contractCall"], "$type" | "sender" | "destinationChain" | "contractAddress" | "payloadHash">]: never; }) | undefined;
         contractCallWithToken?: ({
+            symbol?: string | undefined;
             sender?: Buffer | undefined;
+            amount?: Buffer | undefined;
             destinationChain?: string | undefined;
             contractAddress?: string | undefined;
             payloadHash?: Buffer | undefined;
-            symbol?: string | undefined;
-            amount?: Buffer | undefined;
         } & {
+            symbol?: string | undefined;
             sender?: Buffer | undefined;
+            amount?: Buffer | undefined;
             destinationChain?: string | undefined;
             contractAddress?: string | undefined;
             payloadHash?: Buffer | undefined;
-            symbol?: string | undefined;
-            amount?: Buffer | undefined;
-        } & { [K_3 in Exclude<keyof I["contractCallWithToken"], keyof EventContractCallWithToken>]: never; }) | undefined;
+        } & { [K_3 in Exclude<keyof I["contractCallWithToken"], "symbol" | "$type" | "sender" | "amount" | "destinationChain" | "contractAddress" | "payloadHash">]: never; }) | undefined;
         transfer?: ({
-            to?: Buffer | undefined;
             amount?: Buffer | undefined;
+            to?: Buffer | undefined;
         } & {
-            to?: Buffer | undefined;
             amount?: Buffer | undefined;
-        } & { [K_4 in Exclude<keyof I["transfer"], keyof EventTransfer>]: never; }) | undefined;
+            to?: Buffer | undefined;
+        } & { [K_4 in Exclude<keyof I["transfer"], "$type" | "amount" | "to">]: never; }) | undefined;
         tokenDeployed?: ({
             symbol?: string | undefined;
             tokenAddress?: Buffer | undefined;
         } & {
             symbol?: string | undefined;
             tokenAddress?: Buffer | undefined;
-        } & { [K_5 in Exclude<keyof I["tokenDeployed"], keyof EventTokenDeployed>]: never; }) | undefined;
+        } & { [K_5 in Exclude<keyof I["tokenDeployed"], "symbol" | "$type" | "tokenAddress">]: never; }) | undefined;
         multisigOwnershipTransferred?: ({
             preOwners?: Buffer[] | undefined;
             prevThreshold?: Buffer | undefined;
             newOwners?: Buffer[] | undefined;
             newThreshold?: Buffer | undefined;
         } & {
-            preOwners?: (Buffer[] & Buffer[] & { [K_6 in Exclude<keyof I["multisigOwnershipTransferred"]["preOwners"], keyof Buffer[]>]: never; }) | undefined;
+            preOwners?: (Buffer[] & Buffer[] & { [K_6 in Exclude<keyof I["multisigOwnershipTransferred"]["preOwners"], "$type" | keyof Buffer[]>]: never; }) | undefined;
             prevThreshold?: Buffer | undefined;
-            newOwners?: (Buffer[] & Buffer[] & { [K_7 in Exclude<keyof I["multisigOwnershipTransferred"]["newOwners"], keyof Buffer[]>]: never; }) | undefined;
+            newOwners?: (Buffer[] & Buffer[] & { [K_7 in Exclude<keyof I["multisigOwnershipTransferred"]["newOwners"], "$type" | keyof Buffer[]>]: never; }) | undefined;
             newThreshold?: Buffer | undefined;
-        } & { [K_8 in Exclude<keyof I["multisigOwnershipTransferred"], keyof EventMultisigOwnershipTransferred>]: never; }) | undefined;
+        } & { [K_8 in Exclude<keyof I["multisigOwnershipTransferred"], "$type" | "preOwners" | "prevThreshold" | "newOwners" | "newThreshold">]: never; }) | undefined;
         multisigOperatorshipTransferred?: ({
-            newOperators?: Buffer[] | undefined;
             newThreshold?: Buffer | undefined;
+            newOperators?: Buffer[] | undefined;
             newWeights?: Buffer[] | undefined;
         } & {
-            newOperators?: (Buffer[] & Buffer[] & { [K_9 in Exclude<keyof I["multisigOperatorshipTransferred"]["newOperators"], keyof Buffer[]>]: never; }) | undefined;
             newThreshold?: Buffer | undefined;
-            newWeights?: (Buffer[] & Buffer[] & { [K_10 in Exclude<keyof I["multisigOperatorshipTransferred"]["newWeights"], keyof Buffer[]>]: never; }) | undefined;
-        } & { [K_11 in Exclude<keyof I["multisigOperatorshipTransferred"], keyof EventMultisigOperatorshipTransferred>]: never; }) | undefined;
-    } & { [K_12 in Exclude<keyof I, keyof Event>]: never; }>(base?: I | undefined): Event;
+            newOperators?: (Buffer[] & Buffer[] & { [K_9 in Exclude<keyof I["multisigOperatorshipTransferred"]["newOperators"], "$type" | keyof Buffer[]>]: never; }) | undefined;
+            newWeights?: (Buffer[] & Buffer[] & { [K_10 in Exclude<keyof I["multisigOperatorshipTransferred"]["newWeights"], "$type" | keyof Buffer[]>]: never; }) | undefined;
+        } & { [K_11 in Exclude<keyof I["multisigOperatorshipTransferred"], "$type" | "newThreshold" | "newOperators" | "newWeights">]: never; }) | undefined;
+    } & { [K_12 in Exclude<keyof I, "$type" | "index" | "status" | "chain" | "txId" | "tokenSent" | "contractCall" | "contractCallWithToken" | "transfer" | "tokenDeployed" | "multisigOwnershipTransferred" | "multisigOperatorshipTransferred">]: never; }>(base?: I | undefined): Event;
     fromPartial<I_1 extends {
-        chain?: string | undefined;
-        txId?: Buffer | undefined;
         index?: string | number | Long.Long | undefined;
         status?: Event_Status | undefined;
+        chain?: string | undefined;
+        txId?: Buffer | undefined;
         tokenSent?: {
+            symbol?: string | undefined;
             sender?: Buffer | undefined;
+            amount?: Buffer | undefined;
             destinationChain?: string | undefined;
             destinationAddress?: string | undefined;
-            symbol?: string | undefined;
-            amount?: Buffer | undefined;
         } | undefined;
         contractCall?: {
             sender?: Buffer | undefined;
@@ -1068,16 +1092,16 @@ export declare const Event: {
             payloadHash?: Buffer | undefined;
         } | undefined;
         contractCallWithToken?: {
+            symbol?: string | undefined;
             sender?: Buffer | undefined;
+            amount?: Buffer | undefined;
             destinationChain?: string | undefined;
             contractAddress?: string | undefined;
             payloadHash?: Buffer | undefined;
-            symbol?: string | undefined;
-            amount?: Buffer | undefined;
         } | undefined;
         transfer?: {
-            to?: Buffer | undefined;
             amount?: Buffer | undefined;
+            to?: Buffer | undefined;
         } | undefined;
         tokenDeployed?: {
             symbol?: string | undefined;
@@ -1090,13 +1114,11 @@ export declare const Event: {
             newThreshold?: Buffer | undefined;
         } | undefined;
         multisigOperatorshipTransferred?: {
-            newOperators?: Buffer[] | undefined;
             newThreshold?: Buffer | undefined;
+            newOperators?: Buffer[] | undefined;
             newWeights?: Buffer[] | undefined;
         } | undefined;
     } & {
-        chain?: string | undefined;
-        txId?: Buffer | undefined;
         index?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -1154,21 +1176,23 @@ export declare const Event: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_13 in Exclude<keyof I_1["index"], keyof Long.Long>]: never; }) | undefined;
+        } & { [K_13 in Exclude<keyof I_1["index"], "$type" | keyof Long.Long>]: never; }) | undefined;
         status?: Event_Status | undefined;
+        chain?: string | undefined;
+        txId?: Buffer | undefined;
         tokenSent?: ({
+            symbol?: string | undefined;
             sender?: Buffer | undefined;
+            amount?: Buffer | undefined;
             destinationChain?: string | undefined;
             destinationAddress?: string | undefined;
-            symbol?: string | undefined;
-            amount?: Buffer | undefined;
         } & {
+            symbol?: string | undefined;
             sender?: Buffer | undefined;
+            amount?: Buffer | undefined;
             destinationChain?: string | undefined;
             destinationAddress?: string | undefined;
-            symbol?: string | undefined;
-            amount?: Buffer | undefined;
-        } & { [K_14 in Exclude<keyof I_1["tokenSent"], keyof EventTokenSent>]: never; }) | undefined;
+        } & { [K_14 in Exclude<keyof I_1["tokenSent"], "symbol" | "$type" | "sender" | "amount" | "destinationChain" | "destinationAddress">]: never; }) | undefined;
         contractCall?: ({
             sender?: Buffer | undefined;
             destinationChain?: string | undefined;
@@ -1179,91 +1203,93 @@ export declare const Event: {
             destinationChain?: string | undefined;
             contractAddress?: string | undefined;
             payloadHash?: Buffer | undefined;
-        } & { [K_15 in Exclude<keyof I_1["contractCall"], keyof EventContractCall>]: never; }) | undefined;
+        } & { [K_15 in Exclude<keyof I_1["contractCall"], "$type" | "sender" | "destinationChain" | "contractAddress" | "payloadHash">]: never; }) | undefined;
         contractCallWithToken?: ({
+            symbol?: string | undefined;
             sender?: Buffer | undefined;
+            amount?: Buffer | undefined;
             destinationChain?: string | undefined;
             contractAddress?: string | undefined;
             payloadHash?: Buffer | undefined;
-            symbol?: string | undefined;
-            amount?: Buffer | undefined;
         } & {
+            symbol?: string | undefined;
             sender?: Buffer | undefined;
+            amount?: Buffer | undefined;
             destinationChain?: string | undefined;
             contractAddress?: string | undefined;
             payloadHash?: Buffer | undefined;
-            symbol?: string | undefined;
-            amount?: Buffer | undefined;
-        } & { [K_16 in Exclude<keyof I_1["contractCallWithToken"], keyof EventContractCallWithToken>]: never; }) | undefined;
+        } & { [K_16 in Exclude<keyof I_1["contractCallWithToken"], "symbol" | "$type" | "sender" | "amount" | "destinationChain" | "contractAddress" | "payloadHash">]: never; }) | undefined;
         transfer?: ({
-            to?: Buffer | undefined;
             amount?: Buffer | undefined;
+            to?: Buffer | undefined;
         } & {
-            to?: Buffer | undefined;
             amount?: Buffer | undefined;
-        } & { [K_17 in Exclude<keyof I_1["transfer"], keyof EventTransfer>]: never; }) | undefined;
+            to?: Buffer | undefined;
+        } & { [K_17 in Exclude<keyof I_1["transfer"], "$type" | "amount" | "to">]: never; }) | undefined;
         tokenDeployed?: ({
             symbol?: string | undefined;
             tokenAddress?: Buffer | undefined;
         } & {
             symbol?: string | undefined;
             tokenAddress?: Buffer | undefined;
-        } & { [K_18 in Exclude<keyof I_1["tokenDeployed"], keyof EventTokenDeployed>]: never; }) | undefined;
+        } & { [K_18 in Exclude<keyof I_1["tokenDeployed"], "symbol" | "$type" | "tokenAddress">]: never; }) | undefined;
         multisigOwnershipTransferred?: ({
             preOwners?: Buffer[] | undefined;
             prevThreshold?: Buffer | undefined;
             newOwners?: Buffer[] | undefined;
             newThreshold?: Buffer | undefined;
         } & {
-            preOwners?: (Buffer[] & Buffer[] & { [K_19 in Exclude<keyof I_1["multisigOwnershipTransferred"]["preOwners"], keyof Buffer[]>]: never; }) | undefined;
+            preOwners?: (Buffer[] & Buffer[] & { [K_19 in Exclude<keyof I_1["multisigOwnershipTransferred"]["preOwners"], "$type" | keyof Buffer[]>]: never; }) | undefined;
             prevThreshold?: Buffer | undefined;
-            newOwners?: (Buffer[] & Buffer[] & { [K_20 in Exclude<keyof I_1["multisigOwnershipTransferred"]["newOwners"], keyof Buffer[]>]: never; }) | undefined;
+            newOwners?: (Buffer[] & Buffer[] & { [K_20 in Exclude<keyof I_1["multisigOwnershipTransferred"]["newOwners"], "$type" | keyof Buffer[]>]: never; }) | undefined;
             newThreshold?: Buffer | undefined;
-        } & { [K_21 in Exclude<keyof I_1["multisigOwnershipTransferred"], keyof EventMultisigOwnershipTransferred>]: never; }) | undefined;
+        } & { [K_21 in Exclude<keyof I_1["multisigOwnershipTransferred"], "$type" | "preOwners" | "prevThreshold" | "newOwners" | "newThreshold">]: never; }) | undefined;
         multisigOperatorshipTransferred?: ({
-            newOperators?: Buffer[] | undefined;
             newThreshold?: Buffer | undefined;
+            newOperators?: Buffer[] | undefined;
             newWeights?: Buffer[] | undefined;
         } & {
-            newOperators?: (Buffer[] & Buffer[] & { [K_22 in Exclude<keyof I_1["multisigOperatorshipTransferred"]["newOperators"], keyof Buffer[]>]: never; }) | undefined;
             newThreshold?: Buffer | undefined;
-            newWeights?: (Buffer[] & Buffer[] & { [K_23 in Exclude<keyof I_1["multisigOperatorshipTransferred"]["newWeights"], keyof Buffer[]>]: never; }) | undefined;
-        } & { [K_24 in Exclude<keyof I_1["multisigOperatorshipTransferred"], keyof EventMultisigOperatorshipTransferred>]: never; }) | undefined;
-    } & { [K_25 in Exclude<keyof I_1, keyof Event>]: never; }>(object: I_1): Event;
+            newOperators?: (Buffer[] & Buffer[] & { [K_22 in Exclude<keyof I_1["multisigOperatorshipTransferred"]["newOperators"], "$type" | keyof Buffer[]>]: never; }) | undefined;
+            newWeights?: (Buffer[] & Buffer[] & { [K_23 in Exclude<keyof I_1["multisigOperatorshipTransferred"]["newWeights"], "$type" | keyof Buffer[]>]: never; }) | undefined;
+        } & { [K_24 in Exclude<keyof I_1["multisigOperatorshipTransferred"], "$type" | "newThreshold" | "newOperators" | "newWeights">]: never; }) | undefined;
+    } & { [K_25 in Exclude<keyof I_1, "$type" | "index" | "status" | "chain" | "txId" | "tokenSent" | "contractCall" | "contractCallWithToken" | "transfer" | "tokenDeployed" | "multisigOwnershipTransferred" | "multisigOperatorshipTransferred">]: never; }>(object: I_1): Event;
 };
 export declare const EventTokenSent: {
+    $type: "axelar.evm.v1beta1.EventTokenSent";
     encode(message: EventTokenSent, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): EventTokenSent;
     fromJSON(object: any): EventTokenSent;
     toJSON(message: EventTokenSent): unknown;
     create<I extends {
+        symbol?: string | undefined;
         sender?: Buffer | undefined;
+        amount?: Buffer | undefined;
         destinationChain?: string | undefined;
         destinationAddress?: string | undefined;
-        symbol?: string | undefined;
-        amount?: Buffer | undefined;
     } & {
+        symbol?: string | undefined;
         sender?: Buffer | undefined;
+        amount?: Buffer | undefined;
         destinationChain?: string | undefined;
         destinationAddress?: string | undefined;
-        symbol?: string | undefined;
-        amount?: Buffer | undefined;
-    } & { [K in Exclude<keyof I, keyof EventTokenSent>]: never; }>(base?: I | undefined): EventTokenSent;
+    } & { [K in Exclude<keyof I, "symbol" | "$type" | "sender" | "amount" | "destinationChain" | "destinationAddress">]: never; }>(base?: I | undefined): EventTokenSent;
     fromPartial<I_1 extends {
+        symbol?: string | undefined;
         sender?: Buffer | undefined;
+        amount?: Buffer | undefined;
         destinationChain?: string | undefined;
         destinationAddress?: string | undefined;
-        symbol?: string | undefined;
-        amount?: Buffer | undefined;
     } & {
+        symbol?: string | undefined;
         sender?: Buffer | undefined;
+        amount?: Buffer | undefined;
         destinationChain?: string | undefined;
         destinationAddress?: string | undefined;
-        symbol?: string | undefined;
-        amount?: Buffer | undefined;
-    } & { [K_1 in Exclude<keyof I_1, keyof EventTokenSent>]: never; }>(object: I_1): EventTokenSent;
+    } & { [K_1 in Exclude<keyof I_1, "symbol" | "$type" | "sender" | "amount" | "destinationChain" | "destinationAddress">]: never; }>(object: I_1): EventTokenSent;
 };
 export declare const EventContractCall: {
+    $type: "axelar.evm.v1beta1.EventContractCall";
     encode(message: EventContractCall, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): EventContractCall;
     fromJSON(object: any): EventContractCall;
@@ -1278,7 +1304,7 @@ export declare const EventContractCall: {
         destinationChain?: string | undefined;
         contractAddress?: string | undefined;
         payloadHash?: Buffer | undefined;
-    } & { [K in Exclude<keyof I, keyof EventContractCall>]: never; }>(base?: I | undefined): EventContractCall;
+    } & { [K in Exclude<keyof I, "$type" | "sender" | "destinationChain" | "contractAddress" | "payloadHash">]: never; }>(base?: I | undefined): EventContractCall;
     fromPartial<I_1 extends {
         sender?: Buffer | undefined;
         destinationChain?: string | undefined;
@@ -1289,65 +1315,68 @@ export declare const EventContractCall: {
         destinationChain?: string | undefined;
         contractAddress?: string | undefined;
         payloadHash?: Buffer | undefined;
-    } & { [K_1 in Exclude<keyof I_1, keyof EventContractCall>]: never; }>(object: I_1): EventContractCall;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender" | "destinationChain" | "contractAddress" | "payloadHash">]: never; }>(object: I_1): EventContractCall;
 };
 export declare const EventContractCallWithToken: {
+    $type: "axelar.evm.v1beta1.EventContractCallWithToken";
     encode(message: EventContractCallWithToken, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): EventContractCallWithToken;
     fromJSON(object: any): EventContractCallWithToken;
     toJSON(message: EventContractCallWithToken): unknown;
     create<I extends {
+        symbol?: string | undefined;
         sender?: Buffer | undefined;
+        amount?: Buffer | undefined;
         destinationChain?: string | undefined;
         contractAddress?: string | undefined;
         payloadHash?: Buffer | undefined;
-        symbol?: string | undefined;
-        amount?: Buffer | undefined;
     } & {
+        symbol?: string | undefined;
         sender?: Buffer | undefined;
+        amount?: Buffer | undefined;
         destinationChain?: string | undefined;
         contractAddress?: string | undefined;
         payloadHash?: Buffer | undefined;
-        symbol?: string | undefined;
-        amount?: Buffer | undefined;
-    } & { [K in Exclude<keyof I, keyof EventContractCallWithToken>]: never; }>(base?: I | undefined): EventContractCallWithToken;
+    } & { [K in Exclude<keyof I, "symbol" | "$type" | "sender" | "amount" | "destinationChain" | "contractAddress" | "payloadHash">]: never; }>(base?: I | undefined): EventContractCallWithToken;
     fromPartial<I_1 extends {
+        symbol?: string | undefined;
         sender?: Buffer | undefined;
+        amount?: Buffer | undefined;
         destinationChain?: string | undefined;
         contractAddress?: string | undefined;
         payloadHash?: Buffer | undefined;
-        symbol?: string | undefined;
-        amount?: Buffer | undefined;
     } & {
+        symbol?: string | undefined;
         sender?: Buffer | undefined;
+        amount?: Buffer | undefined;
         destinationChain?: string | undefined;
         contractAddress?: string | undefined;
         payloadHash?: Buffer | undefined;
-        symbol?: string | undefined;
-        amount?: Buffer | undefined;
-    } & { [K_1 in Exclude<keyof I_1, keyof EventContractCallWithToken>]: never; }>(object: I_1): EventContractCallWithToken;
+    } & { [K_1 in Exclude<keyof I_1, "symbol" | "$type" | "sender" | "amount" | "destinationChain" | "contractAddress" | "payloadHash">]: never; }>(object: I_1): EventContractCallWithToken;
 };
 export declare const EventTransfer: {
+    $type: "axelar.evm.v1beta1.EventTransfer";
     encode(message: EventTransfer, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): EventTransfer;
     fromJSON(object: any): EventTransfer;
     toJSON(message: EventTransfer): unknown;
     create<I extends {
-        to?: Buffer | undefined;
         amount?: Buffer | undefined;
+        to?: Buffer | undefined;
     } & {
-        to?: Buffer | undefined;
         amount?: Buffer | undefined;
-    } & { [K in Exclude<keyof I, keyof EventTransfer>]: never; }>(base?: I | undefined): EventTransfer;
+        to?: Buffer | undefined;
+    } & { [K in Exclude<keyof I, "$type" | "amount" | "to">]: never; }>(base?: I | undefined): EventTransfer;
     fromPartial<I_1 extends {
-        to?: Buffer | undefined;
         amount?: Buffer | undefined;
+        to?: Buffer | undefined;
     } & {
-        to?: Buffer | undefined;
         amount?: Buffer | undefined;
-    } & { [K_1 in Exclude<keyof I_1, keyof EventTransfer>]: never; }>(object: I_1): EventTransfer;
+        to?: Buffer | undefined;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "amount" | "to">]: never; }>(object: I_1): EventTransfer;
 };
 export declare const EventTokenDeployed: {
+    $type: "axelar.evm.v1beta1.EventTokenDeployed";
     encode(message: EventTokenDeployed, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): EventTokenDeployed;
     fromJSON(object: any): EventTokenDeployed;
@@ -1358,16 +1387,17 @@ export declare const EventTokenDeployed: {
     } & {
         symbol?: string | undefined;
         tokenAddress?: Buffer | undefined;
-    } & { [K in Exclude<keyof I, keyof EventTokenDeployed>]: never; }>(base?: I | undefined): EventTokenDeployed;
+    } & { [K in Exclude<keyof I, "symbol" | "$type" | "tokenAddress">]: never; }>(base?: I | undefined): EventTokenDeployed;
     fromPartial<I_1 extends {
         symbol?: string | undefined;
         tokenAddress?: Buffer | undefined;
     } & {
         symbol?: string | undefined;
         tokenAddress?: Buffer | undefined;
-    } & { [K_1 in Exclude<keyof I_1, keyof EventTokenDeployed>]: never; }>(object: I_1): EventTokenDeployed;
+    } & { [K_1 in Exclude<keyof I_1, "symbol" | "$type" | "tokenAddress">]: never; }>(object: I_1): EventTokenDeployed;
 };
 export declare const EventMultisigOwnershipTransferred: {
+    $type: "axelar.evm.v1beta1.EventMultisigOwnershipTransferred";
     encode(message: EventMultisigOwnershipTransferred, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): EventMultisigOwnershipTransferred;
     fromJSON(object: any): EventMultisigOwnershipTransferred;
@@ -1378,120 +1408,124 @@ export declare const EventMultisigOwnershipTransferred: {
         newOwners?: Buffer[] | undefined;
         newThreshold?: Buffer | undefined;
     } & {
-        preOwners?: (Buffer[] & Buffer[] & { [K in Exclude<keyof I["preOwners"], keyof Buffer[]>]: never; }) | undefined;
+        preOwners?: (Buffer[] & Buffer[] & { [K in Exclude<keyof I["preOwners"], "$type" | keyof Buffer[]>]: never; }) | undefined;
         prevThreshold?: Buffer | undefined;
-        newOwners?: (Buffer[] & Buffer[] & { [K_1 in Exclude<keyof I["newOwners"], keyof Buffer[]>]: never; }) | undefined;
+        newOwners?: (Buffer[] & Buffer[] & { [K_1 in Exclude<keyof I["newOwners"], "$type" | keyof Buffer[]>]: never; }) | undefined;
         newThreshold?: Buffer | undefined;
-    } & { [K_2 in Exclude<keyof I, keyof EventMultisigOwnershipTransferred>]: never; }>(base?: I | undefined): EventMultisigOwnershipTransferred;
+    } & { [K_2 in Exclude<keyof I, "$type" | "preOwners" | "prevThreshold" | "newOwners" | "newThreshold">]: never; }>(base?: I | undefined): EventMultisigOwnershipTransferred;
     fromPartial<I_1 extends {
         preOwners?: Buffer[] | undefined;
         prevThreshold?: Buffer | undefined;
         newOwners?: Buffer[] | undefined;
         newThreshold?: Buffer | undefined;
     } & {
-        preOwners?: (Buffer[] & Buffer[] & { [K_3 in Exclude<keyof I_1["preOwners"], keyof Buffer[]>]: never; }) | undefined;
+        preOwners?: (Buffer[] & Buffer[] & { [K_3 in Exclude<keyof I_1["preOwners"], "$type" | keyof Buffer[]>]: never; }) | undefined;
         prevThreshold?: Buffer | undefined;
-        newOwners?: (Buffer[] & Buffer[] & { [K_4 in Exclude<keyof I_1["newOwners"], keyof Buffer[]>]: never; }) | undefined;
+        newOwners?: (Buffer[] & Buffer[] & { [K_4 in Exclude<keyof I_1["newOwners"], "$type" | keyof Buffer[]>]: never; }) | undefined;
         newThreshold?: Buffer | undefined;
-    } & { [K_5 in Exclude<keyof I_1, keyof EventMultisigOwnershipTransferred>]: never; }>(object: I_1): EventMultisigOwnershipTransferred;
+    } & { [K_5 in Exclude<keyof I_1, "$type" | "preOwners" | "prevThreshold" | "newOwners" | "newThreshold">]: never; }>(object: I_1): EventMultisigOwnershipTransferred;
 };
 export declare const EventMultisigOperatorshipTransferred: {
+    $type: "axelar.evm.v1beta1.EventMultisigOperatorshipTransferred";
     encode(message: EventMultisigOperatorshipTransferred, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): EventMultisigOperatorshipTransferred;
     fromJSON(object: any): EventMultisigOperatorshipTransferred;
     toJSON(message: EventMultisigOperatorshipTransferred): unknown;
     create<I extends {
-        newOperators?: Buffer[] | undefined;
         newThreshold?: Buffer | undefined;
+        newOperators?: Buffer[] | undefined;
         newWeights?: Buffer[] | undefined;
     } & {
-        newOperators?: (Buffer[] & Buffer[] & { [K in Exclude<keyof I["newOperators"], keyof Buffer[]>]: never; }) | undefined;
         newThreshold?: Buffer | undefined;
-        newWeights?: (Buffer[] & Buffer[] & { [K_1 in Exclude<keyof I["newWeights"], keyof Buffer[]>]: never; }) | undefined;
-    } & { [K_2 in Exclude<keyof I, keyof EventMultisigOperatorshipTransferred>]: never; }>(base?: I | undefined): EventMultisigOperatorshipTransferred;
+        newOperators?: (Buffer[] & Buffer[] & { [K in Exclude<keyof I["newOperators"], "$type" | keyof Buffer[]>]: never; }) | undefined;
+        newWeights?: (Buffer[] & Buffer[] & { [K_1 in Exclude<keyof I["newWeights"], "$type" | keyof Buffer[]>]: never; }) | undefined;
+    } & { [K_2 in Exclude<keyof I, "$type" | "newThreshold" | "newOperators" | "newWeights">]: never; }>(base?: I | undefined): EventMultisigOperatorshipTransferred;
     fromPartial<I_1 extends {
-        newOperators?: Buffer[] | undefined;
         newThreshold?: Buffer | undefined;
+        newOperators?: Buffer[] | undefined;
         newWeights?: Buffer[] | undefined;
     } & {
-        newOperators?: (Buffer[] & Buffer[] & { [K_3 in Exclude<keyof I_1["newOperators"], keyof Buffer[]>]: never; }) | undefined;
         newThreshold?: Buffer | undefined;
-        newWeights?: (Buffer[] & Buffer[] & { [K_4 in Exclude<keyof I_1["newWeights"], keyof Buffer[]>]: never; }) | undefined;
-    } & { [K_5 in Exclude<keyof I_1, keyof EventMultisigOperatorshipTransferred>]: never; }>(object: I_1): EventMultisigOperatorshipTransferred;
+        newOperators?: (Buffer[] & Buffer[] & { [K_3 in Exclude<keyof I_1["newOperators"], "$type" | keyof Buffer[]>]: never; }) | undefined;
+        newWeights?: (Buffer[] & Buffer[] & { [K_4 in Exclude<keyof I_1["newWeights"], "$type" | keyof Buffer[]>]: never; }) | undefined;
+    } & { [K_5 in Exclude<keyof I_1, "$type" | "newThreshold" | "newOperators" | "newWeights">]: never; }>(object: I_1): EventMultisigOperatorshipTransferred;
 };
 export declare const NetworkInfo: {
+    $type: "axelar.evm.v1beta1.NetworkInfo";
     encode(message: NetworkInfo, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): NetworkInfo;
     fromJSON(object: any): NetworkInfo;
     toJSON(message: NetworkInfo): unknown;
     create<I extends {
-        name?: string | undefined;
         id?: Buffer | undefined;
+        name?: string | undefined;
     } & {
-        name?: string | undefined;
         id?: Buffer | undefined;
-    } & { [K in Exclude<keyof I, keyof NetworkInfo>]: never; }>(base?: I | undefined): NetworkInfo;
+        name?: string | undefined;
+    } & { [K in Exclude<keyof I, "$type" | "id" | "name">]: never; }>(base?: I | undefined): NetworkInfo;
     fromPartial<I_1 extends {
-        name?: string | undefined;
         id?: Buffer | undefined;
+        name?: string | undefined;
     } & {
-        name?: string | undefined;
         id?: Buffer | undefined;
-    } & { [K_1 in Exclude<keyof I_1, keyof NetworkInfo>]: never; }>(object: I_1): NetworkInfo;
+        name?: string | undefined;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "id" | "name">]: never; }>(object: I_1): NetworkInfo;
 };
 export declare const BurnerInfo: {
+    $type: "axelar.evm.v1beta1.BurnerInfo";
     encode(message: BurnerInfo, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): BurnerInfo;
     fromJSON(object: any): BurnerInfo;
     toJSON(message: BurnerInfo): unknown;
     create<I extends {
-        burnerAddress?: Buffer | undefined;
-        tokenAddress?: Buffer | undefined;
-        destinationChain?: string | undefined;
         symbol?: string | undefined;
         asset?: string | undefined;
+        destinationChain?: string | undefined;
+        tokenAddress?: Buffer | undefined;
+        burnerAddress?: Buffer | undefined;
         salt?: Buffer | undefined;
     } & {
-        burnerAddress?: Buffer | undefined;
-        tokenAddress?: Buffer | undefined;
-        destinationChain?: string | undefined;
         symbol?: string | undefined;
         asset?: string | undefined;
+        destinationChain?: string | undefined;
+        tokenAddress?: Buffer | undefined;
+        burnerAddress?: Buffer | undefined;
         salt?: Buffer | undefined;
-    } & { [K in Exclude<keyof I, keyof BurnerInfo>]: never; }>(base?: I | undefined): BurnerInfo;
+    } & { [K in Exclude<keyof I, "symbol" | "$type" | "asset" | "destinationChain" | "tokenAddress" | "burnerAddress" | "salt">]: never; }>(base?: I | undefined): BurnerInfo;
     fromPartial<I_1 extends {
-        burnerAddress?: Buffer | undefined;
-        tokenAddress?: Buffer | undefined;
-        destinationChain?: string | undefined;
         symbol?: string | undefined;
         asset?: string | undefined;
+        destinationChain?: string | undefined;
+        tokenAddress?: Buffer | undefined;
+        burnerAddress?: Buffer | undefined;
         salt?: Buffer | undefined;
     } & {
-        burnerAddress?: Buffer | undefined;
-        tokenAddress?: Buffer | undefined;
-        destinationChain?: string | undefined;
         symbol?: string | undefined;
         asset?: string | undefined;
+        destinationChain?: string | undefined;
+        tokenAddress?: Buffer | undefined;
+        burnerAddress?: Buffer | undefined;
         salt?: Buffer | undefined;
-    } & { [K_1 in Exclude<keyof I_1, keyof BurnerInfo>]: never; }>(object: I_1): BurnerInfo;
+    } & { [K_1 in Exclude<keyof I_1, "symbol" | "$type" | "asset" | "destinationChain" | "tokenAddress" | "burnerAddress" | "salt">]: never; }>(object: I_1): BurnerInfo;
 };
 export declare const ERC20Deposit: {
+    $type: "axelar.evm.v1beta1.ERC20Deposit";
     encode(message: ERC20Deposit, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ERC20Deposit;
     fromJSON(object: any): ERC20Deposit;
     toJSON(message: ERC20Deposit): unknown;
     create<I extends {
-        txId?: Buffer | undefined;
         amount?: Buffer | undefined;
         asset?: string | undefined;
         destinationChain?: string | undefined;
+        txId?: Buffer | undefined;
         burnerAddress?: Buffer | undefined;
         logIndex?: string | number | Long.Long | undefined;
     } & {
-        txId?: Buffer | undefined;
         amount?: Buffer | undefined;
         asset?: string | undefined;
         destinationChain?: string | undefined;
+        txId?: Buffer | undefined;
         burnerAddress?: Buffer | undefined;
         logIndex?: string | number | (Long.Long & {
             high: number;
@@ -1550,20 +1584,20 @@ export declare const ERC20Deposit: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K in Exclude<keyof I["logIndex"], keyof Long.Long>]: never; }) | undefined;
-    } & { [K_1 in Exclude<keyof I, keyof ERC20Deposit>]: never; }>(base?: I | undefined): ERC20Deposit;
+        } & { [K in Exclude<keyof I["logIndex"], "$type" | keyof Long.Long>]: never; }) | undefined;
+    } & { [K_1 in Exclude<keyof I, "$type" | "amount" | "asset" | "destinationChain" | "txId" | "burnerAddress" | "logIndex">]: never; }>(base?: I | undefined): ERC20Deposit;
     fromPartial<I_1 extends {
-        txId?: Buffer | undefined;
         amount?: Buffer | undefined;
         asset?: string | undefined;
         destinationChain?: string | undefined;
+        txId?: Buffer | undefined;
         burnerAddress?: Buffer | undefined;
         logIndex?: string | number | Long.Long | undefined;
     } & {
-        txId?: Buffer | undefined;
         amount?: Buffer | undefined;
         asset?: string | undefined;
         destinationChain?: string | undefined;
+        txId?: Buffer | undefined;
         burnerAddress?: Buffer | undefined;
         logIndex?: string | number | (Long.Long & {
             high: number;
@@ -1622,202 +1656,207 @@ export declare const ERC20Deposit: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_2 in Exclude<keyof I_1["logIndex"], keyof Long.Long>]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I_1, keyof ERC20Deposit>]: never; }>(object: I_1): ERC20Deposit;
+        } & { [K_2 in Exclude<keyof I_1["logIndex"], "$type" | keyof Long.Long>]: never; }) | undefined;
+    } & { [K_3 in Exclude<keyof I_1, "$type" | "amount" | "asset" | "destinationChain" | "txId" | "burnerAddress" | "logIndex">]: never; }>(object: I_1): ERC20Deposit;
 };
 export declare const ERC20TokenMetadata: {
+    $type: "axelar.evm.v1beta1.ERC20TokenMetadata";
     encode(message: ERC20TokenMetadata, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ERC20TokenMetadata;
     fromJSON(object: any): ERC20TokenMetadata;
     toJSON(message: ERC20TokenMetadata): unknown;
     create<I extends {
-        asset?: string | undefined;
         chainId?: Buffer | undefined;
+        status?: Status | undefined;
+        asset?: string | undefined;
+        tokenAddress?: string | undefined;
         details?: {
-            tokenName?: string | undefined;
             symbol?: string | undefined;
+            tokenName?: string | undefined;
             decimals?: number | undefined;
             capacity?: Buffer | undefined;
         } | undefined;
-        tokenAddress?: string | undefined;
         txHash?: string | undefined;
-        status?: Status | undefined;
         isExternal?: boolean | undefined;
         burnerCode?: Buffer | undefined;
     } & {
-        asset?: string | undefined;
         chainId?: Buffer | undefined;
+        status?: Status | undefined;
+        asset?: string | undefined;
+        tokenAddress?: string | undefined;
         details?: ({
-            tokenName?: string | undefined;
             symbol?: string | undefined;
+            tokenName?: string | undefined;
             decimals?: number | undefined;
             capacity?: Buffer | undefined;
         } & {
-            tokenName?: string | undefined;
             symbol?: string | undefined;
+            tokenName?: string | undefined;
             decimals?: number | undefined;
             capacity?: Buffer | undefined;
-        } & { [K in Exclude<keyof I["details"], keyof TokenDetails>]: never; }) | undefined;
-        tokenAddress?: string | undefined;
+        } & { [K in Exclude<keyof I["details"], "symbol" | "$type" | "tokenName" | "decimals" | "capacity">]: never; }) | undefined;
         txHash?: string | undefined;
-        status?: Status | undefined;
         isExternal?: boolean | undefined;
         burnerCode?: Buffer | undefined;
-    } & { [K_1 in Exclude<keyof I, keyof ERC20TokenMetadata>]: never; }>(base?: I | undefined): ERC20TokenMetadata;
+    } & { [K_1 in Exclude<keyof I, "$type" | "chainId" | "status" | "asset" | "tokenAddress" | "details" | "txHash" | "isExternal" | "burnerCode">]: never; }>(base?: I | undefined): ERC20TokenMetadata;
     fromPartial<I_1 extends {
-        asset?: string | undefined;
         chainId?: Buffer | undefined;
+        status?: Status | undefined;
+        asset?: string | undefined;
+        tokenAddress?: string | undefined;
         details?: {
-            tokenName?: string | undefined;
             symbol?: string | undefined;
+            tokenName?: string | undefined;
             decimals?: number | undefined;
             capacity?: Buffer | undefined;
         } | undefined;
-        tokenAddress?: string | undefined;
         txHash?: string | undefined;
-        status?: Status | undefined;
         isExternal?: boolean | undefined;
         burnerCode?: Buffer | undefined;
     } & {
-        asset?: string | undefined;
         chainId?: Buffer | undefined;
+        status?: Status | undefined;
+        asset?: string | undefined;
+        tokenAddress?: string | undefined;
         details?: ({
-            tokenName?: string | undefined;
             symbol?: string | undefined;
+            tokenName?: string | undefined;
             decimals?: number | undefined;
             capacity?: Buffer | undefined;
         } & {
-            tokenName?: string | undefined;
             symbol?: string | undefined;
+            tokenName?: string | undefined;
             decimals?: number | undefined;
             capacity?: Buffer | undefined;
-        } & { [K_2 in Exclude<keyof I_1["details"], keyof TokenDetails>]: never; }) | undefined;
-        tokenAddress?: string | undefined;
+        } & { [K_2 in Exclude<keyof I_1["details"], "symbol" | "$type" | "tokenName" | "decimals" | "capacity">]: never; }) | undefined;
         txHash?: string | undefined;
-        status?: Status | undefined;
         isExternal?: boolean | undefined;
         burnerCode?: Buffer | undefined;
-    } & { [K_3 in Exclude<keyof I_1, keyof ERC20TokenMetadata>]: never; }>(object: I_1): ERC20TokenMetadata;
+    } & { [K_3 in Exclude<keyof I_1, "$type" | "chainId" | "status" | "asset" | "tokenAddress" | "details" | "txHash" | "isExternal" | "burnerCode">]: never; }>(object: I_1): ERC20TokenMetadata;
 };
 export declare const TransactionMetadata: {
+    $type: "axelar.evm.v1beta1.TransactionMetadata";
     encode(message: TransactionMetadata, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): TransactionMetadata;
     fromJSON(object: any): TransactionMetadata;
     toJSON(message: TransactionMetadata): unknown;
     create<I extends {
-        rawTx?: Buffer | undefined;
         pubKey?: Buffer | undefined;
+        rawTx?: Buffer | undefined;
     } & {
-        rawTx?: Buffer | undefined;
         pubKey?: Buffer | undefined;
-    } & { [K in Exclude<keyof I, keyof TransactionMetadata>]: never; }>(base?: I | undefined): TransactionMetadata;
+        rawTx?: Buffer | undefined;
+    } & { [K in Exclude<keyof I, "$type" | "pubKey" | "rawTx">]: never; }>(base?: I | undefined): TransactionMetadata;
     fromPartial<I_1 extends {
-        rawTx?: Buffer | undefined;
         pubKey?: Buffer | undefined;
+        rawTx?: Buffer | undefined;
     } & {
-        rawTx?: Buffer | undefined;
         pubKey?: Buffer | undefined;
-    } & { [K_1 in Exclude<keyof I_1, keyof TransactionMetadata>]: never; }>(object: I_1): TransactionMetadata;
+        rawTx?: Buffer | undefined;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "pubKey" | "rawTx">]: never; }>(object: I_1): TransactionMetadata;
 };
 export declare const Command: {
+    $type: "axelar.evm.v1beta1.Command";
     encode(message: Command, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Command;
     fromJSON(object: any): Command;
     toJSON(message: Command): unknown;
     create<I extends {
+        type?: CommandType | undefined;
         id?: Buffer | undefined;
-        command?: string | undefined;
         params?: Buffer | undefined;
+        command?: string | undefined;
         keyId?: string | undefined;
         maxGasCost?: number | undefined;
-        type?: CommandType | undefined;
     } & {
+        type?: CommandType | undefined;
         id?: Buffer | undefined;
-        command?: string | undefined;
         params?: Buffer | undefined;
+        command?: string | undefined;
         keyId?: string | undefined;
         maxGasCost?: number | undefined;
-        type?: CommandType | undefined;
-    } & { [K in Exclude<keyof I, keyof Command>]: never; }>(base?: I | undefined): Command;
+    } & { [K in Exclude<keyof I, "$type" | "type" | "id" | "params" | "command" | "keyId" | "maxGasCost">]: never; }>(base?: I | undefined): Command;
     fromPartial<I_1 extends {
+        type?: CommandType | undefined;
         id?: Buffer | undefined;
-        command?: string | undefined;
         params?: Buffer | undefined;
+        command?: string | undefined;
         keyId?: string | undefined;
         maxGasCost?: number | undefined;
-        type?: CommandType | undefined;
     } & {
+        type?: CommandType | undefined;
         id?: Buffer | undefined;
-        command?: string | undefined;
         params?: Buffer | undefined;
+        command?: string | undefined;
         keyId?: string | undefined;
         maxGasCost?: number | undefined;
-        type?: CommandType | undefined;
-    } & { [K_1 in Exclude<keyof I_1, keyof Command>]: never; }>(object: I_1): Command;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "type" | "id" | "params" | "command" | "keyId" | "maxGasCost">]: never; }>(object: I_1): Command;
 };
 export declare const CommandBatchMetadata: {
+    $type: "axelar.evm.v1beta1.CommandBatchMetadata";
     encode(message: CommandBatchMetadata, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): CommandBatchMetadata;
     fromJSON(object: any): CommandBatchMetadata;
     toJSON(message: CommandBatchMetadata): unknown;
     create<I extends {
-        id?: Buffer | undefined;
-        commandIds?: Buffer[] | undefined;
         data?: Buffer | undefined;
-        sigHash?: Buffer | undefined;
         status?: BatchedCommandsStatus | undefined;
-        keyId?: string | undefined;
-        prevBatchedCommandsId?: Buffer | undefined;
         signature?: {
             typeUrl?: string | undefined;
             value?: Buffer | undefined;
         } | undefined;
-    } & {
         id?: Buffer | undefined;
-        commandIds?: (Buffer[] & Buffer[] & { [K in Exclude<keyof I["commandIds"], keyof Buffer[]>]: never; }) | undefined;
-        data?: Buffer | undefined;
-        sigHash?: Buffer | undefined;
-        status?: BatchedCommandsStatus | undefined;
         keyId?: string | undefined;
+        commandIds?: Buffer[] | undefined;
+        sigHash?: Buffer | undefined;
         prevBatchedCommandsId?: Buffer | undefined;
+    } & {
+        data?: Buffer | undefined;
+        status?: BatchedCommandsStatus | undefined;
         signature?: ({
             typeUrl?: string | undefined;
             value?: Buffer | undefined;
         } & {
             typeUrl?: string | undefined;
             value?: Buffer | undefined;
-        } & { [K_1 in Exclude<keyof I["signature"], keyof Any>]: never; }) | undefined;
-    } & { [K_2 in Exclude<keyof I, keyof CommandBatchMetadata>]: never; }>(base?: I | undefined): CommandBatchMetadata;
+        } & { [K in Exclude<keyof I["signature"], "$type" | "typeUrl" | "value">]: never; }) | undefined;
+        id?: Buffer | undefined;
+        keyId?: string | undefined;
+        commandIds?: (Buffer[] & Buffer[] & { [K_1 in Exclude<keyof I["commandIds"], "$type" | keyof Buffer[]>]: never; }) | undefined;
+        sigHash?: Buffer | undefined;
+        prevBatchedCommandsId?: Buffer | undefined;
+    } & { [K_2 in Exclude<keyof I, "$type" | "data" | "status" | "signature" | "id" | "keyId" | "commandIds" | "sigHash" | "prevBatchedCommandsId">]: never; }>(base?: I | undefined): CommandBatchMetadata;
     fromPartial<I_1 extends {
-        id?: Buffer | undefined;
-        commandIds?: Buffer[] | undefined;
         data?: Buffer | undefined;
-        sigHash?: Buffer | undefined;
         status?: BatchedCommandsStatus | undefined;
-        keyId?: string | undefined;
-        prevBatchedCommandsId?: Buffer | undefined;
         signature?: {
             typeUrl?: string | undefined;
             value?: Buffer | undefined;
         } | undefined;
-    } & {
         id?: Buffer | undefined;
-        commandIds?: (Buffer[] & Buffer[] & { [K_3 in Exclude<keyof I_1["commandIds"], keyof Buffer[]>]: never; }) | undefined;
-        data?: Buffer | undefined;
-        sigHash?: Buffer | undefined;
-        status?: BatchedCommandsStatus | undefined;
         keyId?: string | undefined;
+        commandIds?: Buffer[] | undefined;
+        sigHash?: Buffer | undefined;
         prevBatchedCommandsId?: Buffer | undefined;
+    } & {
+        data?: Buffer | undefined;
+        status?: BatchedCommandsStatus | undefined;
         signature?: ({
             typeUrl?: string | undefined;
             value?: Buffer | undefined;
         } & {
             typeUrl?: string | undefined;
             value?: Buffer | undefined;
-        } & { [K_4 in Exclude<keyof I_1["signature"], keyof Any>]: never; }) | undefined;
-    } & { [K_5 in Exclude<keyof I_1, keyof CommandBatchMetadata>]: never; }>(object: I_1): CommandBatchMetadata;
+        } & { [K_3 in Exclude<keyof I_1["signature"], "$type" | "typeUrl" | "value">]: never; }) | undefined;
+        id?: Buffer | undefined;
+        keyId?: string | undefined;
+        commandIds?: (Buffer[] & Buffer[] & { [K_4 in Exclude<keyof I_1["commandIds"], "$type" | keyof Buffer[]>]: never; }) | undefined;
+        sigHash?: Buffer | undefined;
+        prevBatchedCommandsId?: Buffer | undefined;
+    } & { [K_5 in Exclude<keyof I_1, "$type" | "data" | "status" | "signature" | "id" | "keyId" | "commandIds" | "sigHash" | "prevBatchedCommandsId">]: never; }>(object: I_1): CommandBatchMetadata;
 };
 export declare const SigMetadata: {
+    $type: "axelar.evm.v1beta1.SigMetadata";
     encode(message: SigMetadata, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): SigMetadata;
     fromJSON(object: any): SigMetadata;
@@ -1830,7 +1869,7 @@ export declare const SigMetadata: {
         type?: SigType | undefined;
         chain?: string | undefined;
         commandBatchId?: Buffer | undefined;
-    } & { [K in Exclude<keyof I, keyof SigMetadata>]: never; }>(base?: I | undefined): SigMetadata;
+    } & { [K in Exclude<keyof I, "$type" | "type" | "chain" | "commandBatchId">]: never; }>(base?: I | undefined): SigMetadata;
     fromPartial<I_1 extends {
         type?: SigType | undefined;
         chain?: string | undefined;
@@ -1839,9 +1878,10 @@ export declare const SigMetadata: {
         type?: SigType | undefined;
         chain?: string | undefined;
         commandBatchId?: Buffer | undefined;
-    } & { [K_1 in Exclude<keyof I_1, keyof SigMetadata>]: never; }>(object: I_1): SigMetadata;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "type" | "chain" | "commandBatchId">]: never; }>(object: I_1): SigMetadata;
 };
 export declare const TransferKey: {
+    $type: "axelar.evm.v1beta1.TransferKey";
     encode(message: TransferKey, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): TransferKey;
     fromJSON(object: any): TransferKey;
@@ -1852,16 +1892,17 @@ export declare const TransferKey: {
     } & {
         txId?: Buffer | undefined;
         nextKeyId?: string | undefined;
-    } & { [K in Exclude<keyof I, keyof TransferKey>]: never; }>(base?: I | undefined): TransferKey;
+    } & { [K in Exclude<keyof I, "$type" | "txId" | "nextKeyId">]: never; }>(base?: I | undefined): TransferKey;
     fromPartial<I_1 extends {
         txId?: Buffer | undefined;
         nextKeyId?: string | undefined;
     } & {
         txId?: Buffer | undefined;
         nextKeyId?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, keyof TransferKey>]: never; }>(object: I_1): TransferKey;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "txId" | "nextKeyId">]: never; }>(object: I_1): TransferKey;
 };
 export declare const Asset: {
+    $type: "axelar.evm.v1beta1.Asset";
     encode(message: Asset, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Asset;
     fromJSON(object: any): Asset;
@@ -1872,44 +1913,46 @@ export declare const Asset: {
     } & {
         chain?: string | undefined;
         name?: string | undefined;
-    } & { [K in Exclude<keyof I, keyof Asset>]: never; }>(base?: I | undefined): Asset;
+    } & { [K in Exclude<keyof I, "$type" | "chain" | "name">]: never; }>(base?: I | undefined): Asset;
     fromPartial<I_1 extends {
         chain?: string | undefined;
         name?: string | undefined;
     } & {
         chain?: string | undefined;
         name?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, keyof Asset>]: never; }>(object: I_1): Asset;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "chain" | "name">]: never; }>(object: I_1): Asset;
 };
 export declare const TokenDetails: {
+    $type: "axelar.evm.v1beta1.TokenDetails";
     encode(message: TokenDetails, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): TokenDetails;
     fromJSON(object: any): TokenDetails;
     toJSON(message: TokenDetails): unknown;
     create<I extends {
-        tokenName?: string | undefined;
         symbol?: string | undefined;
+        tokenName?: string | undefined;
         decimals?: number | undefined;
         capacity?: Buffer | undefined;
     } & {
-        tokenName?: string | undefined;
         symbol?: string | undefined;
+        tokenName?: string | undefined;
         decimals?: number | undefined;
         capacity?: Buffer | undefined;
-    } & { [K in Exclude<keyof I, keyof TokenDetails>]: never; }>(base?: I | undefined): TokenDetails;
+    } & { [K in Exclude<keyof I, "symbol" | "$type" | "tokenName" | "decimals" | "capacity">]: never; }>(base?: I | undefined): TokenDetails;
     fromPartial<I_1 extends {
-        tokenName?: string | undefined;
         symbol?: string | undefined;
+        tokenName?: string | undefined;
         decimals?: number | undefined;
         capacity?: Buffer | undefined;
     } & {
-        tokenName?: string | undefined;
         symbol?: string | undefined;
+        tokenName?: string | undefined;
         decimals?: number | undefined;
         capacity?: Buffer | undefined;
-    } & { [K_1 in Exclude<keyof I_1, keyof TokenDetails>]: never; }>(object: I_1): TokenDetails;
+    } & { [K_1 in Exclude<keyof I_1, "symbol" | "$type" | "tokenName" | "decimals" | "capacity">]: never; }>(object: I_1): TokenDetails;
 };
 export declare const Gateway: {
+    $type: "axelar.evm.v1beta1.Gateway";
     encode(message: Gateway, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Gateway;
     fromJSON(object: any): Gateway;
@@ -1918,14 +1961,15 @@ export declare const Gateway: {
         address?: Buffer | undefined;
     } & {
         address?: Buffer | undefined;
-    } & { [K in Exclude<keyof I, "address">]: never; }>(base?: I | undefined): Gateway;
+    } & { [K in Exclude<keyof I, "$type" | "address">]: never; }>(base?: I | undefined): Gateway;
     fromPartial<I_1 extends {
         address?: Buffer | undefined;
     } & {
         address?: Buffer | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "address">]: never; }>(object: I_1): Gateway;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "address">]: never; }>(object: I_1): Gateway;
 };
 export declare const PollMetadata: {
+    $type: "axelar.evm.v1beta1.PollMetadata";
     encode(message: PollMetadata, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): PollMetadata;
     fromJSON(object: any): PollMetadata;
@@ -1936,23 +1980,23 @@ export declare const PollMetadata: {
     } & {
         chain?: string | undefined;
         txId?: Buffer | undefined;
-    } & { [K in Exclude<keyof I, keyof PollMetadata>]: never; }>(base?: I | undefined): PollMetadata;
+    } & { [K in Exclude<keyof I, "$type" | "chain" | "txId">]: never; }>(base?: I | undefined): PollMetadata;
     fromPartial<I_1 extends {
         chain?: string | undefined;
         txId?: Buffer | undefined;
     } & {
         chain?: string | undefined;
         txId?: Buffer | undefined;
-    } & { [K_1 in Exclude<keyof I_1, keyof PollMetadata>]: never; }>(object: I_1): PollMetadata;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "chain" | "txId">]: never; }>(object: I_1): PollMetadata;
 };
 declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
-    [K in keyof T]?: DeepPartial<T[K]>;
+    [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]>;
 } : Partial<T>;
 declare type KeysOfUnion<T> = T extends T ? keyof T : never;
 export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & {
-    [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+    [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never;
 };
 export {};

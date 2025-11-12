@@ -31,6 +31,7 @@ export declare function keyShareDistributionPolicyFromJSON(object: any): KeyShar
 export declare function keyShareDistributionPolicyToJSON(object: KeyShareDistributionPolicy): string;
 /** KeyRequirement defines requirements for keys */
 export interface KeyRequirement {
+    $type: "axelar.tss.exported.v1beta1.KeyRequirement";
     keyRole: KeyRole;
     keyType: KeyType;
     minKeygenThreshold?: Threshold | undefined;
@@ -45,10 +46,12 @@ export interface KeyRequirement {
 }
 /** PubKeyInfo holds a pubkey and a signature */
 export interface SigKeyPair {
+    $type: "axelar.tss.exported.v1beta1.SigKeyPair";
     pubKey: Buffer;
     signature: Buffer;
 }
 export declare const KeyRequirement: {
+    $type: "axelar.tss.exported.v1beta1.KeyRequirement";
     encode(message: KeyRequirement, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): KeyRequirement;
     fromJSON(object: any): KeyRequirement;
@@ -141,7 +144,7 @@ export declare const KeyRequirement: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K in Exclude<keyof I["minKeygenThreshold"]["numerator"], keyof Long.Long>]: never; }) | undefined;
+            } & { [K in Exclude<keyof I["minKeygenThreshold"]["numerator"], "$type" | keyof Long.Long>]: never; }) | undefined;
             denominator?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -199,8 +202,8 @@ export declare const KeyRequirement: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_1 in Exclude<keyof I["minKeygenThreshold"]["denominator"], keyof Long.Long>]: never; }) | undefined;
-        } & { [K_2 in Exclude<keyof I["minKeygenThreshold"], keyof Threshold>]: never; }) | undefined;
+            } & { [K_1 in Exclude<keyof I["minKeygenThreshold"]["denominator"], "$type" | keyof Long.Long>]: never; }) | undefined;
+        } & { [K_2 in Exclude<keyof I["minKeygenThreshold"], "$type" | "numerator" | "denominator">]: never; }) | undefined;
         safetyThreshold?: ({
             numerator?: string | number | Long.Long | undefined;
             denominator?: string | number | Long.Long | undefined;
@@ -262,7 +265,7 @@ export declare const KeyRequirement: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_3 in Exclude<keyof I["safetyThreshold"]["numerator"], keyof Long.Long>]: never; }) | undefined;
+            } & { [K_3 in Exclude<keyof I["safetyThreshold"]["numerator"], "$type" | keyof Long.Long>]: never; }) | undefined;
             denominator?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -320,8 +323,8 @@ export declare const KeyRequirement: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_4 in Exclude<keyof I["safetyThreshold"]["denominator"], keyof Long.Long>]: never; }) | undefined;
-        } & { [K_5 in Exclude<keyof I["safetyThreshold"], keyof Threshold>]: never; }) | undefined;
+            } & { [K_4 in Exclude<keyof I["safetyThreshold"]["denominator"], "$type" | keyof Long.Long>]: never; }) | undefined;
+        } & { [K_5 in Exclude<keyof I["safetyThreshold"], "$type" | "numerator" | "denominator">]: never; }) | undefined;
         keyShareDistributionPolicy?: KeyShareDistributionPolicy | undefined;
         maxTotalShareCount?: string | number | (Long.Long & {
             high: number;
@@ -380,7 +383,7 @@ export declare const KeyRequirement: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_6 in Exclude<keyof I["maxTotalShareCount"], keyof Long.Long>]: never; }) | undefined;
+        } & { [K_6 in Exclude<keyof I["maxTotalShareCount"], "$type" | keyof Long.Long>]: never; }) | undefined;
         minTotalShareCount?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -438,7 +441,7 @@ export declare const KeyRequirement: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_7 in Exclude<keyof I["minTotalShareCount"], keyof Long.Long>]: never; }) | undefined;
+        } & { [K_7 in Exclude<keyof I["minTotalShareCount"], "$type" | keyof Long.Long>]: never; }) | undefined;
         keygenVotingThreshold?: ({
             numerator?: string | number | Long.Long | undefined;
             denominator?: string | number | Long.Long | undefined;
@@ -500,7 +503,7 @@ export declare const KeyRequirement: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_8 in Exclude<keyof I["keygenVotingThreshold"]["numerator"], keyof Long.Long>]: never; }) | undefined;
+            } & { [K_8 in Exclude<keyof I["keygenVotingThreshold"]["numerator"], "$type" | keyof Long.Long>]: never; }) | undefined;
             denominator?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -558,8 +561,8 @@ export declare const KeyRequirement: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_9 in Exclude<keyof I["keygenVotingThreshold"]["denominator"], keyof Long.Long>]: never; }) | undefined;
-        } & { [K_10 in Exclude<keyof I["keygenVotingThreshold"], keyof Threshold>]: never; }) | undefined;
+            } & { [K_9 in Exclude<keyof I["keygenVotingThreshold"]["denominator"], "$type" | keyof Long.Long>]: never; }) | undefined;
+        } & { [K_10 in Exclude<keyof I["keygenVotingThreshold"], "$type" | "numerator" | "denominator">]: never; }) | undefined;
         signVotingThreshold?: ({
             numerator?: string | number | Long.Long | undefined;
             denominator?: string | number | Long.Long | undefined;
@@ -621,7 +624,7 @@ export declare const KeyRequirement: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_11 in Exclude<keyof I["signVotingThreshold"]["numerator"], keyof Long.Long>]: never; }) | undefined;
+            } & { [K_11 in Exclude<keyof I["signVotingThreshold"]["numerator"], "$type" | keyof Long.Long>]: never; }) | undefined;
             denominator?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -679,8 +682,8 @@ export declare const KeyRequirement: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_12 in Exclude<keyof I["signVotingThreshold"]["denominator"], keyof Long.Long>]: never; }) | undefined;
-        } & { [K_13 in Exclude<keyof I["signVotingThreshold"], keyof Threshold>]: never; }) | undefined;
+            } & { [K_12 in Exclude<keyof I["signVotingThreshold"]["denominator"], "$type" | keyof Long.Long>]: never; }) | undefined;
+        } & { [K_13 in Exclude<keyof I["signVotingThreshold"], "$type" | "numerator" | "denominator">]: never; }) | undefined;
         keygenTimeout?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -738,7 +741,7 @@ export declare const KeyRequirement: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_14 in Exclude<keyof I["keygenTimeout"], keyof Long.Long>]: never; }) | undefined;
+        } & { [K_14 in Exclude<keyof I["keygenTimeout"], "$type" | keyof Long.Long>]: never; }) | undefined;
         signTimeout?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -796,8 +799,8 @@ export declare const KeyRequirement: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_15 in Exclude<keyof I["signTimeout"], keyof Long.Long>]: never; }) | undefined;
-    } & { [K_16 in Exclude<keyof I, keyof KeyRequirement>]: never; }>(base?: I | undefined): KeyRequirement;
+        } & { [K_15 in Exclude<keyof I["signTimeout"], "$type" | keyof Long.Long>]: never; }) | undefined;
+    } & { [K_16 in Exclude<keyof I, "$type" | "keyRole" | "keyType" | "minKeygenThreshold" | "safetyThreshold" | "keyShareDistributionPolicy" | "maxTotalShareCount" | "minTotalShareCount" | "keygenVotingThreshold" | "signVotingThreshold" | "keygenTimeout" | "signTimeout">]: never; }>(base?: I | undefined): KeyRequirement;
     fromPartial<I_1 extends {
         keyRole?: KeyRole | undefined;
         keyType?: KeyType | undefined;
@@ -886,7 +889,7 @@ export declare const KeyRequirement: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_17 in Exclude<keyof I_1["minKeygenThreshold"]["numerator"], keyof Long.Long>]: never; }) | undefined;
+            } & { [K_17 in Exclude<keyof I_1["minKeygenThreshold"]["numerator"], "$type" | keyof Long.Long>]: never; }) | undefined;
             denominator?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -944,8 +947,8 @@ export declare const KeyRequirement: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_18 in Exclude<keyof I_1["minKeygenThreshold"]["denominator"], keyof Long.Long>]: never; }) | undefined;
-        } & { [K_19 in Exclude<keyof I_1["minKeygenThreshold"], keyof Threshold>]: never; }) | undefined;
+            } & { [K_18 in Exclude<keyof I_1["minKeygenThreshold"]["denominator"], "$type" | keyof Long.Long>]: never; }) | undefined;
+        } & { [K_19 in Exclude<keyof I_1["minKeygenThreshold"], "$type" | "numerator" | "denominator">]: never; }) | undefined;
         safetyThreshold?: ({
             numerator?: string | number | Long.Long | undefined;
             denominator?: string | number | Long.Long | undefined;
@@ -1007,7 +1010,7 @@ export declare const KeyRequirement: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_20 in Exclude<keyof I_1["safetyThreshold"]["numerator"], keyof Long.Long>]: never; }) | undefined;
+            } & { [K_20 in Exclude<keyof I_1["safetyThreshold"]["numerator"], "$type" | keyof Long.Long>]: never; }) | undefined;
             denominator?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -1065,8 +1068,8 @@ export declare const KeyRequirement: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_21 in Exclude<keyof I_1["safetyThreshold"]["denominator"], keyof Long.Long>]: never; }) | undefined;
-        } & { [K_22 in Exclude<keyof I_1["safetyThreshold"], keyof Threshold>]: never; }) | undefined;
+            } & { [K_21 in Exclude<keyof I_1["safetyThreshold"]["denominator"], "$type" | keyof Long.Long>]: never; }) | undefined;
+        } & { [K_22 in Exclude<keyof I_1["safetyThreshold"], "$type" | "numerator" | "denominator">]: never; }) | undefined;
         keyShareDistributionPolicy?: KeyShareDistributionPolicy | undefined;
         maxTotalShareCount?: string | number | (Long.Long & {
             high: number;
@@ -1125,7 +1128,7 @@ export declare const KeyRequirement: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_23 in Exclude<keyof I_1["maxTotalShareCount"], keyof Long.Long>]: never; }) | undefined;
+        } & { [K_23 in Exclude<keyof I_1["maxTotalShareCount"], "$type" | keyof Long.Long>]: never; }) | undefined;
         minTotalShareCount?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -1183,7 +1186,7 @@ export declare const KeyRequirement: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_24 in Exclude<keyof I_1["minTotalShareCount"], keyof Long.Long>]: never; }) | undefined;
+        } & { [K_24 in Exclude<keyof I_1["minTotalShareCount"], "$type" | keyof Long.Long>]: never; }) | undefined;
         keygenVotingThreshold?: ({
             numerator?: string | number | Long.Long | undefined;
             denominator?: string | number | Long.Long | undefined;
@@ -1245,7 +1248,7 @@ export declare const KeyRequirement: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_25 in Exclude<keyof I_1["keygenVotingThreshold"]["numerator"], keyof Long.Long>]: never; }) | undefined;
+            } & { [K_25 in Exclude<keyof I_1["keygenVotingThreshold"]["numerator"], "$type" | keyof Long.Long>]: never; }) | undefined;
             denominator?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -1303,8 +1306,8 @@ export declare const KeyRequirement: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_26 in Exclude<keyof I_1["keygenVotingThreshold"]["denominator"], keyof Long.Long>]: never; }) | undefined;
-        } & { [K_27 in Exclude<keyof I_1["keygenVotingThreshold"], keyof Threshold>]: never; }) | undefined;
+            } & { [K_26 in Exclude<keyof I_1["keygenVotingThreshold"]["denominator"], "$type" | keyof Long.Long>]: never; }) | undefined;
+        } & { [K_27 in Exclude<keyof I_1["keygenVotingThreshold"], "$type" | "numerator" | "denominator">]: never; }) | undefined;
         signVotingThreshold?: ({
             numerator?: string | number | Long.Long | undefined;
             denominator?: string | number | Long.Long | undefined;
@@ -1366,7 +1369,7 @@ export declare const KeyRequirement: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_28 in Exclude<keyof I_1["signVotingThreshold"]["numerator"], keyof Long.Long>]: never; }) | undefined;
+            } & { [K_28 in Exclude<keyof I_1["signVotingThreshold"]["numerator"], "$type" | keyof Long.Long>]: never; }) | undefined;
             denominator?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -1424,8 +1427,8 @@ export declare const KeyRequirement: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_29 in Exclude<keyof I_1["signVotingThreshold"]["denominator"], keyof Long.Long>]: never; }) | undefined;
-        } & { [K_30 in Exclude<keyof I_1["signVotingThreshold"], keyof Threshold>]: never; }) | undefined;
+            } & { [K_29 in Exclude<keyof I_1["signVotingThreshold"]["denominator"], "$type" | keyof Long.Long>]: never; }) | undefined;
+        } & { [K_30 in Exclude<keyof I_1["signVotingThreshold"], "$type" | "numerator" | "denominator">]: never; }) | undefined;
         keygenTimeout?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -1483,7 +1486,7 @@ export declare const KeyRequirement: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_31 in Exclude<keyof I_1["keygenTimeout"], keyof Long.Long>]: never; }) | undefined;
+        } & { [K_31 in Exclude<keyof I_1["keygenTimeout"], "$type" | keyof Long.Long>]: never; }) | undefined;
         signTimeout?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -1541,10 +1544,11 @@ export declare const KeyRequirement: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_32 in Exclude<keyof I_1["signTimeout"], keyof Long.Long>]: never; }) | undefined;
-    } & { [K_33 in Exclude<keyof I_1, keyof KeyRequirement>]: never; }>(object: I_1): KeyRequirement;
+        } & { [K_32 in Exclude<keyof I_1["signTimeout"], "$type" | keyof Long.Long>]: never; }) | undefined;
+    } & { [K_33 in Exclude<keyof I_1, "$type" | "keyRole" | "keyType" | "minKeygenThreshold" | "safetyThreshold" | "keyShareDistributionPolicy" | "maxTotalShareCount" | "minTotalShareCount" | "keygenVotingThreshold" | "signVotingThreshold" | "keygenTimeout" | "signTimeout">]: never; }>(object: I_1): KeyRequirement;
 };
 export declare const SigKeyPair: {
+    $type: "axelar.tss.exported.v1beta1.SigKeyPair";
     encode(message: SigKeyPair, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): SigKeyPair;
     fromJSON(object: any): SigKeyPair;
@@ -1555,23 +1559,23 @@ export declare const SigKeyPair: {
     } & {
         pubKey?: Buffer | undefined;
         signature?: Buffer | undefined;
-    } & { [K in Exclude<keyof I, keyof SigKeyPair>]: never; }>(base?: I | undefined): SigKeyPair;
+    } & { [K in Exclude<keyof I, "$type" | "pubKey" | "signature">]: never; }>(base?: I | undefined): SigKeyPair;
     fromPartial<I_1 extends {
         pubKey?: Buffer | undefined;
         signature?: Buffer | undefined;
     } & {
         pubKey?: Buffer | undefined;
         signature?: Buffer | undefined;
-    } & { [K_1 in Exclude<keyof I_1, keyof SigKeyPair>]: never; }>(object: I_1): SigKeyPair;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "pubKey" | "signature">]: never; }>(object: I_1): SigKeyPair;
 };
 declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
-    [K in keyof T]?: DeepPartial<T[K]>;
+    [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]>;
 } : Partial<T>;
 declare type KeysOfUnion<T> = T extends T ? keyof T : never;
 export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & {
-    [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+    [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never;
 };
 export {};

@@ -14,11 +14,13 @@ const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
 const abci_1 = require("../../../cosmos/base/abci/v1beta1/abci");
 const any_1 = require("../../../google/protobuf/any");
+const typeRegistry_1 = require("../../../typeRegistry");
 exports.protobufPackage = "axelar.auxiliary.v1beta1";
 function createBaseBatchRequest() {
-    return { messages: [], sender: "" };
+    return { $type: "axelar.auxiliary.v1beta1.BatchRequest", messages: [], sender: "" };
 }
 exports.BatchRequest = {
+    $type: "axelar.auxiliary.v1beta1.BatchRequest",
     encode(message, writer = minimal_1.default.Writer.create()) {
         for (const v of message.messages) {
             any_1.Any.encode(v, writer.uint32(18).fork()).ldelim();
@@ -57,6 +59,7 @@ exports.BatchRequest = {
     },
     fromJSON(object) {
         return {
+            $type: exports.BatchRequest.$type,
             messages: gt.Array.isArray(object === null || object === void 0 ? void 0 : object.messages) ? object.messages.map((e) => any_1.Any.fromJSON(e)) : [],
             sender: isSet(object.sender) ? gt.String(object.sender) : "",
         };
@@ -83,10 +86,12 @@ exports.BatchRequest = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.BatchRequest.$type, exports.BatchRequest);
 function createBaseBatchResponse() {
-    return { responses: [] };
+    return { $type: "axelar.auxiliary.v1beta1.BatchResponse", responses: [] };
 }
 exports.BatchResponse = {
+    $type: "axelar.auxiliary.v1beta1.BatchResponse",
     encode(message, writer = minimal_1.default.Writer.create()) {
         for (const v of message.responses) {
             exports.BatchResponse_Response.encode(v, writer.uint32(10).fork()).ldelim();
@@ -116,6 +121,7 @@ exports.BatchResponse = {
     },
     fromJSON(object) {
         return {
+            $type: exports.BatchResponse.$type,
             responses: gt.Array.isArray(object === null || object === void 0 ? void 0 : object.responses)
                 ? object.responses.map((e) => exports.BatchResponse_Response.fromJSON(e))
                 : [],
@@ -139,10 +145,12 @@ exports.BatchResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.BatchResponse.$type, exports.BatchResponse);
 function createBaseBatchResponse_Response() {
-    return { result: undefined, err: undefined };
+    return { $type: "axelar.auxiliary.v1beta1.BatchResponse.Response", result: undefined, err: undefined };
 }
 exports.BatchResponse_Response = {
+    $type: "axelar.auxiliary.v1beta1.BatchResponse.Response",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.result !== undefined) {
             abci_1.Result.encode(message.result, writer.uint32(10).fork()).ldelim();
@@ -181,6 +189,7 @@ exports.BatchResponse_Response = {
     },
     fromJSON(object) {
         return {
+            $type: exports.BatchResponse_Response.$type,
             result: isSet(object.result) ? abci_1.Result.fromJSON(object.result) : undefined,
             err: isSet(object.err) ? gt.String(object.err) : undefined,
         };
@@ -207,6 +216,7 @@ exports.BatchResponse_Response = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.BatchResponse_Response.$type, exports.BatchResponse_Response);
 const gt = (() => {
     if (typeof globalThis !== "undefined") {
         return globalThis;

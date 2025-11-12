@@ -12,10 +12,12 @@ exports.Params = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const typeRegistry_1 = require("../../../typeRegistry");
 const threshold_1 = require("../../utils/v1beta1/threshold");
 exports.protobufPackage = "axelar.multisig.v1beta1";
 function createBaseParams() {
     return {
+        $type: "axelar.multisig.v1beta1.Params",
         keygenThreshold: undefined,
         signingThreshold: undefined,
         keygenTimeout: long_1.default.ZERO,
@@ -26,6 +28,7 @@ function createBaseParams() {
     };
 }
 exports.Params = {
+    $type: "axelar.multisig.v1beta1.Params",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.keygenThreshold !== undefined) {
             threshold_1.Threshold.encode(message.keygenThreshold, writer.uint32(10).fork()).ldelim();
@@ -109,6 +112,7 @@ exports.Params = {
     },
     fromJSON(object) {
         return {
+            $type: exports.Params.$type,
             keygenThreshold: isSet(object.keygenThreshold) ? threshold_1.Threshold.fromJSON(object.keygenThreshold) : undefined,
             signingThreshold: isSet(object.signingThreshold)
                 ? threshold_1.Threshold.fromJSON(object.signingThreshold)
@@ -185,6 +189,7 @@ exports.Params = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.Params.$type, exports.Params);
 if (minimal_1.default.util.Long !== long_1.default) {
     minimal_1.default.util.Long = long_1.default;
     minimal_1.default.configure();

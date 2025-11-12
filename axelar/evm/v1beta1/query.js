@@ -12,6 +12,7 @@ exports.ParamsResponse = exports.ParamsRequest = exports.Proof = exports.TokenIn
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const typeRegistry_1 = require("../../../typeRegistry");
 const params_1 = require("./params");
 const types_1 = require("./types");
 exports.protobufPackage = "axelar.evm.v1beta1";
@@ -94,9 +95,10 @@ function tokenTypeToJSON(object) {
 }
 exports.tokenTypeToJSON = tokenTypeToJSON;
 function createBaseDepositQueryParams() {
-    return { address: "", asset: "", chain: "" };
+    return { $type: "axelar.evm.v1beta1.DepositQueryParams", address: "", asset: "", chain: "" };
 }
 exports.DepositQueryParams = {
+    $type: "axelar.evm.v1beta1.DepositQueryParams",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.address !== "") {
             writer.uint32(10).string(message.address);
@@ -144,6 +146,7 @@ exports.DepositQueryParams = {
     },
     fromJSON(object) {
         return {
+            $type: exports.DepositQueryParams.$type,
             address: isSet(object.address) ? gt.String(object.address) : "",
             asset: isSet(object.asset) ? gt.String(object.asset) : "",
             chain: isSet(object.chain) ? gt.String(object.chain) : "",
@@ -174,10 +177,12 @@ exports.DepositQueryParams = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.DepositQueryParams.$type, exports.DepositQueryParams);
 function createBaseBatchedCommandsRequest() {
-    return { chain: "", id: "" };
+    return { $type: "axelar.evm.v1beta1.BatchedCommandsRequest", chain: "", id: "" };
 }
 exports.BatchedCommandsRequest = {
+    $type: "axelar.evm.v1beta1.BatchedCommandsRequest",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.chain !== "") {
             writer.uint32(10).string(message.chain);
@@ -216,6 +221,7 @@ exports.BatchedCommandsRequest = {
     },
     fromJSON(object) {
         return {
+            $type: exports.BatchedCommandsRequest.$type,
             chain: isSet(object.chain) ? gt.String(object.chain) : "",
             id: isSet(object.id) ? gt.String(object.id) : "",
         };
@@ -241,8 +247,10 @@ exports.BatchedCommandsRequest = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.BatchedCommandsRequest.$type, exports.BatchedCommandsRequest);
 function createBaseBatchedCommandsResponse() {
     return {
+        $type: "axelar.evm.v1beta1.BatchedCommandsResponse",
         id: "",
         data: "",
         status: 0,
@@ -254,6 +262,7 @@ function createBaseBatchedCommandsResponse() {
     };
 }
 exports.BatchedCommandsResponse = {
+    $type: "axelar.evm.v1beta1.BatchedCommandsResponse",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.id !== "") {
             writer.uint32(10).string(message.id);
@@ -346,6 +355,7 @@ exports.BatchedCommandsResponse = {
     },
     fromJSON(object) {
         return {
+            $type: exports.BatchedCommandsResponse.$type,
             id: isSet(object.id) ? gt.String(object.id) : "",
             data: isSet(object.data) ? gt.String(object.data) : "",
             status: isSet(object.status) ? (0, types_1.batchedCommandsStatusFromJSON)(object.status) : 0,
@@ -405,10 +415,12 @@ exports.BatchedCommandsResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.BatchedCommandsResponse.$type, exports.BatchedCommandsResponse);
 function createBaseKeyAddressRequest() {
-    return { chain: "", keyId: "" };
+    return { $type: "axelar.evm.v1beta1.KeyAddressRequest", chain: "", keyId: "" };
 }
 exports.KeyAddressRequest = {
+    $type: "axelar.evm.v1beta1.KeyAddressRequest",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.chain !== "") {
             writer.uint32(10).string(message.chain);
@@ -447,6 +459,7 @@ exports.KeyAddressRequest = {
     },
     fromJSON(object) {
         return {
+            $type: exports.KeyAddressRequest.$type,
             chain: isSet(object.chain) ? gt.String(object.chain) : "",
             keyId: isSet(object.keyId) ? gt.String(object.keyId) : "",
         };
@@ -472,10 +485,12 @@ exports.KeyAddressRequest = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.KeyAddressRequest.$type, exports.KeyAddressRequest);
 function createBaseKeyAddressResponse() {
-    return { keyId: "", addresses: [], threshold: "" };
+    return { $type: "axelar.evm.v1beta1.KeyAddressResponse", keyId: "", addresses: [], threshold: "" };
 }
 exports.KeyAddressResponse = {
+    $type: "axelar.evm.v1beta1.KeyAddressResponse",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.keyId !== "") {
             writer.uint32(10).string(message.keyId);
@@ -523,6 +538,7 @@ exports.KeyAddressResponse = {
     },
     fromJSON(object) {
         return {
+            $type: exports.KeyAddressResponse.$type,
             keyId: isSet(object.keyId) ? gt.String(object.keyId) : "",
             addresses: gt.Array.isArray(object === null || object === void 0 ? void 0 : object.addresses)
                 ? object.addresses.map((e) => exports.KeyAddressResponse_WeightedAddress.fromJSON(e))
@@ -556,10 +572,12 @@ exports.KeyAddressResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.KeyAddressResponse.$type, exports.KeyAddressResponse);
 function createBaseKeyAddressResponse_WeightedAddress() {
-    return { address: "", weight: "" };
+    return { $type: "axelar.evm.v1beta1.KeyAddressResponse.WeightedAddress", address: "", weight: "" };
 }
 exports.KeyAddressResponse_WeightedAddress = {
+    $type: "axelar.evm.v1beta1.KeyAddressResponse.WeightedAddress",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.address !== "") {
             writer.uint32(10).string(message.address);
@@ -598,6 +616,7 @@ exports.KeyAddressResponse_WeightedAddress = {
     },
     fromJSON(object) {
         return {
+            $type: exports.KeyAddressResponse_WeightedAddress.$type,
             address: isSet(object.address) ? gt.String(object.address) : "",
             weight: isSet(object.weight) ? gt.String(object.weight) : "",
         };
@@ -623,10 +642,12 @@ exports.KeyAddressResponse_WeightedAddress = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.KeyAddressResponse_WeightedAddress.$type, exports.KeyAddressResponse_WeightedAddress);
 function createBaseQueryTokenAddressResponse() {
-    return { address: "", confirmed: false };
+    return { $type: "axelar.evm.v1beta1.QueryTokenAddressResponse", address: "", confirmed: false };
 }
 exports.QueryTokenAddressResponse = {
+    $type: "axelar.evm.v1beta1.QueryTokenAddressResponse",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.address !== "") {
             writer.uint32(10).string(message.address);
@@ -665,6 +686,7 @@ exports.QueryTokenAddressResponse = {
     },
     fromJSON(object) {
         return {
+            $type: exports.QueryTokenAddressResponse.$type,
             address: isSet(object.address) ? gt.String(object.address) : "",
             confirmed: isSet(object.confirmed) ? gt.Boolean(object.confirmed) : false,
         };
@@ -690,10 +712,16 @@ exports.QueryTokenAddressResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.QueryTokenAddressResponse.$type, exports.QueryTokenAddressResponse);
 function createBaseQueryDepositStateParams() {
-    return { txId: Buffer.alloc(0), burnerAddress: Buffer.alloc(0) };
+    return {
+        $type: "axelar.evm.v1beta1.QueryDepositStateParams",
+        txId: Buffer.alloc(0),
+        burnerAddress: Buffer.alloc(0),
+    };
 }
 exports.QueryDepositStateParams = {
+    $type: "axelar.evm.v1beta1.QueryDepositStateParams",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.txId.length !== 0) {
             writer.uint32(10).bytes(message.txId);
@@ -732,6 +760,7 @@ exports.QueryDepositStateParams = {
     },
     fromJSON(object) {
         return {
+            $type: exports.QueryDepositStateParams.$type,
             txId: isSet(object.txId) ? Buffer.from(bytesFromBase64(object.txId)) : Buffer.alloc(0),
             burnerAddress: isSet(object.burnerAddress)
                 ? Buffer.from(bytesFromBase64(object.burnerAddress))
@@ -759,10 +788,12 @@ exports.QueryDepositStateParams = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.QueryDepositStateParams.$type, exports.QueryDepositStateParams);
 function createBaseDepositStateRequest() {
-    return { chain: "", params: undefined };
+    return { $type: "axelar.evm.v1beta1.DepositStateRequest", chain: "", params: undefined };
 }
 exports.DepositStateRequest = {
+    $type: "axelar.evm.v1beta1.DepositStateRequest",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.chain !== "") {
             writer.uint32(10).string(message.chain);
@@ -801,6 +832,7 @@ exports.DepositStateRequest = {
     },
     fromJSON(object) {
         return {
+            $type: exports.DepositStateRequest.$type,
             chain: isSet(object.chain) ? gt.String(object.chain) : "",
             params: isSet(object.params) ? exports.QueryDepositStateParams.fromJSON(object.params) : undefined,
         };
@@ -829,10 +861,12 @@ exports.DepositStateRequest = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.DepositStateRequest.$type, exports.DepositStateRequest);
 function createBaseDepositStateResponse() {
-    return { status: 0 };
+    return { $type: "axelar.evm.v1beta1.DepositStateResponse", status: 0 };
 }
 exports.DepositStateResponse = {
+    $type: "axelar.evm.v1beta1.DepositStateResponse",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.status !== 0) {
             writer.uint32(16).int32(message.status);
@@ -861,7 +895,10 @@ exports.DepositStateResponse = {
         return message;
     },
     fromJSON(object) {
-        return { status: isSet(object.status) ? (0, types_1.depositStatusFromJSON)(object.status) : 0 };
+        return {
+            $type: exports.DepositStateResponse.$type,
+            status: isSet(object.status) ? (0, types_1.depositStatusFromJSON)(object.status) : 0,
+        };
     },
     toJSON(message) {
         const obj = {};
@@ -880,10 +917,12 @@ exports.DepositStateResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.DepositStateResponse.$type, exports.DepositStateResponse);
 function createBaseEventRequest() {
-    return { chain: "", eventId: "" };
+    return { $type: "axelar.evm.v1beta1.EventRequest", chain: "", eventId: "" };
 }
 exports.EventRequest = {
+    $type: "axelar.evm.v1beta1.EventRequest",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.chain !== "") {
             writer.uint32(10).string(message.chain);
@@ -922,6 +961,7 @@ exports.EventRequest = {
     },
     fromJSON(object) {
         return {
+            $type: exports.EventRequest.$type,
             chain: isSet(object.chain) ? gt.String(object.chain) : "",
             eventId: isSet(object.eventId) ? gt.String(object.eventId) : "",
         };
@@ -947,10 +987,12 @@ exports.EventRequest = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.EventRequest.$type, exports.EventRequest);
 function createBaseEventResponse() {
-    return { event: undefined };
+    return { $type: "axelar.evm.v1beta1.EventResponse", event: undefined };
 }
 exports.EventResponse = {
+    $type: "axelar.evm.v1beta1.EventResponse",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.event !== undefined) {
             types_1.Event.encode(message.event, writer.uint32(10).fork()).ldelim();
@@ -979,7 +1021,10 @@ exports.EventResponse = {
         return message;
     },
     fromJSON(object) {
-        return { event: isSet(object.event) ? types_1.Event.fromJSON(object.event) : undefined };
+        return {
+            $type: exports.EventResponse.$type,
+            event: isSet(object.event) ? types_1.Event.fromJSON(object.event) : undefined,
+        };
     },
     toJSON(message) {
         const obj = {};
@@ -998,10 +1043,12 @@ exports.EventResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.EventResponse.$type, exports.EventResponse);
 function createBaseQueryBurnerAddressResponse() {
-    return { address: "" };
+    return { $type: "axelar.evm.v1beta1.QueryBurnerAddressResponse", address: "" };
 }
 exports.QueryBurnerAddressResponse = {
+    $type: "axelar.evm.v1beta1.QueryBurnerAddressResponse",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.address !== "") {
             writer.uint32(10).string(message.address);
@@ -1030,7 +1077,10 @@ exports.QueryBurnerAddressResponse = {
         return message;
     },
     fromJSON(object) {
-        return { address: isSet(object.address) ? gt.String(object.address) : "" };
+        return {
+            $type: exports.QueryBurnerAddressResponse.$type,
+            address: isSet(object.address) ? gt.String(object.address) : "",
+        };
     },
     toJSON(message) {
         const obj = {};
@@ -1049,10 +1099,12 @@ exports.QueryBurnerAddressResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.QueryBurnerAddressResponse.$type, exports.QueryBurnerAddressResponse);
 function createBaseChainsRequest() {
-    return { status: 0 };
+    return { $type: "axelar.evm.v1beta1.ChainsRequest", status: 0 };
 }
 exports.ChainsRequest = {
+    $type: "axelar.evm.v1beta1.ChainsRequest",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.status !== 0) {
             writer.uint32(8).int32(message.status);
@@ -1081,7 +1133,10 @@ exports.ChainsRequest = {
         return message;
     },
     fromJSON(object) {
-        return { status: isSet(object.status) ? chainStatusFromJSON(object.status) : 0 };
+        return {
+            $type: exports.ChainsRequest.$type,
+            status: isSet(object.status) ? chainStatusFromJSON(object.status) : 0,
+        };
     },
     toJSON(message) {
         const obj = {};
@@ -1100,10 +1155,12 @@ exports.ChainsRequest = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.ChainsRequest.$type, exports.ChainsRequest);
 function createBaseChainsResponse() {
-    return { chains: [] };
+    return { $type: "axelar.evm.v1beta1.ChainsResponse", chains: [] };
 }
 exports.ChainsResponse = {
+    $type: "axelar.evm.v1beta1.ChainsResponse",
     encode(message, writer = minimal_1.default.Writer.create()) {
         for (const v of message.chains) {
             writer.uint32(10).string(v);
@@ -1132,7 +1189,10 @@ exports.ChainsResponse = {
         return message;
     },
     fromJSON(object) {
-        return { chains: gt.Array.isArray(object === null || object === void 0 ? void 0 : object.chains) ? object.chains.map((e) => gt.String(e)) : [] };
+        return {
+            $type: exports.ChainsResponse.$type,
+            chains: gt.Array.isArray(object === null || object === void 0 ? void 0 : object.chains) ? object.chains.map((e) => gt.String(e)) : [],
+        };
     },
     toJSON(message) {
         var _a;
@@ -1152,10 +1212,12 @@ exports.ChainsResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.ChainsResponse.$type, exports.ChainsResponse);
 function createBaseCommandRequest() {
-    return { chain: "", id: "" };
+    return { $type: "axelar.evm.v1beta1.CommandRequest", chain: "", id: "" };
 }
 exports.CommandRequest = {
+    $type: "axelar.evm.v1beta1.CommandRequest",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.chain !== "") {
             writer.uint32(10).string(message.chain);
@@ -1194,6 +1256,7 @@ exports.CommandRequest = {
     },
     fromJSON(object) {
         return {
+            $type: exports.CommandRequest.$type,
             chain: isSet(object.chain) ? gt.String(object.chain) : "",
             id: isSet(object.id) ? gt.String(object.id) : "",
         };
@@ -1219,10 +1282,19 @@ exports.CommandRequest = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.CommandRequest.$type, exports.CommandRequest);
 function createBaseCommandResponse() {
-    return { id: "", type: "", params: {}, keyId: "", maxGasCost: 0 };
+    return {
+        $type: "axelar.evm.v1beta1.CommandResponse",
+        id: "",
+        type: "",
+        params: {},
+        keyId: "",
+        maxGasCost: 0,
+    };
 }
 exports.CommandResponse = {
+    $type: "axelar.evm.v1beta1.CommandResponse",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.id !== "") {
             writer.uint32(10).string(message.id);
@@ -1231,7 +1303,11 @@ exports.CommandResponse = {
             writer.uint32(18).string(message.type);
         }
         Object.entries(message.params).forEach(([key, value]) => {
-            exports.CommandResponse_ParamsEntry.encode({ key: key, value }, writer.uint32(26).fork()).ldelim();
+            exports.CommandResponse_ParamsEntry.encode({
+                $type: "axelar.evm.v1beta1.CommandResponse.ParamsEntry",
+                key: key,
+                value,
+            }, writer.uint32(26).fork()).ldelim();
         });
         if (message.keyId !== "") {
             writer.uint32(34).string(message.keyId);
@@ -1291,6 +1367,7 @@ exports.CommandResponse = {
     },
     fromJSON(object) {
         return {
+            $type: exports.CommandResponse.$type,
             id: isSet(object.id) ? gt.String(object.id) : "",
             type: isSet(object.type) ? gt.String(object.type) : "",
             params: isObject(object.params)
@@ -1347,10 +1424,12 @@ exports.CommandResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.CommandResponse.$type, exports.CommandResponse);
 function createBaseCommandResponse_ParamsEntry() {
-    return { key: "", value: "" };
+    return { $type: "axelar.evm.v1beta1.CommandResponse.ParamsEntry", key: "", value: "" };
 }
 exports.CommandResponse_ParamsEntry = {
+    $type: "axelar.evm.v1beta1.CommandResponse.ParamsEntry",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.key !== "") {
             writer.uint32(10).string(message.key);
@@ -1389,6 +1468,7 @@ exports.CommandResponse_ParamsEntry = {
     },
     fromJSON(object) {
         return {
+            $type: exports.CommandResponse_ParamsEntry.$type,
             key: isSet(object.key) ? gt.String(object.key) : "",
             value: isSet(object.value) ? gt.String(object.value) : "",
         };
@@ -1414,10 +1494,12 @@ exports.CommandResponse_ParamsEntry = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.CommandResponse_ParamsEntry.$type, exports.CommandResponse_ParamsEntry);
 function createBasePendingCommandsRequest() {
-    return { chain: "" };
+    return { $type: "axelar.evm.v1beta1.PendingCommandsRequest", chain: "" };
 }
 exports.PendingCommandsRequest = {
+    $type: "axelar.evm.v1beta1.PendingCommandsRequest",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.chain !== "") {
             writer.uint32(10).string(message.chain);
@@ -1446,7 +1528,7 @@ exports.PendingCommandsRequest = {
         return message;
     },
     fromJSON(object) {
-        return { chain: isSet(object.chain) ? gt.String(object.chain) : "" };
+        return { $type: exports.PendingCommandsRequest.$type, chain: isSet(object.chain) ? gt.String(object.chain) : "" };
     },
     toJSON(message) {
         const obj = {};
@@ -1465,10 +1547,12 @@ exports.PendingCommandsRequest = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.PendingCommandsRequest.$type, exports.PendingCommandsRequest);
 function createBasePendingCommandsResponse() {
-    return { commands: [] };
+    return { $type: "axelar.evm.v1beta1.PendingCommandsResponse", commands: [] };
 }
 exports.PendingCommandsResponse = {
+    $type: "axelar.evm.v1beta1.PendingCommandsResponse",
     encode(message, writer = minimal_1.default.Writer.create()) {
         for (const v of message.commands) {
             exports.QueryCommandResponse.encode(v, writer.uint32(10).fork()).ldelim();
@@ -1498,6 +1582,7 @@ exports.PendingCommandsResponse = {
     },
     fromJSON(object) {
         return {
+            $type: exports.PendingCommandsResponse.$type,
             commands: gt.Array.isArray(object === null || object === void 0 ? void 0 : object.commands)
                 ? object.commands.map((e) => exports.QueryCommandResponse.fromJSON(e))
                 : [],
@@ -1521,10 +1606,19 @@ exports.PendingCommandsResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.PendingCommandsResponse.$type, exports.PendingCommandsResponse);
 function createBaseQueryCommandResponse() {
-    return { id: "", type: "", params: {}, keyId: "", maxGasCost: 0 };
+    return {
+        $type: "axelar.evm.v1beta1.QueryCommandResponse",
+        id: "",
+        type: "",
+        params: {},
+        keyId: "",
+        maxGasCost: 0,
+    };
 }
 exports.QueryCommandResponse = {
+    $type: "axelar.evm.v1beta1.QueryCommandResponse",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.id !== "") {
             writer.uint32(10).string(message.id);
@@ -1533,7 +1627,11 @@ exports.QueryCommandResponse = {
             writer.uint32(18).string(message.type);
         }
         Object.entries(message.params).forEach(([key, value]) => {
-            exports.QueryCommandResponse_ParamsEntry.encode({ key: key, value }, writer.uint32(26).fork()).ldelim();
+            exports.QueryCommandResponse_ParamsEntry.encode({
+                $type: "axelar.evm.v1beta1.QueryCommandResponse.ParamsEntry",
+                key: key,
+                value,
+            }, writer.uint32(26).fork()).ldelim();
         });
         if (message.keyId !== "") {
             writer.uint32(34).string(message.keyId);
@@ -1593,6 +1691,7 @@ exports.QueryCommandResponse = {
     },
     fromJSON(object) {
         return {
+            $type: exports.QueryCommandResponse.$type,
             id: isSet(object.id) ? gt.String(object.id) : "",
             type: isSet(object.type) ? gt.String(object.type) : "",
             params: isObject(object.params)
@@ -1649,10 +1748,12 @@ exports.QueryCommandResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.QueryCommandResponse.$type, exports.QueryCommandResponse);
 function createBaseQueryCommandResponse_ParamsEntry() {
-    return { key: "", value: "" };
+    return { $type: "axelar.evm.v1beta1.QueryCommandResponse.ParamsEntry", key: "", value: "" };
 }
 exports.QueryCommandResponse_ParamsEntry = {
+    $type: "axelar.evm.v1beta1.QueryCommandResponse.ParamsEntry",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.key !== "") {
             writer.uint32(10).string(message.key);
@@ -1691,6 +1792,7 @@ exports.QueryCommandResponse_ParamsEntry = {
     },
     fromJSON(object) {
         return {
+            $type: exports.QueryCommandResponse_ParamsEntry.$type,
             key: isSet(object.key) ? gt.String(object.key) : "",
             value: isSet(object.value) ? gt.String(object.value) : "",
         };
@@ -1716,10 +1818,12 @@ exports.QueryCommandResponse_ParamsEntry = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.QueryCommandResponse_ParamsEntry.$type, exports.QueryCommandResponse_ParamsEntry);
 function createBaseBurnerInfoRequest() {
-    return { address: Buffer.alloc(0) };
+    return { $type: "axelar.evm.v1beta1.BurnerInfoRequest", address: Buffer.alloc(0) };
 }
 exports.BurnerInfoRequest = {
+    $type: "axelar.evm.v1beta1.BurnerInfoRequest",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.address.length !== 0) {
             writer.uint32(10).bytes(message.address);
@@ -1749,6 +1853,7 @@ exports.BurnerInfoRequest = {
     },
     fromJSON(object) {
         return {
+            $type: exports.BurnerInfoRequest.$type,
             address: isSet(object.address) ? Buffer.from(bytesFromBase64(object.address)) : Buffer.alloc(0),
         };
     },
@@ -1769,10 +1874,12 @@ exports.BurnerInfoRequest = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.BurnerInfoRequest.$type, exports.BurnerInfoRequest);
 function createBaseBurnerInfoResponse() {
-    return { chain: "", burnerInfo: undefined };
+    return { $type: "axelar.evm.v1beta1.BurnerInfoResponse", chain: "", burnerInfo: undefined };
 }
 exports.BurnerInfoResponse = {
+    $type: "axelar.evm.v1beta1.BurnerInfoResponse",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.chain !== "") {
             writer.uint32(10).string(message.chain);
@@ -1811,6 +1918,7 @@ exports.BurnerInfoResponse = {
     },
     fromJSON(object) {
         return {
+            $type: exports.BurnerInfoResponse.$type,
             chain: isSet(object.chain) ? gt.String(object.chain) : "",
             burnerInfo: isSet(object.burnerInfo) ? types_1.BurnerInfo.fromJSON(object.burnerInfo) : undefined,
         };
@@ -1839,10 +1947,12 @@ exports.BurnerInfoResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.BurnerInfoResponse.$type, exports.BurnerInfoResponse);
 function createBaseConfirmationHeightRequest() {
-    return { chain: "" };
+    return { $type: "axelar.evm.v1beta1.ConfirmationHeightRequest", chain: "" };
 }
 exports.ConfirmationHeightRequest = {
+    $type: "axelar.evm.v1beta1.ConfirmationHeightRequest",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.chain !== "") {
             writer.uint32(10).string(message.chain);
@@ -1871,7 +1981,10 @@ exports.ConfirmationHeightRequest = {
         return message;
     },
     fromJSON(object) {
-        return { chain: isSet(object.chain) ? gt.String(object.chain) : "" };
+        return {
+            $type: exports.ConfirmationHeightRequest.$type,
+            chain: isSet(object.chain) ? gt.String(object.chain) : "",
+        };
     },
     toJSON(message) {
         const obj = {};
@@ -1890,10 +2003,12 @@ exports.ConfirmationHeightRequest = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.ConfirmationHeightRequest.$type, exports.ConfirmationHeightRequest);
 function createBaseConfirmationHeightResponse() {
-    return { height: long_1.default.UZERO };
+    return { $type: "axelar.evm.v1beta1.ConfirmationHeightResponse", height: long_1.default.UZERO };
 }
 exports.ConfirmationHeightResponse = {
+    $type: "axelar.evm.v1beta1.ConfirmationHeightResponse",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.height.equals(long_1.default.UZERO)) {
             writer.uint32(8).uint64(message.height);
@@ -1922,7 +2037,10 @@ exports.ConfirmationHeightResponse = {
         return message;
     },
     fromJSON(object) {
-        return { height: isSet(object.height) ? long_1.default.fromValue(object.height) : long_1.default.UZERO };
+        return {
+            $type: exports.ConfirmationHeightResponse.$type,
+            height: isSet(object.height) ? long_1.default.fromValue(object.height) : long_1.default.UZERO,
+        };
     },
     toJSON(message) {
         const obj = {};
@@ -1941,10 +2059,12 @@ exports.ConfirmationHeightResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.ConfirmationHeightResponse.$type, exports.ConfirmationHeightResponse);
 function createBaseGatewayAddressRequest() {
-    return { chain: "" };
+    return { $type: "axelar.evm.v1beta1.GatewayAddressRequest", chain: "" };
 }
 exports.GatewayAddressRequest = {
+    $type: "axelar.evm.v1beta1.GatewayAddressRequest",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.chain !== "") {
             writer.uint32(10).string(message.chain);
@@ -1973,7 +2093,7 @@ exports.GatewayAddressRequest = {
         return message;
     },
     fromJSON(object) {
-        return { chain: isSet(object.chain) ? gt.String(object.chain) : "" };
+        return { $type: exports.GatewayAddressRequest.$type, chain: isSet(object.chain) ? gt.String(object.chain) : "" };
     },
     toJSON(message) {
         const obj = {};
@@ -1992,10 +2112,12 @@ exports.GatewayAddressRequest = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.GatewayAddressRequest.$type, exports.GatewayAddressRequest);
 function createBaseGatewayAddressResponse() {
-    return { address: "" };
+    return { $type: "axelar.evm.v1beta1.GatewayAddressResponse", address: "" };
 }
 exports.GatewayAddressResponse = {
+    $type: "axelar.evm.v1beta1.GatewayAddressResponse",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.address !== "") {
             writer.uint32(10).string(message.address);
@@ -2024,7 +2146,10 @@ exports.GatewayAddressResponse = {
         return message;
     },
     fromJSON(object) {
-        return { address: isSet(object.address) ? gt.String(object.address) : "" };
+        return {
+            $type: exports.GatewayAddressResponse.$type,
+            address: isSet(object.address) ? gt.String(object.address) : "",
+        };
     },
     toJSON(message) {
         const obj = {};
@@ -2043,10 +2168,12 @@ exports.GatewayAddressResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.GatewayAddressResponse.$type, exports.GatewayAddressResponse);
 function createBaseBytecodeRequest() {
-    return { chain: "", contract: "" };
+    return { $type: "axelar.evm.v1beta1.BytecodeRequest", chain: "", contract: "" };
 }
 exports.BytecodeRequest = {
+    $type: "axelar.evm.v1beta1.BytecodeRequest",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.chain !== "") {
             writer.uint32(10).string(message.chain);
@@ -2085,6 +2212,7 @@ exports.BytecodeRequest = {
     },
     fromJSON(object) {
         return {
+            $type: exports.BytecodeRequest.$type,
             chain: isSet(object.chain) ? gt.String(object.chain) : "",
             contract: isSet(object.contract) ? gt.String(object.contract) : "",
         };
@@ -2110,10 +2238,12 @@ exports.BytecodeRequest = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.BytecodeRequest.$type, exports.BytecodeRequest);
 function createBaseBytecodeResponse() {
-    return { bytecode: "" };
+    return { $type: "axelar.evm.v1beta1.BytecodeResponse", bytecode: "" };
 }
 exports.BytecodeResponse = {
+    $type: "axelar.evm.v1beta1.BytecodeResponse",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.bytecode !== "") {
             writer.uint32(10).string(message.bytecode);
@@ -2142,7 +2272,10 @@ exports.BytecodeResponse = {
         return message;
     },
     fromJSON(object) {
-        return { bytecode: isSet(object.bytecode) ? gt.String(object.bytecode) : "" };
+        return {
+            $type: exports.BytecodeResponse.$type,
+            bytecode: isSet(object.bytecode) ? gt.String(object.bytecode) : "",
+        };
     },
     toJSON(message) {
         const obj = {};
@@ -2161,10 +2294,12 @@ exports.BytecodeResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.BytecodeResponse.$type, exports.BytecodeResponse);
 function createBaseERC20TokensRequest() {
-    return { chain: "", type: 0 };
+    return { $type: "axelar.evm.v1beta1.ERC20TokensRequest", chain: "", type: 0 };
 }
 exports.ERC20TokensRequest = {
+    $type: "axelar.evm.v1beta1.ERC20TokensRequest",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.chain !== "") {
             writer.uint32(10).string(message.chain);
@@ -2203,6 +2338,7 @@ exports.ERC20TokensRequest = {
     },
     fromJSON(object) {
         return {
+            $type: exports.ERC20TokensRequest.$type,
             chain: isSet(object.chain) ? gt.String(object.chain) : "",
             type: isSet(object.type) ? tokenTypeFromJSON(object.type) : 0,
         };
@@ -2228,10 +2364,12 @@ exports.ERC20TokensRequest = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.ERC20TokensRequest.$type, exports.ERC20TokensRequest);
 function createBaseERC20TokensResponse() {
-    return { tokens: [] };
+    return { $type: "axelar.evm.v1beta1.ERC20TokensResponse", tokens: [] };
 }
 exports.ERC20TokensResponse = {
+    $type: "axelar.evm.v1beta1.ERC20TokensResponse",
     encode(message, writer = minimal_1.default.Writer.create()) {
         for (const v of message.tokens) {
             exports.ERC20TokensResponse_Token.encode(v, writer.uint32(10).fork()).ldelim();
@@ -2261,6 +2399,7 @@ exports.ERC20TokensResponse = {
     },
     fromJSON(object) {
         return {
+            $type: exports.ERC20TokensResponse.$type,
             tokens: gt.Array.isArray(object === null || object === void 0 ? void 0 : object.tokens)
                 ? object.tokens.map((e) => exports.ERC20TokensResponse_Token.fromJSON(e))
                 : [],
@@ -2284,10 +2423,12 @@ exports.ERC20TokensResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.ERC20TokensResponse.$type, exports.ERC20TokensResponse);
 function createBaseERC20TokensResponse_Token() {
-    return { asset: "", symbol: "" };
+    return { $type: "axelar.evm.v1beta1.ERC20TokensResponse.Token", asset: "", symbol: "" };
 }
 exports.ERC20TokensResponse_Token = {
+    $type: "axelar.evm.v1beta1.ERC20TokensResponse.Token",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.asset !== "") {
             writer.uint32(10).string(message.asset);
@@ -2326,6 +2467,7 @@ exports.ERC20TokensResponse_Token = {
     },
     fromJSON(object) {
         return {
+            $type: exports.ERC20TokensResponse_Token.$type,
             asset: isSet(object.asset) ? gt.String(object.asset) : "",
             symbol: isSet(object.symbol) ? gt.String(object.symbol) : "",
         };
@@ -2351,10 +2493,18 @@ exports.ERC20TokensResponse_Token = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.ERC20TokensResponse_Token.$type, exports.ERC20TokensResponse_Token);
 function createBaseTokenInfoRequest() {
-    return { chain: "", asset: undefined, symbol: undefined, address: undefined };
+    return {
+        $type: "axelar.evm.v1beta1.TokenInfoRequest",
+        chain: "",
+        asset: undefined,
+        symbol: undefined,
+        address: undefined,
+    };
 }
 exports.TokenInfoRequest = {
+    $type: "axelar.evm.v1beta1.TokenInfoRequest",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.chain !== "") {
             writer.uint32(10).string(message.chain);
@@ -2411,6 +2561,7 @@ exports.TokenInfoRequest = {
     },
     fromJSON(object) {
         return {
+            $type: exports.TokenInfoRequest.$type,
             chain: isSet(object.chain) ? gt.String(object.chain) : "",
             asset: isSet(object.asset) ? gt.String(object.asset) : undefined,
             symbol: isSet(object.symbol) ? gt.String(object.symbol) : undefined,
@@ -2446,8 +2597,10 @@ exports.TokenInfoRequest = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.TokenInfoRequest.$type, exports.TokenInfoRequest);
 function createBaseTokenInfoResponse() {
     return {
+        $type: "axelar.evm.v1beta1.TokenInfoResponse",
         asset: "",
         details: undefined,
         address: "",
@@ -2457,6 +2610,7 @@ function createBaseTokenInfoResponse() {
     };
 }
 exports.TokenInfoResponse = {
+    $type: "axelar.evm.v1beta1.TokenInfoResponse",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.asset !== "") {
             writer.uint32(10).string(message.asset);
@@ -2531,6 +2685,7 @@ exports.TokenInfoResponse = {
     },
     fromJSON(object) {
         return {
+            $type: exports.TokenInfoResponse.$type,
             asset: isSet(object.asset) ? gt.String(object.asset) : "",
             details: isSet(object.details) ? types_1.TokenDetails.fromJSON(object.details) : undefined,
             address: isSet(object.address) ? gt.String(object.address) : "",
@@ -2579,10 +2734,12 @@ exports.TokenInfoResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.TokenInfoResponse.$type, exports.TokenInfoResponse);
 function createBaseProof() {
-    return { addresses: [], weights: [], threshold: "", signatures: [] };
+    return { $type: "axelar.evm.v1beta1.Proof", addresses: [], weights: [], threshold: "", signatures: [] };
 }
 exports.Proof = {
+    $type: "axelar.evm.v1beta1.Proof",
     encode(message, writer = minimal_1.default.Writer.create()) {
         for (const v of message.addresses) {
             writer.uint32(10).string(v);
@@ -2639,6 +2796,7 @@ exports.Proof = {
     },
     fromJSON(object) {
         return {
+            $type: exports.Proof.$type,
             addresses: gt.Array.isArray(object === null || object === void 0 ? void 0 : object.addresses) ? object.addresses.map((e) => gt.String(e)) : [],
             weights: gt.Array.isArray(object === null || object === void 0 ? void 0 : object.weights) ? object.weights.map((e) => gt.String(e)) : [],
             threshold: isSet(object.threshold) ? gt.String(object.threshold) : "",
@@ -2675,10 +2833,12 @@ exports.Proof = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.Proof.$type, exports.Proof);
 function createBaseParamsRequest() {
-    return { chain: "" };
+    return { $type: "axelar.evm.v1beta1.ParamsRequest", chain: "" };
 }
 exports.ParamsRequest = {
+    $type: "axelar.evm.v1beta1.ParamsRequest",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.chain !== "") {
             writer.uint32(10).string(message.chain);
@@ -2707,7 +2867,7 @@ exports.ParamsRequest = {
         return message;
     },
     fromJSON(object) {
-        return { chain: isSet(object.chain) ? gt.String(object.chain) : "" };
+        return { $type: exports.ParamsRequest.$type, chain: isSet(object.chain) ? gt.String(object.chain) : "" };
     },
     toJSON(message) {
         const obj = {};
@@ -2726,10 +2886,12 @@ exports.ParamsRequest = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.ParamsRequest.$type, exports.ParamsRequest);
 function createBaseParamsResponse() {
-    return { params: undefined };
+    return { $type: "axelar.evm.v1beta1.ParamsResponse", params: undefined };
 }
 exports.ParamsResponse = {
+    $type: "axelar.evm.v1beta1.ParamsResponse",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.params !== undefined) {
             params_1.Params.encode(message.params, writer.uint32(10).fork()).ldelim();
@@ -2758,7 +2920,10 @@ exports.ParamsResponse = {
         return message;
     },
     fromJSON(object) {
-        return { params: isSet(object.params) ? params_1.Params.fromJSON(object.params) : undefined };
+        return {
+            $type: exports.ParamsResponse.$type,
+            params: isSet(object.params) ? params_1.Params.fromJSON(object.params) : undefined,
+        };
     },
     toJSON(message) {
         const obj = {};
@@ -2777,6 +2942,7 @@ exports.ParamsResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.ParamsResponse.$type, exports.ParamsResponse);
 const gt = (() => {
     if (typeof globalThis !== "undefined") {
         return globalThis;

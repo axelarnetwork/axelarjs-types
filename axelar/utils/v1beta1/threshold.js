@@ -12,11 +12,13 @@ exports.Threshold = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const typeRegistry_1 = require("../../../typeRegistry");
 exports.protobufPackage = "axelar.utils.v1beta1";
 function createBaseThreshold() {
-    return { numerator: long_1.default.ZERO, denominator: long_1.default.ZERO };
+    return { $type: "axelar.utils.v1beta1.Threshold", numerator: long_1.default.ZERO, denominator: long_1.default.ZERO };
 }
 exports.Threshold = {
+    $type: "axelar.utils.v1beta1.Threshold",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.numerator.equals(long_1.default.ZERO)) {
             writer.uint32(8).int64(message.numerator);
@@ -55,6 +57,7 @@ exports.Threshold = {
     },
     fromJSON(object) {
         return {
+            $type: exports.Threshold.$type,
             numerator: isSet(object.numerator) ? long_1.default.fromValue(object.numerator) : long_1.default.ZERO,
             denominator: isSet(object.denominator) ? long_1.default.fromValue(object.denominator) : long_1.default.ZERO,
         };
@@ -85,6 +88,7 @@ exports.Threshold = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.Threshold.$type, exports.Threshold);
 if (minimal_1.default.util.Long !== long_1.default) {
     minimal_1.default.util.Long = long_1.default;
     minimal_1.default.configure();

@@ -13,6 +13,7 @@ exports.Fee = exports.Asset = exports.CosmosChain = exports.IBCTransfer = export
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
 const coin_1 = require("../../../cosmos/base/v1beta1/coin");
+const typeRegistry_1 = require("../../../typeRegistry");
 exports.protobufPackage = "axelar.axelarnet.v1beta1";
 var IBCTransfer_Status;
 (function (IBCTransfer_Status) {
@@ -61,6 +62,7 @@ function iBCTransfer_StatusToJSON(object) {
 exports.iBCTransfer_StatusToJSON = iBCTransfer_StatusToJSON;
 function createBaseIBCTransfer() {
     return {
+        $type: "axelar.axelarnet.v1beta1.IBCTransfer",
         sender: Buffer.alloc(0),
         receiver: "",
         token: undefined,
@@ -72,6 +74,7 @@ function createBaseIBCTransfer() {
     };
 }
 exports.IBCTransfer = {
+    $type: "axelar.axelarnet.v1beta1.IBCTransfer",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.sender.length !== 0) {
             writer.uint32(10).bytes(message.sender);
@@ -164,6 +167,7 @@ exports.IBCTransfer = {
     },
     fromJSON(object) {
         return {
+            $type: exports.IBCTransfer.$type,
             sender: isSet(object.sender) ? Buffer.from(bytesFromBase64(object.sender)) : Buffer.alloc(0),
             receiver: isSet(object.receiver) ? gt.String(object.receiver) : "",
             token: isSet(object.token) ? coin_1.Coin.fromJSON(object.token) : undefined,
@@ -223,10 +227,12 @@ exports.IBCTransfer = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.IBCTransfer.$type, exports.IBCTransfer);
 function createBaseCosmosChain() {
-    return { name: "", ibcPath: "", assets: [], addrPrefix: "" };
+    return { $type: "axelar.axelarnet.v1beta1.CosmosChain", name: "", ibcPath: "", assets: [], addrPrefix: "" };
 }
 exports.CosmosChain = {
+    $type: "axelar.axelarnet.v1beta1.CosmosChain",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.name !== "") {
             writer.uint32(10).string(message.name);
@@ -283,6 +289,7 @@ exports.CosmosChain = {
     },
     fromJSON(object) {
         return {
+            $type: exports.CosmosChain.$type,
             name: isSet(object.name) ? gt.String(object.name) : "",
             ibcPath: isSet(object.ibcPath) ? gt.String(object.ibcPath) : "",
             assets: gt.Array.isArray(object === null || object === void 0 ? void 0 : object.assets) ? object.assets.map((e) => exports.Asset.fromJSON(e)) : [],
@@ -319,10 +326,12 @@ exports.CosmosChain = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.CosmosChain.$type, exports.CosmosChain);
 function createBaseAsset() {
-    return { denom: "", minAmount: Buffer.alloc(0) };
+    return { $type: "axelar.axelarnet.v1beta1.Asset", denom: "", minAmount: Buffer.alloc(0) };
 }
 exports.Asset = {
+    $type: "axelar.axelarnet.v1beta1.Asset",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.denom !== "") {
             writer.uint32(10).string(message.denom);
@@ -361,6 +370,7 @@ exports.Asset = {
     },
     fromJSON(object) {
         return {
+            $type: exports.Asset.$type,
             denom: isSet(object.denom) ? gt.String(object.denom) : "",
             minAmount: isSet(object.minAmount) ? Buffer.from(bytesFromBase64(object.minAmount)) : Buffer.alloc(0),
         };
@@ -386,10 +396,17 @@ exports.Asset = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.Asset.$type, exports.Asset);
 function createBaseFee() {
-    return { amount: undefined, recipient: Buffer.alloc(0), refundRecipient: Buffer.alloc(0) };
+    return {
+        $type: "axelar.axelarnet.v1beta1.Fee",
+        amount: undefined,
+        recipient: Buffer.alloc(0),
+        refundRecipient: Buffer.alloc(0),
+    };
 }
 exports.Fee = {
+    $type: "axelar.axelarnet.v1beta1.Fee",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.amount !== undefined) {
             coin_1.Coin.encode(message.amount, writer.uint32(10).fork()).ldelim();
@@ -437,6 +454,7 @@ exports.Fee = {
     },
     fromJSON(object) {
         return {
+            $type: exports.Fee.$type,
             amount: isSet(object.amount) ? coin_1.Coin.fromJSON(object.amount) : undefined,
             recipient: isSet(object.recipient) ? Buffer.from(bytesFromBase64(object.recipient)) : Buffer.alloc(0),
             refundRecipient: isSet(object.refundRecipient)
@@ -470,6 +488,7 @@ exports.Fee = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.Fee.$type, exports.Fee);
 const gt = (() => {
     if (typeof globalThis !== "undefined") {
         return globalThis;

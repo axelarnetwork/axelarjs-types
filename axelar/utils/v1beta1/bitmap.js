@@ -12,11 +12,13 @@ exports.CircularBuffer = exports.Bitmap = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const typeRegistry_1 = require("../../../typeRegistry");
 exports.protobufPackage = "axelar.utils.v1beta1";
 function createBaseBitmap() {
-    return { trueCountCache: undefined };
+    return { $type: "axelar.utils.v1beta1.Bitmap", trueCountCache: undefined };
 }
 exports.Bitmap = {
+    $type: "axelar.utils.v1beta1.Bitmap",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.trueCountCache !== undefined) {
             exports.CircularBuffer.encode(message.trueCountCache, writer.uint32(18).fork()).ldelim();
@@ -46,6 +48,7 @@ exports.Bitmap = {
     },
     fromJSON(object) {
         return {
+            $type: exports.Bitmap.$type,
             trueCountCache: isSet(object.trueCountCache)
                 ? exports.CircularBuffer.fromJSON(object.trueCountCache)
                 : undefined,
@@ -70,10 +73,12 @@ exports.Bitmap = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.Bitmap.$type, exports.Bitmap);
 function createBaseCircularBuffer() {
-    return { cumulativeValue: [], index: 0, maxSize: 0 };
+    return { $type: "axelar.utils.v1beta1.CircularBuffer", cumulativeValue: [], index: 0, maxSize: 0 };
 }
 exports.CircularBuffer = {
+    $type: "axelar.utils.v1beta1.CircularBuffer",
     encode(message, writer = minimal_1.default.Writer.create()) {
         writer.uint32(10).fork();
         for (const v of message.cumulativeValue) {
@@ -130,6 +135,7 @@ exports.CircularBuffer = {
     },
     fromJSON(object) {
         return {
+            $type: exports.CircularBuffer.$type,
             cumulativeValue: gt.Array.isArray(object === null || object === void 0 ? void 0 : object.cumulativeValue)
                 ? object.cumulativeValue.map((e) => long_1.default.fromValue(e))
                 : [],
@@ -163,6 +169,7 @@ exports.CircularBuffer = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.CircularBuffer.$type, exports.CircularBuffer);
 const gt = (() => {
     if (typeof globalThis !== "undefined") {
         return globalThis;

@@ -12,11 +12,13 @@ exports.BatchedMessageFailed = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const typeRegistry_1 = require("../../../typeRegistry");
 exports.protobufPackage = "axelar.auxiliary.v1beta1";
 function createBaseBatchedMessageFailed() {
-    return { index: 0, error: "" };
+    return { $type: "axelar.auxiliary.v1beta1.BatchedMessageFailed", index: 0, error: "" };
 }
 exports.BatchedMessageFailed = {
+    $type: "axelar.auxiliary.v1beta1.BatchedMessageFailed",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.index !== 0) {
             writer.uint32(8).int32(message.index);
@@ -55,6 +57,7 @@ exports.BatchedMessageFailed = {
     },
     fromJSON(object) {
         return {
+            $type: exports.BatchedMessageFailed.$type,
             index: isSet(object.index) ? gt.Number(object.index) : 0,
             error: isSet(object.error) ? gt.String(object.error) : "",
         };
@@ -80,6 +83,7 @@ exports.BatchedMessageFailed = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.BatchedMessageFailed.$type, exports.BatchedMessageFailed);
 const gt = (() => {
     if (typeof globalThis !== "undefined") {
         return globalThis;

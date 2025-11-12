@@ -1,5 +1,5 @@
 import { BatchedCommandsRequest, BatchedCommandsResponse, BurnerInfoRequest, BurnerInfoResponse, BytecodeRequest, BytecodeResponse, ChainsRequest, ChainsResponse, CommandRequest, CommandResponse, ConfirmationHeightRequest, ConfirmationHeightResponse, DepositStateRequest, DepositStateResponse, ERC20TokensRequest, ERC20TokensResponse, EventRequest, EventResponse, GatewayAddressRequest, GatewayAddressResponse, KeyAddressRequest, KeyAddressResponse, ParamsRequest, ParamsResponse, PendingCommandsRequest, PendingCommandsResponse, TokenInfoRequest, TokenInfoResponse } from "./query";
-import { AddChainRequest, AddChainResponse, ConfirmDepositRequest, ConfirmDepositResponse, ConfirmGatewayTxRequest, ConfirmGatewayTxResponse, ConfirmGatewayTxsRequest, ConfirmGatewayTxsResponse, ConfirmTokenRequest, ConfirmTokenResponse, ConfirmTransferKeyRequest, ConfirmTransferKeyResponse, CreateBurnTokensRequest, CreateBurnTokensResponse, CreateDeployTokenRequest, CreateDeployTokenResponse, CreatePendingTransfersRequest, CreatePendingTransfersResponse, CreateTransferOperatorshipRequest, CreateTransferOperatorshipResponse, LinkRequest, LinkResponse, RetryFailedEventRequest, RetryFailedEventResponse, SetGatewayRequest, SetGatewayResponse, SignCommandsRequest, SignCommandsResponse } from "./tx";
+import { AddChainRequest, AddChainResponse, ConfirmDepositRequest, ConfirmDepositResponse, ConfirmGatewayTxRequest, ConfirmGatewayTxResponse, ConfirmGatewayTxsRequest, ConfirmGatewayTxsResponse, ConfirmTokenRequest, ConfirmTokenResponse, ConfirmTransferKeyRequest, ConfirmTransferKeyResponse, CreateBurnTokensRequest, CreateBurnTokensResponse, CreateDeployTokenRequest, CreateDeployTokenResponse, CreatePendingTransfersRequest, CreatePendingTransfersResponse, CreateTransferOperatorshipRequest, CreateTransferOperatorshipResponse, LinkRequest, LinkResponse, RetryFailedEventRequest, RetryFailedEventResponse, SetGatewayRequest, SetGatewayResponse, SignCommandsRequest, SignCommandsResponse, UpdateParamsRequest, UpdateParamsResponse } from "./tx";
 export declare const protobufPackage = "axelar.evm.v1beta1";
 /** Msg defines the evm Msg service. */
 export interface MsgService {
@@ -18,6 +18,7 @@ export interface MsgService {
     SignCommands(request: SignCommandsRequest): Promise<SignCommandsResponse>;
     AddChain(request: AddChainRequest): Promise<AddChainResponse>;
     RetryFailedEvent(request: RetryFailedEventRequest): Promise<RetryFailedEventResponse>;
+    UpdateParams(request: UpdateParamsRequest): Promise<UpdateParamsResponse>;
 }
 export declare const MsgServiceServiceName = "axelar.evm.v1beta1.MsgService";
 export declare class MsgServiceClientImpl implements MsgService {
@@ -40,6 +41,7 @@ export declare class MsgServiceClientImpl implements MsgService {
     SignCommands(request: SignCommandsRequest): Promise<SignCommandsResponse>;
     AddChain(request: AddChainRequest): Promise<AddChainResponse>;
     RetryFailedEvent(request: RetryFailedEventRequest): Promise<RetryFailedEventResponse>;
+    UpdateParams(request: UpdateParamsRequest): Promise<UpdateParamsResponse>;
 }
 /** QueryService defines the gRPC querier service. */
 export interface QueryService {

@@ -12,12 +12,14 @@ exports.ChainByIBCPathResponse = exports.ChainByIBCPathRequest = exports.IBCPath
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const typeRegistry_1 = require("../../../typeRegistry");
 const params_1 = require("./params");
 exports.protobufPackage = "axelar.axelarnet.v1beta1";
 function createBasePendingIBCTransferCountRequest() {
-    return {};
+    return { $type: "axelar.axelarnet.v1beta1.PendingIBCTransferCountRequest" };
 }
 exports.PendingIBCTransferCountRequest = {
+    $type: "axelar.axelarnet.v1beta1.PendingIBCTransferCountRequest",
     encode(_, writer = minimal_1.default.Writer.create()) {
         return writer;
     },
@@ -37,7 +39,7 @@ exports.PendingIBCTransferCountRequest = {
         return message;
     },
     fromJSON(_) {
-        return {};
+        return { $type: exports.PendingIBCTransferCountRequest.$type };
     },
     toJSON(_) {
         const obj = {};
@@ -51,13 +53,19 @@ exports.PendingIBCTransferCountRequest = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.PendingIBCTransferCountRequest.$type, exports.PendingIBCTransferCountRequest);
 function createBasePendingIBCTransferCountResponse() {
-    return { transfersByChain: {} };
+    return { $type: "axelar.axelarnet.v1beta1.PendingIBCTransferCountResponse", transfersByChain: {} };
 }
 exports.PendingIBCTransferCountResponse = {
+    $type: "axelar.axelarnet.v1beta1.PendingIBCTransferCountResponse",
     encode(message, writer = minimal_1.default.Writer.create()) {
         Object.entries(message.transfersByChain).forEach(([key, value]) => {
-            exports.PendingIBCTransferCountResponse_TransfersByChainEntry.encode({ key: key, value }, writer.uint32(10).fork()).ldelim();
+            exports.PendingIBCTransferCountResponse_TransfersByChainEntry.encode({
+                $type: "axelar.axelarnet.v1beta1.PendingIBCTransferCountResponse.TransfersByChainEntry",
+                key: key,
+                value,
+            }, writer.uint32(10).fork()).ldelim();
         });
         return writer;
     },
@@ -87,6 +95,7 @@ exports.PendingIBCTransferCountResponse = {
     },
     fromJSON(object) {
         return {
+            $type: exports.PendingIBCTransferCountResponse.$type,
             transfersByChain: isObject(object.transfersByChain)
                 ? Object.entries(object.transfersByChain).reduce((acc, [key, value]) => {
                     acc[key] = Number(value);
@@ -123,10 +132,16 @@ exports.PendingIBCTransferCountResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.PendingIBCTransferCountResponse.$type, exports.PendingIBCTransferCountResponse);
 function createBasePendingIBCTransferCountResponse_TransfersByChainEntry() {
-    return { key: "", value: 0 };
+    return {
+        $type: "axelar.axelarnet.v1beta1.PendingIBCTransferCountResponse.TransfersByChainEntry",
+        key: "",
+        value: 0,
+    };
 }
 exports.PendingIBCTransferCountResponse_TransfersByChainEntry = {
+    $type: "axelar.axelarnet.v1beta1.PendingIBCTransferCountResponse.TransfersByChainEntry",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.key !== "") {
             writer.uint32(10).string(message.key);
@@ -165,6 +180,7 @@ exports.PendingIBCTransferCountResponse_TransfersByChainEntry = {
     },
     fromJSON(object) {
         return {
+            $type: exports.PendingIBCTransferCountResponse_TransfersByChainEntry.$type,
             key: isSet(object.key) ? gt.String(object.key) : "",
             value: isSet(object.value) ? gt.Number(object.value) : 0,
         };
@@ -190,10 +206,12 @@ exports.PendingIBCTransferCountResponse_TransfersByChainEntry = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.PendingIBCTransferCountResponse_TransfersByChainEntry.$type, exports.PendingIBCTransferCountResponse_TransfersByChainEntry);
 function createBaseParamsRequest() {
-    return {};
+    return { $type: "axelar.axelarnet.v1beta1.ParamsRequest" };
 }
 exports.ParamsRequest = {
+    $type: "axelar.axelarnet.v1beta1.ParamsRequest",
     encode(_, writer = minimal_1.default.Writer.create()) {
         return writer;
     },
@@ -213,7 +231,7 @@ exports.ParamsRequest = {
         return message;
     },
     fromJSON(_) {
-        return {};
+        return { $type: exports.ParamsRequest.$type };
     },
     toJSON(_) {
         const obj = {};
@@ -227,10 +245,12 @@ exports.ParamsRequest = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.ParamsRequest.$type, exports.ParamsRequest);
 function createBaseParamsResponse() {
-    return { params: undefined };
+    return { $type: "axelar.axelarnet.v1beta1.ParamsResponse", params: undefined };
 }
 exports.ParamsResponse = {
+    $type: "axelar.axelarnet.v1beta1.ParamsResponse",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.params !== undefined) {
             params_1.Params.encode(message.params, writer.uint32(10).fork()).ldelim();
@@ -259,7 +279,10 @@ exports.ParamsResponse = {
         return message;
     },
     fromJSON(object) {
-        return { params: isSet(object.params) ? params_1.Params.fromJSON(object.params) : undefined };
+        return {
+            $type: exports.ParamsResponse.$type,
+            params: isSet(object.params) ? params_1.Params.fromJSON(object.params) : undefined,
+        };
     },
     toJSON(message) {
         const obj = {};
@@ -278,10 +301,12 @@ exports.ParamsResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.ParamsResponse.$type, exports.ParamsResponse);
 function createBaseIBCPathRequest() {
-    return { chain: "" };
+    return { $type: "axelar.axelarnet.v1beta1.IBCPathRequest", chain: "" };
 }
 exports.IBCPathRequest = {
+    $type: "axelar.axelarnet.v1beta1.IBCPathRequest",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.chain !== "") {
             writer.uint32(10).string(message.chain);
@@ -310,7 +335,7 @@ exports.IBCPathRequest = {
         return message;
     },
     fromJSON(object) {
-        return { chain: isSet(object.chain) ? gt.String(object.chain) : "" };
+        return { $type: exports.IBCPathRequest.$type, chain: isSet(object.chain) ? gt.String(object.chain) : "" };
     },
     toJSON(message) {
         const obj = {};
@@ -329,10 +354,12 @@ exports.IBCPathRequest = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.IBCPathRequest.$type, exports.IBCPathRequest);
 function createBaseIBCPathResponse() {
-    return { ibcPath: "" };
+    return { $type: "axelar.axelarnet.v1beta1.IBCPathResponse", ibcPath: "" };
 }
 exports.IBCPathResponse = {
+    $type: "axelar.axelarnet.v1beta1.IBCPathResponse",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.ibcPath !== "") {
             writer.uint32(10).string(message.ibcPath);
@@ -361,7 +388,7 @@ exports.IBCPathResponse = {
         return message;
     },
     fromJSON(object) {
-        return { ibcPath: isSet(object.ibcPath) ? gt.String(object.ibcPath) : "" };
+        return { $type: exports.IBCPathResponse.$type, ibcPath: isSet(object.ibcPath) ? gt.String(object.ibcPath) : "" };
     },
     toJSON(message) {
         const obj = {};
@@ -380,10 +407,12 @@ exports.IBCPathResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.IBCPathResponse.$type, exports.IBCPathResponse);
 function createBaseChainByIBCPathRequest() {
-    return { ibcPath: "" };
+    return { $type: "axelar.axelarnet.v1beta1.ChainByIBCPathRequest", ibcPath: "" };
 }
 exports.ChainByIBCPathRequest = {
+    $type: "axelar.axelarnet.v1beta1.ChainByIBCPathRequest",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.ibcPath !== "") {
             writer.uint32(10).string(message.ibcPath);
@@ -412,7 +441,10 @@ exports.ChainByIBCPathRequest = {
         return message;
     },
     fromJSON(object) {
-        return { ibcPath: isSet(object.ibcPath) ? gt.String(object.ibcPath) : "" };
+        return {
+            $type: exports.ChainByIBCPathRequest.$type,
+            ibcPath: isSet(object.ibcPath) ? gt.String(object.ibcPath) : "",
+        };
     },
     toJSON(message) {
         const obj = {};
@@ -431,10 +463,12 @@ exports.ChainByIBCPathRequest = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.ChainByIBCPathRequest.$type, exports.ChainByIBCPathRequest);
 function createBaseChainByIBCPathResponse() {
-    return { chain: "" };
+    return { $type: "axelar.axelarnet.v1beta1.ChainByIBCPathResponse", chain: "" };
 }
 exports.ChainByIBCPathResponse = {
+    $type: "axelar.axelarnet.v1beta1.ChainByIBCPathResponse",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.chain !== "") {
             writer.uint32(10).string(message.chain);
@@ -463,7 +497,7 @@ exports.ChainByIBCPathResponse = {
         return message;
     },
     fromJSON(object) {
-        return { chain: isSet(object.chain) ? gt.String(object.chain) : "" };
+        return { $type: exports.ChainByIBCPathResponse.$type, chain: isSet(object.chain) ? gt.String(object.chain) : "" };
     },
     toJSON(message) {
         const obj = {};
@@ -482,6 +516,7 @@ exports.ChainByIBCPathResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.ChainByIBCPathResponse.$type, exports.ChainByIBCPathResponse);
 const gt = (() => {
     if (typeof globalThis !== "undefined") {
         return globalThis;

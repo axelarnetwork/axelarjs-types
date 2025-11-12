@@ -3,9 +3,11 @@ import _m0 from "protobufjs/minimal";
 import { Params } from "./params";
 export declare const protobufPackage = "axelar.snapshot.v1beta1";
 export interface QueryValidatorsResponse {
+    $type: "axelar.snapshot.v1beta1.QueryValidatorsResponse";
     validators: QueryValidatorsResponse_Validator[];
 }
 export interface QueryValidatorsResponse_TssIllegibilityInfo {
+    $type: "axelar.snapshot.v1beta1.QueryValidatorsResponse.TssIllegibilityInfo";
     tombstoned: boolean;
     jailed: boolean;
     missedTooManyBlocks: boolean;
@@ -15,14 +17,17 @@ export interface QueryValidatorsResponse_TssIllegibilityInfo {
     staleTssHeartbeat: boolean;
 }
 export interface QueryValidatorsResponse_Validator {
+    $type: "axelar.snapshot.v1beta1.QueryValidatorsResponse.Validator";
     operatorAddress: string;
     moniker: string;
     tssIllegibilityInfo?: QueryValidatorsResponse_TssIllegibilityInfo | undefined;
 }
 /** ParamsRequest represents a message that queries the params */
 export interface ParamsRequest {
+    $type: "axelar.snapshot.v1beta1.ParamsRequest";
 }
 export interface ParamsResponse {
+    $type: "axelar.snapshot.v1beta1.ParamsResponse";
     params?: Params | undefined;
 }
 /**
@@ -30,9 +35,11 @@ export interface ParamsResponse {
  * proxy address
  */
 export interface OperatorByProxyRequest {
+    $type: "axelar.snapshot.v1beta1.OperatorByProxyRequest";
     proxyAddress: string;
 }
 export interface OperatorByProxyResponse {
+    $type: "axelar.snapshot.v1beta1.OperatorByProxyResponse";
     operatorAddress: string;
 }
 /**
@@ -40,9 +47,11 @@ export interface OperatorByProxyResponse {
  * operator address
  */
 export interface ProxyByOperatorRequest {
+    $type: "axelar.snapshot.v1beta1.ProxyByOperatorRequest";
     operatorAddress: string;
 }
 export interface ProxyByOperatorResponse {
+    $type: "axelar.snapshot.v1beta1.ProxyByOperatorResponse";
     proxyAddress: string;
     status: ProxyByOperatorResponse_Status;
 }
@@ -55,6 +64,7 @@ export declare enum ProxyByOperatorResponse_Status {
 export declare function proxyByOperatorResponse_StatusFromJSON(object: any): ProxyByOperatorResponse_Status;
 export declare function proxyByOperatorResponse_StatusToJSON(object: ProxyByOperatorResponse_Status): string;
 export declare const QueryValidatorsResponse: {
+    $type: "axelar.snapshot.v1beta1.QueryValidatorsResponse";
     encode(message: QueryValidatorsResponse, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryValidatorsResponse;
     fromJSON(object: any): QueryValidatorsResponse;
@@ -117,8 +127,8 @@ export declare const QueryValidatorsResponse: {
                 tssSuspended?: boolean | undefined;
                 proxyInsuficientFunds?: boolean | undefined;
                 staleTssHeartbeat?: boolean | undefined;
-            } & { [K in Exclude<keyof I["validators"][number]["tssIllegibilityInfo"], keyof QueryValidatorsResponse_TssIllegibilityInfo>]: never; }) | undefined;
-        } & { [K_1 in Exclude<keyof I["validators"][number], keyof QueryValidatorsResponse_Validator>]: never; })[] & { [K_2 in Exclude<keyof I["validators"], keyof {
+            } & { [K in Exclude<keyof I["validators"][number]["tssIllegibilityInfo"], "$type" | "tombstoned" | "jailed" | "missedTooManyBlocks" | "noProxyRegistered" | "tssSuspended" | "proxyInsuficientFunds" | "staleTssHeartbeat">]: never; }) | undefined;
+        } & { [K_1 in Exclude<keyof I["validators"][number], "$type" | "operatorAddress" | "moniker" | "tssIllegibilityInfo">]: never; })[] & { [K_2 in Exclude<keyof I["validators"], "$type" | keyof {
             operatorAddress?: string | undefined;
             moniker?: string | undefined;
             tssIllegibilityInfo?: {
@@ -131,7 +141,7 @@ export declare const QueryValidatorsResponse: {
                 staleTssHeartbeat?: boolean | undefined;
             } | undefined;
         }[]>]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I, "validators">]: never; }>(base?: I | undefined): QueryValidatorsResponse;
+    } & { [K_3 in Exclude<keyof I, "$type" | "validators">]: never; }>(base?: I | undefined): QueryValidatorsResponse;
     fromPartial<I_1 extends {
         validators?: {
             operatorAddress?: string | undefined;
@@ -190,8 +200,8 @@ export declare const QueryValidatorsResponse: {
                 tssSuspended?: boolean | undefined;
                 proxyInsuficientFunds?: boolean | undefined;
                 staleTssHeartbeat?: boolean | undefined;
-            } & { [K_4 in Exclude<keyof I_1["validators"][number]["tssIllegibilityInfo"], keyof QueryValidatorsResponse_TssIllegibilityInfo>]: never; }) | undefined;
-        } & { [K_5 in Exclude<keyof I_1["validators"][number], keyof QueryValidatorsResponse_Validator>]: never; })[] & { [K_6 in Exclude<keyof I_1["validators"], keyof {
+            } & { [K_4 in Exclude<keyof I_1["validators"][number]["tssIllegibilityInfo"], "$type" | "tombstoned" | "jailed" | "missedTooManyBlocks" | "noProxyRegistered" | "tssSuspended" | "proxyInsuficientFunds" | "staleTssHeartbeat">]: never; }) | undefined;
+        } & { [K_5 in Exclude<keyof I_1["validators"][number], "$type" | "operatorAddress" | "moniker" | "tssIllegibilityInfo">]: never; })[] & { [K_6 in Exclude<keyof I_1["validators"], "$type" | keyof {
             operatorAddress?: string | undefined;
             moniker?: string | undefined;
             tssIllegibilityInfo?: {
@@ -204,9 +214,10 @@ export declare const QueryValidatorsResponse: {
                 staleTssHeartbeat?: boolean | undefined;
             } | undefined;
         }[]>]: never; }) | undefined;
-    } & { [K_7 in Exclude<keyof I_1, "validators">]: never; }>(object: I_1): QueryValidatorsResponse;
+    } & { [K_7 in Exclude<keyof I_1, "$type" | "validators">]: never; }>(object: I_1): QueryValidatorsResponse;
 };
 export declare const QueryValidatorsResponse_TssIllegibilityInfo: {
+    $type: "axelar.snapshot.v1beta1.QueryValidatorsResponse.TssIllegibilityInfo";
     encode(message: QueryValidatorsResponse_TssIllegibilityInfo, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryValidatorsResponse_TssIllegibilityInfo;
     fromJSON(object: any): QueryValidatorsResponse_TssIllegibilityInfo;
@@ -227,7 +238,7 @@ export declare const QueryValidatorsResponse_TssIllegibilityInfo: {
         tssSuspended?: boolean | undefined;
         proxyInsuficientFunds?: boolean | undefined;
         staleTssHeartbeat?: boolean | undefined;
-    } & { [K in Exclude<keyof I, keyof QueryValidatorsResponse_TssIllegibilityInfo>]: never; }>(base?: I | undefined): QueryValidatorsResponse_TssIllegibilityInfo;
+    } & { [K in Exclude<keyof I, "$type" | "tombstoned" | "jailed" | "missedTooManyBlocks" | "noProxyRegistered" | "tssSuspended" | "proxyInsuficientFunds" | "staleTssHeartbeat">]: never; }>(base?: I | undefined): QueryValidatorsResponse_TssIllegibilityInfo;
     fromPartial<I_1 extends {
         tombstoned?: boolean | undefined;
         jailed?: boolean | undefined;
@@ -244,9 +255,10 @@ export declare const QueryValidatorsResponse_TssIllegibilityInfo: {
         tssSuspended?: boolean | undefined;
         proxyInsuficientFunds?: boolean | undefined;
         staleTssHeartbeat?: boolean | undefined;
-    } & { [K_1 in Exclude<keyof I_1, keyof QueryValidatorsResponse_TssIllegibilityInfo>]: never; }>(object: I_1): QueryValidatorsResponse_TssIllegibilityInfo;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "tombstoned" | "jailed" | "missedTooManyBlocks" | "noProxyRegistered" | "tssSuspended" | "proxyInsuficientFunds" | "staleTssHeartbeat">]: never; }>(object: I_1): QueryValidatorsResponse_TssIllegibilityInfo;
 };
 export declare const QueryValidatorsResponse_Validator: {
+    $type: "axelar.snapshot.v1beta1.QueryValidatorsResponse.Validator";
     encode(message: QueryValidatorsResponse_Validator, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryValidatorsResponse_Validator;
     fromJSON(object: any): QueryValidatorsResponse_Validator;
@@ -282,8 +294,8 @@ export declare const QueryValidatorsResponse_Validator: {
             tssSuspended?: boolean | undefined;
             proxyInsuficientFunds?: boolean | undefined;
             staleTssHeartbeat?: boolean | undefined;
-        } & { [K in Exclude<keyof I["tssIllegibilityInfo"], keyof QueryValidatorsResponse_TssIllegibilityInfo>]: never; }) | undefined;
-    } & { [K_1 in Exclude<keyof I, keyof QueryValidatorsResponse_Validator>]: never; }>(base?: I | undefined): QueryValidatorsResponse_Validator;
+        } & { [K in Exclude<keyof I["tssIllegibilityInfo"], "$type" | "tombstoned" | "jailed" | "missedTooManyBlocks" | "noProxyRegistered" | "tssSuspended" | "proxyInsuficientFunds" | "staleTssHeartbeat">]: never; }) | undefined;
+    } & { [K_1 in Exclude<keyof I, "$type" | "operatorAddress" | "moniker" | "tssIllegibilityInfo">]: never; }>(base?: I | undefined): QueryValidatorsResponse_Validator;
     fromPartial<I_1 extends {
         operatorAddress?: string | undefined;
         moniker?: string | undefined;
@@ -315,18 +327,20 @@ export declare const QueryValidatorsResponse_Validator: {
             tssSuspended?: boolean | undefined;
             proxyInsuficientFunds?: boolean | undefined;
             staleTssHeartbeat?: boolean | undefined;
-        } & { [K_2 in Exclude<keyof I_1["tssIllegibilityInfo"], keyof QueryValidatorsResponse_TssIllegibilityInfo>]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I_1, keyof QueryValidatorsResponse_Validator>]: never; }>(object: I_1): QueryValidatorsResponse_Validator;
+        } & { [K_2 in Exclude<keyof I_1["tssIllegibilityInfo"], "$type" | "tombstoned" | "jailed" | "missedTooManyBlocks" | "noProxyRegistered" | "tssSuspended" | "proxyInsuficientFunds" | "staleTssHeartbeat">]: never; }) | undefined;
+    } & { [K_3 in Exclude<keyof I_1, "$type" | "operatorAddress" | "moniker" | "tssIllegibilityInfo">]: never; }>(object: I_1): QueryValidatorsResponse_Validator;
 };
 export declare const ParamsRequest: {
+    $type: "axelar.snapshot.v1beta1.ParamsRequest";
     encode(_: ParamsRequest, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ParamsRequest;
     fromJSON(_: any): ParamsRequest;
     toJSON(_: ParamsRequest): unknown;
-    create<I extends {} & {} & { [K in Exclude<keyof I, never>]: never; }>(base?: I | undefined): ParamsRequest;
-    fromPartial<I_1 extends {} & {} & { [K_1 in Exclude<keyof I_1, never>]: never; }>(_: I_1): ParamsRequest;
+    create<I extends {} & {} & { [K in Exclude<keyof I, "$type">]: never; }>(base?: I | undefined): ParamsRequest;
+    fromPartial<I_1 extends {} & {} & { [K_1 in Exclude<keyof I_1, "$type">]: never; }>(_: I_1): ParamsRequest;
 };
 export declare const ParamsResponse: {
+    $type: "axelar.snapshot.v1beta1.ParamsResponse";
     encode(message: ParamsResponse, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ParamsResponse;
     fromJSON(object: any): ParamsResponse;
@@ -396,9 +410,9 @@ export declare const ParamsResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K in Exclude<keyof I["params"]["minProxyBalance"], keyof Long.Long>]: never; }) | undefined;
-        } & { [K_1 in Exclude<keyof I["params"], "minProxyBalance">]: never; }) | undefined;
-    } & { [K_2 in Exclude<keyof I, "params">]: never; }>(base?: I | undefined): ParamsResponse;
+            } & { [K in Exclude<keyof I["params"]["minProxyBalance"], "$type" | keyof Long.Long>]: never; }) | undefined;
+        } & { [K_1 in Exclude<keyof I["params"], "$type" | "minProxyBalance">]: never; }) | undefined;
+    } & { [K_2 in Exclude<keyof I, "$type" | "params">]: never; }>(base?: I | undefined): ParamsResponse;
     fromPartial<I_1 extends {
         params?: {
             minProxyBalance?: string | number | Long.Long | undefined;
@@ -464,11 +478,12 @@ export declare const ParamsResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_3 in Exclude<keyof I_1["params"]["minProxyBalance"], keyof Long.Long>]: never; }) | undefined;
-        } & { [K_4 in Exclude<keyof I_1["params"], "minProxyBalance">]: never; }) | undefined;
-    } & { [K_5 in Exclude<keyof I_1, "params">]: never; }>(object: I_1): ParamsResponse;
+            } & { [K_3 in Exclude<keyof I_1["params"]["minProxyBalance"], "$type" | keyof Long.Long>]: never; }) | undefined;
+        } & { [K_4 in Exclude<keyof I_1["params"], "$type" | "minProxyBalance">]: never; }) | undefined;
+    } & { [K_5 in Exclude<keyof I_1, "$type" | "params">]: never; }>(object: I_1): ParamsResponse;
 };
 export declare const OperatorByProxyRequest: {
+    $type: "axelar.snapshot.v1beta1.OperatorByProxyRequest";
     encode(message: OperatorByProxyRequest, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): OperatorByProxyRequest;
     fromJSON(object: any): OperatorByProxyRequest;
@@ -477,14 +492,15 @@ export declare const OperatorByProxyRequest: {
         proxyAddress?: string | undefined;
     } & {
         proxyAddress?: string | undefined;
-    } & { [K in Exclude<keyof I, "proxyAddress">]: never; }>(base?: I | undefined): OperatorByProxyRequest;
+    } & { [K in Exclude<keyof I, "$type" | "proxyAddress">]: never; }>(base?: I | undefined): OperatorByProxyRequest;
     fromPartial<I_1 extends {
         proxyAddress?: string | undefined;
     } & {
         proxyAddress?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "proxyAddress">]: never; }>(object: I_1): OperatorByProxyRequest;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "proxyAddress">]: never; }>(object: I_1): OperatorByProxyRequest;
 };
 export declare const OperatorByProxyResponse: {
+    $type: "axelar.snapshot.v1beta1.OperatorByProxyResponse";
     encode(message: OperatorByProxyResponse, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): OperatorByProxyResponse;
     fromJSON(object: any): OperatorByProxyResponse;
@@ -493,14 +509,15 @@ export declare const OperatorByProxyResponse: {
         operatorAddress?: string | undefined;
     } & {
         operatorAddress?: string | undefined;
-    } & { [K in Exclude<keyof I, "operatorAddress">]: never; }>(base?: I | undefined): OperatorByProxyResponse;
+    } & { [K in Exclude<keyof I, "$type" | "operatorAddress">]: never; }>(base?: I | undefined): OperatorByProxyResponse;
     fromPartial<I_1 extends {
         operatorAddress?: string | undefined;
     } & {
         operatorAddress?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "operatorAddress">]: never; }>(object: I_1): OperatorByProxyResponse;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "operatorAddress">]: never; }>(object: I_1): OperatorByProxyResponse;
 };
 export declare const ProxyByOperatorRequest: {
+    $type: "axelar.snapshot.v1beta1.ProxyByOperatorRequest";
     encode(message: ProxyByOperatorRequest, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ProxyByOperatorRequest;
     fromJSON(object: any): ProxyByOperatorRequest;
@@ -509,41 +526,42 @@ export declare const ProxyByOperatorRequest: {
         operatorAddress?: string | undefined;
     } & {
         operatorAddress?: string | undefined;
-    } & { [K in Exclude<keyof I, "operatorAddress">]: never; }>(base?: I | undefined): ProxyByOperatorRequest;
+    } & { [K in Exclude<keyof I, "$type" | "operatorAddress">]: never; }>(base?: I | undefined): ProxyByOperatorRequest;
     fromPartial<I_1 extends {
         operatorAddress?: string | undefined;
     } & {
         operatorAddress?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "operatorAddress">]: never; }>(object: I_1): ProxyByOperatorRequest;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "operatorAddress">]: never; }>(object: I_1): ProxyByOperatorRequest;
 };
 export declare const ProxyByOperatorResponse: {
+    $type: "axelar.snapshot.v1beta1.ProxyByOperatorResponse";
     encode(message: ProxyByOperatorResponse, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ProxyByOperatorResponse;
     fromJSON(object: any): ProxyByOperatorResponse;
     toJSON(message: ProxyByOperatorResponse): unknown;
     create<I extends {
-        proxyAddress?: string | undefined;
         status?: ProxyByOperatorResponse_Status | undefined;
+        proxyAddress?: string | undefined;
     } & {
-        proxyAddress?: string | undefined;
         status?: ProxyByOperatorResponse_Status | undefined;
-    } & { [K in Exclude<keyof I, keyof ProxyByOperatorResponse>]: never; }>(base?: I | undefined): ProxyByOperatorResponse;
+        proxyAddress?: string | undefined;
+    } & { [K in Exclude<keyof I, "$type" | "status" | "proxyAddress">]: never; }>(base?: I | undefined): ProxyByOperatorResponse;
     fromPartial<I_1 extends {
-        proxyAddress?: string | undefined;
         status?: ProxyByOperatorResponse_Status | undefined;
+        proxyAddress?: string | undefined;
     } & {
-        proxyAddress?: string | undefined;
         status?: ProxyByOperatorResponse_Status | undefined;
-    } & { [K_1 in Exclude<keyof I_1, keyof ProxyByOperatorResponse>]: never; }>(object: I_1): ProxyByOperatorResponse;
+        proxyAddress?: string | undefined;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "status" | "proxyAddress">]: never; }>(object: I_1): ProxyByOperatorResponse;
 };
 declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
-    [K in keyof T]?: DeepPartial<T[K]>;
+    [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]>;
 } : Partial<T>;
 declare type KeysOfUnion<T> = T extends T ? keyof T : never;
 export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & {
-    [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+    [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never;
 };
 export {};

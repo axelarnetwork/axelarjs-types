@@ -8,6 +8,7 @@ export declare const protobufPackage = "axelar.vote.v1beta1";
  * validators voting for the same data
  */
 export interface TalliedVote {
+    $type: "axelar.vote.v1beta1.TalliedVote";
     tally: Buffer;
     data?: Any | undefined;
     pollId: Long;
@@ -16,33 +17,35 @@ export interface TalliedVote {
     };
 }
 export interface TalliedVote_IsVoterLateEntry {
+    $type: "axelar.vote.v1beta1.TalliedVote.IsVoterLateEntry";
     key: string;
     value: boolean;
 }
 export declare const TalliedVote: {
+    $type: "axelar.vote.v1beta1.TalliedVote";
     encode(message: TalliedVote, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): TalliedVote;
     fromJSON(object: any): TalliedVote;
     toJSON(message: TalliedVote): unknown;
     create<I extends {
-        tally?: Buffer | undefined;
         data?: {
             typeUrl?: string | undefined;
             value?: Buffer | undefined;
         } | undefined;
         pollId?: string | number | Long.Long | undefined;
+        tally?: Buffer | undefined;
         isVoterLate?: {
             [x: string]: boolean | undefined;
+            [x: number]: boolean | undefined;
         } | undefined;
     } & {
-        tally?: Buffer | undefined;
         data?: ({
             typeUrl?: string | undefined;
             value?: Buffer | undefined;
         } & {
             typeUrl?: string | undefined;
             value?: Buffer | undefined;
-        } & { [K in Exclude<keyof I["data"], keyof Any>]: never; }) | undefined;
+        } & { [K in Exclude<keyof I["data"], "$type" | "typeUrl" | "value">]: never; }) | undefined;
         pollId?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -100,32 +103,35 @@ export declare const TalliedVote: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_1 in Exclude<keyof I["pollId"], keyof Long.Long>]: never; }) | undefined;
+        } & { [K_1 in Exclude<keyof I["pollId"], "$type" | keyof Long.Long>]: never; }) | undefined;
+        tally?: Buffer | undefined;
         isVoterLate?: ({
             [x: string]: boolean | undefined;
+            [x: number]: boolean | undefined;
         } & {
             [x: string]: boolean | undefined;
+            [x: number]: boolean | undefined;
         } & { [K_2 in Exclude<keyof I["isVoterLate"], string | number>]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I, keyof TalliedVote>]: never; }>(base?: I | undefined): TalliedVote;
+    } & { [K_3 in Exclude<keyof I, "$type" | "data" | "pollId" | "tally" | "isVoterLate">]: never; }>(base?: I | undefined): TalliedVote;
     fromPartial<I_1 extends {
-        tally?: Buffer | undefined;
         data?: {
             typeUrl?: string | undefined;
             value?: Buffer | undefined;
         } | undefined;
         pollId?: string | number | Long.Long | undefined;
+        tally?: Buffer | undefined;
         isVoterLate?: {
             [x: string]: boolean | undefined;
+            [x: number]: boolean | undefined;
         } | undefined;
     } & {
-        tally?: Buffer | undefined;
         data?: ({
             typeUrl?: string | undefined;
             value?: Buffer | undefined;
         } & {
             typeUrl?: string | undefined;
             value?: Buffer | undefined;
-        } & { [K_4 in Exclude<keyof I_1["data"], keyof Any>]: never; }) | undefined;
+        } & { [K_4 in Exclude<keyof I_1["data"], "$type" | "typeUrl" | "value">]: never; }) | undefined;
         pollId?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -183,42 +189,46 @@ export declare const TalliedVote: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_5 in Exclude<keyof I_1["pollId"], keyof Long.Long>]: never; }) | undefined;
+        } & { [K_5 in Exclude<keyof I_1["pollId"], "$type" | keyof Long.Long>]: never; }) | undefined;
+        tally?: Buffer | undefined;
         isVoterLate?: ({
             [x: string]: boolean | undefined;
+            [x: number]: boolean | undefined;
         } & {
             [x: string]: boolean | undefined;
+            [x: number]: boolean | undefined;
         } & { [K_6 in Exclude<keyof I_1["isVoterLate"], string | number>]: never; }) | undefined;
-    } & { [K_7 in Exclude<keyof I_1, keyof TalliedVote>]: never; }>(object: I_1): TalliedVote;
+    } & { [K_7 in Exclude<keyof I_1, "$type" | "data" | "pollId" | "tally" | "isVoterLate">]: never; }>(object: I_1): TalliedVote;
 };
 export declare const TalliedVote_IsVoterLateEntry: {
+    $type: "axelar.vote.v1beta1.TalliedVote.IsVoterLateEntry";
     encode(message: TalliedVote_IsVoterLateEntry, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): TalliedVote_IsVoterLateEntry;
     fromJSON(object: any): TalliedVote_IsVoterLateEntry;
     toJSON(message: TalliedVote_IsVoterLateEntry): unknown;
     create<I extends {
-        key?: string | undefined;
         value?: boolean | undefined;
+        key?: string | undefined;
     } & {
-        key?: string | undefined;
         value?: boolean | undefined;
-    } & { [K in Exclude<keyof I, keyof TalliedVote_IsVoterLateEntry>]: never; }>(base?: I | undefined): TalliedVote_IsVoterLateEntry;
+        key?: string | undefined;
+    } & { [K in Exclude<keyof I, "$type" | "value" | "key">]: never; }>(base?: I | undefined): TalliedVote_IsVoterLateEntry;
     fromPartial<I_1 extends {
-        key?: string | undefined;
         value?: boolean | undefined;
+        key?: string | undefined;
     } & {
-        key?: string | undefined;
         value?: boolean | undefined;
-    } & { [K_1 in Exclude<keyof I_1, keyof TalliedVote_IsVoterLateEntry>]: never; }>(object: I_1): TalliedVote_IsVoterLateEntry;
+        key?: string | undefined;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "value" | "key">]: never; }>(object: I_1): TalliedVote_IsVoterLateEntry;
 };
 declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
-    [K in keyof T]?: DeepPartial<T[K]>;
+    [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]>;
 } : Partial<T>;
 declare type KeysOfUnion<T> = T extends T ? keyof T : never;
 export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & {
-    [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+    [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never;
 };
 export {};

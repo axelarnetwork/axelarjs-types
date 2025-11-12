@@ -7,6 +7,7 @@ import { Threshold } from "../../utils/v1beta1/threshold";
 import { KeyState, MultisigState } from "../exported/v1beta1/types";
 export declare const protobufPackage = "axelar.multisig.v1beta1";
 export interface Key {
+    $type: "axelar.multisig.v1beta1.Key";
     id: string;
     snapshot?: Snapshot | undefined;
     pubKeys: {
@@ -16,10 +17,12 @@ export interface Key {
     state: KeyState;
 }
 export interface Key_PubKeysEntry {
+    $type: "axelar.multisig.v1beta1.Key.PubKeysEntry";
     key: string;
     value: Buffer;
 }
 export interface KeygenSession {
+    $type: "axelar.multisig.v1beta1.KeygenSession";
     key?: Key | undefined;
     state: MultisigState;
     keygenThreshold?: Threshold | undefined;
@@ -31,10 +34,12 @@ export interface KeygenSession {
     gracePeriod: Long;
 }
 export interface KeygenSession_IsPubKeyReceivedEntry {
+    $type: "axelar.multisig.v1beta1.KeygenSession.IsPubKeyReceivedEntry";
     key: string;
     value: boolean;
 }
 export interface MultiSig {
+    $type: "axelar.multisig.v1beta1.MultiSig";
     keyId: string;
     payloadHash: Buffer;
     sigs: {
@@ -42,10 +47,12 @@ export interface MultiSig {
     };
 }
 export interface MultiSig_SigsEntry {
+    $type: "axelar.multisig.v1beta1.MultiSig.SigsEntry";
     key: string;
     value: Buffer;
 }
 export interface SigningSession {
+    $type: "axelar.multisig.v1beta1.SigningSession";
     id: Long;
     multiSig?: MultiSig | undefined;
     state: MultisigState;
@@ -57,55 +64,123 @@ export interface SigningSession {
     moduleMetadata?: Any | undefined;
 }
 export interface KeyEpoch {
+    $type: "axelar.multisig.v1beta1.KeyEpoch";
     epoch: Long;
     chain: string;
     keyId: string;
 }
 export declare const Key: {
+    $type: "axelar.multisig.v1beta1.Key";
     encode(message: Key, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Key;
     fromJSON(object: any): Key;
     toJSON(message: Key): unknown;
     create<I extends {
-        id?: string | undefined;
         snapshot?: {
+            height?: string | number | Long.Long | undefined;
             timestamp?: {
                 seconds?: string | number | Long.Long | undefined;
                 nanos?: number | undefined;
             } | undefined;
-            height?: string | number | Long.Long | undefined;
             participants?: {
                 [x: string]: {
+                    address?: Buffer | undefined;
+                    weight?: Buffer | undefined;
+                } | undefined;
+                [x: number]: {
                     address?: Buffer | undefined;
                     weight?: Buffer | undefined;
                 } | undefined;
             } | undefined;
             bondedWeight?: Buffer | undefined;
         } | undefined;
+        id?: string | undefined;
+        state?: KeyState | undefined;
         pubKeys?: {
             [x: string]: Buffer | undefined;
+            [x: number]: Buffer | undefined;
         } | undefined;
         signingThreshold?: {
             numerator?: string | number | Long.Long | undefined;
             denominator?: string | number | Long.Long | undefined;
         } | undefined;
-        state?: KeyState | undefined;
     } & {
-        id?: string | undefined;
         snapshot?: ({
+            height?: string | number | Long.Long | undefined;
             timestamp?: {
                 seconds?: string | number | Long.Long | undefined;
                 nanos?: number | undefined;
             } | undefined;
-            height?: string | number | Long.Long | undefined;
             participants?: {
                 [x: string]: {
+                    address?: Buffer | undefined;
+                    weight?: Buffer | undefined;
+                } | undefined;
+                [x: number]: {
                     address?: Buffer | undefined;
                     weight?: Buffer | undefined;
                 } | undefined;
             } | undefined;
             bondedWeight?: Buffer | undefined;
         } & {
+            height?: string | number | (Long.Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long.Long) => Long.Long;
+                and: (other: string | number | Long.Long) => Long.Long;
+                compare: (other: string | number | Long.Long) => number;
+                comp: (other: string | number | Long.Long) => number;
+                divide: (divisor: string | number | Long.Long) => Long.Long;
+                div: (divisor: string | number | Long.Long) => Long.Long;
+                equals: (other: string | number | Long.Long) => boolean;
+                eq: (other: string | number | Long.Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long.Long) => boolean;
+                gt: (other: string | number | Long.Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                gte: (other: string | number | Long.Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                lessThan: (other: string | number | Long.Long) => boolean;
+                lt: (other: string | number | Long.Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                lte: (other: string | number | Long.Long) => boolean;
+                modulo: (other: string | number | Long.Long) => Long.Long;
+                mod: (other: string | number | Long.Long) => Long.Long;
+                multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                mul: (multiplier: string | number | Long.Long) => Long.Long;
+                negate: () => Long.Long;
+                neg: () => Long.Long;
+                not: () => Long.Long;
+                notEquals: (other: string | number | Long.Long) => boolean;
+                neq: (other: string | number | Long.Long) => boolean;
+                or: (other: string | number | Long.Long) => Long.Long;
+                shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                shl: (numBits: number | Long.Long) => Long.Long;
+                shiftRight: (numBits: number | Long.Long) => Long.Long;
+                shr: (numBits: number | Long.Long) => Long.Long;
+                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                shru: (numBits: number | Long.Long) => Long.Long;
+                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long.Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long.Long;
+                xor: (other: string | number | Long.Long) => Long.Long;
+            } & { [K in Exclude<keyof I["snapshot"]["height"], "$type" | keyof Long.Long>]: never; }) | undefined;
             timestamp?: ({
                 seconds?: string | number | Long.Long | undefined;
                 nanos?: number | undefined;
@@ -167,69 +242,15 @@ export declare const Key: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
-                } & { [K in Exclude<keyof I["snapshot"]["timestamp"]["seconds"], keyof Long.Long>]: never; }) | undefined;
+                } & { [K_1 in Exclude<keyof I["snapshot"]["timestamp"]["seconds"], "$type" | keyof Long.Long>]: never; }) | undefined;
                 nanos?: number | undefined;
-            } & { [K_1 in Exclude<keyof I["snapshot"]["timestamp"], keyof import("../../../google/protobuf/timestamp").Timestamp>]: never; }) | undefined;
-            height?: string | number | (Long.Long & {
-                high: number;
-                low: number;
-                unsigned: boolean;
-                add: (addend: string | number | Long.Long) => Long.Long;
-                and: (other: string | number | Long.Long) => Long.Long;
-                compare: (other: string | number | Long.Long) => number;
-                comp: (other: string | number | Long.Long) => number;
-                divide: (divisor: string | number | Long.Long) => Long.Long;
-                div: (divisor: string | number | Long.Long) => Long.Long;
-                equals: (other: string | number | Long.Long) => boolean;
-                eq: (other: string | number | Long.Long) => boolean;
-                getHighBits: () => number;
-                getHighBitsUnsigned: () => number;
-                getLowBits: () => number;
-                getLowBitsUnsigned: () => number;
-                getNumBitsAbs: () => number;
-                greaterThan: (other: string | number | Long.Long) => boolean;
-                gt: (other: string | number | Long.Long) => boolean;
-                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-                gte: (other: string | number | Long.Long) => boolean;
-                isEven: () => boolean;
-                isNegative: () => boolean;
-                isOdd: () => boolean;
-                isPositive: () => boolean;
-                isZero: () => boolean;
-                lessThan: (other: string | number | Long.Long) => boolean;
-                lt: (other: string | number | Long.Long) => boolean;
-                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-                lte: (other: string | number | Long.Long) => boolean;
-                modulo: (other: string | number | Long.Long) => Long.Long;
-                mod: (other: string | number | Long.Long) => Long.Long;
-                multiply: (multiplier: string | number | Long.Long) => Long.Long;
-                mul: (multiplier: string | number | Long.Long) => Long.Long;
-                negate: () => Long.Long;
-                neg: () => Long.Long;
-                not: () => Long.Long;
-                notEquals: (other: string | number | Long.Long) => boolean;
-                neq: (other: string | number | Long.Long) => boolean;
-                or: (other: string | number | Long.Long) => Long.Long;
-                shiftLeft: (numBits: number | Long.Long) => Long.Long;
-                shl: (numBits: number | Long.Long) => Long.Long;
-                shiftRight: (numBits: number | Long.Long) => Long.Long;
-                shr: (numBits: number | Long.Long) => Long.Long;
-                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-                shru: (numBits: number | Long.Long) => Long.Long;
-                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-                sub: (subtrahend: string | number | Long.Long) => Long.Long;
-                toInt: () => number;
-                toNumber: () => number;
-                toBytes: (le?: boolean | undefined) => number[];
-                toBytesLE: () => number[];
-                toBytesBE: () => number[];
-                toSigned: () => Long.Long;
-                toString: (radix?: number | undefined) => string;
-                toUnsigned: () => Long.Long;
-                xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_2 in Exclude<keyof I["snapshot"]["height"], keyof Long.Long>]: never; }) | undefined;
+            } & { [K_2 in Exclude<keyof I["snapshot"]["timestamp"], "$type" | "seconds" | "nanos">]: never; }) | undefined;
             participants?: ({
                 [x: string]: {
+                    address?: Buffer | undefined;
+                    weight?: Buffer | undefined;
+                } | undefined;
+                [x: number]: {
                     address?: Buffer | undefined;
                     weight?: Buffer | undefined;
                 } | undefined;
@@ -240,15 +261,26 @@ export declare const Key: {
                 } & {
                     address?: Buffer | undefined;
                     weight?: Buffer | undefined;
-                } & { [K_3 in Exclude<keyof I["snapshot"]["participants"][string], keyof import("../../snapshot/exported/v1beta1/types").Participant>]: never; }) | undefined;
-            } & { [K_4 in Exclude<keyof I["snapshot"]["participants"], string | number>]: never; }) | undefined;
+                } & { [K_3 in Exclude<keyof I["snapshot"]["participants"][string], "$type" | "address" | "weight">]: never; }) | undefined;
+                [x: number]: ({
+                    address?: Buffer | undefined;
+                    weight?: Buffer | undefined;
+                } & {
+                    address?: Buffer | undefined;
+                    weight?: Buffer | undefined;
+                } & { [K_4 in Exclude<keyof I["snapshot"]["participants"][number], "$type" | "address" | "weight">]: never; }) | undefined;
+            } & { [K_5 in Exclude<keyof I["snapshot"]["participants"], string | number>]: never; }) | undefined;
             bondedWeight?: Buffer | undefined;
-        } & { [K_5 in Exclude<keyof I["snapshot"], keyof Snapshot>]: never; }) | undefined;
+        } & { [K_6 in Exclude<keyof I["snapshot"], "$type" | "height" | "timestamp" | "participants" | "bondedWeight">]: never; }) | undefined;
+        id?: string | undefined;
+        state?: KeyState | undefined;
         pubKeys?: ({
             [x: string]: Buffer | undefined;
+            [x: number]: Buffer | undefined;
         } & {
             [x: string]: Buffer | undefined;
-        } & { [K_6 in Exclude<keyof I["pubKeys"], string | number>]: never; }) | undefined;
+            [x: number]: Buffer | undefined;
+        } & { [K_7 in Exclude<keyof I["pubKeys"], string | number>]: never; }) | undefined;
         signingThreshold?: ({
             numerator?: string | number | Long.Long | undefined;
             denominator?: string | number | Long.Long | undefined;
@@ -310,7 +342,7 @@ export declare const Key: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_7 in Exclude<keyof I["signingThreshold"]["numerator"], keyof Long.Long>]: never; }) | undefined;
+            } & { [K_8 in Exclude<keyof I["signingThreshold"]["numerator"], "$type" | keyof Long.Long>]: never; }) | undefined;
             denominator?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -368,50 +400,115 @@ export declare const Key: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_8 in Exclude<keyof I["signingThreshold"]["denominator"], keyof Long.Long>]: never; }) | undefined;
-        } & { [K_9 in Exclude<keyof I["signingThreshold"], keyof Threshold>]: never; }) | undefined;
-        state?: KeyState | undefined;
-    } & { [K_10 in Exclude<keyof I, keyof Key>]: never; }>(base?: I | undefined): Key;
+            } & { [K_9 in Exclude<keyof I["signingThreshold"]["denominator"], "$type" | keyof Long.Long>]: never; }) | undefined;
+        } & { [K_10 in Exclude<keyof I["signingThreshold"], "$type" | "numerator" | "denominator">]: never; }) | undefined;
+    } & { [K_11 in Exclude<keyof I, "$type" | "snapshot" | "id" | "state" | "pubKeys" | "signingThreshold">]: never; }>(base?: I | undefined): Key;
     fromPartial<I_1 extends {
-        id?: string | undefined;
         snapshot?: {
+            height?: string | number | Long.Long | undefined;
             timestamp?: {
                 seconds?: string | number | Long.Long | undefined;
                 nanos?: number | undefined;
             } | undefined;
-            height?: string | number | Long.Long | undefined;
             participants?: {
                 [x: string]: {
+                    address?: Buffer | undefined;
+                    weight?: Buffer | undefined;
+                } | undefined;
+                [x: number]: {
                     address?: Buffer | undefined;
                     weight?: Buffer | undefined;
                 } | undefined;
             } | undefined;
             bondedWeight?: Buffer | undefined;
         } | undefined;
+        id?: string | undefined;
+        state?: KeyState | undefined;
         pubKeys?: {
             [x: string]: Buffer | undefined;
+            [x: number]: Buffer | undefined;
         } | undefined;
         signingThreshold?: {
             numerator?: string | number | Long.Long | undefined;
             denominator?: string | number | Long.Long | undefined;
         } | undefined;
-        state?: KeyState | undefined;
     } & {
-        id?: string | undefined;
         snapshot?: ({
+            height?: string | number | Long.Long | undefined;
             timestamp?: {
                 seconds?: string | number | Long.Long | undefined;
                 nanos?: number | undefined;
             } | undefined;
-            height?: string | number | Long.Long | undefined;
             participants?: {
                 [x: string]: {
+                    address?: Buffer | undefined;
+                    weight?: Buffer | undefined;
+                } | undefined;
+                [x: number]: {
                     address?: Buffer | undefined;
                     weight?: Buffer | undefined;
                 } | undefined;
             } | undefined;
             bondedWeight?: Buffer | undefined;
         } & {
+            height?: string | number | (Long.Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long.Long) => Long.Long;
+                and: (other: string | number | Long.Long) => Long.Long;
+                compare: (other: string | number | Long.Long) => number;
+                comp: (other: string | number | Long.Long) => number;
+                divide: (divisor: string | number | Long.Long) => Long.Long;
+                div: (divisor: string | number | Long.Long) => Long.Long;
+                equals: (other: string | number | Long.Long) => boolean;
+                eq: (other: string | number | Long.Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long.Long) => boolean;
+                gt: (other: string | number | Long.Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                gte: (other: string | number | Long.Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                lessThan: (other: string | number | Long.Long) => boolean;
+                lt: (other: string | number | Long.Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                lte: (other: string | number | Long.Long) => boolean;
+                modulo: (other: string | number | Long.Long) => Long.Long;
+                mod: (other: string | number | Long.Long) => Long.Long;
+                multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                mul: (multiplier: string | number | Long.Long) => Long.Long;
+                negate: () => Long.Long;
+                neg: () => Long.Long;
+                not: () => Long.Long;
+                notEquals: (other: string | number | Long.Long) => boolean;
+                neq: (other: string | number | Long.Long) => boolean;
+                or: (other: string | number | Long.Long) => Long.Long;
+                shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                shl: (numBits: number | Long.Long) => Long.Long;
+                shiftRight: (numBits: number | Long.Long) => Long.Long;
+                shr: (numBits: number | Long.Long) => Long.Long;
+                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                shru: (numBits: number | Long.Long) => Long.Long;
+                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long.Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long.Long;
+                xor: (other: string | number | Long.Long) => Long.Long;
+            } & { [K_12 in Exclude<keyof I_1["snapshot"]["height"], "$type" | keyof Long.Long>]: never; }) | undefined;
             timestamp?: ({
                 seconds?: string | number | Long.Long | undefined;
                 nanos?: number | undefined;
@@ -473,69 +570,15 @@ export declare const Key: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
-                } & { [K_11 in Exclude<keyof I_1["snapshot"]["timestamp"]["seconds"], keyof Long.Long>]: never; }) | undefined;
+                } & { [K_13 in Exclude<keyof I_1["snapshot"]["timestamp"]["seconds"], "$type" | keyof Long.Long>]: never; }) | undefined;
                 nanos?: number | undefined;
-            } & { [K_12 in Exclude<keyof I_1["snapshot"]["timestamp"], keyof import("../../../google/protobuf/timestamp").Timestamp>]: never; }) | undefined;
-            height?: string | number | (Long.Long & {
-                high: number;
-                low: number;
-                unsigned: boolean;
-                add: (addend: string | number | Long.Long) => Long.Long;
-                and: (other: string | number | Long.Long) => Long.Long;
-                compare: (other: string | number | Long.Long) => number;
-                comp: (other: string | number | Long.Long) => number;
-                divide: (divisor: string | number | Long.Long) => Long.Long;
-                div: (divisor: string | number | Long.Long) => Long.Long;
-                equals: (other: string | number | Long.Long) => boolean;
-                eq: (other: string | number | Long.Long) => boolean;
-                getHighBits: () => number;
-                getHighBitsUnsigned: () => number;
-                getLowBits: () => number;
-                getLowBitsUnsigned: () => number;
-                getNumBitsAbs: () => number;
-                greaterThan: (other: string | number | Long.Long) => boolean;
-                gt: (other: string | number | Long.Long) => boolean;
-                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-                gte: (other: string | number | Long.Long) => boolean;
-                isEven: () => boolean;
-                isNegative: () => boolean;
-                isOdd: () => boolean;
-                isPositive: () => boolean;
-                isZero: () => boolean;
-                lessThan: (other: string | number | Long.Long) => boolean;
-                lt: (other: string | number | Long.Long) => boolean;
-                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-                lte: (other: string | number | Long.Long) => boolean;
-                modulo: (other: string | number | Long.Long) => Long.Long;
-                mod: (other: string | number | Long.Long) => Long.Long;
-                multiply: (multiplier: string | number | Long.Long) => Long.Long;
-                mul: (multiplier: string | number | Long.Long) => Long.Long;
-                negate: () => Long.Long;
-                neg: () => Long.Long;
-                not: () => Long.Long;
-                notEquals: (other: string | number | Long.Long) => boolean;
-                neq: (other: string | number | Long.Long) => boolean;
-                or: (other: string | number | Long.Long) => Long.Long;
-                shiftLeft: (numBits: number | Long.Long) => Long.Long;
-                shl: (numBits: number | Long.Long) => Long.Long;
-                shiftRight: (numBits: number | Long.Long) => Long.Long;
-                shr: (numBits: number | Long.Long) => Long.Long;
-                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-                shru: (numBits: number | Long.Long) => Long.Long;
-                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-                sub: (subtrahend: string | number | Long.Long) => Long.Long;
-                toInt: () => number;
-                toNumber: () => number;
-                toBytes: (le?: boolean | undefined) => number[];
-                toBytesLE: () => number[];
-                toBytesBE: () => number[];
-                toSigned: () => Long.Long;
-                toString: (radix?: number | undefined) => string;
-                toUnsigned: () => Long.Long;
-                xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_13 in Exclude<keyof I_1["snapshot"]["height"], keyof Long.Long>]: never; }) | undefined;
+            } & { [K_14 in Exclude<keyof I_1["snapshot"]["timestamp"], "$type" | "seconds" | "nanos">]: never; }) | undefined;
             participants?: ({
                 [x: string]: {
+                    address?: Buffer | undefined;
+                    weight?: Buffer | undefined;
+                } | undefined;
+                [x: number]: {
                     address?: Buffer | undefined;
                     weight?: Buffer | undefined;
                 } | undefined;
@@ -546,15 +589,26 @@ export declare const Key: {
                 } & {
                     address?: Buffer | undefined;
                     weight?: Buffer | undefined;
-                } & { [K_14 in Exclude<keyof I_1["snapshot"]["participants"][string], keyof import("../../snapshot/exported/v1beta1/types").Participant>]: never; }) | undefined;
-            } & { [K_15 in Exclude<keyof I_1["snapshot"]["participants"], string | number>]: never; }) | undefined;
+                } & { [K_15 in Exclude<keyof I_1["snapshot"]["participants"][string], "$type" | "address" | "weight">]: never; }) | undefined;
+                [x: number]: ({
+                    address?: Buffer | undefined;
+                    weight?: Buffer | undefined;
+                } & {
+                    address?: Buffer | undefined;
+                    weight?: Buffer | undefined;
+                } & { [K_16 in Exclude<keyof I_1["snapshot"]["participants"][number], "$type" | "address" | "weight">]: never; }) | undefined;
+            } & { [K_17 in Exclude<keyof I_1["snapshot"]["participants"], string | number>]: never; }) | undefined;
             bondedWeight?: Buffer | undefined;
-        } & { [K_16 in Exclude<keyof I_1["snapshot"], keyof Snapshot>]: never; }) | undefined;
+        } & { [K_18 in Exclude<keyof I_1["snapshot"], "$type" | "height" | "timestamp" | "participants" | "bondedWeight">]: never; }) | undefined;
+        id?: string | undefined;
+        state?: KeyState | undefined;
         pubKeys?: ({
             [x: string]: Buffer | undefined;
+            [x: number]: Buffer | undefined;
         } & {
             [x: string]: Buffer | undefined;
-        } & { [K_17 in Exclude<keyof I_1["pubKeys"], string | number>]: never; }) | undefined;
+            [x: number]: Buffer | undefined;
+        } & { [K_19 in Exclude<keyof I_1["pubKeys"], string | number>]: never; }) | undefined;
         signingThreshold?: ({
             numerator?: string | number | Long.Long | undefined;
             denominator?: string | number | Long.Long | undefined;
@@ -616,7 +670,7 @@ export declare const Key: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_18 in Exclude<keyof I_1["signingThreshold"]["numerator"], keyof Long.Long>]: never; }) | undefined;
+            } & { [K_20 in Exclude<keyof I_1["signingThreshold"]["numerator"], "$type" | keyof Long.Long>]: never; }) | undefined;
             denominator?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -674,61 +728,67 @@ export declare const Key: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_19 in Exclude<keyof I_1["signingThreshold"]["denominator"], keyof Long.Long>]: never; }) | undefined;
-        } & { [K_20 in Exclude<keyof I_1["signingThreshold"], keyof Threshold>]: never; }) | undefined;
-        state?: KeyState | undefined;
-    } & { [K_21 in Exclude<keyof I_1, keyof Key>]: never; }>(object: I_1): Key;
+            } & { [K_21 in Exclude<keyof I_1["signingThreshold"]["denominator"], "$type" | keyof Long.Long>]: never; }) | undefined;
+        } & { [K_22 in Exclude<keyof I_1["signingThreshold"], "$type" | "numerator" | "denominator">]: never; }) | undefined;
+    } & { [K_23 in Exclude<keyof I_1, "$type" | "snapshot" | "id" | "state" | "pubKeys" | "signingThreshold">]: never; }>(object: I_1): Key;
 };
 export declare const Key_PubKeysEntry: {
+    $type: "axelar.multisig.v1beta1.Key.PubKeysEntry";
     encode(message: Key_PubKeysEntry, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Key_PubKeysEntry;
     fromJSON(object: any): Key_PubKeysEntry;
     toJSON(message: Key_PubKeysEntry): unknown;
     create<I extends {
-        key?: string | undefined;
         value?: Buffer | undefined;
+        key?: string | undefined;
     } & {
-        key?: string | undefined;
         value?: Buffer | undefined;
-    } & { [K in Exclude<keyof I, keyof Key_PubKeysEntry>]: never; }>(base?: I | undefined): Key_PubKeysEntry;
+        key?: string | undefined;
+    } & { [K in Exclude<keyof I, "$type" | "value" | "key">]: never; }>(base?: I | undefined): Key_PubKeysEntry;
     fromPartial<I_1 extends {
-        key?: string | undefined;
         value?: Buffer | undefined;
+        key?: string | undefined;
     } & {
-        key?: string | undefined;
         value?: Buffer | undefined;
-    } & { [K_1 in Exclude<keyof I_1, keyof Key_PubKeysEntry>]: never; }>(object: I_1): Key_PubKeysEntry;
+        key?: string | undefined;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "value" | "key">]: never; }>(object: I_1): Key_PubKeysEntry;
 };
 export declare const KeygenSession: {
+    $type: "axelar.multisig.v1beta1.KeygenSession";
     encode(message: KeygenSession, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): KeygenSession;
     fromJSON(object: any): KeygenSession;
     toJSON(message: KeygenSession): unknown;
     create<I extends {
         key?: {
-            id?: string | undefined;
             snapshot?: {
+                height?: string | number | Long.Long | undefined;
                 timestamp?: {
                     seconds?: string | number | Long.Long | undefined;
                     nanos?: number | undefined;
                 } | undefined;
-                height?: string | number | Long.Long | undefined;
                 participants?: {
                     [x: string]: {
+                        address?: Buffer | undefined;
+                        weight?: Buffer | undefined;
+                    } | undefined;
+                    [x: number]: {
                         address?: Buffer | undefined;
                         weight?: Buffer | undefined;
                     } | undefined;
                 } | undefined;
                 bondedWeight?: Buffer | undefined;
             } | undefined;
+            id?: string | undefined;
+            state?: KeyState | undefined;
             pubKeys?: {
                 [x: string]: Buffer | undefined;
+                [x: number]: Buffer | undefined;
             } | undefined;
             signingThreshold?: {
                 numerator?: string | number | Long.Long | undefined;
                 denominator?: string | number | Long.Long | undefined;
             } | undefined;
-            state?: KeyState | undefined;
         } | undefined;
         state?: MultisigState | undefined;
         keygenThreshold?: {
@@ -739,49 +799,116 @@ export declare const KeygenSession: {
         completedAt?: string | number | Long.Long | undefined;
         isPubKeyReceived?: {
             [x: string]: boolean | undefined;
+            [x: number]: boolean | undefined;
         } | undefined;
         gracePeriod?: string | number | Long.Long | undefined;
     } & {
         key?: ({
-            id?: string | undefined;
             snapshot?: {
+                height?: string | number | Long.Long | undefined;
                 timestamp?: {
                     seconds?: string | number | Long.Long | undefined;
                     nanos?: number | undefined;
                 } | undefined;
-                height?: string | number | Long.Long | undefined;
                 participants?: {
                     [x: string]: {
+                        address?: Buffer | undefined;
+                        weight?: Buffer | undefined;
+                    } | undefined;
+                    [x: number]: {
                         address?: Buffer | undefined;
                         weight?: Buffer | undefined;
                     } | undefined;
                 } | undefined;
                 bondedWeight?: Buffer | undefined;
             } | undefined;
+            id?: string | undefined;
+            state?: KeyState | undefined;
             pubKeys?: {
                 [x: string]: Buffer | undefined;
+                [x: number]: Buffer | undefined;
             } | undefined;
             signingThreshold?: {
                 numerator?: string | number | Long.Long | undefined;
                 denominator?: string | number | Long.Long | undefined;
             } | undefined;
-            state?: KeyState | undefined;
         } & {
-            id?: string | undefined;
             snapshot?: ({
+                height?: string | number | Long.Long | undefined;
                 timestamp?: {
                     seconds?: string | number | Long.Long | undefined;
                     nanos?: number | undefined;
                 } | undefined;
-                height?: string | number | Long.Long | undefined;
                 participants?: {
                     [x: string]: {
+                        address?: Buffer | undefined;
+                        weight?: Buffer | undefined;
+                    } | undefined;
+                    [x: number]: {
                         address?: Buffer | undefined;
                         weight?: Buffer | undefined;
                     } | undefined;
                 } | undefined;
                 bondedWeight?: Buffer | undefined;
             } & {
+                height?: string | number | (Long.Long & {
+                    high: number;
+                    low: number;
+                    unsigned: boolean;
+                    add: (addend: string | number | Long.Long) => Long.Long;
+                    and: (other: string | number | Long.Long) => Long.Long;
+                    compare: (other: string | number | Long.Long) => number;
+                    comp: (other: string | number | Long.Long) => number;
+                    divide: (divisor: string | number | Long.Long) => Long.Long;
+                    div: (divisor: string | number | Long.Long) => Long.Long;
+                    equals: (other: string | number | Long.Long) => boolean;
+                    eq: (other: string | number | Long.Long) => boolean;
+                    getHighBits: () => number;
+                    getHighBitsUnsigned: () => number;
+                    getLowBits: () => number;
+                    getLowBitsUnsigned: () => number;
+                    getNumBitsAbs: () => number;
+                    greaterThan: (other: string | number | Long.Long) => boolean;
+                    gt: (other: string | number | Long.Long) => boolean;
+                    greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                    gte: (other: string | number | Long.Long) => boolean;
+                    isEven: () => boolean;
+                    isNegative: () => boolean;
+                    isOdd: () => boolean;
+                    isPositive: () => boolean;
+                    isZero: () => boolean;
+                    lessThan: (other: string | number | Long.Long) => boolean;
+                    lt: (other: string | number | Long.Long) => boolean;
+                    lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                    lte: (other: string | number | Long.Long) => boolean;
+                    modulo: (other: string | number | Long.Long) => Long.Long;
+                    mod: (other: string | number | Long.Long) => Long.Long;
+                    multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                    mul: (multiplier: string | number | Long.Long) => Long.Long;
+                    negate: () => Long.Long;
+                    neg: () => Long.Long;
+                    not: () => Long.Long;
+                    notEquals: (other: string | number | Long.Long) => boolean;
+                    neq: (other: string | number | Long.Long) => boolean;
+                    or: (other: string | number | Long.Long) => Long.Long;
+                    shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                    shl: (numBits: number | Long.Long) => Long.Long;
+                    shiftRight: (numBits: number | Long.Long) => Long.Long;
+                    shr: (numBits: number | Long.Long) => Long.Long;
+                    shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                    shru: (numBits: number | Long.Long) => Long.Long;
+                    subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                    sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                    toInt: () => number;
+                    toNumber: () => number;
+                    toBytes: (le?: boolean | undefined) => number[];
+                    toBytesLE: () => number[];
+                    toBytesBE: () => number[];
+                    toSigned: () => Long.Long;
+                    toString: (radix?: number | undefined) => string;
+                    toUnsigned: () => Long.Long;
+                    xor: (other: string | number | Long.Long) => Long.Long;
+                } & { [K in Exclude<keyof I["key"]["snapshot"]["height"], "$type" | keyof Long.Long>]: never; }) | undefined;
                 timestamp?: ({
                     seconds?: string | number | Long.Long | undefined;
                     nanos?: number | undefined;
@@ -843,69 +970,15 @@ export declare const KeygenSession: {
                         toString: (radix?: number | undefined) => string;
                         toUnsigned: () => Long.Long;
                         xor: (other: string | number | Long.Long) => Long.Long;
-                    } & { [K in Exclude<keyof I["key"]["snapshot"]["timestamp"]["seconds"], keyof Long.Long>]: never; }) | undefined;
+                    } & { [K_1 in Exclude<keyof I["key"]["snapshot"]["timestamp"]["seconds"], "$type" | keyof Long.Long>]: never; }) | undefined;
                     nanos?: number | undefined;
-                } & { [K_1 in Exclude<keyof I["key"]["snapshot"]["timestamp"], keyof import("../../../google/protobuf/timestamp").Timestamp>]: never; }) | undefined;
-                height?: string | number | (Long.Long & {
-                    high: number;
-                    low: number;
-                    unsigned: boolean;
-                    add: (addend: string | number | Long.Long) => Long.Long;
-                    and: (other: string | number | Long.Long) => Long.Long;
-                    compare: (other: string | number | Long.Long) => number;
-                    comp: (other: string | number | Long.Long) => number;
-                    divide: (divisor: string | number | Long.Long) => Long.Long;
-                    div: (divisor: string | number | Long.Long) => Long.Long;
-                    equals: (other: string | number | Long.Long) => boolean;
-                    eq: (other: string | number | Long.Long) => boolean;
-                    getHighBits: () => number;
-                    getHighBitsUnsigned: () => number;
-                    getLowBits: () => number;
-                    getLowBitsUnsigned: () => number;
-                    getNumBitsAbs: () => number;
-                    greaterThan: (other: string | number | Long.Long) => boolean;
-                    gt: (other: string | number | Long.Long) => boolean;
-                    greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-                    gte: (other: string | number | Long.Long) => boolean;
-                    isEven: () => boolean;
-                    isNegative: () => boolean;
-                    isOdd: () => boolean;
-                    isPositive: () => boolean;
-                    isZero: () => boolean;
-                    lessThan: (other: string | number | Long.Long) => boolean;
-                    lt: (other: string | number | Long.Long) => boolean;
-                    lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-                    lte: (other: string | number | Long.Long) => boolean;
-                    modulo: (other: string | number | Long.Long) => Long.Long;
-                    mod: (other: string | number | Long.Long) => Long.Long;
-                    multiply: (multiplier: string | number | Long.Long) => Long.Long;
-                    mul: (multiplier: string | number | Long.Long) => Long.Long;
-                    negate: () => Long.Long;
-                    neg: () => Long.Long;
-                    not: () => Long.Long;
-                    notEquals: (other: string | number | Long.Long) => boolean;
-                    neq: (other: string | number | Long.Long) => boolean;
-                    or: (other: string | number | Long.Long) => Long.Long;
-                    shiftLeft: (numBits: number | Long.Long) => Long.Long;
-                    shl: (numBits: number | Long.Long) => Long.Long;
-                    shiftRight: (numBits: number | Long.Long) => Long.Long;
-                    shr: (numBits: number | Long.Long) => Long.Long;
-                    shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-                    shru: (numBits: number | Long.Long) => Long.Long;
-                    subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-                    sub: (subtrahend: string | number | Long.Long) => Long.Long;
-                    toInt: () => number;
-                    toNumber: () => number;
-                    toBytes: (le?: boolean | undefined) => number[];
-                    toBytesLE: () => number[];
-                    toBytesBE: () => number[];
-                    toSigned: () => Long.Long;
-                    toString: (radix?: number | undefined) => string;
-                    toUnsigned: () => Long.Long;
-                    xor: (other: string | number | Long.Long) => Long.Long;
-                } & { [K_2 in Exclude<keyof I["key"]["snapshot"]["height"], keyof Long.Long>]: never; }) | undefined;
+                } & { [K_2 in Exclude<keyof I["key"]["snapshot"]["timestamp"], "$type" | "seconds" | "nanos">]: never; }) | undefined;
                 participants?: ({
                     [x: string]: {
+                        address?: Buffer | undefined;
+                        weight?: Buffer | undefined;
+                    } | undefined;
+                    [x: number]: {
                         address?: Buffer | undefined;
                         weight?: Buffer | undefined;
                     } | undefined;
@@ -916,15 +989,26 @@ export declare const KeygenSession: {
                     } & {
                         address?: Buffer | undefined;
                         weight?: Buffer | undefined;
-                    } & { [K_3 in Exclude<keyof I["key"]["snapshot"]["participants"][string], keyof import("../../snapshot/exported/v1beta1/types").Participant>]: never; }) | undefined;
-                } & { [K_4 in Exclude<keyof I["key"]["snapshot"]["participants"], string | number>]: never; }) | undefined;
+                    } & { [K_3 in Exclude<keyof I["key"]["snapshot"]["participants"][string], "$type" | "address" | "weight">]: never; }) | undefined;
+                    [x: number]: ({
+                        address?: Buffer | undefined;
+                        weight?: Buffer | undefined;
+                    } & {
+                        address?: Buffer | undefined;
+                        weight?: Buffer | undefined;
+                    } & { [K_4 in Exclude<keyof I["key"]["snapshot"]["participants"][number], "$type" | "address" | "weight">]: never; }) | undefined;
+                } & { [K_5 in Exclude<keyof I["key"]["snapshot"]["participants"], string | number>]: never; }) | undefined;
                 bondedWeight?: Buffer | undefined;
-            } & { [K_5 in Exclude<keyof I["key"]["snapshot"], keyof Snapshot>]: never; }) | undefined;
+            } & { [K_6 in Exclude<keyof I["key"]["snapshot"], "$type" | "height" | "timestamp" | "participants" | "bondedWeight">]: never; }) | undefined;
+            id?: string | undefined;
+            state?: KeyState | undefined;
             pubKeys?: ({
                 [x: string]: Buffer | undefined;
+                [x: number]: Buffer | undefined;
             } & {
                 [x: string]: Buffer | undefined;
-            } & { [K_6 in Exclude<keyof I["key"]["pubKeys"], string | number>]: never; }) | undefined;
+                [x: number]: Buffer | undefined;
+            } & { [K_7 in Exclude<keyof I["key"]["pubKeys"], string | number>]: never; }) | undefined;
             signingThreshold?: ({
                 numerator?: string | number | Long.Long | undefined;
                 denominator?: string | number | Long.Long | undefined;
@@ -986,7 +1070,7 @@ export declare const KeygenSession: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
-                } & { [K_7 in Exclude<keyof I["key"]["signingThreshold"]["numerator"], keyof Long.Long>]: never; }) | undefined;
+                } & { [K_8 in Exclude<keyof I["key"]["signingThreshold"]["numerator"], "$type" | keyof Long.Long>]: never; }) | undefined;
                 denominator?: string | number | (Long.Long & {
                     high: number;
                     low: number;
@@ -1044,10 +1128,9 @@ export declare const KeygenSession: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
-                } & { [K_8 in Exclude<keyof I["key"]["signingThreshold"]["denominator"], keyof Long.Long>]: never; }) | undefined;
-            } & { [K_9 in Exclude<keyof I["key"]["signingThreshold"], keyof Threshold>]: never; }) | undefined;
-            state?: KeyState | undefined;
-        } & { [K_10 in Exclude<keyof I["key"], keyof Key>]: never; }) | undefined;
+                } & { [K_9 in Exclude<keyof I["key"]["signingThreshold"]["denominator"], "$type" | keyof Long.Long>]: never; }) | undefined;
+            } & { [K_10 in Exclude<keyof I["key"]["signingThreshold"], "$type" | "numerator" | "denominator">]: never; }) | undefined;
+        } & { [K_11 in Exclude<keyof I["key"], "$type" | "snapshot" | "id" | "state" | "pubKeys" | "signingThreshold">]: never; }) | undefined;
         state?: MultisigState | undefined;
         keygenThreshold?: ({
             numerator?: string | number | Long.Long | undefined;
@@ -1110,7 +1193,7 @@ export declare const KeygenSession: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_11 in Exclude<keyof I["keygenThreshold"]["numerator"], keyof Long.Long>]: never; }) | undefined;
+            } & { [K_12 in Exclude<keyof I["keygenThreshold"]["numerator"], "$type" | keyof Long.Long>]: never; }) | undefined;
             denominator?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -1168,8 +1251,8 @@ export declare const KeygenSession: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_12 in Exclude<keyof I["keygenThreshold"]["denominator"], keyof Long.Long>]: never; }) | undefined;
-        } & { [K_13 in Exclude<keyof I["keygenThreshold"], keyof Threshold>]: never; }) | undefined;
+            } & { [K_13 in Exclude<keyof I["keygenThreshold"]["denominator"], "$type" | keyof Long.Long>]: never; }) | undefined;
+        } & { [K_14 in Exclude<keyof I["keygenThreshold"], "$type" | "numerator" | "denominator">]: never; }) | undefined;
         expiresAt?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -1227,7 +1310,7 @@ export declare const KeygenSession: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_14 in Exclude<keyof I["expiresAt"], keyof Long.Long>]: never; }) | undefined;
+        } & { [K_15 in Exclude<keyof I["expiresAt"], "$type" | keyof Long.Long>]: never; }) | undefined;
         completedAt?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -1285,12 +1368,14 @@ export declare const KeygenSession: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_15 in Exclude<keyof I["completedAt"], keyof Long.Long>]: never; }) | undefined;
+        } & { [K_16 in Exclude<keyof I["completedAt"], "$type" | keyof Long.Long>]: never; }) | undefined;
         isPubKeyReceived?: ({
             [x: string]: boolean | undefined;
+            [x: number]: boolean | undefined;
         } & {
             [x: string]: boolean | undefined;
-        } & { [K_16 in Exclude<keyof I["isPubKeyReceived"], string | number>]: never; }) | undefined;
+            [x: number]: boolean | undefined;
+        } & { [K_17 in Exclude<keyof I["isPubKeyReceived"], string | number>]: never; }) | undefined;
         gracePeriod?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -1348,33 +1433,38 @@ export declare const KeygenSession: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_17 in Exclude<keyof I["gracePeriod"], keyof Long.Long>]: never; }) | undefined;
-    } & { [K_18 in Exclude<keyof I, keyof KeygenSession>]: never; }>(base?: I | undefined): KeygenSession;
+        } & { [K_18 in Exclude<keyof I["gracePeriod"], "$type" | keyof Long.Long>]: never; }) | undefined;
+    } & { [K_19 in Exclude<keyof I, "$type" | "key" | "state" | "keygenThreshold" | "expiresAt" | "completedAt" | "isPubKeyReceived" | "gracePeriod">]: never; }>(base?: I | undefined): KeygenSession;
     fromPartial<I_1 extends {
         key?: {
-            id?: string | undefined;
             snapshot?: {
+                height?: string | number | Long.Long | undefined;
                 timestamp?: {
                     seconds?: string | number | Long.Long | undefined;
                     nanos?: number | undefined;
                 } | undefined;
-                height?: string | number | Long.Long | undefined;
                 participants?: {
                     [x: string]: {
+                        address?: Buffer | undefined;
+                        weight?: Buffer | undefined;
+                    } | undefined;
+                    [x: number]: {
                         address?: Buffer | undefined;
                         weight?: Buffer | undefined;
                     } | undefined;
                 } | undefined;
                 bondedWeight?: Buffer | undefined;
             } | undefined;
+            id?: string | undefined;
+            state?: KeyState | undefined;
             pubKeys?: {
                 [x: string]: Buffer | undefined;
+                [x: number]: Buffer | undefined;
             } | undefined;
             signingThreshold?: {
                 numerator?: string | number | Long.Long | undefined;
                 denominator?: string | number | Long.Long | undefined;
             } | undefined;
-            state?: KeyState | undefined;
         } | undefined;
         state?: MultisigState | undefined;
         keygenThreshold?: {
@@ -1385,49 +1475,116 @@ export declare const KeygenSession: {
         completedAt?: string | number | Long.Long | undefined;
         isPubKeyReceived?: {
             [x: string]: boolean | undefined;
+            [x: number]: boolean | undefined;
         } | undefined;
         gracePeriod?: string | number | Long.Long | undefined;
     } & {
         key?: ({
-            id?: string | undefined;
             snapshot?: {
+                height?: string | number | Long.Long | undefined;
                 timestamp?: {
                     seconds?: string | number | Long.Long | undefined;
                     nanos?: number | undefined;
                 } | undefined;
-                height?: string | number | Long.Long | undefined;
                 participants?: {
                     [x: string]: {
+                        address?: Buffer | undefined;
+                        weight?: Buffer | undefined;
+                    } | undefined;
+                    [x: number]: {
                         address?: Buffer | undefined;
                         weight?: Buffer | undefined;
                     } | undefined;
                 } | undefined;
                 bondedWeight?: Buffer | undefined;
             } | undefined;
+            id?: string | undefined;
+            state?: KeyState | undefined;
             pubKeys?: {
                 [x: string]: Buffer | undefined;
+                [x: number]: Buffer | undefined;
             } | undefined;
             signingThreshold?: {
                 numerator?: string | number | Long.Long | undefined;
                 denominator?: string | number | Long.Long | undefined;
             } | undefined;
-            state?: KeyState | undefined;
         } & {
-            id?: string | undefined;
             snapshot?: ({
+                height?: string | number | Long.Long | undefined;
                 timestamp?: {
                     seconds?: string | number | Long.Long | undefined;
                     nanos?: number | undefined;
                 } | undefined;
-                height?: string | number | Long.Long | undefined;
                 participants?: {
                     [x: string]: {
+                        address?: Buffer | undefined;
+                        weight?: Buffer | undefined;
+                    } | undefined;
+                    [x: number]: {
                         address?: Buffer | undefined;
                         weight?: Buffer | undefined;
                     } | undefined;
                 } | undefined;
                 bondedWeight?: Buffer | undefined;
             } & {
+                height?: string | number | (Long.Long & {
+                    high: number;
+                    low: number;
+                    unsigned: boolean;
+                    add: (addend: string | number | Long.Long) => Long.Long;
+                    and: (other: string | number | Long.Long) => Long.Long;
+                    compare: (other: string | number | Long.Long) => number;
+                    comp: (other: string | number | Long.Long) => number;
+                    divide: (divisor: string | number | Long.Long) => Long.Long;
+                    div: (divisor: string | number | Long.Long) => Long.Long;
+                    equals: (other: string | number | Long.Long) => boolean;
+                    eq: (other: string | number | Long.Long) => boolean;
+                    getHighBits: () => number;
+                    getHighBitsUnsigned: () => number;
+                    getLowBits: () => number;
+                    getLowBitsUnsigned: () => number;
+                    getNumBitsAbs: () => number;
+                    greaterThan: (other: string | number | Long.Long) => boolean;
+                    gt: (other: string | number | Long.Long) => boolean;
+                    greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                    gte: (other: string | number | Long.Long) => boolean;
+                    isEven: () => boolean;
+                    isNegative: () => boolean;
+                    isOdd: () => boolean;
+                    isPositive: () => boolean;
+                    isZero: () => boolean;
+                    lessThan: (other: string | number | Long.Long) => boolean;
+                    lt: (other: string | number | Long.Long) => boolean;
+                    lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                    lte: (other: string | number | Long.Long) => boolean;
+                    modulo: (other: string | number | Long.Long) => Long.Long;
+                    mod: (other: string | number | Long.Long) => Long.Long;
+                    multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                    mul: (multiplier: string | number | Long.Long) => Long.Long;
+                    negate: () => Long.Long;
+                    neg: () => Long.Long;
+                    not: () => Long.Long;
+                    notEquals: (other: string | number | Long.Long) => boolean;
+                    neq: (other: string | number | Long.Long) => boolean;
+                    or: (other: string | number | Long.Long) => Long.Long;
+                    shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                    shl: (numBits: number | Long.Long) => Long.Long;
+                    shiftRight: (numBits: number | Long.Long) => Long.Long;
+                    shr: (numBits: number | Long.Long) => Long.Long;
+                    shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                    shru: (numBits: number | Long.Long) => Long.Long;
+                    subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                    sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                    toInt: () => number;
+                    toNumber: () => number;
+                    toBytes: (le?: boolean | undefined) => number[];
+                    toBytesLE: () => number[];
+                    toBytesBE: () => number[];
+                    toSigned: () => Long.Long;
+                    toString: (radix?: number | undefined) => string;
+                    toUnsigned: () => Long.Long;
+                    xor: (other: string | number | Long.Long) => Long.Long;
+                } & { [K_20 in Exclude<keyof I_1["key"]["snapshot"]["height"], "$type" | keyof Long.Long>]: never; }) | undefined;
                 timestamp?: ({
                     seconds?: string | number | Long.Long | undefined;
                     nanos?: number | undefined;
@@ -1489,69 +1646,15 @@ export declare const KeygenSession: {
                         toString: (radix?: number | undefined) => string;
                         toUnsigned: () => Long.Long;
                         xor: (other: string | number | Long.Long) => Long.Long;
-                    } & { [K_19 in Exclude<keyof I_1["key"]["snapshot"]["timestamp"]["seconds"], keyof Long.Long>]: never; }) | undefined;
+                    } & { [K_21 in Exclude<keyof I_1["key"]["snapshot"]["timestamp"]["seconds"], "$type" | keyof Long.Long>]: never; }) | undefined;
                     nanos?: number | undefined;
-                } & { [K_20 in Exclude<keyof I_1["key"]["snapshot"]["timestamp"], keyof import("../../../google/protobuf/timestamp").Timestamp>]: never; }) | undefined;
-                height?: string | number | (Long.Long & {
-                    high: number;
-                    low: number;
-                    unsigned: boolean;
-                    add: (addend: string | number | Long.Long) => Long.Long;
-                    and: (other: string | number | Long.Long) => Long.Long;
-                    compare: (other: string | number | Long.Long) => number;
-                    comp: (other: string | number | Long.Long) => number;
-                    divide: (divisor: string | number | Long.Long) => Long.Long;
-                    div: (divisor: string | number | Long.Long) => Long.Long;
-                    equals: (other: string | number | Long.Long) => boolean;
-                    eq: (other: string | number | Long.Long) => boolean;
-                    getHighBits: () => number;
-                    getHighBitsUnsigned: () => number;
-                    getLowBits: () => number;
-                    getLowBitsUnsigned: () => number;
-                    getNumBitsAbs: () => number;
-                    greaterThan: (other: string | number | Long.Long) => boolean;
-                    gt: (other: string | number | Long.Long) => boolean;
-                    greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-                    gte: (other: string | number | Long.Long) => boolean;
-                    isEven: () => boolean;
-                    isNegative: () => boolean;
-                    isOdd: () => boolean;
-                    isPositive: () => boolean;
-                    isZero: () => boolean;
-                    lessThan: (other: string | number | Long.Long) => boolean;
-                    lt: (other: string | number | Long.Long) => boolean;
-                    lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-                    lte: (other: string | number | Long.Long) => boolean;
-                    modulo: (other: string | number | Long.Long) => Long.Long;
-                    mod: (other: string | number | Long.Long) => Long.Long;
-                    multiply: (multiplier: string | number | Long.Long) => Long.Long;
-                    mul: (multiplier: string | number | Long.Long) => Long.Long;
-                    negate: () => Long.Long;
-                    neg: () => Long.Long;
-                    not: () => Long.Long;
-                    notEquals: (other: string | number | Long.Long) => boolean;
-                    neq: (other: string | number | Long.Long) => boolean;
-                    or: (other: string | number | Long.Long) => Long.Long;
-                    shiftLeft: (numBits: number | Long.Long) => Long.Long;
-                    shl: (numBits: number | Long.Long) => Long.Long;
-                    shiftRight: (numBits: number | Long.Long) => Long.Long;
-                    shr: (numBits: number | Long.Long) => Long.Long;
-                    shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-                    shru: (numBits: number | Long.Long) => Long.Long;
-                    subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-                    sub: (subtrahend: string | number | Long.Long) => Long.Long;
-                    toInt: () => number;
-                    toNumber: () => number;
-                    toBytes: (le?: boolean | undefined) => number[];
-                    toBytesLE: () => number[];
-                    toBytesBE: () => number[];
-                    toSigned: () => Long.Long;
-                    toString: (radix?: number | undefined) => string;
-                    toUnsigned: () => Long.Long;
-                    xor: (other: string | number | Long.Long) => Long.Long;
-                } & { [K_21 in Exclude<keyof I_1["key"]["snapshot"]["height"], keyof Long.Long>]: never; }) | undefined;
+                } & { [K_22 in Exclude<keyof I_1["key"]["snapshot"]["timestamp"], "$type" | "seconds" | "nanos">]: never; }) | undefined;
                 participants?: ({
                     [x: string]: {
+                        address?: Buffer | undefined;
+                        weight?: Buffer | undefined;
+                    } | undefined;
+                    [x: number]: {
                         address?: Buffer | undefined;
                         weight?: Buffer | undefined;
                     } | undefined;
@@ -1562,15 +1665,26 @@ export declare const KeygenSession: {
                     } & {
                         address?: Buffer | undefined;
                         weight?: Buffer | undefined;
-                    } & { [K_22 in Exclude<keyof I_1["key"]["snapshot"]["participants"][string], keyof import("../../snapshot/exported/v1beta1/types").Participant>]: never; }) | undefined;
-                } & { [K_23 in Exclude<keyof I_1["key"]["snapshot"]["participants"], string | number>]: never; }) | undefined;
+                    } & { [K_23 in Exclude<keyof I_1["key"]["snapshot"]["participants"][string], "$type" | "address" | "weight">]: never; }) | undefined;
+                    [x: number]: ({
+                        address?: Buffer | undefined;
+                        weight?: Buffer | undefined;
+                    } & {
+                        address?: Buffer | undefined;
+                        weight?: Buffer | undefined;
+                    } & { [K_24 in Exclude<keyof I_1["key"]["snapshot"]["participants"][number], "$type" | "address" | "weight">]: never; }) | undefined;
+                } & { [K_25 in Exclude<keyof I_1["key"]["snapshot"]["participants"], string | number>]: never; }) | undefined;
                 bondedWeight?: Buffer | undefined;
-            } & { [K_24 in Exclude<keyof I_1["key"]["snapshot"], keyof Snapshot>]: never; }) | undefined;
+            } & { [K_26 in Exclude<keyof I_1["key"]["snapshot"], "$type" | "height" | "timestamp" | "participants" | "bondedWeight">]: never; }) | undefined;
+            id?: string | undefined;
+            state?: KeyState | undefined;
             pubKeys?: ({
                 [x: string]: Buffer | undefined;
+                [x: number]: Buffer | undefined;
             } & {
                 [x: string]: Buffer | undefined;
-            } & { [K_25 in Exclude<keyof I_1["key"]["pubKeys"], string | number>]: never; }) | undefined;
+                [x: number]: Buffer | undefined;
+            } & { [K_27 in Exclude<keyof I_1["key"]["pubKeys"], string | number>]: never; }) | undefined;
             signingThreshold?: ({
                 numerator?: string | number | Long.Long | undefined;
                 denominator?: string | number | Long.Long | undefined;
@@ -1632,7 +1746,7 @@ export declare const KeygenSession: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
-                } & { [K_26 in Exclude<keyof I_1["key"]["signingThreshold"]["numerator"], keyof Long.Long>]: never; }) | undefined;
+                } & { [K_28 in Exclude<keyof I_1["key"]["signingThreshold"]["numerator"], "$type" | keyof Long.Long>]: never; }) | undefined;
                 denominator?: string | number | (Long.Long & {
                     high: number;
                     low: number;
@@ -1690,10 +1804,9 @@ export declare const KeygenSession: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
-                } & { [K_27 in Exclude<keyof I_1["key"]["signingThreshold"]["denominator"], keyof Long.Long>]: never; }) | undefined;
-            } & { [K_28 in Exclude<keyof I_1["key"]["signingThreshold"], keyof Threshold>]: never; }) | undefined;
-            state?: KeyState | undefined;
-        } & { [K_29 in Exclude<keyof I_1["key"], keyof Key>]: never; }) | undefined;
+                } & { [K_29 in Exclude<keyof I_1["key"]["signingThreshold"]["denominator"], "$type" | keyof Long.Long>]: never; }) | undefined;
+            } & { [K_30 in Exclude<keyof I_1["key"]["signingThreshold"], "$type" | "numerator" | "denominator">]: never; }) | undefined;
+        } & { [K_31 in Exclude<keyof I_1["key"], "$type" | "snapshot" | "id" | "state" | "pubKeys" | "signingThreshold">]: never; }) | undefined;
         state?: MultisigState | undefined;
         keygenThreshold?: ({
             numerator?: string | number | Long.Long | undefined;
@@ -1756,7 +1869,7 @@ export declare const KeygenSession: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_30 in Exclude<keyof I_1["keygenThreshold"]["numerator"], keyof Long.Long>]: never; }) | undefined;
+            } & { [K_32 in Exclude<keyof I_1["keygenThreshold"]["numerator"], "$type" | keyof Long.Long>]: never; }) | undefined;
             denominator?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -1814,8 +1927,8 @@ export declare const KeygenSession: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_31 in Exclude<keyof I_1["keygenThreshold"]["denominator"], keyof Long.Long>]: never; }) | undefined;
-        } & { [K_32 in Exclude<keyof I_1["keygenThreshold"], keyof Threshold>]: never; }) | undefined;
+            } & { [K_33 in Exclude<keyof I_1["keygenThreshold"]["denominator"], "$type" | keyof Long.Long>]: never; }) | undefined;
+        } & { [K_34 in Exclude<keyof I_1["keygenThreshold"], "$type" | "numerator" | "denominator">]: never; }) | undefined;
         expiresAt?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -1873,7 +1986,7 @@ export declare const KeygenSession: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_33 in Exclude<keyof I_1["expiresAt"], keyof Long.Long>]: never; }) | undefined;
+        } & { [K_35 in Exclude<keyof I_1["expiresAt"], "$type" | keyof Long.Long>]: never; }) | undefined;
         completedAt?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -1931,12 +2044,14 @@ export declare const KeygenSession: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_34 in Exclude<keyof I_1["completedAt"], keyof Long.Long>]: never; }) | undefined;
+        } & { [K_36 in Exclude<keyof I_1["completedAt"], "$type" | keyof Long.Long>]: never; }) | undefined;
         isPubKeyReceived?: ({
             [x: string]: boolean | undefined;
+            [x: number]: boolean | undefined;
         } & {
             [x: string]: boolean | undefined;
-        } & { [K_35 in Exclude<keyof I_1["isPubKeyReceived"], string | number>]: never; }) | undefined;
+            [x: number]: boolean | undefined;
+        } & { [K_37 in Exclude<keyof I_1["isPubKeyReceived"], string | number>]: never; }) | undefined;
         gracePeriod?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -1994,248 +2109,256 @@ export declare const KeygenSession: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_36 in Exclude<keyof I_1["gracePeriod"], keyof Long.Long>]: never; }) | undefined;
-    } & { [K_37 in Exclude<keyof I_1, keyof KeygenSession>]: never; }>(object: I_1): KeygenSession;
+        } & { [K_38 in Exclude<keyof I_1["gracePeriod"], "$type" | keyof Long.Long>]: never; }) | undefined;
+    } & { [K_39 in Exclude<keyof I_1, "$type" | "key" | "state" | "keygenThreshold" | "expiresAt" | "completedAt" | "isPubKeyReceived" | "gracePeriod">]: never; }>(object: I_1): KeygenSession;
 };
 export declare const KeygenSession_IsPubKeyReceivedEntry: {
+    $type: "axelar.multisig.v1beta1.KeygenSession.IsPubKeyReceivedEntry";
     encode(message: KeygenSession_IsPubKeyReceivedEntry, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): KeygenSession_IsPubKeyReceivedEntry;
     fromJSON(object: any): KeygenSession_IsPubKeyReceivedEntry;
     toJSON(message: KeygenSession_IsPubKeyReceivedEntry): unknown;
     create<I extends {
-        key?: string | undefined;
         value?: boolean | undefined;
+        key?: string | undefined;
     } & {
-        key?: string | undefined;
         value?: boolean | undefined;
-    } & { [K in Exclude<keyof I, keyof KeygenSession_IsPubKeyReceivedEntry>]: never; }>(base?: I | undefined): KeygenSession_IsPubKeyReceivedEntry;
+        key?: string | undefined;
+    } & { [K in Exclude<keyof I, "$type" | "value" | "key">]: never; }>(base?: I | undefined): KeygenSession_IsPubKeyReceivedEntry;
     fromPartial<I_1 extends {
-        key?: string | undefined;
         value?: boolean | undefined;
+        key?: string | undefined;
     } & {
-        key?: string | undefined;
         value?: boolean | undefined;
-    } & { [K_1 in Exclude<keyof I_1, keyof KeygenSession_IsPubKeyReceivedEntry>]: never; }>(object: I_1): KeygenSession_IsPubKeyReceivedEntry;
+        key?: string | undefined;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "value" | "key">]: never; }>(object: I_1): KeygenSession_IsPubKeyReceivedEntry;
 };
 export declare const MultiSig: {
+    $type: "axelar.multisig.v1beta1.MultiSig";
     encode(message: MultiSig, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MultiSig;
     fromJSON(object: any): MultiSig;
     toJSON(message: MultiSig): unknown;
     create<I extends {
-        keyId?: string | undefined;
         payloadHash?: Buffer | undefined;
+        keyId?: string | undefined;
         sigs?: {
             [x: string]: Buffer | undefined;
+            [x: number]: Buffer | undefined;
         } | undefined;
     } & {
-        keyId?: string | undefined;
         payloadHash?: Buffer | undefined;
+        keyId?: string | undefined;
         sigs?: ({
             [x: string]: Buffer | undefined;
+            [x: number]: Buffer | undefined;
         } & {
             [x: string]: Buffer | undefined;
+            [x: number]: Buffer | undefined;
         } & { [K in Exclude<keyof I["sigs"], string | number>]: never; }) | undefined;
-    } & { [K_1 in Exclude<keyof I, keyof MultiSig>]: never; }>(base?: I | undefined): MultiSig;
+    } & { [K_1 in Exclude<keyof I, "$type" | "payloadHash" | "keyId" | "sigs">]: never; }>(base?: I | undefined): MultiSig;
     fromPartial<I_1 extends {
-        keyId?: string | undefined;
         payloadHash?: Buffer | undefined;
+        keyId?: string | undefined;
         sigs?: {
             [x: string]: Buffer | undefined;
+            [x: number]: Buffer | undefined;
         } | undefined;
     } & {
-        keyId?: string | undefined;
         payloadHash?: Buffer | undefined;
+        keyId?: string | undefined;
         sigs?: ({
             [x: string]: Buffer | undefined;
+            [x: number]: Buffer | undefined;
         } & {
             [x: string]: Buffer | undefined;
+            [x: number]: Buffer | undefined;
         } & { [K_2 in Exclude<keyof I_1["sigs"], string | number>]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I_1, keyof MultiSig>]: never; }>(object: I_1): MultiSig;
+    } & { [K_3 in Exclude<keyof I_1, "$type" | "payloadHash" | "keyId" | "sigs">]: never; }>(object: I_1): MultiSig;
 };
 export declare const MultiSig_SigsEntry: {
+    $type: "axelar.multisig.v1beta1.MultiSig.SigsEntry";
     encode(message: MultiSig_SigsEntry, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MultiSig_SigsEntry;
     fromJSON(object: any): MultiSig_SigsEntry;
     toJSON(message: MultiSig_SigsEntry): unknown;
     create<I extends {
-        key?: string | undefined;
         value?: Buffer | undefined;
+        key?: string | undefined;
     } & {
-        key?: string | undefined;
         value?: Buffer | undefined;
-    } & { [K in Exclude<keyof I, keyof MultiSig_SigsEntry>]: never; }>(base?: I | undefined): MultiSig_SigsEntry;
+        key?: string | undefined;
+    } & { [K in Exclude<keyof I, "$type" | "value" | "key">]: never; }>(base?: I | undefined): MultiSig_SigsEntry;
     fromPartial<I_1 extends {
-        key?: string | undefined;
         value?: Buffer | undefined;
+        key?: string | undefined;
     } & {
-        key?: string | undefined;
         value?: Buffer | undefined;
-    } & { [K_1 in Exclude<keyof I_1, keyof MultiSig_SigsEntry>]: never; }>(object: I_1): MultiSig_SigsEntry;
+        key?: string | undefined;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "value" | "key">]: never; }>(object: I_1): MultiSig_SigsEntry;
 };
 export declare const SigningSession: {
+    $type: "axelar.multisig.v1beta1.SigningSession";
     encode(message: SigningSession, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): SigningSession;
     fromJSON(object: any): SigningSession;
     toJSON(message: SigningSession): unknown;
     create<I extends {
-        id?: string | number | Long.Long | undefined;
-        multiSig?: {
-            keyId?: string | undefined;
-            payloadHash?: Buffer | undefined;
-            sigs?: {
-                [x: string]: Buffer | undefined;
-            } | undefined;
-        } | undefined;
-        state?: MultisigState | undefined;
         key?: {
-            id?: string | undefined;
             snapshot?: {
+                height?: string | number | Long.Long | undefined;
                 timestamp?: {
                     seconds?: string | number | Long.Long | undefined;
                     nanos?: number | undefined;
                 } | undefined;
-                height?: string | number | Long.Long | undefined;
                 participants?: {
                     [x: string]: {
+                        address?: Buffer | undefined;
+                        weight?: Buffer | undefined;
+                    } | undefined;
+                    [x: number]: {
                         address?: Buffer | undefined;
                         weight?: Buffer | undefined;
                     } | undefined;
                 } | undefined;
                 bondedWeight?: Buffer | undefined;
             } | undefined;
+            id?: string | undefined;
+            state?: KeyState | undefined;
             pubKeys?: {
                 [x: string]: Buffer | undefined;
+                [x: number]: Buffer | undefined;
             } | undefined;
             signingThreshold?: {
                 numerator?: string | number | Long.Long | undefined;
                 denominator?: string | number | Long.Long | undefined;
             } | undefined;
-            state?: KeyState | undefined;
         } | undefined;
+        id?: string | number | Long.Long | undefined;
+        module?: string | undefined;
+        state?: MultisigState | undefined;
         expiresAt?: string | number | Long.Long | undefined;
         completedAt?: string | number | Long.Long | undefined;
         gracePeriod?: string | number | Long.Long | undefined;
-        module?: string | undefined;
+        multiSig?: {
+            payloadHash?: Buffer | undefined;
+            keyId?: string | undefined;
+            sigs?: {
+                [x: string]: Buffer | undefined;
+                [x: number]: Buffer | undefined;
+            } | undefined;
+        } | undefined;
         moduleMetadata?: {
             typeUrl?: string | undefined;
             value?: Buffer | undefined;
         } | undefined;
     } & {
-        id?: string | number | (Long.Long & {
-            high: number;
-            low: number;
-            unsigned: boolean;
-            add: (addend: string | number | Long.Long) => Long.Long;
-            and: (other: string | number | Long.Long) => Long.Long;
-            compare: (other: string | number | Long.Long) => number;
-            comp: (other: string | number | Long.Long) => number;
-            divide: (divisor: string | number | Long.Long) => Long.Long;
-            div: (divisor: string | number | Long.Long) => Long.Long;
-            equals: (other: string | number | Long.Long) => boolean;
-            eq: (other: string | number | Long.Long) => boolean;
-            getHighBits: () => number;
-            getHighBitsUnsigned: () => number;
-            getLowBits: () => number;
-            getLowBitsUnsigned: () => number;
-            getNumBitsAbs: () => number;
-            greaterThan: (other: string | number | Long.Long) => boolean;
-            gt: (other: string | number | Long.Long) => boolean;
-            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-            gte: (other: string | number | Long.Long) => boolean;
-            isEven: () => boolean;
-            isNegative: () => boolean;
-            isOdd: () => boolean;
-            isPositive: () => boolean;
-            isZero: () => boolean;
-            lessThan: (other: string | number | Long.Long) => boolean;
-            lt: (other: string | number | Long.Long) => boolean;
-            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-            lte: (other: string | number | Long.Long) => boolean;
-            modulo: (other: string | number | Long.Long) => Long.Long;
-            mod: (other: string | number | Long.Long) => Long.Long;
-            multiply: (multiplier: string | number | Long.Long) => Long.Long;
-            mul: (multiplier: string | number | Long.Long) => Long.Long;
-            negate: () => Long.Long;
-            neg: () => Long.Long;
-            not: () => Long.Long;
-            notEquals: (other: string | number | Long.Long) => boolean;
-            neq: (other: string | number | Long.Long) => boolean;
-            or: (other: string | number | Long.Long) => Long.Long;
-            shiftLeft: (numBits: number | Long.Long) => Long.Long;
-            shl: (numBits: number | Long.Long) => Long.Long;
-            shiftRight: (numBits: number | Long.Long) => Long.Long;
-            shr: (numBits: number | Long.Long) => Long.Long;
-            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-            shru: (numBits: number | Long.Long) => Long.Long;
-            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-            sub: (subtrahend: string | number | Long.Long) => Long.Long;
-            toInt: () => number;
-            toNumber: () => number;
-            toBytes: (le?: boolean | undefined) => number[];
-            toBytesLE: () => number[];
-            toBytesBE: () => number[];
-            toSigned: () => Long.Long;
-            toString: (radix?: number | undefined) => string;
-            toUnsigned: () => Long.Long;
-            xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K in Exclude<keyof I["id"], keyof Long.Long>]: never; }) | undefined;
-        multiSig?: ({
-            keyId?: string | undefined;
-            payloadHash?: Buffer | undefined;
-            sigs?: {
-                [x: string]: Buffer | undefined;
-            } | undefined;
-        } & {
-            keyId?: string | undefined;
-            payloadHash?: Buffer | undefined;
-            sigs?: ({
-                [x: string]: Buffer | undefined;
-            } & {
-                [x: string]: Buffer | undefined;
-            } & { [K_1 in Exclude<keyof I["multiSig"]["sigs"], string | number>]: never; }) | undefined;
-        } & { [K_2 in Exclude<keyof I["multiSig"], keyof MultiSig>]: never; }) | undefined;
-        state?: MultisigState | undefined;
         key?: ({
-            id?: string | undefined;
             snapshot?: {
+                height?: string | number | Long.Long | undefined;
                 timestamp?: {
                     seconds?: string | number | Long.Long | undefined;
                     nanos?: number | undefined;
                 } | undefined;
-                height?: string | number | Long.Long | undefined;
                 participants?: {
                     [x: string]: {
+                        address?: Buffer | undefined;
+                        weight?: Buffer | undefined;
+                    } | undefined;
+                    [x: number]: {
                         address?: Buffer | undefined;
                         weight?: Buffer | undefined;
                     } | undefined;
                 } | undefined;
                 bondedWeight?: Buffer | undefined;
             } | undefined;
+            id?: string | undefined;
+            state?: KeyState | undefined;
             pubKeys?: {
                 [x: string]: Buffer | undefined;
+                [x: number]: Buffer | undefined;
             } | undefined;
             signingThreshold?: {
                 numerator?: string | number | Long.Long | undefined;
                 denominator?: string | number | Long.Long | undefined;
             } | undefined;
-            state?: KeyState | undefined;
         } & {
-            id?: string | undefined;
             snapshot?: ({
+                height?: string | number | Long.Long | undefined;
                 timestamp?: {
                     seconds?: string | number | Long.Long | undefined;
                     nanos?: number | undefined;
                 } | undefined;
-                height?: string | number | Long.Long | undefined;
                 participants?: {
                     [x: string]: {
+                        address?: Buffer | undefined;
+                        weight?: Buffer | undefined;
+                    } | undefined;
+                    [x: number]: {
                         address?: Buffer | undefined;
                         weight?: Buffer | undefined;
                     } | undefined;
                 } | undefined;
                 bondedWeight?: Buffer | undefined;
             } & {
+                height?: string | number | (Long.Long & {
+                    high: number;
+                    low: number;
+                    unsigned: boolean;
+                    add: (addend: string | number | Long.Long) => Long.Long;
+                    and: (other: string | number | Long.Long) => Long.Long;
+                    compare: (other: string | number | Long.Long) => number;
+                    comp: (other: string | number | Long.Long) => number;
+                    divide: (divisor: string | number | Long.Long) => Long.Long;
+                    div: (divisor: string | number | Long.Long) => Long.Long;
+                    equals: (other: string | number | Long.Long) => boolean;
+                    eq: (other: string | number | Long.Long) => boolean;
+                    getHighBits: () => number;
+                    getHighBitsUnsigned: () => number;
+                    getLowBits: () => number;
+                    getLowBitsUnsigned: () => number;
+                    getNumBitsAbs: () => number;
+                    greaterThan: (other: string | number | Long.Long) => boolean;
+                    gt: (other: string | number | Long.Long) => boolean;
+                    greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                    gte: (other: string | number | Long.Long) => boolean;
+                    isEven: () => boolean;
+                    isNegative: () => boolean;
+                    isOdd: () => boolean;
+                    isPositive: () => boolean;
+                    isZero: () => boolean;
+                    lessThan: (other: string | number | Long.Long) => boolean;
+                    lt: (other: string | number | Long.Long) => boolean;
+                    lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                    lte: (other: string | number | Long.Long) => boolean;
+                    modulo: (other: string | number | Long.Long) => Long.Long;
+                    mod: (other: string | number | Long.Long) => Long.Long;
+                    multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                    mul: (multiplier: string | number | Long.Long) => Long.Long;
+                    negate: () => Long.Long;
+                    neg: () => Long.Long;
+                    not: () => Long.Long;
+                    notEquals: (other: string | number | Long.Long) => boolean;
+                    neq: (other: string | number | Long.Long) => boolean;
+                    or: (other: string | number | Long.Long) => Long.Long;
+                    shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                    shl: (numBits: number | Long.Long) => Long.Long;
+                    shiftRight: (numBits: number | Long.Long) => Long.Long;
+                    shr: (numBits: number | Long.Long) => Long.Long;
+                    shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                    shru: (numBits: number | Long.Long) => Long.Long;
+                    subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                    sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                    toInt: () => number;
+                    toNumber: () => number;
+                    toBytes: (le?: boolean | undefined) => number[];
+                    toBytesLE: () => number[];
+                    toBytesBE: () => number[];
+                    toSigned: () => Long.Long;
+                    toString: (radix?: number | undefined) => string;
+                    toUnsigned: () => Long.Long;
+                    xor: (other: string | number | Long.Long) => Long.Long;
+                } & { [K in Exclude<keyof I["key"]["snapshot"]["height"], "$type" | keyof Long.Long>]: never; }) | undefined;
                 timestamp?: ({
                     seconds?: string | number | Long.Long | undefined;
                     nanos?: number | undefined;
@@ -2297,69 +2420,15 @@ export declare const SigningSession: {
                         toString: (radix?: number | undefined) => string;
                         toUnsigned: () => Long.Long;
                         xor: (other: string | number | Long.Long) => Long.Long;
-                    } & { [K_3 in Exclude<keyof I["key"]["snapshot"]["timestamp"]["seconds"], keyof Long.Long>]: never; }) | undefined;
+                    } & { [K_1 in Exclude<keyof I["key"]["snapshot"]["timestamp"]["seconds"], "$type" | keyof Long.Long>]: never; }) | undefined;
                     nanos?: number | undefined;
-                } & { [K_4 in Exclude<keyof I["key"]["snapshot"]["timestamp"], keyof import("../../../google/protobuf/timestamp").Timestamp>]: never; }) | undefined;
-                height?: string | number | (Long.Long & {
-                    high: number;
-                    low: number;
-                    unsigned: boolean;
-                    add: (addend: string | number | Long.Long) => Long.Long;
-                    and: (other: string | number | Long.Long) => Long.Long;
-                    compare: (other: string | number | Long.Long) => number;
-                    comp: (other: string | number | Long.Long) => number;
-                    divide: (divisor: string | number | Long.Long) => Long.Long;
-                    div: (divisor: string | number | Long.Long) => Long.Long;
-                    equals: (other: string | number | Long.Long) => boolean;
-                    eq: (other: string | number | Long.Long) => boolean;
-                    getHighBits: () => number;
-                    getHighBitsUnsigned: () => number;
-                    getLowBits: () => number;
-                    getLowBitsUnsigned: () => number;
-                    getNumBitsAbs: () => number;
-                    greaterThan: (other: string | number | Long.Long) => boolean;
-                    gt: (other: string | number | Long.Long) => boolean;
-                    greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-                    gte: (other: string | number | Long.Long) => boolean;
-                    isEven: () => boolean;
-                    isNegative: () => boolean;
-                    isOdd: () => boolean;
-                    isPositive: () => boolean;
-                    isZero: () => boolean;
-                    lessThan: (other: string | number | Long.Long) => boolean;
-                    lt: (other: string | number | Long.Long) => boolean;
-                    lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-                    lte: (other: string | number | Long.Long) => boolean;
-                    modulo: (other: string | number | Long.Long) => Long.Long;
-                    mod: (other: string | number | Long.Long) => Long.Long;
-                    multiply: (multiplier: string | number | Long.Long) => Long.Long;
-                    mul: (multiplier: string | number | Long.Long) => Long.Long;
-                    negate: () => Long.Long;
-                    neg: () => Long.Long;
-                    not: () => Long.Long;
-                    notEquals: (other: string | number | Long.Long) => boolean;
-                    neq: (other: string | number | Long.Long) => boolean;
-                    or: (other: string | number | Long.Long) => Long.Long;
-                    shiftLeft: (numBits: number | Long.Long) => Long.Long;
-                    shl: (numBits: number | Long.Long) => Long.Long;
-                    shiftRight: (numBits: number | Long.Long) => Long.Long;
-                    shr: (numBits: number | Long.Long) => Long.Long;
-                    shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-                    shru: (numBits: number | Long.Long) => Long.Long;
-                    subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-                    sub: (subtrahend: string | number | Long.Long) => Long.Long;
-                    toInt: () => number;
-                    toNumber: () => number;
-                    toBytes: (le?: boolean | undefined) => number[];
-                    toBytesLE: () => number[];
-                    toBytesBE: () => number[];
-                    toSigned: () => Long.Long;
-                    toString: (radix?: number | undefined) => string;
-                    toUnsigned: () => Long.Long;
-                    xor: (other: string | number | Long.Long) => Long.Long;
-                } & { [K_5 in Exclude<keyof I["key"]["snapshot"]["height"], keyof Long.Long>]: never; }) | undefined;
+                } & { [K_2 in Exclude<keyof I["key"]["snapshot"]["timestamp"], "$type" | "seconds" | "nanos">]: never; }) | undefined;
                 participants?: ({
                     [x: string]: {
+                        address?: Buffer | undefined;
+                        weight?: Buffer | undefined;
+                    } | undefined;
+                    [x: number]: {
                         address?: Buffer | undefined;
                         weight?: Buffer | undefined;
                     } | undefined;
@@ -2370,15 +2439,26 @@ export declare const SigningSession: {
                     } & {
                         address?: Buffer | undefined;
                         weight?: Buffer | undefined;
-                    } & { [K_6 in Exclude<keyof I["key"]["snapshot"]["participants"][string], keyof import("../../snapshot/exported/v1beta1/types").Participant>]: never; }) | undefined;
-                } & { [K_7 in Exclude<keyof I["key"]["snapshot"]["participants"], string | number>]: never; }) | undefined;
+                    } & { [K_3 in Exclude<keyof I["key"]["snapshot"]["participants"][string], "$type" | "address" | "weight">]: never; }) | undefined;
+                    [x: number]: ({
+                        address?: Buffer | undefined;
+                        weight?: Buffer | undefined;
+                    } & {
+                        address?: Buffer | undefined;
+                        weight?: Buffer | undefined;
+                    } & { [K_4 in Exclude<keyof I["key"]["snapshot"]["participants"][number], "$type" | "address" | "weight">]: never; }) | undefined;
+                } & { [K_5 in Exclude<keyof I["key"]["snapshot"]["participants"], string | number>]: never; }) | undefined;
                 bondedWeight?: Buffer | undefined;
-            } & { [K_8 in Exclude<keyof I["key"]["snapshot"], keyof Snapshot>]: never; }) | undefined;
+            } & { [K_6 in Exclude<keyof I["key"]["snapshot"], "$type" | "height" | "timestamp" | "participants" | "bondedWeight">]: never; }) | undefined;
+            id?: string | undefined;
+            state?: KeyState | undefined;
             pubKeys?: ({
                 [x: string]: Buffer | undefined;
+                [x: number]: Buffer | undefined;
             } & {
                 [x: string]: Buffer | undefined;
-            } & { [K_9 in Exclude<keyof I["key"]["pubKeys"], string | number>]: never; }) | undefined;
+                [x: number]: Buffer | undefined;
+            } & { [K_7 in Exclude<keyof I["key"]["pubKeys"], string | number>]: never; }) | undefined;
             signingThreshold?: ({
                 numerator?: string | number | Long.Long | undefined;
                 denominator?: string | number | Long.Long | undefined;
@@ -2440,7 +2520,7 @@ export declare const SigningSession: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
-                } & { [K_10 in Exclude<keyof I["key"]["signingThreshold"]["numerator"], keyof Long.Long>]: never; }) | undefined;
+                } & { [K_8 in Exclude<keyof I["key"]["signingThreshold"]["numerator"], "$type" | keyof Long.Long>]: never; }) | undefined;
                 denominator?: string | number | (Long.Long & {
                     high: number;
                     low: number;
@@ -2498,10 +2578,69 @@ export declare const SigningSession: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
-                } & { [K_11 in Exclude<keyof I["key"]["signingThreshold"]["denominator"], keyof Long.Long>]: never; }) | undefined;
-            } & { [K_12 in Exclude<keyof I["key"]["signingThreshold"], keyof Threshold>]: never; }) | undefined;
-            state?: KeyState | undefined;
-        } & { [K_13 in Exclude<keyof I["key"], keyof Key>]: never; }) | undefined;
+                } & { [K_9 in Exclude<keyof I["key"]["signingThreshold"]["denominator"], "$type" | keyof Long.Long>]: never; }) | undefined;
+            } & { [K_10 in Exclude<keyof I["key"]["signingThreshold"], "$type" | "numerator" | "denominator">]: never; }) | undefined;
+        } & { [K_11 in Exclude<keyof I["key"], "$type" | "snapshot" | "id" | "state" | "pubKeys" | "signingThreshold">]: never; }) | undefined;
+        id?: string | number | (Long.Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long.Long) => Long.Long;
+            and: (other: string | number | Long.Long) => Long.Long;
+            compare: (other: string | number | Long.Long) => number;
+            comp: (other: string | number | Long.Long) => number;
+            divide: (divisor: string | number | Long.Long) => Long.Long;
+            div: (divisor: string | number | Long.Long) => Long.Long;
+            equals: (other: string | number | Long.Long) => boolean;
+            eq: (other: string | number | Long.Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long.Long) => boolean;
+            gt: (other: string | number | Long.Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+            gte: (other: string | number | Long.Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            lessThan: (other: string | number | Long.Long) => boolean;
+            lt: (other: string | number | Long.Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+            lte: (other: string | number | Long.Long) => boolean;
+            modulo: (other: string | number | Long.Long) => Long.Long;
+            mod: (other: string | number | Long.Long) => Long.Long;
+            multiply: (multiplier: string | number | Long.Long) => Long.Long;
+            mul: (multiplier: string | number | Long.Long) => Long.Long;
+            negate: () => Long.Long;
+            neg: () => Long.Long;
+            not: () => Long.Long;
+            notEquals: (other: string | number | Long.Long) => boolean;
+            neq: (other: string | number | Long.Long) => boolean;
+            or: (other: string | number | Long.Long) => Long.Long;
+            shiftLeft: (numBits: number | Long.Long) => Long.Long;
+            shl: (numBits: number | Long.Long) => Long.Long;
+            shiftRight: (numBits: number | Long.Long) => Long.Long;
+            shr: (numBits: number | Long.Long) => Long.Long;
+            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+            shru: (numBits: number | Long.Long) => Long.Long;
+            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+            sub: (subtrahend: string | number | Long.Long) => Long.Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long.Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long.Long;
+            xor: (other: string | number | Long.Long) => Long.Long;
+        } & { [K_12 in Exclude<keyof I["id"], "$type" | keyof Long.Long>]: never; }) | undefined;
+        module?: string | undefined;
+        state?: MultisigState | undefined;
         expiresAt?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -2559,7 +2698,7 @@ export declare const SigningSession: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_14 in Exclude<keyof I["expiresAt"], keyof Long.Long>]: never; }) | undefined;
+        } & { [K_13 in Exclude<keyof I["expiresAt"], "$type" | keyof Long.Long>]: never; }) | undefined;
         completedAt?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -2617,7 +2756,7 @@ export declare const SigningSession: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_15 in Exclude<keyof I["completedAt"], keyof Long.Long>]: never; }) | undefined;
+        } & { [K_14 in Exclude<keyof I["completedAt"], "$type" | keyof Long.Long>]: never; }) | undefined;
         gracePeriod?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -2675,174 +2814,189 @@ export declare const SigningSession: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_16 in Exclude<keyof I["gracePeriod"], keyof Long.Long>]: never; }) | undefined;
-        module?: string | undefined;
+        } & { [K_15 in Exclude<keyof I["gracePeriod"], "$type" | keyof Long.Long>]: never; }) | undefined;
+        multiSig?: ({
+            payloadHash?: Buffer | undefined;
+            keyId?: string | undefined;
+            sigs?: {
+                [x: string]: Buffer | undefined;
+                [x: number]: Buffer | undefined;
+            } | undefined;
+        } & {
+            payloadHash?: Buffer | undefined;
+            keyId?: string | undefined;
+            sigs?: ({
+                [x: string]: Buffer | undefined;
+                [x: number]: Buffer | undefined;
+            } & {
+                [x: string]: Buffer | undefined;
+                [x: number]: Buffer | undefined;
+            } & { [K_16 in Exclude<keyof I["multiSig"]["sigs"], string | number>]: never; }) | undefined;
+        } & { [K_17 in Exclude<keyof I["multiSig"], "$type" | "payloadHash" | "keyId" | "sigs">]: never; }) | undefined;
         moduleMetadata?: ({
             typeUrl?: string | undefined;
             value?: Buffer | undefined;
         } & {
             typeUrl?: string | undefined;
             value?: Buffer | undefined;
-        } & { [K_17 in Exclude<keyof I["moduleMetadata"], keyof Any>]: never; }) | undefined;
-    } & { [K_18 in Exclude<keyof I, keyof SigningSession>]: never; }>(base?: I | undefined): SigningSession;
+        } & { [K_18 in Exclude<keyof I["moduleMetadata"], "$type" | "typeUrl" | "value">]: never; }) | undefined;
+    } & { [K_19 in Exclude<keyof I, "$type" | "key" | "id" | "module" | "state" | "expiresAt" | "completedAt" | "gracePeriod" | "multiSig" | "moduleMetadata">]: never; }>(base?: I | undefined): SigningSession;
     fromPartial<I_1 extends {
-        id?: string | number | Long.Long | undefined;
-        multiSig?: {
-            keyId?: string | undefined;
-            payloadHash?: Buffer | undefined;
-            sigs?: {
-                [x: string]: Buffer | undefined;
-            } | undefined;
-        } | undefined;
-        state?: MultisigState | undefined;
         key?: {
-            id?: string | undefined;
             snapshot?: {
+                height?: string | number | Long.Long | undefined;
                 timestamp?: {
                     seconds?: string | number | Long.Long | undefined;
                     nanos?: number | undefined;
                 } | undefined;
-                height?: string | number | Long.Long | undefined;
                 participants?: {
                     [x: string]: {
+                        address?: Buffer | undefined;
+                        weight?: Buffer | undefined;
+                    } | undefined;
+                    [x: number]: {
                         address?: Buffer | undefined;
                         weight?: Buffer | undefined;
                     } | undefined;
                 } | undefined;
                 bondedWeight?: Buffer | undefined;
             } | undefined;
+            id?: string | undefined;
+            state?: KeyState | undefined;
             pubKeys?: {
                 [x: string]: Buffer | undefined;
+                [x: number]: Buffer | undefined;
             } | undefined;
             signingThreshold?: {
                 numerator?: string | number | Long.Long | undefined;
                 denominator?: string | number | Long.Long | undefined;
             } | undefined;
-            state?: KeyState | undefined;
         } | undefined;
+        id?: string | number | Long.Long | undefined;
+        module?: string | undefined;
+        state?: MultisigState | undefined;
         expiresAt?: string | number | Long.Long | undefined;
         completedAt?: string | number | Long.Long | undefined;
         gracePeriod?: string | number | Long.Long | undefined;
-        module?: string | undefined;
+        multiSig?: {
+            payloadHash?: Buffer | undefined;
+            keyId?: string | undefined;
+            sigs?: {
+                [x: string]: Buffer | undefined;
+                [x: number]: Buffer | undefined;
+            } | undefined;
+        } | undefined;
         moduleMetadata?: {
             typeUrl?: string | undefined;
             value?: Buffer | undefined;
         } | undefined;
     } & {
-        id?: string | number | (Long.Long & {
-            high: number;
-            low: number;
-            unsigned: boolean;
-            add: (addend: string | number | Long.Long) => Long.Long;
-            and: (other: string | number | Long.Long) => Long.Long;
-            compare: (other: string | number | Long.Long) => number;
-            comp: (other: string | number | Long.Long) => number;
-            divide: (divisor: string | number | Long.Long) => Long.Long;
-            div: (divisor: string | number | Long.Long) => Long.Long;
-            equals: (other: string | number | Long.Long) => boolean;
-            eq: (other: string | number | Long.Long) => boolean;
-            getHighBits: () => number;
-            getHighBitsUnsigned: () => number;
-            getLowBits: () => number;
-            getLowBitsUnsigned: () => number;
-            getNumBitsAbs: () => number;
-            greaterThan: (other: string | number | Long.Long) => boolean;
-            gt: (other: string | number | Long.Long) => boolean;
-            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-            gte: (other: string | number | Long.Long) => boolean;
-            isEven: () => boolean;
-            isNegative: () => boolean;
-            isOdd: () => boolean;
-            isPositive: () => boolean;
-            isZero: () => boolean;
-            lessThan: (other: string | number | Long.Long) => boolean;
-            lt: (other: string | number | Long.Long) => boolean;
-            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-            lte: (other: string | number | Long.Long) => boolean;
-            modulo: (other: string | number | Long.Long) => Long.Long;
-            mod: (other: string | number | Long.Long) => Long.Long;
-            multiply: (multiplier: string | number | Long.Long) => Long.Long;
-            mul: (multiplier: string | number | Long.Long) => Long.Long;
-            negate: () => Long.Long;
-            neg: () => Long.Long;
-            not: () => Long.Long;
-            notEquals: (other: string | number | Long.Long) => boolean;
-            neq: (other: string | number | Long.Long) => boolean;
-            or: (other: string | number | Long.Long) => Long.Long;
-            shiftLeft: (numBits: number | Long.Long) => Long.Long;
-            shl: (numBits: number | Long.Long) => Long.Long;
-            shiftRight: (numBits: number | Long.Long) => Long.Long;
-            shr: (numBits: number | Long.Long) => Long.Long;
-            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-            shru: (numBits: number | Long.Long) => Long.Long;
-            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-            sub: (subtrahend: string | number | Long.Long) => Long.Long;
-            toInt: () => number;
-            toNumber: () => number;
-            toBytes: (le?: boolean | undefined) => number[];
-            toBytesLE: () => number[];
-            toBytesBE: () => number[];
-            toSigned: () => Long.Long;
-            toString: (radix?: number | undefined) => string;
-            toUnsigned: () => Long.Long;
-            xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_19 in Exclude<keyof I_1["id"], keyof Long.Long>]: never; }) | undefined;
-        multiSig?: ({
-            keyId?: string | undefined;
-            payloadHash?: Buffer | undefined;
-            sigs?: {
-                [x: string]: Buffer | undefined;
-            } | undefined;
-        } & {
-            keyId?: string | undefined;
-            payloadHash?: Buffer | undefined;
-            sigs?: ({
-                [x: string]: Buffer | undefined;
-            } & {
-                [x: string]: Buffer | undefined;
-            } & { [K_20 in Exclude<keyof I_1["multiSig"]["sigs"], string | number>]: never; }) | undefined;
-        } & { [K_21 in Exclude<keyof I_1["multiSig"], keyof MultiSig>]: never; }) | undefined;
-        state?: MultisigState | undefined;
         key?: ({
-            id?: string | undefined;
             snapshot?: {
+                height?: string | number | Long.Long | undefined;
                 timestamp?: {
                     seconds?: string | number | Long.Long | undefined;
                     nanos?: number | undefined;
                 } | undefined;
-                height?: string | number | Long.Long | undefined;
                 participants?: {
                     [x: string]: {
+                        address?: Buffer | undefined;
+                        weight?: Buffer | undefined;
+                    } | undefined;
+                    [x: number]: {
                         address?: Buffer | undefined;
                         weight?: Buffer | undefined;
                     } | undefined;
                 } | undefined;
                 bondedWeight?: Buffer | undefined;
             } | undefined;
+            id?: string | undefined;
+            state?: KeyState | undefined;
             pubKeys?: {
                 [x: string]: Buffer | undefined;
+                [x: number]: Buffer | undefined;
             } | undefined;
             signingThreshold?: {
                 numerator?: string | number | Long.Long | undefined;
                 denominator?: string | number | Long.Long | undefined;
             } | undefined;
-            state?: KeyState | undefined;
         } & {
-            id?: string | undefined;
             snapshot?: ({
+                height?: string | number | Long.Long | undefined;
                 timestamp?: {
                     seconds?: string | number | Long.Long | undefined;
                     nanos?: number | undefined;
                 } | undefined;
-                height?: string | number | Long.Long | undefined;
                 participants?: {
                     [x: string]: {
+                        address?: Buffer | undefined;
+                        weight?: Buffer | undefined;
+                    } | undefined;
+                    [x: number]: {
                         address?: Buffer | undefined;
                         weight?: Buffer | undefined;
                     } | undefined;
                 } | undefined;
                 bondedWeight?: Buffer | undefined;
             } & {
+                height?: string | number | (Long.Long & {
+                    high: number;
+                    low: number;
+                    unsigned: boolean;
+                    add: (addend: string | number | Long.Long) => Long.Long;
+                    and: (other: string | number | Long.Long) => Long.Long;
+                    compare: (other: string | number | Long.Long) => number;
+                    comp: (other: string | number | Long.Long) => number;
+                    divide: (divisor: string | number | Long.Long) => Long.Long;
+                    div: (divisor: string | number | Long.Long) => Long.Long;
+                    equals: (other: string | number | Long.Long) => boolean;
+                    eq: (other: string | number | Long.Long) => boolean;
+                    getHighBits: () => number;
+                    getHighBitsUnsigned: () => number;
+                    getLowBits: () => number;
+                    getLowBitsUnsigned: () => number;
+                    getNumBitsAbs: () => number;
+                    greaterThan: (other: string | number | Long.Long) => boolean;
+                    gt: (other: string | number | Long.Long) => boolean;
+                    greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                    gte: (other: string | number | Long.Long) => boolean;
+                    isEven: () => boolean;
+                    isNegative: () => boolean;
+                    isOdd: () => boolean;
+                    isPositive: () => boolean;
+                    isZero: () => boolean;
+                    lessThan: (other: string | number | Long.Long) => boolean;
+                    lt: (other: string | number | Long.Long) => boolean;
+                    lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                    lte: (other: string | number | Long.Long) => boolean;
+                    modulo: (other: string | number | Long.Long) => Long.Long;
+                    mod: (other: string | number | Long.Long) => Long.Long;
+                    multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                    mul: (multiplier: string | number | Long.Long) => Long.Long;
+                    negate: () => Long.Long;
+                    neg: () => Long.Long;
+                    not: () => Long.Long;
+                    notEquals: (other: string | number | Long.Long) => boolean;
+                    neq: (other: string | number | Long.Long) => boolean;
+                    or: (other: string | number | Long.Long) => Long.Long;
+                    shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                    shl: (numBits: number | Long.Long) => Long.Long;
+                    shiftRight: (numBits: number | Long.Long) => Long.Long;
+                    shr: (numBits: number | Long.Long) => Long.Long;
+                    shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                    shru: (numBits: number | Long.Long) => Long.Long;
+                    subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                    sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                    toInt: () => number;
+                    toNumber: () => number;
+                    toBytes: (le?: boolean | undefined) => number[];
+                    toBytesLE: () => number[];
+                    toBytesBE: () => number[];
+                    toSigned: () => Long.Long;
+                    toString: (radix?: number | undefined) => string;
+                    toUnsigned: () => Long.Long;
+                    xor: (other: string | number | Long.Long) => Long.Long;
+                } & { [K_20 in Exclude<keyof I_1["key"]["snapshot"]["height"], "$type" | keyof Long.Long>]: never; }) | undefined;
                 timestamp?: ({
                     seconds?: string | number | Long.Long | undefined;
                     nanos?: number | undefined;
@@ -2904,69 +3058,15 @@ export declare const SigningSession: {
                         toString: (radix?: number | undefined) => string;
                         toUnsigned: () => Long.Long;
                         xor: (other: string | number | Long.Long) => Long.Long;
-                    } & { [K_22 in Exclude<keyof I_1["key"]["snapshot"]["timestamp"]["seconds"], keyof Long.Long>]: never; }) | undefined;
+                    } & { [K_21 in Exclude<keyof I_1["key"]["snapshot"]["timestamp"]["seconds"], "$type" | keyof Long.Long>]: never; }) | undefined;
                     nanos?: number | undefined;
-                } & { [K_23 in Exclude<keyof I_1["key"]["snapshot"]["timestamp"], keyof import("../../../google/protobuf/timestamp").Timestamp>]: never; }) | undefined;
-                height?: string | number | (Long.Long & {
-                    high: number;
-                    low: number;
-                    unsigned: boolean;
-                    add: (addend: string | number | Long.Long) => Long.Long;
-                    and: (other: string | number | Long.Long) => Long.Long;
-                    compare: (other: string | number | Long.Long) => number;
-                    comp: (other: string | number | Long.Long) => number;
-                    divide: (divisor: string | number | Long.Long) => Long.Long;
-                    div: (divisor: string | number | Long.Long) => Long.Long;
-                    equals: (other: string | number | Long.Long) => boolean;
-                    eq: (other: string | number | Long.Long) => boolean;
-                    getHighBits: () => number;
-                    getHighBitsUnsigned: () => number;
-                    getLowBits: () => number;
-                    getLowBitsUnsigned: () => number;
-                    getNumBitsAbs: () => number;
-                    greaterThan: (other: string | number | Long.Long) => boolean;
-                    gt: (other: string | number | Long.Long) => boolean;
-                    greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-                    gte: (other: string | number | Long.Long) => boolean;
-                    isEven: () => boolean;
-                    isNegative: () => boolean;
-                    isOdd: () => boolean;
-                    isPositive: () => boolean;
-                    isZero: () => boolean;
-                    lessThan: (other: string | number | Long.Long) => boolean;
-                    lt: (other: string | number | Long.Long) => boolean;
-                    lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-                    lte: (other: string | number | Long.Long) => boolean;
-                    modulo: (other: string | number | Long.Long) => Long.Long;
-                    mod: (other: string | number | Long.Long) => Long.Long;
-                    multiply: (multiplier: string | number | Long.Long) => Long.Long;
-                    mul: (multiplier: string | number | Long.Long) => Long.Long;
-                    negate: () => Long.Long;
-                    neg: () => Long.Long;
-                    not: () => Long.Long;
-                    notEquals: (other: string | number | Long.Long) => boolean;
-                    neq: (other: string | number | Long.Long) => boolean;
-                    or: (other: string | number | Long.Long) => Long.Long;
-                    shiftLeft: (numBits: number | Long.Long) => Long.Long;
-                    shl: (numBits: number | Long.Long) => Long.Long;
-                    shiftRight: (numBits: number | Long.Long) => Long.Long;
-                    shr: (numBits: number | Long.Long) => Long.Long;
-                    shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-                    shru: (numBits: number | Long.Long) => Long.Long;
-                    subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-                    sub: (subtrahend: string | number | Long.Long) => Long.Long;
-                    toInt: () => number;
-                    toNumber: () => number;
-                    toBytes: (le?: boolean | undefined) => number[];
-                    toBytesLE: () => number[];
-                    toBytesBE: () => number[];
-                    toSigned: () => Long.Long;
-                    toString: (radix?: number | undefined) => string;
-                    toUnsigned: () => Long.Long;
-                    xor: (other: string | number | Long.Long) => Long.Long;
-                } & { [K_24 in Exclude<keyof I_1["key"]["snapshot"]["height"], keyof Long.Long>]: never; }) | undefined;
+                } & { [K_22 in Exclude<keyof I_1["key"]["snapshot"]["timestamp"], "$type" | "seconds" | "nanos">]: never; }) | undefined;
                 participants?: ({
                     [x: string]: {
+                        address?: Buffer | undefined;
+                        weight?: Buffer | undefined;
+                    } | undefined;
+                    [x: number]: {
                         address?: Buffer | undefined;
                         weight?: Buffer | undefined;
                     } | undefined;
@@ -2977,15 +3077,26 @@ export declare const SigningSession: {
                     } & {
                         address?: Buffer | undefined;
                         weight?: Buffer | undefined;
-                    } & { [K_25 in Exclude<keyof I_1["key"]["snapshot"]["participants"][string], keyof import("../../snapshot/exported/v1beta1/types").Participant>]: never; }) | undefined;
-                } & { [K_26 in Exclude<keyof I_1["key"]["snapshot"]["participants"], string | number>]: never; }) | undefined;
+                    } & { [K_23 in Exclude<keyof I_1["key"]["snapshot"]["participants"][string], "$type" | "address" | "weight">]: never; }) | undefined;
+                    [x: number]: ({
+                        address?: Buffer | undefined;
+                        weight?: Buffer | undefined;
+                    } & {
+                        address?: Buffer | undefined;
+                        weight?: Buffer | undefined;
+                    } & { [K_24 in Exclude<keyof I_1["key"]["snapshot"]["participants"][number], "$type" | "address" | "weight">]: never; }) | undefined;
+                } & { [K_25 in Exclude<keyof I_1["key"]["snapshot"]["participants"], string | number>]: never; }) | undefined;
                 bondedWeight?: Buffer | undefined;
-            } & { [K_27 in Exclude<keyof I_1["key"]["snapshot"], keyof Snapshot>]: never; }) | undefined;
+            } & { [K_26 in Exclude<keyof I_1["key"]["snapshot"], "$type" | "height" | "timestamp" | "participants" | "bondedWeight">]: never; }) | undefined;
+            id?: string | undefined;
+            state?: KeyState | undefined;
             pubKeys?: ({
                 [x: string]: Buffer | undefined;
+                [x: number]: Buffer | undefined;
             } & {
                 [x: string]: Buffer | undefined;
-            } & { [K_28 in Exclude<keyof I_1["key"]["pubKeys"], string | number>]: never; }) | undefined;
+                [x: number]: Buffer | undefined;
+            } & { [K_27 in Exclude<keyof I_1["key"]["pubKeys"], string | number>]: never; }) | undefined;
             signingThreshold?: ({
                 numerator?: string | number | Long.Long | undefined;
                 denominator?: string | number | Long.Long | undefined;
@@ -3047,7 +3158,7 @@ export declare const SigningSession: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
-                } & { [K_29 in Exclude<keyof I_1["key"]["signingThreshold"]["numerator"], keyof Long.Long>]: never; }) | undefined;
+                } & { [K_28 in Exclude<keyof I_1["key"]["signingThreshold"]["numerator"], "$type" | keyof Long.Long>]: never; }) | undefined;
                 denominator?: string | number | (Long.Long & {
                     high: number;
                     low: number;
@@ -3105,10 +3216,69 @@ export declare const SigningSession: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
-                } & { [K_30 in Exclude<keyof I_1["key"]["signingThreshold"]["denominator"], keyof Long.Long>]: never; }) | undefined;
-            } & { [K_31 in Exclude<keyof I_1["key"]["signingThreshold"], keyof Threshold>]: never; }) | undefined;
-            state?: KeyState | undefined;
-        } & { [K_32 in Exclude<keyof I_1["key"], keyof Key>]: never; }) | undefined;
+                } & { [K_29 in Exclude<keyof I_1["key"]["signingThreshold"]["denominator"], "$type" | keyof Long.Long>]: never; }) | undefined;
+            } & { [K_30 in Exclude<keyof I_1["key"]["signingThreshold"], "$type" | "numerator" | "denominator">]: never; }) | undefined;
+        } & { [K_31 in Exclude<keyof I_1["key"], "$type" | "snapshot" | "id" | "state" | "pubKeys" | "signingThreshold">]: never; }) | undefined;
+        id?: string | number | (Long.Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long.Long) => Long.Long;
+            and: (other: string | number | Long.Long) => Long.Long;
+            compare: (other: string | number | Long.Long) => number;
+            comp: (other: string | number | Long.Long) => number;
+            divide: (divisor: string | number | Long.Long) => Long.Long;
+            div: (divisor: string | number | Long.Long) => Long.Long;
+            equals: (other: string | number | Long.Long) => boolean;
+            eq: (other: string | number | Long.Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long.Long) => boolean;
+            gt: (other: string | number | Long.Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+            gte: (other: string | number | Long.Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            lessThan: (other: string | number | Long.Long) => boolean;
+            lt: (other: string | number | Long.Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+            lte: (other: string | number | Long.Long) => boolean;
+            modulo: (other: string | number | Long.Long) => Long.Long;
+            mod: (other: string | number | Long.Long) => Long.Long;
+            multiply: (multiplier: string | number | Long.Long) => Long.Long;
+            mul: (multiplier: string | number | Long.Long) => Long.Long;
+            negate: () => Long.Long;
+            neg: () => Long.Long;
+            not: () => Long.Long;
+            notEquals: (other: string | number | Long.Long) => boolean;
+            neq: (other: string | number | Long.Long) => boolean;
+            or: (other: string | number | Long.Long) => Long.Long;
+            shiftLeft: (numBits: number | Long.Long) => Long.Long;
+            shl: (numBits: number | Long.Long) => Long.Long;
+            shiftRight: (numBits: number | Long.Long) => Long.Long;
+            shr: (numBits: number | Long.Long) => Long.Long;
+            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+            shru: (numBits: number | Long.Long) => Long.Long;
+            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+            sub: (subtrahend: string | number | Long.Long) => Long.Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long.Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long.Long;
+            xor: (other: string | number | Long.Long) => Long.Long;
+        } & { [K_32 in Exclude<keyof I_1["id"], "$type" | keyof Long.Long>]: never; }) | undefined;
+        module?: string | undefined;
+        state?: MultisigState | undefined;
         expiresAt?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -3166,7 +3336,7 @@ export declare const SigningSession: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_33 in Exclude<keyof I_1["expiresAt"], keyof Long.Long>]: never; }) | undefined;
+        } & { [K_33 in Exclude<keyof I_1["expiresAt"], "$type" | keyof Long.Long>]: never; }) | undefined;
         completedAt?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -3224,7 +3394,7 @@ export declare const SigningSession: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_34 in Exclude<keyof I_1["completedAt"], keyof Long.Long>]: never; }) | undefined;
+        } & { [K_34 in Exclude<keyof I_1["completedAt"], "$type" | keyof Long.Long>]: never; }) | undefined;
         gracePeriod?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -3282,27 +3452,47 @@ export declare const SigningSession: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_35 in Exclude<keyof I_1["gracePeriod"], keyof Long.Long>]: never; }) | undefined;
-        module?: string | undefined;
+        } & { [K_35 in Exclude<keyof I_1["gracePeriod"], "$type" | keyof Long.Long>]: never; }) | undefined;
+        multiSig?: ({
+            payloadHash?: Buffer | undefined;
+            keyId?: string | undefined;
+            sigs?: {
+                [x: string]: Buffer | undefined;
+                [x: number]: Buffer | undefined;
+            } | undefined;
+        } & {
+            payloadHash?: Buffer | undefined;
+            keyId?: string | undefined;
+            sigs?: ({
+                [x: string]: Buffer | undefined;
+                [x: number]: Buffer | undefined;
+            } & {
+                [x: string]: Buffer | undefined;
+                [x: number]: Buffer | undefined;
+            } & { [K_36 in Exclude<keyof I_1["multiSig"]["sigs"], string | number>]: never; }) | undefined;
+        } & { [K_37 in Exclude<keyof I_1["multiSig"], "$type" | "payloadHash" | "keyId" | "sigs">]: never; }) | undefined;
         moduleMetadata?: ({
             typeUrl?: string | undefined;
             value?: Buffer | undefined;
         } & {
             typeUrl?: string | undefined;
             value?: Buffer | undefined;
-        } & { [K_36 in Exclude<keyof I_1["moduleMetadata"], keyof Any>]: never; }) | undefined;
-    } & { [K_37 in Exclude<keyof I_1, keyof SigningSession>]: never; }>(object: I_1): SigningSession;
+        } & { [K_38 in Exclude<keyof I_1["moduleMetadata"], "$type" | "typeUrl" | "value">]: never; }) | undefined;
+    } & { [K_39 in Exclude<keyof I_1, "$type" | "key" | "id" | "module" | "state" | "expiresAt" | "completedAt" | "gracePeriod" | "multiSig" | "moduleMetadata">]: never; }>(object: I_1): SigningSession;
 };
 export declare const KeyEpoch: {
+    $type: "axelar.multisig.v1beta1.KeyEpoch";
     encode(message: KeyEpoch, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): KeyEpoch;
     fromJSON(object: any): KeyEpoch;
     toJSON(message: KeyEpoch): unknown;
     create<I extends {
-        epoch?: string | number | Long.Long | undefined;
         chain?: string | undefined;
         keyId?: string | undefined;
+        epoch?: string | number | Long.Long | undefined;
     } & {
+        chain?: string | undefined;
+        keyId?: string | undefined;
         epoch?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -3360,15 +3550,15 @@ export declare const KeyEpoch: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K in Exclude<keyof I["epoch"], keyof Long.Long>]: never; }) | undefined;
-        chain?: string | undefined;
-        keyId?: string | undefined;
-    } & { [K_1 in Exclude<keyof I, keyof KeyEpoch>]: never; }>(base?: I | undefined): KeyEpoch;
+        } & { [K in Exclude<keyof I["epoch"], "$type" | keyof Long.Long>]: never; }) | undefined;
+    } & { [K_1 in Exclude<keyof I, "$type" | "chain" | "keyId" | "epoch">]: never; }>(base?: I | undefined): KeyEpoch;
     fromPartial<I_1 extends {
-        epoch?: string | number | Long.Long | undefined;
         chain?: string | undefined;
         keyId?: string | undefined;
+        epoch?: string | number | Long.Long | undefined;
     } & {
+        chain?: string | undefined;
+        keyId?: string | undefined;
         epoch?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -3426,19 +3616,17 @@ export declare const KeyEpoch: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_2 in Exclude<keyof I_1["epoch"], keyof Long.Long>]: never; }) | undefined;
-        chain?: string | undefined;
-        keyId?: string | undefined;
-    } & { [K_3 in Exclude<keyof I_1, keyof KeyEpoch>]: never; }>(object: I_1): KeyEpoch;
+        } & { [K_2 in Exclude<keyof I_1["epoch"], "$type" | keyof Long.Long>]: never; }) | undefined;
+    } & { [K_3 in Exclude<keyof I_1, "$type" | "chain" | "keyId" | "epoch">]: never; }>(object: I_1): KeyEpoch;
 };
 declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
-    [K in keyof T]?: DeepPartial<T[K]>;
+    [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]>;
 } : Partial<T>;
 declare type KeysOfUnion<T> = T extends T ? keyof T : never;
 export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & {
-    [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+    [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never;
 };
 export {};

@@ -5,6 +5,7 @@ import { KeyRequirement } from "../exported/v1beta1/types";
 export declare const protobufPackage = "axelar.tss.v1beta1";
 /** Params is the parameter set for this module */
 export interface Params {
+    $type: "axelar.tss.v1beta1.Params";
     /** KeyRequirements defines the requirement for each key role */
     keyRequirements: KeyRequirement[];
     /**
@@ -26,6 +27,7 @@ export interface Params {
     tssSignedBlocksWindow: Long;
 }
 export declare const Params: {
+    $type: "axelar.tss.v1beta1.Params";
     encode(message: Params, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Params;
     fromJSON(object: any): Params;
@@ -183,7 +185,7 @@ export declare const Params: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
-                } & { [K in Exclude<keyof I["keyRequirements"][number]["minKeygenThreshold"]["numerator"], keyof Long.Long>]: never; }) | undefined;
+                } & { [K in Exclude<keyof I["keyRequirements"][number]["minKeygenThreshold"]["numerator"], "$type" | keyof Long.Long>]: never; }) | undefined;
                 denominator?: string | number | (Long.Long & {
                     high: number;
                     low: number;
@@ -241,8 +243,8 @@ export declare const Params: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
-                } & { [K_1 in Exclude<keyof I["keyRequirements"][number]["minKeygenThreshold"]["denominator"], keyof Long.Long>]: never; }) | undefined;
-            } & { [K_2 in Exclude<keyof I["keyRequirements"][number]["minKeygenThreshold"], keyof Threshold>]: never; }) | undefined;
+                } & { [K_1 in Exclude<keyof I["keyRequirements"][number]["minKeygenThreshold"]["denominator"], "$type" | keyof Long.Long>]: never; }) | undefined;
+            } & { [K_2 in Exclude<keyof I["keyRequirements"][number]["minKeygenThreshold"], "$type" | "numerator" | "denominator">]: never; }) | undefined;
             safetyThreshold?: ({
                 numerator?: string | number | Long.Long | undefined;
                 denominator?: string | number | Long.Long | undefined;
@@ -304,7 +306,7 @@ export declare const Params: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
-                } & { [K_3 in Exclude<keyof I["keyRequirements"][number]["safetyThreshold"]["numerator"], keyof Long.Long>]: never; }) | undefined;
+                } & { [K_3 in Exclude<keyof I["keyRequirements"][number]["safetyThreshold"]["numerator"], "$type" | keyof Long.Long>]: never; }) | undefined;
                 denominator?: string | number | (Long.Long & {
                     high: number;
                     low: number;
@@ -362,8 +364,8 @@ export declare const Params: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
-                } & { [K_4 in Exclude<keyof I["keyRequirements"][number]["safetyThreshold"]["denominator"], keyof Long.Long>]: never; }) | undefined;
-            } & { [K_5 in Exclude<keyof I["keyRequirements"][number]["safetyThreshold"], keyof Threshold>]: never; }) | undefined;
+                } & { [K_4 in Exclude<keyof I["keyRequirements"][number]["safetyThreshold"]["denominator"], "$type" | keyof Long.Long>]: never; }) | undefined;
+            } & { [K_5 in Exclude<keyof I["keyRequirements"][number]["safetyThreshold"], "$type" | "numerator" | "denominator">]: never; }) | undefined;
             keyShareDistributionPolicy?: import("../exported/v1beta1/types").KeyShareDistributionPolicy | undefined;
             maxTotalShareCount?: string | number | (Long.Long & {
                 high: number;
@@ -422,7 +424,7 @@ export declare const Params: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_6 in Exclude<keyof I["keyRequirements"][number]["maxTotalShareCount"], keyof Long.Long>]: never; }) | undefined;
+            } & { [K_6 in Exclude<keyof I["keyRequirements"][number]["maxTotalShareCount"], "$type" | keyof Long.Long>]: never; }) | undefined;
             minTotalShareCount?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -480,7 +482,7 @@ export declare const Params: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_7 in Exclude<keyof I["keyRequirements"][number]["minTotalShareCount"], keyof Long.Long>]: never; }) | undefined;
+            } & { [K_7 in Exclude<keyof I["keyRequirements"][number]["minTotalShareCount"], "$type" | keyof Long.Long>]: never; }) | undefined;
             keygenVotingThreshold?: ({
                 numerator?: string | number | Long.Long | undefined;
                 denominator?: string | number | Long.Long | undefined;
@@ -542,7 +544,7 @@ export declare const Params: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
-                } & { [K_8 in Exclude<keyof I["keyRequirements"][number]["keygenVotingThreshold"]["numerator"], keyof Long.Long>]: never; }) | undefined;
+                } & { [K_8 in Exclude<keyof I["keyRequirements"][number]["keygenVotingThreshold"]["numerator"], "$type" | keyof Long.Long>]: never; }) | undefined;
                 denominator?: string | number | (Long.Long & {
                     high: number;
                     low: number;
@@ -600,8 +602,8 @@ export declare const Params: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
-                } & { [K_9 in Exclude<keyof I["keyRequirements"][number]["keygenVotingThreshold"]["denominator"], keyof Long.Long>]: never; }) | undefined;
-            } & { [K_10 in Exclude<keyof I["keyRequirements"][number]["keygenVotingThreshold"], keyof Threshold>]: never; }) | undefined;
+                } & { [K_9 in Exclude<keyof I["keyRequirements"][number]["keygenVotingThreshold"]["denominator"], "$type" | keyof Long.Long>]: never; }) | undefined;
+            } & { [K_10 in Exclude<keyof I["keyRequirements"][number]["keygenVotingThreshold"], "$type" | "numerator" | "denominator">]: never; }) | undefined;
             signVotingThreshold?: ({
                 numerator?: string | number | Long.Long | undefined;
                 denominator?: string | number | Long.Long | undefined;
@@ -663,7 +665,7 @@ export declare const Params: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
-                } & { [K_11 in Exclude<keyof I["keyRequirements"][number]["signVotingThreshold"]["numerator"], keyof Long.Long>]: never; }) | undefined;
+                } & { [K_11 in Exclude<keyof I["keyRequirements"][number]["signVotingThreshold"]["numerator"], "$type" | keyof Long.Long>]: never; }) | undefined;
                 denominator?: string | number | (Long.Long & {
                     high: number;
                     low: number;
@@ -721,8 +723,8 @@ export declare const Params: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
-                } & { [K_12 in Exclude<keyof I["keyRequirements"][number]["signVotingThreshold"]["denominator"], keyof Long.Long>]: never; }) | undefined;
-            } & { [K_13 in Exclude<keyof I["keyRequirements"][number]["signVotingThreshold"], keyof Threshold>]: never; }) | undefined;
+                } & { [K_12 in Exclude<keyof I["keyRequirements"][number]["signVotingThreshold"]["denominator"], "$type" | keyof Long.Long>]: never; }) | undefined;
+            } & { [K_13 in Exclude<keyof I["keyRequirements"][number]["signVotingThreshold"], "$type" | "numerator" | "denominator">]: never; }) | undefined;
             keygenTimeout?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -780,7 +782,7 @@ export declare const Params: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_14 in Exclude<keyof I["keyRequirements"][number]["keygenTimeout"], keyof Long.Long>]: never; }) | undefined;
+            } & { [K_14 in Exclude<keyof I["keyRequirements"][number]["keygenTimeout"], "$type" | keyof Long.Long>]: never; }) | undefined;
             signTimeout?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -838,8 +840,8 @@ export declare const Params: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_15 in Exclude<keyof I["keyRequirements"][number]["signTimeout"], keyof Long.Long>]: never; }) | undefined;
-        } & { [K_16 in Exclude<keyof I["keyRequirements"][number], keyof KeyRequirement>]: never; })[] & { [K_17 in Exclude<keyof I["keyRequirements"], keyof {
+            } & { [K_15 in Exclude<keyof I["keyRequirements"][number]["signTimeout"], "$type" | keyof Long.Long>]: never; }) | undefined;
+        } & { [K_16 in Exclude<keyof I["keyRequirements"][number], "$type" | "keyRole" | "keyType" | "minKeygenThreshold" | "safetyThreshold" | "keyShareDistributionPolicy" | "maxTotalShareCount" | "minTotalShareCount" | "keygenVotingThreshold" | "signVotingThreshold" | "keygenTimeout" | "signTimeout">]: never; })[] & { [K_17 in Exclude<keyof I["keyRequirements"], "$type" | keyof {
             keyRole?: import("../exported/v1beta1/types").KeyRole | undefined;
             keyType?: import("../exported/v1beta1/types").KeyType | undefined;
             minKeygenThreshold?: {
@@ -921,7 +923,7 @@ export declare const Params: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_18 in Exclude<keyof I["suspendDurationInBlocks"], keyof Long.Long>]: never; }) | undefined;
+        } & { [K_18 in Exclude<keyof I["suspendDurationInBlocks"], "$type" | keyof Long.Long>]: never; }) | undefined;
         heartbeatPeriodInBlocks?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -979,7 +981,7 @@ export declare const Params: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_19 in Exclude<keyof I["heartbeatPeriodInBlocks"], keyof Long.Long>]: never; }) | undefined;
+        } & { [K_19 in Exclude<keyof I["heartbeatPeriodInBlocks"], "$type" | keyof Long.Long>]: never; }) | undefined;
         maxMissedBlocksPerWindow?: ({
             numerator?: string | number | Long.Long | undefined;
             denominator?: string | number | Long.Long | undefined;
@@ -1041,7 +1043,7 @@ export declare const Params: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_20 in Exclude<keyof I["maxMissedBlocksPerWindow"]["numerator"], keyof Long.Long>]: never; }) | undefined;
+            } & { [K_20 in Exclude<keyof I["maxMissedBlocksPerWindow"]["numerator"], "$type" | keyof Long.Long>]: never; }) | undefined;
             denominator?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -1099,8 +1101,8 @@ export declare const Params: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_21 in Exclude<keyof I["maxMissedBlocksPerWindow"]["denominator"], keyof Long.Long>]: never; }) | undefined;
-        } & { [K_22 in Exclude<keyof I["maxMissedBlocksPerWindow"], keyof Threshold>]: never; }) | undefined;
+            } & { [K_21 in Exclude<keyof I["maxMissedBlocksPerWindow"]["denominator"], "$type" | keyof Long.Long>]: never; }) | undefined;
+        } & { [K_22 in Exclude<keyof I["maxMissedBlocksPerWindow"], "$type" | "numerator" | "denominator">]: never; }) | undefined;
         unbondingLockingKeyRotationCount?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -1158,7 +1160,7 @@ export declare const Params: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_23 in Exclude<keyof I["unbondingLockingKeyRotationCount"], keyof Long.Long>]: never; }) | undefined;
+        } & { [K_23 in Exclude<keyof I["unbondingLockingKeyRotationCount"], "$type" | keyof Long.Long>]: never; }) | undefined;
         externalMultisigThreshold?: ({
             numerator?: string | number | Long.Long | undefined;
             denominator?: string | number | Long.Long | undefined;
@@ -1220,7 +1222,7 @@ export declare const Params: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_24 in Exclude<keyof I["externalMultisigThreshold"]["numerator"], keyof Long.Long>]: never; }) | undefined;
+            } & { [K_24 in Exclude<keyof I["externalMultisigThreshold"]["numerator"], "$type" | keyof Long.Long>]: never; }) | undefined;
             denominator?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -1278,8 +1280,8 @@ export declare const Params: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_25 in Exclude<keyof I["externalMultisigThreshold"]["denominator"], keyof Long.Long>]: never; }) | undefined;
-        } & { [K_26 in Exclude<keyof I["externalMultisigThreshold"], keyof Threshold>]: never; }) | undefined;
+            } & { [K_25 in Exclude<keyof I["externalMultisigThreshold"]["denominator"], "$type" | keyof Long.Long>]: never; }) | undefined;
+        } & { [K_26 in Exclude<keyof I["externalMultisigThreshold"], "$type" | "numerator" | "denominator">]: never; }) | undefined;
         maxSignQueueSize?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -1337,7 +1339,7 @@ export declare const Params: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_27 in Exclude<keyof I["maxSignQueueSize"], keyof Long.Long>]: never; }) | undefined;
+        } & { [K_27 in Exclude<keyof I["maxSignQueueSize"], "$type" | keyof Long.Long>]: never; }) | undefined;
         maxSimultaneousSignShares?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -1395,7 +1397,7 @@ export declare const Params: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_28 in Exclude<keyof I["maxSimultaneousSignShares"], keyof Long.Long>]: never; }) | undefined;
+        } & { [K_28 in Exclude<keyof I["maxSimultaneousSignShares"], "$type" | keyof Long.Long>]: never; }) | undefined;
         tssSignedBlocksWindow?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -1453,8 +1455,8 @@ export declare const Params: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_29 in Exclude<keyof I["tssSignedBlocksWindow"], keyof Long.Long>]: never; }) | undefined;
-    } & { [K_30 in Exclude<keyof I, keyof Params>]: never; }>(base?: I | undefined): Params;
+        } & { [K_29 in Exclude<keyof I["tssSignedBlocksWindow"], "$type" | keyof Long.Long>]: never; }) | undefined;
+    } & { [K_30 in Exclude<keyof I, "$type" | "keyRequirements" | "suspendDurationInBlocks" | "heartbeatPeriodInBlocks" | "maxMissedBlocksPerWindow" | "unbondingLockingKeyRotationCount" | "externalMultisigThreshold" | "maxSignQueueSize" | "maxSimultaneousSignShares" | "tssSignedBlocksWindow">]: never; }>(base?: I | undefined): Params;
     fromPartial<I_1 extends {
         keyRequirements?: {
             keyRole?: import("../exported/v1beta1/types").KeyRole | undefined;
@@ -1608,7 +1610,7 @@ export declare const Params: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
-                } & { [K_31 in Exclude<keyof I_1["keyRequirements"][number]["minKeygenThreshold"]["numerator"], keyof Long.Long>]: never; }) | undefined;
+                } & { [K_31 in Exclude<keyof I_1["keyRequirements"][number]["minKeygenThreshold"]["numerator"], "$type" | keyof Long.Long>]: never; }) | undefined;
                 denominator?: string | number | (Long.Long & {
                     high: number;
                     low: number;
@@ -1666,8 +1668,8 @@ export declare const Params: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
-                } & { [K_32 in Exclude<keyof I_1["keyRequirements"][number]["minKeygenThreshold"]["denominator"], keyof Long.Long>]: never; }) | undefined;
-            } & { [K_33 in Exclude<keyof I_1["keyRequirements"][number]["minKeygenThreshold"], keyof Threshold>]: never; }) | undefined;
+                } & { [K_32 in Exclude<keyof I_1["keyRequirements"][number]["minKeygenThreshold"]["denominator"], "$type" | keyof Long.Long>]: never; }) | undefined;
+            } & { [K_33 in Exclude<keyof I_1["keyRequirements"][number]["minKeygenThreshold"], "$type" | "numerator" | "denominator">]: never; }) | undefined;
             safetyThreshold?: ({
                 numerator?: string | number | Long.Long | undefined;
                 denominator?: string | number | Long.Long | undefined;
@@ -1729,7 +1731,7 @@ export declare const Params: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
-                } & { [K_34 in Exclude<keyof I_1["keyRequirements"][number]["safetyThreshold"]["numerator"], keyof Long.Long>]: never; }) | undefined;
+                } & { [K_34 in Exclude<keyof I_1["keyRequirements"][number]["safetyThreshold"]["numerator"], "$type" | keyof Long.Long>]: never; }) | undefined;
                 denominator?: string | number | (Long.Long & {
                     high: number;
                     low: number;
@@ -1787,8 +1789,8 @@ export declare const Params: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
-                } & { [K_35 in Exclude<keyof I_1["keyRequirements"][number]["safetyThreshold"]["denominator"], keyof Long.Long>]: never; }) | undefined;
-            } & { [K_36 in Exclude<keyof I_1["keyRequirements"][number]["safetyThreshold"], keyof Threshold>]: never; }) | undefined;
+                } & { [K_35 in Exclude<keyof I_1["keyRequirements"][number]["safetyThreshold"]["denominator"], "$type" | keyof Long.Long>]: never; }) | undefined;
+            } & { [K_36 in Exclude<keyof I_1["keyRequirements"][number]["safetyThreshold"], "$type" | "numerator" | "denominator">]: never; }) | undefined;
             keyShareDistributionPolicy?: import("../exported/v1beta1/types").KeyShareDistributionPolicy | undefined;
             maxTotalShareCount?: string | number | (Long.Long & {
                 high: number;
@@ -1847,7 +1849,7 @@ export declare const Params: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_37 in Exclude<keyof I_1["keyRequirements"][number]["maxTotalShareCount"], keyof Long.Long>]: never; }) | undefined;
+            } & { [K_37 in Exclude<keyof I_1["keyRequirements"][number]["maxTotalShareCount"], "$type" | keyof Long.Long>]: never; }) | undefined;
             minTotalShareCount?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -1905,7 +1907,7 @@ export declare const Params: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_38 in Exclude<keyof I_1["keyRequirements"][number]["minTotalShareCount"], keyof Long.Long>]: never; }) | undefined;
+            } & { [K_38 in Exclude<keyof I_1["keyRequirements"][number]["minTotalShareCount"], "$type" | keyof Long.Long>]: never; }) | undefined;
             keygenVotingThreshold?: ({
                 numerator?: string | number | Long.Long | undefined;
                 denominator?: string | number | Long.Long | undefined;
@@ -1967,7 +1969,7 @@ export declare const Params: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
-                } & { [K_39 in Exclude<keyof I_1["keyRequirements"][number]["keygenVotingThreshold"]["numerator"], keyof Long.Long>]: never; }) | undefined;
+                } & { [K_39 in Exclude<keyof I_1["keyRequirements"][number]["keygenVotingThreshold"]["numerator"], "$type" | keyof Long.Long>]: never; }) | undefined;
                 denominator?: string | number | (Long.Long & {
                     high: number;
                     low: number;
@@ -2025,8 +2027,8 @@ export declare const Params: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
-                } & { [K_40 in Exclude<keyof I_1["keyRequirements"][number]["keygenVotingThreshold"]["denominator"], keyof Long.Long>]: never; }) | undefined;
-            } & { [K_41 in Exclude<keyof I_1["keyRequirements"][number]["keygenVotingThreshold"], keyof Threshold>]: never; }) | undefined;
+                } & { [K_40 in Exclude<keyof I_1["keyRequirements"][number]["keygenVotingThreshold"]["denominator"], "$type" | keyof Long.Long>]: never; }) | undefined;
+            } & { [K_41 in Exclude<keyof I_1["keyRequirements"][number]["keygenVotingThreshold"], "$type" | "numerator" | "denominator">]: never; }) | undefined;
             signVotingThreshold?: ({
                 numerator?: string | number | Long.Long | undefined;
                 denominator?: string | number | Long.Long | undefined;
@@ -2088,7 +2090,7 @@ export declare const Params: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
-                } & { [K_42 in Exclude<keyof I_1["keyRequirements"][number]["signVotingThreshold"]["numerator"], keyof Long.Long>]: never; }) | undefined;
+                } & { [K_42 in Exclude<keyof I_1["keyRequirements"][number]["signVotingThreshold"]["numerator"], "$type" | keyof Long.Long>]: never; }) | undefined;
                 denominator?: string | number | (Long.Long & {
                     high: number;
                     low: number;
@@ -2146,8 +2148,8 @@ export declare const Params: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
-                } & { [K_43 in Exclude<keyof I_1["keyRequirements"][number]["signVotingThreshold"]["denominator"], keyof Long.Long>]: never; }) | undefined;
-            } & { [K_44 in Exclude<keyof I_1["keyRequirements"][number]["signVotingThreshold"], keyof Threshold>]: never; }) | undefined;
+                } & { [K_43 in Exclude<keyof I_1["keyRequirements"][number]["signVotingThreshold"]["denominator"], "$type" | keyof Long.Long>]: never; }) | undefined;
+            } & { [K_44 in Exclude<keyof I_1["keyRequirements"][number]["signVotingThreshold"], "$type" | "numerator" | "denominator">]: never; }) | undefined;
             keygenTimeout?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -2205,7 +2207,7 @@ export declare const Params: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_45 in Exclude<keyof I_1["keyRequirements"][number]["keygenTimeout"], keyof Long.Long>]: never; }) | undefined;
+            } & { [K_45 in Exclude<keyof I_1["keyRequirements"][number]["keygenTimeout"], "$type" | keyof Long.Long>]: never; }) | undefined;
             signTimeout?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -2263,8 +2265,8 @@ export declare const Params: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_46 in Exclude<keyof I_1["keyRequirements"][number]["signTimeout"], keyof Long.Long>]: never; }) | undefined;
-        } & { [K_47 in Exclude<keyof I_1["keyRequirements"][number], keyof KeyRequirement>]: never; })[] & { [K_48 in Exclude<keyof I_1["keyRequirements"], keyof {
+            } & { [K_46 in Exclude<keyof I_1["keyRequirements"][number]["signTimeout"], "$type" | keyof Long.Long>]: never; }) | undefined;
+        } & { [K_47 in Exclude<keyof I_1["keyRequirements"][number], "$type" | "keyRole" | "keyType" | "minKeygenThreshold" | "safetyThreshold" | "keyShareDistributionPolicy" | "maxTotalShareCount" | "minTotalShareCount" | "keygenVotingThreshold" | "signVotingThreshold" | "keygenTimeout" | "signTimeout">]: never; })[] & { [K_48 in Exclude<keyof I_1["keyRequirements"], "$type" | keyof {
             keyRole?: import("../exported/v1beta1/types").KeyRole | undefined;
             keyType?: import("../exported/v1beta1/types").KeyType | undefined;
             minKeygenThreshold?: {
@@ -2346,7 +2348,7 @@ export declare const Params: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_49 in Exclude<keyof I_1["suspendDurationInBlocks"], keyof Long.Long>]: never; }) | undefined;
+        } & { [K_49 in Exclude<keyof I_1["suspendDurationInBlocks"], "$type" | keyof Long.Long>]: never; }) | undefined;
         heartbeatPeriodInBlocks?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -2404,7 +2406,7 @@ export declare const Params: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_50 in Exclude<keyof I_1["heartbeatPeriodInBlocks"], keyof Long.Long>]: never; }) | undefined;
+        } & { [K_50 in Exclude<keyof I_1["heartbeatPeriodInBlocks"], "$type" | keyof Long.Long>]: never; }) | undefined;
         maxMissedBlocksPerWindow?: ({
             numerator?: string | number | Long.Long | undefined;
             denominator?: string | number | Long.Long | undefined;
@@ -2466,7 +2468,7 @@ export declare const Params: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_51 in Exclude<keyof I_1["maxMissedBlocksPerWindow"]["numerator"], keyof Long.Long>]: never; }) | undefined;
+            } & { [K_51 in Exclude<keyof I_1["maxMissedBlocksPerWindow"]["numerator"], "$type" | keyof Long.Long>]: never; }) | undefined;
             denominator?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -2524,8 +2526,8 @@ export declare const Params: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_52 in Exclude<keyof I_1["maxMissedBlocksPerWindow"]["denominator"], keyof Long.Long>]: never; }) | undefined;
-        } & { [K_53 in Exclude<keyof I_1["maxMissedBlocksPerWindow"], keyof Threshold>]: never; }) | undefined;
+            } & { [K_52 in Exclude<keyof I_1["maxMissedBlocksPerWindow"]["denominator"], "$type" | keyof Long.Long>]: never; }) | undefined;
+        } & { [K_53 in Exclude<keyof I_1["maxMissedBlocksPerWindow"], "$type" | "numerator" | "denominator">]: never; }) | undefined;
         unbondingLockingKeyRotationCount?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -2583,7 +2585,7 @@ export declare const Params: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_54 in Exclude<keyof I_1["unbondingLockingKeyRotationCount"], keyof Long.Long>]: never; }) | undefined;
+        } & { [K_54 in Exclude<keyof I_1["unbondingLockingKeyRotationCount"], "$type" | keyof Long.Long>]: never; }) | undefined;
         externalMultisigThreshold?: ({
             numerator?: string | number | Long.Long | undefined;
             denominator?: string | number | Long.Long | undefined;
@@ -2645,7 +2647,7 @@ export declare const Params: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_55 in Exclude<keyof I_1["externalMultisigThreshold"]["numerator"], keyof Long.Long>]: never; }) | undefined;
+            } & { [K_55 in Exclude<keyof I_1["externalMultisigThreshold"]["numerator"], "$type" | keyof Long.Long>]: never; }) | undefined;
             denominator?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -2703,8 +2705,8 @@ export declare const Params: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_56 in Exclude<keyof I_1["externalMultisigThreshold"]["denominator"], keyof Long.Long>]: never; }) | undefined;
-        } & { [K_57 in Exclude<keyof I_1["externalMultisigThreshold"], keyof Threshold>]: never; }) | undefined;
+            } & { [K_56 in Exclude<keyof I_1["externalMultisigThreshold"]["denominator"], "$type" | keyof Long.Long>]: never; }) | undefined;
+        } & { [K_57 in Exclude<keyof I_1["externalMultisigThreshold"], "$type" | "numerator" | "denominator">]: never; }) | undefined;
         maxSignQueueSize?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -2762,7 +2764,7 @@ export declare const Params: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_58 in Exclude<keyof I_1["maxSignQueueSize"], keyof Long.Long>]: never; }) | undefined;
+        } & { [K_58 in Exclude<keyof I_1["maxSignQueueSize"], "$type" | keyof Long.Long>]: never; }) | undefined;
         maxSimultaneousSignShares?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -2820,7 +2822,7 @@ export declare const Params: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_59 in Exclude<keyof I_1["maxSimultaneousSignShares"], keyof Long.Long>]: never; }) | undefined;
+        } & { [K_59 in Exclude<keyof I_1["maxSimultaneousSignShares"], "$type" | keyof Long.Long>]: never; }) | undefined;
         tssSignedBlocksWindow?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -2878,17 +2880,17 @@ export declare const Params: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_60 in Exclude<keyof I_1["tssSignedBlocksWindow"], keyof Long.Long>]: never; }) | undefined;
-    } & { [K_61 in Exclude<keyof I_1, keyof Params>]: never; }>(object: I_1): Params;
+        } & { [K_60 in Exclude<keyof I_1["tssSignedBlocksWindow"], "$type" | keyof Long.Long>]: never; }) | undefined;
+    } & { [K_61 in Exclude<keyof I_1, "$type" | "keyRequirements" | "suspendDurationInBlocks" | "heartbeatPeriodInBlocks" | "maxMissedBlocksPerWindow" | "unbondingLockingKeyRotationCount" | "externalMultisigThreshold" | "maxSignQueueSize" | "maxSimultaneousSignShares" | "tssSignedBlocksWindow">]: never; }>(object: I_1): Params;
 };
 declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
-    [K in keyof T]?: DeepPartial<T[K]>;
+    [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]>;
 } : Partial<T>;
 declare type KeysOfUnion<T> = T extends T ? keyof T : never;
 export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & {
-    [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+    [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never;
 };
 export {};

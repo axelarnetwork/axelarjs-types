@@ -12,12 +12,14 @@ exports.ParamsResponse = exports.ParamsRequest = exports.InflationRateResponse =
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const typeRegistry_1 = require("../../../typeRegistry");
 const params_1 = require("./params");
 exports.protobufPackage = "axelar.reward.v1beta1";
 function createBaseInflationRateRequest() {
-    return { validator: "" };
+    return { $type: "axelar.reward.v1beta1.InflationRateRequest", validator: "" };
 }
 exports.InflationRateRequest = {
+    $type: "axelar.reward.v1beta1.InflationRateRequest",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.validator !== "") {
             writer.uint32(10).string(message.validator);
@@ -46,7 +48,10 @@ exports.InflationRateRequest = {
         return message;
     },
     fromJSON(object) {
-        return { validator: isSet(object.validator) ? gt.String(object.validator) : "" };
+        return {
+            $type: exports.InflationRateRequest.$type,
+            validator: isSet(object.validator) ? gt.String(object.validator) : "",
+        };
     },
     toJSON(message) {
         const obj = {};
@@ -65,10 +70,12 @@ exports.InflationRateRequest = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.InflationRateRequest.$type, exports.InflationRateRequest);
 function createBaseInflationRateResponse() {
-    return { inflationRate: Buffer.alloc(0) };
+    return { $type: "axelar.reward.v1beta1.InflationRateResponse", inflationRate: Buffer.alloc(0) };
 }
 exports.InflationRateResponse = {
+    $type: "axelar.reward.v1beta1.InflationRateResponse",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.inflationRate.length !== 0) {
             writer.uint32(10).bytes(message.inflationRate);
@@ -98,6 +105,7 @@ exports.InflationRateResponse = {
     },
     fromJSON(object) {
         return {
+            $type: exports.InflationRateResponse.$type,
             inflationRate: isSet(object.inflationRate)
                 ? Buffer.from(bytesFromBase64(object.inflationRate))
                 : Buffer.alloc(0),
@@ -120,10 +128,12 @@ exports.InflationRateResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.InflationRateResponse.$type, exports.InflationRateResponse);
 function createBaseParamsRequest() {
-    return {};
+    return { $type: "axelar.reward.v1beta1.ParamsRequest" };
 }
 exports.ParamsRequest = {
+    $type: "axelar.reward.v1beta1.ParamsRequest",
     encode(_, writer = minimal_1.default.Writer.create()) {
         return writer;
     },
@@ -143,7 +153,7 @@ exports.ParamsRequest = {
         return message;
     },
     fromJSON(_) {
-        return {};
+        return { $type: exports.ParamsRequest.$type };
     },
     toJSON(_) {
         const obj = {};
@@ -157,10 +167,12 @@ exports.ParamsRequest = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.ParamsRequest.$type, exports.ParamsRequest);
 function createBaseParamsResponse() {
-    return { params: undefined };
+    return { $type: "axelar.reward.v1beta1.ParamsResponse", params: undefined };
 }
 exports.ParamsResponse = {
+    $type: "axelar.reward.v1beta1.ParamsResponse",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.params !== undefined) {
             params_1.Params.encode(message.params, writer.uint32(10).fork()).ldelim();
@@ -189,7 +201,10 @@ exports.ParamsResponse = {
         return message;
     },
     fromJSON(object) {
-        return { params: isSet(object.params) ? params_1.Params.fromJSON(object.params) : undefined };
+        return {
+            $type: exports.ParamsResponse.$type,
+            params: isSet(object.params) ? params_1.Params.fromJSON(object.params) : undefined,
+        };
     },
     toJSON(message) {
         const obj = {};
@@ -208,6 +223,7 @@ exports.ParamsResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.ParamsResponse.$type, exports.ParamsResponse);
 const gt = (() => {
     if (typeof globalThis !== "undefined") {
         return globalThis;

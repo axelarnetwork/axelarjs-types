@@ -1,5 +1,5 @@
 import { KeygenSessionRequest, KeygenSessionResponse, KeyIDRequest, KeyIDResponse, KeyRequest, KeyResponse, NextKeyIDRequest, NextKeyIDResponse, ParamsRequest, ParamsResponse } from "./query";
-import { KeygenOptInRequest, KeygenOptInResponse, KeygenOptOutRequest, KeygenOptOutResponse, RotateKeyRequest, RotateKeyResponse, StartKeygenRequest, StartKeygenResponse, SubmitPubKeyRequest, SubmitPubKeyResponse, SubmitSignatureRequest, SubmitSignatureResponse } from "./tx";
+import { KeygenOptInRequest, KeygenOptInResponse, KeygenOptOutRequest, KeygenOptOutResponse, RotateKeyRequest, RotateKeyResponse, StartKeygenRequest, StartKeygenResponse, SubmitPubKeyRequest, SubmitPubKeyResponse, SubmitSignatureRequest, SubmitSignatureResponse, UpdateParamsRequest, UpdateParamsResponse } from "./tx";
 export declare const protobufPackage = "axelar.multisig.v1beta1";
 /** Msg defines the multisig Msg service. */
 export interface MsgService {
@@ -9,6 +9,7 @@ export interface MsgService {
     RotateKey(request: RotateKeyRequest): Promise<RotateKeyResponse>;
     KeygenOptOut(request: KeygenOptOutRequest): Promise<KeygenOptOutResponse>;
     KeygenOptIn(request: KeygenOptInRequest): Promise<KeygenOptInResponse>;
+    UpdateParams(request: UpdateParamsRequest): Promise<UpdateParamsResponse>;
 }
 export declare const MsgServiceServiceName = "axelar.multisig.v1beta1.MsgService";
 export declare class MsgServiceClientImpl implements MsgService {
@@ -23,6 +24,7 @@ export declare class MsgServiceClientImpl implements MsgService {
     RotateKey(request: RotateKeyRequest): Promise<RotateKeyResponse>;
     KeygenOptOut(request: KeygenOptOutRequest): Promise<KeygenOptOutResponse>;
     KeygenOptIn(request: KeygenOptInRequest): Promise<KeygenOptInResponse>;
+    UpdateParams(request: UpdateParamsRequest): Promise<UpdateParamsResponse>;
 }
 /** Query defines the gRPC querier service. */
 export interface QueryService {

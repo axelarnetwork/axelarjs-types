@@ -2,30 +2,34 @@ import Long from "long";
 import _m0 from "protobufjs/minimal";
 export declare const protobufPackage = "axelar.utils.v1beta1";
 export interface Bitmap {
+    $type: "axelar.utils.v1beta1.Bitmap";
     trueCountCache?: CircularBuffer | undefined;
 }
 export interface CircularBuffer {
+    $type: "axelar.utils.v1beta1.CircularBuffer";
     cumulativeValue: Long[];
     index: number;
     maxSize: number;
 }
 export declare const Bitmap: {
+    $type: "axelar.utils.v1beta1.Bitmap";
     encode(message: Bitmap, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Bitmap;
     fromJSON(object: any): Bitmap;
     toJSON(message: Bitmap): unknown;
     create<I extends {
         trueCountCache?: {
-            cumulativeValue?: (string | number | Long.Long)[] | undefined;
             index?: number | undefined;
+            cumulativeValue?: (string | number | Long.Long)[] | undefined;
             maxSize?: number | undefined;
         } | undefined;
     } & {
         trueCountCache?: ({
-            cumulativeValue?: (string | number | Long.Long)[] | undefined;
             index?: number | undefined;
+            cumulativeValue?: (string | number | Long.Long)[] | undefined;
             maxSize?: number | undefined;
         } & {
+            index?: number | undefined;
             cumulativeValue?: ((string | number | Long.Long)[] & (string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -83,23 +87,23 @@ export declare const Bitmap: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K in Exclude<keyof I["trueCountCache"]["cumulativeValue"][number], keyof Long.Long>]: never; }))[] & { [K_1 in Exclude<keyof I["trueCountCache"]["cumulativeValue"], keyof (string | number | Long.Long)[]>]: never; }) | undefined;
-            index?: number | undefined;
+            } & { [K in Exclude<keyof I["trueCountCache"]["cumulativeValue"][number], "$type" | keyof Long.Long>]: never; }))[] & { [K_1 in Exclude<keyof I["trueCountCache"]["cumulativeValue"], "$type" | keyof (string | number | Long.Long)[]>]: never; }) | undefined;
             maxSize?: number | undefined;
-        } & { [K_2 in Exclude<keyof I["trueCountCache"], keyof CircularBuffer>]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I, "trueCountCache">]: never; }>(base?: I | undefined): Bitmap;
+        } & { [K_2 in Exclude<keyof I["trueCountCache"], "$type" | "index" | "cumulativeValue" | "maxSize">]: never; }) | undefined;
+    } & { [K_3 in Exclude<keyof I, "$type" | "trueCountCache">]: never; }>(base?: I | undefined): Bitmap;
     fromPartial<I_1 extends {
         trueCountCache?: {
-            cumulativeValue?: (string | number | Long.Long)[] | undefined;
             index?: number | undefined;
+            cumulativeValue?: (string | number | Long.Long)[] | undefined;
             maxSize?: number | undefined;
         } | undefined;
     } & {
         trueCountCache?: ({
-            cumulativeValue?: (string | number | Long.Long)[] | undefined;
             index?: number | undefined;
+            cumulativeValue?: (string | number | Long.Long)[] | undefined;
             maxSize?: number | undefined;
         } & {
+            index?: number | undefined;
             cumulativeValue?: ((string | number | Long.Long)[] & (string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -157,22 +161,23 @@ export declare const Bitmap: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_4 in Exclude<keyof I_1["trueCountCache"]["cumulativeValue"][number], keyof Long.Long>]: never; }))[] & { [K_5 in Exclude<keyof I_1["trueCountCache"]["cumulativeValue"], keyof (string | number | Long.Long)[]>]: never; }) | undefined;
-            index?: number | undefined;
+            } & { [K_4 in Exclude<keyof I_1["trueCountCache"]["cumulativeValue"][number], "$type" | keyof Long.Long>]: never; }))[] & { [K_5 in Exclude<keyof I_1["trueCountCache"]["cumulativeValue"], "$type" | keyof (string | number | Long.Long)[]>]: never; }) | undefined;
             maxSize?: number | undefined;
-        } & { [K_6 in Exclude<keyof I_1["trueCountCache"], keyof CircularBuffer>]: never; }) | undefined;
-    } & { [K_7 in Exclude<keyof I_1, "trueCountCache">]: never; }>(object: I_1): Bitmap;
+        } & { [K_6 in Exclude<keyof I_1["trueCountCache"], "$type" | "index" | "cumulativeValue" | "maxSize">]: never; }) | undefined;
+    } & { [K_7 in Exclude<keyof I_1, "$type" | "trueCountCache">]: never; }>(object: I_1): Bitmap;
 };
 export declare const CircularBuffer: {
+    $type: "axelar.utils.v1beta1.CircularBuffer";
     encode(message: CircularBuffer, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): CircularBuffer;
     fromJSON(object: any): CircularBuffer;
     toJSON(message: CircularBuffer): unknown;
     create<I extends {
-        cumulativeValue?: (string | number | Long.Long)[] | undefined;
         index?: number | undefined;
+        cumulativeValue?: (string | number | Long.Long)[] | undefined;
         maxSize?: number | undefined;
     } & {
+        index?: number | undefined;
         cumulativeValue?: ((string | number | Long.Long)[] & (string | number | (Long.Long & {
             high: number;
             low: number;
@@ -230,15 +235,15 @@ export declare const CircularBuffer: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K in Exclude<keyof I["cumulativeValue"][number], keyof Long.Long>]: never; }))[] & { [K_1 in Exclude<keyof I["cumulativeValue"], keyof (string | number | Long.Long)[]>]: never; }) | undefined;
-        index?: number | undefined;
+        } & { [K in Exclude<keyof I["cumulativeValue"][number], "$type" | keyof Long.Long>]: never; }))[] & { [K_1 in Exclude<keyof I["cumulativeValue"], "$type" | keyof (string | number | Long.Long)[]>]: never; }) | undefined;
         maxSize?: number | undefined;
-    } & { [K_2 in Exclude<keyof I, keyof CircularBuffer>]: never; }>(base?: I | undefined): CircularBuffer;
+    } & { [K_2 in Exclude<keyof I, "$type" | "index" | "cumulativeValue" | "maxSize">]: never; }>(base?: I | undefined): CircularBuffer;
     fromPartial<I_1 extends {
-        cumulativeValue?: (string | number | Long.Long)[] | undefined;
         index?: number | undefined;
+        cumulativeValue?: (string | number | Long.Long)[] | undefined;
         maxSize?: number | undefined;
     } & {
+        index?: number | undefined;
         cumulativeValue?: ((string | number | Long.Long)[] & (string | number | (Long.Long & {
             high: number;
             low: number;
@@ -296,19 +301,18 @@ export declare const CircularBuffer: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_3 in Exclude<keyof I_1["cumulativeValue"][number], keyof Long.Long>]: never; }))[] & { [K_4 in Exclude<keyof I_1["cumulativeValue"], keyof (string | number | Long.Long)[]>]: never; }) | undefined;
-        index?: number | undefined;
+        } & { [K_3 in Exclude<keyof I_1["cumulativeValue"][number], "$type" | keyof Long.Long>]: never; }))[] & { [K_4 in Exclude<keyof I_1["cumulativeValue"], "$type" | keyof (string | number | Long.Long)[]>]: never; }) | undefined;
         maxSize?: number | undefined;
-    } & { [K_5 in Exclude<keyof I_1, keyof CircularBuffer>]: never; }>(object: I_1): CircularBuffer;
+    } & { [K_5 in Exclude<keyof I_1, "$type" | "index" | "cumulativeValue" | "maxSize">]: never; }>(object: I_1): CircularBuffer;
 };
 declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
-    [K in keyof T]?: DeepPartial<T[K]>;
+    [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]>;
 } : Partial<T>;
 declare type KeysOfUnion<T> = T extends T ? keyof T : never;
 export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & {
-    [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+    [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never;
 };
 export {};

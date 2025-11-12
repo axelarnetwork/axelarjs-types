@@ -5,6 +5,7 @@ import { Threshold } from "../../utils/v1beta1/threshold";
 export declare const protobufPackage = "axelar.nexus.v1beta1";
 /** Params represent the genesis parameters for the module */
 export interface Params {
+    $type: "axelar.nexus.v1beta1.Params";
     chainActivationThreshold?: Threshold | undefined;
     chainMaintainerMissingVoteThreshold?: Threshold | undefined;
     chainMaintainerIncorrectVoteThreshold?: Threshold | undefined;
@@ -13,11 +14,14 @@ export interface Params {
     endBlockerLimit: Long;
 }
 export declare const Params: {
+    $type: "axelar.nexus.v1beta1.Params";
     encode(message: Params, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Params;
     fromJSON(object: any): Params;
     toJSON(message: Params): unknown;
     create<I extends {
+        endBlockerLimit?: string | number | Long.Long | undefined;
+        gateway?: Buffer | undefined;
         chainActivationThreshold?: {
             numerator?: string | number | Long.Long | undefined;
             denominator?: string | number | Long.Long | undefined;
@@ -31,9 +35,66 @@ export declare const Params: {
             denominator?: string | number | Long.Long | undefined;
         } | undefined;
         chainMaintainerCheckWindow?: number | undefined;
-        gateway?: Buffer | undefined;
-        endBlockerLimit?: string | number | Long.Long | undefined;
     } & {
+        endBlockerLimit?: string | number | (Long.Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long.Long) => Long.Long;
+            and: (other: string | number | Long.Long) => Long.Long;
+            compare: (other: string | number | Long.Long) => number;
+            comp: (other: string | number | Long.Long) => number;
+            divide: (divisor: string | number | Long.Long) => Long.Long;
+            div: (divisor: string | number | Long.Long) => Long.Long;
+            equals: (other: string | number | Long.Long) => boolean;
+            eq: (other: string | number | Long.Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long.Long) => boolean;
+            gt: (other: string | number | Long.Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+            gte: (other: string | number | Long.Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            lessThan: (other: string | number | Long.Long) => boolean;
+            lt: (other: string | number | Long.Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+            lte: (other: string | number | Long.Long) => boolean;
+            modulo: (other: string | number | Long.Long) => Long.Long;
+            mod: (other: string | number | Long.Long) => Long.Long;
+            multiply: (multiplier: string | number | Long.Long) => Long.Long;
+            mul: (multiplier: string | number | Long.Long) => Long.Long;
+            negate: () => Long.Long;
+            neg: () => Long.Long;
+            not: () => Long.Long;
+            notEquals: (other: string | number | Long.Long) => boolean;
+            neq: (other: string | number | Long.Long) => boolean;
+            or: (other: string | number | Long.Long) => Long.Long;
+            shiftLeft: (numBits: number | Long.Long) => Long.Long;
+            shl: (numBits: number | Long.Long) => Long.Long;
+            shiftRight: (numBits: number | Long.Long) => Long.Long;
+            shr: (numBits: number | Long.Long) => Long.Long;
+            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+            shru: (numBits: number | Long.Long) => Long.Long;
+            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+            sub: (subtrahend: string | number | Long.Long) => Long.Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long.Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long.Long;
+            xor: (other: string | number | Long.Long) => Long.Long;
+        } & { [K in Exclude<keyof I["endBlockerLimit"], "$type" | keyof Long.Long>]: never; }) | undefined;
+        gateway?: Buffer | undefined;
         chainActivationThreshold?: ({
             numerator?: string | number | Long.Long | undefined;
             denominator?: string | number | Long.Long | undefined;
@@ -95,7 +156,7 @@ export declare const Params: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K in Exclude<keyof I["chainActivationThreshold"]["numerator"], keyof Long.Long>]: never; }) | undefined;
+            } & { [K_1 in Exclude<keyof I["chainActivationThreshold"]["numerator"], "$type" | keyof Long.Long>]: never; }) | undefined;
             denominator?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -153,8 +214,8 @@ export declare const Params: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_1 in Exclude<keyof I["chainActivationThreshold"]["denominator"], keyof Long.Long>]: never; }) | undefined;
-        } & { [K_2 in Exclude<keyof I["chainActivationThreshold"], keyof Threshold>]: never; }) | undefined;
+            } & { [K_2 in Exclude<keyof I["chainActivationThreshold"]["denominator"], "$type" | keyof Long.Long>]: never; }) | undefined;
+        } & { [K_3 in Exclude<keyof I["chainActivationThreshold"], "$type" | "numerator" | "denominator">]: never; }) | undefined;
         chainMaintainerMissingVoteThreshold?: ({
             numerator?: string | number | Long.Long | undefined;
             denominator?: string | number | Long.Long | undefined;
@@ -216,7 +277,7 @@ export declare const Params: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_3 in Exclude<keyof I["chainMaintainerMissingVoteThreshold"]["numerator"], keyof Long.Long>]: never; }) | undefined;
+            } & { [K_4 in Exclude<keyof I["chainMaintainerMissingVoteThreshold"]["numerator"], "$type" | keyof Long.Long>]: never; }) | undefined;
             denominator?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -274,8 +335,8 @@ export declare const Params: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_4 in Exclude<keyof I["chainMaintainerMissingVoteThreshold"]["denominator"], keyof Long.Long>]: never; }) | undefined;
-        } & { [K_5 in Exclude<keyof I["chainMaintainerMissingVoteThreshold"], keyof Threshold>]: never; }) | undefined;
+            } & { [K_5 in Exclude<keyof I["chainMaintainerMissingVoteThreshold"]["denominator"], "$type" | keyof Long.Long>]: never; }) | undefined;
+        } & { [K_6 in Exclude<keyof I["chainMaintainerMissingVoteThreshold"], "$type" | "numerator" | "denominator">]: never; }) | undefined;
         chainMaintainerIncorrectVoteThreshold?: ({
             numerator?: string | number | Long.Long | undefined;
             denominator?: string | number | Long.Long | undefined;
@@ -337,7 +398,7 @@ export declare const Params: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_6 in Exclude<keyof I["chainMaintainerIncorrectVoteThreshold"]["numerator"], keyof Long.Long>]: never; }) | undefined;
+            } & { [K_7 in Exclude<keyof I["chainMaintainerIncorrectVoteThreshold"]["numerator"], "$type" | keyof Long.Long>]: never; }) | undefined;
             denominator?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -395,70 +456,13 @@ export declare const Params: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_7 in Exclude<keyof I["chainMaintainerIncorrectVoteThreshold"]["denominator"], keyof Long.Long>]: never; }) | undefined;
-        } & { [K_8 in Exclude<keyof I["chainMaintainerIncorrectVoteThreshold"], keyof Threshold>]: never; }) | undefined;
+            } & { [K_8 in Exclude<keyof I["chainMaintainerIncorrectVoteThreshold"]["denominator"], "$type" | keyof Long.Long>]: never; }) | undefined;
+        } & { [K_9 in Exclude<keyof I["chainMaintainerIncorrectVoteThreshold"], "$type" | "numerator" | "denominator">]: never; }) | undefined;
         chainMaintainerCheckWindow?: number | undefined;
-        gateway?: Buffer | undefined;
-        endBlockerLimit?: string | number | (Long.Long & {
-            high: number;
-            low: number;
-            unsigned: boolean;
-            add: (addend: string | number | Long.Long) => Long.Long;
-            and: (other: string | number | Long.Long) => Long.Long;
-            compare: (other: string | number | Long.Long) => number;
-            comp: (other: string | number | Long.Long) => number;
-            divide: (divisor: string | number | Long.Long) => Long.Long;
-            div: (divisor: string | number | Long.Long) => Long.Long;
-            equals: (other: string | number | Long.Long) => boolean;
-            eq: (other: string | number | Long.Long) => boolean;
-            getHighBits: () => number;
-            getHighBitsUnsigned: () => number;
-            getLowBits: () => number;
-            getLowBitsUnsigned: () => number;
-            getNumBitsAbs: () => number;
-            greaterThan: (other: string | number | Long.Long) => boolean;
-            gt: (other: string | number | Long.Long) => boolean;
-            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-            gte: (other: string | number | Long.Long) => boolean;
-            isEven: () => boolean;
-            isNegative: () => boolean;
-            isOdd: () => boolean;
-            isPositive: () => boolean;
-            isZero: () => boolean;
-            lessThan: (other: string | number | Long.Long) => boolean;
-            lt: (other: string | number | Long.Long) => boolean;
-            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-            lte: (other: string | number | Long.Long) => boolean;
-            modulo: (other: string | number | Long.Long) => Long.Long;
-            mod: (other: string | number | Long.Long) => Long.Long;
-            multiply: (multiplier: string | number | Long.Long) => Long.Long;
-            mul: (multiplier: string | number | Long.Long) => Long.Long;
-            negate: () => Long.Long;
-            neg: () => Long.Long;
-            not: () => Long.Long;
-            notEquals: (other: string | number | Long.Long) => boolean;
-            neq: (other: string | number | Long.Long) => boolean;
-            or: (other: string | number | Long.Long) => Long.Long;
-            shiftLeft: (numBits: number | Long.Long) => Long.Long;
-            shl: (numBits: number | Long.Long) => Long.Long;
-            shiftRight: (numBits: number | Long.Long) => Long.Long;
-            shr: (numBits: number | Long.Long) => Long.Long;
-            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-            shru: (numBits: number | Long.Long) => Long.Long;
-            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-            sub: (subtrahend: string | number | Long.Long) => Long.Long;
-            toInt: () => number;
-            toNumber: () => number;
-            toBytes: (le?: boolean | undefined) => number[];
-            toBytesLE: () => number[];
-            toBytesBE: () => number[];
-            toSigned: () => Long.Long;
-            toString: (radix?: number | undefined) => string;
-            toUnsigned: () => Long.Long;
-            xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_9 in Exclude<keyof I["endBlockerLimit"], keyof Long.Long>]: never; }) | undefined;
-    } & { [K_10 in Exclude<keyof I, keyof Params>]: never; }>(base?: I | undefined): Params;
+    } & { [K_10 in Exclude<keyof I, "$type" | "endBlockerLimit" | "gateway" | "chainActivationThreshold" | "chainMaintainerMissingVoteThreshold" | "chainMaintainerIncorrectVoteThreshold" | "chainMaintainerCheckWindow">]: never; }>(base?: I | undefined): Params;
     fromPartial<I_1 extends {
+        endBlockerLimit?: string | number | Long.Long | undefined;
+        gateway?: Buffer | undefined;
         chainActivationThreshold?: {
             numerator?: string | number | Long.Long | undefined;
             denominator?: string | number | Long.Long | undefined;
@@ -472,9 +476,66 @@ export declare const Params: {
             denominator?: string | number | Long.Long | undefined;
         } | undefined;
         chainMaintainerCheckWindow?: number | undefined;
-        gateway?: Buffer | undefined;
-        endBlockerLimit?: string | number | Long.Long | undefined;
     } & {
+        endBlockerLimit?: string | number | (Long.Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long.Long) => Long.Long;
+            and: (other: string | number | Long.Long) => Long.Long;
+            compare: (other: string | number | Long.Long) => number;
+            comp: (other: string | number | Long.Long) => number;
+            divide: (divisor: string | number | Long.Long) => Long.Long;
+            div: (divisor: string | number | Long.Long) => Long.Long;
+            equals: (other: string | number | Long.Long) => boolean;
+            eq: (other: string | number | Long.Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long.Long) => boolean;
+            gt: (other: string | number | Long.Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+            gte: (other: string | number | Long.Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            lessThan: (other: string | number | Long.Long) => boolean;
+            lt: (other: string | number | Long.Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+            lte: (other: string | number | Long.Long) => boolean;
+            modulo: (other: string | number | Long.Long) => Long.Long;
+            mod: (other: string | number | Long.Long) => Long.Long;
+            multiply: (multiplier: string | number | Long.Long) => Long.Long;
+            mul: (multiplier: string | number | Long.Long) => Long.Long;
+            negate: () => Long.Long;
+            neg: () => Long.Long;
+            not: () => Long.Long;
+            notEquals: (other: string | number | Long.Long) => boolean;
+            neq: (other: string | number | Long.Long) => boolean;
+            or: (other: string | number | Long.Long) => Long.Long;
+            shiftLeft: (numBits: number | Long.Long) => Long.Long;
+            shl: (numBits: number | Long.Long) => Long.Long;
+            shiftRight: (numBits: number | Long.Long) => Long.Long;
+            shr: (numBits: number | Long.Long) => Long.Long;
+            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+            shru: (numBits: number | Long.Long) => Long.Long;
+            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+            sub: (subtrahend: string | number | Long.Long) => Long.Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long.Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long.Long;
+            xor: (other: string | number | Long.Long) => Long.Long;
+        } & { [K_11 in Exclude<keyof I_1["endBlockerLimit"], "$type" | keyof Long.Long>]: never; }) | undefined;
+        gateway?: Buffer | undefined;
         chainActivationThreshold?: ({
             numerator?: string | number | Long.Long | undefined;
             denominator?: string | number | Long.Long | undefined;
@@ -536,7 +597,7 @@ export declare const Params: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_11 in Exclude<keyof I_1["chainActivationThreshold"]["numerator"], keyof Long.Long>]: never; }) | undefined;
+            } & { [K_12 in Exclude<keyof I_1["chainActivationThreshold"]["numerator"], "$type" | keyof Long.Long>]: never; }) | undefined;
             denominator?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -594,8 +655,8 @@ export declare const Params: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_12 in Exclude<keyof I_1["chainActivationThreshold"]["denominator"], keyof Long.Long>]: never; }) | undefined;
-        } & { [K_13 in Exclude<keyof I_1["chainActivationThreshold"], keyof Threshold>]: never; }) | undefined;
+            } & { [K_13 in Exclude<keyof I_1["chainActivationThreshold"]["denominator"], "$type" | keyof Long.Long>]: never; }) | undefined;
+        } & { [K_14 in Exclude<keyof I_1["chainActivationThreshold"], "$type" | "numerator" | "denominator">]: never; }) | undefined;
         chainMaintainerMissingVoteThreshold?: ({
             numerator?: string | number | Long.Long | undefined;
             denominator?: string | number | Long.Long | undefined;
@@ -657,7 +718,7 @@ export declare const Params: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_14 in Exclude<keyof I_1["chainMaintainerMissingVoteThreshold"]["numerator"], keyof Long.Long>]: never; }) | undefined;
+            } & { [K_15 in Exclude<keyof I_1["chainMaintainerMissingVoteThreshold"]["numerator"], "$type" | keyof Long.Long>]: never; }) | undefined;
             denominator?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -715,8 +776,8 @@ export declare const Params: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_15 in Exclude<keyof I_1["chainMaintainerMissingVoteThreshold"]["denominator"], keyof Long.Long>]: never; }) | undefined;
-        } & { [K_16 in Exclude<keyof I_1["chainMaintainerMissingVoteThreshold"], keyof Threshold>]: never; }) | undefined;
+            } & { [K_16 in Exclude<keyof I_1["chainMaintainerMissingVoteThreshold"]["denominator"], "$type" | keyof Long.Long>]: never; }) | undefined;
+        } & { [K_17 in Exclude<keyof I_1["chainMaintainerMissingVoteThreshold"], "$type" | "numerator" | "denominator">]: never; }) | undefined;
         chainMaintainerIncorrectVoteThreshold?: ({
             numerator?: string | number | Long.Long | undefined;
             denominator?: string | number | Long.Long | undefined;
@@ -778,7 +839,7 @@ export declare const Params: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_17 in Exclude<keyof I_1["chainMaintainerIncorrectVoteThreshold"]["numerator"], keyof Long.Long>]: never; }) | undefined;
+            } & { [K_18 in Exclude<keyof I_1["chainMaintainerIncorrectVoteThreshold"]["numerator"], "$type" | keyof Long.Long>]: never; }) | undefined;
             denominator?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -836,78 +897,19 @@ export declare const Params: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & { [K_18 in Exclude<keyof I_1["chainMaintainerIncorrectVoteThreshold"]["denominator"], keyof Long.Long>]: never; }) | undefined;
-        } & { [K_19 in Exclude<keyof I_1["chainMaintainerIncorrectVoteThreshold"], keyof Threshold>]: never; }) | undefined;
+            } & { [K_19 in Exclude<keyof I_1["chainMaintainerIncorrectVoteThreshold"]["denominator"], "$type" | keyof Long.Long>]: never; }) | undefined;
+        } & { [K_20 in Exclude<keyof I_1["chainMaintainerIncorrectVoteThreshold"], "$type" | "numerator" | "denominator">]: never; }) | undefined;
         chainMaintainerCheckWindow?: number | undefined;
-        gateway?: Buffer | undefined;
-        endBlockerLimit?: string | number | (Long.Long & {
-            high: number;
-            low: number;
-            unsigned: boolean;
-            add: (addend: string | number | Long.Long) => Long.Long;
-            and: (other: string | number | Long.Long) => Long.Long;
-            compare: (other: string | number | Long.Long) => number;
-            comp: (other: string | number | Long.Long) => number;
-            divide: (divisor: string | number | Long.Long) => Long.Long;
-            div: (divisor: string | number | Long.Long) => Long.Long;
-            equals: (other: string | number | Long.Long) => boolean;
-            eq: (other: string | number | Long.Long) => boolean;
-            getHighBits: () => number;
-            getHighBitsUnsigned: () => number;
-            getLowBits: () => number;
-            getLowBitsUnsigned: () => number;
-            getNumBitsAbs: () => number;
-            greaterThan: (other: string | number | Long.Long) => boolean;
-            gt: (other: string | number | Long.Long) => boolean;
-            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-            gte: (other: string | number | Long.Long) => boolean;
-            isEven: () => boolean;
-            isNegative: () => boolean;
-            isOdd: () => boolean;
-            isPositive: () => boolean;
-            isZero: () => boolean;
-            lessThan: (other: string | number | Long.Long) => boolean;
-            lt: (other: string | number | Long.Long) => boolean;
-            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-            lte: (other: string | number | Long.Long) => boolean;
-            modulo: (other: string | number | Long.Long) => Long.Long;
-            mod: (other: string | number | Long.Long) => Long.Long;
-            multiply: (multiplier: string | number | Long.Long) => Long.Long;
-            mul: (multiplier: string | number | Long.Long) => Long.Long;
-            negate: () => Long.Long;
-            neg: () => Long.Long;
-            not: () => Long.Long;
-            notEquals: (other: string | number | Long.Long) => boolean;
-            neq: (other: string | number | Long.Long) => boolean;
-            or: (other: string | number | Long.Long) => Long.Long;
-            shiftLeft: (numBits: number | Long.Long) => Long.Long;
-            shl: (numBits: number | Long.Long) => Long.Long;
-            shiftRight: (numBits: number | Long.Long) => Long.Long;
-            shr: (numBits: number | Long.Long) => Long.Long;
-            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-            shru: (numBits: number | Long.Long) => Long.Long;
-            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-            sub: (subtrahend: string | number | Long.Long) => Long.Long;
-            toInt: () => number;
-            toNumber: () => number;
-            toBytes: (le?: boolean | undefined) => number[];
-            toBytesLE: () => number[];
-            toBytesBE: () => number[];
-            toSigned: () => Long.Long;
-            toString: (radix?: number | undefined) => string;
-            toUnsigned: () => Long.Long;
-            xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_20 in Exclude<keyof I_1["endBlockerLimit"], keyof Long.Long>]: never; }) | undefined;
-    } & { [K_21 in Exclude<keyof I_1, keyof Params>]: never; }>(object: I_1): Params;
+    } & { [K_21 in Exclude<keyof I_1, "$type" | "endBlockerLimit" | "gateway" | "chainActivationThreshold" | "chainMaintainerMissingVoteThreshold" | "chainMaintainerIncorrectVoteThreshold" | "chainMaintainerCheckWindow">]: never; }>(object: I_1): Params;
 };
 declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
-    [K in keyof T]?: DeepPartial<T[K]>;
+    [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]>;
 } : Partial<T>;
 declare type KeysOfUnion<T> = T extends T ? keyof T : never;
 export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & {
-    [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+    [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never;
 };
 export {};

@@ -12,12 +12,18 @@ exports.Params = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const typeRegistry_1 = require("../../../typeRegistry");
 const threshold_1 = require("../../utils/v1beta1/threshold");
 exports.protobufPackage = "axelar.vote.v1beta1";
 function createBaseParams() {
-    return { defaultVotingThreshold: undefined, endBlockerLimit: long_1.default.ZERO };
+    return {
+        $type: "axelar.vote.v1beta1.Params",
+        defaultVotingThreshold: undefined,
+        endBlockerLimit: long_1.default.ZERO,
+    };
 }
 exports.Params = {
+    $type: "axelar.vote.v1beta1.Params",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.defaultVotingThreshold !== undefined) {
             threshold_1.Threshold.encode(message.defaultVotingThreshold, writer.uint32(10).fork()).ldelim();
@@ -56,6 +62,7 @@ exports.Params = {
     },
     fromJSON(object) {
         return {
+            $type: exports.Params.$type,
             defaultVotingThreshold: isSet(object.defaultVotingThreshold)
                 ? threshold_1.Threshold.fromJSON(object.defaultVotingThreshold)
                 : undefined,
@@ -88,6 +95,7 @@ exports.Params = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.Params.$type, exports.Params);
 if (minimal_1.default.util.Long !== long_1.default) {
     minimal_1.default.util.Long = long_1.default;
     minimal_1.default.configure();

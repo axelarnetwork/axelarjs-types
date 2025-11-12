@@ -13,11 +13,17 @@ exports.Snapshot_ParticipantsEntry = exports.Snapshot = exports.Participant = ex
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
 const timestamp_1 = require("../../../../google/protobuf/timestamp");
+const typeRegistry_1 = require("../../../../typeRegistry");
 exports.protobufPackage = "axelar.snapshot.exported.v1beta1";
 function createBaseParticipant() {
-    return { address: Buffer.alloc(0), weight: Buffer.alloc(0) };
+    return {
+        $type: "axelar.snapshot.exported.v1beta1.Participant",
+        address: Buffer.alloc(0),
+        weight: Buffer.alloc(0),
+    };
 }
 exports.Participant = {
+    $type: "axelar.snapshot.exported.v1beta1.Participant",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.address.length !== 0) {
             writer.uint32(10).bytes(message.address);
@@ -56,6 +62,7 @@ exports.Participant = {
     },
     fromJSON(object) {
         return {
+            $type: exports.Participant.$type,
             address: isSet(object.address) ? Buffer.from(bytesFromBase64(object.address)) : Buffer.alloc(0),
             weight: isSet(object.weight) ? Buffer.from(bytesFromBase64(object.weight)) : Buffer.alloc(0),
         };
@@ -81,10 +88,18 @@ exports.Participant = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.Participant.$type, exports.Participant);
 function createBaseSnapshot() {
-    return { timestamp: undefined, height: long_1.default.ZERO, participants: {}, bondedWeight: Buffer.alloc(0) };
+    return {
+        $type: "axelar.snapshot.exported.v1beta1.Snapshot",
+        timestamp: undefined,
+        height: long_1.default.ZERO,
+        participants: {},
+        bondedWeight: Buffer.alloc(0),
+    };
 }
 exports.Snapshot = {
+    $type: "axelar.snapshot.exported.v1beta1.Snapshot",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.timestamp !== undefined) {
             timestamp_1.Timestamp.encode(message.timestamp, writer.uint32(18).fork()).ldelim();
@@ -93,7 +108,11 @@ exports.Snapshot = {
             writer.uint32(24).int64(message.height);
         }
         Object.entries(message.participants).forEach(([key, value]) => {
-            exports.Snapshot_ParticipantsEntry.encode({ key: key, value }, writer.uint32(66).fork()).ldelim();
+            exports.Snapshot_ParticipantsEntry.encode({
+                $type: "axelar.snapshot.exported.v1beta1.Snapshot.ParticipantsEntry",
+                key: key,
+                value,
+            }, writer.uint32(66).fork()).ldelim();
         });
         if (message.bondedWeight.length !== 0) {
             writer.uint32(74).bytes(message.bondedWeight);
@@ -144,6 +163,7 @@ exports.Snapshot = {
     },
     fromJSON(object) {
         return {
+            $type: exports.Snapshot.$type,
             timestamp: isSet(object.timestamp) ? fromJsonTimestamp(object.timestamp) : undefined,
             height: isSet(object.height) ? long_1.default.fromValue(object.height) : long_1.default.ZERO,
             participants: isObject(object.participants)
@@ -201,10 +221,12 @@ exports.Snapshot = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.Snapshot.$type, exports.Snapshot);
 function createBaseSnapshot_ParticipantsEntry() {
-    return { key: "", value: undefined };
+    return { $type: "axelar.snapshot.exported.v1beta1.Snapshot.ParticipantsEntry", key: "", value: undefined };
 }
 exports.Snapshot_ParticipantsEntry = {
+    $type: "axelar.snapshot.exported.v1beta1.Snapshot.ParticipantsEntry",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.key !== "") {
             writer.uint32(10).string(message.key);
@@ -243,6 +265,7 @@ exports.Snapshot_ParticipantsEntry = {
     },
     fromJSON(object) {
         return {
+            $type: exports.Snapshot_ParticipantsEntry.$type,
             key: isSet(object.key) ? gt.String(object.key) : "",
             value: isSet(object.value) ? exports.Participant.fromJSON(object.value) : undefined,
         };
@@ -269,6 +292,7 @@ exports.Snapshot_ParticipantsEntry = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.Snapshot_ParticipantsEntry.$type, exports.Snapshot_ParticipantsEntry);
 const gt = (() => {
     if (typeof globalThis !== "undefined") {
         return globalThis;
@@ -293,7 +317,7 @@ function base64FromBytes(arr) {
 function toTimestamp(date) {
     const seconds = numberToLong(Math.trunc(date.getTime() / 1000));
     const nanos = (date.getTime() % 1000) * 1000000;
-    return { seconds, nanos };
+    return { $type: "google.protobuf.Timestamp", seconds, nanos };
 }
 function fromTimestamp(t) {
     let millis = (t.seconds.toNumber() || 0) * 1000;

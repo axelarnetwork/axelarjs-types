@@ -13,6 +13,7 @@ exports.PollParticipants = exports.PollKey = exports.PollMetadata = exports.poll
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
 const any_1 = require("../../../../google/protobuf/any");
+const typeRegistry_1 = require("../../../../typeRegistry");
 const types_1 = require("../../../snapshot/exported/v1beta1/types");
 const threshold_1 = require("../../../utils/v1beta1/threshold");
 exports.protobufPackage = "axelar.vote.exported.v1beta1";
@@ -63,6 +64,7 @@ function pollStateToJSON(object) {
 exports.pollStateToJSON = pollStateToJSON;
 function createBasePollMetadata() {
     return {
+        $type: "axelar.vote.exported.v1beta1.PollMetadata",
         expiresAt: long_1.default.ZERO,
         result: undefined,
         votingThreshold: undefined,
@@ -78,6 +80,7 @@ function createBasePollMetadata() {
     };
 }
 exports.PollMetadata = {
+    $type: "axelar.vote.exported.v1beta1.PollMetadata",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.expiresAt.equals(long_1.default.ZERO)) {
             writer.uint32(24).int64(message.expiresAt);
@@ -206,6 +209,7 @@ exports.PollMetadata = {
     },
     fromJSON(object) {
         return {
+            $type: exports.PollMetadata.$type,
             expiresAt: isSet(object.expiresAt) ? long_1.default.fromValue(object.expiresAt) : long_1.default.ZERO,
             result: isSet(object.result) ? any_1.Any.fromJSON(object.result) : undefined,
             votingThreshold: isSet(object.votingThreshold) ? threshold_1.Threshold.fromJSON(object.votingThreshold) : undefined,
@@ -303,10 +307,12 @@ exports.PollMetadata = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.PollMetadata.$type, exports.PollMetadata);
 function createBasePollKey() {
-    return { module: "", id: "" };
+    return { $type: "axelar.vote.exported.v1beta1.PollKey", module: "", id: "" };
 }
 exports.PollKey = {
+    $type: "axelar.vote.exported.v1beta1.PollKey",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.module !== "") {
             writer.uint32(10).string(message.module);
@@ -345,6 +351,7 @@ exports.PollKey = {
     },
     fromJSON(object) {
         return {
+            $type: exports.PollKey.$type,
             module: isSet(object.module) ? gt.String(object.module) : "",
             id: isSet(object.id) ? gt.String(object.id) : "",
         };
@@ -370,10 +377,12 @@ exports.PollKey = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.PollKey.$type, exports.PollKey);
 function createBasePollParticipants() {
-    return { pollId: long_1.default.UZERO, participants: [] };
+    return { $type: "axelar.vote.exported.v1beta1.PollParticipants", pollId: long_1.default.UZERO, participants: [] };
 }
 exports.PollParticipants = {
+    $type: "axelar.vote.exported.v1beta1.PollParticipants",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.pollId.equals(long_1.default.UZERO)) {
             writer.uint32(8).uint64(message.pollId);
@@ -412,6 +421,7 @@ exports.PollParticipants = {
     },
     fromJSON(object) {
         return {
+            $type: exports.PollParticipants.$type,
             pollId: isSet(object.pollId) ? long_1.default.fromValue(object.pollId) : long_1.default.UZERO,
             participants: gt.Array.isArray(object === null || object === void 0 ? void 0 : object.participants)
                 ? object.participants.map((e) => Buffer.from(bytesFromBase64(e)))
@@ -441,6 +451,7 @@ exports.PollParticipants = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.PollParticipants.$type, exports.PollParticipants);
 const gt = (() => {
     if (typeof globalThis !== "undefined") {
         return globalThis;

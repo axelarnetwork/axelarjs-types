@@ -25,6 +25,7 @@ class MsgServiceClientImpl {
         this.DeactivateChain = this.DeactivateChain.bind(this);
         this.RegisterAssetFee = this.RegisterAssetFee.bind(this);
         this.SetTransferRateLimit = this.SetTransferRateLimit.bind(this);
+        this.UpdateParams = this.UpdateParams.bind(this);
     }
     RegisterChainMaintainer(request) {
         const data = tx_1.RegisterChainMaintainerRequest.encode(request).finish();
@@ -55,6 +56,11 @@ class MsgServiceClientImpl {
         const data = tx_1.SetTransferRateLimitRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "SetTransferRateLimit", data);
         return promise.then((data) => tx_1.SetTransferRateLimitResponse.decode(minimal_1.default.Reader.create(data)));
+    }
+    UpdateParams(request) {
+        const data = tx_1.UpdateParamsRequest.encode(request).finish();
+        const promise = this.rpc.request(this.service, "UpdateParams", data);
+        return promise.then((data) => tx_1.UpdateParamsResponse.decode(minimal_1.default.Reader.create(data)));
     }
 }
 exports.MsgServiceClientImpl = MsgServiceClientImpl;

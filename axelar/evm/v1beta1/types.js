@@ -13,6 +13,7 @@ exports.PollMetadata = exports.Gateway = exports.TokenDetails = exports.Asset = 
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
 const any_1 = require("../../../google/protobuf/any");
+const typeRegistry_1 = require("../../../typeRegistry");
 exports.protobufPackage = "axelar.evm.v1beta1";
 var Status;
 (function (Status) {
@@ -301,9 +302,10 @@ function event_StatusToJSON(object) {
 }
 exports.event_StatusToJSON = event_StatusToJSON;
 function createBaseVoteEvents() {
-    return { chain: "", events: [] };
+    return { $type: "axelar.evm.v1beta1.VoteEvents", chain: "", events: [] };
 }
 exports.VoteEvents = {
+    $type: "axelar.evm.v1beta1.VoteEvents",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.chain !== "") {
             writer.uint32(10).string(message.chain);
@@ -342,6 +344,7 @@ exports.VoteEvents = {
     },
     fromJSON(object) {
         return {
+            $type: exports.VoteEvents.$type,
             chain: isSet(object.chain) ? gt.String(object.chain) : "",
             events: gt.Array.isArray(object === null || object === void 0 ? void 0 : object.events) ? object.events.map((e) => exports.Event.fromJSON(e)) : [],
         };
@@ -368,8 +371,10 @@ exports.VoteEvents = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.VoteEvents.$type, exports.VoteEvents);
 function createBaseEvent() {
     return {
+        $type: "axelar.evm.v1beta1.Event",
         chain: "",
         txId: Buffer.alloc(0),
         index: long_1.default.UZERO,
@@ -384,6 +389,7 @@ function createBaseEvent() {
     };
 }
 exports.Event = {
+    $type: "axelar.evm.v1beta1.Event",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.chain !== "") {
             writer.uint32(10).string(message.chain);
@@ -503,6 +509,7 @@ exports.Event = {
     },
     fromJSON(object) {
         return {
+            $type: exports.Event.$type,
             chain: isSet(object.chain) ? gt.String(object.chain) : "",
             txId: isSet(object.txId) ? Buffer.from(bytesFromBase64(object.txId)) : Buffer.alloc(0),
             index: isSet(object.index) ? long_1.default.fromValue(object.index) : long_1.default.UZERO,
@@ -603,8 +610,10 @@ exports.Event = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.Event.$type, exports.Event);
 function createBaseEventTokenSent() {
     return {
+        $type: "axelar.evm.v1beta1.EventTokenSent",
         sender: Buffer.alloc(0),
         destinationChain: "",
         destinationAddress: "",
@@ -613,6 +622,7 @@ function createBaseEventTokenSent() {
     };
 }
 exports.EventTokenSent = {
+    $type: "axelar.evm.v1beta1.EventTokenSent",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.sender.length !== 0) {
             writer.uint32(10).bytes(message.sender);
@@ -678,6 +688,7 @@ exports.EventTokenSent = {
     },
     fromJSON(object) {
         return {
+            $type: exports.EventTokenSent.$type,
             sender: isSet(object.sender) ? Buffer.from(bytesFromBase64(object.sender)) : Buffer.alloc(0),
             destinationChain: isSet(object.destinationChain) ? gt.String(object.destinationChain) : "",
             destinationAddress: isSet(object.destinationAddress) ? gt.String(object.destinationAddress) : "",
@@ -718,10 +729,18 @@ exports.EventTokenSent = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.EventTokenSent.$type, exports.EventTokenSent);
 function createBaseEventContractCall() {
-    return { sender: Buffer.alloc(0), destinationChain: "", contractAddress: "", payloadHash: Buffer.alloc(0) };
+    return {
+        $type: "axelar.evm.v1beta1.EventContractCall",
+        sender: Buffer.alloc(0),
+        destinationChain: "",
+        contractAddress: "",
+        payloadHash: Buffer.alloc(0),
+    };
 }
 exports.EventContractCall = {
+    $type: "axelar.evm.v1beta1.EventContractCall",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.sender.length !== 0) {
             writer.uint32(10).bytes(message.sender);
@@ -778,6 +797,7 @@ exports.EventContractCall = {
     },
     fromJSON(object) {
         return {
+            $type: exports.EventContractCall.$type,
             sender: isSet(object.sender) ? Buffer.from(bytesFromBase64(object.sender)) : Buffer.alloc(0),
             destinationChain: isSet(object.destinationChain) ? gt.String(object.destinationChain) : "",
             contractAddress: isSet(object.contractAddress) ? gt.String(object.contractAddress) : "",
@@ -815,8 +835,10 @@ exports.EventContractCall = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.EventContractCall.$type, exports.EventContractCall);
 function createBaseEventContractCallWithToken() {
     return {
+        $type: "axelar.evm.v1beta1.EventContractCallWithToken",
         sender: Buffer.alloc(0),
         destinationChain: "",
         contractAddress: "",
@@ -826,6 +848,7 @@ function createBaseEventContractCallWithToken() {
     };
 }
 exports.EventContractCallWithToken = {
+    $type: "axelar.evm.v1beta1.EventContractCallWithToken",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.sender.length !== 0) {
             writer.uint32(10).bytes(message.sender);
@@ -900,6 +923,7 @@ exports.EventContractCallWithToken = {
     },
     fromJSON(object) {
         return {
+            $type: exports.EventContractCallWithToken.$type,
             sender: isSet(object.sender) ? Buffer.from(bytesFromBase64(object.sender)) : Buffer.alloc(0),
             destinationChain: isSet(object.destinationChain) ? gt.String(object.destinationChain) : "",
             contractAddress: isSet(object.contractAddress) ? gt.String(object.contractAddress) : "",
@@ -947,10 +971,12 @@ exports.EventContractCallWithToken = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.EventContractCallWithToken.$type, exports.EventContractCallWithToken);
 function createBaseEventTransfer() {
-    return { to: Buffer.alloc(0), amount: Buffer.alloc(0) };
+    return { $type: "axelar.evm.v1beta1.EventTransfer", to: Buffer.alloc(0), amount: Buffer.alloc(0) };
 }
 exports.EventTransfer = {
+    $type: "axelar.evm.v1beta1.EventTransfer",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.to.length !== 0) {
             writer.uint32(10).bytes(message.to);
@@ -989,6 +1015,7 @@ exports.EventTransfer = {
     },
     fromJSON(object) {
         return {
+            $type: exports.EventTransfer.$type,
             to: isSet(object.to) ? Buffer.from(bytesFromBase64(object.to)) : Buffer.alloc(0),
             amount: isSet(object.amount) ? Buffer.from(bytesFromBase64(object.amount)) : Buffer.alloc(0),
         };
@@ -1014,10 +1041,12 @@ exports.EventTransfer = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.EventTransfer.$type, exports.EventTransfer);
 function createBaseEventTokenDeployed() {
-    return { symbol: "", tokenAddress: Buffer.alloc(0) };
+    return { $type: "axelar.evm.v1beta1.EventTokenDeployed", symbol: "", tokenAddress: Buffer.alloc(0) };
 }
 exports.EventTokenDeployed = {
+    $type: "axelar.evm.v1beta1.EventTokenDeployed",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.symbol !== "") {
             writer.uint32(10).string(message.symbol);
@@ -1056,6 +1085,7 @@ exports.EventTokenDeployed = {
     },
     fromJSON(object) {
         return {
+            $type: exports.EventTokenDeployed.$type,
             symbol: isSet(object.symbol) ? gt.String(object.symbol) : "",
             tokenAddress: isSet(object.tokenAddress)
                 ? Buffer.from(bytesFromBase64(object.tokenAddress))
@@ -1083,10 +1113,18 @@ exports.EventTokenDeployed = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.EventTokenDeployed.$type, exports.EventTokenDeployed);
 function createBaseEventMultisigOwnershipTransferred() {
-    return { preOwners: [], prevThreshold: Buffer.alloc(0), newOwners: [], newThreshold: Buffer.alloc(0) };
+    return {
+        $type: "axelar.evm.v1beta1.EventMultisigOwnershipTransferred",
+        preOwners: [],
+        prevThreshold: Buffer.alloc(0),
+        newOwners: [],
+        newThreshold: Buffer.alloc(0),
+    };
 }
 exports.EventMultisigOwnershipTransferred = {
+    $type: "axelar.evm.v1beta1.EventMultisigOwnershipTransferred",
     encode(message, writer = minimal_1.default.Writer.create()) {
         for (const v of message.preOwners) {
             writer.uint32(10).bytes(v);
@@ -1143,6 +1181,7 @@ exports.EventMultisigOwnershipTransferred = {
     },
     fromJSON(object) {
         return {
+            $type: exports.EventMultisigOwnershipTransferred.$type,
             preOwners: gt.Array.isArray(object === null || object === void 0 ? void 0 : object.preOwners)
                 ? object.preOwners.map((e) => Buffer.from(bytesFromBase64(e)))
                 : [],
@@ -1187,10 +1226,17 @@ exports.EventMultisigOwnershipTransferred = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.EventMultisigOwnershipTransferred.$type, exports.EventMultisigOwnershipTransferred);
 function createBaseEventMultisigOperatorshipTransferred() {
-    return { newOperators: [], newThreshold: Buffer.alloc(0), newWeights: [] };
+    return {
+        $type: "axelar.evm.v1beta1.EventMultisigOperatorshipTransferred",
+        newOperators: [],
+        newThreshold: Buffer.alloc(0),
+        newWeights: [],
+    };
 }
 exports.EventMultisigOperatorshipTransferred = {
+    $type: "axelar.evm.v1beta1.EventMultisigOperatorshipTransferred",
     encode(message, writer = minimal_1.default.Writer.create()) {
         for (const v of message.newOperators) {
             writer.uint32(26).bytes(v);
@@ -1238,6 +1284,7 @@ exports.EventMultisigOperatorshipTransferred = {
     },
     fromJSON(object) {
         return {
+            $type: exports.EventMultisigOperatorshipTransferred.$type,
             newOperators: gt.Array.isArray(object === null || object === void 0 ? void 0 : object.newOperators)
                 ? object.newOperators.map((e) => Buffer.from(bytesFromBase64(e)))
                 : [],
@@ -1275,10 +1322,12 @@ exports.EventMultisigOperatorshipTransferred = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.EventMultisigOperatorshipTransferred.$type, exports.EventMultisigOperatorshipTransferred);
 function createBaseNetworkInfo() {
-    return { name: "", id: Buffer.alloc(0) };
+    return { $type: "axelar.evm.v1beta1.NetworkInfo", name: "", id: Buffer.alloc(0) };
 }
 exports.NetworkInfo = {
+    $type: "axelar.evm.v1beta1.NetworkInfo",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.name !== "") {
             writer.uint32(10).string(message.name);
@@ -1317,6 +1366,7 @@ exports.NetworkInfo = {
     },
     fromJSON(object) {
         return {
+            $type: exports.NetworkInfo.$type,
             name: isSet(object.name) ? gt.String(object.name) : "",
             id: isSet(object.id) ? Buffer.from(bytesFromBase64(object.id)) : Buffer.alloc(0),
         };
@@ -1342,8 +1392,10 @@ exports.NetworkInfo = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.NetworkInfo.$type, exports.NetworkInfo);
 function createBaseBurnerInfo() {
     return {
+        $type: "axelar.evm.v1beta1.BurnerInfo",
         burnerAddress: Buffer.alloc(0),
         tokenAddress: Buffer.alloc(0),
         destinationChain: "",
@@ -1353,6 +1405,7 @@ function createBaseBurnerInfo() {
     };
 }
 exports.BurnerInfo = {
+    $type: "axelar.evm.v1beta1.BurnerInfo",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.burnerAddress.length !== 0) {
             writer.uint32(10).bytes(message.burnerAddress);
@@ -1427,6 +1480,7 @@ exports.BurnerInfo = {
     },
     fromJSON(object) {
         return {
+            $type: exports.BurnerInfo.$type,
             burnerAddress: isSet(object.burnerAddress)
                 ? Buffer.from(bytesFromBase64(object.burnerAddress))
                 : Buffer.alloc(0),
@@ -1476,8 +1530,10 @@ exports.BurnerInfo = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.BurnerInfo.$type, exports.BurnerInfo);
 function createBaseERC20Deposit() {
     return {
+        $type: "axelar.evm.v1beta1.ERC20Deposit",
         txId: Buffer.alloc(0),
         amount: Buffer.alloc(0),
         asset: "",
@@ -1487,6 +1543,7 @@ function createBaseERC20Deposit() {
     };
 }
 exports.ERC20Deposit = {
+    $type: "axelar.evm.v1beta1.ERC20Deposit",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.txId.length !== 0) {
             writer.uint32(10).bytes(message.txId);
@@ -1561,6 +1618,7 @@ exports.ERC20Deposit = {
     },
     fromJSON(object) {
         return {
+            $type: exports.ERC20Deposit.$type,
             txId: isSet(object.txId) ? Buffer.from(bytesFromBase64(object.txId)) : Buffer.alloc(0),
             amount: isSet(object.amount) ? Buffer.from(bytesFromBase64(object.amount)) : Buffer.alloc(0),
             asset: isSet(object.asset) ? gt.String(object.asset) : "",
@@ -1611,8 +1669,10 @@ exports.ERC20Deposit = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.ERC20Deposit.$type, exports.ERC20Deposit);
 function createBaseERC20TokenMetadata() {
     return {
+        $type: "axelar.evm.v1beta1.ERC20TokenMetadata",
         asset: "",
         chainId: Buffer.alloc(0),
         details: undefined,
@@ -1624,6 +1684,7 @@ function createBaseERC20TokenMetadata() {
     };
 }
 exports.ERC20TokenMetadata = {
+    $type: "axelar.evm.v1beta1.ERC20TokenMetadata",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.asset !== "") {
             writer.uint32(10).string(message.asset);
@@ -1716,6 +1777,7 @@ exports.ERC20TokenMetadata = {
     },
     fromJSON(object) {
         return {
+            $type: exports.ERC20TokenMetadata.$type,
             asset: isSet(object.asset) ? gt.String(object.asset) : "",
             chainId: isSet(object.chainId) ? Buffer.from(bytesFromBase64(object.chainId)) : Buffer.alloc(0),
             details: isSet(object.details) ? exports.TokenDetails.fromJSON(object.details) : undefined,
@@ -1776,10 +1838,12 @@ exports.ERC20TokenMetadata = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.ERC20TokenMetadata.$type, exports.ERC20TokenMetadata);
 function createBaseTransactionMetadata() {
-    return { rawTx: Buffer.alloc(0), pubKey: Buffer.alloc(0) };
+    return { $type: "axelar.evm.v1beta1.TransactionMetadata", rawTx: Buffer.alloc(0), pubKey: Buffer.alloc(0) };
 }
 exports.TransactionMetadata = {
+    $type: "axelar.evm.v1beta1.TransactionMetadata",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.rawTx.length !== 0) {
             writer.uint32(10).bytes(message.rawTx);
@@ -1818,6 +1882,7 @@ exports.TransactionMetadata = {
     },
     fromJSON(object) {
         return {
+            $type: exports.TransactionMetadata.$type,
             rawTx: isSet(object.rawTx) ? Buffer.from(bytesFromBase64(object.rawTx)) : Buffer.alloc(0),
             pubKey: isSet(object.pubKey) ? Buffer.from(bytesFromBase64(object.pubKey)) : Buffer.alloc(0),
         };
@@ -1843,10 +1908,20 @@ exports.TransactionMetadata = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.TransactionMetadata.$type, exports.TransactionMetadata);
 function createBaseCommand() {
-    return { id: Buffer.alloc(0), command: "", params: Buffer.alloc(0), keyId: "", maxGasCost: 0, type: 0 };
+    return {
+        $type: "axelar.evm.v1beta1.Command",
+        id: Buffer.alloc(0),
+        command: "",
+        params: Buffer.alloc(0),
+        keyId: "",
+        maxGasCost: 0,
+        type: 0,
+    };
 }
 exports.Command = {
+    $type: "axelar.evm.v1beta1.Command",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.id.length !== 0) {
             writer.uint32(10).bytes(message.id);
@@ -1921,6 +1996,7 @@ exports.Command = {
     },
     fromJSON(object) {
         return {
+            $type: exports.Command.$type,
             id: isSet(object.id) ? Buffer.from(bytesFromBase64(object.id)) : Buffer.alloc(0),
             command: isSet(object.command) ? gt.String(object.command) : "",
             params: isSet(object.params) ? Buffer.from(bytesFromBase64(object.params)) : Buffer.alloc(0),
@@ -1966,8 +2042,10 @@ exports.Command = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.Command.$type, exports.Command);
 function createBaseCommandBatchMetadata() {
     return {
+        $type: "axelar.evm.v1beta1.CommandBatchMetadata",
         id: Buffer.alloc(0),
         commandIds: [],
         data: Buffer.alloc(0),
@@ -1979,6 +2057,7 @@ function createBaseCommandBatchMetadata() {
     };
 }
 exports.CommandBatchMetadata = {
+    $type: "axelar.evm.v1beta1.CommandBatchMetadata",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.id.length !== 0) {
             writer.uint32(10).bytes(message.id);
@@ -2071,6 +2150,7 @@ exports.CommandBatchMetadata = {
     },
     fromJSON(object) {
         return {
+            $type: exports.CommandBatchMetadata.$type,
             id: isSet(object.id) ? Buffer.from(bytesFromBase64(object.id)) : Buffer.alloc(0),
             commandIds: gt.Array.isArray(object === null || object === void 0 ? void 0 : object.commandIds)
                 ? object.commandIds.map((e) => Buffer.from(bytesFromBase64(e)))
@@ -2134,10 +2214,12 @@ exports.CommandBatchMetadata = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.CommandBatchMetadata.$type, exports.CommandBatchMetadata);
 function createBaseSigMetadata() {
-    return { type: 0, chain: "", commandBatchId: Buffer.alloc(0) };
+    return { $type: "axelar.evm.v1beta1.SigMetadata", type: 0, chain: "", commandBatchId: Buffer.alloc(0) };
 }
 exports.SigMetadata = {
+    $type: "axelar.evm.v1beta1.SigMetadata",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.type !== 0) {
             writer.uint32(8).int32(message.type);
@@ -2185,6 +2267,7 @@ exports.SigMetadata = {
     },
     fromJSON(object) {
         return {
+            $type: exports.SigMetadata.$type,
             type: isSet(object.type) ? sigTypeFromJSON(object.type) : 0,
             chain: isSet(object.chain) ? gt.String(object.chain) : "",
             commandBatchId: isSet(object.commandBatchId)
@@ -2217,10 +2300,12 @@ exports.SigMetadata = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.SigMetadata.$type, exports.SigMetadata);
 function createBaseTransferKey() {
-    return { txId: Buffer.alloc(0), nextKeyId: "" };
+    return { $type: "axelar.evm.v1beta1.TransferKey", txId: Buffer.alloc(0), nextKeyId: "" };
 }
 exports.TransferKey = {
+    $type: "axelar.evm.v1beta1.TransferKey",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.txId.length !== 0) {
             writer.uint32(10).bytes(message.txId);
@@ -2259,6 +2344,7 @@ exports.TransferKey = {
     },
     fromJSON(object) {
         return {
+            $type: exports.TransferKey.$type,
             txId: isSet(object.txId) ? Buffer.from(bytesFromBase64(object.txId)) : Buffer.alloc(0),
             nextKeyId: isSet(object.nextKeyId) ? gt.String(object.nextKeyId) : "",
         };
@@ -2284,10 +2370,12 @@ exports.TransferKey = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.TransferKey.$type, exports.TransferKey);
 function createBaseAsset() {
-    return { chain: "", name: "" };
+    return { $type: "axelar.evm.v1beta1.Asset", chain: "", name: "" };
 }
 exports.Asset = {
+    $type: "axelar.evm.v1beta1.Asset",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.chain !== "") {
             writer.uint32(10).string(message.chain);
@@ -2326,6 +2414,7 @@ exports.Asset = {
     },
     fromJSON(object) {
         return {
+            $type: exports.Asset.$type,
             chain: isSet(object.chain) ? gt.String(object.chain) : "",
             name: isSet(object.name) ? gt.String(object.name) : "",
         };
@@ -2351,10 +2440,18 @@ exports.Asset = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.Asset.$type, exports.Asset);
 function createBaseTokenDetails() {
-    return { tokenName: "", symbol: "", decimals: 0, capacity: Buffer.alloc(0) };
+    return {
+        $type: "axelar.evm.v1beta1.TokenDetails",
+        tokenName: "",
+        symbol: "",
+        decimals: 0,
+        capacity: Buffer.alloc(0),
+    };
 }
 exports.TokenDetails = {
+    $type: "axelar.evm.v1beta1.TokenDetails",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.tokenName !== "") {
             writer.uint32(10).string(message.tokenName);
@@ -2411,6 +2508,7 @@ exports.TokenDetails = {
     },
     fromJSON(object) {
         return {
+            $type: exports.TokenDetails.$type,
             tokenName: isSet(object.tokenName) ? gt.String(object.tokenName) : "",
             symbol: isSet(object.symbol) ? gt.String(object.symbol) : "",
             decimals: isSet(object.decimals) ? gt.Number(object.decimals) : 0,
@@ -2446,10 +2544,12 @@ exports.TokenDetails = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.TokenDetails.$type, exports.TokenDetails);
 function createBaseGateway() {
-    return { address: Buffer.alloc(0) };
+    return { $type: "axelar.evm.v1beta1.Gateway", address: Buffer.alloc(0) };
 }
 exports.Gateway = {
+    $type: "axelar.evm.v1beta1.Gateway",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.address.length !== 0) {
             writer.uint32(10).bytes(message.address);
@@ -2479,6 +2579,7 @@ exports.Gateway = {
     },
     fromJSON(object) {
         return {
+            $type: exports.Gateway.$type,
             address: isSet(object.address) ? Buffer.from(bytesFromBase64(object.address)) : Buffer.alloc(0),
         };
     },
@@ -2499,10 +2600,12 @@ exports.Gateway = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.Gateway.$type, exports.Gateway);
 function createBasePollMetadata() {
-    return { chain: "", txId: Buffer.alloc(0) };
+    return { $type: "axelar.evm.v1beta1.PollMetadata", chain: "", txId: Buffer.alloc(0) };
 }
 exports.PollMetadata = {
+    $type: "axelar.evm.v1beta1.PollMetadata",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.chain !== "") {
             writer.uint32(10).string(message.chain);
@@ -2541,6 +2644,7 @@ exports.PollMetadata = {
     },
     fromJSON(object) {
         return {
+            $type: exports.PollMetadata.$type,
             chain: isSet(object.chain) ? gt.String(object.chain) : "",
             txId: isSet(object.txId) ? Buffer.from(bytesFromBase64(object.txId)) : Buffer.alloc(0),
         };
@@ -2566,6 +2670,7 @@ exports.PollMetadata = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.PollMetadata.$type, exports.PollMetadata);
 const gt = (() => {
     if (typeof globalThis !== "undefined") {
         return globalThis;

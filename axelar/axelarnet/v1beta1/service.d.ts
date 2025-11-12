@@ -1,5 +1,5 @@
 import { ChainByIBCPathRequest, ChainByIBCPathResponse, IBCPathRequest, IBCPathResponse, ParamsRequest, ParamsResponse, PendingIBCTransferCountRequest, PendingIBCTransferCountResponse } from "./query";
-import { AddCosmosBasedChainRequest, AddCosmosBasedChainResponse, CallContractRequest, CallContractResponse, ConfirmDepositRequest, ConfirmDepositResponse, ExecutePendingTransfersRequest, ExecutePendingTransfersResponse, LinkRequest, LinkResponse, RegisterAssetRequest, RegisterAssetResponse, RegisterFeeCollectorRequest, RegisterFeeCollectorResponse, RetryIBCTransferRequest, RetryIBCTransferResponse, RouteIBCTransfersRequest, RouteIBCTransfersResponse, RouteMessageRequest, RouteMessageResponse } from "./tx";
+import { AddCosmosBasedChainRequest, AddCosmosBasedChainResponse, CallContractRequest, CallContractResponse, ConfirmDepositRequest, ConfirmDepositResponse, ExecutePendingTransfersRequest, ExecutePendingTransfersResponse, LinkRequest, LinkResponse, RegisterAssetRequest, RegisterAssetResponse, RegisterFeeCollectorRequest, RegisterFeeCollectorResponse, RetryIBCTransferRequest, RetryIBCTransferResponse, RouteIBCTransfersRequest, RouteIBCTransfersResponse, RouteMessageRequest, RouteMessageResponse, UpdateParamsRequest, UpdateParamsResponse } from "./tx";
 export declare const protobufPackage = "axelar.axelarnet.v1beta1";
 /** Msg defines the axelarnet Msg service. */
 export interface MsgService {
@@ -13,6 +13,7 @@ export interface MsgService {
     RetryIBCTransfer(request: RetryIBCTransferRequest): Promise<RetryIBCTransferResponse>;
     RouteMessage(request: RouteMessageRequest): Promise<RouteMessageResponse>;
     CallContract(request: CallContractRequest): Promise<CallContractResponse>;
+    UpdateParams(request: UpdateParamsRequest): Promise<UpdateParamsResponse>;
 }
 export declare const MsgServiceServiceName = "axelar.axelarnet.v1beta1.MsgService";
 export declare class MsgServiceClientImpl implements MsgService {
@@ -31,6 +32,7 @@ export declare class MsgServiceClientImpl implements MsgService {
     RetryIBCTransfer(request: RetryIBCTransferRequest): Promise<RetryIBCTransferResponse>;
     RouteMessage(request: RouteMessageRequest): Promise<RouteMessageResponse>;
     CallContract(request: CallContractRequest): Promise<CallContractResponse>;
+    UpdateParams(request: UpdateParamsRequest): Promise<UpdateParamsResponse>;
 }
 /** QueryService defines the gRPC querier service. */
 export interface QueryService {

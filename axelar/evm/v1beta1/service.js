@@ -33,6 +33,7 @@ class MsgServiceClientImpl {
         this.SignCommands = this.SignCommands.bind(this);
         this.AddChain = this.AddChain.bind(this);
         this.RetryFailedEvent = this.RetryFailedEvent.bind(this);
+        this.UpdateParams = this.UpdateParams.bind(this);
     }
     SetGateway(request) {
         const data = tx_1.SetGatewayRequest.encode(request).finish();
@@ -103,6 +104,11 @@ class MsgServiceClientImpl {
         const data = tx_1.RetryFailedEventRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "RetryFailedEvent", data);
         return promise.then((data) => tx_1.RetryFailedEventResponse.decode(minimal_1.default.Reader.create(data)));
+    }
+    UpdateParams(request) {
+        const data = tx_1.UpdateParamsRequest.encode(request).finish();
+        const promise = this.rpc.request(this.service, "UpdateParams", data);
+        return promise.then((data) => tx_1.UpdateParamsResponse.decode(minimal_1.default.Reader.create(data)));
     }
 }
 exports.MsgServiceClientImpl = MsgServiceClientImpl;

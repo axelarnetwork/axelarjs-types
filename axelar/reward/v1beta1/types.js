@@ -13,11 +13,13 @@ exports.Refund = exports.Pool_Reward = exports.Pool = exports.protobufPackage = 
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
 const coin_1 = require("../../../cosmos/base/v1beta1/coin");
+const typeRegistry_1 = require("../../../typeRegistry");
 exports.protobufPackage = "axelar.reward.v1beta1";
 function createBasePool() {
-    return { name: "", rewards: [] };
+    return { $type: "axelar.reward.v1beta1.Pool", name: "", rewards: [] };
 }
 exports.Pool = {
+    $type: "axelar.reward.v1beta1.Pool",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.name !== "") {
             writer.uint32(10).string(message.name);
@@ -56,6 +58,7 @@ exports.Pool = {
     },
     fromJSON(object) {
         return {
+            $type: exports.Pool.$type,
             name: isSet(object.name) ? gt.String(object.name) : "",
             rewards: gt.Array.isArray(object === null || object === void 0 ? void 0 : object.rewards)
                 ? object.rewards.map((e) => exports.Pool_Reward.fromJSON(e))
@@ -84,10 +87,12 @@ exports.Pool = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.Pool.$type, exports.Pool);
 function createBasePool_Reward() {
-    return { validator: Buffer.alloc(0), coins: [] };
+    return { $type: "axelar.reward.v1beta1.Pool.Reward", validator: Buffer.alloc(0), coins: [] };
 }
 exports.Pool_Reward = {
+    $type: "axelar.reward.v1beta1.Pool.Reward",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.validator.length !== 0) {
             writer.uint32(10).bytes(message.validator);
@@ -126,6 +131,7 @@ exports.Pool_Reward = {
     },
     fromJSON(object) {
         return {
+            $type: exports.Pool_Reward.$type,
             validator: isSet(object.validator) ? Buffer.from(bytesFromBase64(object.validator)) : Buffer.alloc(0),
             coins: gt.Array.isArray(object === null || object === void 0 ? void 0 : object.coins) ? object.coins.map((e) => coin_1.Coin.fromJSON(e)) : [],
         };
@@ -152,10 +158,12 @@ exports.Pool_Reward = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.Pool_Reward.$type, exports.Pool_Reward);
 function createBaseRefund() {
-    return { payer: Buffer.alloc(0), fees: [] };
+    return { $type: "axelar.reward.v1beta1.Refund", payer: Buffer.alloc(0), fees: [] };
 }
 exports.Refund = {
+    $type: "axelar.reward.v1beta1.Refund",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.payer.length !== 0) {
             writer.uint32(10).bytes(message.payer);
@@ -194,6 +202,7 @@ exports.Refund = {
     },
     fromJSON(object) {
         return {
+            $type: exports.Refund.$type,
             payer: isSet(object.payer) ? Buffer.from(bytesFromBase64(object.payer)) : Buffer.alloc(0),
             fees: gt.Array.isArray(object === null || object === void 0 ? void 0 : object.fees) ? object.fees.map((e) => coin_1.Coin.fromJSON(e)) : [],
         };
@@ -220,6 +229,7 @@ exports.Refund = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.Refund.$type, exports.Refund);
 const gt = (() => {
     if (typeof globalThis !== "undefined") {
         return globalThis;

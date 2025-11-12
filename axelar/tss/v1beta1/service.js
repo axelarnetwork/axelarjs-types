@@ -20,11 +20,17 @@ class MsgServiceClientImpl {
         this.service = (opts === null || opts === void 0 ? void 0 : opts.service) || exports.MsgServiceServiceName;
         this.rpc = rpc;
         this.HeartBeat = this.HeartBeat.bind(this);
+        this.UpdateParams = this.UpdateParams.bind(this);
     }
     HeartBeat(request) {
         const data = tx_1.HeartBeatRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "HeartBeat", data);
         return promise.then((data) => tx_1.HeartBeatResponse.decode(minimal_1.default.Reader.create(data)));
+    }
+    UpdateParams(request) {
+        const data = tx_1.UpdateParamsRequest.encode(request).finish();
+        const promise = this.rpc.request(this.service, "UpdateParams", data);
+        return promise.then((data) => tx_1.UpdateParamsResponse.decode(minimal_1.default.Reader.create(data)));
     }
 }
 exports.MsgServiceClientImpl = MsgServiceClientImpl;

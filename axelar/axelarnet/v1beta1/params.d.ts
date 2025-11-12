@@ -4,6 +4,7 @@ import { Coin } from "../../../cosmos/base/v1beta1/coin";
 export declare const protobufPackage = "axelar.axelarnet.v1beta1";
 /** Params represent the genesis parameters for the module */
 export interface Params {
+    $type: "axelar.axelarnet.v1beta1.Params";
     /** IBC packet route timeout window */
     routeTimeoutWindow: Long;
     transferLimit: Long;
@@ -11,11 +12,13 @@ export interface Params {
     callContractsProposalMinDeposits: CallContractProposalMinDeposit[];
 }
 export interface CallContractProposalMinDeposit {
+    $type: "axelar.axelarnet.v1beta1.CallContractProposalMinDeposit";
     chain: string;
     contractAddress: string;
     minDeposits: Coin[];
 }
 export declare const Params: {
+    $type: "axelar.axelarnet.v1beta1.Params";
     encode(message: Params, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Params;
     fromJSON(object: any): Params;
@@ -25,8 +28,8 @@ export declare const Params: {
         transferLimit?: string | number | Long.Long | undefined;
         endBlockerLimit?: string | number | Long.Long | undefined;
         callContractsProposalMinDeposits?: {
-            chain?: string | undefined;
             contractAddress?: string | undefined;
+            chain?: string | undefined;
             minDeposits?: {
                 denom?: string | undefined;
                 amount?: string | undefined;
@@ -90,7 +93,7 @@ export declare const Params: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K in Exclude<keyof I["routeTimeoutWindow"], keyof Long.Long>]: never; }) | undefined;
+        } & { [K in Exclude<keyof I["routeTimeoutWindow"], "$type" | keyof Long.Long>]: never; }) | undefined;
         transferLimit?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -148,7 +151,7 @@ export declare const Params: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_1 in Exclude<keyof I["transferLimit"], keyof Long.Long>]: never; }) | undefined;
+        } & { [K_1 in Exclude<keyof I["transferLimit"], "$type" | keyof Long.Long>]: never; }) | undefined;
         endBlockerLimit?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -206,24 +209,24 @@ export declare const Params: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_2 in Exclude<keyof I["endBlockerLimit"], keyof Long.Long>]: never; }) | undefined;
+        } & { [K_2 in Exclude<keyof I["endBlockerLimit"], "$type" | keyof Long.Long>]: never; }) | undefined;
         callContractsProposalMinDeposits?: ({
-            chain?: string | undefined;
             contractAddress?: string | undefined;
+            chain?: string | undefined;
             minDeposits?: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             }[] | undefined;
         }[] & ({
-            chain?: string | undefined;
             contractAddress?: string | undefined;
+            chain?: string | undefined;
             minDeposits?: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             }[] | undefined;
         } & {
-            chain?: string | undefined;
             contractAddress?: string | undefined;
+            chain?: string | undefined;
             minDeposits?: ({
                 denom?: string | undefined;
                 amount?: string | undefined;
@@ -233,26 +236,26 @@ export declare const Params: {
             } & {
                 denom?: string | undefined;
                 amount?: string | undefined;
-            } & { [K_3 in Exclude<keyof I["callContractsProposalMinDeposits"][number]["minDeposits"][number], keyof Coin>]: never; })[] & { [K_4 in Exclude<keyof I["callContractsProposalMinDeposits"][number]["minDeposits"], keyof {
+            } & { [K_3 in Exclude<keyof I["callContractsProposalMinDeposits"][number]["minDeposits"][number], "$type" | "denom" | "amount">]: never; })[] & { [K_4 in Exclude<keyof I["callContractsProposalMinDeposits"][number]["minDeposits"], "$type" | keyof {
                 denom?: string | undefined;
                 amount?: string | undefined;
             }[]>]: never; }) | undefined;
-        } & { [K_5 in Exclude<keyof I["callContractsProposalMinDeposits"][number], keyof CallContractProposalMinDeposit>]: never; })[] & { [K_6 in Exclude<keyof I["callContractsProposalMinDeposits"], keyof {
-            chain?: string | undefined;
+        } & { [K_5 in Exclude<keyof I["callContractsProposalMinDeposits"][number], "$type" | "contractAddress" | "chain" | "minDeposits">]: never; })[] & { [K_6 in Exclude<keyof I["callContractsProposalMinDeposits"], "$type" | keyof {
             contractAddress?: string | undefined;
+            chain?: string | undefined;
             minDeposits?: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             }[] | undefined;
         }[]>]: never; }) | undefined;
-    } & { [K_7 in Exclude<keyof I, keyof Params>]: never; }>(base?: I | undefined): Params;
+    } & { [K_7 in Exclude<keyof I, "$type" | "routeTimeoutWindow" | "transferLimit" | "endBlockerLimit" | "callContractsProposalMinDeposits">]: never; }>(base?: I | undefined): Params;
     fromPartial<I_1 extends {
         routeTimeoutWindow?: string | number | Long.Long | undefined;
         transferLimit?: string | number | Long.Long | undefined;
         endBlockerLimit?: string | number | Long.Long | undefined;
         callContractsProposalMinDeposits?: {
-            chain?: string | undefined;
             contractAddress?: string | undefined;
+            chain?: string | undefined;
             minDeposits?: {
                 denom?: string | undefined;
                 amount?: string | undefined;
@@ -316,7 +319,7 @@ export declare const Params: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_8 in Exclude<keyof I_1["routeTimeoutWindow"], keyof Long.Long>]: never; }) | undefined;
+        } & { [K_8 in Exclude<keyof I_1["routeTimeoutWindow"], "$type" | keyof Long.Long>]: never; }) | undefined;
         transferLimit?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -374,7 +377,7 @@ export declare const Params: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_9 in Exclude<keyof I_1["transferLimit"], keyof Long.Long>]: never; }) | undefined;
+        } & { [K_9 in Exclude<keyof I_1["transferLimit"], "$type" | keyof Long.Long>]: never; }) | undefined;
         endBlockerLimit?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -432,24 +435,24 @@ export declare const Params: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_10 in Exclude<keyof I_1["endBlockerLimit"], keyof Long.Long>]: never; }) | undefined;
+        } & { [K_10 in Exclude<keyof I_1["endBlockerLimit"], "$type" | keyof Long.Long>]: never; }) | undefined;
         callContractsProposalMinDeposits?: ({
-            chain?: string | undefined;
             contractAddress?: string | undefined;
+            chain?: string | undefined;
             minDeposits?: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             }[] | undefined;
         }[] & ({
-            chain?: string | undefined;
             contractAddress?: string | undefined;
+            chain?: string | undefined;
             minDeposits?: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             }[] | undefined;
         } & {
-            chain?: string | undefined;
             contractAddress?: string | undefined;
+            chain?: string | undefined;
             minDeposits?: ({
                 denom?: string | undefined;
                 amount?: string | undefined;
@@ -459,35 +462,36 @@ export declare const Params: {
             } & {
                 denom?: string | undefined;
                 amount?: string | undefined;
-            } & { [K_11 in Exclude<keyof I_1["callContractsProposalMinDeposits"][number]["minDeposits"][number], keyof Coin>]: never; })[] & { [K_12 in Exclude<keyof I_1["callContractsProposalMinDeposits"][number]["minDeposits"], keyof {
+            } & { [K_11 in Exclude<keyof I_1["callContractsProposalMinDeposits"][number]["minDeposits"][number], "$type" | "denom" | "amount">]: never; })[] & { [K_12 in Exclude<keyof I_1["callContractsProposalMinDeposits"][number]["minDeposits"], "$type" | keyof {
                 denom?: string | undefined;
                 amount?: string | undefined;
             }[]>]: never; }) | undefined;
-        } & { [K_13 in Exclude<keyof I_1["callContractsProposalMinDeposits"][number], keyof CallContractProposalMinDeposit>]: never; })[] & { [K_14 in Exclude<keyof I_1["callContractsProposalMinDeposits"], keyof {
-            chain?: string | undefined;
+        } & { [K_13 in Exclude<keyof I_1["callContractsProposalMinDeposits"][number], "$type" | "contractAddress" | "chain" | "minDeposits">]: never; })[] & { [K_14 in Exclude<keyof I_1["callContractsProposalMinDeposits"], "$type" | keyof {
             contractAddress?: string | undefined;
+            chain?: string | undefined;
             minDeposits?: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             }[] | undefined;
         }[]>]: never; }) | undefined;
-    } & { [K_15 in Exclude<keyof I_1, keyof Params>]: never; }>(object: I_1): Params;
+    } & { [K_15 in Exclude<keyof I_1, "$type" | "routeTimeoutWindow" | "transferLimit" | "endBlockerLimit" | "callContractsProposalMinDeposits">]: never; }>(object: I_1): Params;
 };
 export declare const CallContractProposalMinDeposit: {
+    $type: "axelar.axelarnet.v1beta1.CallContractProposalMinDeposit";
     encode(message: CallContractProposalMinDeposit, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): CallContractProposalMinDeposit;
     fromJSON(object: any): CallContractProposalMinDeposit;
     toJSON(message: CallContractProposalMinDeposit): unknown;
     create<I extends {
-        chain?: string | undefined;
         contractAddress?: string | undefined;
+        chain?: string | undefined;
         minDeposits?: {
             denom?: string | undefined;
             amount?: string | undefined;
         }[] | undefined;
     } & {
-        chain?: string | undefined;
         contractAddress?: string | undefined;
+        chain?: string | undefined;
         minDeposits?: ({
             denom?: string | undefined;
             amount?: string | undefined;
@@ -497,21 +501,21 @@ export declare const CallContractProposalMinDeposit: {
         } & {
             denom?: string | undefined;
             amount?: string | undefined;
-        } & { [K in Exclude<keyof I["minDeposits"][number], keyof Coin>]: never; })[] & { [K_1 in Exclude<keyof I["minDeposits"], keyof {
+        } & { [K in Exclude<keyof I["minDeposits"][number], "$type" | "denom" | "amount">]: never; })[] & { [K_1 in Exclude<keyof I["minDeposits"], "$type" | keyof {
             denom?: string | undefined;
             amount?: string | undefined;
         }[]>]: never; }) | undefined;
-    } & { [K_2 in Exclude<keyof I, keyof CallContractProposalMinDeposit>]: never; }>(base?: I | undefined): CallContractProposalMinDeposit;
+    } & { [K_2 in Exclude<keyof I, "$type" | "contractAddress" | "chain" | "minDeposits">]: never; }>(base?: I | undefined): CallContractProposalMinDeposit;
     fromPartial<I_1 extends {
-        chain?: string | undefined;
         contractAddress?: string | undefined;
+        chain?: string | undefined;
         minDeposits?: {
             denom?: string | undefined;
             amount?: string | undefined;
         }[] | undefined;
     } & {
-        chain?: string | undefined;
         contractAddress?: string | undefined;
+        chain?: string | undefined;
         minDeposits?: ({
             denom?: string | undefined;
             amount?: string | undefined;
@@ -521,20 +525,20 @@ export declare const CallContractProposalMinDeposit: {
         } & {
             denom?: string | undefined;
             amount?: string | undefined;
-        } & { [K_3 in Exclude<keyof I_1["minDeposits"][number], keyof Coin>]: never; })[] & { [K_4 in Exclude<keyof I_1["minDeposits"], keyof {
+        } & { [K_3 in Exclude<keyof I_1["minDeposits"][number], "$type" | "denom" | "amount">]: never; })[] & { [K_4 in Exclude<keyof I_1["minDeposits"], "$type" | keyof {
             denom?: string | undefined;
             amount?: string | undefined;
         }[]>]: never; }) | undefined;
-    } & { [K_5 in Exclude<keyof I_1, keyof CallContractProposalMinDeposit>]: never; }>(object: I_1): CallContractProposalMinDeposit;
+    } & { [K_5 in Exclude<keyof I_1, "$type" | "contractAddress" | "chain" | "minDeposits">]: never; }>(object: I_1): CallContractProposalMinDeposit;
 };
 declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
-    [K in keyof T]?: DeepPartial<T[K]>;
+    [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]>;
 } : Partial<T>;
 declare type KeysOfUnion<T> = T extends T ? keyof T : never;
 export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & {
-    [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+    [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never;
 };
 export {};

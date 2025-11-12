@@ -12,12 +12,14 @@ exports.PendingChain = exports.Params = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const typeRegistry_1 = require("../../../typeRegistry");
 const types_1 = require("../../nexus/exported/v1beta1/types");
 const threshold_1 = require("../../utils/v1beta1/threshold");
 const types_2 = require("./types");
 exports.protobufPackage = "axelar.evm.v1beta1";
 function createBaseParams() {
     return {
+        $type: "axelar.evm.v1beta1.Params",
         chain: "",
         confirmationHeight: long_1.default.UZERO,
         network: "",
@@ -34,6 +36,7 @@ function createBaseParams() {
     };
 }
 exports.Params = {
+    $type: "axelar.evm.v1beta1.Params",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.chain !== "") {
             writer.uint32(10).string(message.chain);
@@ -171,6 +174,7 @@ exports.Params = {
     },
     fromJSON(object) {
         return {
+            $type: exports.Params.$type,
             chain: isSet(object.chain) ? gt.String(object.chain) : "",
             confirmationHeight: isSet(object.confirmationHeight)
                 ? long_1.default.fromValue(object.confirmationHeight)
@@ -281,10 +285,12 @@ exports.Params = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.Params.$type, exports.Params);
 function createBasePendingChain() {
-    return { params: undefined, chain: undefined };
+    return { $type: "axelar.evm.v1beta1.PendingChain", params: undefined, chain: undefined };
 }
 exports.PendingChain = {
+    $type: "axelar.evm.v1beta1.PendingChain",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.params !== undefined) {
             exports.Params.encode(message.params, writer.uint32(10).fork()).ldelim();
@@ -323,6 +329,7 @@ exports.PendingChain = {
     },
     fromJSON(object) {
         return {
+            $type: exports.PendingChain.$type,
             params: isSet(object.params) ? exports.Params.fromJSON(object.params) : undefined,
             chain: isSet(object.chain) ? types_1.Chain.fromJSON(object.chain) : undefined,
         };
@@ -349,6 +356,7 @@ exports.PendingChain = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.PendingChain.$type, exports.PendingChain);
 const gt = (() => {
     if (typeof globalThis !== "undefined") {
         return globalThis;

@@ -13,11 +13,19 @@ exports.TalliedVote_IsVoterLateEntry = exports.TalliedVote = exports.protobufPac
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
 const any_1 = require("../../../google/protobuf/any");
+const typeRegistry_1 = require("../../../typeRegistry");
 exports.protobufPackage = "axelar.vote.v1beta1";
 function createBaseTalliedVote() {
-    return { tally: Buffer.alloc(0), data: undefined, pollId: long_1.default.UZERO, isVoterLate: {} };
+    return {
+        $type: "axelar.vote.v1beta1.TalliedVote",
+        tally: Buffer.alloc(0),
+        data: undefined,
+        pollId: long_1.default.UZERO,
+        isVoterLate: {},
+    };
 }
 exports.TalliedVote = {
+    $type: "axelar.vote.v1beta1.TalliedVote",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.tally.length !== 0) {
             writer.uint32(10).bytes(message.tally);
@@ -29,7 +37,11 @@ exports.TalliedVote = {
             writer.uint32(32).uint64(message.pollId);
         }
         Object.entries(message.isVoterLate).forEach(([key, value]) => {
-            exports.TalliedVote_IsVoterLateEntry.encode({ key: key, value }, writer.uint32(42).fork()).ldelim();
+            exports.TalliedVote_IsVoterLateEntry.encode({
+                $type: "axelar.vote.v1beta1.TalliedVote.IsVoterLateEntry",
+                key: key,
+                value,
+            }, writer.uint32(42).fork()).ldelim();
         });
         return writer;
     },
@@ -77,6 +89,7 @@ exports.TalliedVote = {
     },
     fromJSON(object) {
         return {
+            $type: exports.TalliedVote.$type,
             tally: isSet(object.tally) ? Buffer.from(bytesFromBase64(object.tally)) : Buffer.alloc(0),
             data: isSet(object.data) ? any_1.Any.fromJSON(object.data) : undefined,
             pollId: isSet(object.pollId) ? long_1.default.fromValue(object.pollId) : long_1.default.UZERO,
@@ -130,10 +143,12 @@ exports.TalliedVote = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.TalliedVote.$type, exports.TalliedVote);
 function createBaseTalliedVote_IsVoterLateEntry() {
-    return { key: "", value: false };
+    return { $type: "axelar.vote.v1beta1.TalliedVote.IsVoterLateEntry", key: "", value: false };
 }
 exports.TalliedVote_IsVoterLateEntry = {
+    $type: "axelar.vote.v1beta1.TalliedVote.IsVoterLateEntry",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.key !== "") {
             writer.uint32(10).string(message.key);
@@ -172,6 +187,7 @@ exports.TalliedVote_IsVoterLateEntry = {
     },
     fromJSON(object) {
         return {
+            $type: exports.TalliedVote_IsVoterLateEntry.$type,
             key: isSet(object.key) ? gt.String(object.key) : "",
             value: isSet(object.value) ? gt.Boolean(object.value) : false,
         };
@@ -197,6 +213,7 @@ exports.TalliedVote_IsVoterLateEntry = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.TalliedVote_IsVoterLateEntry.$type, exports.TalliedVote_IsVoterLateEntry);
 const gt = (() => {
     if (typeof globalThis !== "undefined") {
         return globalThis;

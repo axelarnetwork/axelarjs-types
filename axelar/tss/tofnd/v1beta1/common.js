@@ -12,6 +12,7 @@ exports.KeyPresenceResponse = exports.KeyPresenceRequest = exports.keyPresenceRe
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const typeRegistry_1 = require("../../../../typeRegistry");
 exports.protobufPackage = "axelar.tss.tofnd.v1beta1";
 var KeyPresenceResponse_Response;
 (function (KeyPresenceResponse_Response) {
@@ -59,9 +60,10 @@ function keyPresenceResponse_ResponseToJSON(object) {
 }
 exports.keyPresenceResponse_ResponseToJSON = keyPresenceResponse_ResponseToJSON;
 function createBaseKeyPresenceRequest() {
-    return { keyUid: "", pubKey: Buffer.alloc(0) };
+    return { $type: "axelar.tss.tofnd.v1beta1.KeyPresenceRequest", keyUid: "", pubKey: Buffer.alloc(0) };
 }
 exports.KeyPresenceRequest = {
+    $type: "axelar.tss.tofnd.v1beta1.KeyPresenceRequest",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.keyUid !== "") {
             writer.uint32(10).string(message.keyUid);
@@ -100,6 +102,7 @@ exports.KeyPresenceRequest = {
     },
     fromJSON(object) {
         return {
+            $type: exports.KeyPresenceRequest.$type,
             keyUid: isSet(object.keyUid) ? gt.String(object.keyUid) : "",
             pubKey: isSet(object.pubKey) ? Buffer.from(bytesFromBase64(object.pubKey)) : Buffer.alloc(0),
         };
@@ -125,10 +128,12 @@ exports.KeyPresenceRequest = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.KeyPresenceRequest.$type, exports.KeyPresenceRequest);
 function createBaseKeyPresenceResponse() {
-    return { response: 0 };
+    return { $type: "axelar.tss.tofnd.v1beta1.KeyPresenceResponse", response: 0 };
 }
 exports.KeyPresenceResponse = {
+    $type: "axelar.tss.tofnd.v1beta1.KeyPresenceResponse",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.response !== 0) {
             writer.uint32(8).int32(message.response);
@@ -157,7 +162,10 @@ exports.KeyPresenceResponse = {
         return message;
     },
     fromJSON(object) {
-        return { response: isSet(object.response) ? keyPresenceResponse_ResponseFromJSON(object.response) : 0 };
+        return {
+            $type: exports.KeyPresenceResponse.$type,
+            response: isSet(object.response) ? keyPresenceResponse_ResponseFromJSON(object.response) : 0,
+        };
     },
     toJSON(message) {
         const obj = {};
@@ -176,6 +184,7 @@ exports.KeyPresenceResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.KeyPresenceResponse.$type, exports.KeyPresenceResponse);
 const gt = (() => {
     if (typeof globalThis !== "undefined") {
         return globalThis;

@@ -25,6 +25,7 @@ class MsgServiceClientImpl {
         this.RotateKey = this.RotateKey.bind(this);
         this.KeygenOptOut = this.KeygenOptOut.bind(this);
         this.KeygenOptIn = this.KeygenOptIn.bind(this);
+        this.UpdateParams = this.UpdateParams.bind(this);
     }
     StartKeygen(request) {
         const data = tx_1.StartKeygenRequest.encode(request).finish();
@@ -55,6 +56,11 @@ class MsgServiceClientImpl {
         const data = tx_1.KeygenOptInRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "KeygenOptIn", data);
         return promise.then((data) => tx_1.KeygenOptInResponse.decode(minimal_1.default.Reader.create(data)));
+    }
+    UpdateParams(request) {
+        const data = tx_1.UpdateParamsRequest.encode(request).finish();
+        const promise = this.rpc.request(this.service, "UpdateParams", data);
+        return promise.then((data) => tx_1.UpdateParamsResponse.decode(minimal_1.default.Reader.create(data)));
     }
 }
 exports.MsgServiceClientImpl = MsgServiceClientImpl;

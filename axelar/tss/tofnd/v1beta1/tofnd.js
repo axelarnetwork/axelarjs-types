@@ -12,6 +12,7 @@ exports.SignInit = exports.KeygenInit = exports.TrafficOut = exports.TrafficIn =
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const typeRegistry_1 = require("../../../../typeRegistry");
 exports.protobufPackage = "axelar.tss.tofnd.v1beta1";
 var RecoverResponse_Response;
 (function (RecoverResponse_Response) {
@@ -92,9 +93,10 @@ function messageOut_CriminalList_Criminal_CrimeTypeToJSON(object) {
 }
 exports.messageOut_CriminalList_Criminal_CrimeTypeToJSON = messageOut_CriminalList_Criminal_CrimeTypeToJSON;
 function createBaseRecoverRequest() {
-    return { keygenInit: undefined, keygenOutput: undefined };
+    return { $type: "axelar.tss.tofnd.v1beta1.RecoverRequest", keygenInit: undefined, keygenOutput: undefined };
 }
 exports.RecoverRequest = {
+    $type: "axelar.tss.tofnd.v1beta1.RecoverRequest",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.keygenInit !== undefined) {
             exports.KeygenInit.encode(message.keygenInit, writer.uint32(10).fork()).ldelim();
@@ -133,6 +135,7 @@ exports.RecoverRequest = {
     },
     fromJSON(object) {
         return {
+            $type: exports.RecoverRequest.$type,
             keygenInit: isSet(object.keygenInit) ? exports.KeygenInit.fromJSON(object.keygenInit) : undefined,
             keygenOutput: isSet(object.keygenOutput) ? exports.KeygenOutput.fromJSON(object.keygenOutput) : undefined,
         };
@@ -163,10 +166,12 @@ exports.RecoverRequest = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.RecoverRequest.$type, exports.RecoverRequest);
 function createBaseRecoverResponse() {
-    return { response: 0 };
+    return { $type: "axelar.tss.tofnd.v1beta1.RecoverResponse", response: 0 };
 }
 exports.RecoverResponse = {
+    $type: "axelar.tss.tofnd.v1beta1.RecoverResponse",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.response !== 0) {
             writer.uint32(8).int32(message.response);
@@ -195,7 +200,10 @@ exports.RecoverResponse = {
         return message;
     },
     fromJSON(object) {
-        return { response: isSet(object.response) ? recoverResponse_ResponseFromJSON(object.response) : 0 };
+        return {
+            $type: exports.RecoverResponse.$type,
+            response: isSet(object.response) ? recoverResponse_ResponseFromJSON(object.response) : 0,
+        };
     },
     toJSON(message) {
         const obj = {};
@@ -214,10 +222,17 @@ exports.RecoverResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.RecoverResponse.$type, exports.RecoverResponse);
 function createBaseKeygenOutput() {
-    return { pubKey: Buffer.alloc(0), groupRecoverInfo: Buffer.alloc(0), privateRecoverInfo: Buffer.alloc(0) };
+    return {
+        $type: "axelar.tss.tofnd.v1beta1.KeygenOutput",
+        pubKey: Buffer.alloc(0),
+        groupRecoverInfo: Buffer.alloc(0),
+        privateRecoverInfo: Buffer.alloc(0),
+    };
 }
 exports.KeygenOutput = {
+    $type: "axelar.tss.tofnd.v1beta1.KeygenOutput",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.pubKey.length !== 0) {
             writer.uint32(10).bytes(message.pubKey);
@@ -265,6 +280,7 @@ exports.KeygenOutput = {
     },
     fromJSON(object) {
         return {
+            $type: exports.KeygenOutput.$type,
             pubKey: isSet(object.pubKey) ? Buffer.from(bytesFromBase64(object.pubKey)) : Buffer.alloc(0),
             groupRecoverInfo: isSet(object.groupRecoverInfo)
                 ? Buffer.from(bytesFromBase64(object.groupRecoverInfo))
@@ -299,10 +315,18 @@ exports.KeygenOutput = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.KeygenOutput.$type, exports.KeygenOutput);
 function createBaseMessageIn() {
-    return { keygenInit: undefined, signInit: undefined, traffic: undefined, abort: undefined };
+    return {
+        $type: "axelar.tss.tofnd.v1beta1.MessageIn",
+        keygenInit: undefined,
+        signInit: undefined,
+        traffic: undefined,
+        abort: undefined,
+    };
 }
 exports.MessageIn = {
+    $type: "axelar.tss.tofnd.v1beta1.MessageIn",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.keygenInit !== undefined) {
             exports.KeygenInit.encode(message.keygenInit, writer.uint32(10).fork()).ldelim();
@@ -359,6 +383,7 @@ exports.MessageIn = {
     },
     fromJSON(object) {
         return {
+            $type: exports.MessageIn.$type,
             keygenInit: isSet(object.keygenInit) ? exports.KeygenInit.fromJSON(object.keygenInit) : undefined,
             signInit: isSet(object.signInit) ? exports.SignInit.fromJSON(object.signInit) : undefined,
             traffic: isSet(object.traffic) ? exports.TrafficIn.fromJSON(object.traffic) : undefined,
@@ -403,10 +428,18 @@ exports.MessageIn = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.MessageIn.$type, exports.MessageIn);
 function createBaseMessageOut() {
-    return { traffic: undefined, keygenResult: undefined, signResult: undefined, needRecover: undefined };
+    return {
+        $type: "axelar.tss.tofnd.v1beta1.MessageOut",
+        traffic: undefined,
+        keygenResult: undefined,
+        signResult: undefined,
+        needRecover: undefined,
+    };
 }
 exports.MessageOut = {
+    $type: "axelar.tss.tofnd.v1beta1.MessageOut",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.traffic !== undefined) {
             exports.TrafficOut.encode(message.traffic, writer.uint32(10).fork()).ldelim();
@@ -463,6 +496,7 @@ exports.MessageOut = {
     },
     fromJSON(object) {
         return {
+            $type: exports.MessageOut.$type,
             traffic: isSet(object.traffic) ? exports.TrafficOut.fromJSON(object.traffic) : undefined,
             keygenResult: isSet(object.keygenResult)
                 ? exports.MessageOut_KeygenResult.fromJSON(object.keygenResult)
@@ -509,10 +543,12 @@ exports.MessageOut = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.MessageOut.$type, exports.MessageOut);
 function createBaseMessageOut_KeygenResult() {
-    return { data: undefined, criminals: undefined };
+    return { $type: "axelar.tss.tofnd.v1beta1.MessageOut.KeygenResult", data: undefined, criminals: undefined };
 }
 exports.MessageOut_KeygenResult = {
+    $type: "axelar.tss.tofnd.v1beta1.MessageOut.KeygenResult",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.data !== undefined) {
             exports.KeygenOutput.encode(message.data, writer.uint32(10).fork()).ldelim();
@@ -551,6 +587,7 @@ exports.MessageOut_KeygenResult = {
     },
     fromJSON(object) {
         return {
+            $type: exports.MessageOut_KeygenResult.$type,
             data: isSet(object.data) ? exports.KeygenOutput.fromJSON(object.data) : undefined,
             criminals: isSet(object.criminals) ? exports.MessageOut_CriminalList.fromJSON(object.criminals) : undefined,
         };
@@ -579,10 +616,16 @@ exports.MessageOut_KeygenResult = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.MessageOut_KeygenResult.$type, exports.MessageOut_KeygenResult);
 function createBaseMessageOut_SignResult() {
-    return { signature: undefined, criminals: undefined };
+    return {
+        $type: "axelar.tss.tofnd.v1beta1.MessageOut.SignResult",
+        signature: undefined,
+        criminals: undefined,
+    };
 }
 exports.MessageOut_SignResult = {
+    $type: "axelar.tss.tofnd.v1beta1.MessageOut.SignResult",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.signature !== undefined) {
             writer.uint32(10).bytes(message.signature);
@@ -621,6 +664,7 @@ exports.MessageOut_SignResult = {
     },
     fromJSON(object) {
         return {
+            $type: exports.MessageOut_SignResult.$type,
             signature: isSet(object.signature) ? Buffer.from(bytesFromBase64(object.signature)) : undefined,
             criminals: isSet(object.criminals) ? exports.MessageOut_CriminalList.fromJSON(object.criminals) : undefined,
         };
@@ -649,10 +693,12 @@ exports.MessageOut_SignResult = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.MessageOut_SignResult.$type, exports.MessageOut_SignResult);
 function createBaseMessageOut_CriminalList() {
-    return { criminals: [] };
+    return { $type: "axelar.tss.tofnd.v1beta1.MessageOut.CriminalList", criminals: [] };
 }
 exports.MessageOut_CriminalList = {
+    $type: "axelar.tss.tofnd.v1beta1.MessageOut.CriminalList",
     encode(message, writer = minimal_1.default.Writer.create()) {
         for (const v of message.criminals) {
             exports.MessageOut_CriminalList_Criminal.encode(v, writer.uint32(10).fork()).ldelim();
@@ -682,6 +728,7 @@ exports.MessageOut_CriminalList = {
     },
     fromJSON(object) {
         return {
+            $type: exports.MessageOut_CriminalList.$type,
             criminals: gt.Array.isArray(object === null || object === void 0 ? void 0 : object.criminals)
                 ? object.criminals.map((e) => exports.MessageOut_CriminalList_Criminal.fromJSON(e))
                 : [],
@@ -705,10 +752,12 @@ exports.MessageOut_CriminalList = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.MessageOut_CriminalList.$type, exports.MessageOut_CriminalList);
 function createBaseMessageOut_CriminalList_Criminal() {
-    return { partyUid: "", crimeType: 0 };
+    return { $type: "axelar.tss.tofnd.v1beta1.MessageOut.CriminalList.Criminal", partyUid: "", crimeType: 0 };
 }
 exports.MessageOut_CriminalList_Criminal = {
+    $type: "axelar.tss.tofnd.v1beta1.MessageOut.CriminalList.Criminal",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.partyUid !== "") {
             writer.uint32(10).string(message.partyUid);
@@ -747,6 +796,7 @@ exports.MessageOut_CriminalList_Criminal = {
     },
     fromJSON(object) {
         return {
+            $type: exports.MessageOut_CriminalList_Criminal.$type,
             partyUid: isSet(object.partyUid) ? gt.String(object.partyUid) : "",
             crimeType: isSet(object.crimeType)
                 ? messageOut_CriminalList_Criminal_CrimeTypeFromJSON(object.crimeType)
@@ -774,10 +824,17 @@ exports.MessageOut_CriminalList_Criminal = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.MessageOut_CriminalList_Criminal.$type, exports.MessageOut_CriminalList_Criminal);
 function createBaseTrafficIn() {
-    return { fromPartyUid: "", payload: Buffer.alloc(0), isBroadcast: false };
+    return {
+        $type: "axelar.tss.tofnd.v1beta1.TrafficIn",
+        fromPartyUid: "",
+        payload: Buffer.alloc(0),
+        isBroadcast: false,
+    };
 }
 exports.TrafficIn = {
+    $type: "axelar.tss.tofnd.v1beta1.TrafficIn",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.fromPartyUid !== "") {
             writer.uint32(10).string(message.fromPartyUid);
@@ -825,6 +882,7 @@ exports.TrafficIn = {
     },
     fromJSON(object) {
         return {
+            $type: exports.TrafficIn.$type,
             fromPartyUid: isSet(object.fromPartyUid) ? gt.String(object.fromPartyUid) : "",
             payload: isSet(object.payload) ? Buffer.from(bytesFromBase64(object.payload)) : Buffer.alloc(0),
             isBroadcast: isSet(object.isBroadcast) ? gt.Boolean(object.isBroadcast) : false,
@@ -855,10 +913,17 @@ exports.TrafficIn = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.TrafficIn.$type, exports.TrafficIn);
 function createBaseTrafficOut() {
-    return { toPartyUid: "", payload: Buffer.alloc(0), isBroadcast: false };
+    return {
+        $type: "axelar.tss.tofnd.v1beta1.TrafficOut",
+        toPartyUid: "",
+        payload: Buffer.alloc(0),
+        isBroadcast: false,
+    };
 }
 exports.TrafficOut = {
+    $type: "axelar.tss.tofnd.v1beta1.TrafficOut",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.toPartyUid !== "") {
             writer.uint32(10).string(message.toPartyUid);
@@ -906,6 +971,7 @@ exports.TrafficOut = {
     },
     fromJSON(object) {
         return {
+            $type: exports.TrafficOut.$type,
             toPartyUid: isSet(object.toPartyUid) ? gt.String(object.toPartyUid) : "",
             payload: isSet(object.payload) ? Buffer.from(bytesFromBase64(object.payload)) : Buffer.alloc(0),
             isBroadcast: isSet(object.isBroadcast) ? gt.Boolean(object.isBroadcast) : false,
@@ -936,10 +1002,19 @@ exports.TrafficOut = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.TrafficOut.$type, exports.TrafficOut);
 function createBaseKeygenInit() {
-    return { newKeyUid: "", partyUids: [], partyShareCounts: [], myPartyIndex: 0, threshold: 0 };
+    return {
+        $type: "axelar.tss.tofnd.v1beta1.KeygenInit",
+        newKeyUid: "",
+        partyUids: [],
+        partyShareCounts: [],
+        myPartyIndex: 0,
+        threshold: 0,
+    };
 }
 exports.KeygenInit = {
+    $type: "axelar.tss.tofnd.v1beta1.KeygenInit",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.newKeyUid !== "") {
             writer.uint32(10).string(message.newKeyUid);
@@ -1014,6 +1089,7 @@ exports.KeygenInit = {
     },
     fromJSON(object) {
         return {
+            $type: exports.KeygenInit.$type,
             newKeyUid: isSet(object.newKeyUid) ? gt.String(object.newKeyUid) : "",
             partyUids: gt.Array.isArray(object === null || object === void 0 ? void 0 : object.partyUids) ? object.partyUids.map((e) => gt.String(e)) : [],
             partyShareCounts: gt.Array.isArray(object === null || object === void 0 ? void 0 : object.partyShareCounts)
@@ -1057,10 +1133,18 @@ exports.KeygenInit = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.KeygenInit.$type, exports.KeygenInit);
 function createBaseSignInit() {
-    return { newSigUid: "", keyUid: "", partyUids: [], messageToSign: Buffer.alloc(0) };
+    return {
+        $type: "axelar.tss.tofnd.v1beta1.SignInit",
+        newSigUid: "",
+        keyUid: "",
+        partyUids: [],
+        messageToSign: Buffer.alloc(0),
+    };
 }
 exports.SignInit = {
+    $type: "axelar.tss.tofnd.v1beta1.SignInit",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.newSigUid !== "") {
             writer.uint32(10).string(message.newSigUid);
@@ -1117,6 +1201,7 @@ exports.SignInit = {
     },
     fromJSON(object) {
         return {
+            $type: exports.SignInit.$type,
             newSigUid: isSet(object.newSigUid) ? gt.String(object.newSigUid) : "",
             keyUid: isSet(object.keyUid) ? gt.String(object.keyUid) : "",
             partyUids: gt.Array.isArray(object === null || object === void 0 ? void 0 : object.partyUids) ? object.partyUids.map((e) => gt.String(e)) : [],
@@ -1155,6 +1240,7 @@ exports.SignInit = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.SignInit.$type, exports.SignInit);
 const gt = (() => {
     if (typeof globalThis !== "undefined") {
         return globalThis;

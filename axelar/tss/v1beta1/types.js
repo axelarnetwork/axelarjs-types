@@ -12,12 +12,18 @@ exports.ValidatorStatus = exports.ExternalKeys = exports.KeyRecoveryInfo_Private
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const typeRegistry_1 = require("../../../typeRegistry");
 const types_1 = require("../exported/v1beta1/types");
 exports.protobufPackage = "axelar.tss.v1beta1";
 function createBaseKeygenVoteData() {
-    return { pubKey: Buffer.alloc(0), groupRecoveryInfo: Buffer.alloc(0) };
+    return {
+        $type: "axelar.tss.v1beta1.KeygenVoteData",
+        pubKey: Buffer.alloc(0),
+        groupRecoveryInfo: Buffer.alloc(0),
+    };
 }
 exports.KeygenVoteData = {
+    $type: "axelar.tss.v1beta1.KeygenVoteData",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.pubKey.length !== 0) {
             writer.uint32(10).bytes(message.pubKey);
@@ -56,6 +62,7 @@ exports.KeygenVoteData = {
     },
     fromJSON(object) {
         return {
+            $type: exports.KeygenVoteData.$type,
             pubKey: isSet(object.pubKey) ? Buffer.from(bytesFromBase64(object.pubKey)) : Buffer.alloc(0),
             groupRecoveryInfo: isSet(object.groupRecoveryInfo)
                 ? Buffer.from(bytesFromBase64(object.groupRecoveryInfo))
@@ -83,10 +90,12 @@ exports.KeygenVoteData = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.KeygenVoteData.$type, exports.KeygenVoteData);
 function createBaseKeyInfo() {
-    return { keyId: "", keyRole: 0, keyType: 0 };
+    return { $type: "axelar.tss.v1beta1.KeyInfo", keyId: "", keyRole: 0, keyType: 0 };
 }
 exports.KeyInfo = {
+    $type: "axelar.tss.v1beta1.KeyInfo",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.keyId !== "") {
             writer.uint32(10).string(message.keyId);
@@ -134,6 +143,7 @@ exports.KeyInfo = {
     },
     fromJSON(object) {
         return {
+            $type: exports.KeyInfo.$type,
             keyId: isSet(object.keyId) ? gt.String(object.keyId) : "",
             keyRole: isSet(object.keyRole) ? (0, types_1.keyRoleFromJSON)(object.keyRole) : 0,
             keyType: isSet(object.keyType) ? (0, types_1.keyTypeFromJSON)(object.keyType) : 0,
@@ -164,10 +174,18 @@ exports.KeyInfo = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.KeyInfo.$type, exports.KeyInfo);
 function createBaseMultisigInfo() {
-    return { id: "", timeout: long_1.default.ZERO, targetNum: long_1.default.ZERO, infos: [] };
+    return {
+        $type: "axelar.tss.v1beta1.MultisigInfo",
+        id: "",
+        timeout: long_1.default.ZERO,
+        targetNum: long_1.default.ZERO,
+        infos: [],
+    };
 }
 exports.MultisigInfo = {
+    $type: "axelar.tss.v1beta1.MultisigInfo",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.id !== "") {
             writer.uint32(10).string(message.id);
@@ -224,6 +242,7 @@ exports.MultisigInfo = {
     },
     fromJSON(object) {
         return {
+            $type: exports.MultisigInfo.$type,
             id: isSet(object.id) ? gt.String(object.id) : "",
             timeout: isSet(object.timeout) ? long_1.default.fromValue(object.timeout) : long_1.default.ZERO,
             targetNum: isSet(object.targetNum) ? long_1.default.fromValue(object.targetNum) : long_1.default.ZERO,
@@ -266,10 +285,12 @@ exports.MultisigInfo = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.MultisigInfo.$type, exports.MultisigInfo);
 function createBaseMultisigInfo_Info() {
-    return { participant: Buffer.alloc(0), data: [] };
+    return { $type: "axelar.tss.v1beta1.MultisigInfo.Info", participant: Buffer.alloc(0), data: [] };
 }
 exports.MultisigInfo_Info = {
+    $type: "axelar.tss.v1beta1.MultisigInfo.Info",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.participant.length !== 0) {
             writer.uint32(10).bytes(message.participant);
@@ -308,6 +329,7 @@ exports.MultisigInfo_Info = {
     },
     fromJSON(object) {
         return {
+            $type: exports.MultisigInfo_Info.$type,
             participant: isSet(object.participant)
                 ? Buffer.from(bytesFromBase64(object.participant))
                 : Buffer.alloc(0),
@@ -338,10 +360,12 @@ exports.MultisigInfo_Info = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.MultisigInfo_Info.$type, exports.MultisigInfo_Info);
 function createBaseKeyRecoveryInfo() {
-    return { keyId: "", public: Buffer.alloc(0), private: {} };
+    return { $type: "axelar.tss.v1beta1.KeyRecoveryInfo", keyId: "", public: Buffer.alloc(0), private: {} };
 }
 exports.KeyRecoveryInfo = {
+    $type: "axelar.tss.v1beta1.KeyRecoveryInfo",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.keyId !== "") {
             writer.uint32(10).string(message.keyId);
@@ -350,7 +374,11 @@ exports.KeyRecoveryInfo = {
             writer.uint32(18).bytes(message.public);
         }
         Object.entries(message.private).forEach(([key, value]) => {
-            exports.KeyRecoveryInfo_PrivateEntry.encode({ key: key, value }, writer.uint32(26).fork()).ldelim();
+            exports.KeyRecoveryInfo_PrivateEntry.encode({
+                $type: "axelar.tss.v1beta1.KeyRecoveryInfo.PrivateEntry",
+                key: key,
+                value,
+            }, writer.uint32(26).fork()).ldelim();
         });
         return writer;
     },
@@ -392,6 +420,7 @@ exports.KeyRecoveryInfo = {
     },
     fromJSON(object) {
         return {
+            $type: exports.KeyRecoveryInfo.$type,
             keyId: isSet(object.keyId) ? gt.String(object.keyId) : "",
             public: isSet(object.public) ? Buffer.from(bytesFromBase64(object.public)) : Buffer.alloc(0),
             private: isObject(object.private)
@@ -438,10 +467,12 @@ exports.KeyRecoveryInfo = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.KeyRecoveryInfo.$type, exports.KeyRecoveryInfo);
 function createBaseKeyRecoveryInfo_PrivateEntry() {
-    return { key: "", value: Buffer.alloc(0) };
+    return { $type: "axelar.tss.v1beta1.KeyRecoveryInfo.PrivateEntry", key: "", value: Buffer.alloc(0) };
 }
 exports.KeyRecoveryInfo_PrivateEntry = {
+    $type: "axelar.tss.v1beta1.KeyRecoveryInfo.PrivateEntry",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.key !== "") {
             writer.uint32(10).string(message.key);
@@ -480,6 +511,7 @@ exports.KeyRecoveryInfo_PrivateEntry = {
     },
     fromJSON(object) {
         return {
+            $type: exports.KeyRecoveryInfo_PrivateEntry.$type,
             key: isSet(object.key) ? gt.String(object.key) : "",
             value: isSet(object.value) ? Buffer.from(bytesFromBase64(object.value)) : Buffer.alloc(0),
         };
@@ -505,10 +537,12 @@ exports.KeyRecoveryInfo_PrivateEntry = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.KeyRecoveryInfo_PrivateEntry.$type, exports.KeyRecoveryInfo_PrivateEntry);
 function createBaseExternalKeys() {
-    return { chain: "", keyIds: [] };
+    return { $type: "axelar.tss.v1beta1.ExternalKeys", chain: "", keyIds: [] };
 }
 exports.ExternalKeys = {
+    $type: "axelar.tss.v1beta1.ExternalKeys",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.chain !== "") {
             writer.uint32(10).string(message.chain);
@@ -547,6 +581,7 @@ exports.ExternalKeys = {
     },
     fromJSON(object) {
         return {
+            $type: exports.ExternalKeys.$type,
             chain: isSet(object.chain) ? gt.String(object.chain) : "",
             keyIds: gt.Array.isArray(object === null || object === void 0 ? void 0 : object.keyIds) ? object.keyIds.map((e) => gt.String(e)) : [],
         };
@@ -573,10 +608,16 @@ exports.ExternalKeys = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.ExternalKeys.$type, exports.ExternalKeys);
 function createBaseValidatorStatus() {
-    return { validator: Buffer.alloc(0), suspendedUntil: long_1.default.UZERO };
+    return {
+        $type: "axelar.tss.v1beta1.ValidatorStatus",
+        validator: Buffer.alloc(0),
+        suspendedUntil: long_1.default.UZERO,
+    };
 }
 exports.ValidatorStatus = {
+    $type: "axelar.tss.v1beta1.ValidatorStatus",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.validator.length !== 0) {
             writer.uint32(10).bytes(message.validator);
@@ -615,6 +656,7 @@ exports.ValidatorStatus = {
     },
     fromJSON(object) {
         return {
+            $type: exports.ValidatorStatus.$type,
             validator: isSet(object.validator) ? Buffer.from(bytesFromBase64(object.validator)) : Buffer.alloc(0),
             suspendedUntil: isSet(object.suspendedUntil) ? long_1.default.fromValue(object.suspendedUntil) : long_1.default.UZERO,
         };
@@ -643,6 +685,7 @@ exports.ValidatorStatus = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.ValidatorStatus.$type, exports.ValidatorStatus);
 const gt = (() => {
     if (typeof globalThis !== "undefined") {
         return globalThis;

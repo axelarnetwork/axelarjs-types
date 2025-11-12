@@ -13,12 +13,14 @@ exports.ParamsResponse = exports.ParamsRequest = exports.QueryGovernanceKeyRespo
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
 const keys_1 = require("../../../cosmos/crypto/multisig/keys");
+const typeRegistry_1 = require("../../../typeRegistry");
 const params_1 = require("./params");
 exports.protobufPackage = "axelar.permission.v1beta1";
 function createBaseQueryGovernanceKeyRequest() {
-    return {};
+    return { $type: "axelar.permission.v1beta1.QueryGovernanceKeyRequest" };
 }
 exports.QueryGovernanceKeyRequest = {
+    $type: "axelar.permission.v1beta1.QueryGovernanceKeyRequest",
     encode(_, writer = minimal_1.default.Writer.create()) {
         return writer;
     },
@@ -38,7 +40,7 @@ exports.QueryGovernanceKeyRequest = {
         return message;
     },
     fromJSON(_) {
-        return {};
+        return { $type: exports.QueryGovernanceKeyRequest.$type };
     },
     toJSON(_) {
         const obj = {};
@@ -52,10 +54,12 @@ exports.QueryGovernanceKeyRequest = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.QueryGovernanceKeyRequest.$type, exports.QueryGovernanceKeyRequest);
 function createBaseQueryGovernanceKeyResponse() {
-    return { governanceKey: undefined };
+    return { $type: "axelar.permission.v1beta1.QueryGovernanceKeyResponse", governanceKey: undefined };
 }
 exports.QueryGovernanceKeyResponse = {
+    $type: "axelar.permission.v1beta1.QueryGovernanceKeyResponse",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.governanceKey !== undefined) {
             keys_1.LegacyAminoPubKey.encode(message.governanceKey, writer.uint32(10).fork()).ldelim();
@@ -85,6 +89,7 @@ exports.QueryGovernanceKeyResponse = {
     },
     fromJSON(object) {
         return {
+            $type: exports.QueryGovernanceKeyResponse.$type,
             governanceKey: isSet(object.governanceKey)
                 ? keys_1.LegacyAminoPubKey.fromJSON(object.governanceKey)
                 : undefined,
@@ -109,10 +114,12 @@ exports.QueryGovernanceKeyResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.QueryGovernanceKeyResponse.$type, exports.QueryGovernanceKeyResponse);
 function createBaseParamsRequest() {
-    return {};
+    return { $type: "axelar.permission.v1beta1.ParamsRequest" };
 }
 exports.ParamsRequest = {
+    $type: "axelar.permission.v1beta1.ParamsRequest",
     encode(_, writer = minimal_1.default.Writer.create()) {
         return writer;
     },
@@ -132,7 +139,7 @@ exports.ParamsRequest = {
         return message;
     },
     fromJSON(_) {
-        return {};
+        return { $type: exports.ParamsRequest.$type };
     },
     toJSON(_) {
         const obj = {};
@@ -146,10 +153,12 @@ exports.ParamsRequest = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.ParamsRequest.$type, exports.ParamsRequest);
 function createBaseParamsResponse() {
-    return { params: undefined };
+    return { $type: "axelar.permission.v1beta1.ParamsResponse", params: undefined };
 }
 exports.ParamsResponse = {
+    $type: "axelar.permission.v1beta1.ParamsResponse",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.params !== undefined) {
             params_1.Params.encode(message.params, writer.uint32(10).fork()).ldelim();
@@ -178,7 +187,10 @@ exports.ParamsResponse = {
         return message;
     },
     fromJSON(object) {
-        return { params: isSet(object.params) ? params_1.Params.fromJSON(object.params) : undefined };
+        return {
+            $type: exports.ParamsResponse.$type,
+            params: isSet(object.params) ? params_1.Params.fromJSON(object.params) : undefined,
+        };
     },
     toJSON(message) {
         const obj = {};
@@ -197,6 +209,7 @@ exports.ParamsResponse = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.ParamsResponse.$type, exports.ParamsResponse);
 if (minimal_1.default.util.Long !== long_1.default) {
     minimal_1.default.util.Long = long_1.default;
     minimal_1.default.configure();

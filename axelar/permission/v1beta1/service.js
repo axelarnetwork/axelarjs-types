@@ -22,6 +22,7 @@ class MsgClientImpl {
         this.RegisterController = this.RegisterController.bind(this);
         this.DeregisterController = this.DeregisterController.bind(this);
         this.UpdateGovernanceKey = this.UpdateGovernanceKey.bind(this);
+        this.UpdateParams = this.UpdateParams.bind(this);
     }
     RegisterController(request) {
         const data = tx_1.RegisterControllerRequest.encode(request).finish();
@@ -37,6 +38,11 @@ class MsgClientImpl {
         const data = tx_1.UpdateGovernanceKeyRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "UpdateGovernanceKey", data);
         return promise.then((data) => tx_1.UpdateGovernanceKeyResponse.decode(minimal_1.default.Reader.create(data)));
+    }
+    UpdateParams(request) {
+        const data = tx_1.UpdateParamsRequest.encode(request).finish();
+        const promise = this.rpc.request(this.service, "UpdateParams", data);
+        return promise.then((data) => tx_1.UpdateParamsResponse.decode(minimal_1.default.Reader.create(data)));
     }
 }
 exports.MsgClientImpl = MsgClientImpl;

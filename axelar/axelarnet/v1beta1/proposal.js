@@ -12,11 +12,18 @@ exports.ContractCall = exports.CallContractsProposal = exports.protobufPackage =
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const typeRegistry_1 = require("../../../typeRegistry");
 exports.protobufPackage = "axelar.axelarnet.v1beta1";
 function createBaseCallContractsProposal() {
-    return { title: "", description: "", contractCalls: [] };
+    return {
+        $type: "axelar.axelarnet.v1beta1.CallContractsProposal",
+        title: "",
+        description: "",
+        contractCalls: [],
+    };
 }
 exports.CallContractsProposal = {
+    $type: "axelar.axelarnet.v1beta1.CallContractsProposal",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.title !== "") {
             writer.uint32(10).string(message.title);
@@ -64,6 +71,7 @@ exports.CallContractsProposal = {
     },
     fromJSON(object) {
         return {
+            $type: exports.CallContractsProposal.$type,
             title: isSet(object.title) ? gt.String(object.title) : "",
             description: isSet(object.description) ? gt.String(object.description) : "",
             contractCalls: gt.Array.isArray(object === null || object === void 0 ? void 0 : object.contractCalls)
@@ -97,10 +105,17 @@ exports.CallContractsProposal = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.CallContractsProposal.$type, exports.CallContractsProposal);
 function createBaseContractCall() {
-    return { chain: "", contractAddress: "", payload: Buffer.alloc(0) };
+    return {
+        $type: "axelar.axelarnet.v1beta1.ContractCall",
+        chain: "",
+        contractAddress: "",
+        payload: Buffer.alloc(0),
+    };
 }
 exports.ContractCall = {
+    $type: "axelar.axelarnet.v1beta1.ContractCall",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.chain !== "") {
             writer.uint32(10).string(message.chain);
@@ -148,6 +163,7 @@ exports.ContractCall = {
     },
     fromJSON(object) {
         return {
+            $type: exports.ContractCall.$type,
             chain: isSet(object.chain) ? gt.String(object.chain) : "",
             contractAddress: isSet(object.contractAddress) ? gt.String(object.contractAddress) : "",
             payload: isSet(object.payload) ? Buffer.from(bytesFromBase64(object.payload)) : Buffer.alloc(0),
@@ -178,6 +194,7 @@ exports.ContractCall = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.ContractCall.$type, exports.ContractCall);
 const gt = (() => {
     if (typeof globalThis !== "undefined") {
         return globalThis;

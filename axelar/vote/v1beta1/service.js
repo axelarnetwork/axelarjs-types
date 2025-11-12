@@ -20,11 +20,17 @@ class MsgServiceClientImpl {
         this.service = (opts === null || opts === void 0 ? void 0 : opts.service) || exports.MsgServiceServiceName;
         this.rpc = rpc;
         this.Vote = this.Vote.bind(this);
+        this.UpdateParams = this.UpdateParams.bind(this);
     }
     Vote(request) {
         const data = tx_1.VoteRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "Vote", data);
         return promise.then((data) => tx_1.VoteResponse.decode(minimal_1.default.Reader.create(data)));
+    }
+    UpdateParams(request) {
+        const data = tx_1.UpdateParamsRequest.encode(request).finish();
+        const promise = this.rpc.request(this.service, "UpdateParams", data);
+        return promise.then((data) => tx_1.UpdateParamsResponse.decode(minimal_1.default.Reader.create(data)));
     }
 }
 exports.MsgServiceClientImpl = MsgServiceClientImpl;

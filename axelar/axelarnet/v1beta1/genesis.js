@@ -12,12 +12,14 @@ exports.GenesisState_SeqIdMappingEntry = exports.GenesisState = exports.protobuf
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const typeRegistry_1 = require("../../../typeRegistry");
 const queuer_1 = require("../../utils/v1beta1/queuer");
 const params_1 = require("./params");
 const types_1 = require("./types");
 exports.protobufPackage = "axelar.axelarnet.v1beta1";
 function createBaseGenesisState() {
     return {
+        $type: "axelar.axelarnet.v1beta1.GenesisState",
         params: undefined,
         collectorAddress: Buffer.alloc(0),
         chains: [],
@@ -27,6 +29,7 @@ function createBaseGenesisState() {
     };
 }
 exports.GenesisState = {
+    $type: "axelar.axelarnet.v1beta1.GenesisState",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.params !== undefined) {
             params_1.Params.encode(message.params, writer.uint32(10).fork()).ldelim();
@@ -44,7 +47,11 @@ exports.GenesisState = {
             types_1.IBCTransfer.encode(v, writer.uint32(58).fork()).ldelim();
         }
         Object.entries(message.seqIdMapping).forEach(([key, value]) => {
-            exports.GenesisState_SeqIdMappingEntry.encode({ key: key, value }, writer.uint32(66).fork()).ldelim();
+            exports.GenesisState_SeqIdMappingEntry.encode({
+                $type: "axelar.axelarnet.v1beta1.GenesisState.SeqIdMappingEntry",
+                key: key,
+                value,
+            }, writer.uint32(66).fork()).ldelim();
         });
         return writer;
     },
@@ -104,6 +111,7 @@ exports.GenesisState = {
     },
     fromJSON(object) {
         return {
+            $type: exports.GenesisState.$type,
             params: isSet(object.params) ? params_1.Params.fromJSON(object.params) : undefined,
             collectorAddress: isSet(object.collectorAddress)
                 ? Buffer.from(bytesFromBase64(object.collectorAddress))
@@ -174,10 +182,12 @@ exports.GenesisState = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.GenesisState.$type, exports.GenesisState);
 function createBaseGenesisState_SeqIdMappingEntry() {
-    return { key: "", value: long_1.default.UZERO };
+    return { $type: "axelar.axelarnet.v1beta1.GenesisState.SeqIdMappingEntry", key: "", value: long_1.default.UZERO };
 }
 exports.GenesisState_SeqIdMappingEntry = {
+    $type: "axelar.axelarnet.v1beta1.GenesisState.SeqIdMappingEntry",
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.key !== "") {
             writer.uint32(10).string(message.key);
@@ -216,6 +226,7 @@ exports.GenesisState_SeqIdMappingEntry = {
     },
     fromJSON(object) {
         return {
+            $type: exports.GenesisState_SeqIdMappingEntry.$type,
             key: isSet(object.key) ? gt.String(object.key) : "",
             value: isSet(object.value) ? long_1.default.fromValue(object.value) : long_1.default.UZERO,
         };
@@ -242,6 +253,7 @@ exports.GenesisState_SeqIdMappingEntry = {
         return message;
     },
 };
+typeRegistry_1.messageTypeRegistry.set(exports.GenesisState_SeqIdMappingEntry.$type, exports.GenesisState_SeqIdMappingEntry);
 const gt = (() => {
     if (typeof globalThis !== "undefined") {
         return globalThis;
