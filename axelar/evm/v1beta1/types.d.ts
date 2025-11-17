@@ -45,6 +45,21 @@ export declare enum SigType {
 }
 export declare function sigTypeFromJSON(object: any): SigType;
 export declare function sigTypeToJSON(object: SigType): string;
+/**
+ * DEPRECATED: Removed in v0.20, reinstated in v1.3 for backward compatibility.
+ * This enum must remain to allow decoding of historical transactions.
+ * DO NOT use in new code.
+ *
+ * @deprecated
+ */
+export declare enum TransferKeyType {
+    TRANSFER_KEY_TYPE_UNSPECIFIED = 0,
+    TRANSFER_KEY_TYPE_OWNERSHIP = 1,
+    TRANSFER_KEY_TYPE_OPERATORSHIP = 2,
+    UNRECOGNIZED = -1
+}
+export declare function transferKeyTypeFromJSON(object: any): TransferKeyType;
+export declare function transferKeyTypeToJSON(object: TransferKeyType): string;
 export declare enum DepositStatus {
     DEPOSIT_STATUS_UNSPECIFIED = 0,
     DEPOSIT_STATUS_PENDING = 1,

@@ -33,6 +33,7 @@ export declare const GenesisState: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -48,6 +49,7 @@ export declare const GenesisState: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -82,6 +84,7 @@ export declare const GenesisState: {
         chains?: {
             name?: string | undefined;
             keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+            nativeAssetDeprecated?: string | undefined;
             supportsForeignAssets?: boolean | undefined;
             module?: string | undefined;
         }[] | undefined;
@@ -90,11 +93,13 @@ export declare const GenesisState: {
             chain?: {
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
             assets?: {
                 denom?: string | undefined;
+                minAmountDeprecated?: Buffer | undefined;
                 isNativeAsset?: boolean | undefined;
             }[] | undefined;
             activated?: boolean | undefined;
@@ -123,6 +128,7 @@ export declare const GenesisState: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -132,6 +138,7 @@ export declare const GenesisState: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -148,6 +155,7 @@ export declare const GenesisState: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -189,6 +197,7 @@ export declare const GenesisState: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -204,6 +213,7 @@ export declare const GenesisState: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -217,6 +227,7 @@ export declare const GenesisState: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -232,6 +243,7 @@ export declare const GenesisState: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -245,6 +257,7 @@ export declare const GenesisState: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -253,14 +266,16 @@ export declare const GenesisState: {
                 chain?: ({
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } & {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
-                } & { [K in Exclude<keyof I["messages"][number]["sender"]["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+                } & { [K in Exclude<keyof I["messages"][number]["sender"]["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
             } & { [K_1 in Exclude<keyof I["messages"][number]["sender"], "$type" | "address" | "chain">]: never; }) | undefined;
             status?: import("../exported/v1beta1/types").GeneralMessage_Status | undefined;
             id?: string | undefined;
@@ -276,6 +291,7 @@ export declare const GenesisState: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -284,14 +300,16 @@ export declare const GenesisState: {
                 chain?: ({
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } & {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
-                } & { [K_3 in Exclude<keyof I["messages"][number]["recipient"]["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+                } & { [K_3 in Exclude<keyof I["messages"][number]["recipient"]["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
             } & { [K_4 in Exclude<keyof I["messages"][number]["recipient"], "$type" | "address" | "chain">]: never; }) | undefined;
             payloadHash?: Buffer | undefined;
             sourceTxId?: Buffer | undefined;
@@ -359,6 +377,7 @@ export declare const GenesisState: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -374,6 +393,7 @@ export declare const GenesisState: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -846,21 +866,25 @@ export declare const GenesisState: {
         chains?: ({
             name?: string | undefined;
             keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+            nativeAssetDeprecated?: string | undefined;
             supportsForeignAssets?: boolean | undefined;
             module?: string | undefined;
         }[] & ({
             name?: string | undefined;
             keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+            nativeAssetDeprecated?: string | undefined;
             supportsForeignAssets?: boolean | undefined;
             module?: string | undefined;
         } & {
             name?: string | undefined;
             keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+            nativeAssetDeprecated?: string | undefined;
             supportsForeignAssets?: boolean | undefined;
             module?: string | undefined;
-        } & { [K_22 in Exclude<keyof I["chains"][number], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; })[] & { [K_23 in Exclude<keyof I["chains"], "$type" | keyof {
+        } & { [K_22 in Exclude<keyof I["chains"][number], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; })[] & { [K_23 in Exclude<keyof I["chains"], "$type" | keyof {
             name?: string | undefined;
             keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+            nativeAssetDeprecated?: string | undefined;
             supportsForeignAssets?: boolean | undefined;
             module?: string | undefined;
         }[]>]: never; }) | undefined;
@@ -926,11 +950,13 @@ export declare const GenesisState: {
             chain?: {
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
             assets?: {
                 denom?: string | undefined;
+                minAmountDeprecated?: Buffer | undefined;
                 isNativeAsset?: boolean | undefined;
             }[] | undefined;
             activated?: boolean | undefined;
@@ -956,11 +982,13 @@ export declare const GenesisState: {
             chain?: {
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
             assets?: {
                 denom?: string | undefined;
+                minAmountDeprecated?: Buffer | undefined;
                 isNativeAsset?: boolean | undefined;
             }[] | undefined;
             activated?: boolean | undefined;
@@ -986,25 +1014,31 @@ export declare const GenesisState: {
             chain?: ({
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } & {
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
-            } & { [K_25 in Exclude<keyof I["chainStates"][number]["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+            } & { [K_25 in Exclude<keyof I["chainStates"][number]["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
             assets?: ({
                 denom?: string | undefined;
+                minAmountDeprecated?: Buffer | undefined;
                 isNativeAsset?: boolean | undefined;
             }[] & ({
                 denom?: string | undefined;
+                minAmountDeprecated?: Buffer | undefined;
                 isNativeAsset?: boolean | undefined;
             } & {
                 denom?: string | undefined;
+                minAmountDeprecated?: Buffer | undefined;
                 isNativeAsset?: boolean | undefined;
-            } & { [K_26 in Exclude<keyof I["chainStates"][number]["assets"][number], "$type" | "denom" | "isNativeAsset">]: never; })[] & { [K_27 in Exclude<keyof I["chainStates"][number]["assets"], "$type" | keyof {
+            } & { [K_26 in Exclude<keyof I["chainStates"][number]["assets"][number], "$type" | "denom" | "minAmountDeprecated" | "isNativeAsset">]: never; })[] & { [K_27 in Exclude<keyof I["chainStates"][number]["assets"], "$type" | keyof {
                 denom?: string | undefined;
+                minAmountDeprecated?: Buffer | undefined;
                 isNativeAsset?: boolean | undefined;
             }[]>]: never; }) | undefined;
             activated?: boolean | undefined;
@@ -1215,11 +1249,13 @@ export declare const GenesisState: {
             chain?: {
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
             assets?: {
                 denom?: string | undefined;
+                minAmountDeprecated?: Buffer | undefined;
                 isNativeAsset?: boolean | undefined;
             }[] | undefined;
             activated?: boolean | undefined;
@@ -1248,6 +1284,7 @@ export declare const GenesisState: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -1257,6 +1294,7 @@ export declare const GenesisState: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -1267,6 +1305,7 @@ export declare const GenesisState: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -1276,6 +1315,7 @@ export declare const GenesisState: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -1286,6 +1326,7 @@ export declare const GenesisState: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -1294,20 +1335,23 @@ export declare const GenesisState: {
                 chain?: ({
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } & {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
-                } & { [K_40 in Exclude<keyof I["linkedAddresses"][number]["depositAddress"]["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+                } & { [K_40 in Exclude<keyof I["linkedAddresses"][number]["depositAddress"]["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
             } & { [K_41 in Exclude<keyof I["linkedAddresses"][number]["depositAddress"], "$type" | "address" | "chain">]: never; }) | undefined;
             recipientAddress?: ({
                 address?: string | undefined;
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -1316,14 +1360,16 @@ export declare const GenesisState: {
                 chain?: ({
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } & {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
-                } & { [K_42 in Exclude<keyof I["linkedAddresses"][number]["recipientAddress"]["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+                } & { [K_42 in Exclude<keyof I["linkedAddresses"][number]["recipientAddress"]["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
             } & { [K_43 in Exclude<keyof I["linkedAddresses"][number]["recipientAddress"], "$type" | "address" | "chain">]: never; }) | undefined;
         } & { [K_44 in Exclude<keyof I["linkedAddresses"][number], "$type" | "depositAddress" | "recipientAddress">]: never; })[] & { [K_45 in Exclude<keyof I["linkedAddresses"], "$type" | keyof {
             depositAddress?: {
@@ -1331,6 +1377,7 @@ export declare const GenesisState: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -1340,6 +1387,7 @@ export declare const GenesisState: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -1356,6 +1404,7 @@ export declare const GenesisState: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -1372,6 +1421,7 @@ export declare const GenesisState: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -1448,6 +1498,7 @@ export declare const GenesisState: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -1456,14 +1507,16 @@ export declare const GenesisState: {
                 chain?: ({
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } & {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
-                } & { [K_48 in Exclude<keyof I["transfers"][number]["recipient"]["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+                } & { [K_48 in Exclude<keyof I["transfers"][number]["recipient"]["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
             } & { [K_49 in Exclude<keyof I["transfers"][number]["recipient"], "$type" | "address" | "chain">]: never; }) | undefined;
             state?: import("../exported/v1beta1/types").TransferState | undefined;
         } & { [K_50 in Exclude<keyof I["transfers"][number], "$type" | "id" | "asset" | "recipient" | "state">]: never; })[] & { [K_51 in Exclude<keyof I["transfers"], "$type" | keyof {
@@ -1477,6 +1530,7 @@ export declare const GenesisState: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -1771,6 +1825,7 @@ export declare const GenesisState: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -1786,6 +1841,7 @@ export declare const GenesisState: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -1820,6 +1876,7 @@ export declare const GenesisState: {
         chains?: {
             name?: string | undefined;
             keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+            nativeAssetDeprecated?: string | undefined;
             supportsForeignAssets?: boolean | undefined;
             module?: string | undefined;
         }[] | undefined;
@@ -1828,11 +1885,13 @@ export declare const GenesisState: {
             chain?: {
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
             assets?: {
                 denom?: string | undefined;
+                minAmountDeprecated?: Buffer | undefined;
                 isNativeAsset?: boolean | undefined;
             }[] | undefined;
             activated?: boolean | undefined;
@@ -1861,6 +1920,7 @@ export declare const GenesisState: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -1870,6 +1930,7 @@ export declare const GenesisState: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -1886,6 +1947,7 @@ export declare const GenesisState: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -1927,6 +1989,7 @@ export declare const GenesisState: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -1942,6 +2005,7 @@ export declare const GenesisState: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -1955,6 +2019,7 @@ export declare const GenesisState: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -1970,6 +2035,7 @@ export declare const GenesisState: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -1983,6 +2049,7 @@ export declare const GenesisState: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -1991,14 +2058,16 @@ export declare const GenesisState: {
                 chain?: ({
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } & {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
-                } & { [K_65 in Exclude<keyof I_1["messages"][number]["sender"]["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+                } & { [K_65 in Exclude<keyof I_1["messages"][number]["sender"]["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
             } & { [K_66 in Exclude<keyof I_1["messages"][number]["sender"], "$type" | "address" | "chain">]: never; }) | undefined;
             status?: import("../exported/v1beta1/types").GeneralMessage_Status | undefined;
             id?: string | undefined;
@@ -2014,6 +2083,7 @@ export declare const GenesisState: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -2022,14 +2092,16 @@ export declare const GenesisState: {
                 chain?: ({
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } & {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
-                } & { [K_68 in Exclude<keyof I_1["messages"][number]["recipient"]["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+                } & { [K_68 in Exclude<keyof I_1["messages"][number]["recipient"]["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
             } & { [K_69 in Exclude<keyof I_1["messages"][number]["recipient"], "$type" | "address" | "chain">]: never; }) | undefined;
             payloadHash?: Buffer | undefined;
             sourceTxId?: Buffer | undefined;
@@ -2097,6 +2169,7 @@ export declare const GenesisState: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -2112,6 +2185,7 @@ export declare const GenesisState: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -2584,21 +2658,25 @@ export declare const GenesisState: {
         chains?: ({
             name?: string | undefined;
             keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+            nativeAssetDeprecated?: string | undefined;
             supportsForeignAssets?: boolean | undefined;
             module?: string | undefined;
         }[] & ({
             name?: string | undefined;
             keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+            nativeAssetDeprecated?: string | undefined;
             supportsForeignAssets?: boolean | undefined;
             module?: string | undefined;
         } & {
             name?: string | undefined;
             keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+            nativeAssetDeprecated?: string | undefined;
             supportsForeignAssets?: boolean | undefined;
             module?: string | undefined;
-        } & { [K_87 in Exclude<keyof I_1["chains"][number], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; })[] & { [K_88 in Exclude<keyof I_1["chains"], "$type" | keyof {
+        } & { [K_87 in Exclude<keyof I_1["chains"][number], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; })[] & { [K_88 in Exclude<keyof I_1["chains"], "$type" | keyof {
             name?: string | undefined;
             keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+            nativeAssetDeprecated?: string | undefined;
             supportsForeignAssets?: boolean | undefined;
             module?: string | undefined;
         }[]>]: never; }) | undefined;
@@ -2664,11 +2742,13 @@ export declare const GenesisState: {
             chain?: {
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
             assets?: {
                 denom?: string | undefined;
+                minAmountDeprecated?: Buffer | undefined;
                 isNativeAsset?: boolean | undefined;
             }[] | undefined;
             activated?: boolean | undefined;
@@ -2694,11 +2774,13 @@ export declare const GenesisState: {
             chain?: {
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
             assets?: {
                 denom?: string | undefined;
+                minAmountDeprecated?: Buffer | undefined;
                 isNativeAsset?: boolean | undefined;
             }[] | undefined;
             activated?: boolean | undefined;
@@ -2724,25 +2806,31 @@ export declare const GenesisState: {
             chain?: ({
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } & {
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
-            } & { [K_90 in Exclude<keyof I_1["chainStates"][number]["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+            } & { [K_90 in Exclude<keyof I_1["chainStates"][number]["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
             assets?: ({
                 denom?: string | undefined;
+                minAmountDeprecated?: Buffer | undefined;
                 isNativeAsset?: boolean | undefined;
             }[] & ({
                 denom?: string | undefined;
+                minAmountDeprecated?: Buffer | undefined;
                 isNativeAsset?: boolean | undefined;
             } & {
                 denom?: string | undefined;
+                minAmountDeprecated?: Buffer | undefined;
                 isNativeAsset?: boolean | undefined;
-            } & { [K_91 in Exclude<keyof I_1["chainStates"][number]["assets"][number], "$type" | "denom" | "isNativeAsset">]: never; })[] & { [K_92 in Exclude<keyof I_1["chainStates"][number]["assets"], "$type" | keyof {
+            } & { [K_91 in Exclude<keyof I_1["chainStates"][number]["assets"][number], "$type" | "denom" | "minAmountDeprecated" | "isNativeAsset">]: never; })[] & { [K_92 in Exclude<keyof I_1["chainStates"][number]["assets"], "$type" | keyof {
                 denom?: string | undefined;
+                minAmountDeprecated?: Buffer | undefined;
                 isNativeAsset?: boolean | undefined;
             }[]>]: never; }) | undefined;
             activated?: boolean | undefined;
@@ -2953,11 +3041,13 @@ export declare const GenesisState: {
             chain?: {
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
             assets?: {
                 denom?: string | undefined;
+                minAmountDeprecated?: Buffer | undefined;
                 isNativeAsset?: boolean | undefined;
             }[] | undefined;
             activated?: boolean | undefined;
@@ -2986,6 +3076,7 @@ export declare const GenesisState: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -2995,6 +3086,7 @@ export declare const GenesisState: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -3005,6 +3097,7 @@ export declare const GenesisState: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -3014,6 +3107,7 @@ export declare const GenesisState: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -3024,6 +3118,7 @@ export declare const GenesisState: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -3032,20 +3127,23 @@ export declare const GenesisState: {
                 chain?: ({
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } & {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
-                } & { [K_105 in Exclude<keyof I_1["linkedAddresses"][number]["depositAddress"]["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+                } & { [K_105 in Exclude<keyof I_1["linkedAddresses"][number]["depositAddress"]["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
             } & { [K_106 in Exclude<keyof I_1["linkedAddresses"][number]["depositAddress"], "$type" | "address" | "chain">]: never; }) | undefined;
             recipientAddress?: ({
                 address?: string | undefined;
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -3054,14 +3152,16 @@ export declare const GenesisState: {
                 chain?: ({
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } & {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
-                } & { [K_107 in Exclude<keyof I_1["linkedAddresses"][number]["recipientAddress"]["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+                } & { [K_107 in Exclude<keyof I_1["linkedAddresses"][number]["recipientAddress"]["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
             } & { [K_108 in Exclude<keyof I_1["linkedAddresses"][number]["recipientAddress"], "$type" | "address" | "chain">]: never; }) | undefined;
         } & { [K_109 in Exclude<keyof I_1["linkedAddresses"][number], "$type" | "depositAddress" | "recipientAddress">]: never; })[] & { [K_110 in Exclude<keyof I_1["linkedAddresses"], "$type" | keyof {
             depositAddress?: {
@@ -3069,6 +3169,7 @@ export declare const GenesisState: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -3078,6 +3179,7 @@ export declare const GenesisState: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -3094,6 +3196,7 @@ export declare const GenesisState: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -3110,6 +3213,7 @@ export declare const GenesisState: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -3186,6 +3290,7 @@ export declare const GenesisState: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -3194,14 +3299,16 @@ export declare const GenesisState: {
                 chain?: ({
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } & {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
-                } & { [K_113 in Exclude<keyof I_1["transfers"][number]["recipient"]["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+                } & { [K_113 in Exclude<keyof I_1["transfers"][number]["recipient"]["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
             } & { [K_114 in Exclude<keyof I_1["transfers"][number]["recipient"], "$type" | "address" | "chain">]: never; }) | undefined;
             state?: import("../exported/v1beta1/types").TransferState | undefined;
         } & { [K_115 in Exclude<keyof I_1["transfers"][number], "$type" | "id" | "asset" | "recipient" | "state">]: never; })[] & { [K_116 in Exclude<keyof I_1["transfers"], "$type" | keyof {
@@ -3215,6 +3322,7 @@ export declare const GenesisState: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;

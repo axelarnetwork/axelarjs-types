@@ -571,6 +571,7 @@ export declare const TransfersForChainResponse: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -593,6 +594,7 @@ export declare const TransfersForChainResponse: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -609,6 +611,7 @@ export declare const TransfersForChainResponse: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -685,6 +688,7 @@ export declare const TransfersForChainResponse: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -693,14 +697,16 @@ export declare const TransfersForChainResponse: {
                 chain?: ({
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } & {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
-                } & { [K_2 in Exclude<keyof I["transfers"][number]["recipient"]["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+                } & { [K_2 in Exclude<keyof I["transfers"][number]["recipient"]["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
             } & { [K_3 in Exclude<keyof I["transfers"][number]["recipient"], "$type" | "address" | "chain">]: never; }) | undefined;
             state?: TransferState | undefined;
         } & { [K_4 in Exclude<keyof I["transfers"][number], "$type" | "id" | "asset" | "recipient" | "state">]: never; })[] & { [K_5 in Exclude<keyof I["transfers"], "$type" | keyof {
@@ -714,6 +720,7 @@ export declare const TransfersForChainResponse: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -797,6 +804,7 @@ export declare const TransfersForChainResponse: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -819,6 +827,7 @@ export declare const TransfersForChainResponse: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -835,6 +844,7 @@ export declare const TransfersForChainResponse: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -911,6 +921,7 @@ export declare const TransfersForChainResponse: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -919,14 +930,16 @@ export declare const TransfersForChainResponse: {
                 chain?: ({
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } & {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
-                } & { [K_11 in Exclude<keyof I_1["transfers"][number]["recipient"]["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+                } & { [K_11 in Exclude<keyof I_1["transfers"][number]["recipient"]["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
             } & { [K_12 in Exclude<keyof I_1["transfers"][number]["recipient"], "$type" | "address" | "chain">]: never; }) | undefined;
             state?: TransferState | undefined;
         } & { [K_13 in Exclude<keyof I_1["transfers"][number], "$type" | "id" | "asset" | "recipient" | "state">]: never; })[] & { [K_14 in Exclude<keyof I_1["transfers"], "$type" | keyof {
@@ -940,6 +953,7 @@ export declare const TransfersForChainResponse: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -1242,11 +1256,13 @@ export declare const ChainStateResponse: {
             chain?: {
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
             assets?: {
                 denom?: string | undefined;
+                minAmountDeprecated?: Buffer | undefined;
                 isNativeAsset?: boolean | undefined;
             }[] | undefined;
             activated?: boolean | undefined;
@@ -1274,11 +1290,13 @@ export declare const ChainStateResponse: {
             chain?: {
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
             assets?: {
                 denom?: string | undefined;
+                minAmountDeprecated?: Buffer | undefined;
                 isNativeAsset?: boolean | undefined;
             }[] | undefined;
             activated?: boolean | undefined;
@@ -1304,25 +1322,31 @@ export declare const ChainStateResponse: {
             chain?: ({
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } & {
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
-            } & { [K in Exclude<keyof I["state"]["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+            } & { [K in Exclude<keyof I["state"]["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
             assets?: ({
                 denom?: string | undefined;
+                minAmountDeprecated?: Buffer | undefined;
                 isNativeAsset?: boolean | undefined;
             }[] & ({
                 denom?: string | undefined;
+                minAmountDeprecated?: Buffer | undefined;
                 isNativeAsset?: boolean | undefined;
             } & {
                 denom?: string | undefined;
+                minAmountDeprecated?: Buffer | undefined;
                 isNativeAsset?: boolean | undefined;
-            } & { [K_1 in Exclude<keyof I["state"]["assets"][number], "$type" | "denom" | "isNativeAsset">]: never; })[] & { [K_2 in Exclude<keyof I["state"]["assets"], "$type" | keyof {
+            } & { [K_1 in Exclude<keyof I["state"]["assets"][number], "$type" | "denom" | "minAmountDeprecated" | "isNativeAsset">]: never; })[] & { [K_2 in Exclude<keyof I["state"]["assets"], "$type" | keyof {
                 denom?: string | undefined;
+                minAmountDeprecated?: Buffer | undefined;
                 isNativeAsset?: boolean | undefined;
             }[]>]: never; }) | undefined;
             activated?: boolean | undefined;
@@ -1536,11 +1560,13 @@ export declare const ChainStateResponse: {
             chain?: {
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
             assets?: {
                 denom?: string | undefined;
+                minAmountDeprecated?: Buffer | undefined;
                 isNativeAsset?: boolean | undefined;
             }[] | undefined;
             activated?: boolean | undefined;
@@ -1568,11 +1594,13 @@ export declare const ChainStateResponse: {
             chain?: {
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
             assets?: {
                 denom?: string | undefined;
+                minAmountDeprecated?: Buffer | undefined;
                 isNativeAsset?: boolean | undefined;
             }[] | undefined;
             activated?: boolean | undefined;
@@ -1598,25 +1626,31 @@ export declare const ChainStateResponse: {
             chain?: ({
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } & {
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
-            } & { [K_15 in Exclude<keyof I_1["state"]["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+            } & { [K_15 in Exclude<keyof I_1["state"]["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
             assets?: ({
                 denom?: string | undefined;
+                minAmountDeprecated?: Buffer | undefined;
                 isNativeAsset?: boolean | undefined;
             }[] & ({
                 denom?: string | undefined;
+                minAmountDeprecated?: Buffer | undefined;
                 isNativeAsset?: boolean | undefined;
             } & {
                 denom?: string | undefined;
+                minAmountDeprecated?: Buffer | undefined;
                 isNativeAsset?: boolean | undefined;
-            } & { [K_16 in Exclude<keyof I_1["state"]["assets"][number], "$type" | "denom" | "isNativeAsset">]: never; })[] & { [K_17 in Exclude<keyof I_1["state"]["assets"], "$type" | keyof {
+            } & { [K_16 in Exclude<keyof I_1["state"]["assets"][number], "$type" | "denom" | "minAmountDeprecated" | "isNativeAsset">]: never; })[] & { [K_17 in Exclude<keyof I_1["state"]["assets"], "$type" | keyof {
                 denom?: string | undefined;
+                minAmountDeprecated?: Buffer | undefined;
                 isNativeAsset?: boolean | undefined;
             }[]>]: never; }) | undefined;
             activated?: boolean | undefined;
@@ -2599,6 +2633,7 @@ export declare const MessageResponse: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -2614,6 +2649,7 @@ export declare const MessageResponse: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -2629,6 +2665,7 @@ export declare const MessageResponse: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -2644,6 +2681,7 @@ export declare const MessageResponse: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -2657,6 +2695,7 @@ export declare const MessageResponse: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -2665,14 +2704,16 @@ export declare const MessageResponse: {
                 chain?: ({
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } & {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
-                } & { [K in Exclude<keyof I["message"]["sender"]["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+                } & { [K in Exclude<keyof I["message"]["sender"]["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
             } & { [K_1 in Exclude<keyof I["message"]["sender"], "$type" | "address" | "chain">]: never; }) | undefined;
             status?: import("../exported/v1beta1/types").GeneralMessage_Status | undefined;
             id?: string | undefined;
@@ -2688,6 +2729,7 @@ export declare const MessageResponse: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -2696,14 +2738,16 @@ export declare const MessageResponse: {
                 chain?: ({
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } & {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
-                } & { [K_3 in Exclude<keyof I["message"]["recipient"]["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+                } & { [K_3 in Exclude<keyof I["message"]["recipient"]["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
             } & { [K_4 in Exclude<keyof I["message"]["recipient"], "$type" | "address" | "chain">]: never; }) | undefined;
             payloadHash?: Buffer | undefined;
             sourceTxId?: Buffer | undefined;
@@ -2774,6 +2818,7 @@ export declare const MessageResponse: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -2789,6 +2834,7 @@ export declare const MessageResponse: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -2804,6 +2850,7 @@ export declare const MessageResponse: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -2819,6 +2866,7 @@ export declare const MessageResponse: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -2832,6 +2880,7 @@ export declare const MessageResponse: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -2840,14 +2889,16 @@ export declare const MessageResponse: {
                 chain?: ({
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } & {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
-                } & { [K_8 in Exclude<keyof I_1["message"]["sender"]["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+                } & { [K_8 in Exclude<keyof I_1["message"]["sender"]["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
             } & { [K_9 in Exclude<keyof I_1["message"]["sender"], "$type" | "address" | "chain">]: never; }) | undefined;
             status?: import("../exported/v1beta1/types").GeneralMessage_Status | undefined;
             id?: string | undefined;
@@ -2863,6 +2914,7 @@ export declare const MessageResponse: {
                 chain?: {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } | undefined;
@@ -2871,14 +2923,16 @@ export declare const MessageResponse: {
                 chain?: ({
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
                 } & {
                     name?: string | undefined;
                     keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                    nativeAssetDeprecated?: string | undefined;
                     supportsForeignAssets?: boolean | undefined;
                     module?: string | undefined;
-                } & { [K_11 in Exclude<keyof I_1["message"]["recipient"]["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+                } & { [K_11 in Exclude<keyof I_1["message"]["recipient"]["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
             } & { [K_12 in Exclude<keyof I_1["message"]["recipient"], "$type" | "address" | "chain">]: never; }) | undefined;
             payloadHash?: Buffer | undefined;
             sourceTxId?: Buffer | undefined;

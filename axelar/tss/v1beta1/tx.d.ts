@@ -18,6 +18,14 @@ export interface StartKeygenResponse {
 }
 export interface RotateKeyRequest {
     $type: "axelar.tss.v1beta1.RotateKeyRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     chain: string;
     keyRole: KeyRole;
     keyId: string;
@@ -29,6 +37,14 @@ export interface RotateKeyResponse {
 /** ProcessKeygenTrafficRequest protocol message */
 export interface ProcessKeygenTrafficRequest {
     $type: "axelar.tss.v1beta1.ProcessKeygenTrafficRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     sessionId: string;
     payload?: TrafficOut | undefined;
     sender: string;
@@ -39,6 +55,14 @@ export interface ProcessKeygenTrafficResponse {
 /** ProcessSignTrafficRequest protocol message */
 export interface ProcessSignTrafficRequest {
     $type: "axelar.tss.v1beta1.ProcessSignTrafficRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     sessionId: string;
     payload?: TrafficOut | undefined;
     sender: string;
@@ -49,6 +73,14 @@ export interface ProcessSignTrafficResponse {
 /** VotePubKeyRequest represents the message to vote on a public key */
 export interface VotePubKeyRequest {
     $type: "axelar.tss.v1beta1.VotePubKeyRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     pollKey?: PollKey | undefined;
     result?: MessageOut_KeygenResult | undefined;
     sender: string;
@@ -60,6 +92,14 @@ export interface VotePubKeyResponse {
 /** VoteSigRequest represents a message to vote for a signature */
 export interface VoteSigRequest {
     $type: "axelar.tss.v1beta1.VoteSigRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     pollKey?: PollKey | undefined;
     result?: MessageOut_SignResult | undefined;
     sender: string;
@@ -70,6 +110,14 @@ export interface VoteSigResponse {
 }
 export interface HeartBeatRequest {
     $type: "axelar.tss.v1beta1.HeartBeatRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     /**
      * Deprecated: this field will be removed in the next release
      *
@@ -83,6 +131,14 @@ export interface HeartBeatResponse {
 }
 export interface RegisterExternalKeysRequest {
     $type: "axelar.tss.v1beta1.RegisterExternalKeysRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     chain: string;
     externalKeys: RegisterExternalKeysRequest_ExternalKey[];
     sender: string;
@@ -97,6 +153,14 @@ export interface RegisterExternalKeysResponse {
 }
 export interface SubmitMultisigPubKeysRequest {
     $type: "axelar.tss.v1beta1.SubmitMultisigPubKeysRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     keyId: string;
     sigKeyPairs: SigKeyPair[];
     sender: string;
@@ -106,6 +170,14 @@ export interface SubmitMultisigPubKeysResponse {
 }
 export interface SubmitMultisigSignaturesRequest {
     $type: "axelar.tss.v1beta1.SubmitMultisigSignaturesRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     sigId: string;
     signatures: Buffer[];
     sender: string;
@@ -183,26 +255,30 @@ export declare const RotateKeyRequest: {
     toJSON(message: RotateKeyRequest): unknown;
     create<I extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
         keyRole?: KeyRole | undefined;
         keyId?: string | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
         keyRole?: KeyRole | undefined;
         keyId?: string | undefined;
-    } & { [K in Exclude<keyof I, "$type" | "sender" | "chain" | "keyRole" | "keyId">]: never; }>(base?: I | undefined): RotateKeyRequest;
+    } & { [K in Exclude<keyof I, "$type" | "sender" | "senderDeprecated" | "chain" | "keyRole" | "keyId">]: never; }>(base?: I | undefined): RotateKeyRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
         keyRole?: KeyRole | undefined;
         keyId?: string | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
         keyRole?: KeyRole | undefined;
         keyId?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender" | "chain" | "keyRole" | "keyId">]: never; }>(object: I_1): RotateKeyRequest;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender" | "senderDeprecated" | "chain" | "keyRole" | "keyId">]: never; }>(object: I_1): RotateKeyRequest;
 };
 export declare const RotateKeyResponse: {
     $type: "axelar.tss.v1beta1.RotateKeyResponse";
@@ -221,6 +297,7 @@ export declare const ProcessKeygenTrafficRequest: {
     toJSON(message: ProcessKeygenTrafficRequest): unknown;
     create<I extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         payload?: {
             payload?: Buffer | undefined;
             isBroadcast?: boolean | undefined;
@@ -229,6 +306,7 @@ export declare const ProcessKeygenTrafficRequest: {
         sessionId?: string | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         payload?: ({
             payload?: Buffer | undefined;
             isBroadcast?: boolean | undefined;
@@ -239,9 +317,10 @@ export declare const ProcessKeygenTrafficRequest: {
             toPartyUid?: string | undefined;
         } & { [K in Exclude<keyof I["payload"], "$type" | "payload" | "isBroadcast" | "toPartyUid">]: never; }) | undefined;
         sessionId?: string | undefined;
-    } & { [K_1 in Exclude<keyof I, "$type" | "sender" | "payload" | "sessionId">]: never; }>(base?: I | undefined): ProcessKeygenTrafficRequest;
+    } & { [K_1 in Exclude<keyof I, "$type" | "sender" | "senderDeprecated" | "payload" | "sessionId">]: never; }>(base?: I | undefined): ProcessKeygenTrafficRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         payload?: {
             payload?: Buffer | undefined;
             isBroadcast?: boolean | undefined;
@@ -250,6 +329,7 @@ export declare const ProcessKeygenTrafficRequest: {
         sessionId?: string | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         payload?: ({
             payload?: Buffer | undefined;
             isBroadcast?: boolean | undefined;
@@ -260,7 +340,7 @@ export declare const ProcessKeygenTrafficRequest: {
             toPartyUid?: string | undefined;
         } & { [K_2 in Exclude<keyof I_1["payload"], "$type" | "payload" | "isBroadcast" | "toPartyUid">]: never; }) | undefined;
         sessionId?: string | undefined;
-    } & { [K_3 in Exclude<keyof I_1, "$type" | "sender" | "payload" | "sessionId">]: never; }>(object: I_1): ProcessKeygenTrafficRequest;
+    } & { [K_3 in Exclude<keyof I_1, "$type" | "sender" | "senderDeprecated" | "payload" | "sessionId">]: never; }>(object: I_1): ProcessKeygenTrafficRequest;
 };
 export declare const ProcessKeygenTrafficResponse: {
     $type: "axelar.tss.v1beta1.ProcessKeygenTrafficResponse";
@@ -279,6 +359,7 @@ export declare const ProcessSignTrafficRequest: {
     toJSON(message: ProcessSignTrafficRequest): unknown;
     create<I extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         payload?: {
             payload?: Buffer | undefined;
             isBroadcast?: boolean | undefined;
@@ -287,6 +368,7 @@ export declare const ProcessSignTrafficRequest: {
         sessionId?: string | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         payload?: ({
             payload?: Buffer | undefined;
             isBroadcast?: boolean | undefined;
@@ -297,9 +379,10 @@ export declare const ProcessSignTrafficRequest: {
             toPartyUid?: string | undefined;
         } & { [K in Exclude<keyof I["payload"], "$type" | "payload" | "isBroadcast" | "toPartyUid">]: never; }) | undefined;
         sessionId?: string | undefined;
-    } & { [K_1 in Exclude<keyof I, "$type" | "sender" | "payload" | "sessionId">]: never; }>(base?: I | undefined): ProcessSignTrafficRequest;
+    } & { [K_1 in Exclude<keyof I, "$type" | "sender" | "senderDeprecated" | "payload" | "sessionId">]: never; }>(base?: I | undefined): ProcessSignTrafficRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         payload?: {
             payload?: Buffer | undefined;
             isBroadcast?: boolean | undefined;
@@ -308,6 +391,7 @@ export declare const ProcessSignTrafficRequest: {
         sessionId?: string | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         payload?: ({
             payload?: Buffer | undefined;
             isBroadcast?: boolean | undefined;
@@ -318,7 +402,7 @@ export declare const ProcessSignTrafficRequest: {
             toPartyUid?: string | undefined;
         } & { [K_2 in Exclude<keyof I_1["payload"], "$type" | "payload" | "isBroadcast" | "toPartyUid">]: never; }) | undefined;
         sessionId?: string | undefined;
-    } & { [K_3 in Exclude<keyof I_1, "$type" | "sender" | "payload" | "sessionId">]: never; }>(object: I_1): ProcessSignTrafficRequest;
+    } & { [K_3 in Exclude<keyof I_1, "$type" | "sender" | "senderDeprecated" | "payload" | "sessionId">]: never; }>(object: I_1): ProcessSignTrafficRequest;
 };
 export declare const ProcessSignTrafficResponse: {
     $type: "axelar.tss.v1beta1.ProcessSignTrafficResponse";
@@ -350,6 +434,7 @@ export declare const VotePubKeyRequest: {
                 }[] | undefined;
             } | undefined;
         } | undefined;
+        senderDeprecated?: Buffer | undefined;
         pollKey?: {
             id?: string | undefined;
             module?: string | undefined;
@@ -399,6 +484,7 @@ export declare const VotePubKeyRequest: {
                 }[]>]: never; }) | undefined;
             } & { [K_3 in Exclude<keyof I["result"]["criminals"], "$type" | "criminals">]: never; }) | undefined;
         } & { [K_4 in Exclude<keyof I["result"], "$type" | "data" | "criminals">]: never; }) | undefined;
+        senderDeprecated?: Buffer | undefined;
         pollKey?: ({
             id?: string | undefined;
             module?: string | undefined;
@@ -406,7 +492,7 @@ export declare const VotePubKeyRequest: {
             id?: string | undefined;
             module?: string | undefined;
         } & { [K_5 in Exclude<keyof I["pollKey"], "$type" | "id" | "module">]: never; }) | undefined;
-    } & { [K_6 in Exclude<keyof I, "$type" | "sender" | "result" | "pollKey">]: never; }>(base?: I | undefined): VotePubKeyRequest;
+    } & { [K_6 in Exclude<keyof I, "$type" | "sender" | "result" | "senderDeprecated" | "pollKey">]: never; }>(base?: I | undefined): VotePubKeyRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
         result?: {
@@ -422,6 +508,7 @@ export declare const VotePubKeyRequest: {
                 }[] | undefined;
             } | undefined;
         } | undefined;
+        senderDeprecated?: Buffer | undefined;
         pollKey?: {
             id?: string | undefined;
             module?: string | undefined;
@@ -471,6 +558,7 @@ export declare const VotePubKeyRequest: {
                 }[]>]: never; }) | undefined;
             } & { [K_10 in Exclude<keyof I_1["result"]["criminals"], "$type" | "criminals">]: never; }) | undefined;
         } & { [K_11 in Exclude<keyof I_1["result"], "$type" | "data" | "criminals">]: never; }) | undefined;
+        senderDeprecated?: Buffer | undefined;
         pollKey?: ({
             id?: string | undefined;
             module?: string | undefined;
@@ -478,7 +566,7 @@ export declare const VotePubKeyRequest: {
             id?: string | undefined;
             module?: string | undefined;
         } & { [K_12 in Exclude<keyof I_1["pollKey"], "$type" | "id" | "module">]: never; }) | undefined;
-    } & { [K_13 in Exclude<keyof I_1, "$type" | "sender" | "result" | "pollKey">]: never; }>(object: I_1): VotePubKeyRequest;
+    } & { [K_13 in Exclude<keyof I_1, "$type" | "sender" | "result" | "senderDeprecated" | "pollKey">]: never; }>(object: I_1): VotePubKeyRequest;
 };
 export declare const VotePubKeyResponse: {
     $type: "axelar.tss.v1beta1.VotePubKeyResponse";
@@ -514,6 +602,7 @@ export declare const VoteSigRequest: {
                 }[] | undefined;
             } | undefined;
         } | undefined;
+        senderDeprecated?: Buffer | undefined;
         pollKey?: {
             id?: string | undefined;
             module?: string | undefined;
@@ -551,6 +640,7 @@ export declare const VoteSigRequest: {
                 }[]>]: never; }) | undefined;
             } & { [K_2 in Exclude<keyof I["result"]["criminals"], "$type" | "criminals">]: never; }) | undefined;
         } & { [K_3 in Exclude<keyof I["result"], "$type" | "signature" | "criminals">]: never; }) | undefined;
+        senderDeprecated?: Buffer | undefined;
         pollKey?: ({
             id?: string | undefined;
             module?: string | undefined;
@@ -558,7 +648,7 @@ export declare const VoteSigRequest: {
             id?: string | undefined;
             module?: string | undefined;
         } & { [K_4 in Exclude<keyof I["pollKey"], "$type" | "id" | "module">]: never; }) | undefined;
-    } & { [K_5 in Exclude<keyof I, "$type" | "sender" | "result" | "pollKey">]: never; }>(base?: I | undefined): VoteSigRequest;
+    } & { [K_5 in Exclude<keyof I, "$type" | "sender" | "result" | "senderDeprecated" | "pollKey">]: never; }>(base?: I | undefined): VoteSigRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
         result?: {
@@ -570,6 +660,7 @@ export declare const VoteSigRequest: {
                 }[] | undefined;
             } | undefined;
         } | undefined;
+        senderDeprecated?: Buffer | undefined;
         pollKey?: {
             id?: string | undefined;
             module?: string | undefined;
@@ -607,6 +698,7 @@ export declare const VoteSigRequest: {
                 }[]>]: never; }) | undefined;
             } & { [K_8 in Exclude<keyof I_1["result"]["criminals"], "$type" | "criminals">]: never; }) | undefined;
         } & { [K_9 in Exclude<keyof I_1["result"], "$type" | "signature" | "criminals">]: never; }) | undefined;
+        senderDeprecated?: Buffer | undefined;
         pollKey?: ({
             id?: string | undefined;
             module?: string | undefined;
@@ -614,7 +706,7 @@ export declare const VoteSigRequest: {
             id?: string | undefined;
             module?: string | undefined;
         } & { [K_10 in Exclude<keyof I_1["pollKey"], "$type" | "id" | "module">]: never; }) | undefined;
-    } & { [K_11 in Exclude<keyof I_1, "$type" | "sender" | "result" | "pollKey">]: never; }>(object: I_1): VoteSigRequest;
+    } & { [K_11 in Exclude<keyof I_1, "$type" | "sender" | "result" | "senderDeprecated" | "pollKey">]: never; }>(object: I_1): VoteSigRequest;
 };
 export declare const VoteSigResponse: {
     $type: "axelar.tss.v1beta1.VoteSigResponse";
@@ -641,18 +733,22 @@ export declare const HeartBeatRequest: {
     toJSON(message: HeartBeatRequest): unknown;
     create<I extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         keyIds?: string[] | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         keyIds?: (string[] & string[] & { [K in Exclude<keyof I["keyIds"], "$type" | keyof string[]>]: never; }) | undefined;
-    } & { [K_1 in Exclude<keyof I, "$type" | "sender" | "keyIds">]: never; }>(base?: I | undefined): HeartBeatRequest;
+    } & { [K_1 in Exclude<keyof I, "$type" | "sender" | "senderDeprecated" | "keyIds">]: never; }>(base?: I | undefined): HeartBeatRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         keyIds?: string[] | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         keyIds?: (string[] & string[] & { [K_2 in Exclude<keyof I_1["keyIds"], "$type" | keyof string[]>]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I_1, "$type" | "sender" | "keyIds">]: never; }>(object: I_1): HeartBeatRequest;
+    } & { [K_3 in Exclude<keyof I_1, "$type" | "sender" | "senderDeprecated" | "keyIds">]: never; }>(object: I_1): HeartBeatRequest;
 };
 export declare const HeartBeatResponse: {
     $type: "axelar.tss.v1beta1.HeartBeatResponse";
@@ -671,6 +767,7 @@ export declare const RegisterExternalKeysRequest: {
     toJSON(message: RegisterExternalKeysRequest): unknown;
     create<I extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
         externalKeys?: {
             pubKey?: Buffer | undefined;
@@ -678,6 +775,7 @@ export declare const RegisterExternalKeysRequest: {
         }[] | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
         externalKeys?: ({
             pubKey?: Buffer | undefined;
@@ -692,9 +790,10 @@ export declare const RegisterExternalKeysRequest: {
             pubKey?: Buffer | undefined;
             id?: string | undefined;
         }[]>]: never; }) | undefined;
-    } & { [K_2 in Exclude<keyof I, "$type" | "sender" | "chain" | "externalKeys">]: never; }>(base?: I | undefined): RegisterExternalKeysRequest;
+    } & { [K_2 in Exclude<keyof I, "$type" | "sender" | "senderDeprecated" | "chain" | "externalKeys">]: never; }>(base?: I | undefined): RegisterExternalKeysRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
         externalKeys?: {
             pubKey?: Buffer | undefined;
@@ -702,6 +801,7 @@ export declare const RegisterExternalKeysRequest: {
         }[] | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
         externalKeys?: ({
             pubKey?: Buffer | undefined;
@@ -716,7 +816,7 @@ export declare const RegisterExternalKeysRequest: {
             pubKey?: Buffer | undefined;
             id?: string | undefined;
         }[]>]: never; }) | undefined;
-    } & { [K_5 in Exclude<keyof I_1, "$type" | "sender" | "chain" | "externalKeys">]: never; }>(object: I_1): RegisterExternalKeysRequest;
+    } & { [K_5 in Exclude<keyof I_1, "$type" | "sender" | "senderDeprecated" | "chain" | "externalKeys">]: never; }>(object: I_1): RegisterExternalKeysRequest;
 };
 export declare const RegisterExternalKeysRequest_ExternalKey: {
     $type: "axelar.tss.v1beta1.RegisterExternalKeysRequest.ExternalKey";
@@ -756,6 +856,7 @@ export declare const SubmitMultisigPubKeysRequest: {
     toJSON(message: SubmitMultisigPubKeysRequest): unknown;
     create<I extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         keyId?: string | undefined;
         sigKeyPairs?: {
             pubKey?: Buffer | undefined;
@@ -763,6 +864,7 @@ export declare const SubmitMultisigPubKeysRequest: {
         }[] | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         keyId?: string | undefined;
         sigKeyPairs?: ({
             pubKey?: Buffer | undefined;
@@ -777,9 +879,10 @@ export declare const SubmitMultisigPubKeysRequest: {
             pubKey?: Buffer | undefined;
             signature?: Buffer | undefined;
         }[]>]: never; }) | undefined;
-    } & { [K_2 in Exclude<keyof I, "$type" | "sender" | "keyId" | "sigKeyPairs">]: never; }>(base?: I | undefined): SubmitMultisigPubKeysRequest;
+    } & { [K_2 in Exclude<keyof I, "$type" | "sender" | "senderDeprecated" | "keyId" | "sigKeyPairs">]: never; }>(base?: I | undefined): SubmitMultisigPubKeysRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         keyId?: string | undefined;
         sigKeyPairs?: {
             pubKey?: Buffer | undefined;
@@ -787,6 +890,7 @@ export declare const SubmitMultisigPubKeysRequest: {
         }[] | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         keyId?: string | undefined;
         sigKeyPairs?: ({
             pubKey?: Buffer | undefined;
@@ -801,7 +905,7 @@ export declare const SubmitMultisigPubKeysRequest: {
             pubKey?: Buffer | undefined;
             signature?: Buffer | undefined;
         }[]>]: never; }) | undefined;
-    } & { [K_5 in Exclude<keyof I_1, "$type" | "sender" | "keyId" | "sigKeyPairs">]: never; }>(object: I_1): SubmitMultisigPubKeysRequest;
+    } & { [K_5 in Exclude<keyof I_1, "$type" | "sender" | "senderDeprecated" | "keyId" | "sigKeyPairs">]: never; }>(object: I_1): SubmitMultisigPubKeysRequest;
 };
 export declare const SubmitMultisigPubKeysResponse: {
     $type: "axelar.tss.v1beta1.SubmitMultisigPubKeysResponse";
@@ -821,21 +925,25 @@ export declare const SubmitMultisigSignaturesRequest: {
     create<I extends {
         sender?: string | undefined;
         signatures?: Buffer[] | undefined;
+        senderDeprecated?: Buffer | undefined;
         sigId?: string | undefined;
     } & {
         sender?: string | undefined;
         signatures?: (Buffer[] & Buffer[] & { [K in Exclude<keyof I["signatures"], "$type" | keyof Buffer[]>]: never; }) | undefined;
+        senderDeprecated?: Buffer | undefined;
         sigId?: string | undefined;
-    } & { [K_1 in Exclude<keyof I, "$type" | "sender" | "signatures" | "sigId">]: never; }>(base?: I | undefined): SubmitMultisigSignaturesRequest;
+    } & { [K_1 in Exclude<keyof I, "$type" | "sender" | "signatures" | "senderDeprecated" | "sigId">]: never; }>(base?: I | undefined): SubmitMultisigSignaturesRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
         signatures?: Buffer[] | undefined;
+        senderDeprecated?: Buffer | undefined;
         sigId?: string | undefined;
     } & {
         sender?: string | undefined;
         signatures?: (Buffer[] & Buffer[] & { [K_2 in Exclude<keyof I_1["signatures"], "$type" | keyof Buffer[]>]: never; }) | undefined;
+        senderDeprecated?: Buffer | undefined;
         sigId?: string | undefined;
-    } & { [K_3 in Exclude<keyof I_1, "$type" | "sender" | "signatures" | "sigId">]: never; }>(object: I_1): SubmitMultisigSignaturesRequest;
+    } & { [K_3 in Exclude<keyof I_1, "$type" | "sender" | "signatures" | "senderDeprecated" | "sigId">]: never; }>(object: I_1): SubmitMultisigSignaturesRequest;
 };
 export declare const SubmitMultisigSignaturesResponse: {
     $type: "axelar.tss.v1beta1.SubmitMultisigSignaturesResponse";

@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
@@ -7,6 +8,14 @@ import { Params } from "./params";
 export declare const protobufPackage = "axelar.nexus.v1beta1";
 export interface RegisterChainMaintainerRequest {
     $type: "axelar.nexus.v1beta1.RegisterChainMaintainerRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     chains: string[];
     sender: string;
 }
@@ -15,6 +24,14 @@ export interface RegisterChainMaintainerResponse {
 }
 export interface DeregisterChainMaintainerRequest {
     $type: "axelar.nexus.v1beta1.DeregisterChainMaintainerRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     chains: string[];
     sender: string;
 }
@@ -24,6 +41,14 @@ export interface DeregisterChainMaintainerResponse {
 /** ActivateChainRequest represents a message to activate chains */
 export interface ActivateChainRequest {
     $type: "axelar.nexus.v1beta1.ActivateChainRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     chains: string[];
     sender: string;
 }
@@ -33,6 +58,14 @@ export interface ActivateChainResponse {
 /** DeactivateChainRequest represents a message to deactivate chains */
 export interface DeactivateChainRequest {
     $type: "axelar.nexus.v1beta1.DeactivateChainRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     chains: string[];
     sender: string;
 }
@@ -45,6 +78,14 @@ export interface DeactivateChainResponse {
  */
 export interface RegisterAssetFeeRequest {
     $type: "axelar.nexus.v1beta1.RegisterAssetFeeRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     feeInfo?: FeeInfo | undefined;
     sender: string;
 }
@@ -57,6 +98,14 @@ export interface RegisterAssetFeeResponse {
  */
 export interface SetTransferRateLimitRequest {
     $type: "axelar.nexus.v1beta1.SetTransferRateLimitRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     chain: string;
     limit?: Coin | undefined;
     window?: Duration | undefined;
@@ -81,18 +130,22 @@ export declare const RegisterChainMaintainerRequest: {
     toJSON(message: RegisterChainMaintainerRequest): unknown;
     create<I extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chains?: string[] | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chains?: (string[] & string[] & { [K in Exclude<keyof I["chains"], "$type" | keyof string[]>]: never; }) | undefined;
-    } & { [K_1 in Exclude<keyof I, "$type" | "sender" | "chains">]: never; }>(base?: I | undefined): RegisterChainMaintainerRequest;
+    } & { [K_1 in Exclude<keyof I, "$type" | "sender" | "senderDeprecated" | "chains">]: never; }>(base?: I | undefined): RegisterChainMaintainerRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chains?: string[] | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chains?: (string[] & string[] & { [K_2 in Exclude<keyof I_1["chains"], "$type" | keyof string[]>]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I_1, "$type" | "sender" | "chains">]: never; }>(object: I_1): RegisterChainMaintainerRequest;
+    } & { [K_3 in Exclude<keyof I_1, "$type" | "sender" | "senderDeprecated" | "chains">]: never; }>(object: I_1): RegisterChainMaintainerRequest;
 };
 export declare const RegisterChainMaintainerResponse: {
     $type: "axelar.nexus.v1beta1.RegisterChainMaintainerResponse";
@@ -111,18 +164,22 @@ export declare const DeregisterChainMaintainerRequest: {
     toJSON(message: DeregisterChainMaintainerRequest): unknown;
     create<I extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chains?: string[] | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chains?: (string[] & string[] & { [K in Exclude<keyof I["chains"], "$type" | keyof string[]>]: never; }) | undefined;
-    } & { [K_1 in Exclude<keyof I, "$type" | "sender" | "chains">]: never; }>(base?: I | undefined): DeregisterChainMaintainerRequest;
+    } & { [K_1 in Exclude<keyof I, "$type" | "sender" | "senderDeprecated" | "chains">]: never; }>(base?: I | undefined): DeregisterChainMaintainerRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chains?: string[] | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chains?: (string[] & string[] & { [K_2 in Exclude<keyof I_1["chains"], "$type" | keyof string[]>]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I_1, "$type" | "sender" | "chains">]: never; }>(object: I_1): DeregisterChainMaintainerRequest;
+    } & { [K_3 in Exclude<keyof I_1, "$type" | "sender" | "senderDeprecated" | "chains">]: never; }>(object: I_1): DeregisterChainMaintainerRequest;
 };
 export declare const DeregisterChainMaintainerResponse: {
     $type: "axelar.nexus.v1beta1.DeregisterChainMaintainerResponse";
@@ -141,18 +198,22 @@ export declare const ActivateChainRequest: {
     toJSON(message: ActivateChainRequest): unknown;
     create<I extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chains?: string[] | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chains?: (string[] & string[] & { [K in Exclude<keyof I["chains"], "$type" | keyof string[]>]: never; }) | undefined;
-    } & { [K_1 in Exclude<keyof I, "$type" | "sender" | "chains">]: never; }>(base?: I | undefined): ActivateChainRequest;
+    } & { [K_1 in Exclude<keyof I, "$type" | "sender" | "senderDeprecated" | "chains">]: never; }>(base?: I | undefined): ActivateChainRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chains?: string[] | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chains?: (string[] & string[] & { [K_2 in Exclude<keyof I_1["chains"], "$type" | keyof string[]>]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I_1, "$type" | "sender" | "chains">]: never; }>(object: I_1): ActivateChainRequest;
+    } & { [K_3 in Exclude<keyof I_1, "$type" | "sender" | "senderDeprecated" | "chains">]: never; }>(object: I_1): ActivateChainRequest;
 };
 export declare const ActivateChainResponse: {
     $type: "axelar.nexus.v1beta1.ActivateChainResponse";
@@ -171,18 +232,22 @@ export declare const DeactivateChainRequest: {
     toJSON(message: DeactivateChainRequest): unknown;
     create<I extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chains?: string[] | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chains?: (string[] & string[] & { [K in Exclude<keyof I["chains"], "$type" | keyof string[]>]: never; }) | undefined;
-    } & { [K_1 in Exclude<keyof I, "$type" | "sender" | "chains">]: never; }>(base?: I | undefined): DeactivateChainRequest;
+    } & { [K_1 in Exclude<keyof I, "$type" | "sender" | "senderDeprecated" | "chains">]: never; }>(base?: I | undefined): DeactivateChainRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chains?: string[] | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chains?: (string[] & string[] & { [K_2 in Exclude<keyof I_1["chains"], "$type" | keyof string[]>]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I_1, "$type" | "sender" | "chains">]: never; }>(object: I_1): DeactivateChainRequest;
+    } & { [K_3 in Exclude<keyof I_1, "$type" | "sender" | "senderDeprecated" | "chains">]: never; }>(object: I_1): DeactivateChainRequest;
 };
 export declare const DeactivateChainResponse: {
     $type: "axelar.nexus.v1beta1.DeactivateChainResponse";
@@ -201,6 +266,7 @@ export declare const RegisterAssetFeeRequest: {
     toJSON(message: RegisterAssetFeeRequest): unknown;
     create<I extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         feeInfo?: {
             asset?: string | undefined;
             chain?: string | undefined;
@@ -210,6 +276,7 @@ export declare const RegisterAssetFeeRequest: {
         } | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         feeInfo?: ({
             asset?: string | undefined;
             chain?: string | undefined;
@@ -223,9 +290,10 @@ export declare const RegisterAssetFeeRequest: {
             minFee?: Buffer | undefined;
             maxFee?: Buffer | undefined;
         } & { [K in Exclude<keyof I["feeInfo"], "$type" | "asset" | "chain" | "feeRate" | "minFee" | "maxFee">]: never; }) | undefined;
-    } & { [K_1 in Exclude<keyof I, "$type" | "sender" | "feeInfo">]: never; }>(base?: I | undefined): RegisterAssetFeeRequest;
+    } & { [K_1 in Exclude<keyof I, "$type" | "sender" | "senderDeprecated" | "feeInfo">]: never; }>(base?: I | undefined): RegisterAssetFeeRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         feeInfo?: {
             asset?: string | undefined;
             chain?: string | undefined;
@@ -235,6 +303,7 @@ export declare const RegisterAssetFeeRequest: {
         } | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         feeInfo?: ({
             asset?: string | undefined;
             chain?: string | undefined;
@@ -248,7 +317,7 @@ export declare const RegisterAssetFeeRequest: {
             minFee?: Buffer | undefined;
             maxFee?: Buffer | undefined;
         } & { [K_2 in Exclude<keyof I_1["feeInfo"], "$type" | "asset" | "chain" | "feeRate" | "minFee" | "maxFee">]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I_1, "$type" | "sender" | "feeInfo">]: never; }>(object: I_1): RegisterAssetFeeRequest;
+    } & { [K_3 in Exclude<keyof I_1, "$type" | "sender" | "senderDeprecated" | "feeInfo">]: never; }>(object: I_1): RegisterAssetFeeRequest;
 };
 export declare const RegisterAssetFeeResponse: {
     $type: "axelar.nexus.v1beta1.RegisterAssetFeeResponse";
@@ -271,6 +340,7 @@ export declare const SetTransferRateLimitRequest: {
             denom?: string | undefined;
             amount?: string | undefined;
         } | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
         window?: {
             seconds?: string | number | Long.Long | undefined;
@@ -285,6 +355,7 @@ export declare const SetTransferRateLimitRequest: {
             denom?: string | undefined;
             amount?: string | undefined;
         } & { [K in Exclude<keyof I["limit"], "$type" | "denom" | "amount">]: never; }) | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
         window?: ({
             seconds?: string | number | Long.Long | undefined;
@@ -350,13 +421,14 @@ export declare const SetTransferRateLimitRequest: {
             } & { [K_1 in Exclude<keyof I["window"]["seconds"], "$type" | keyof Long.Long>]: never; }) | undefined;
             nanos?: number | undefined;
         } & { [K_2 in Exclude<keyof I["window"], "$type" | "seconds" | "nanos">]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I, "$type" | "sender" | "limit" | "chain" | "window">]: never; }>(base?: I | undefined): SetTransferRateLimitRequest;
+    } & { [K_3 in Exclude<keyof I, "$type" | "sender" | "limit" | "senderDeprecated" | "chain" | "window">]: never; }>(base?: I | undefined): SetTransferRateLimitRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
         limit?: {
             denom?: string | undefined;
             amount?: string | undefined;
         } | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
         window?: {
             seconds?: string | number | Long.Long | undefined;
@@ -371,6 +443,7 @@ export declare const SetTransferRateLimitRequest: {
             denom?: string | undefined;
             amount?: string | undefined;
         } & { [K_4 in Exclude<keyof I_1["limit"], "$type" | "denom" | "amount">]: never; }) | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
         window?: ({
             seconds?: string | number | Long.Long | undefined;
@@ -436,7 +509,7 @@ export declare const SetTransferRateLimitRequest: {
             } & { [K_5 in Exclude<keyof I_1["window"]["seconds"], "$type" | keyof Long.Long>]: never; }) | undefined;
             nanos?: number | undefined;
         } & { [K_6 in Exclude<keyof I_1["window"], "$type" | "seconds" | "nanos">]: never; }) | undefined;
-    } & { [K_7 in Exclude<keyof I_1, "$type" | "sender" | "limit" | "chain" | "window">]: never; }>(object: I_1): SetTransferRateLimitRequest;
+    } & { [K_7 in Exclude<keyof I_1, "$type" | "sender" | "limit" | "senderDeprecated" | "chain" | "window">]: never; }>(object: I_1): SetTransferRateLimitRequest;
 };
 export declare const SetTransferRateLimitResponse: {
     $type: "axelar.nexus.v1beta1.SetTransferRateLimitResponse";

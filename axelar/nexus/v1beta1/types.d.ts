@@ -396,11 +396,13 @@ export declare const ChainState: {
         chain?: {
             name?: string | undefined;
             keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+            nativeAssetDeprecated?: string | undefined;
             supportsForeignAssets?: boolean | undefined;
             module?: string | undefined;
         } | undefined;
         assets?: {
             denom?: string | undefined;
+            minAmountDeprecated?: Buffer | undefined;
             isNativeAsset?: boolean | undefined;
         }[] | undefined;
         activated?: boolean | undefined;
@@ -426,25 +428,31 @@ export declare const ChainState: {
         chain?: ({
             name?: string | undefined;
             keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+            nativeAssetDeprecated?: string | undefined;
             supportsForeignAssets?: boolean | undefined;
             module?: string | undefined;
         } & {
             name?: string | undefined;
             keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+            nativeAssetDeprecated?: string | undefined;
             supportsForeignAssets?: boolean | undefined;
             module?: string | undefined;
-        } & { [K in Exclude<keyof I["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+        } & { [K in Exclude<keyof I["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
         assets?: ({
             denom?: string | undefined;
+            minAmountDeprecated?: Buffer | undefined;
             isNativeAsset?: boolean | undefined;
         }[] & ({
             denom?: string | undefined;
+            minAmountDeprecated?: Buffer | undefined;
             isNativeAsset?: boolean | undefined;
         } & {
             denom?: string | undefined;
+            minAmountDeprecated?: Buffer | undefined;
             isNativeAsset?: boolean | undefined;
-        } & { [K_1 in Exclude<keyof I["assets"][number], "$type" | "denom" | "isNativeAsset">]: never; })[] & { [K_2 in Exclude<keyof I["assets"], "$type" | keyof {
+        } & { [K_1 in Exclude<keyof I["assets"][number], "$type" | "denom" | "minAmountDeprecated" | "isNativeAsset">]: never; })[] & { [K_2 in Exclude<keyof I["assets"], "$type" | keyof {
             denom?: string | undefined;
+            minAmountDeprecated?: Buffer | undefined;
             isNativeAsset?: boolean | undefined;
         }[]>]: never; }) | undefined;
         activated?: boolean | undefined;
@@ -656,11 +664,13 @@ export declare const ChainState: {
         chain?: {
             name?: string | undefined;
             keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+            nativeAssetDeprecated?: string | undefined;
             supportsForeignAssets?: boolean | undefined;
             module?: string | undefined;
         } | undefined;
         assets?: {
             denom?: string | undefined;
+            minAmountDeprecated?: Buffer | undefined;
             isNativeAsset?: boolean | undefined;
         }[] | undefined;
         activated?: boolean | undefined;
@@ -686,25 +696,31 @@ export declare const ChainState: {
         chain?: ({
             name?: string | undefined;
             keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+            nativeAssetDeprecated?: string | undefined;
             supportsForeignAssets?: boolean | undefined;
             module?: string | undefined;
         } & {
             name?: string | undefined;
             keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+            nativeAssetDeprecated?: string | undefined;
             supportsForeignAssets?: boolean | undefined;
             module?: string | undefined;
-        } & { [K_14 in Exclude<keyof I_1["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+        } & { [K_14 in Exclude<keyof I_1["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
         assets?: ({
             denom?: string | undefined;
+            minAmountDeprecated?: Buffer | undefined;
             isNativeAsset?: boolean | undefined;
         }[] & ({
             denom?: string | undefined;
+            minAmountDeprecated?: Buffer | undefined;
             isNativeAsset?: boolean | undefined;
         } & {
             denom?: string | undefined;
+            minAmountDeprecated?: Buffer | undefined;
             isNativeAsset?: boolean | undefined;
-        } & { [K_15 in Exclude<keyof I_1["assets"][number], "$type" | "denom" | "isNativeAsset">]: never; })[] & { [K_16 in Exclude<keyof I_1["assets"], "$type" | keyof {
+        } & { [K_15 in Exclude<keyof I_1["assets"][number], "$type" | "denom" | "minAmountDeprecated" | "isNativeAsset">]: never; })[] & { [K_16 in Exclude<keyof I_1["assets"], "$type" | keyof {
             denom?: string | undefined;
+            minAmountDeprecated?: Buffer | undefined;
             isNativeAsset?: boolean | undefined;
         }[]>]: never; }) | undefined;
         activated?: boolean | undefined;
@@ -925,6 +941,7 @@ export declare const LinkedAddresses: {
             chain?: {
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
@@ -934,6 +951,7 @@ export declare const LinkedAddresses: {
             chain?: {
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
@@ -944,6 +962,7 @@ export declare const LinkedAddresses: {
             chain?: {
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
@@ -952,20 +971,23 @@ export declare const LinkedAddresses: {
             chain?: ({
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } & {
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
-            } & { [K in Exclude<keyof I["depositAddress"]["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+            } & { [K in Exclude<keyof I["depositAddress"]["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
         } & { [K_1 in Exclude<keyof I["depositAddress"], "$type" | "address" | "chain">]: never; }) | undefined;
         recipientAddress?: ({
             address?: string | undefined;
             chain?: {
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
@@ -974,14 +996,16 @@ export declare const LinkedAddresses: {
             chain?: ({
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } & {
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
-            } & { [K_2 in Exclude<keyof I["recipientAddress"]["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+            } & { [K_2 in Exclude<keyof I["recipientAddress"]["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
         } & { [K_3 in Exclude<keyof I["recipientAddress"], "$type" | "address" | "chain">]: never; }) | undefined;
     } & { [K_4 in Exclude<keyof I, "$type" | "depositAddress" | "recipientAddress">]: never; }>(base?: I | undefined): LinkedAddresses;
     fromPartial<I_1 extends {
@@ -990,6 +1014,7 @@ export declare const LinkedAddresses: {
             chain?: {
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
@@ -999,6 +1024,7 @@ export declare const LinkedAddresses: {
             chain?: {
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
@@ -1009,6 +1035,7 @@ export declare const LinkedAddresses: {
             chain?: {
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
@@ -1017,20 +1044,23 @@ export declare const LinkedAddresses: {
             chain?: ({
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } & {
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
-            } & { [K_5 in Exclude<keyof I_1["depositAddress"]["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+            } & { [K_5 in Exclude<keyof I_1["depositAddress"]["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
         } & { [K_6 in Exclude<keyof I_1["depositAddress"], "$type" | "address" | "chain">]: never; }) | undefined;
         recipientAddress?: ({
             address?: string | undefined;
             chain?: {
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
@@ -1039,14 +1069,16 @@ export declare const LinkedAddresses: {
             chain?: ({
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } & {
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
-            } & { [K_7 in Exclude<keyof I_1["recipientAddress"]["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+            } & { [K_7 in Exclude<keyof I_1["recipientAddress"]["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
         } & { [K_8 in Exclude<keyof I_1["recipientAddress"], "$type" | "address" | "chain">]: never; }) | undefined;
     } & { [K_9 in Exclude<keyof I_1, "$type" | "depositAddress" | "recipientAddress">]: never; }>(object: I_1): LinkedAddresses;
 };

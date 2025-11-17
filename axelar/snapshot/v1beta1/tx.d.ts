@@ -5,6 +5,14 @@ import { Params } from "./params";
 export declare const protobufPackage = "axelar.snapshot.v1beta1";
 export interface RegisterProxyRequest {
     $type: "axelar.snapshot.v1beta1.RegisterProxyRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     proxyAddr: Buffer;
     sender: string;
 }
@@ -13,8 +21,14 @@ export interface RegisterProxyResponse {
 }
 export interface DeactivateProxyRequest {
     $type: "axelar.snapshot.v1beta1.DeactivateProxyRequest";
-    /** @deprecated */
-    senderBz: Buffer;
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     sender: string;
 }
 export interface DeactivateProxyResponse {
@@ -36,18 +50,22 @@ export declare const RegisterProxyRequest: {
     toJSON(message: RegisterProxyRequest): unknown;
     create<I extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         proxyAddr?: Buffer | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         proxyAddr?: Buffer | undefined;
-    } & { [K in Exclude<keyof I, "$type" | "sender" | "proxyAddr">]: never; }>(base?: I | undefined): RegisterProxyRequest;
+    } & { [K in Exclude<keyof I, "$type" | "sender" | "senderDeprecated" | "proxyAddr">]: never; }>(base?: I | undefined): RegisterProxyRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         proxyAddr?: Buffer | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         proxyAddr?: Buffer | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender" | "proxyAddr">]: never; }>(object: I_1): RegisterProxyRequest;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender" | "senderDeprecated" | "proxyAddr">]: never; }>(object: I_1): RegisterProxyRequest;
 };
 export declare const RegisterProxyResponse: {
     $type: "axelar.snapshot.v1beta1.RegisterProxyResponse";
@@ -66,18 +84,18 @@ export declare const DeactivateProxyRequest: {
     toJSON(message: DeactivateProxyRequest): unknown;
     create<I extends {
         sender?: string | undefined;
-        senderBz?: Buffer | undefined;
+        senderDeprecated?: Buffer | undefined;
     } & {
         sender?: string | undefined;
-        senderBz?: Buffer | undefined;
-    } & { [K in Exclude<keyof I, "$type" | "sender" | "senderBz">]: never; }>(base?: I | undefined): DeactivateProxyRequest;
+        senderDeprecated?: Buffer | undefined;
+    } & { [K in Exclude<keyof I, "$type" | "sender" | "senderDeprecated">]: never; }>(base?: I | undefined): DeactivateProxyRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
-        senderBz?: Buffer | undefined;
+        senderDeprecated?: Buffer | undefined;
     } & {
         sender?: string | undefined;
-        senderBz?: Buffer | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender" | "senderBz">]: never; }>(object: I_1): DeactivateProxyRequest;
+        senderDeprecated?: Buffer | undefined;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender" | "senderDeprecated">]: never; }>(object: I_1): DeactivateProxyRequest;
 };
 export declare const DeactivateProxyResponse: {
     $type: "axelar.snapshot.v1beta1.DeactivateProxyResponse";

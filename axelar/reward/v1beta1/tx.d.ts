@@ -6,6 +6,14 @@ import { Params } from "./params";
 export declare const protobufPackage = "axelar.reward.v1beta1";
 export interface RefundMsgRequest {
     $type: "axelar.reward.v1beta1.RefundMsgRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     innerMessage?: Any | undefined;
     sender: string;
 }
@@ -30,12 +38,14 @@ export declare const RefundMsgRequest: {
     toJSON(message: RefundMsgRequest): unknown;
     create<I extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         innerMessage?: {
             typeUrl?: string | undefined;
             value?: Buffer | undefined;
         } | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         innerMessage?: ({
             typeUrl?: string | undefined;
             value?: Buffer | undefined;
@@ -43,15 +53,17 @@ export declare const RefundMsgRequest: {
             typeUrl?: string | undefined;
             value?: Buffer | undefined;
         } & { [K in Exclude<keyof I["innerMessage"], "$type" | "typeUrl" | "value">]: never; }) | undefined;
-    } & { [K_1 in Exclude<keyof I, "$type" | "sender" | "innerMessage">]: never; }>(base?: I | undefined): RefundMsgRequest;
+    } & { [K_1 in Exclude<keyof I, "$type" | "sender" | "senderDeprecated" | "innerMessage">]: never; }>(base?: I | undefined): RefundMsgRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         innerMessage?: {
             typeUrl?: string | undefined;
             value?: Buffer | undefined;
         } | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         innerMessage?: ({
             typeUrl?: string | undefined;
             value?: Buffer | undefined;
@@ -59,7 +71,7 @@ export declare const RefundMsgRequest: {
             typeUrl?: string | undefined;
             value?: Buffer | undefined;
         } & { [K_2 in Exclude<keyof I_1["innerMessage"], "$type" | "typeUrl" | "value">]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I_1, "$type" | "sender" | "innerMessage">]: never; }>(object: I_1): RefundMsgRequest;
+    } & { [K_3 in Exclude<keyof I_1, "$type" | "sender" | "senderDeprecated" | "innerMessage">]: never; }>(object: I_1): RefundMsgRequest;
 };
 export declare const RefundMsgResponse: {
     $type: "axelar.reward.v1beta1.RefundMsgResponse";

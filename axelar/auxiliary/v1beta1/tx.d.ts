@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { Result } from "../../../cosmos/base/abci/v1beta1/abci";
@@ -5,6 +6,14 @@ import { Any } from "../../../google/protobuf/any";
 export declare const protobufPackage = "axelar.auxiliary.v1beta1";
 export interface BatchRequest {
     $type: "axelar.auxiliary.v1beta1.BatchRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     messages: Any[];
     sender: string;
 }
@@ -25,12 +34,14 @@ export declare const BatchRequest: {
     toJSON(message: BatchRequest): unknown;
     create<I extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         messages?: {
             typeUrl?: string | undefined;
             value?: Buffer | undefined;
         }[] | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         messages?: ({
             typeUrl?: string | undefined;
             value?: Buffer | undefined;
@@ -44,15 +55,17 @@ export declare const BatchRequest: {
             typeUrl?: string | undefined;
             value?: Buffer | undefined;
         }[]>]: never; }) | undefined;
-    } & { [K_2 in Exclude<keyof I, "$type" | "sender" | "messages">]: never; }>(base?: I | undefined): BatchRequest;
+    } & { [K_2 in Exclude<keyof I, "$type" | "sender" | "senderDeprecated" | "messages">]: never; }>(base?: I | undefined): BatchRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         messages?: {
             typeUrl?: string | undefined;
             value?: Buffer | undefined;
         }[] | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         messages?: ({
             typeUrl?: string | undefined;
             value?: Buffer | undefined;
@@ -66,7 +79,7 @@ export declare const BatchRequest: {
             typeUrl?: string | undefined;
             value?: Buffer | undefined;
         }[]>]: never; }) | undefined;
-    } & { [K_5 in Exclude<keyof I_1, "$type" | "sender" | "messages">]: never; }>(object: I_1): BatchRequest;
+    } & { [K_5 in Exclude<keyof I_1, "$type" | "sender" | "senderDeprecated" | "messages">]: never; }>(object: I_1): BatchRequest;
 };
 export declare const BatchResponse: {
     $type: "axelar.auxiliary.v1beta1.BatchResponse";

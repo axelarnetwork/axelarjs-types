@@ -1,6 +1,7 @@
 /// <reference types="node" />
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import { Duration } from "../../../google/protobuf/duration";
 import { Asset, Chain } from "../../nexus/exported/v1beta1/types";
 import { Params } from "./params";
@@ -12,6 +13,14 @@ export declare const protobufPackage = "axelar.axelarnet.v1beta1";
  */
 export interface LinkRequest {
     $type: "axelar.axelarnet.v1beta1.LinkRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     recipientAddr: string;
     recipientChain: string;
     asset: string;
@@ -24,6 +33,30 @@ export interface LinkResponse {
 /** MsgConfirmDeposit represents a deposit confirmation message */
 export interface ConfirmDepositRequest {
     $type: "axelar.axelarnet.v1beta1.ConfirmDepositRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
+    /**
+     * DEPRECATED: Removed in v0.14, reinstated in v1.3 for backward compatibility.
+     * This field must remain to allow decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    txIdDeprecated: Buffer;
+    /**
+     * DEPRECATED: Removed in v0.15, reinstated in v1.3 for backward compatibility.
+     * This field must remain to allow decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    tokenDeprecated?: Coin | undefined;
     depositAddress: Buffer;
     denom: string;
     sender: string;
@@ -37,6 +70,14 @@ export interface ConfirmDepositResponse {
  */
 export interface ExecutePendingTransfersRequest {
     $type: "axelar.axelarnet.v1beta1.ExecutePendingTransfersRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     sender: string;
 }
 export interface ExecutePendingTransfersResponse {
@@ -50,6 +91,14 @@ export interface ExecutePendingTransfersResponse {
  */
 export interface RegisterIBCPathRequest {
     $type: "axelar.axelarnet.v1beta1.RegisterIBCPathRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     chain: string;
     path: string;
     sender: string;
@@ -64,12 +113,28 @@ export interface RegisterIBCPathResponse {
 export interface AddCosmosBasedChainRequest {
     $type: "axelar.axelarnet.v1beta1.AddCosmosBasedChainRequest";
     /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
+    /**
      * chain was deprecated in v0.27
      *
      * @deprecated
      */
     chain?: Chain | undefined;
     addrPrefix: string;
+    /**
+     * DEPRECATED: Removed in v0.15, reinstated in v1.3 for backward compatibility.
+     * This field must remain to allow decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    minAmountDeprecated: Buffer;
     /**
      * native_assets was deprecated in v0.27
      *
@@ -90,6 +155,14 @@ export interface AddCosmosBasedChainResponse {
  */
 export interface RegisterAssetRequest {
     $type: "axelar.axelarnet.v1beta1.RegisterAssetRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     chain: string;
     asset?: Asset | undefined;
     limit: Buffer;
@@ -105,6 +178,14 @@ export interface RegisterAssetResponse {
  */
 export interface RouteIBCTransfersRequest {
     $type: "axelar.axelarnet.v1beta1.RouteIBCTransfersRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     sender: string;
 }
 export interface RouteIBCTransfersResponse {
@@ -116,6 +197,14 @@ export interface RouteIBCTransfersResponse {
  */
 export interface RegisterFeeCollectorRequest {
     $type: "axelar.axelarnet.v1beta1.RegisterFeeCollectorRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     feeCollector: Buffer;
     sender: string;
 }
@@ -124,6 +213,14 @@ export interface RegisterFeeCollectorResponse {
 }
 export interface RetryIBCTransferRequest {
     $type: "axelar.axelarnet.v1beta1.RetryIBCTransferRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     /** @deprecated */
     chain: string;
     id: Long;
@@ -134,6 +231,14 @@ export interface RetryIBCTransferResponse {
 }
 export interface RouteMessageRequest {
     $type: "axelar.axelarnet.v1beta1.RouteMessageRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     id: string;
     payload: Buffer;
     feegranter: Buffer;
@@ -144,6 +249,14 @@ export interface RouteMessageResponse {
 }
 export interface CallContractRequest {
     $type: "axelar.axelarnet.v1beta1.CallContractRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     chain: string;
     contractAddress: string;
     payload: Buffer;
@@ -169,26 +282,30 @@ export declare const LinkRequest: {
     toJSON(message: LinkRequest): unknown;
     create<I extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         asset?: string | undefined;
         recipientAddr?: string | undefined;
         recipientChain?: string | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         asset?: string | undefined;
         recipientAddr?: string | undefined;
         recipientChain?: string | undefined;
-    } & { [K in Exclude<keyof I, "$type" | "sender" | "asset" | "recipientAddr" | "recipientChain">]: never; }>(base?: I | undefined): LinkRequest;
+    } & { [K in Exclude<keyof I, "$type" | "sender" | "senderDeprecated" | "asset" | "recipientAddr" | "recipientChain">]: never; }>(base?: I | undefined): LinkRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         asset?: string | undefined;
         recipientAddr?: string | undefined;
         recipientChain?: string | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         asset?: string | undefined;
         recipientAddr?: string | undefined;
         recipientChain?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender" | "asset" | "recipientAddr" | "recipientChain">]: never; }>(object: I_1): LinkRequest;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender" | "senderDeprecated" | "asset" | "recipientAddr" | "recipientChain">]: never; }>(object: I_1): LinkRequest;
 };
 export declare const LinkResponse: {
     $type: "axelar.axelarnet.v1beta1.LinkResponse";
@@ -215,22 +332,52 @@ export declare const ConfirmDepositRequest: {
     toJSON(message: ConfirmDepositRequest): unknown;
     create<I extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         denom?: string | undefined;
+        txIdDeprecated?: Buffer | undefined;
+        tokenDeprecated?: {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } | undefined;
         depositAddress?: Buffer | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         denom?: string | undefined;
+        txIdDeprecated?: Buffer | undefined;
+        tokenDeprecated?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & { [K in Exclude<keyof I["tokenDeprecated"], "$type" | "denom" | "amount">]: never; }) | undefined;
         depositAddress?: Buffer | undefined;
-    } & { [K in Exclude<keyof I, "$type" | "sender" | "denom" | "depositAddress">]: never; }>(base?: I | undefined): ConfirmDepositRequest;
+    } & { [K_1 in Exclude<keyof I, "$type" | "sender" | "senderDeprecated" | "denom" | "txIdDeprecated" | "tokenDeprecated" | "depositAddress">]: never; }>(base?: I | undefined): ConfirmDepositRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         denom?: string | undefined;
+        txIdDeprecated?: Buffer | undefined;
+        tokenDeprecated?: {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } | undefined;
         depositAddress?: Buffer | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         denom?: string | undefined;
+        txIdDeprecated?: Buffer | undefined;
+        tokenDeprecated?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & { [K_2 in Exclude<keyof I_1["tokenDeprecated"], "$type" | "denom" | "amount">]: never; }) | undefined;
         depositAddress?: Buffer | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender" | "denom" | "depositAddress">]: never; }>(object: I_1): ConfirmDepositRequest;
+    } & { [K_3 in Exclude<keyof I_1, "$type" | "sender" | "senderDeprecated" | "denom" | "txIdDeprecated" | "tokenDeprecated" | "depositAddress">]: never; }>(object: I_1): ConfirmDepositRequest;
 };
 export declare const ConfirmDepositResponse: {
     $type: "axelar.axelarnet.v1beta1.ConfirmDepositResponse";
@@ -249,14 +396,18 @@ export declare const ExecutePendingTransfersRequest: {
     toJSON(message: ExecutePendingTransfersRequest): unknown;
     create<I extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
     } & {
         sender?: string | undefined;
-    } & { [K in Exclude<keyof I, "$type" | "sender">]: never; }>(base?: I | undefined): ExecutePendingTransfersRequest;
+        senderDeprecated?: Buffer | undefined;
+    } & { [K in Exclude<keyof I, "$type" | "sender" | "senderDeprecated">]: never; }>(base?: I | undefined): ExecutePendingTransfersRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
     } & {
         sender?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender">]: never; }>(object: I_1): ExecutePendingTransfersRequest;
+        senderDeprecated?: Buffer | undefined;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender" | "senderDeprecated">]: never; }>(object: I_1): ExecutePendingTransfersRequest;
 };
 export declare const ExecutePendingTransfersResponse: {
     $type: "axelar.axelarnet.v1beta1.ExecutePendingTransfersResponse";
@@ -276,21 +427,25 @@ export declare const RegisterIBCPathRequest: {
     create<I extends {
         path?: string | undefined;
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
     } & {
         path?: string | undefined;
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
-    } & { [K in Exclude<keyof I, "$type" | "path" | "sender" | "chain">]: never; }>(base?: I | undefined): RegisterIBCPathRequest;
+    } & { [K in Exclude<keyof I, "$type" | "path" | "sender" | "senderDeprecated" | "chain">]: never; }>(base?: I | undefined): RegisterIBCPathRequest;
     fromPartial<I_1 extends {
         path?: string | undefined;
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
     } & {
         path?: string | undefined;
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "$type" | "path" | "sender" | "chain">]: never; }>(object: I_1): RegisterIBCPathRequest;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "path" | "sender" | "senderDeprecated" | "chain">]: never; }>(object: I_1): RegisterIBCPathRequest;
 };
 export declare const RegisterIBCPathResponse: {
     $type: "axelar.axelarnet.v1beta1.RegisterIBCPathResponse";
@@ -309,94 +464,118 @@ export declare const AddCosmosBasedChainRequest: {
     toJSON(message: AddCosmosBasedChainRequest): unknown;
     create<I extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: {
             name?: string | undefined;
             keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+            nativeAssetDeprecated?: string | undefined;
             supportsForeignAssets?: boolean | undefined;
             module?: string | undefined;
         } | undefined;
         ibcPath?: string | undefined;
         addrPrefix?: string | undefined;
+        minAmountDeprecated?: Buffer | undefined;
         nativeAssets?: {
             denom?: string | undefined;
+            minAmountDeprecated?: Buffer | undefined;
             isNativeAsset?: boolean | undefined;
         }[] | undefined;
         cosmosChain?: string | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: ({
             name?: string | undefined;
             keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+            nativeAssetDeprecated?: string | undefined;
             supportsForeignAssets?: boolean | undefined;
             module?: string | undefined;
         } & {
             name?: string | undefined;
             keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+            nativeAssetDeprecated?: string | undefined;
             supportsForeignAssets?: boolean | undefined;
             module?: string | undefined;
-        } & { [K in Exclude<keyof I["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+        } & { [K in Exclude<keyof I["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
         ibcPath?: string | undefined;
         addrPrefix?: string | undefined;
+        minAmountDeprecated?: Buffer | undefined;
         nativeAssets?: ({
             denom?: string | undefined;
+            minAmountDeprecated?: Buffer | undefined;
             isNativeAsset?: boolean | undefined;
         }[] & ({
             denom?: string | undefined;
+            minAmountDeprecated?: Buffer | undefined;
             isNativeAsset?: boolean | undefined;
         } & {
             denom?: string | undefined;
+            minAmountDeprecated?: Buffer | undefined;
             isNativeAsset?: boolean | undefined;
-        } & { [K_1 in Exclude<keyof I["nativeAssets"][number], "$type" | "denom" | "isNativeAsset">]: never; })[] & { [K_2 in Exclude<keyof I["nativeAssets"], "$type" | keyof {
+        } & { [K_1 in Exclude<keyof I["nativeAssets"][number], "$type" | "denom" | "minAmountDeprecated" | "isNativeAsset">]: never; })[] & { [K_2 in Exclude<keyof I["nativeAssets"], "$type" | keyof {
             denom?: string | undefined;
+            minAmountDeprecated?: Buffer | undefined;
             isNativeAsset?: boolean | undefined;
         }[]>]: never; }) | undefined;
         cosmosChain?: string | undefined;
-    } & { [K_3 in Exclude<keyof I, "$type" | "sender" | "chain" | "ibcPath" | "addrPrefix" | "nativeAssets" | "cosmosChain">]: never; }>(base?: I | undefined): AddCosmosBasedChainRequest;
+    } & { [K_3 in Exclude<keyof I, "$type" | "sender" | "senderDeprecated" | "chain" | "ibcPath" | "addrPrefix" | "minAmountDeprecated" | "nativeAssets" | "cosmosChain">]: never; }>(base?: I | undefined): AddCosmosBasedChainRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: {
             name?: string | undefined;
             keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+            nativeAssetDeprecated?: string | undefined;
             supportsForeignAssets?: boolean | undefined;
             module?: string | undefined;
         } | undefined;
         ibcPath?: string | undefined;
         addrPrefix?: string | undefined;
+        minAmountDeprecated?: Buffer | undefined;
         nativeAssets?: {
             denom?: string | undefined;
+            minAmountDeprecated?: Buffer | undefined;
             isNativeAsset?: boolean | undefined;
         }[] | undefined;
         cosmosChain?: string | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: ({
             name?: string | undefined;
             keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+            nativeAssetDeprecated?: string | undefined;
             supportsForeignAssets?: boolean | undefined;
             module?: string | undefined;
         } & {
             name?: string | undefined;
             keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+            nativeAssetDeprecated?: string | undefined;
             supportsForeignAssets?: boolean | undefined;
             module?: string | undefined;
-        } & { [K_4 in Exclude<keyof I_1["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+        } & { [K_4 in Exclude<keyof I_1["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
         ibcPath?: string | undefined;
         addrPrefix?: string | undefined;
+        minAmountDeprecated?: Buffer | undefined;
         nativeAssets?: ({
             denom?: string | undefined;
+            minAmountDeprecated?: Buffer | undefined;
             isNativeAsset?: boolean | undefined;
         }[] & ({
             denom?: string | undefined;
+            minAmountDeprecated?: Buffer | undefined;
             isNativeAsset?: boolean | undefined;
         } & {
             denom?: string | undefined;
+            minAmountDeprecated?: Buffer | undefined;
             isNativeAsset?: boolean | undefined;
-        } & { [K_5 in Exclude<keyof I_1["nativeAssets"][number], "$type" | "denom" | "isNativeAsset">]: never; })[] & { [K_6 in Exclude<keyof I_1["nativeAssets"], "$type" | keyof {
+        } & { [K_5 in Exclude<keyof I_1["nativeAssets"][number], "$type" | "denom" | "minAmountDeprecated" | "isNativeAsset">]: never; })[] & { [K_6 in Exclude<keyof I_1["nativeAssets"], "$type" | keyof {
             denom?: string | undefined;
+            minAmountDeprecated?: Buffer | undefined;
             isNativeAsset?: boolean | undefined;
         }[]>]: never; }) | undefined;
         cosmosChain?: string | undefined;
-    } & { [K_7 in Exclude<keyof I_1, "$type" | "sender" | "chain" | "ibcPath" | "addrPrefix" | "nativeAssets" | "cosmosChain">]: never; }>(object: I_1): AddCosmosBasedChainRequest;
+    } & { [K_7 in Exclude<keyof I_1, "$type" | "sender" | "senderDeprecated" | "chain" | "ibcPath" | "addrPrefix" | "minAmountDeprecated" | "nativeAssets" | "cosmosChain">]: never; }>(object: I_1): AddCosmosBasedChainRequest;
 };
 export declare const AddCosmosBasedChainResponse: {
     $type: "axelar.axelarnet.v1beta1.AddCosmosBasedChainResponse";
@@ -416,8 +595,10 @@ export declare const RegisterAssetRequest: {
     create<I extends {
         sender?: string | undefined;
         limit?: Buffer | undefined;
+        senderDeprecated?: Buffer | undefined;
         asset?: {
             denom?: string | undefined;
+            minAmountDeprecated?: Buffer | undefined;
             isNativeAsset?: boolean | undefined;
         } | undefined;
         chain?: string | undefined;
@@ -428,13 +609,16 @@ export declare const RegisterAssetRequest: {
     } & {
         sender?: string | undefined;
         limit?: Buffer | undefined;
+        senderDeprecated?: Buffer | undefined;
         asset?: ({
             denom?: string | undefined;
+            minAmountDeprecated?: Buffer | undefined;
             isNativeAsset?: boolean | undefined;
         } & {
             denom?: string | undefined;
+            minAmountDeprecated?: Buffer | undefined;
             isNativeAsset?: boolean | undefined;
-        } & { [K in Exclude<keyof I["asset"], "$type" | "denom" | "isNativeAsset">]: never; }) | undefined;
+        } & { [K in Exclude<keyof I["asset"], "$type" | "denom" | "minAmountDeprecated" | "isNativeAsset">]: never; }) | undefined;
         chain?: string | undefined;
         window?: ({
             seconds?: string | number | Long.Long | undefined;
@@ -500,12 +684,14 @@ export declare const RegisterAssetRequest: {
             } & { [K_1 in Exclude<keyof I["window"]["seconds"], "$type" | keyof Long.Long>]: never; }) | undefined;
             nanos?: number | undefined;
         } & { [K_2 in Exclude<keyof I["window"], "$type" | "seconds" | "nanos">]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I, "$type" | "sender" | "limit" | "asset" | "chain" | "window">]: never; }>(base?: I | undefined): RegisterAssetRequest;
+    } & { [K_3 in Exclude<keyof I, "$type" | "sender" | "limit" | "senderDeprecated" | "asset" | "chain" | "window">]: never; }>(base?: I | undefined): RegisterAssetRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
         limit?: Buffer | undefined;
+        senderDeprecated?: Buffer | undefined;
         asset?: {
             denom?: string | undefined;
+            minAmountDeprecated?: Buffer | undefined;
             isNativeAsset?: boolean | undefined;
         } | undefined;
         chain?: string | undefined;
@@ -516,13 +702,16 @@ export declare const RegisterAssetRequest: {
     } & {
         sender?: string | undefined;
         limit?: Buffer | undefined;
+        senderDeprecated?: Buffer | undefined;
         asset?: ({
             denom?: string | undefined;
+            minAmountDeprecated?: Buffer | undefined;
             isNativeAsset?: boolean | undefined;
         } & {
             denom?: string | undefined;
+            minAmountDeprecated?: Buffer | undefined;
             isNativeAsset?: boolean | undefined;
-        } & { [K_4 in Exclude<keyof I_1["asset"], "$type" | "denom" | "isNativeAsset">]: never; }) | undefined;
+        } & { [K_4 in Exclude<keyof I_1["asset"], "$type" | "denom" | "minAmountDeprecated" | "isNativeAsset">]: never; }) | undefined;
         chain?: string | undefined;
         window?: ({
             seconds?: string | number | Long.Long | undefined;
@@ -588,7 +777,7 @@ export declare const RegisterAssetRequest: {
             } & { [K_5 in Exclude<keyof I_1["window"]["seconds"], "$type" | keyof Long.Long>]: never; }) | undefined;
             nanos?: number | undefined;
         } & { [K_6 in Exclude<keyof I_1["window"], "$type" | "seconds" | "nanos">]: never; }) | undefined;
-    } & { [K_7 in Exclude<keyof I_1, "$type" | "sender" | "limit" | "asset" | "chain" | "window">]: never; }>(object: I_1): RegisterAssetRequest;
+    } & { [K_7 in Exclude<keyof I_1, "$type" | "sender" | "limit" | "senderDeprecated" | "asset" | "chain" | "window">]: never; }>(object: I_1): RegisterAssetRequest;
 };
 export declare const RegisterAssetResponse: {
     $type: "axelar.axelarnet.v1beta1.RegisterAssetResponse";
@@ -607,14 +796,18 @@ export declare const RouteIBCTransfersRequest: {
     toJSON(message: RouteIBCTransfersRequest): unknown;
     create<I extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
     } & {
         sender?: string | undefined;
-    } & { [K in Exclude<keyof I, "$type" | "sender">]: never; }>(base?: I | undefined): RouteIBCTransfersRequest;
+        senderDeprecated?: Buffer | undefined;
+    } & { [K in Exclude<keyof I, "$type" | "sender" | "senderDeprecated">]: never; }>(base?: I | undefined): RouteIBCTransfersRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
     } & {
         sender?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender">]: never; }>(object: I_1): RouteIBCTransfersRequest;
+        senderDeprecated?: Buffer | undefined;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender" | "senderDeprecated">]: never; }>(object: I_1): RouteIBCTransfersRequest;
 };
 export declare const RouteIBCTransfersResponse: {
     $type: "axelar.axelarnet.v1beta1.RouteIBCTransfersResponse";
@@ -633,18 +826,22 @@ export declare const RegisterFeeCollectorRequest: {
     toJSON(message: RegisterFeeCollectorRequest): unknown;
     create<I extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         feeCollector?: Buffer | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         feeCollector?: Buffer | undefined;
-    } & { [K in Exclude<keyof I, "$type" | "sender" | "feeCollector">]: never; }>(base?: I | undefined): RegisterFeeCollectorRequest;
+    } & { [K in Exclude<keyof I, "$type" | "sender" | "senderDeprecated" | "feeCollector">]: never; }>(base?: I | undefined): RegisterFeeCollectorRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         feeCollector?: Buffer | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         feeCollector?: Buffer | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender" | "feeCollector">]: never; }>(object: I_1): RegisterFeeCollectorRequest;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender" | "senderDeprecated" | "feeCollector">]: never; }>(object: I_1): RegisterFeeCollectorRequest;
 };
 export declare const RegisterFeeCollectorResponse: {
     $type: "axelar.axelarnet.v1beta1.RegisterFeeCollectorResponse";
@@ -663,10 +860,12 @@ export declare const RetryIBCTransferRequest: {
     toJSON(message: RetryIBCTransferRequest): unknown;
     create<I extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         id?: string | number | Long.Long | undefined;
         chain?: string | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         id?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -726,13 +925,15 @@ export declare const RetryIBCTransferRequest: {
             xor: (other: string | number | Long.Long) => Long.Long;
         } & { [K in Exclude<keyof I["id"], "$type" | keyof Long.Long>]: never; }) | undefined;
         chain?: string | undefined;
-    } & { [K_1 in Exclude<keyof I, "$type" | "sender" | "id" | "chain">]: never; }>(base?: I | undefined): RetryIBCTransferRequest;
+    } & { [K_1 in Exclude<keyof I, "$type" | "sender" | "senderDeprecated" | "id" | "chain">]: never; }>(base?: I | undefined): RetryIBCTransferRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         id?: string | number | Long.Long | undefined;
         chain?: string | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         id?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -792,7 +993,7 @@ export declare const RetryIBCTransferRequest: {
             xor: (other: string | number | Long.Long) => Long.Long;
         } & { [K_2 in Exclude<keyof I_1["id"], "$type" | keyof Long.Long>]: never; }) | undefined;
         chain?: string | undefined;
-    } & { [K_3 in Exclude<keyof I_1, "$type" | "sender" | "id" | "chain">]: never; }>(object: I_1): RetryIBCTransferRequest;
+    } & { [K_3 in Exclude<keyof I_1, "$type" | "sender" | "senderDeprecated" | "id" | "chain">]: never; }>(object: I_1): RetryIBCTransferRequest;
 };
 export declare const RetryIBCTransferResponse: {
     $type: "axelar.axelarnet.v1beta1.RetryIBCTransferResponse";
@@ -811,26 +1012,30 @@ export declare const RouteMessageRequest: {
     toJSON(message: RouteMessageRequest): unknown;
     create<I extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         id?: string | undefined;
         payload?: Buffer | undefined;
         feegranter?: Buffer | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         id?: string | undefined;
         payload?: Buffer | undefined;
         feegranter?: Buffer | undefined;
-    } & { [K in Exclude<keyof I, "$type" | "sender" | "id" | "payload" | "feegranter">]: never; }>(base?: I | undefined): RouteMessageRequest;
+    } & { [K in Exclude<keyof I, "$type" | "sender" | "senderDeprecated" | "id" | "payload" | "feegranter">]: never; }>(base?: I | undefined): RouteMessageRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         id?: string | undefined;
         payload?: Buffer | undefined;
         feegranter?: Buffer | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         id?: string | undefined;
         payload?: Buffer | undefined;
         feegranter?: Buffer | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender" | "id" | "payload" | "feegranter">]: never; }>(object: I_1): RouteMessageRequest;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender" | "senderDeprecated" | "id" | "payload" | "feegranter">]: never; }>(object: I_1): RouteMessageRequest;
 };
 export declare const RouteMessageResponse: {
     $type: "axelar.axelarnet.v1beta1.RouteMessageResponse";
@@ -849,6 +1054,7 @@ export declare const CallContractRequest: {
     toJSON(message: CallContractRequest): unknown;
     create<I extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         fee?: {
             amount?: {
                 denom?: string | undefined;
@@ -862,6 +1068,7 @@ export declare const CallContractRequest: {
         chain?: string | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         fee?: ({
             amount?: {
                 denom?: string | undefined;
@@ -883,9 +1090,10 @@ export declare const CallContractRequest: {
         contractAddress?: string | undefined;
         payload?: Buffer | undefined;
         chain?: string | undefined;
-    } & { [K_2 in Exclude<keyof I, "$type" | "sender" | "fee" | "contractAddress" | "payload" | "chain">]: never; }>(base?: I | undefined): CallContractRequest;
+    } & { [K_2 in Exclude<keyof I, "$type" | "sender" | "senderDeprecated" | "fee" | "contractAddress" | "payload" | "chain">]: never; }>(base?: I | undefined): CallContractRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         fee?: {
             amount?: {
                 denom?: string | undefined;
@@ -899,6 +1107,7 @@ export declare const CallContractRequest: {
         chain?: string | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         fee?: ({
             amount?: {
                 denom?: string | undefined;
@@ -920,7 +1129,7 @@ export declare const CallContractRequest: {
         contractAddress?: string | undefined;
         payload?: Buffer | undefined;
         chain?: string | undefined;
-    } & { [K_5 in Exclude<keyof I_1, "$type" | "sender" | "fee" | "contractAddress" | "payload" | "chain">]: never; }>(object: I_1): CallContractRequest;
+    } & { [K_5 in Exclude<keyof I_1, "$type" | "sender" | "senderDeprecated" | "fee" | "contractAddress" | "payload" | "chain">]: never; }>(object: I_1): CallContractRequest;
 };
 export declare const CallContractResponse: {
     $type: "axelar.axelarnet.v1beta1.CallContractResponse";

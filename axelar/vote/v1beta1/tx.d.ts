@@ -1,10 +1,36 @@
+/// <reference types="node" />
 import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { Any } from "../../../google/protobuf/any";
+import { PollKey, Vote } from "../exported/v1beta1/types";
 import { Params } from "./params";
 export declare const protobufPackage = "axelar.vote.v1beta1";
 export interface VoteRequest {
     $type: "axelar.vote.v1beta1.VoteRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
+    /**
+     * DEPRECATED: Removed in v0.21, reinstated in v1.3 for backward compatibility.
+     * This field must remain to allow decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    pollKey?: PollKey | undefined;
+    /**
+     * DEPRECATED: Removed in v0.21, reinstated in v1.3 for backward compatibility.
+     * This field must remain to allow decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    voteDeprecated?: Vote | undefined;
     pollId: Long;
     vote?: Any | undefined;
     sender: string;
@@ -29,13 +55,29 @@ export declare const VoteRequest: {
     toJSON(message: VoteRequest): unknown;
     create<I extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         pollId?: string | number | Long.Long | undefined;
+        pollKey?: {
+            id?: string | undefined;
+            module?: string | undefined;
+        } | undefined;
+        voteDeprecated?: {
+            result?: {
+                typeUrl?: string | undefined;
+                value?: Buffer | undefined;
+            } | undefined;
+            resultsDeprecated?: {
+                typeUrl?: string | undefined;
+                value?: Buffer | undefined;
+            }[] | undefined;
+        } | undefined;
         vote?: {
             typeUrl?: string | undefined;
             value?: Buffer | undefined;
         } | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         pollId?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -94,23 +136,77 @@ export declare const VoteRequest: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & { [K in Exclude<keyof I["pollId"], "$type" | keyof Long.Long>]: never; }) | undefined;
+        pollKey?: ({
+            id?: string | undefined;
+            module?: string | undefined;
+        } & {
+            id?: string | undefined;
+            module?: string | undefined;
+        } & { [K_1 in Exclude<keyof I["pollKey"], "$type" | "id" | "module">]: never; }) | undefined;
+        voteDeprecated?: ({
+            result?: {
+                typeUrl?: string | undefined;
+                value?: Buffer | undefined;
+            } | undefined;
+            resultsDeprecated?: {
+                typeUrl?: string | undefined;
+                value?: Buffer | undefined;
+            }[] | undefined;
+        } & {
+            result?: ({
+                typeUrl?: string | undefined;
+                value?: Buffer | undefined;
+            } & {
+                typeUrl?: string | undefined;
+                value?: Buffer | undefined;
+            } & { [K_2 in Exclude<keyof I["voteDeprecated"]["result"], "$type" | "typeUrl" | "value">]: never; }) | undefined;
+            resultsDeprecated?: ({
+                typeUrl?: string | undefined;
+                value?: Buffer | undefined;
+            }[] & ({
+                typeUrl?: string | undefined;
+                value?: Buffer | undefined;
+            } & {
+                typeUrl?: string | undefined;
+                value?: Buffer | undefined;
+            } & { [K_3 in Exclude<keyof I["voteDeprecated"]["resultsDeprecated"][number], "$type" | "typeUrl" | "value">]: never; })[] & { [K_4 in Exclude<keyof I["voteDeprecated"]["resultsDeprecated"], "$type" | keyof {
+                typeUrl?: string | undefined;
+                value?: Buffer | undefined;
+            }[]>]: never; }) | undefined;
+        } & { [K_5 in Exclude<keyof I["voteDeprecated"], "$type" | "result" | "resultsDeprecated">]: never; }) | undefined;
         vote?: ({
             typeUrl?: string | undefined;
             value?: Buffer | undefined;
         } & {
             typeUrl?: string | undefined;
             value?: Buffer | undefined;
-        } & { [K_1 in Exclude<keyof I["vote"], "$type" | "typeUrl" | "value">]: never; }) | undefined;
-    } & { [K_2 in Exclude<keyof I, "$type" | "sender" | "pollId" | "vote">]: never; }>(base?: I | undefined): VoteRequest;
+        } & { [K_6 in Exclude<keyof I["vote"], "$type" | "typeUrl" | "value">]: never; }) | undefined;
+    } & { [K_7 in Exclude<keyof I, "$type" | "sender" | "senderDeprecated" | "pollId" | "pollKey" | "voteDeprecated" | "vote">]: never; }>(base?: I | undefined): VoteRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         pollId?: string | number | Long.Long | undefined;
+        pollKey?: {
+            id?: string | undefined;
+            module?: string | undefined;
+        } | undefined;
+        voteDeprecated?: {
+            result?: {
+                typeUrl?: string | undefined;
+                value?: Buffer | undefined;
+            } | undefined;
+            resultsDeprecated?: {
+                typeUrl?: string | undefined;
+                value?: Buffer | undefined;
+            }[] | undefined;
+        } | undefined;
         vote?: {
             typeUrl?: string | undefined;
             value?: Buffer | undefined;
         } | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         pollId?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -168,15 +264,53 @@ export declare const VoteRequest: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_3 in Exclude<keyof I_1["pollId"], "$type" | keyof Long.Long>]: never; }) | undefined;
+        } & { [K_8 in Exclude<keyof I_1["pollId"], "$type" | keyof Long.Long>]: never; }) | undefined;
+        pollKey?: ({
+            id?: string | undefined;
+            module?: string | undefined;
+        } & {
+            id?: string | undefined;
+            module?: string | undefined;
+        } & { [K_9 in Exclude<keyof I_1["pollKey"], "$type" | "id" | "module">]: never; }) | undefined;
+        voteDeprecated?: ({
+            result?: {
+                typeUrl?: string | undefined;
+                value?: Buffer | undefined;
+            } | undefined;
+            resultsDeprecated?: {
+                typeUrl?: string | undefined;
+                value?: Buffer | undefined;
+            }[] | undefined;
+        } & {
+            result?: ({
+                typeUrl?: string | undefined;
+                value?: Buffer | undefined;
+            } & {
+                typeUrl?: string | undefined;
+                value?: Buffer | undefined;
+            } & { [K_10 in Exclude<keyof I_1["voteDeprecated"]["result"], "$type" | "typeUrl" | "value">]: never; }) | undefined;
+            resultsDeprecated?: ({
+                typeUrl?: string | undefined;
+                value?: Buffer | undefined;
+            }[] & ({
+                typeUrl?: string | undefined;
+                value?: Buffer | undefined;
+            } & {
+                typeUrl?: string | undefined;
+                value?: Buffer | undefined;
+            } & { [K_11 in Exclude<keyof I_1["voteDeprecated"]["resultsDeprecated"][number], "$type" | "typeUrl" | "value">]: never; })[] & { [K_12 in Exclude<keyof I_1["voteDeprecated"]["resultsDeprecated"], "$type" | keyof {
+                typeUrl?: string | undefined;
+                value?: Buffer | undefined;
+            }[]>]: never; }) | undefined;
+        } & { [K_13 in Exclude<keyof I_1["voteDeprecated"], "$type" | "result" | "resultsDeprecated">]: never; }) | undefined;
         vote?: ({
             typeUrl?: string | undefined;
             value?: Buffer | undefined;
         } & {
             typeUrl?: string | undefined;
             value?: Buffer | undefined;
-        } & { [K_4 in Exclude<keyof I_1["vote"], "$type" | "typeUrl" | "value">]: never; }) | undefined;
-    } & { [K_5 in Exclude<keyof I_1, "$type" | "sender" | "pollId" | "vote">]: never; }>(object: I_1): VoteRequest;
+        } & { [K_14 in Exclude<keyof I_1["vote"], "$type" | "typeUrl" | "value">]: never; }) | undefined;
+    } & { [K_15 in Exclude<keyof I_1, "$type" | "sender" | "senderDeprecated" | "pollId" | "pollKey" | "voteDeprecated" | "vote">]: never; }>(object: I_1): VoteRequest;
 };
 export declare const VoteResponse: {
     $type: "axelar.vote.v1beta1.VoteResponse";

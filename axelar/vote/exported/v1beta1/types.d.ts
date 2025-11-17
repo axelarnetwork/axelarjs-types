@@ -43,6 +43,23 @@ export interface PollKey {
     module: string;
     id: string;
 }
+/**
+ * Vote represents a vote result - kept for backward compatibility
+ *
+ * @deprecated
+ */
+export interface Vote {
+    $type: "axelar.vote.exported.v1beta1.Vote";
+    /**
+     * DEPRECATED: Removed in v0.18, reinstated in v1.3 for backward compatibility.
+     * This field must remain to allow decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    resultsDeprecated: Any[];
+    result?: Any | undefined;
+}
 /** PollParticipants should be embedded in poll events in other modules */
 export interface PollParticipants {
     $type: "axelar.vote.exported.v1beta1.PollParticipants";
@@ -1348,6 +1365,75 @@ export declare const PollKey: {
         id?: string | undefined;
         module?: string | undefined;
     } & { [K_1 in Exclude<keyof I_1, "$type" | "id" | "module">]: never; }>(object: I_1): PollKey;
+};
+export declare const Vote: {
+    $type: "axelar.vote.exported.v1beta1.Vote";
+    encode(message: Vote, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Vote;
+    fromJSON(object: any): Vote;
+    toJSON(message: Vote): unknown;
+    create<I extends {
+        result?: {
+            typeUrl?: string | undefined;
+            value?: Buffer | undefined;
+        } | undefined;
+        resultsDeprecated?: {
+            typeUrl?: string | undefined;
+            value?: Buffer | undefined;
+        }[] | undefined;
+    } & {
+        result?: ({
+            typeUrl?: string | undefined;
+            value?: Buffer | undefined;
+        } & {
+            typeUrl?: string | undefined;
+            value?: Buffer | undefined;
+        } & { [K in Exclude<keyof I["result"], "$type" | "typeUrl" | "value">]: never; }) | undefined;
+        resultsDeprecated?: ({
+            typeUrl?: string | undefined;
+            value?: Buffer | undefined;
+        }[] & ({
+            typeUrl?: string | undefined;
+            value?: Buffer | undefined;
+        } & {
+            typeUrl?: string | undefined;
+            value?: Buffer | undefined;
+        } & { [K_1 in Exclude<keyof I["resultsDeprecated"][number], "$type" | "typeUrl" | "value">]: never; })[] & { [K_2 in Exclude<keyof I["resultsDeprecated"], "$type" | keyof {
+            typeUrl?: string | undefined;
+            value?: Buffer | undefined;
+        }[]>]: never; }) | undefined;
+    } & { [K_3 in Exclude<keyof I, "$type" | "result" | "resultsDeprecated">]: never; }>(base?: I | undefined): Vote;
+    fromPartial<I_1 extends {
+        result?: {
+            typeUrl?: string | undefined;
+            value?: Buffer | undefined;
+        } | undefined;
+        resultsDeprecated?: {
+            typeUrl?: string | undefined;
+            value?: Buffer | undefined;
+        }[] | undefined;
+    } & {
+        result?: ({
+            typeUrl?: string | undefined;
+            value?: Buffer | undefined;
+        } & {
+            typeUrl?: string | undefined;
+            value?: Buffer | undefined;
+        } & { [K_4 in Exclude<keyof I_1["result"], "$type" | "typeUrl" | "value">]: never; }) | undefined;
+        resultsDeprecated?: ({
+            typeUrl?: string | undefined;
+            value?: Buffer | undefined;
+        }[] & ({
+            typeUrl?: string | undefined;
+            value?: Buffer | undefined;
+        } & {
+            typeUrl?: string | undefined;
+            value?: Buffer | undefined;
+        } & { [K_5 in Exclude<keyof I_1["resultsDeprecated"][number], "$type" | "typeUrl" | "value">]: never; })[] & { [K_6 in Exclude<keyof I_1["resultsDeprecated"], "$type" | keyof {
+            typeUrl?: string | undefined;
+            value?: Buffer | undefined;
+        }[]>]: never; }) | undefined;
+    } & { [K_7 in Exclude<keyof I_1, "$type" | "result" | "resultsDeprecated">]: never; }>(object: I_1): Vote;
 };
 export declare const PollParticipants: {
     $type: "axelar.vote.exported.v1beta1.PollParticipants";

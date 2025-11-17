@@ -26,6 +26,14 @@ export declare function transferDirectionToJSON(object: TransferDirection): stri
 export interface Chain {
     $type: "axelar.nexus.exported.v1beta1.Chain";
     name: string;
+    /**
+     * DEPRECATED: Removed in v0.14, reinstated in v1.3 for backward compatibility.
+     * This field must remain to allow decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    nativeAssetDeprecated: string;
     supportsForeignAssets: boolean;
     keyType: KeyType;
     module: string;
@@ -63,6 +71,14 @@ export interface FeeInfo {
 export interface Asset {
     $type: "axelar.nexus.exported.v1beta1.Asset";
     denom: string;
+    /**
+     * DEPRECATED: Removed in v0.15, reinstated in v1.3 for backward compatibility.
+     * This field must remain to allow decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    minAmountDeprecated: Buffer;
     isNativeAsset: boolean;
 }
 export interface GeneralMessage {
@@ -107,25 +123,29 @@ export declare const Chain: {
     create<I extends {
         name?: string | undefined;
         keyType?: KeyType | undefined;
+        nativeAssetDeprecated?: string | undefined;
         supportsForeignAssets?: boolean | undefined;
         module?: string | undefined;
     } & {
         name?: string | undefined;
         keyType?: KeyType | undefined;
+        nativeAssetDeprecated?: string | undefined;
         supportsForeignAssets?: boolean | undefined;
         module?: string | undefined;
-    } & { [K in Exclude<keyof I, "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }>(base?: I | undefined): Chain;
+    } & { [K in Exclude<keyof I, "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }>(base?: I | undefined): Chain;
     fromPartial<I_1 extends {
         name?: string | undefined;
         keyType?: KeyType | undefined;
+        nativeAssetDeprecated?: string | undefined;
         supportsForeignAssets?: boolean | undefined;
         module?: string | undefined;
     } & {
         name?: string | undefined;
         keyType?: KeyType | undefined;
+        nativeAssetDeprecated?: string | undefined;
         supportsForeignAssets?: boolean | undefined;
         module?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }>(object: I_1): Chain;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }>(object: I_1): Chain;
 };
 export declare const CrossChainAddress: {
     $type: "axelar.nexus.exported.v1beta1.CrossChainAddress";
@@ -138,6 +158,7 @@ export declare const CrossChainAddress: {
         chain?: {
             name?: string | undefined;
             keyType?: KeyType | undefined;
+            nativeAssetDeprecated?: string | undefined;
             supportsForeignAssets?: boolean | undefined;
             module?: string | undefined;
         } | undefined;
@@ -146,20 +167,23 @@ export declare const CrossChainAddress: {
         chain?: ({
             name?: string | undefined;
             keyType?: KeyType | undefined;
+            nativeAssetDeprecated?: string | undefined;
             supportsForeignAssets?: boolean | undefined;
             module?: string | undefined;
         } & {
             name?: string | undefined;
             keyType?: KeyType | undefined;
+            nativeAssetDeprecated?: string | undefined;
             supportsForeignAssets?: boolean | undefined;
             module?: string | undefined;
-        } & { [K in Exclude<keyof I["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+        } & { [K in Exclude<keyof I["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
     } & { [K_1 in Exclude<keyof I, "$type" | "address" | "chain">]: never; }>(base?: I | undefined): CrossChainAddress;
     fromPartial<I_1 extends {
         address?: string | undefined;
         chain?: {
             name?: string | undefined;
             keyType?: KeyType | undefined;
+            nativeAssetDeprecated?: string | undefined;
             supportsForeignAssets?: boolean | undefined;
             module?: string | undefined;
         } | undefined;
@@ -168,14 +192,16 @@ export declare const CrossChainAddress: {
         chain?: ({
             name?: string | undefined;
             keyType?: KeyType | undefined;
+            nativeAssetDeprecated?: string | undefined;
             supportsForeignAssets?: boolean | undefined;
             module?: string | undefined;
         } & {
             name?: string | undefined;
             keyType?: KeyType | undefined;
+            nativeAssetDeprecated?: string | undefined;
             supportsForeignAssets?: boolean | undefined;
             module?: string | undefined;
-        } & { [K_2 in Exclude<keyof I_1["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+        } & { [K_2 in Exclude<keyof I_1["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
     } & { [K_3 in Exclude<keyof I_1, "$type" | "address" | "chain">]: never; }>(object: I_1): CrossChainAddress;
 };
 export declare const CrossChainTransfer: {
@@ -195,6 +221,7 @@ export declare const CrossChainTransfer: {
             chain?: {
                 name?: string | undefined;
                 keyType?: KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
@@ -271,6 +298,7 @@ export declare const CrossChainTransfer: {
             chain?: {
                 name?: string | undefined;
                 keyType?: KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
@@ -279,14 +307,16 @@ export declare const CrossChainTransfer: {
             chain?: ({
                 name?: string | undefined;
                 keyType?: KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } & {
                 name?: string | undefined;
                 keyType?: KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
-            } & { [K_2 in Exclude<keyof I["recipient"]["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+            } & { [K_2 in Exclude<keyof I["recipient"]["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
         } & { [K_3 in Exclude<keyof I["recipient"], "$type" | "address" | "chain">]: never; }) | undefined;
         state?: TransferState | undefined;
     } & { [K_4 in Exclude<keyof I, "$type" | "id" | "asset" | "recipient" | "state">]: never; }>(base?: I | undefined): CrossChainTransfer;
@@ -301,6 +331,7 @@ export declare const CrossChainTransfer: {
             chain?: {
                 name?: string | undefined;
                 keyType?: KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
@@ -377,6 +408,7 @@ export declare const CrossChainTransfer: {
             chain?: {
                 name?: string | undefined;
                 keyType?: KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
@@ -385,14 +417,16 @@ export declare const CrossChainTransfer: {
             chain?: ({
                 name?: string | undefined;
                 keyType?: KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } & {
                 name?: string | undefined;
                 keyType?: KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
-            } & { [K_7 in Exclude<keyof I_1["recipient"]["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+            } & { [K_7 in Exclude<keyof I_1["recipient"]["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
         } & { [K_8 in Exclude<keyof I_1["recipient"], "$type" | "address" | "chain">]: never; }) | undefined;
         state?: TransferState | undefined;
     } & { [K_9 in Exclude<keyof I_1, "$type" | "id" | "asset" | "recipient" | "state">]: never; }>(object: I_1): CrossChainTransfer;
@@ -485,18 +519,22 @@ export declare const Asset: {
     toJSON(message: Asset): unknown;
     create<I extends {
         denom?: string | undefined;
+        minAmountDeprecated?: Buffer | undefined;
         isNativeAsset?: boolean | undefined;
     } & {
         denom?: string | undefined;
+        minAmountDeprecated?: Buffer | undefined;
         isNativeAsset?: boolean | undefined;
-    } & { [K in Exclude<keyof I, "$type" | "denom" | "isNativeAsset">]: never; }>(base?: I | undefined): Asset;
+    } & { [K in Exclude<keyof I, "$type" | "denom" | "minAmountDeprecated" | "isNativeAsset">]: never; }>(base?: I | undefined): Asset;
     fromPartial<I_1 extends {
         denom?: string | undefined;
+        minAmountDeprecated?: Buffer | undefined;
         isNativeAsset?: boolean | undefined;
     } & {
         denom?: string | undefined;
+        minAmountDeprecated?: Buffer | undefined;
         isNativeAsset?: boolean | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "$type" | "denom" | "isNativeAsset">]: never; }>(object: I_1): Asset;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "denom" | "minAmountDeprecated" | "isNativeAsset">]: never; }>(object: I_1): Asset;
 };
 export declare const GeneralMessage: {
     $type: "axelar.nexus.exported.v1beta1.GeneralMessage";
@@ -510,6 +548,7 @@ export declare const GeneralMessage: {
             chain?: {
                 name?: string | undefined;
                 keyType?: KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
@@ -525,6 +564,7 @@ export declare const GeneralMessage: {
             chain?: {
                 name?: string | undefined;
                 keyType?: KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
@@ -538,6 +578,7 @@ export declare const GeneralMessage: {
             chain?: {
                 name?: string | undefined;
                 keyType?: KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
@@ -546,14 +587,16 @@ export declare const GeneralMessage: {
             chain?: ({
                 name?: string | undefined;
                 keyType?: KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } & {
                 name?: string | undefined;
                 keyType?: KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
-            } & { [K in Exclude<keyof I["sender"]["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+            } & { [K in Exclude<keyof I["sender"]["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
         } & { [K_1 in Exclude<keyof I["sender"], "$type" | "address" | "chain">]: never; }) | undefined;
         status?: GeneralMessage_Status | undefined;
         id?: string | undefined;
@@ -569,6 +612,7 @@ export declare const GeneralMessage: {
             chain?: {
                 name?: string | undefined;
                 keyType?: KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
@@ -577,14 +621,16 @@ export declare const GeneralMessage: {
             chain?: ({
                 name?: string | undefined;
                 keyType?: KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } & {
                 name?: string | undefined;
                 keyType?: KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
-            } & { [K_3 in Exclude<keyof I["recipient"]["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+            } & { [K_3 in Exclude<keyof I["recipient"]["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
         } & { [K_4 in Exclude<keyof I["recipient"], "$type" | "address" | "chain">]: never; }) | undefined;
         payloadHash?: Buffer | undefined;
         sourceTxId?: Buffer | undefined;
@@ -653,6 +699,7 @@ export declare const GeneralMessage: {
             chain?: {
                 name?: string | undefined;
                 keyType?: KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
@@ -668,6 +715,7 @@ export declare const GeneralMessage: {
             chain?: {
                 name?: string | undefined;
                 keyType?: KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
@@ -681,6 +729,7 @@ export declare const GeneralMessage: {
             chain?: {
                 name?: string | undefined;
                 keyType?: KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
@@ -689,14 +738,16 @@ export declare const GeneralMessage: {
             chain?: ({
                 name?: string | undefined;
                 keyType?: KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } & {
                 name?: string | undefined;
                 keyType?: KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
-            } & { [K_7 in Exclude<keyof I_1["sender"]["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+            } & { [K_7 in Exclude<keyof I_1["sender"]["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
         } & { [K_8 in Exclude<keyof I_1["sender"], "$type" | "address" | "chain">]: never; }) | undefined;
         status?: GeneralMessage_Status | undefined;
         id?: string | undefined;
@@ -712,6 +763,7 @@ export declare const GeneralMessage: {
             chain?: {
                 name?: string | undefined;
                 keyType?: KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
@@ -720,14 +772,16 @@ export declare const GeneralMessage: {
             chain?: ({
                 name?: string | undefined;
                 keyType?: KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } & {
                 name?: string | undefined;
                 keyType?: KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
-            } & { [K_10 in Exclude<keyof I_1["recipient"]["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+            } & { [K_10 in Exclude<keyof I_1["recipient"]["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
         } & { [K_11 in Exclude<keyof I_1["recipient"], "$type" | "address" | "chain">]: never; }) | undefined;
         payloadHash?: Buffer | undefined;
         sourceTxId?: Buffer | undefined;

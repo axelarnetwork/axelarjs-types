@@ -10,6 +10,14 @@ export declare const protobufPackage = "axelar.vote.v1beta1";
 export interface TalliedVote {
     $type: "axelar.vote.v1beta1.TalliedVote";
     tally: Buffer;
+    /**
+     * DEPRECATED: Removed in v0.20, reinstated in v1.3 for backward compatibility.
+     * This field must remain to allow decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    votersDeprecated: Buffer[];
     data?: Any | undefined;
     pollId: Long;
     isVoterLate: {
@@ -34,6 +42,7 @@ export declare const TalliedVote: {
         } | undefined;
         pollId?: string | number | Long.Long | undefined;
         tally?: Buffer | undefined;
+        votersDeprecated?: Buffer[] | undefined;
         isVoterLate?: {
             [x: string]: boolean | undefined;
             [x: number]: boolean | undefined;
@@ -105,14 +114,15 @@ export declare const TalliedVote: {
             xor: (other: string | number | Long.Long) => Long.Long;
         } & { [K_1 in Exclude<keyof I["pollId"], "$type" | keyof Long.Long>]: never; }) | undefined;
         tally?: Buffer | undefined;
+        votersDeprecated?: (Buffer[] & Buffer[] & { [K_2 in Exclude<keyof I["votersDeprecated"], "$type" | keyof Buffer[]>]: never; }) | undefined;
         isVoterLate?: ({
             [x: string]: boolean | undefined;
             [x: number]: boolean | undefined;
         } & {
             [x: string]: boolean | undefined;
             [x: number]: boolean | undefined;
-        } & { [K_2 in Exclude<keyof I["isVoterLate"], string | number>]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I, "$type" | "data" | "pollId" | "tally" | "isVoterLate">]: never; }>(base?: I | undefined): TalliedVote;
+        } & { [K_3 in Exclude<keyof I["isVoterLate"], string | number>]: never; }) | undefined;
+    } & { [K_4 in Exclude<keyof I, "$type" | "data" | "pollId" | "tally" | "votersDeprecated" | "isVoterLate">]: never; }>(base?: I | undefined): TalliedVote;
     fromPartial<I_1 extends {
         data?: {
             typeUrl?: string | undefined;
@@ -120,6 +130,7 @@ export declare const TalliedVote: {
         } | undefined;
         pollId?: string | number | Long.Long | undefined;
         tally?: Buffer | undefined;
+        votersDeprecated?: Buffer[] | undefined;
         isVoterLate?: {
             [x: string]: boolean | undefined;
             [x: number]: boolean | undefined;
@@ -131,7 +142,7 @@ export declare const TalliedVote: {
         } & {
             typeUrl?: string | undefined;
             value?: Buffer | undefined;
-        } & { [K_4 in Exclude<keyof I_1["data"], "$type" | "typeUrl" | "value">]: never; }) | undefined;
+        } & { [K_5 in Exclude<keyof I_1["data"], "$type" | "typeUrl" | "value">]: never; }) | undefined;
         pollId?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -189,16 +200,17 @@ export declare const TalliedVote: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_5 in Exclude<keyof I_1["pollId"], "$type" | keyof Long.Long>]: never; }) | undefined;
+        } & { [K_6 in Exclude<keyof I_1["pollId"], "$type" | keyof Long.Long>]: never; }) | undefined;
         tally?: Buffer | undefined;
+        votersDeprecated?: (Buffer[] & Buffer[] & { [K_7 in Exclude<keyof I_1["votersDeprecated"], "$type" | keyof Buffer[]>]: never; }) | undefined;
         isVoterLate?: ({
             [x: string]: boolean | undefined;
             [x: number]: boolean | undefined;
         } & {
             [x: string]: boolean | undefined;
             [x: number]: boolean | undefined;
-        } & { [K_6 in Exclude<keyof I_1["isVoterLate"], string | number>]: never; }) | undefined;
-    } & { [K_7 in Exclude<keyof I_1, "$type" | "data" | "pollId" | "tally" | "isVoterLate">]: never; }>(object: I_1): TalliedVote;
+        } & { [K_8 in Exclude<keyof I_1["isVoterLate"], string | number>]: never; }) | undefined;
+    } & { [K_9 in Exclude<keyof I_1, "$type" | "data" | "pollId" | "tally" | "votersDeprecated" | "isVoterLate">]: never; }>(object: I_1): TalliedVote;
 };
 export declare const TalliedVote_IsVoterLateEntry: {
     $type: "axelar.vote.v1beta1.TalliedVote.IsVoterLateEntry";

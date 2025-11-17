@@ -3,10 +3,18 @@ import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { KeyType } from "../../tss/exported/v1beta1/types";
 import { Params } from "./params";
-import { Asset, TokenDetails } from "./types";
+import { Asset, TokenDetails, TransferKeyType } from "./types";
 export declare const protobufPackage = "axelar.evm.v1beta1";
 export interface SetGatewayRequest {
     $type: "axelar.evm.v1beta1.SetGatewayRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     chain: string;
     address: Buffer;
     sender: string;
@@ -17,6 +25,14 @@ export interface SetGatewayResponse {
 /** @deprecated */
 export interface ConfirmGatewayTxRequest {
     $type: "axelar.evm.v1beta1.ConfirmGatewayTxRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     chain: string;
     txId: Buffer;
     sender: string;
@@ -27,6 +43,14 @@ export interface ConfirmGatewayTxResponse {
 }
 export interface ConfirmGatewayTxsRequest {
     $type: "axelar.evm.v1beta1.ConfirmGatewayTxsRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     chain: string;
     txIds: Buffer[];
     sender: string;
@@ -37,6 +61,14 @@ export interface ConfirmGatewayTxsResponse {
 /** MsgConfirmDeposit represents an erc20 deposit confirmation message */
 export interface ConfirmDepositRequest {
     $type: "axelar.evm.v1beta1.ConfirmDepositRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     chain: string;
     txId: Buffer;
     /** @deprecated */
@@ -50,6 +82,14 @@ export interface ConfirmDepositResponse {
 /** MsgConfirmToken represents a token deploy confirmation message */
 export interface ConfirmTokenRequest {
     $type: "axelar.evm.v1beta1.ConfirmTokenRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     chain: string;
     txId: Buffer;
     asset?: Asset | undefined;
@@ -60,8 +100,32 @@ export interface ConfirmTokenResponse {
 }
 export interface ConfirmTransferKeyRequest {
     $type: "axelar.evm.v1beta1.ConfirmTransferKeyRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     chain: string;
     txId: Buffer;
+    /**
+     * DEPRECATED: Removed in v0.20, reinstated in v1.3 for backward compatibility.
+     * This field must remain to allow decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    transferTypeDeprecated: TransferKeyType;
+    /**
+     * DEPRECATED: Removed in v0.20, reinstated in v1.3 for backward compatibility.
+     * This field must remain to allow decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    keyIdDeprecated: string;
     sender: string;
 }
 export interface ConfirmTransferKeyResponse {
@@ -73,6 +137,14 @@ export interface ConfirmTransferKeyResponse {
  */
 export interface LinkRequest {
     $type: "axelar.evm.v1beta1.LinkRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     chain: string;
     recipientAddr: string;
     asset: string;
@@ -89,6 +161,14 @@ export interface LinkResponse {
  */
 export interface CreateBurnTokensRequest {
     $type: "axelar.evm.v1beta1.CreateBurnTokensRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     chain: string;
     sender: string;
 }
@@ -101,9 +181,25 @@ export interface CreateBurnTokensResponse {
  */
 export interface CreateDeployTokenRequest {
     $type: "axelar.evm.v1beta1.CreateDeployTokenRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     chain: string;
     asset?: Asset | undefined;
     tokenDetails?: TokenDetails | undefined;
+    /**
+     * DEPRECATED: Removed in v0.15, reinstated in v1.3 for backward compatibility.
+     * This field must remain to allow decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    minAmountDeprecated: Buffer;
     address: Buffer;
     dailyMintLimit: string;
     sender: string;
@@ -117,6 +213,14 @@ export interface CreateDeployTokenResponse {
  */
 export interface CreatePendingTransfersRequest {
     $type: "axelar.evm.v1beta1.CreatePendingTransfersRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     chain: string;
     sender: string;
 }
@@ -126,6 +230,14 @@ export interface CreatePendingTransfersResponse {
 /** @deprecated */
 export interface CreateTransferOwnershipRequest {
     $type: "axelar.evm.v1beta1.CreateTransferOwnershipRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     chain: string;
     keyId: string;
     sender: string;
@@ -136,6 +248,14 @@ export interface CreateTransferOwnershipResponse {
 }
 export interface CreateTransferOperatorshipRequest {
     $type: "axelar.evm.v1beta1.CreateTransferOperatorshipRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     chain: string;
     keyId: string;
     sender: string;
@@ -145,6 +265,14 @@ export interface CreateTransferOperatorshipResponse {
 }
 export interface SignCommandsRequest {
     $type: "axelar.evm.v1beta1.SignCommandsRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     chain: string;
     sender: string;
 }
@@ -155,7 +283,23 @@ export interface SignCommandsResponse {
 }
 export interface AddChainRequest {
     $type: "axelar.evm.v1beta1.AddChainRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     name: string;
+    /**
+     * DEPRECATED: Removed in v0.14, reinstated in v1.3 for backward compatibility.
+     * This field must remain to allow decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    nativeAssetDeprecated: string;
     /** @deprecated */
     keyType: KeyType;
     params: Buffer;
@@ -166,6 +310,14 @@ export interface AddChainResponse {
 }
 export interface RetryFailedEventRequest {
     $type: "axelar.evm.v1beta1.RetryFailedEventRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     chain: string;
     eventId: string;
     sender: string;
@@ -190,21 +342,25 @@ export declare const SetGatewayRequest: {
     create<I extends {
         address?: Buffer | undefined;
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
     } & {
         address?: Buffer | undefined;
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
-    } & { [K in Exclude<keyof I, "$type" | "address" | "sender" | "chain">]: never; }>(base?: I | undefined): SetGatewayRequest;
+    } & { [K in Exclude<keyof I, "$type" | "address" | "sender" | "senderDeprecated" | "chain">]: never; }>(base?: I | undefined): SetGatewayRequest;
     fromPartial<I_1 extends {
         address?: Buffer | undefined;
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
     } & {
         address?: Buffer | undefined;
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "$type" | "address" | "sender" | "chain">]: never; }>(object: I_1): SetGatewayRequest;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "address" | "sender" | "senderDeprecated" | "chain">]: never; }>(object: I_1): SetGatewayRequest;
 };
 export declare const SetGatewayResponse: {
     $type: "axelar.evm.v1beta1.SetGatewayResponse";
@@ -223,22 +379,26 @@ export declare const ConfirmGatewayTxRequest: {
     toJSON(message: ConfirmGatewayTxRequest): unknown;
     create<I extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
         txId?: Buffer | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
         txId?: Buffer | undefined;
-    } & { [K in Exclude<keyof I, "$type" | "sender" | "chain" | "txId">]: never; }>(base?: I | undefined): ConfirmGatewayTxRequest;
+    } & { [K in Exclude<keyof I, "$type" | "sender" | "senderDeprecated" | "chain" | "txId">]: never; }>(base?: I | undefined): ConfirmGatewayTxRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
         txId?: Buffer | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
         txId?: Buffer | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender" | "chain" | "txId">]: never; }>(object: I_1): ConfirmGatewayTxRequest;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender" | "senderDeprecated" | "chain" | "txId">]: never; }>(object: I_1): ConfirmGatewayTxRequest;
 };
 export declare const ConfirmGatewayTxResponse: {
     $type: "axelar.evm.v1beta1.ConfirmGatewayTxResponse";
@@ -257,22 +417,26 @@ export declare const ConfirmGatewayTxsRequest: {
     toJSON(message: ConfirmGatewayTxsRequest): unknown;
     create<I extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
         txIds?: Buffer[] | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
         txIds?: (Buffer[] & Buffer[] & { [K in Exclude<keyof I["txIds"], "$type" | keyof Buffer[]>]: never; }) | undefined;
-    } & { [K_1 in Exclude<keyof I, "$type" | "sender" | "chain" | "txIds">]: never; }>(base?: I | undefined): ConfirmGatewayTxsRequest;
+    } & { [K_1 in Exclude<keyof I, "$type" | "sender" | "senderDeprecated" | "chain" | "txIds">]: never; }>(base?: I | undefined): ConfirmGatewayTxsRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
         txIds?: Buffer[] | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
         txIds?: (Buffer[] & Buffer[] & { [K_2 in Exclude<keyof I_1["txIds"], "$type" | keyof Buffer[]>]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I_1, "$type" | "sender" | "chain" | "txIds">]: never; }>(object: I_1): ConfirmGatewayTxsRequest;
+    } & { [K_3 in Exclude<keyof I_1, "$type" | "sender" | "senderDeprecated" | "chain" | "txIds">]: never; }>(object: I_1): ConfirmGatewayTxsRequest;
 };
 export declare const ConfirmGatewayTxsResponse: {
     $type: "axelar.evm.v1beta1.ConfirmGatewayTxsResponse";
@@ -291,30 +455,34 @@ export declare const ConfirmDepositRequest: {
     toJSON(message: ConfirmDepositRequest): unknown;
     create<I extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         amount?: Buffer | undefined;
         chain?: string | undefined;
         txId?: Buffer | undefined;
         burnerAddress?: Buffer | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         amount?: Buffer | undefined;
         chain?: string | undefined;
         txId?: Buffer | undefined;
         burnerAddress?: Buffer | undefined;
-    } & { [K in Exclude<keyof I, "$type" | "sender" | "amount" | "chain" | "txId" | "burnerAddress">]: never; }>(base?: I | undefined): ConfirmDepositRequest;
+    } & { [K in Exclude<keyof I, "$type" | "sender" | "senderDeprecated" | "amount" | "chain" | "txId" | "burnerAddress">]: never; }>(base?: I | undefined): ConfirmDepositRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         amount?: Buffer | undefined;
         chain?: string | undefined;
         txId?: Buffer | undefined;
         burnerAddress?: Buffer | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         amount?: Buffer | undefined;
         chain?: string | undefined;
         txId?: Buffer | undefined;
         burnerAddress?: Buffer | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender" | "amount" | "chain" | "txId" | "burnerAddress">]: never; }>(object: I_1): ConfirmDepositRequest;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender" | "senderDeprecated" | "amount" | "chain" | "txId" | "burnerAddress">]: never; }>(object: I_1): ConfirmDepositRequest;
 };
 export declare const ConfirmDepositResponse: {
     $type: "axelar.evm.v1beta1.ConfirmDepositResponse";
@@ -333,6 +501,7 @@ export declare const ConfirmTokenRequest: {
     toJSON(message: ConfirmTokenRequest): unknown;
     create<I extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         asset?: {
             chain?: string | undefined;
             name?: string | undefined;
@@ -341,6 +510,7 @@ export declare const ConfirmTokenRequest: {
         txId?: Buffer | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         asset?: ({
             chain?: string | undefined;
             name?: string | undefined;
@@ -350,9 +520,10 @@ export declare const ConfirmTokenRequest: {
         } & { [K in Exclude<keyof I["asset"], "$type" | "chain" | "name">]: never; }) | undefined;
         chain?: string | undefined;
         txId?: Buffer | undefined;
-    } & { [K_1 in Exclude<keyof I, "$type" | "sender" | "asset" | "chain" | "txId">]: never; }>(base?: I | undefined): ConfirmTokenRequest;
+    } & { [K_1 in Exclude<keyof I, "$type" | "sender" | "senderDeprecated" | "asset" | "chain" | "txId">]: never; }>(base?: I | undefined): ConfirmTokenRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         asset?: {
             chain?: string | undefined;
             name?: string | undefined;
@@ -361,6 +532,7 @@ export declare const ConfirmTokenRequest: {
         txId?: Buffer | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         asset?: ({
             chain?: string | undefined;
             name?: string | undefined;
@@ -370,7 +542,7 @@ export declare const ConfirmTokenRequest: {
         } & { [K_2 in Exclude<keyof I_1["asset"], "$type" | "chain" | "name">]: never; }) | undefined;
         chain?: string | undefined;
         txId?: Buffer | undefined;
-    } & { [K_3 in Exclude<keyof I_1, "$type" | "sender" | "asset" | "chain" | "txId">]: never; }>(object: I_1): ConfirmTokenRequest;
+    } & { [K_3 in Exclude<keyof I_1, "$type" | "sender" | "senderDeprecated" | "asset" | "chain" | "txId">]: never; }>(object: I_1): ConfirmTokenRequest;
 };
 export declare const ConfirmTokenResponse: {
     $type: "axelar.evm.v1beta1.ConfirmTokenResponse";
@@ -389,22 +561,34 @@ export declare const ConfirmTransferKeyRequest: {
     toJSON(message: ConfirmTransferKeyRequest): unknown;
     create<I extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
         txId?: Buffer | undefined;
+        transferTypeDeprecated?: TransferKeyType | undefined;
+        keyIdDeprecated?: string | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
         txId?: Buffer | undefined;
-    } & { [K in Exclude<keyof I, "$type" | "sender" | "chain" | "txId">]: never; }>(base?: I | undefined): ConfirmTransferKeyRequest;
+        transferTypeDeprecated?: TransferKeyType | undefined;
+        keyIdDeprecated?: string | undefined;
+    } & { [K in Exclude<keyof I, "$type" | "sender" | "senderDeprecated" | "chain" | "txId" | "transferTypeDeprecated" | "keyIdDeprecated">]: never; }>(base?: I | undefined): ConfirmTransferKeyRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
         txId?: Buffer | undefined;
+        transferTypeDeprecated?: TransferKeyType | undefined;
+        keyIdDeprecated?: string | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
         txId?: Buffer | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender" | "chain" | "txId">]: never; }>(object: I_1): ConfirmTransferKeyRequest;
+        transferTypeDeprecated?: TransferKeyType | undefined;
+        keyIdDeprecated?: string | undefined;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender" | "senderDeprecated" | "chain" | "txId" | "transferTypeDeprecated" | "keyIdDeprecated">]: never; }>(object: I_1): ConfirmTransferKeyRequest;
 };
 export declare const ConfirmTransferKeyResponse: {
     $type: "axelar.evm.v1beta1.ConfirmTransferKeyResponse";
@@ -423,30 +607,34 @@ export declare const LinkRequest: {
     toJSON(message: LinkRequest): unknown;
     create<I extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         asset?: string | undefined;
         chain?: string | undefined;
         recipientAddr?: string | undefined;
         recipientChain?: string | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         asset?: string | undefined;
         chain?: string | undefined;
         recipientAddr?: string | undefined;
         recipientChain?: string | undefined;
-    } & { [K in Exclude<keyof I, "$type" | "sender" | "asset" | "chain" | "recipientAddr" | "recipientChain">]: never; }>(base?: I | undefined): LinkRequest;
+    } & { [K in Exclude<keyof I, "$type" | "sender" | "senderDeprecated" | "asset" | "chain" | "recipientAddr" | "recipientChain">]: never; }>(base?: I | undefined): LinkRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         asset?: string | undefined;
         chain?: string | undefined;
         recipientAddr?: string | undefined;
         recipientChain?: string | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         asset?: string | undefined;
         chain?: string | undefined;
         recipientAddr?: string | undefined;
         recipientChain?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender" | "asset" | "chain" | "recipientAddr" | "recipientChain">]: never; }>(object: I_1): LinkRequest;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender" | "senderDeprecated" | "asset" | "chain" | "recipientAddr" | "recipientChain">]: never; }>(object: I_1): LinkRequest;
 };
 export declare const LinkResponse: {
     $type: "axelar.evm.v1beta1.LinkResponse";
@@ -473,18 +661,22 @@ export declare const CreateBurnTokensRequest: {
     toJSON(message: CreateBurnTokensRequest): unknown;
     create<I extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
-    } & { [K in Exclude<keyof I, "$type" | "sender" | "chain">]: never; }>(base?: I | undefined): CreateBurnTokensRequest;
+    } & { [K in Exclude<keyof I, "$type" | "sender" | "senderDeprecated" | "chain">]: never; }>(base?: I | undefined): CreateBurnTokensRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender" | "chain">]: never; }>(object: I_1): CreateBurnTokensRequest;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender" | "senderDeprecated" | "chain">]: never; }>(object: I_1): CreateBurnTokensRequest;
 };
 export declare const CreateBurnTokensResponse: {
     $type: "axelar.evm.v1beta1.CreateBurnTokensResponse";
@@ -504,11 +696,13 @@ export declare const CreateDeployTokenRequest: {
     create<I extends {
         address?: Buffer | undefined;
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         asset?: {
             chain?: string | undefined;
             name?: string | undefined;
         } | undefined;
         chain?: string | undefined;
+        minAmountDeprecated?: Buffer | undefined;
         tokenDetails?: {
             symbol?: string | undefined;
             tokenName?: string | undefined;
@@ -519,6 +713,7 @@ export declare const CreateDeployTokenRequest: {
     } & {
         address?: Buffer | undefined;
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         asset?: ({
             chain?: string | undefined;
             name?: string | undefined;
@@ -527,6 +722,7 @@ export declare const CreateDeployTokenRequest: {
             name?: string | undefined;
         } & { [K in Exclude<keyof I["asset"], "$type" | "chain" | "name">]: never; }) | undefined;
         chain?: string | undefined;
+        minAmountDeprecated?: Buffer | undefined;
         tokenDetails?: ({
             symbol?: string | undefined;
             tokenName?: string | undefined;
@@ -539,15 +735,17 @@ export declare const CreateDeployTokenRequest: {
             capacity?: Buffer | undefined;
         } & { [K_1 in Exclude<keyof I["tokenDetails"], "symbol" | "$type" | "tokenName" | "decimals" | "capacity">]: never; }) | undefined;
         dailyMintLimit?: string | undefined;
-    } & { [K_2 in Exclude<keyof I, "$type" | "address" | "sender" | "asset" | "chain" | "tokenDetails" | "dailyMintLimit">]: never; }>(base?: I | undefined): CreateDeployTokenRequest;
+    } & { [K_2 in Exclude<keyof I, "$type" | "address" | "sender" | "senderDeprecated" | "asset" | "chain" | "minAmountDeprecated" | "tokenDetails" | "dailyMintLimit">]: never; }>(base?: I | undefined): CreateDeployTokenRequest;
     fromPartial<I_1 extends {
         address?: Buffer | undefined;
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         asset?: {
             chain?: string | undefined;
             name?: string | undefined;
         } | undefined;
         chain?: string | undefined;
+        minAmountDeprecated?: Buffer | undefined;
         tokenDetails?: {
             symbol?: string | undefined;
             tokenName?: string | undefined;
@@ -558,6 +756,7 @@ export declare const CreateDeployTokenRequest: {
     } & {
         address?: Buffer | undefined;
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         asset?: ({
             chain?: string | undefined;
             name?: string | undefined;
@@ -566,6 +765,7 @@ export declare const CreateDeployTokenRequest: {
             name?: string | undefined;
         } & { [K_3 in Exclude<keyof I_1["asset"], "$type" | "chain" | "name">]: never; }) | undefined;
         chain?: string | undefined;
+        minAmountDeprecated?: Buffer | undefined;
         tokenDetails?: ({
             symbol?: string | undefined;
             tokenName?: string | undefined;
@@ -578,7 +778,7 @@ export declare const CreateDeployTokenRequest: {
             capacity?: Buffer | undefined;
         } & { [K_4 in Exclude<keyof I_1["tokenDetails"], "symbol" | "$type" | "tokenName" | "decimals" | "capacity">]: never; }) | undefined;
         dailyMintLimit?: string | undefined;
-    } & { [K_5 in Exclude<keyof I_1, "$type" | "address" | "sender" | "asset" | "chain" | "tokenDetails" | "dailyMintLimit">]: never; }>(object: I_1): CreateDeployTokenRequest;
+    } & { [K_5 in Exclude<keyof I_1, "$type" | "address" | "sender" | "senderDeprecated" | "asset" | "chain" | "minAmountDeprecated" | "tokenDetails" | "dailyMintLimit">]: never; }>(object: I_1): CreateDeployTokenRequest;
 };
 export declare const CreateDeployTokenResponse: {
     $type: "axelar.evm.v1beta1.CreateDeployTokenResponse";
@@ -597,18 +797,22 @@ export declare const CreatePendingTransfersRequest: {
     toJSON(message: CreatePendingTransfersRequest): unknown;
     create<I extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
-    } & { [K in Exclude<keyof I, "$type" | "sender" | "chain">]: never; }>(base?: I | undefined): CreatePendingTransfersRequest;
+    } & { [K in Exclude<keyof I, "$type" | "sender" | "senderDeprecated" | "chain">]: never; }>(base?: I | undefined): CreatePendingTransfersRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender" | "chain">]: never; }>(object: I_1): CreatePendingTransfersRequest;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender" | "senderDeprecated" | "chain">]: never; }>(object: I_1): CreatePendingTransfersRequest;
 };
 export declare const CreatePendingTransfersResponse: {
     $type: "axelar.evm.v1beta1.CreatePendingTransfersResponse";
@@ -627,22 +831,26 @@ export declare const CreateTransferOwnershipRequest: {
     toJSON(message: CreateTransferOwnershipRequest): unknown;
     create<I extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
         keyId?: string | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
         keyId?: string | undefined;
-    } & { [K in Exclude<keyof I, "$type" | "sender" | "chain" | "keyId">]: never; }>(base?: I | undefined): CreateTransferOwnershipRequest;
+    } & { [K in Exclude<keyof I, "$type" | "sender" | "senderDeprecated" | "chain" | "keyId">]: never; }>(base?: I | undefined): CreateTransferOwnershipRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
         keyId?: string | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
         keyId?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender" | "chain" | "keyId">]: never; }>(object: I_1): CreateTransferOwnershipRequest;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender" | "senderDeprecated" | "chain" | "keyId">]: never; }>(object: I_1): CreateTransferOwnershipRequest;
 };
 export declare const CreateTransferOwnershipResponse: {
     $type: "axelar.evm.v1beta1.CreateTransferOwnershipResponse";
@@ -661,22 +869,26 @@ export declare const CreateTransferOperatorshipRequest: {
     toJSON(message: CreateTransferOperatorshipRequest): unknown;
     create<I extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
         keyId?: string | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
         keyId?: string | undefined;
-    } & { [K in Exclude<keyof I, "$type" | "sender" | "chain" | "keyId">]: never; }>(base?: I | undefined): CreateTransferOperatorshipRequest;
+    } & { [K in Exclude<keyof I, "$type" | "sender" | "senderDeprecated" | "chain" | "keyId">]: never; }>(base?: I | undefined): CreateTransferOperatorshipRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
         keyId?: string | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
         keyId?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender" | "chain" | "keyId">]: never; }>(object: I_1): CreateTransferOperatorshipRequest;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender" | "senderDeprecated" | "chain" | "keyId">]: never; }>(object: I_1): CreateTransferOperatorshipRequest;
 };
 export declare const CreateTransferOperatorshipResponse: {
     $type: "axelar.evm.v1beta1.CreateTransferOperatorshipResponse";
@@ -695,18 +907,22 @@ export declare const SignCommandsRequest: {
     toJSON(message: SignCommandsRequest): unknown;
     create<I extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
-    } & { [K in Exclude<keyof I, "$type" | "sender" | "chain">]: never; }>(base?: I | undefined): SignCommandsRequest;
+    } & { [K in Exclude<keyof I, "$type" | "sender" | "senderDeprecated" | "chain">]: never; }>(base?: I | undefined): SignCommandsRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender" | "chain">]: never; }>(object: I_1): SignCommandsRequest;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender" | "senderDeprecated" | "chain">]: never; }>(object: I_1): SignCommandsRequest;
 };
 export declare const SignCommandsResponse: {
     $type: "axelar.evm.v1beta1.SignCommandsResponse";
@@ -737,26 +953,34 @@ export declare const AddChainRequest: {
     toJSON(message: AddChainRequest): unknown;
     create<I extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         name?: string | undefined;
         params?: Buffer | undefined;
         keyType?: KeyType | undefined;
+        nativeAssetDeprecated?: string | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         name?: string | undefined;
         params?: Buffer | undefined;
         keyType?: KeyType | undefined;
-    } & { [K in Exclude<keyof I, "$type" | "sender" | "name" | "params" | "keyType">]: never; }>(base?: I | undefined): AddChainRequest;
+        nativeAssetDeprecated?: string | undefined;
+    } & { [K in Exclude<keyof I, "$type" | "sender" | "senderDeprecated" | "name" | "params" | "keyType" | "nativeAssetDeprecated">]: never; }>(base?: I | undefined): AddChainRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         name?: string | undefined;
         params?: Buffer | undefined;
         keyType?: KeyType | undefined;
+        nativeAssetDeprecated?: string | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         name?: string | undefined;
         params?: Buffer | undefined;
         keyType?: KeyType | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender" | "name" | "params" | "keyType">]: never; }>(object: I_1): AddChainRequest;
+        nativeAssetDeprecated?: string | undefined;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender" | "senderDeprecated" | "name" | "params" | "keyType" | "nativeAssetDeprecated">]: never; }>(object: I_1): AddChainRequest;
 };
 export declare const AddChainResponse: {
     $type: "axelar.evm.v1beta1.AddChainResponse";
@@ -775,22 +999,26 @@ export declare const RetryFailedEventRequest: {
     toJSON(message: RetryFailedEventRequest): unknown;
     create<I extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
         eventId?: string | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
         eventId?: string | undefined;
-    } & { [K in Exclude<keyof I, "$type" | "sender" | "chain" | "eventId">]: never; }>(base?: I | undefined): RetryFailedEventRequest;
+    } & { [K in Exclude<keyof I, "$type" | "sender" | "senderDeprecated" | "chain" | "eventId">]: never; }>(base?: I | undefined): RetryFailedEventRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
         eventId?: string | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
         eventId?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender" | "chain" | "eventId">]: never; }>(object: I_1): RetryFailedEventRequest;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender" | "senderDeprecated" | "chain" | "eventId">]: never; }>(object: I_1): RetryFailedEventRequest;
 };
 export declare const RetryFailedEventResponse: {
     $type: "axelar.evm.v1beta1.RetryFailedEventResponse";

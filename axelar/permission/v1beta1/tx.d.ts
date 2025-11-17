@@ -6,6 +6,14 @@ import { Params } from "./params";
 export declare const protobufPackage = "axelar.permission.v1beta1";
 export interface UpdateGovernanceKeyRequest {
     $type: "axelar.permission.v1beta1.UpdateGovernanceKeyRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     governanceKey?: LegacyAminoPubKey | undefined;
     sender: string;
 }
@@ -15,6 +23,14 @@ export interface UpdateGovernanceKeyResponse {
 /** MsgRegisterController represents a message to register a controller account */
 export interface RegisterControllerRequest {
     $type: "axelar.permission.v1beta1.RegisterControllerRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     controller: Buffer;
     sender: string;
 }
@@ -24,6 +40,14 @@ export interface RegisterControllerResponse {
 /** DeregisterController represents a message to deregister a controller account */
 export interface DeregisterControllerRequest {
     $type: "axelar.permission.v1beta1.DeregisterControllerRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     controller: Buffer;
     sender: string;
 }
@@ -46,6 +70,7 @@ export declare const UpdateGovernanceKeyRequest: {
     toJSON(message: UpdateGovernanceKeyRequest): unknown;
     create<I extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         governanceKey?: {
             threshold?: number | undefined;
             publicKeys?: {
@@ -55,6 +80,7 @@ export declare const UpdateGovernanceKeyRequest: {
         } | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         governanceKey?: ({
             threshold?: number | undefined;
             publicKeys?: {
@@ -77,9 +103,10 @@ export declare const UpdateGovernanceKeyRequest: {
                 value?: Buffer | undefined;
             }[]>]: never; }) | undefined;
         } & { [K_2 in Exclude<keyof I["governanceKey"], "$type" | "threshold" | "publicKeys">]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I, "$type" | "sender" | "governanceKey">]: never; }>(base?: I | undefined): UpdateGovernanceKeyRequest;
+    } & { [K_3 in Exclude<keyof I, "$type" | "sender" | "senderDeprecated" | "governanceKey">]: never; }>(base?: I | undefined): UpdateGovernanceKeyRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         governanceKey?: {
             threshold?: number | undefined;
             publicKeys?: {
@@ -89,6 +116,7 @@ export declare const UpdateGovernanceKeyRequest: {
         } | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         governanceKey?: ({
             threshold?: number | undefined;
             publicKeys?: {
@@ -111,7 +139,7 @@ export declare const UpdateGovernanceKeyRequest: {
                 value?: Buffer | undefined;
             }[]>]: never; }) | undefined;
         } & { [K_6 in Exclude<keyof I_1["governanceKey"], "$type" | "threshold" | "publicKeys">]: never; }) | undefined;
-    } & { [K_7 in Exclude<keyof I_1, "$type" | "sender" | "governanceKey">]: never; }>(object: I_1): UpdateGovernanceKeyRequest;
+    } & { [K_7 in Exclude<keyof I_1, "$type" | "sender" | "senderDeprecated" | "governanceKey">]: never; }>(object: I_1): UpdateGovernanceKeyRequest;
 };
 export declare const UpdateGovernanceKeyResponse: {
     $type: "axelar.permission.v1beta1.UpdateGovernanceKeyResponse";
@@ -130,18 +158,22 @@ export declare const RegisterControllerRequest: {
     toJSON(message: RegisterControllerRequest): unknown;
     create<I extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         controller?: Buffer | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         controller?: Buffer | undefined;
-    } & { [K in Exclude<keyof I, "$type" | "sender" | "controller">]: never; }>(base?: I | undefined): RegisterControllerRequest;
+    } & { [K in Exclude<keyof I, "$type" | "sender" | "senderDeprecated" | "controller">]: never; }>(base?: I | undefined): RegisterControllerRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         controller?: Buffer | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         controller?: Buffer | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender" | "controller">]: never; }>(object: I_1): RegisterControllerRequest;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender" | "senderDeprecated" | "controller">]: never; }>(object: I_1): RegisterControllerRequest;
 };
 export declare const RegisterControllerResponse: {
     $type: "axelar.permission.v1beta1.RegisterControllerResponse";
@@ -160,18 +192,22 @@ export declare const DeregisterControllerRequest: {
     toJSON(message: DeregisterControllerRequest): unknown;
     create<I extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         controller?: Buffer | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         controller?: Buffer | undefined;
-    } & { [K in Exclude<keyof I, "$type" | "sender" | "controller">]: never; }>(base?: I | undefined): DeregisterControllerRequest;
+    } & { [K in Exclude<keyof I, "$type" | "sender" | "senderDeprecated" | "controller">]: never; }>(base?: I | undefined): DeregisterControllerRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         controller?: Buffer | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         controller?: Buffer | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender" | "controller">]: never; }>(object: I_1): DeregisterControllerRequest;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender" | "senderDeprecated" | "controller">]: never; }>(object: I_1): DeregisterControllerRequest;
 };
 export declare const DeregisterControllerResponse: {
     $type: "axelar.permission.v1beta1.DeregisterControllerResponse";

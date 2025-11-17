@@ -7,6 +7,14 @@ export interface StartKeygenRequest {
     $type: "axelar.multisig.v1beta1.StartKeygenRequest";
     sender: string;
     keyId: string;
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
 }
 export interface StartKeygenResponse {
     $type: "axelar.multisig.v1beta1.StartKeygenResponse";
@@ -17,6 +25,14 @@ export interface SubmitPubKeyRequest {
     keyId: string;
     pubKey: Buffer;
     signature: Buffer;
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
 }
 export interface SubmitPubKeyResponse {
     $type: "axelar.multisig.v1beta1.SubmitPubKeyResponse";
@@ -26,6 +42,14 @@ export interface SubmitSignatureRequest {
     sender: string;
     sigId: Long;
     signature: Buffer;
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
 }
 export interface SubmitSignatureResponse {
     $type: "axelar.multisig.v1beta1.SubmitSignatureResponse";
@@ -35,12 +59,28 @@ export interface RotateKeyRequest {
     sender: string;
     chain: string;
     keyId: string;
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
 }
 export interface RotateKeyResponse {
     $type: "axelar.multisig.v1beta1.RotateKeyResponse";
 }
 export interface KeygenOptOutRequest {
     $type: "axelar.multisig.v1beta1.KeygenOptOutRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     sender: string;
 }
 export interface KeygenOptOutResponse {
@@ -48,6 +88,14 @@ export interface KeygenOptOutResponse {
 }
 export interface KeygenOptInRequest {
     $type: "axelar.multisig.v1beta1.KeygenOptInRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
+     * Removing this field would break decoding of historical transactions.
+     * DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     sender: string;
 }
 export interface KeygenOptInResponse {
@@ -69,18 +117,22 @@ export declare const StartKeygenRequest: {
     toJSON(message: StartKeygenRequest): unknown;
     create<I extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         keyId?: string | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         keyId?: string | undefined;
-    } & { [K in Exclude<keyof I, "$type" | "sender" | "keyId">]: never; }>(base?: I | undefined): StartKeygenRequest;
+    } & { [K in Exclude<keyof I, "$type" | "sender" | "senderDeprecated" | "keyId">]: never; }>(base?: I | undefined): StartKeygenRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         keyId?: string | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         keyId?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender" | "keyId">]: never; }>(object: I_1): StartKeygenRequest;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender" | "senderDeprecated" | "keyId">]: never; }>(object: I_1): StartKeygenRequest;
 };
 export declare const StartKeygenResponse: {
     $type: "axelar.multisig.v1beta1.StartKeygenResponse";
@@ -101,24 +153,28 @@ export declare const SubmitPubKeyRequest: {
         pubKey?: Buffer | undefined;
         sender?: string | undefined;
         signature?: Buffer | undefined;
+        senderDeprecated?: Buffer | undefined;
         keyId?: string | undefined;
     } & {
         pubKey?: Buffer | undefined;
         sender?: string | undefined;
         signature?: Buffer | undefined;
+        senderDeprecated?: Buffer | undefined;
         keyId?: string | undefined;
-    } & { [K in Exclude<keyof I, "$type" | "pubKey" | "sender" | "signature" | "keyId">]: never; }>(base?: I | undefined): SubmitPubKeyRequest;
+    } & { [K in Exclude<keyof I, "$type" | "pubKey" | "sender" | "signature" | "senderDeprecated" | "keyId">]: never; }>(base?: I | undefined): SubmitPubKeyRequest;
     fromPartial<I_1 extends {
         pubKey?: Buffer | undefined;
         sender?: string | undefined;
         signature?: Buffer | undefined;
+        senderDeprecated?: Buffer | undefined;
         keyId?: string | undefined;
     } & {
         pubKey?: Buffer | undefined;
         sender?: string | undefined;
         signature?: Buffer | undefined;
+        senderDeprecated?: Buffer | undefined;
         keyId?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "$type" | "pubKey" | "sender" | "signature" | "keyId">]: never; }>(object: I_1): SubmitPubKeyRequest;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "pubKey" | "sender" | "signature" | "senderDeprecated" | "keyId">]: never; }>(object: I_1): SubmitPubKeyRequest;
 };
 export declare const SubmitPubKeyResponse: {
     $type: "axelar.multisig.v1beta1.SubmitPubKeyResponse";
@@ -138,10 +194,12 @@ export declare const SubmitSignatureRequest: {
     create<I extends {
         sender?: string | undefined;
         signature?: Buffer | undefined;
+        senderDeprecated?: Buffer | undefined;
         sigId?: string | number | Long.Long | undefined;
     } & {
         sender?: string | undefined;
         signature?: Buffer | undefined;
+        senderDeprecated?: Buffer | undefined;
         sigId?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -200,14 +258,16 @@ export declare const SubmitSignatureRequest: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & { [K in Exclude<keyof I["sigId"], "$type" | keyof Long.Long>]: never; }) | undefined;
-    } & { [K_1 in Exclude<keyof I, "$type" | "sender" | "signature" | "sigId">]: never; }>(base?: I | undefined): SubmitSignatureRequest;
+    } & { [K_1 in Exclude<keyof I, "$type" | "sender" | "signature" | "senderDeprecated" | "sigId">]: never; }>(base?: I | undefined): SubmitSignatureRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
         signature?: Buffer | undefined;
+        senderDeprecated?: Buffer | undefined;
         sigId?: string | number | Long.Long | undefined;
     } & {
         sender?: string | undefined;
         signature?: Buffer | undefined;
+        senderDeprecated?: Buffer | undefined;
         sigId?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -266,7 +326,7 @@ export declare const SubmitSignatureRequest: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & { [K_2 in Exclude<keyof I_1["sigId"], "$type" | keyof Long.Long>]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I_1, "$type" | "sender" | "signature" | "sigId">]: never; }>(object: I_1): SubmitSignatureRequest;
+    } & { [K_3 in Exclude<keyof I_1, "$type" | "sender" | "signature" | "senderDeprecated" | "sigId">]: never; }>(object: I_1): SubmitSignatureRequest;
 };
 export declare const SubmitSignatureResponse: {
     $type: "axelar.multisig.v1beta1.SubmitSignatureResponse";
@@ -285,22 +345,26 @@ export declare const RotateKeyRequest: {
     toJSON(message: RotateKeyRequest): unknown;
     create<I extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
         keyId?: string | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
         keyId?: string | undefined;
-    } & { [K in Exclude<keyof I, "$type" | "sender" | "chain" | "keyId">]: never; }>(base?: I | undefined): RotateKeyRequest;
+    } & { [K in Exclude<keyof I, "$type" | "sender" | "senderDeprecated" | "chain" | "keyId">]: never; }>(base?: I | undefined): RotateKeyRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
         keyId?: string | undefined;
     } & {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
         chain?: string | undefined;
         keyId?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender" | "chain" | "keyId">]: never; }>(object: I_1): RotateKeyRequest;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender" | "senderDeprecated" | "chain" | "keyId">]: never; }>(object: I_1): RotateKeyRequest;
 };
 export declare const RotateKeyResponse: {
     $type: "axelar.multisig.v1beta1.RotateKeyResponse";
@@ -319,14 +383,18 @@ export declare const KeygenOptOutRequest: {
     toJSON(message: KeygenOptOutRequest): unknown;
     create<I extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
     } & {
         sender?: string | undefined;
-    } & { [K in Exclude<keyof I, "$type" | "sender">]: never; }>(base?: I | undefined): KeygenOptOutRequest;
+        senderDeprecated?: Buffer | undefined;
+    } & { [K in Exclude<keyof I, "$type" | "sender" | "senderDeprecated">]: never; }>(base?: I | undefined): KeygenOptOutRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
     } & {
         sender?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender">]: never; }>(object: I_1): KeygenOptOutRequest;
+        senderDeprecated?: Buffer | undefined;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender" | "senderDeprecated">]: never; }>(object: I_1): KeygenOptOutRequest;
 };
 export declare const KeygenOptOutResponse: {
     $type: "axelar.multisig.v1beta1.KeygenOptOutResponse";
@@ -345,14 +413,18 @@ export declare const KeygenOptInRequest: {
     toJSON(message: KeygenOptInRequest): unknown;
     create<I extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
     } & {
         sender?: string | undefined;
-    } & { [K in Exclude<keyof I, "$type" | "sender">]: never; }>(base?: I | undefined): KeygenOptInRequest;
+        senderDeprecated?: Buffer | undefined;
+    } & { [K in Exclude<keyof I, "$type" | "sender" | "senderDeprecated">]: never; }>(base?: I | undefined): KeygenOptInRequest;
     fromPartial<I_1 extends {
         sender?: string | undefined;
+        senderDeprecated?: Buffer | undefined;
     } & {
         sender?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender">]: never; }>(object: I_1): KeygenOptInRequest;
+        senderDeprecated?: Buffer | undefined;
+    } & { [K_1 in Exclude<keyof I_1, "$type" | "sender" | "senderDeprecated">]: never; }>(object: I_1): KeygenOptInRequest;
 };
 export declare const KeygenOptInResponse: {
     $type: "axelar.multisig.v1beta1.KeygenOptInResponse";

@@ -609,6 +609,7 @@ export declare const MessageReceived: {
             chain?: {
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
@@ -619,6 +620,7 @@ export declare const MessageReceived: {
             chain?: {
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
@@ -630,6 +632,7 @@ export declare const MessageReceived: {
             chain?: {
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
@@ -638,14 +641,16 @@ export declare const MessageReceived: {
             chain?: ({
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } & {
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
-            } & { [K in Exclude<keyof I["sender"]["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+            } & { [K in Exclude<keyof I["sender"]["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
         } & { [K_1 in Exclude<keyof I["sender"], "$type" | "address" | "chain">]: never; }) | undefined;
         id?: string | undefined;
         recipient?: ({
@@ -653,6 +658,7 @@ export declare const MessageReceived: {
             chain?: {
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
@@ -661,14 +667,16 @@ export declare const MessageReceived: {
             chain?: ({
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } & {
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
-            } & { [K_2 in Exclude<keyof I["recipient"]["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+            } & { [K_2 in Exclude<keyof I["recipient"]["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
         } & { [K_3 in Exclude<keyof I["recipient"], "$type" | "address" | "chain">]: never; }) | undefined;
         payloadHash?: Buffer | undefined;
     } & { [K_4 in Exclude<keyof I, "$type" | "sender" | "id" | "recipient" | "payloadHash">]: never; }>(base?: I | undefined): MessageReceived;
@@ -678,6 +686,7 @@ export declare const MessageReceived: {
             chain?: {
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
@@ -688,6 +697,7 @@ export declare const MessageReceived: {
             chain?: {
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
@@ -699,6 +709,7 @@ export declare const MessageReceived: {
             chain?: {
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
@@ -707,14 +718,16 @@ export declare const MessageReceived: {
             chain?: ({
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } & {
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
-            } & { [K_5 in Exclude<keyof I_1["sender"]["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+            } & { [K_5 in Exclude<keyof I_1["sender"]["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
         } & { [K_6 in Exclude<keyof I_1["sender"], "$type" | "address" | "chain">]: never; }) | undefined;
         id?: string | undefined;
         recipient?: ({
@@ -722,6 +735,7 @@ export declare const MessageReceived: {
             chain?: {
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } | undefined;
@@ -730,14 +744,16 @@ export declare const MessageReceived: {
             chain?: ({
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
             } & {
                 name?: string | undefined;
                 keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+                nativeAssetDeprecated?: string | undefined;
                 supportsForeignAssets?: boolean | undefined;
                 module?: string | undefined;
-            } & { [K_7 in Exclude<keyof I_1["recipient"]["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+            } & { [K_7 in Exclude<keyof I_1["recipient"]["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
         } & { [K_8 in Exclude<keyof I_1["recipient"], "$type" | "address" | "chain">]: never; }) | undefined;
         payloadHash?: Buffer | undefined;
     } & { [K_9 in Exclude<keyof I_1, "$type" | "sender" | "id" | "recipient" | "payloadHash">]: never; }>(object: I_1): MessageReceived;

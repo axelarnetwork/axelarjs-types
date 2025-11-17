@@ -1062,6 +1062,7 @@ export declare const PendingChain: {
         chain?: {
             name?: string | undefined;
             keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+            nativeAssetDeprecated?: string | undefined;
             supportsForeignAssets?: boolean | undefined;
             module?: string | undefined;
         } | undefined;
@@ -1090,14 +1091,16 @@ export declare const PendingChain: {
         chain?: ({
             name?: string | undefined;
             keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+            nativeAssetDeprecated?: string | undefined;
             supportsForeignAssets?: boolean | undefined;
             module?: string | undefined;
         } & {
             name?: string | undefined;
             keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+            nativeAssetDeprecated?: string | undefined;
             supportsForeignAssets?: boolean | undefined;
             module?: string | undefined;
-        } & { [K in Exclude<keyof I["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+        } & { [K in Exclude<keyof I["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
         params?: ({
             transferLimit?: string | number | Long.Long | undefined;
             endBlockerLimit?: string | number | Long.Long | undefined;
@@ -1612,6 +1615,7 @@ export declare const PendingChain: {
         chain?: {
             name?: string | undefined;
             keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+            nativeAssetDeprecated?: string | undefined;
             supportsForeignAssets?: boolean | undefined;
             module?: string | undefined;
         } | undefined;
@@ -1640,14 +1644,16 @@ export declare const PendingChain: {
         chain?: ({
             name?: string | undefined;
             keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+            nativeAssetDeprecated?: string | undefined;
             supportsForeignAssets?: boolean | undefined;
             module?: string | undefined;
         } & {
             name?: string | undefined;
             keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
+            nativeAssetDeprecated?: string | undefined;
             supportsForeignAssets?: boolean | undefined;
             module?: string | undefined;
-        } & { [K_14 in Exclude<keyof I_1["chain"], "$type" | "name" | "keyType" | "supportsForeignAssets" | "module">]: never; }) | undefined;
+        } & { [K_14 in Exclude<keyof I_1["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
         params?: ({
             transferLimit?: string | number | Long.Long | undefined;
             endBlockerLimit?: string | number | Long.Long | undefined;
