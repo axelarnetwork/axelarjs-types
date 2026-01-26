@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import Long from "long";
 import _m0 from "protobufjs/minimal";
 export declare const protobufPackage = "axelar.axelarnet.v1beta1";
@@ -21,99 +20,27 @@ export interface ContractCall {
 export declare const CallContractsProposal: {
     $type: "axelar.axelarnet.v1beta1.CallContractsProposal";
     encode(message: CallContractsProposal, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): CallContractsProposal;
+    decode(input: _m0.Reader | Uint8Array, length?: number): CallContractsProposal;
     fromJSON(object: any): CallContractsProposal;
     toJSON(message: CallContractsProposal): unknown;
-    create<I extends {
-        title?: string | undefined;
-        description?: string | undefined;
-        contractCalls?: {
-            contractAddress?: string | undefined;
-            payload?: Buffer | undefined;
-            chain?: string | undefined;
-        }[] | undefined;
-    } & {
-        title?: string | undefined;
-        description?: string | undefined;
-        contractCalls?: ({
-            contractAddress?: string | undefined;
-            payload?: Buffer | undefined;
-            chain?: string | undefined;
-        }[] & ({
-            contractAddress?: string | undefined;
-            payload?: Buffer | undefined;
-            chain?: string | undefined;
-        } & {
-            contractAddress?: string | undefined;
-            payload?: Buffer | undefined;
-            chain?: string | undefined;
-        } & { [K in Exclude<keyof I["contractCalls"][number], "$type" | "contractAddress" | "payload" | "chain">]: never; })[] & { [K_1 in Exclude<keyof I["contractCalls"], "$type" | keyof {
-            contractAddress?: string | undefined;
-            payload?: Buffer | undefined;
-            chain?: string | undefined;
-        }[]>]: never; }) | undefined;
-    } & { [K_2 in Exclude<keyof I, "$type" | "title" | "description" | "contractCalls">]: never; }>(base?: I | undefined): CallContractsProposal;
-    fromPartial<I_1 extends {
-        title?: string | undefined;
-        description?: string | undefined;
-        contractCalls?: {
-            contractAddress?: string | undefined;
-            payload?: Buffer | undefined;
-            chain?: string | undefined;
-        }[] | undefined;
-    } & {
-        title?: string | undefined;
-        description?: string | undefined;
-        contractCalls?: ({
-            contractAddress?: string | undefined;
-            payload?: Buffer | undefined;
-            chain?: string | undefined;
-        }[] & ({
-            contractAddress?: string | undefined;
-            payload?: Buffer | undefined;
-            chain?: string | undefined;
-        } & {
-            contractAddress?: string | undefined;
-            payload?: Buffer | undefined;
-            chain?: string | undefined;
-        } & { [K_3 in Exclude<keyof I_1["contractCalls"][number], "$type" | "contractAddress" | "payload" | "chain">]: never; })[] & { [K_4 in Exclude<keyof I_1["contractCalls"], "$type" | keyof {
-            contractAddress?: string | undefined;
-            payload?: Buffer | undefined;
-            chain?: string | undefined;
-        }[]>]: never; }) | undefined;
-    } & { [K_5 in Exclude<keyof I_1, "$type" | "title" | "description" | "contractCalls">]: never; }>(object: I_1): CallContractsProposal;
+    create<I extends Exact<DeepPartial<CallContractsProposal>, I>>(base?: I): CallContractsProposal;
+    fromPartial<I extends Exact<DeepPartial<CallContractsProposal>, I>>(object: I): CallContractsProposal;
 };
 export declare const ContractCall: {
     $type: "axelar.axelarnet.v1beta1.ContractCall";
     encode(message: ContractCall, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ContractCall;
+    decode(input: _m0.Reader | Uint8Array, length?: number): ContractCall;
     fromJSON(object: any): ContractCall;
     toJSON(message: ContractCall): unknown;
-    create<I extends {
-        contractAddress?: string | undefined;
-        payload?: Buffer | undefined;
-        chain?: string | undefined;
-    } & {
-        contractAddress?: string | undefined;
-        payload?: Buffer | undefined;
-        chain?: string | undefined;
-    } & { [K in Exclude<keyof I, "$type" | "contractAddress" | "payload" | "chain">]: never; }>(base?: I | undefined): ContractCall;
-    fromPartial<I_1 extends {
-        contractAddress?: string | undefined;
-        payload?: Buffer | undefined;
-        chain?: string | undefined;
-    } & {
-        contractAddress?: string | undefined;
-        payload?: Buffer | undefined;
-        chain?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "$type" | "contractAddress" | "payload" | "chain">]: never; }>(object: I_1): ContractCall;
+    create<I extends Exact<DeepPartial<ContractCall>, I>>(base?: I): ContractCall;
+    fromPartial<I extends Exact<DeepPartial<ContractCall>, I>>(object: I): ContractCall;
 };
-declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]>;
 } : Partial<T>;
-declare type KeysOfUnion<T> = T extends T ? keyof T : never;
-export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & {
     [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never;

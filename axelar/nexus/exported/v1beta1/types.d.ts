@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { Coin } from "../../../../cosmos/base/v1beta1/coin";
@@ -27,9 +26,9 @@ export interface Chain {
     $type: "axelar.nexus.exported.v1beta1.Chain";
     name: string;
     /**
-     * DEPRECATED: Removed in v0.14, reinstated in v1.3 for backward compatibility.
-     * This field must remain to allow decoding of historical transactions.
-     * DO NOT use in new code.
+     * DEPRECATED: Removed in v0.14, reinstated in v1.3 for backward
+     * compatibility. This field must remain to allow decoding of historical
+     * transactions. DO NOT use in new code.
      *
      * @deprecated
      */
@@ -72,9 +71,9 @@ export interface Asset {
     $type: "axelar.nexus.exported.v1beta1.Asset";
     denom: string;
     /**
-     * DEPRECATED: Removed in v0.15, reinstated in v1.3 for backward compatibility.
-     * This field must remain to allow decoding of historical transactions.
-     * DO NOT use in new code.
+     * DEPRECATED: Removed in v0.15, reinstated in v1.3 for backward
+     * compatibility. This field must remain to allow decoding of historical
+     * transactions. DO NOT use in new code.
      *
      * @deprecated
      */
@@ -117,903 +116,81 @@ export interface WasmMessage {
 export declare const Chain: {
     $type: "axelar.nexus.exported.v1beta1.Chain";
     encode(message: Chain, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Chain;
+    decode(input: _m0.Reader | Uint8Array, length?: number): Chain;
     fromJSON(object: any): Chain;
     toJSON(message: Chain): unknown;
-    create<I extends {
-        name?: string | undefined;
-        keyType?: KeyType | undefined;
-        nativeAssetDeprecated?: string | undefined;
-        supportsForeignAssets?: boolean | undefined;
-        module?: string | undefined;
-    } & {
-        name?: string | undefined;
-        keyType?: KeyType | undefined;
-        nativeAssetDeprecated?: string | undefined;
-        supportsForeignAssets?: boolean | undefined;
-        module?: string | undefined;
-    } & { [K in Exclude<keyof I, "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }>(base?: I | undefined): Chain;
-    fromPartial<I_1 extends {
-        name?: string | undefined;
-        keyType?: KeyType | undefined;
-        nativeAssetDeprecated?: string | undefined;
-        supportsForeignAssets?: boolean | undefined;
-        module?: string | undefined;
-    } & {
-        name?: string | undefined;
-        keyType?: KeyType | undefined;
-        nativeAssetDeprecated?: string | undefined;
-        supportsForeignAssets?: boolean | undefined;
-        module?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }>(object: I_1): Chain;
+    create<I extends Exact<DeepPartial<Chain>, I>>(base?: I): Chain;
+    fromPartial<I extends Exact<DeepPartial<Chain>, I>>(object: I): Chain;
 };
 export declare const CrossChainAddress: {
     $type: "axelar.nexus.exported.v1beta1.CrossChainAddress";
     encode(message: CrossChainAddress, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): CrossChainAddress;
+    decode(input: _m0.Reader | Uint8Array, length?: number): CrossChainAddress;
     fromJSON(object: any): CrossChainAddress;
     toJSON(message: CrossChainAddress): unknown;
-    create<I extends {
-        address?: string | undefined;
-        chain?: {
-            name?: string | undefined;
-            keyType?: KeyType | undefined;
-            nativeAssetDeprecated?: string | undefined;
-            supportsForeignAssets?: boolean | undefined;
-            module?: string | undefined;
-        } | undefined;
-    } & {
-        address?: string | undefined;
-        chain?: ({
-            name?: string | undefined;
-            keyType?: KeyType | undefined;
-            nativeAssetDeprecated?: string | undefined;
-            supportsForeignAssets?: boolean | undefined;
-            module?: string | undefined;
-        } & {
-            name?: string | undefined;
-            keyType?: KeyType | undefined;
-            nativeAssetDeprecated?: string | undefined;
-            supportsForeignAssets?: boolean | undefined;
-            module?: string | undefined;
-        } & { [K in Exclude<keyof I["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
-    } & { [K_1 in Exclude<keyof I, "$type" | "address" | "chain">]: never; }>(base?: I | undefined): CrossChainAddress;
-    fromPartial<I_1 extends {
-        address?: string | undefined;
-        chain?: {
-            name?: string | undefined;
-            keyType?: KeyType | undefined;
-            nativeAssetDeprecated?: string | undefined;
-            supportsForeignAssets?: boolean | undefined;
-            module?: string | undefined;
-        } | undefined;
-    } & {
-        address?: string | undefined;
-        chain?: ({
-            name?: string | undefined;
-            keyType?: KeyType | undefined;
-            nativeAssetDeprecated?: string | undefined;
-            supportsForeignAssets?: boolean | undefined;
-            module?: string | undefined;
-        } & {
-            name?: string | undefined;
-            keyType?: KeyType | undefined;
-            nativeAssetDeprecated?: string | undefined;
-            supportsForeignAssets?: boolean | undefined;
-            module?: string | undefined;
-        } & { [K_2 in Exclude<keyof I_1["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I_1, "$type" | "address" | "chain">]: never; }>(object: I_1): CrossChainAddress;
+    create<I extends Exact<DeepPartial<CrossChainAddress>, I>>(base?: I): CrossChainAddress;
+    fromPartial<I extends Exact<DeepPartial<CrossChainAddress>, I>>(object: I): CrossChainAddress;
 };
 export declare const CrossChainTransfer: {
     $type: "axelar.nexus.exported.v1beta1.CrossChainTransfer";
     encode(message: CrossChainTransfer, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): CrossChainTransfer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): CrossChainTransfer;
     fromJSON(object: any): CrossChainTransfer;
     toJSON(message: CrossChainTransfer): unknown;
-    create<I extends {
-        id?: string | number | Long.Long | undefined;
-        asset?: {
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } | undefined;
-        recipient?: {
-            address?: string | undefined;
-            chain?: {
-                name?: string | undefined;
-                keyType?: KeyType | undefined;
-                nativeAssetDeprecated?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
-                module?: string | undefined;
-            } | undefined;
-        } | undefined;
-        state?: TransferState | undefined;
-    } & {
-        id?: string | number | (Long.Long & {
-            high: number;
-            low: number;
-            unsigned: boolean;
-            add: (addend: string | number | Long.Long) => Long.Long;
-            and: (other: string | number | Long.Long) => Long.Long;
-            compare: (other: string | number | Long.Long) => number;
-            comp: (other: string | number | Long.Long) => number;
-            divide: (divisor: string | number | Long.Long) => Long.Long;
-            div: (divisor: string | number | Long.Long) => Long.Long;
-            equals: (other: string | number | Long.Long) => boolean;
-            eq: (other: string | number | Long.Long) => boolean;
-            getHighBits: () => number;
-            getHighBitsUnsigned: () => number;
-            getLowBits: () => number;
-            getLowBitsUnsigned: () => number;
-            getNumBitsAbs: () => number;
-            greaterThan: (other: string | number | Long.Long) => boolean;
-            gt: (other: string | number | Long.Long) => boolean;
-            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-            gte: (other: string | number | Long.Long) => boolean;
-            isEven: () => boolean;
-            isNegative: () => boolean;
-            isOdd: () => boolean;
-            isPositive: () => boolean;
-            isZero: () => boolean;
-            lessThan: (other: string | number | Long.Long) => boolean;
-            lt: (other: string | number | Long.Long) => boolean;
-            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-            lte: (other: string | number | Long.Long) => boolean;
-            modulo: (other: string | number | Long.Long) => Long.Long;
-            mod: (other: string | number | Long.Long) => Long.Long;
-            multiply: (multiplier: string | number | Long.Long) => Long.Long;
-            mul: (multiplier: string | number | Long.Long) => Long.Long;
-            negate: () => Long.Long;
-            neg: () => Long.Long;
-            not: () => Long.Long;
-            notEquals: (other: string | number | Long.Long) => boolean;
-            neq: (other: string | number | Long.Long) => boolean;
-            or: (other: string | number | Long.Long) => Long.Long;
-            shiftLeft: (numBits: number | Long.Long) => Long.Long;
-            shl: (numBits: number | Long.Long) => Long.Long;
-            shiftRight: (numBits: number | Long.Long) => Long.Long;
-            shr: (numBits: number | Long.Long) => Long.Long;
-            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-            shru: (numBits: number | Long.Long) => Long.Long;
-            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-            sub: (subtrahend: string | number | Long.Long) => Long.Long;
-            toInt: () => number;
-            toNumber: () => number;
-            toBytes: (le?: boolean | undefined) => number[];
-            toBytesLE: () => number[];
-            toBytesBE: () => number[];
-            toSigned: () => Long.Long;
-            toString: (radix?: number | undefined) => string;
-            toUnsigned: () => Long.Long;
-            xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K in Exclude<keyof I["id"], "$type" | keyof Long.Long>]: never; }) | undefined;
-        asset?: ({
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } & {
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } & { [K_1 in Exclude<keyof I["asset"], "$type" | "denom" | "amount">]: never; }) | undefined;
-        recipient?: ({
-            address?: string | undefined;
-            chain?: {
-                name?: string | undefined;
-                keyType?: KeyType | undefined;
-                nativeAssetDeprecated?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
-                module?: string | undefined;
-            } | undefined;
-        } & {
-            address?: string | undefined;
-            chain?: ({
-                name?: string | undefined;
-                keyType?: KeyType | undefined;
-                nativeAssetDeprecated?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
-                module?: string | undefined;
-            } & {
-                name?: string | undefined;
-                keyType?: KeyType | undefined;
-                nativeAssetDeprecated?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
-                module?: string | undefined;
-            } & { [K_2 in Exclude<keyof I["recipient"]["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
-        } & { [K_3 in Exclude<keyof I["recipient"], "$type" | "address" | "chain">]: never; }) | undefined;
-        state?: TransferState | undefined;
-    } & { [K_4 in Exclude<keyof I, "$type" | "id" | "asset" | "recipient" | "state">]: never; }>(base?: I | undefined): CrossChainTransfer;
-    fromPartial<I_1 extends {
-        id?: string | number | Long.Long | undefined;
-        asset?: {
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } | undefined;
-        recipient?: {
-            address?: string | undefined;
-            chain?: {
-                name?: string | undefined;
-                keyType?: KeyType | undefined;
-                nativeAssetDeprecated?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
-                module?: string | undefined;
-            } | undefined;
-        } | undefined;
-        state?: TransferState | undefined;
-    } & {
-        id?: string | number | (Long.Long & {
-            high: number;
-            low: number;
-            unsigned: boolean;
-            add: (addend: string | number | Long.Long) => Long.Long;
-            and: (other: string | number | Long.Long) => Long.Long;
-            compare: (other: string | number | Long.Long) => number;
-            comp: (other: string | number | Long.Long) => number;
-            divide: (divisor: string | number | Long.Long) => Long.Long;
-            div: (divisor: string | number | Long.Long) => Long.Long;
-            equals: (other: string | number | Long.Long) => boolean;
-            eq: (other: string | number | Long.Long) => boolean;
-            getHighBits: () => number;
-            getHighBitsUnsigned: () => number;
-            getLowBits: () => number;
-            getLowBitsUnsigned: () => number;
-            getNumBitsAbs: () => number;
-            greaterThan: (other: string | number | Long.Long) => boolean;
-            gt: (other: string | number | Long.Long) => boolean;
-            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-            gte: (other: string | number | Long.Long) => boolean;
-            isEven: () => boolean;
-            isNegative: () => boolean;
-            isOdd: () => boolean;
-            isPositive: () => boolean;
-            isZero: () => boolean;
-            lessThan: (other: string | number | Long.Long) => boolean;
-            lt: (other: string | number | Long.Long) => boolean;
-            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-            lte: (other: string | number | Long.Long) => boolean;
-            modulo: (other: string | number | Long.Long) => Long.Long;
-            mod: (other: string | number | Long.Long) => Long.Long;
-            multiply: (multiplier: string | number | Long.Long) => Long.Long;
-            mul: (multiplier: string | number | Long.Long) => Long.Long;
-            negate: () => Long.Long;
-            neg: () => Long.Long;
-            not: () => Long.Long;
-            notEquals: (other: string | number | Long.Long) => boolean;
-            neq: (other: string | number | Long.Long) => boolean;
-            or: (other: string | number | Long.Long) => Long.Long;
-            shiftLeft: (numBits: number | Long.Long) => Long.Long;
-            shl: (numBits: number | Long.Long) => Long.Long;
-            shiftRight: (numBits: number | Long.Long) => Long.Long;
-            shr: (numBits: number | Long.Long) => Long.Long;
-            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-            shru: (numBits: number | Long.Long) => Long.Long;
-            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-            sub: (subtrahend: string | number | Long.Long) => Long.Long;
-            toInt: () => number;
-            toNumber: () => number;
-            toBytes: (le?: boolean | undefined) => number[];
-            toBytesLE: () => number[];
-            toBytesBE: () => number[];
-            toSigned: () => Long.Long;
-            toString: (radix?: number | undefined) => string;
-            toUnsigned: () => Long.Long;
-            xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_5 in Exclude<keyof I_1["id"], "$type" | keyof Long.Long>]: never; }) | undefined;
-        asset?: ({
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } & {
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } & { [K_6 in Exclude<keyof I_1["asset"], "$type" | "denom" | "amount">]: never; }) | undefined;
-        recipient?: ({
-            address?: string | undefined;
-            chain?: {
-                name?: string | undefined;
-                keyType?: KeyType | undefined;
-                nativeAssetDeprecated?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
-                module?: string | undefined;
-            } | undefined;
-        } & {
-            address?: string | undefined;
-            chain?: ({
-                name?: string | undefined;
-                keyType?: KeyType | undefined;
-                nativeAssetDeprecated?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
-                module?: string | undefined;
-            } & {
-                name?: string | undefined;
-                keyType?: KeyType | undefined;
-                nativeAssetDeprecated?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
-                module?: string | undefined;
-            } & { [K_7 in Exclude<keyof I_1["recipient"]["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
-        } & { [K_8 in Exclude<keyof I_1["recipient"], "$type" | "address" | "chain">]: never; }) | undefined;
-        state?: TransferState | undefined;
-    } & { [K_9 in Exclude<keyof I_1, "$type" | "id" | "asset" | "recipient" | "state">]: never; }>(object: I_1): CrossChainTransfer;
+    create<I extends Exact<DeepPartial<CrossChainTransfer>, I>>(base?: I): CrossChainTransfer;
+    fromPartial<I extends Exact<DeepPartial<CrossChainTransfer>, I>>(object: I): CrossChainTransfer;
 };
 export declare const TransferFee: {
     $type: "axelar.nexus.exported.v1beta1.TransferFee";
     encode(message: TransferFee, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): TransferFee;
+    decode(input: _m0.Reader | Uint8Array, length?: number): TransferFee;
     fromJSON(object: any): TransferFee;
     toJSON(message: TransferFee): unknown;
-    create<I extends {
-        coins?: {
-            denom?: string | undefined;
-            amount?: string | undefined;
-        }[] | undefined;
-    } & {
-        coins?: ({
-            denom?: string | undefined;
-            amount?: string | undefined;
-        }[] & ({
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } & {
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } & { [K in Exclude<keyof I["coins"][number], "$type" | "denom" | "amount">]: never; })[] & { [K_1 in Exclude<keyof I["coins"], "$type" | keyof {
-            denom?: string | undefined;
-            amount?: string | undefined;
-        }[]>]: never; }) | undefined;
-    } & { [K_2 in Exclude<keyof I, "$type" | "coins">]: never; }>(base?: I | undefined): TransferFee;
-    fromPartial<I_1 extends {
-        coins?: {
-            denom?: string | undefined;
-            amount?: string | undefined;
-        }[] | undefined;
-    } & {
-        coins?: ({
-            denom?: string | undefined;
-            amount?: string | undefined;
-        }[] & ({
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } & {
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } & { [K_3 in Exclude<keyof I_1["coins"][number], "$type" | "denom" | "amount">]: never; })[] & { [K_4 in Exclude<keyof I_1["coins"], "$type" | keyof {
-            denom?: string | undefined;
-            amount?: string | undefined;
-        }[]>]: never; }) | undefined;
-    } & { [K_5 in Exclude<keyof I_1, "$type" | "coins">]: never; }>(object: I_1): TransferFee;
+    create<I extends Exact<DeepPartial<TransferFee>, I>>(base?: I): TransferFee;
+    fromPartial<I extends Exact<DeepPartial<TransferFee>, I>>(object: I): TransferFee;
 };
 export declare const FeeInfo: {
     $type: "axelar.nexus.exported.v1beta1.FeeInfo";
     encode(message: FeeInfo, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): FeeInfo;
+    decode(input: _m0.Reader | Uint8Array, length?: number): FeeInfo;
     fromJSON(object: any): FeeInfo;
     toJSON(message: FeeInfo): unknown;
-    create<I extends {
-        asset?: string | undefined;
-        chain?: string | undefined;
-        feeRate?: Buffer | undefined;
-        minFee?: Buffer | undefined;
-        maxFee?: Buffer | undefined;
-    } & {
-        asset?: string | undefined;
-        chain?: string | undefined;
-        feeRate?: Buffer | undefined;
-        minFee?: Buffer | undefined;
-        maxFee?: Buffer | undefined;
-    } & { [K in Exclude<keyof I, "$type" | "asset" | "chain" | "feeRate" | "minFee" | "maxFee">]: never; }>(base?: I | undefined): FeeInfo;
-    fromPartial<I_1 extends {
-        asset?: string | undefined;
-        chain?: string | undefined;
-        feeRate?: Buffer | undefined;
-        minFee?: Buffer | undefined;
-        maxFee?: Buffer | undefined;
-    } & {
-        asset?: string | undefined;
-        chain?: string | undefined;
-        feeRate?: Buffer | undefined;
-        minFee?: Buffer | undefined;
-        maxFee?: Buffer | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "$type" | "asset" | "chain" | "feeRate" | "minFee" | "maxFee">]: never; }>(object: I_1): FeeInfo;
+    create<I extends Exact<DeepPartial<FeeInfo>, I>>(base?: I): FeeInfo;
+    fromPartial<I extends Exact<DeepPartial<FeeInfo>, I>>(object: I): FeeInfo;
 };
 export declare const Asset: {
     $type: "axelar.nexus.exported.v1beta1.Asset";
     encode(message: Asset, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Asset;
+    decode(input: _m0.Reader | Uint8Array, length?: number): Asset;
     fromJSON(object: any): Asset;
     toJSON(message: Asset): unknown;
-    create<I extends {
-        denom?: string | undefined;
-        minAmountDeprecated?: Buffer | undefined;
-        isNativeAsset?: boolean | undefined;
-    } & {
-        denom?: string | undefined;
-        minAmountDeprecated?: Buffer | undefined;
-        isNativeAsset?: boolean | undefined;
-    } & { [K in Exclude<keyof I, "$type" | "denom" | "minAmountDeprecated" | "isNativeAsset">]: never; }>(base?: I | undefined): Asset;
-    fromPartial<I_1 extends {
-        denom?: string | undefined;
-        minAmountDeprecated?: Buffer | undefined;
-        isNativeAsset?: boolean | undefined;
-    } & {
-        denom?: string | undefined;
-        minAmountDeprecated?: Buffer | undefined;
-        isNativeAsset?: boolean | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "$type" | "denom" | "minAmountDeprecated" | "isNativeAsset">]: never; }>(object: I_1): Asset;
+    create<I extends Exact<DeepPartial<Asset>, I>>(base?: I): Asset;
+    fromPartial<I extends Exact<DeepPartial<Asset>, I>>(object: I): Asset;
 };
 export declare const GeneralMessage: {
     $type: "axelar.nexus.exported.v1beta1.GeneralMessage";
     encode(message: GeneralMessage, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): GeneralMessage;
+    decode(input: _m0.Reader | Uint8Array, length?: number): GeneralMessage;
     fromJSON(object: any): GeneralMessage;
     toJSON(message: GeneralMessage): unknown;
-    create<I extends {
-        sender?: {
-            address?: string | undefined;
-            chain?: {
-                name?: string | undefined;
-                keyType?: KeyType | undefined;
-                nativeAssetDeprecated?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
-                module?: string | undefined;
-            } | undefined;
-        } | undefined;
-        status?: GeneralMessage_Status | undefined;
-        id?: string | undefined;
-        asset?: {
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } | undefined;
-        recipient?: {
-            address?: string | undefined;
-            chain?: {
-                name?: string | undefined;
-                keyType?: KeyType | undefined;
-                nativeAssetDeprecated?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
-                module?: string | undefined;
-            } | undefined;
-        } | undefined;
-        payloadHash?: Buffer | undefined;
-        sourceTxId?: Buffer | undefined;
-        sourceTxIndex?: string | number | Long.Long | undefined;
-    } & {
-        sender?: ({
-            address?: string | undefined;
-            chain?: {
-                name?: string | undefined;
-                keyType?: KeyType | undefined;
-                nativeAssetDeprecated?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
-                module?: string | undefined;
-            } | undefined;
-        } & {
-            address?: string | undefined;
-            chain?: ({
-                name?: string | undefined;
-                keyType?: KeyType | undefined;
-                nativeAssetDeprecated?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
-                module?: string | undefined;
-            } & {
-                name?: string | undefined;
-                keyType?: KeyType | undefined;
-                nativeAssetDeprecated?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
-                module?: string | undefined;
-            } & { [K in Exclude<keyof I["sender"]["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
-        } & { [K_1 in Exclude<keyof I["sender"], "$type" | "address" | "chain">]: never; }) | undefined;
-        status?: GeneralMessage_Status | undefined;
-        id?: string | undefined;
-        asset?: ({
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } & {
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } & { [K_2 in Exclude<keyof I["asset"], "$type" | "denom" | "amount">]: never; }) | undefined;
-        recipient?: ({
-            address?: string | undefined;
-            chain?: {
-                name?: string | undefined;
-                keyType?: KeyType | undefined;
-                nativeAssetDeprecated?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
-                module?: string | undefined;
-            } | undefined;
-        } & {
-            address?: string | undefined;
-            chain?: ({
-                name?: string | undefined;
-                keyType?: KeyType | undefined;
-                nativeAssetDeprecated?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
-                module?: string | undefined;
-            } & {
-                name?: string | undefined;
-                keyType?: KeyType | undefined;
-                nativeAssetDeprecated?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
-                module?: string | undefined;
-            } & { [K_3 in Exclude<keyof I["recipient"]["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
-        } & { [K_4 in Exclude<keyof I["recipient"], "$type" | "address" | "chain">]: never; }) | undefined;
-        payloadHash?: Buffer | undefined;
-        sourceTxId?: Buffer | undefined;
-        sourceTxIndex?: string | number | (Long.Long & {
-            high: number;
-            low: number;
-            unsigned: boolean;
-            add: (addend: string | number | Long.Long) => Long.Long;
-            and: (other: string | number | Long.Long) => Long.Long;
-            compare: (other: string | number | Long.Long) => number;
-            comp: (other: string | number | Long.Long) => number;
-            divide: (divisor: string | number | Long.Long) => Long.Long;
-            div: (divisor: string | number | Long.Long) => Long.Long;
-            equals: (other: string | number | Long.Long) => boolean;
-            eq: (other: string | number | Long.Long) => boolean;
-            getHighBits: () => number;
-            getHighBitsUnsigned: () => number;
-            getLowBits: () => number;
-            getLowBitsUnsigned: () => number;
-            getNumBitsAbs: () => number;
-            greaterThan: (other: string | number | Long.Long) => boolean;
-            gt: (other: string | number | Long.Long) => boolean;
-            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-            gte: (other: string | number | Long.Long) => boolean;
-            isEven: () => boolean;
-            isNegative: () => boolean;
-            isOdd: () => boolean;
-            isPositive: () => boolean;
-            isZero: () => boolean;
-            lessThan: (other: string | number | Long.Long) => boolean;
-            lt: (other: string | number | Long.Long) => boolean;
-            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-            lte: (other: string | number | Long.Long) => boolean;
-            modulo: (other: string | number | Long.Long) => Long.Long;
-            mod: (other: string | number | Long.Long) => Long.Long;
-            multiply: (multiplier: string | number | Long.Long) => Long.Long;
-            mul: (multiplier: string | number | Long.Long) => Long.Long;
-            negate: () => Long.Long;
-            neg: () => Long.Long;
-            not: () => Long.Long;
-            notEquals: (other: string | number | Long.Long) => boolean;
-            neq: (other: string | number | Long.Long) => boolean;
-            or: (other: string | number | Long.Long) => Long.Long;
-            shiftLeft: (numBits: number | Long.Long) => Long.Long;
-            shl: (numBits: number | Long.Long) => Long.Long;
-            shiftRight: (numBits: number | Long.Long) => Long.Long;
-            shr: (numBits: number | Long.Long) => Long.Long;
-            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-            shru: (numBits: number | Long.Long) => Long.Long;
-            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-            sub: (subtrahend: string | number | Long.Long) => Long.Long;
-            toInt: () => number;
-            toNumber: () => number;
-            toBytes: (le?: boolean | undefined) => number[];
-            toBytesLE: () => number[];
-            toBytesBE: () => number[];
-            toSigned: () => Long.Long;
-            toString: (radix?: number | undefined) => string;
-            toUnsigned: () => Long.Long;
-            xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_5 in Exclude<keyof I["sourceTxIndex"], "$type" | keyof Long.Long>]: never; }) | undefined;
-    } & { [K_6 in Exclude<keyof I, "$type" | "sender" | "status" | "id" | "asset" | "recipient" | "payloadHash" | "sourceTxId" | "sourceTxIndex">]: never; }>(base?: I | undefined): GeneralMessage;
-    fromPartial<I_1 extends {
-        sender?: {
-            address?: string | undefined;
-            chain?: {
-                name?: string | undefined;
-                keyType?: KeyType | undefined;
-                nativeAssetDeprecated?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
-                module?: string | undefined;
-            } | undefined;
-        } | undefined;
-        status?: GeneralMessage_Status | undefined;
-        id?: string | undefined;
-        asset?: {
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } | undefined;
-        recipient?: {
-            address?: string | undefined;
-            chain?: {
-                name?: string | undefined;
-                keyType?: KeyType | undefined;
-                nativeAssetDeprecated?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
-                module?: string | undefined;
-            } | undefined;
-        } | undefined;
-        payloadHash?: Buffer | undefined;
-        sourceTxId?: Buffer | undefined;
-        sourceTxIndex?: string | number | Long.Long | undefined;
-    } & {
-        sender?: ({
-            address?: string | undefined;
-            chain?: {
-                name?: string | undefined;
-                keyType?: KeyType | undefined;
-                nativeAssetDeprecated?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
-                module?: string | undefined;
-            } | undefined;
-        } & {
-            address?: string | undefined;
-            chain?: ({
-                name?: string | undefined;
-                keyType?: KeyType | undefined;
-                nativeAssetDeprecated?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
-                module?: string | undefined;
-            } & {
-                name?: string | undefined;
-                keyType?: KeyType | undefined;
-                nativeAssetDeprecated?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
-                module?: string | undefined;
-            } & { [K_7 in Exclude<keyof I_1["sender"]["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
-        } & { [K_8 in Exclude<keyof I_1["sender"], "$type" | "address" | "chain">]: never; }) | undefined;
-        status?: GeneralMessage_Status | undefined;
-        id?: string | undefined;
-        asset?: ({
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } & {
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } & { [K_9 in Exclude<keyof I_1["asset"], "$type" | "denom" | "amount">]: never; }) | undefined;
-        recipient?: ({
-            address?: string | undefined;
-            chain?: {
-                name?: string | undefined;
-                keyType?: KeyType | undefined;
-                nativeAssetDeprecated?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
-                module?: string | undefined;
-            } | undefined;
-        } & {
-            address?: string | undefined;
-            chain?: ({
-                name?: string | undefined;
-                keyType?: KeyType | undefined;
-                nativeAssetDeprecated?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
-                module?: string | undefined;
-            } & {
-                name?: string | undefined;
-                keyType?: KeyType | undefined;
-                nativeAssetDeprecated?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
-                module?: string | undefined;
-            } & { [K_10 in Exclude<keyof I_1["recipient"]["chain"], "$type" | "name" | "keyType" | "nativeAssetDeprecated" | "supportsForeignAssets" | "module">]: never; }) | undefined;
-        } & { [K_11 in Exclude<keyof I_1["recipient"], "$type" | "address" | "chain">]: never; }) | undefined;
-        payloadHash?: Buffer | undefined;
-        sourceTxId?: Buffer | undefined;
-        sourceTxIndex?: string | number | (Long.Long & {
-            high: number;
-            low: number;
-            unsigned: boolean;
-            add: (addend: string | number | Long.Long) => Long.Long;
-            and: (other: string | number | Long.Long) => Long.Long;
-            compare: (other: string | number | Long.Long) => number;
-            comp: (other: string | number | Long.Long) => number;
-            divide: (divisor: string | number | Long.Long) => Long.Long;
-            div: (divisor: string | number | Long.Long) => Long.Long;
-            equals: (other: string | number | Long.Long) => boolean;
-            eq: (other: string | number | Long.Long) => boolean;
-            getHighBits: () => number;
-            getHighBitsUnsigned: () => number;
-            getLowBits: () => number;
-            getLowBitsUnsigned: () => number;
-            getNumBitsAbs: () => number;
-            greaterThan: (other: string | number | Long.Long) => boolean;
-            gt: (other: string | number | Long.Long) => boolean;
-            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-            gte: (other: string | number | Long.Long) => boolean;
-            isEven: () => boolean;
-            isNegative: () => boolean;
-            isOdd: () => boolean;
-            isPositive: () => boolean;
-            isZero: () => boolean;
-            lessThan: (other: string | number | Long.Long) => boolean;
-            lt: (other: string | number | Long.Long) => boolean;
-            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-            lte: (other: string | number | Long.Long) => boolean;
-            modulo: (other: string | number | Long.Long) => Long.Long;
-            mod: (other: string | number | Long.Long) => Long.Long;
-            multiply: (multiplier: string | number | Long.Long) => Long.Long;
-            mul: (multiplier: string | number | Long.Long) => Long.Long;
-            negate: () => Long.Long;
-            neg: () => Long.Long;
-            not: () => Long.Long;
-            notEquals: (other: string | number | Long.Long) => boolean;
-            neq: (other: string | number | Long.Long) => boolean;
-            or: (other: string | number | Long.Long) => Long.Long;
-            shiftLeft: (numBits: number | Long.Long) => Long.Long;
-            shl: (numBits: number | Long.Long) => Long.Long;
-            shiftRight: (numBits: number | Long.Long) => Long.Long;
-            shr: (numBits: number | Long.Long) => Long.Long;
-            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-            shru: (numBits: number | Long.Long) => Long.Long;
-            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-            sub: (subtrahend: string | number | Long.Long) => Long.Long;
-            toInt: () => number;
-            toNumber: () => number;
-            toBytes: (le?: boolean | undefined) => number[];
-            toBytesLE: () => number[];
-            toBytesBE: () => number[];
-            toSigned: () => Long.Long;
-            toString: (radix?: number | undefined) => string;
-            toUnsigned: () => Long.Long;
-            xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_12 in Exclude<keyof I_1["sourceTxIndex"], "$type" | keyof Long.Long>]: never; }) | undefined;
-    } & { [K_13 in Exclude<keyof I_1, "$type" | "sender" | "status" | "id" | "asset" | "recipient" | "payloadHash" | "sourceTxId" | "sourceTxIndex">]: never; }>(object: I_1): GeneralMessage;
+    create<I extends Exact<DeepPartial<GeneralMessage>, I>>(base?: I): GeneralMessage;
+    fromPartial<I extends Exact<DeepPartial<GeneralMessage>, I>>(object: I): GeneralMessage;
 };
 export declare const WasmMessage: {
     $type: "axelar.nexus.exported.v1beta1.WasmMessage";
     encode(message: WasmMessage, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): WasmMessage;
+    decode(input: _m0.Reader | Uint8Array, length?: number): WasmMessage;
     fromJSON(object: any): WasmMessage;
     toJSON(message: WasmMessage): unknown;
-    create<I extends {
-        sender?: Buffer | undefined;
-        id?: string | undefined;
-        sourceChain?: string | undefined;
-        destinationChain?: string | undefined;
-        payloadHash?: Buffer | undefined;
-        destinationAddress?: string | undefined;
-        sourceTxId?: Buffer | undefined;
-        sourceTxIndex?: string | number | Long.Long | undefined;
-        sourceAddress?: string | undefined;
-    } & {
-        sender?: Buffer | undefined;
-        id?: string | undefined;
-        sourceChain?: string | undefined;
-        destinationChain?: string | undefined;
-        payloadHash?: Buffer | undefined;
-        destinationAddress?: string | undefined;
-        sourceTxId?: Buffer | undefined;
-        sourceTxIndex?: string | number | (Long.Long & {
-            high: number;
-            low: number;
-            unsigned: boolean;
-            add: (addend: string | number | Long.Long) => Long.Long;
-            and: (other: string | number | Long.Long) => Long.Long;
-            compare: (other: string | number | Long.Long) => number;
-            comp: (other: string | number | Long.Long) => number;
-            divide: (divisor: string | number | Long.Long) => Long.Long;
-            div: (divisor: string | number | Long.Long) => Long.Long;
-            equals: (other: string | number | Long.Long) => boolean;
-            eq: (other: string | number | Long.Long) => boolean;
-            getHighBits: () => number;
-            getHighBitsUnsigned: () => number;
-            getLowBits: () => number;
-            getLowBitsUnsigned: () => number;
-            getNumBitsAbs: () => number;
-            greaterThan: (other: string | number | Long.Long) => boolean;
-            gt: (other: string | number | Long.Long) => boolean;
-            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-            gte: (other: string | number | Long.Long) => boolean;
-            isEven: () => boolean;
-            isNegative: () => boolean;
-            isOdd: () => boolean;
-            isPositive: () => boolean;
-            isZero: () => boolean;
-            lessThan: (other: string | number | Long.Long) => boolean;
-            lt: (other: string | number | Long.Long) => boolean;
-            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-            lte: (other: string | number | Long.Long) => boolean;
-            modulo: (other: string | number | Long.Long) => Long.Long;
-            mod: (other: string | number | Long.Long) => Long.Long;
-            multiply: (multiplier: string | number | Long.Long) => Long.Long;
-            mul: (multiplier: string | number | Long.Long) => Long.Long;
-            negate: () => Long.Long;
-            neg: () => Long.Long;
-            not: () => Long.Long;
-            notEquals: (other: string | number | Long.Long) => boolean;
-            neq: (other: string | number | Long.Long) => boolean;
-            or: (other: string | number | Long.Long) => Long.Long;
-            shiftLeft: (numBits: number | Long.Long) => Long.Long;
-            shl: (numBits: number | Long.Long) => Long.Long;
-            shiftRight: (numBits: number | Long.Long) => Long.Long;
-            shr: (numBits: number | Long.Long) => Long.Long;
-            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-            shru: (numBits: number | Long.Long) => Long.Long;
-            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-            sub: (subtrahend: string | number | Long.Long) => Long.Long;
-            toInt: () => number;
-            toNumber: () => number;
-            toBytes: (le?: boolean | undefined) => number[];
-            toBytesLE: () => number[];
-            toBytesBE: () => number[];
-            toSigned: () => Long.Long;
-            toString: (radix?: number | undefined) => string;
-            toUnsigned: () => Long.Long;
-            xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K in Exclude<keyof I["sourceTxIndex"], "$type" | keyof Long.Long>]: never; }) | undefined;
-        sourceAddress?: string | undefined;
-    } & { [K_1 in Exclude<keyof I, "$type" | "sender" | "id" | "sourceChain" | "destinationChain" | "payloadHash" | "destinationAddress" | "sourceTxId" | "sourceTxIndex" | "sourceAddress">]: never; }>(base?: I | undefined): WasmMessage;
-    fromPartial<I_1 extends {
-        sender?: Buffer | undefined;
-        id?: string | undefined;
-        sourceChain?: string | undefined;
-        destinationChain?: string | undefined;
-        payloadHash?: Buffer | undefined;
-        destinationAddress?: string | undefined;
-        sourceTxId?: Buffer | undefined;
-        sourceTxIndex?: string | number | Long.Long | undefined;
-        sourceAddress?: string | undefined;
-    } & {
-        sender?: Buffer | undefined;
-        id?: string | undefined;
-        sourceChain?: string | undefined;
-        destinationChain?: string | undefined;
-        payloadHash?: Buffer | undefined;
-        destinationAddress?: string | undefined;
-        sourceTxId?: Buffer | undefined;
-        sourceTxIndex?: string | number | (Long.Long & {
-            high: number;
-            low: number;
-            unsigned: boolean;
-            add: (addend: string | number | Long.Long) => Long.Long;
-            and: (other: string | number | Long.Long) => Long.Long;
-            compare: (other: string | number | Long.Long) => number;
-            comp: (other: string | number | Long.Long) => number;
-            divide: (divisor: string | number | Long.Long) => Long.Long;
-            div: (divisor: string | number | Long.Long) => Long.Long;
-            equals: (other: string | number | Long.Long) => boolean;
-            eq: (other: string | number | Long.Long) => boolean;
-            getHighBits: () => number;
-            getHighBitsUnsigned: () => number;
-            getLowBits: () => number;
-            getLowBitsUnsigned: () => number;
-            getNumBitsAbs: () => number;
-            greaterThan: (other: string | number | Long.Long) => boolean;
-            gt: (other: string | number | Long.Long) => boolean;
-            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-            gte: (other: string | number | Long.Long) => boolean;
-            isEven: () => boolean;
-            isNegative: () => boolean;
-            isOdd: () => boolean;
-            isPositive: () => boolean;
-            isZero: () => boolean;
-            lessThan: (other: string | number | Long.Long) => boolean;
-            lt: (other: string | number | Long.Long) => boolean;
-            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-            lte: (other: string | number | Long.Long) => boolean;
-            modulo: (other: string | number | Long.Long) => Long.Long;
-            mod: (other: string | number | Long.Long) => Long.Long;
-            multiply: (multiplier: string | number | Long.Long) => Long.Long;
-            mul: (multiplier: string | number | Long.Long) => Long.Long;
-            negate: () => Long.Long;
-            neg: () => Long.Long;
-            not: () => Long.Long;
-            notEquals: (other: string | number | Long.Long) => boolean;
-            neq: (other: string | number | Long.Long) => boolean;
-            or: (other: string | number | Long.Long) => Long.Long;
-            shiftLeft: (numBits: number | Long.Long) => Long.Long;
-            shl: (numBits: number | Long.Long) => Long.Long;
-            shiftRight: (numBits: number | Long.Long) => Long.Long;
-            shr: (numBits: number | Long.Long) => Long.Long;
-            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-            shru: (numBits: number | Long.Long) => Long.Long;
-            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-            sub: (subtrahend: string | number | Long.Long) => Long.Long;
-            toInt: () => number;
-            toNumber: () => number;
-            toBytes: (le?: boolean | undefined) => number[];
-            toBytesLE: () => number[];
-            toBytesBE: () => number[];
-            toSigned: () => Long.Long;
-            toString: (radix?: number | undefined) => string;
-            toUnsigned: () => Long.Long;
-            xor: (other: string | number | Long.Long) => Long.Long;
-        } & { [K_2 in Exclude<keyof I_1["sourceTxIndex"], "$type" | keyof Long.Long>]: never; }) | undefined;
-        sourceAddress?: string | undefined;
-    } & { [K_3 in Exclude<keyof I_1, "$type" | "sender" | "id" | "sourceChain" | "destinationChain" | "payloadHash" | "destinationAddress" | "sourceTxId" | "sourceTxIndex" | "sourceAddress">]: never; }>(object: I_1): WasmMessage;
+    create<I extends Exact<DeepPartial<WasmMessage>, I>>(base?: I): WasmMessage;
+    fromPartial<I extends Exact<DeepPartial<WasmMessage>, I>>(object: I): WasmMessage;
 };
-declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]>;
 } : Partial<T>;
-declare type KeysOfUnion<T> = T extends T ? keyof T : never;
-export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & {
     [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never;

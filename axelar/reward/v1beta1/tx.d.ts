@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { Any } from "../../../google/protobuf/any";
@@ -7,9 +6,9 @@ export declare const protobufPackage = "axelar.reward.v1beta1";
 export interface RefundMsgRequest {
     $type: "axelar.reward.v1beta1.RefundMsgRequest";
     /**
-     * DEPRECATED: This field is deprecated but must remain to ensure backward compatibility.
-     * Removing this field would break decoding of historical transactions.
-     * DO NOT use in new code.
+     * DEPRECATED: This field is deprecated but must remain to ensure backward
+     * compatibility. Removing this field would break decoding of historical
+     * transactions. DO NOT use in new code.
      *
      * @deprecated
      */
@@ -33,121 +32,45 @@ export interface UpdateParamsResponse {
 export declare const RefundMsgRequest: {
     $type: "axelar.reward.v1beta1.RefundMsgRequest";
     encode(message: RefundMsgRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): RefundMsgRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): RefundMsgRequest;
     fromJSON(object: any): RefundMsgRequest;
     toJSON(message: RefundMsgRequest): unknown;
-    create<I extends {
-        sender?: string | undefined;
-        senderDeprecated?: Buffer | undefined;
-        innerMessage?: {
-            typeUrl?: string | undefined;
-            value?: Buffer | undefined;
-        } | undefined;
-    } & {
-        sender?: string | undefined;
-        senderDeprecated?: Buffer | undefined;
-        innerMessage?: ({
-            typeUrl?: string | undefined;
-            value?: Buffer | undefined;
-        } & {
-            typeUrl?: string | undefined;
-            value?: Buffer | undefined;
-        } & { [K in Exclude<keyof I["innerMessage"], "$type" | "typeUrl" | "value">]: never; }) | undefined;
-    } & { [K_1 in Exclude<keyof I, "$type" | "sender" | "senderDeprecated" | "innerMessage">]: never; }>(base?: I | undefined): RefundMsgRequest;
-    fromPartial<I_1 extends {
-        sender?: string | undefined;
-        senderDeprecated?: Buffer | undefined;
-        innerMessage?: {
-            typeUrl?: string | undefined;
-            value?: Buffer | undefined;
-        } | undefined;
-    } & {
-        sender?: string | undefined;
-        senderDeprecated?: Buffer | undefined;
-        innerMessage?: ({
-            typeUrl?: string | undefined;
-            value?: Buffer | undefined;
-        } & {
-            typeUrl?: string | undefined;
-            value?: Buffer | undefined;
-        } & { [K_2 in Exclude<keyof I_1["innerMessage"], "$type" | "typeUrl" | "value">]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I_1, "$type" | "sender" | "senderDeprecated" | "innerMessage">]: never; }>(object: I_1): RefundMsgRequest;
+    create<I extends Exact<DeepPartial<RefundMsgRequest>, I>>(base?: I): RefundMsgRequest;
+    fromPartial<I extends Exact<DeepPartial<RefundMsgRequest>, I>>(object: I): RefundMsgRequest;
 };
 export declare const RefundMsgResponse: {
     $type: "axelar.reward.v1beta1.RefundMsgResponse";
     encode(message: RefundMsgResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): RefundMsgResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): RefundMsgResponse;
     fromJSON(object: any): RefundMsgResponse;
     toJSON(message: RefundMsgResponse): unknown;
-    create<I extends {
-        data?: Buffer | undefined;
-        log?: string | undefined;
-    } & {
-        data?: Buffer | undefined;
-        log?: string | undefined;
-    } & { [K in Exclude<keyof I, "$type" | "data" | "log">]: never; }>(base?: I | undefined): RefundMsgResponse;
-    fromPartial<I_1 extends {
-        data?: Buffer | undefined;
-        log?: string | undefined;
-    } & {
-        data?: Buffer | undefined;
-        log?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "$type" | "data" | "log">]: never; }>(object: I_1): RefundMsgResponse;
+    create<I extends Exact<DeepPartial<RefundMsgResponse>, I>>(base?: I): RefundMsgResponse;
+    fromPartial<I extends Exact<DeepPartial<RefundMsgResponse>, I>>(object: I): RefundMsgResponse;
 };
 export declare const UpdateParamsRequest: {
     $type: "axelar.reward.v1beta1.UpdateParamsRequest";
     encode(message: UpdateParamsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): UpdateParamsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): UpdateParamsRequest;
     fromJSON(object: any): UpdateParamsRequest;
     toJSON(message: UpdateParamsRequest): unknown;
-    create<I extends {
-        params?: {
-            externalChainVotingInflationRate?: Buffer | undefined;
-            keyMgmtRelativeInflationRate?: Buffer | undefined;
-        } | undefined;
-        authority?: string | undefined;
-    } & {
-        params?: ({
-            externalChainVotingInflationRate?: Buffer | undefined;
-            keyMgmtRelativeInflationRate?: Buffer | undefined;
-        } & {
-            externalChainVotingInflationRate?: Buffer | undefined;
-            keyMgmtRelativeInflationRate?: Buffer | undefined;
-        } & { [K in Exclude<keyof I["params"], "$type" | "externalChainVotingInflationRate" | "keyMgmtRelativeInflationRate">]: never; }) | undefined;
-        authority?: string | undefined;
-    } & { [K_1 in Exclude<keyof I, "$type" | "params" | "authority">]: never; }>(base?: I | undefined): UpdateParamsRequest;
-    fromPartial<I_1 extends {
-        params?: {
-            externalChainVotingInflationRate?: Buffer | undefined;
-            keyMgmtRelativeInflationRate?: Buffer | undefined;
-        } | undefined;
-        authority?: string | undefined;
-    } & {
-        params?: ({
-            externalChainVotingInflationRate?: Buffer | undefined;
-            keyMgmtRelativeInflationRate?: Buffer | undefined;
-        } & {
-            externalChainVotingInflationRate?: Buffer | undefined;
-            keyMgmtRelativeInflationRate?: Buffer | undefined;
-        } & { [K_2 in Exclude<keyof I_1["params"], "$type" | "externalChainVotingInflationRate" | "keyMgmtRelativeInflationRate">]: never; }) | undefined;
-        authority?: string | undefined;
-    } & { [K_3 in Exclude<keyof I_1, "$type" | "params" | "authority">]: never; }>(object: I_1): UpdateParamsRequest;
+    create<I extends Exact<DeepPartial<UpdateParamsRequest>, I>>(base?: I): UpdateParamsRequest;
+    fromPartial<I extends Exact<DeepPartial<UpdateParamsRequest>, I>>(object: I): UpdateParamsRequest;
 };
 export declare const UpdateParamsResponse: {
     $type: "axelar.reward.v1beta1.UpdateParamsResponse";
     encode(_: UpdateParamsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): UpdateParamsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): UpdateParamsResponse;
     fromJSON(_: any): UpdateParamsResponse;
     toJSON(_: UpdateParamsResponse): unknown;
-    create<I extends {} & {} & { [K in Exclude<keyof I, "$type">]: never; }>(base?: I | undefined): UpdateParamsResponse;
-    fromPartial<I_1 extends {} & {} & { [K_1 in Exclude<keyof I_1, "$type">]: never; }>(_: I_1): UpdateParamsResponse;
+    create<I extends Exact<DeepPartial<UpdateParamsResponse>, I>>(base?: I): UpdateParamsResponse;
+    fromPartial<I extends Exact<DeepPartial<UpdateParamsResponse>, I>>(_: I): UpdateParamsResponse;
 };
-declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]>;
 } : Partial<T>;
-declare type KeysOfUnion<T> = T extends T ? keyof T : never;
-export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & {
     [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never;

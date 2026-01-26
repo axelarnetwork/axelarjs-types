@@ -29,115 +29,45 @@ export interface ParamsResponse {
 export declare const QueryGovernanceKeyRequest: {
     $type: "axelar.permission.v1beta1.QueryGovernanceKeyRequest";
     encode(_: QueryGovernanceKeyRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryGovernanceKeyRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryGovernanceKeyRequest;
     fromJSON(_: any): QueryGovernanceKeyRequest;
     toJSON(_: QueryGovernanceKeyRequest): unknown;
-    create<I extends {} & {} & { [K in Exclude<keyof I, "$type">]: never; }>(base?: I | undefined): QueryGovernanceKeyRequest;
-    fromPartial<I_1 extends {} & {} & { [K_1 in Exclude<keyof I_1, "$type">]: never; }>(_: I_1): QueryGovernanceKeyRequest;
+    create<I extends Exact<DeepPartial<QueryGovernanceKeyRequest>, I>>(base?: I): QueryGovernanceKeyRequest;
+    fromPartial<I extends Exact<DeepPartial<QueryGovernanceKeyRequest>, I>>(_: I): QueryGovernanceKeyRequest;
 };
 export declare const QueryGovernanceKeyResponse: {
     $type: "axelar.permission.v1beta1.QueryGovernanceKeyResponse";
     encode(message: QueryGovernanceKeyResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryGovernanceKeyResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryGovernanceKeyResponse;
     fromJSON(object: any): QueryGovernanceKeyResponse;
     toJSON(message: QueryGovernanceKeyResponse): unknown;
-    create<I extends {
-        governanceKey?: {
-            threshold?: number | undefined;
-            publicKeys?: {
-                typeUrl?: string | undefined;
-                value?: Buffer | undefined;
-            }[] | undefined;
-        } | undefined;
-    } & {
-        governanceKey?: ({
-            threshold?: number | undefined;
-            publicKeys?: {
-                typeUrl?: string | undefined;
-                value?: Buffer | undefined;
-            }[] | undefined;
-        } & {
-            threshold?: number | undefined;
-            publicKeys?: ({
-                typeUrl?: string | undefined;
-                value?: Buffer | undefined;
-            }[] & ({
-                typeUrl?: string | undefined;
-                value?: Buffer | undefined;
-            } & {
-                typeUrl?: string | undefined;
-                value?: Buffer | undefined;
-            } & { [K in Exclude<keyof I["governanceKey"]["publicKeys"][number], "$type" | "typeUrl" | "value">]: never; })[] & { [K_1 in Exclude<keyof I["governanceKey"]["publicKeys"], "$type" | keyof {
-                typeUrl?: string | undefined;
-                value?: Buffer | undefined;
-            }[]>]: never; }) | undefined;
-        } & { [K_2 in Exclude<keyof I["governanceKey"], "$type" | "threshold" | "publicKeys">]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I, "$type" | "governanceKey">]: never; }>(base?: I | undefined): QueryGovernanceKeyResponse;
-    fromPartial<I_1 extends {
-        governanceKey?: {
-            threshold?: number | undefined;
-            publicKeys?: {
-                typeUrl?: string | undefined;
-                value?: Buffer | undefined;
-            }[] | undefined;
-        } | undefined;
-    } & {
-        governanceKey?: ({
-            threshold?: number | undefined;
-            publicKeys?: {
-                typeUrl?: string | undefined;
-                value?: Buffer | undefined;
-            }[] | undefined;
-        } & {
-            threshold?: number | undefined;
-            publicKeys?: ({
-                typeUrl?: string | undefined;
-                value?: Buffer | undefined;
-            }[] & ({
-                typeUrl?: string | undefined;
-                value?: Buffer | undefined;
-            } & {
-                typeUrl?: string | undefined;
-                value?: Buffer | undefined;
-            } & { [K_4 in Exclude<keyof I_1["governanceKey"]["publicKeys"][number], "$type" | "typeUrl" | "value">]: never; })[] & { [K_5 in Exclude<keyof I_1["governanceKey"]["publicKeys"], "$type" | keyof {
-                typeUrl?: string | undefined;
-                value?: Buffer | undefined;
-            }[]>]: never; }) | undefined;
-        } & { [K_6 in Exclude<keyof I_1["governanceKey"], "$type" | "threshold" | "publicKeys">]: never; }) | undefined;
-    } & { [K_7 in Exclude<keyof I_1, "$type" | "governanceKey">]: never; }>(object: I_1): QueryGovernanceKeyResponse;
+    create<I extends Exact<DeepPartial<QueryGovernanceKeyResponse>, I>>(base?: I): QueryGovernanceKeyResponse;
+    fromPartial<I extends Exact<DeepPartial<QueryGovernanceKeyResponse>, I>>(object: I): QueryGovernanceKeyResponse;
 };
 export declare const ParamsRequest: {
     $type: "axelar.permission.v1beta1.ParamsRequest";
     encode(_: ParamsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ParamsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): ParamsRequest;
     fromJSON(_: any): ParamsRequest;
     toJSON(_: ParamsRequest): unknown;
-    create<I extends {} & {} & { [K in Exclude<keyof I, "$type">]: never; }>(base?: I | undefined): ParamsRequest;
-    fromPartial<I_1 extends {} & {} & { [K_1 in Exclude<keyof I_1, "$type">]: never; }>(_: I_1): ParamsRequest;
+    create<I extends Exact<DeepPartial<ParamsRequest>, I>>(base?: I): ParamsRequest;
+    fromPartial<I extends Exact<DeepPartial<ParamsRequest>, I>>(_: I): ParamsRequest;
 };
 export declare const ParamsResponse: {
     $type: "axelar.permission.v1beta1.ParamsResponse";
     encode(message: ParamsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ParamsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): ParamsResponse;
     fromJSON(object: any): ParamsResponse;
     toJSON(message: ParamsResponse): unknown;
-    create<I extends {
-        params?: {} | undefined;
-    } & {
-        params?: ({} & {} & { [K in Exclude<keyof I["params"], "$type">]: never; }) | undefined;
-    } & { [K_1 in Exclude<keyof I, "$type" | "params">]: never; }>(base?: I | undefined): ParamsResponse;
-    fromPartial<I_1 extends {
-        params?: {} | undefined;
-    } & {
-        params?: ({} & {} & { [K_2 in Exclude<keyof I_1["params"], "$type">]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I_1, "$type" | "params">]: never; }>(object: I_1): ParamsResponse;
+    create<I extends Exact<DeepPartial<ParamsResponse>, I>>(base?: I): ParamsResponse;
+    fromPartial<I extends Exact<DeepPartial<ParamsResponse>, I>>(object: I): ParamsResponse;
 };
-declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]>;
 } : Partial<T>;
-declare type KeysOfUnion<T> = T extends T ? keyof T : never;
-export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & {
     [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never;

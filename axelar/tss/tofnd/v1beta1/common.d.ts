@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import Long from "long";
 import _m0 from "protobufjs/minimal";
 export declare const protobufPackage = "axelar.tss.tofnd.v1beta1";
@@ -26,47 +25,27 @@ export declare function keyPresenceResponse_ResponseToJSON(object: KeyPresenceRe
 export declare const KeyPresenceRequest: {
     $type: "axelar.tss.tofnd.v1beta1.KeyPresenceRequest";
     encode(message: KeyPresenceRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): KeyPresenceRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): KeyPresenceRequest;
     fromJSON(object: any): KeyPresenceRequest;
     toJSON(message: KeyPresenceRequest): unknown;
-    create<I extends {
-        pubKey?: Buffer | undefined;
-        keyUid?: string | undefined;
-    } & {
-        pubKey?: Buffer | undefined;
-        keyUid?: string | undefined;
-    } & { [K in Exclude<keyof I, "$type" | "pubKey" | "keyUid">]: never; }>(base?: I | undefined): KeyPresenceRequest;
-    fromPartial<I_1 extends {
-        pubKey?: Buffer | undefined;
-        keyUid?: string | undefined;
-    } & {
-        pubKey?: Buffer | undefined;
-        keyUid?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "$type" | "pubKey" | "keyUid">]: never; }>(object: I_1): KeyPresenceRequest;
+    create<I extends Exact<DeepPartial<KeyPresenceRequest>, I>>(base?: I): KeyPresenceRequest;
+    fromPartial<I extends Exact<DeepPartial<KeyPresenceRequest>, I>>(object: I): KeyPresenceRequest;
 };
 export declare const KeyPresenceResponse: {
     $type: "axelar.tss.tofnd.v1beta1.KeyPresenceResponse";
     encode(message: KeyPresenceResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): KeyPresenceResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): KeyPresenceResponse;
     fromJSON(object: any): KeyPresenceResponse;
     toJSON(message: KeyPresenceResponse): unknown;
-    create<I extends {
-        response?: KeyPresenceResponse_Response | undefined;
-    } & {
-        response?: KeyPresenceResponse_Response | undefined;
-    } & { [K in Exclude<keyof I, "$type" | "response">]: never; }>(base?: I | undefined): KeyPresenceResponse;
-    fromPartial<I_1 extends {
-        response?: KeyPresenceResponse_Response | undefined;
-    } & {
-        response?: KeyPresenceResponse_Response | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "$type" | "response">]: never; }>(object: I_1): KeyPresenceResponse;
+    create<I extends Exact<DeepPartial<KeyPresenceResponse>, I>>(base?: I): KeyPresenceResponse;
+    fromPartial<I extends Exact<DeepPartial<KeyPresenceResponse>, I>>(object: I): KeyPresenceResponse;
 };
-declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]>;
 } : Partial<T>;
-declare type KeysOfUnion<T> = T extends T ? keyof T : never;
-export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & {
     [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never;

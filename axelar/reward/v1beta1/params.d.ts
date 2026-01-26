@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import Long from "long";
 import _m0 from "protobufjs/minimal";
 export declare const protobufPackage = "axelar.reward.v1beta1";
@@ -11,30 +10,18 @@ export interface Params {
 export declare const Params: {
     $type: "axelar.reward.v1beta1.Params";
     encode(message: Params, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Params;
+    decode(input: _m0.Reader | Uint8Array, length?: number): Params;
     fromJSON(object: any): Params;
     toJSON(message: Params): unknown;
-    create<I extends {
-        externalChainVotingInflationRate?: Buffer | undefined;
-        keyMgmtRelativeInflationRate?: Buffer | undefined;
-    } & {
-        externalChainVotingInflationRate?: Buffer | undefined;
-        keyMgmtRelativeInflationRate?: Buffer | undefined;
-    } & { [K in Exclude<keyof I, "$type" | "externalChainVotingInflationRate" | "keyMgmtRelativeInflationRate">]: never; }>(base?: I | undefined): Params;
-    fromPartial<I_1 extends {
-        externalChainVotingInflationRate?: Buffer | undefined;
-        keyMgmtRelativeInflationRate?: Buffer | undefined;
-    } & {
-        externalChainVotingInflationRate?: Buffer | undefined;
-        keyMgmtRelativeInflationRate?: Buffer | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "$type" | "externalChainVotingInflationRate" | "keyMgmtRelativeInflationRate">]: never; }>(object: I_1): Params;
+    create<I extends Exact<DeepPartial<Params>, I>>(base?: I): Params;
+    fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params;
 };
-declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]>;
 } : Partial<T>;
-declare type KeysOfUnion<T> = T extends T ? keyof T : never;
-export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & {
     [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never;

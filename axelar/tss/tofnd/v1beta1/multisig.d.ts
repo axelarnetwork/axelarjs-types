@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import Long from "long";
 import _m0 from "protobufjs/minimal";
 export declare const protobufPackage = "axelar.tss.tofnd.v1beta1";
@@ -36,101 +35,45 @@ export interface SignResponse {
 export declare const KeygenRequest: {
     $type: "axelar.tss.tofnd.v1beta1.KeygenRequest";
     encode(message: KeygenRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): KeygenRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): KeygenRequest;
     fromJSON(object: any): KeygenRequest;
     toJSON(message: KeygenRequest): unknown;
-    create<I extends {
-        keyUid?: string | undefined;
-        partyUid?: string | undefined;
-    } & {
-        keyUid?: string | undefined;
-        partyUid?: string | undefined;
-    } & { [K in Exclude<keyof I, "$type" | "keyUid" | "partyUid">]: never; }>(base?: I | undefined): KeygenRequest;
-    fromPartial<I_1 extends {
-        keyUid?: string | undefined;
-        partyUid?: string | undefined;
-    } & {
-        keyUid?: string | undefined;
-        partyUid?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "$type" | "keyUid" | "partyUid">]: never; }>(object: I_1): KeygenRequest;
+    create<I extends Exact<DeepPartial<KeygenRequest>, I>>(base?: I): KeygenRequest;
+    fromPartial<I extends Exact<DeepPartial<KeygenRequest>, I>>(object: I): KeygenRequest;
 };
 export declare const KeygenResponse: {
     $type: "axelar.tss.tofnd.v1beta1.KeygenResponse";
     encode(message: KeygenResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): KeygenResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): KeygenResponse;
     fromJSON(object: any): KeygenResponse;
     toJSON(message: KeygenResponse): unknown;
-    create<I extends {
-        error?: string | undefined;
-        pubKey?: Buffer | undefined;
-    } & {
-        error?: string | undefined;
-        pubKey?: Buffer | undefined;
-    } & { [K in Exclude<keyof I, "$type" | "error" | "pubKey">]: never; }>(base?: I | undefined): KeygenResponse;
-    fromPartial<I_1 extends {
-        error?: string | undefined;
-        pubKey?: Buffer | undefined;
-    } & {
-        error?: string | undefined;
-        pubKey?: Buffer | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "$type" | "error" | "pubKey">]: never; }>(object: I_1): KeygenResponse;
+    create<I extends Exact<DeepPartial<KeygenResponse>, I>>(base?: I): KeygenResponse;
+    fromPartial<I extends Exact<DeepPartial<KeygenResponse>, I>>(object: I): KeygenResponse;
 };
 export declare const SignRequest: {
     $type: "axelar.tss.tofnd.v1beta1.SignRequest";
     encode(message: SignRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): SignRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): SignRequest;
     fromJSON(object: any): SignRequest;
     toJSON(message: SignRequest): unknown;
-    create<I extends {
-        pubKey?: Buffer | undefined;
-        keyUid?: string | undefined;
-        partyUid?: string | undefined;
-        msgToSign?: Buffer | undefined;
-    } & {
-        pubKey?: Buffer | undefined;
-        keyUid?: string | undefined;
-        partyUid?: string | undefined;
-        msgToSign?: Buffer | undefined;
-    } & { [K in Exclude<keyof I, "$type" | "pubKey" | "keyUid" | "partyUid" | "msgToSign">]: never; }>(base?: I | undefined): SignRequest;
-    fromPartial<I_1 extends {
-        pubKey?: Buffer | undefined;
-        keyUid?: string | undefined;
-        partyUid?: string | undefined;
-        msgToSign?: Buffer | undefined;
-    } & {
-        pubKey?: Buffer | undefined;
-        keyUid?: string | undefined;
-        partyUid?: string | undefined;
-        msgToSign?: Buffer | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "$type" | "pubKey" | "keyUid" | "partyUid" | "msgToSign">]: never; }>(object: I_1): SignRequest;
+    create<I extends Exact<DeepPartial<SignRequest>, I>>(base?: I): SignRequest;
+    fromPartial<I extends Exact<DeepPartial<SignRequest>, I>>(object: I): SignRequest;
 };
 export declare const SignResponse: {
     $type: "axelar.tss.tofnd.v1beta1.SignResponse";
     encode(message: SignResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): SignResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): SignResponse;
     fromJSON(object: any): SignResponse;
     toJSON(message: SignResponse): unknown;
-    create<I extends {
-        error?: string | undefined;
-        signature?: Buffer | undefined;
-    } & {
-        error?: string | undefined;
-        signature?: Buffer | undefined;
-    } & { [K in Exclude<keyof I, "$type" | "error" | "signature">]: never; }>(base?: I | undefined): SignResponse;
-    fromPartial<I_1 extends {
-        error?: string | undefined;
-        signature?: Buffer | undefined;
-    } & {
-        error?: string | undefined;
-        signature?: Buffer | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "$type" | "error" | "signature">]: never; }>(object: I_1): SignResponse;
+    create<I extends Exact<DeepPartial<SignResponse>, I>>(base?: I): SignResponse;
+    fromPartial<I extends Exact<DeepPartial<SignResponse>, I>>(object: I): SignResponse;
 };
-declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]>;
 } : Partial<T>;
-declare type KeysOfUnion<T> = T extends T ? keyof T : never;
-export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & {
     [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never;
