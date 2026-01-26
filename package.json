@@ -23,7 +23,7 @@
     "buf:setup": "yarn buf:deps && yarn buf:export",
     "codegen": "yarn buf:setup && ./scripts/codegen-axelar-sdk.sh && yarn format",
     "prepare": "./scripts/prepare.sh",
-    "build": "tsc && yarn prepare"
+    "build": "tsc -p tsconfig.build.json && yarn prepare"
   },
   "dependencies": {
     "long": "^4.0.0",
@@ -35,7 +35,7 @@
     "@types/node": "^15.6.2",
     "prettier": "^2.6",
     "ts-proto": "^1.110",
-    "typescript": "~4.4"
+    "typescript": "^5.9.3"
   },
   "packageManager": "yarn@3.1.0",
   "stableVersion": "1.2.1"
