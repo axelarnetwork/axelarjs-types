@@ -1,26 +1,26 @@
 # axelarjs-types
 
-## Maintenance
-
-This section is for maintainers of this repo, not users.
-
-### Getting started
+## Development
 
 ```sh
-# Pull external code
-git submodule init
-git submodule update
-
-# Install dependencies
+# Setup
+git submodule update --init --recursive
 yarn install
 
-# Setup SDK for IDE support (see https://next.yarnpkg.com/getting-started/editor-sdks)
-yarn dlx @yarnpkg/sdks vscode
+# Regenerate types from proto files
+yarn codegen
+
+# Build package
+yarn build
 ```
 
-### Rebuilding types
+## Updating axelar-core version
 
 ```sh
-yarn codegen # Generate .ts files into ./src
-yarn build # Build .js/.d.ts files
+cd axelar-core
+git checkout <new-commit-hash>
+cd ..
+git add axelar-core
+git commit -m "update axelar-core to <commit-hash>"
+yarn codegen
 ```

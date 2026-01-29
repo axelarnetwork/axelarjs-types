@@ -1,11 +1,11 @@
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
-import { TransferState, FeeInfo, GeneralMessage, CrossChainTransfer } from "../../../axelar/nexus/exported/v1beta1/types";
+import _m0 from "protobufjs/minimal";
 import { PageRequest, PageResponse } from "../../../cosmos/base/query/v1beta1/pagination";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
-import { ChainState } from "../../../axelar/nexus/v1beta1/types";
 import { Duration } from "../../../google/protobuf/duration";
-import { Params } from "../../../axelar/nexus/v1beta1/params";
+import { CrossChainTransfer, FeeInfo, GeneralMessage, TransferState } from "../exported/v1beta1/types";
+import { Params } from "./params";
+import { ChainState } from "./types";
 export declare const protobufPackage = "axelar.nexus.v1beta1";
 export declare enum ChainStatus {
     CHAIN_STATUS_UNSPECIFIED = 0,
@@ -20,21 +20,25 @@ export declare function chainStatusToJSON(object: ChainStatus): string;
  * the chain maintainers for the specified chain
  */
 export interface ChainMaintainersRequest {
+    $type: "axelar.nexus.v1beta1.ChainMaintainersRequest";
     chain: string;
 }
 export interface ChainMaintainersResponse {
-    maintainers: Uint8Array[];
+    $type: "axelar.nexus.v1beta1.ChainMaintainersResponse";
+    maintainers: Buffer[];
 }
 /**
  * LatestDepositAddressRequest represents a message that queries a deposit
  * address by recipient address
  */
 export interface LatestDepositAddressRequest {
+    $type: "axelar.nexus.v1beta1.LatestDepositAddressRequest";
     recipientAddr: string;
     recipientChain: string;
     depositChain: string;
 }
 export interface LatestDepositAddressResponse {
+    $type: "axelar.nexus.v1beta1.LatestDepositAddressResponse";
     depositAddr: string;
 }
 /**
@@ -42,45 +46,53 @@ export interface LatestDepositAddressResponse {
  * transfers for the specified chain
  */
 export interface TransfersForChainRequest {
+    $type: "axelar.nexus.v1beta1.TransfersForChainRequest";
     chain: string;
     state: TransferState;
-    pagination?: PageRequest;
+    pagination?: PageRequest | undefined;
 }
 export interface TransfersForChainResponse {
+    $type: "axelar.nexus.v1beta1.TransfersForChainResponse";
     transfers: CrossChainTransfer[];
-    pagination?: PageResponse;
+    pagination?: PageResponse | undefined;
 }
 /**
  * FeeInfoRequest represents a message that queries the transfer fees associated
  * to an asset on a chain
  */
 export interface FeeInfoRequest {
+    $type: "axelar.nexus.v1beta1.FeeInfoRequest";
     chain: string;
     asset: string;
 }
 export interface FeeInfoResponse {
-    feeInfo?: FeeInfo;
+    $type: "axelar.nexus.v1beta1.FeeInfoResponse";
+    feeInfo?: FeeInfo | undefined;
 }
 /**
  * TransferFeeRequest represents a message that queries the fees charged by
  * the network for a cross-chain transfer
  */
 export interface TransferFeeRequest {
+    $type: "axelar.nexus.v1beta1.TransferFeeRequest";
     sourceChain: string;
     destinationChain: string;
     amount: string;
 }
 export interface TransferFeeResponse {
-    fee?: Coin;
+    $type: "axelar.nexus.v1beta1.TransferFeeResponse";
+    fee?: Coin | undefined;
 }
 /**
  * ChainsRequest represents a message that queries the chains
  * registered on the network
  */
 export interface ChainsRequest {
+    $type: "axelar.nexus.v1beta1.ChainsRequest";
     status: ChainStatus;
 }
 export interface ChainsResponse {
+    $type: "axelar.nexus.v1beta1.ChainsResponse";
     chains: string[];
 }
 /**
@@ -88,9 +100,11 @@ export interface ChainsResponse {
  * chain
  */
 export interface AssetsRequest {
+    $type: "axelar.nexus.v1beta1.AssetsRequest";
     chain: string;
 }
 export interface AssetsResponse {
+    $type: "axelar.nexus.v1beta1.AssetsResponse";
     assets: string[];
 }
 /**
@@ -98,19 +112,23 @@ export interface AssetsResponse {
  * registered on the network
  */
 export interface ChainStateRequest {
+    $type: "axelar.nexus.v1beta1.ChainStateRequest";
     chain: string;
 }
 export interface ChainStateResponse {
-    state?: ChainState;
+    $type: "axelar.nexus.v1beta1.ChainStateResponse";
+    state?: ChainState | undefined;
 }
 /**
  * ChainsByAssetRequest represents a message that queries the chains
  * that support an asset on the network
  */
 export interface ChainsByAssetRequest {
+    $type: "axelar.nexus.v1beta1.ChainsByAssetRequest";
     asset: string;
 }
 export interface ChainsByAssetResponse {
+    $type: "axelar.nexus.v1beta1.ChainsByAssetResponse";
     chains: string[];
 }
 /**
@@ -118,10 +136,12 @@ export interface ChainsByAssetResponse {
  * recipient address for a given deposit address
  */
 export interface RecipientAddressRequest {
+    $type: "axelar.nexus.v1beta1.RecipientAddressRequest";
     depositAddr: string;
     depositChain: string;
 }
 export interface RecipientAddressResponse {
+    $type: "axelar.nexus.v1beta1.RecipientAddressResponse";
     recipientAddr: string;
     recipientChain: string;
 }
@@ -130,1956 +150,323 @@ export interface RecipientAddressResponse {
  * transfer rate limit and current transfer amounts for a given chain and asset
  */
 export interface TransferRateLimitRequest {
+    $type: "axelar.nexus.v1beta1.TransferRateLimitRequest";
     chain: string;
     asset: string;
 }
 export interface TransferRateLimitResponse {
-    transferRateLimit?: TransferRateLimit;
+    $type: "axelar.nexus.v1beta1.TransferRateLimitResponse";
+    transferRateLimit?: TransferRateLimit | undefined;
 }
 export interface TransferRateLimit {
-    limit: Uint8Array;
-    window?: Duration;
+    $type: "axelar.nexus.v1beta1.TransferRateLimit";
+    limit: Buffer;
+    window?: Duration | undefined;
     /** @deprecated */
-    incoming: Uint8Array;
+    incoming: Buffer;
     /** @deprecated */
-    outgoing: Uint8Array;
+    outgoing: Buffer;
     /** time_left indicates the time left in the rate limit window */
-    timeLeft?: Duration;
-    from: Uint8Array;
-    to: Uint8Array;
+    timeLeft?: Duration | undefined;
+    from: Buffer;
+    to: Buffer;
 }
 export interface MessageRequest {
+    $type: "axelar.nexus.v1beta1.MessageRequest";
     id: string;
 }
 export interface MessageResponse {
-    message?: GeneralMessage;
+    $type: "axelar.nexus.v1beta1.MessageResponse";
+    message?: GeneralMessage | undefined;
 }
 /** ParamsRequest represents a message that queries the params */
 export interface ParamsRequest {
+    $type: "axelar.nexus.v1beta1.ParamsRequest";
 }
 export interface ParamsResponse {
-    params?: Params;
+    $type: "axelar.nexus.v1beta1.ParamsResponse";
+    params?: Params | undefined;
+}
+/**
+ * LinkDepositEnabledRequest represents a message that queries whether the
+ * link-deposit protocol is enabled
+ */
+export interface LinkDepositEnabledRequest {
+    $type: "axelar.nexus.v1beta1.LinkDepositEnabledRequest";
+}
+export interface LinkDepositEnabledResponse {
+    $type: "axelar.nexus.v1beta1.LinkDepositEnabledResponse";
+    enabled: boolean;
 }
 export declare const ChainMaintainersRequest: {
+    $type: "axelar.nexus.v1beta1.ChainMaintainersRequest";
     encode(message: ChainMaintainersRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ChainMaintainersRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): ChainMaintainersRequest;
     fromJSON(object: any): ChainMaintainersRequest;
     toJSON(message: ChainMaintainersRequest): unknown;
-    fromPartial<I extends {
-        chain?: string | undefined;
-    } & {
-        chain?: string | undefined;
-    } & Record<Exclude<keyof I, "chain">, never>>(object: I): ChainMaintainersRequest;
+    create<I extends Exact<DeepPartial<ChainMaintainersRequest>, I>>(base?: I): ChainMaintainersRequest;
+    fromPartial<I extends Exact<DeepPartial<ChainMaintainersRequest>, I>>(object: I): ChainMaintainersRequest;
 };
 export declare const ChainMaintainersResponse: {
+    $type: "axelar.nexus.v1beta1.ChainMaintainersResponse";
     encode(message: ChainMaintainersResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ChainMaintainersResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): ChainMaintainersResponse;
     fromJSON(object: any): ChainMaintainersResponse;
     toJSON(message: ChainMaintainersResponse): unknown;
-    fromPartial<I extends {
-        maintainers?: Uint8Array[] | undefined;
-    } & {
-        maintainers?: (Uint8Array[] & Uint8Array[] & Record<Exclude<keyof I["maintainers"], keyof Uint8Array[]>, never>) | undefined;
-    } & Record<Exclude<keyof I, "maintainers">, never>>(object: I): ChainMaintainersResponse;
+    create<I extends Exact<DeepPartial<ChainMaintainersResponse>, I>>(base?: I): ChainMaintainersResponse;
+    fromPartial<I extends Exact<DeepPartial<ChainMaintainersResponse>, I>>(object: I): ChainMaintainersResponse;
 };
 export declare const LatestDepositAddressRequest: {
+    $type: "axelar.nexus.v1beta1.LatestDepositAddressRequest";
     encode(message: LatestDepositAddressRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): LatestDepositAddressRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): LatestDepositAddressRequest;
     fromJSON(object: any): LatestDepositAddressRequest;
     toJSON(message: LatestDepositAddressRequest): unknown;
-    fromPartial<I extends {
-        recipientAddr?: string | undefined;
-        recipientChain?: string | undefined;
-        depositChain?: string | undefined;
-    } & {
-        recipientAddr?: string | undefined;
-        recipientChain?: string | undefined;
-        depositChain?: string | undefined;
-    } & Record<Exclude<keyof I, keyof LatestDepositAddressRequest>, never>>(object: I): LatestDepositAddressRequest;
+    create<I extends Exact<DeepPartial<LatestDepositAddressRequest>, I>>(base?: I): LatestDepositAddressRequest;
+    fromPartial<I extends Exact<DeepPartial<LatestDepositAddressRequest>, I>>(object: I): LatestDepositAddressRequest;
 };
 export declare const LatestDepositAddressResponse: {
+    $type: "axelar.nexus.v1beta1.LatestDepositAddressResponse";
     encode(message: LatestDepositAddressResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): LatestDepositAddressResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): LatestDepositAddressResponse;
     fromJSON(object: any): LatestDepositAddressResponse;
     toJSON(message: LatestDepositAddressResponse): unknown;
-    fromPartial<I extends {
-        depositAddr?: string | undefined;
-    } & {
-        depositAddr?: string | undefined;
-    } & Record<Exclude<keyof I, "depositAddr">, never>>(object: I): LatestDepositAddressResponse;
+    create<I extends Exact<DeepPartial<LatestDepositAddressResponse>, I>>(base?: I): LatestDepositAddressResponse;
+    fromPartial<I extends Exact<DeepPartial<LatestDepositAddressResponse>, I>>(object: I): LatestDepositAddressResponse;
 };
 export declare const TransfersForChainRequest: {
+    $type: "axelar.nexus.v1beta1.TransfersForChainRequest";
     encode(message: TransfersForChainRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): TransfersForChainRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): TransfersForChainRequest;
     fromJSON(object: any): TransfersForChainRequest;
     toJSON(message: TransfersForChainRequest): unknown;
-    fromPartial<I extends {
-        chain?: string | undefined;
-        state?: TransferState | undefined;
-        pagination?: {
-            key?: Uint8Array | undefined;
-            offset?: string | number | Long.Long | undefined;
-            limit?: string | number | Long.Long | undefined;
-            countTotal?: boolean | undefined;
-            reverse?: boolean | undefined;
-        } | undefined;
-    } & {
-        chain?: string | undefined;
-        state?: TransferState | undefined;
-        pagination?: ({
-            key?: Uint8Array | undefined;
-            offset?: string | number | Long.Long | undefined;
-            limit?: string | number | Long.Long | undefined;
-            countTotal?: boolean | undefined;
-            reverse?: boolean | undefined;
-        } & {
-            key?: Uint8Array | undefined;
-            offset?: string | number | (Long.Long & {
-                high: number;
-                low: number;
-                unsigned: boolean;
-                add: (addend: string | number | Long.Long) => Long.Long;
-                and: (other: string | number | Long.Long) => Long.Long;
-                compare: (other: string | number | Long.Long) => number;
-                comp: (other: string | number | Long.Long) => number;
-                divide: (divisor: string | number | Long.Long) => Long.Long;
-                div: (divisor: string | number | Long.Long) => Long.Long;
-                equals: (other: string | number | Long.Long) => boolean;
-                eq: (other: string | number | Long.Long) => boolean;
-                getHighBits: () => number;
-                getHighBitsUnsigned: () => number;
-                getLowBits: () => number;
-                getLowBitsUnsigned: () => number;
-                getNumBitsAbs: () => number;
-                greaterThan: (other: string | number | Long.Long) => boolean;
-                gt: (other: string | number | Long.Long) => boolean;
-                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-                gte: (other: string | number | Long.Long) => boolean;
-                isEven: () => boolean;
-                isNegative: () => boolean;
-                isOdd: () => boolean;
-                isPositive: () => boolean;
-                isZero: () => boolean;
-                lessThan: (other: string | number | Long.Long) => boolean;
-                lt: (other: string | number | Long.Long) => boolean;
-                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-                lte: (other: string | number | Long.Long) => boolean;
-                modulo: (other: string | number | Long.Long) => Long.Long;
-                mod: (other: string | number | Long.Long) => Long.Long;
-                multiply: (multiplier: string | number | Long.Long) => Long.Long;
-                mul: (multiplier: string | number | Long.Long) => Long.Long;
-                negate: () => Long.Long;
-                neg: () => Long.Long;
-                not: () => Long.Long;
-                notEquals: (other: string | number | Long.Long) => boolean;
-                neq: (other: string | number | Long.Long) => boolean;
-                or: (other: string | number | Long.Long) => Long.Long;
-                shiftLeft: (numBits: number | Long.Long) => Long.Long;
-                shl: (numBits: number | Long.Long) => Long.Long;
-                shiftRight: (numBits: number | Long.Long) => Long.Long;
-                shr: (numBits: number | Long.Long) => Long.Long;
-                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-                shru: (numBits: number | Long.Long) => Long.Long;
-                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-                sub: (subtrahend: string | number | Long.Long) => Long.Long;
-                toInt: () => number;
-                toNumber: () => number;
-                toBytes: (le?: boolean | undefined) => number[];
-                toBytesLE: () => number[];
-                toBytesBE: () => number[];
-                toSigned: () => Long.Long;
-                toString: (radix?: number | undefined) => string;
-                toUnsigned: () => Long.Long;
-                xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["pagination"]["offset"], keyof Long.Long>, never>) | undefined;
-            limit?: string | number | (Long.Long & {
-                high: number;
-                low: number;
-                unsigned: boolean;
-                add: (addend: string | number | Long.Long) => Long.Long;
-                and: (other: string | number | Long.Long) => Long.Long;
-                compare: (other: string | number | Long.Long) => number;
-                comp: (other: string | number | Long.Long) => number;
-                divide: (divisor: string | number | Long.Long) => Long.Long;
-                div: (divisor: string | number | Long.Long) => Long.Long;
-                equals: (other: string | number | Long.Long) => boolean;
-                eq: (other: string | number | Long.Long) => boolean;
-                getHighBits: () => number;
-                getHighBitsUnsigned: () => number;
-                getLowBits: () => number;
-                getLowBitsUnsigned: () => number;
-                getNumBitsAbs: () => number;
-                greaterThan: (other: string | number | Long.Long) => boolean;
-                gt: (other: string | number | Long.Long) => boolean;
-                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-                gte: (other: string | number | Long.Long) => boolean;
-                isEven: () => boolean;
-                isNegative: () => boolean;
-                isOdd: () => boolean;
-                isPositive: () => boolean;
-                isZero: () => boolean;
-                lessThan: (other: string | number | Long.Long) => boolean;
-                lt: (other: string | number | Long.Long) => boolean;
-                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-                lte: (other: string | number | Long.Long) => boolean;
-                modulo: (other: string | number | Long.Long) => Long.Long;
-                mod: (other: string | number | Long.Long) => Long.Long;
-                multiply: (multiplier: string | number | Long.Long) => Long.Long;
-                mul: (multiplier: string | number | Long.Long) => Long.Long;
-                negate: () => Long.Long;
-                neg: () => Long.Long;
-                not: () => Long.Long;
-                notEquals: (other: string | number | Long.Long) => boolean;
-                neq: (other: string | number | Long.Long) => boolean;
-                or: (other: string | number | Long.Long) => Long.Long;
-                shiftLeft: (numBits: number | Long.Long) => Long.Long;
-                shl: (numBits: number | Long.Long) => Long.Long;
-                shiftRight: (numBits: number | Long.Long) => Long.Long;
-                shr: (numBits: number | Long.Long) => Long.Long;
-                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-                shru: (numBits: number | Long.Long) => Long.Long;
-                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-                sub: (subtrahend: string | number | Long.Long) => Long.Long;
-                toInt: () => number;
-                toNumber: () => number;
-                toBytes: (le?: boolean | undefined) => number[];
-                toBytesLE: () => number[];
-                toBytesBE: () => number[];
-                toSigned: () => Long.Long;
-                toString: (radix?: number | undefined) => string;
-                toUnsigned: () => Long.Long;
-                xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["pagination"]["limit"], keyof Long.Long>, never>) | undefined;
-            countTotal?: boolean | undefined;
-            reverse?: boolean | undefined;
-        } & Record<Exclude<keyof I["pagination"], keyof PageRequest>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof TransfersForChainRequest>, never>>(object: I): TransfersForChainRequest;
+    create<I extends Exact<DeepPartial<TransfersForChainRequest>, I>>(base?: I): TransfersForChainRequest;
+    fromPartial<I extends Exact<DeepPartial<TransfersForChainRequest>, I>>(object: I): TransfersForChainRequest;
 };
 export declare const TransfersForChainResponse: {
+    $type: "axelar.nexus.v1beta1.TransfersForChainResponse";
     encode(message: TransfersForChainResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): TransfersForChainResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): TransfersForChainResponse;
     fromJSON(object: any): TransfersForChainResponse;
     toJSON(message: TransfersForChainResponse): unknown;
-    fromPartial<I extends {
-        transfers?: {
-            recipient?: {
-                chain?: {
-                    name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
-                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
-                    module?: string | undefined;
-                } | undefined;
-                address?: string | undefined;
-            } | undefined;
-            asset?: {
-                denom?: string | undefined;
-                amount?: string | undefined;
-            } | undefined;
-            id?: string | number | Long.Long | undefined;
-            state?: TransferState | undefined;
-        }[] | undefined;
-        pagination?: {
-            nextKey?: Uint8Array | undefined;
-            total?: string | number | Long.Long | undefined;
-        } | undefined;
-    } & {
-        transfers?: ({
-            recipient?: {
-                chain?: {
-                    name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
-                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
-                    module?: string | undefined;
-                } | undefined;
-                address?: string | undefined;
-            } | undefined;
-            asset?: {
-                denom?: string | undefined;
-                amount?: string | undefined;
-            } | undefined;
-            id?: string | number | Long.Long | undefined;
-            state?: TransferState | undefined;
-        }[] & ({
-            recipient?: {
-                chain?: {
-                    name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
-                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
-                    module?: string | undefined;
-                } | undefined;
-                address?: string | undefined;
-            } | undefined;
-            asset?: {
-                denom?: string | undefined;
-                amount?: string | undefined;
-            } | undefined;
-            id?: string | number | Long.Long | undefined;
-            state?: TransferState | undefined;
-        } & {
-            recipient?: ({
-                chain?: {
-                    name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
-                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
-                    module?: string | undefined;
-                } | undefined;
-                address?: string | undefined;
-            } & {
-                chain?: ({
-                    name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
-                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
-                    module?: string | undefined;
-                } & {
-                    name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
-                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
-                    module?: string | undefined;
-                } & Record<Exclude<keyof I["transfers"][number]["recipient"]["chain"], keyof import("../../../axelar/nexus/exported/v1beta1/types").Chain>, never>) | undefined;
-                address?: string | undefined;
-            } & Record<Exclude<keyof I["transfers"][number]["recipient"], keyof import("../../../axelar/nexus/exported/v1beta1/types").CrossChainAddress>, never>) | undefined;
-            asset?: ({
-                denom?: string | undefined;
-                amount?: string | undefined;
-            } & {
-                denom?: string | undefined;
-                amount?: string | undefined;
-            } & Record<Exclude<keyof I["transfers"][number]["asset"], keyof Coin>, never>) | undefined;
-            id?: string | number | (Long.Long & {
-                high: number;
-                low: number;
-                unsigned: boolean;
-                add: (addend: string | number | Long.Long) => Long.Long;
-                and: (other: string | number | Long.Long) => Long.Long;
-                compare: (other: string | number | Long.Long) => number;
-                comp: (other: string | number | Long.Long) => number;
-                divide: (divisor: string | number | Long.Long) => Long.Long;
-                div: (divisor: string | number | Long.Long) => Long.Long;
-                equals: (other: string | number | Long.Long) => boolean;
-                eq: (other: string | number | Long.Long) => boolean;
-                getHighBits: () => number;
-                getHighBitsUnsigned: () => number;
-                getLowBits: () => number;
-                getLowBitsUnsigned: () => number;
-                getNumBitsAbs: () => number;
-                greaterThan: (other: string | number | Long.Long) => boolean;
-                gt: (other: string | number | Long.Long) => boolean;
-                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-                gte: (other: string | number | Long.Long) => boolean;
-                isEven: () => boolean;
-                isNegative: () => boolean;
-                isOdd: () => boolean;
-                isPositive: () => boolean;
-                isZero: () => boolean;
-                lessThan: (other: string | number | Long.Long) => boolean;
-                lt: (other: string | number | Long.Long) => boolean;
-                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-                lte: (other: string | number | Long.Long) => boolean;
-                modulo: (other: string | number | Long.Long) => Long.Long;
-                mod: (other: string | number | Long.Long) => Long.Long;
-                multiply: (multiplier: string | number | Long.Long) => Long.Long;
-                mul: (multiplier: string | number | Long.Long) => Long.Long;
-                negate: () => Long.Long;
-                neg: () => Long.Long;
-                not: () => Long.Long;
-                notEquals: (other: string | number | Long.Long) => boolean;
-                neq: (other: string | number | Long.Long) => boolean;
-                or: (other: string | number | Long.Long) => Long.Long;
-                shiftLeft: (numBits: number | Long.Long) => Long.Long;
-                shl: (numBits: number | Long.Long) => Long.Long;
-                shiftRight: (numBits: number | Long.Long) => Long.Long;
-                shr: (numBits: number | Long.Long) => Long.Long;
-                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-                shru: (numBits: number | Long.Long) => Long.Long;
-                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-                sub: (subtrahend: string | number | Long.Long) => Long.Long;
-                toInt: () => number;
-                toNumber: () => number;
-                toBytes: (le?: boolean | undefined) => number[];
-                toBytesLE: () => number[];
-                toBytesBE: () => number[];
-                toSigned: () => Long.Long;
-                toString: (radix?: number | undefined) => string;
-                toUnsigned: () => Long.Long;
-                xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["transfers"][number]["id"], keyof Long.Long>, never>) | undefined;
-            state?: TransferState | undefined;
-        } & Record<Exclude<keyof I["transfers"][number], keyof CrossChainTransfer>, never>)[] & Record<Exclude<keyof I["transfers"], keyof {
-            recipient?: {
-                chain?: {
-                    name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
-                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
-                    module?: string | undefined;
-                } | undefined;
-                address?: string | undefined;
-            } | undefined;
-            asset?: {
-                denom?: string | undefined;
-                amount?: string | undefined;
-            } | undefined;
-            id?: string | number | Long.Long | undefined;
-            state?: TransferState | undefined;
-        }[]>, never>) | undefined;
-        pagination?: ({
-            nextKey?: Uint8Array | undefined;
-            total?: string | number | Long.Long | undefined;
-        } & {
-            nextKey?: Uint8Array | undefined;
-            total?: string | number | (Long.Long & {
-                high: number;
-                low: number;
-                unsigned: boolean;
-                add: (addend: string | number | Long.Long) => Long.Long;
-                and: (other: string | number | Long.Long) => Long.Long;
-                compare: (other: string | number | Long.Long) => number;
-                comp: (other: string | number | Long.Long) => number;
-                divide: (divisor: string | number | Long.Long) => Long.Long;
-                div: (divisor: string | number | Long.Long) => Long.Long;
-                equals: (other: string | number | Long.Long) => boolean;
-                eq: (other: string | number | Long.Long) => boolean;
-                getHighBits: () => number;
-                getHighBitsUnsigned: () => number;
-                getLowBits: () => number;
-                getLowBitsUnsigned: () => number;
-                getNumBitsAbs: () => number;
-                greaterThan: (other: string | number | Long.Long) => boolean;
-                gt: (other: string | number | Long.Long) => boolean;
-                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-                gte: (other: string | number | Long.Long) => boolean;
-                isEven: () => boolean;
-                isNegative: () => boolean;
-                isOdd: () => boolean;
-                isPositive: () => boolean;
-                isZero: () => boolean;
-                lessThan: (other: string | number | Long.Long) => boolean;
-                lt: (other: string | number | Long.Long) => boolean;
-                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-                lte: (other: string | number | Long.Long) => boolean;
-                modulo: (other: string | number | Long.Long) => Long.Long;
-                mod: (other: string | number | Long.Long) => Long.Long;
-                multiply: (multiplier: string | number | Long.Long) => Long.Long;
-                mul: (multiplier: string | number | Long.Long) => Long.Long;
-                negate: () => Long.Long;
-                neg: () => Long.Long;
-                not: () => Long.Long;
-                notEquals: (other: string | number | Long.Long) => boolean;
-                neq: (other: string | number | Long.Long) => boolean;
-                or: (other: string | number | Long.Long) => Long.Long;
-                shiftLeft: (numBits: number | Long.Long) => Long.Long;
-                shl: (numBits: number | Long.Long) => Long.Long;
-                shiftRight: (numBits: number | Long.Long) => Long.Long;
-                shr: (numBits: number | Long.Long) => Long.Long;
-                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-                shru: (numBits: number | Long.Long) => Long.Long;
-                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-                sub: (subtrahend: string | number | Long.Long) => Long.Long;
-                toInt: () => number;
-                toNumber: () => number;
-                toBytes: (le?: boolean | undefined) => number[];
-                toBytesLE: () => number[];
-                toBytesBE: () => number[];
-                toSigned: () => Long.Long;
-                toString: (radix?: number | undefined) => string;
-                toUnsigned: () => Long.Long;
-                xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["pagination"]["total"], keyof Long.Long>, never>) | undefined;
-        } & Record<Exclude<keyof I["pagination"], keyof PageResponse>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof TransfersForChainResponse>, never>>(object: I): TransfersForChainResponse;
+    create<I extends Exact<DeepPartial<TransfersForChainResponse>, I>>(base?: I): TransfersForChainResponse;
+    fromPartial<I extends Exact<DeepPartial<TransfersForChainResponse>, I>>(object: I): TransfersForChainResponse;
 };
 export declare const FeeInfoRequest: {
+    $type: "axelar.nexus.v1beta1.FeeInfoRequest";
     encode(message: FeeInfoRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): FeeInfoRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): FeeInfoRequest;
     fromJSON(object: any): FeeInfoRequest;
     toJSON(message: FeeInfoRequest): unknown;
-    fromPartial<I extends {
-        chain?: string | undefined;
-        asset?: string | undefined;
-    } & {
-        chain?: string | undefined;
-        asset?: string | undefined;
-    } & Record<Exclude<keyof I, keyof FeeInfoRequest>, never>>(object: I): FeeInfoRequest;
+    create<I extends Exact<DeepPartial<FeeInfoRequest>, I>>(base?: I): FeeInfoRequest;
+    fromPartial<I extends Exact<DeepPartial<FeeInfoRequest>, I>>(object: I): FeeInfoRequest;
 };
 export declare const FeeInfoResponse: {
+    $type: "axelar.nexus.v1beta1.FeeInfoResponse";
     encode(message: FeeInfoResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): FeeInfoResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): FeeInfoResponse;
     fromJSON(object: any): FeeInfoResponse;
     toJSON(message: FeeInfoResponse): unknown;
-    fromPartial<I extends {
-        feeInfo?: {
-            chain?: string | undefined;
-            asset?: string | undefined;
-            feeRate?: Uint8Array | undefined;
-            minFee?: Uint8Array | undefined;
-            maxFee?: Uint8Array | undefined;
-        } | undefined;
-    } & {
-        feeInfo?: ({
-            chain?: string | undefined;
-            asset?: string | undefined;
-            feeRate?: Uint8Array | undefined;
-            minFee?: Uint8Array | undefined;
-            maxFee?: Uint8Array | undefined;
-        } & {
-            chain?: string | undefined;
-            asset?: string | undefined;
-            feeRate?: Uint8Array | undefined;
-            minFee?: Uint8Array | undefined;
-            maxFee?: Uint8Array | undefined;
-        } & Record<Exclude<keyof I["feeInfo"], keyof FeeInfo>, never>) | undefined;
-    } & Record<Exclude<keyof I, "feeInfo">, never>>(object: I): FeeInfoResponse;
+    create<I extends Exact<DeepPartial<FeeInfoResponse>, I>>(base?: I): FeeInfoResponse;
+    fromPartial<I extends Exact<DeepPartial<FeeInfoResponse>, I>>(object: I): FeeInfoResponse;
 };
 export declare const TransferFeeRequest: {
+    $type: "axelar.nexus.v1beta1.TransferFeeRequest";
     encode(message: TransferFeeRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): TransferFeeRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): TransferFeeRequest;
     fromJSON(object: any): TransferFeeRequest;
     toJSON(message: TransferFeeRequest): unknown;
-    fromPartial<I extends {
-        sourceChain?: string | undefined;
-        destinationChain?: string | undefined;
-        amount?: string | undefined;
-    } & {
-        sourceChain?: string | undefined;
-        destinationChain?: string | undefined;
-        amount?: string | undefined;
-    } & Record<Exclude<keyof I, keyof TransferFeeRequest>, never>>(object: I): TransferFeeRequest;
+    create<I extends Exact<DeepPartial<TransferFeeRequest>, I>>(base?: I): TransferFeeRequest;
+    fromPartial<I extends Exact<DeepPartial<TransferFeeRequest>, I>>(object: I): TransferFeeRequest;
 };
 export declare const TransferFeeResponse: {
+    $type: "axelar.nexus.v1beta1.TransferFeeResponse";
     encode(message: TransferFeeResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): TransferFeeResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): TransferFeeResponse;
     fromJSON(object: any): TransferFeeResponse;
     toJSON(message: TransferFeeResponse): unknown;
-    fromPartial<I extends {
-        fee?: {
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } | undefined;
-    } & {
-        fee?: ({
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } & {
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } & Record<Exclude<keyof I["fee"], keyof Coin>, never>) | undefined;
-    } & Record<Exclude<keyof I, "fee">, never>>(object: I): TransferFeeResponse;
+    create<I extends Exact<DeepPartial<TransferFeeResponse>, I>>(base?: I): TransferFeeResponse;
+    fromPartial<I extends Exact<DeepPartial<TransferFeeResponse>, I>>(object: I): TransferFeeResponse;
 };
 export declare const ChainsRequest: {
+    $type: "axelar.nexus.v1beta1.ChainsRequest";
     encode(message: ChainsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ChainsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): ChainsRequest;
     fromJSON(object: any): ChainsRequest;
     toJSON(message: ChainsRequest): unknown;
-    fromPartial<I extends {
-        status?: ChainStatus | undefined;
-    } & {
-        status?: ChainStatus | undefined;
-    } & Record<Exclude<keyof I, "status">, never>>(object: I): ChainsRequest;
+    create<I extends Exact<DeepPartial<ChainsRequest>, I>>(base?: I): ChainsRequest;
+    fromPartial<I extends Exact<DeepPartial<ChainsRequest>, I>>(object: I): ChainsRequest;
 };
 export declare const ChainsResponse: {
+    $type: "axelar.nexus.v1beta1.ChainsResponse";
     encode(message: ChainsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ChainsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): ChainsResponse;
     fromJSON(object: any): ChainsResponse;
     toJSON(message: ChainsResponse): unknown;
-    fromPartial<I extends {
-        chains?: string[] | undefined;
-    } & {
-        chains?: (string[] & string[] & Record<Exclude<keyof I["chains"], keyof string[]>, never>) | undefined;
-    } & Record<Exclude<keyof I, "chains">, never>>(object: I): ChainsResponse;
+    create<I extends Exact<DeepPartial<ChainsResponse>, I>>(base?: I): ChainsResponse;
+    fromPartial<I extends Exact<DeepPartial<ChainsResponse>, I>>(object: I): ChainsResponse;
 };
 export declare const AssetsRequest: {
+    $type: "axelar.nexus.v1beta1.AssetsRequest";
     encode(message: AssetsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AssetsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): AssetsRequest;
     fromJSON(object: any): AssetsRequest;
     toJSON(message: AssetsRequest): unknown;
-    fromPartial<I extends {
-        chain?: string | undefined;
-    } & {
-        chain?: string | undefined;
-    } & Record<Exclude<keyof I, "chain">, never>>(object: I): AssetsRequest;
+    create<I extends Exact<DeepPartial<AssetsRequest>, I>>(base?: I): AssetsRequest;
+    fromPartial<I extends Exact<DeepPartial<AssetsRequest>, I>>(object: I): AssetsRequest;
 };
 export declare const AssetsResponse: {
+    $type: "axelar.nexus.v1beta1.AssetsResponse";
     encode(message: AssetsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AssetsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): AssetsResponse;
     fromJSON(object: any): AssetsResponse;
     toJSON(message: AssetsResponse): unknown;
-    fromPartial<I extends {
-        assets?: string[] | undefined;
-    } & {
-        assets?: (string[] & string[] & Record<Exclude<keyof I["assets"], keyof string[]>, never>) | undefined;
-    } & Record<Exclude<keyof I, "assets">, never>>(object: I): AssetsResponse;
+    create<I extends Exact<DeepPartial<AssetsResponse>, I>>(base?: I): AssetsResponse;
+    fromPartial<I extends Exact<DeepPartial<AssetsResponse>, I>>(object: I): AssetsResponse;
 };
 export declare const ChainStateRequest: {
+    $type: "axelar.nexus.v1beta1.ChainStateRequest";
     encode(message: ChainStateRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ChainStateRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): ChainStateRequest;
     fromJSON(object: any): ChainStateRequest;
     toJSON(message: ChainStateRequest): unknown;
-    fromPartial<I extends {
-        chain?: string | undefined;
-    } & {
-        chain?: string | undefined;
-    } & Record<Exclude<keyof I, "chain">, never>>(object: I): ChainStateRequest;
+    create<I extends Exact<DeepPartial<ChainStateRequest>, I>>(base?: I): ChainStateRequest;
+    fromPartial<I extends Exact<DeepPartial<ChainStateRequest>, I>>(object: I): ChainStateRequest;
 };
 export declare const ChainStateResponse: {
+    $type: "axelar.nexus.v1beta1.ChainStateResponse";
     encode(message: ChainStateResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ChainStateResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): ChainStateResponse;
     fromJSON(object: any): ChainStateResponse;
     toJSON(message: ChainStateResponse): unknown;
-    fromPartial<I extends {
-        state?: {
-            chain?: {
-                name?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
-                keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
-                module?: string | undefined;
-            } | undefined;
-            activated?: boolean | undefined;
-            assets?: {
-                denom?: string | undefined;
-                isNativeAsset?: boolean | undefined;
-            }[] | undefined;
-            maintainerStates?: {
-                address?: Uint8Array | undefined;
-                missingVotes?: {
-                    trueCountCache?: {
-                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
-                        index?: number | undefined;
-                        maxSize?: number | undefined;
-                    } | undefined;
-                } | undefined;
-                incorrectVotes?: {
-                    trueCountCache?: {
-                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
-                        index?: number | undefined;
-                        maxSize?: number | undefined;
-                    } | undefined;
-                } | undefined;
-                chain?: string | undefined;
-            }[] | undefined;
-        } | undefined;
-    } & {
-        state?: ({
-            chain?: {
-                name?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
-                keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
-                module?: string | undefined;
-            } | undefined;
-            activated?: boolean | undefined;
-            assets?: {
-                denom?: string | undefined;
-                isNativeAsset?: boolean | undefined;
-            }[] | undefined;
-            maintainerStates?: {
-                address?: Uint8Array | undefined;
-                missingVotes?: {
-                    trueCountCache?: {
-                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
-                        index?: number | undefined;
-                        maxSize?: number | undefined;
-                    } | undefined;
-                } | undefined;
-                incorrectVotes?: {
-                    trueCountCache?: {
-                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
-                        index?: number | undefined;
-                        maxSize?: number | undefined;
-                    } | undefined;
-                } | undefined;
-                chain?: string | undefined;
-            }[] | undefined;
-        } & {
-            chain?: ({
-                name?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
-                keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
-                module?: string | undefined;
-            } & {
-                name?: string | undefined;
-                supportsForeignAssets?: boolean | undefined;
-                keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
-                module?: string | undefined;
-            } & Record<Exclude<keyof I["state"]["chain"], keyof import("../../../axelar/nexus/exported/v1beta1/types").Chain>, never>) | undefined;
-            activated?: boolean | undefined;
-            assets?: ({
-                denom?: string | undefined;
-                isNativeAsset?: boolean | undefined;
-            }[] & ({
-                denom?: string | undefined;
-                isNativeAsset?: boolean | undefined;
-            } & {
-                denom?: string | undefined;
-                isNativeAsset?: boolean | undefined;
-            } & Record<Exclude<keyof I["state"]["assets"][number], keyof import("../../../axelar/nexus/exported/v1beta1/types").Asset>, never>)[] & Record<Exclude<keyof I["state"]["assets"], keyof {
-                denom?: string | undefined;
-                isNativeAsset?: boolean | undefined;
-            }[]>, never>) | undefined;
-            maintainerStates?: ({
-                address?: Uint8Array | undefined;
-                missingVotes?: {
-                    trueCountCache?: {
-                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
-                        index?: number | undefined;
-                        maxSize?: number | undefined;
-                    } | undefined;
-                } | undefined;
-                incorrectVotes?: {
-                    trueCountCache?: {
-                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
-                        index?: number | undefined;
-                        maxSize?: number | undefined;
-                    } | undefined;
-                } | undefined;
-                chain?: string | undefined;
-            }[] & ({
-                address?: Uint8Array | undefined;
-                missingVotes?: {
-                    trueCountCache?: {
-                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
-                        index?: number | undefined;
-                        maxSize?: number | undefined;
-                    } | undefined;
-                } | undefined;
-                incorrectVotes?: {
-                    trueCountCache?: {
-                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
-                        index?: number | undefined;
-                        maxSize?: number | undefined;
-                    } | undefined;
-                } | undefined;
-                chain?: string | undefined;
-            } & {
-                address?: Uint8Array | undefined;
-                missingVotes?: ({
-                    trueCountCache?: {
-                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
-                        index?: number | undefined;
-                        maxSize?: number | undefined;
-                    } | undefined;
-                } & {
-                    trueCountCache?: ({
-                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
-                        index?: number | undefined;
-                        maxSize?: number | undefined;
-                    } & {
-                        cumulativeValue?: ((string | number | Long.Long)[] & (string | number | (Long.Long & {
-                            high: number;
-                            low: number;
-                            unsigned: boolean;
-                            add: (addend: string | number | Long.Long) => Long.Long;
-                            and: (other: string | number | Long.Long) => Long.Long;
-                            compare: (other: string | number | Long.Long) => number;
-                            comp: (other: string | number | Long.Long) => number;
-                            divide: (divisor: string | number | Long.Long) => Long.Long;
-                            div: (divisor: string | number | Long.Long) => Long.Long;
-                            equals: (other: string | number | Long.Long) => boolean;
-                            eq: (other: string | number | Long.Long) => boolean;
-                            getHighBits: () => number;
-                            getHighBitsUnsigned: () => number;
-                            getLowBits: () => number;
-                            getLowBitsUnsigned: () => number;
-                            getNumBitsAbs: () => number;
-                            greaterThan: (other: string | number | Long.Long) => boolean;
-                            gt: (other: string | number | Long.Long) => boolean;
-                            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-                            gte: (other: string | number | Long.Long) => boolean;
-                            isEven: () => boolean;
-                            isNegative: () => boolean;
-                            isOdd: () => boolean;
-                            isPositive: () => boolean;
-                            isZero: () => boolean;
-                            lessThan: (other: string | number | Long.Long) => boolean;
-                            lt: (other: string | number | Long.Long) => boolean;
-                            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-                            lte: (other: string | number | Long.Long) => boolean;
-                            modulo: (other: string | number | Long.Long) => Long.Long;
-                            mod: (other: string | number | Long.Long) => Long.Long;
-                            multiply: (multiplier: string | number | Long.Long) => Long.Long;
-                            mul: (multiplier: string | number | Long.Long) => Long.Long;
-                            negate: () => Long.Long;
-                            neg: () => Long.Long;
-                            not: () => Long.Long;
-                            notEquals: (other: string | number | Long.Long) => boolean;
-                            neq: (other: string | number | Long.Long) => boolean;
-                            or: (other: string | number | Long.Long) => Long.Long;
-                            shiftLeft: (numBits: number | Long.Long) => Long.Long;
-                            shl: (numBits: number | Long.Long) => Long.Long;
-                            shiftRight: (numBits: number | Long.Long) => Long.Long;
-                            shr: (numBits: number | Long.Long) => Long.Long;
-                            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-                            shru: (numBits: number | Long.Long) => Long.Long;
-                            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-                            sub: (subtrahend: string | number | Long.Long) => Long.Long;
-                            toInt: () => number;
-                            toNumber: () => number;
-                            toBytes: (le?: boolean | undefined) => number[];
-                            toBytesLE: () => number[];
-                            toBytesBE: () => number[];
-                            toSigned: () => Long.Long;
-                            toString: (radix?: number | undefined) => string;
-                            toUnsigned: () => Long.Long;
-                            xor: (other: string | number | Long.Long) => Long.Long;
-                        } & Record<Exclude<keyof I["state"]["maintainerStates"][number]["missingVotes"]["trueCountCache"]["cumulativeValue"][number], keyof Long.Long>, never>))[] & Record<Exclude<keyof I["state"]["maintainerStates"][number]["missingVotes"]["trueCountCache"]["cumulativeValue"], keyof (string | number | Long.Long)[]>, never>) | undefined;
-                        index?: number | undefined;
-                        maxSize?: number | undefined;
-                    } & Record<Exclude<keyof I["state"]["maintainerStates"][number]["missingVotes"]["trueCountCache"], keyof import("../../utils/v1beta1/bitmap").CircularBuffer>, never>) | undefined;
-                } & Record<Exclude<keyof I["state"]["maintainerStates"][number]["missingVotes"], "trueCountCache">, never>) | undefined;
-                incorrectVotes?: ({
-                    trueCountCache?: {
-                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
-                        index?: number | undefined;
-                        maxSize?: number | undefined;
-                    } | undefined;
-                } & {
-                    trueCountCache?: ({
-                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
-                        index?: number | undefined;
-                        maxSize?: number | undefined;
-                    } & {
-                        cumulativeValue?: ((string | number | Long.Long)[] & (string | number | (Long.Long & {
-                            high: number;
-                            low: number;
-                            unsigned: boolean;
-                            add: (addend: string | number | Long.Long) => Long.Long;
-                            and: (other: string | number | Long.Long) => Long.Long;
-                            compare: (other: string | number | Long.Long) => number;
-                            comp: (other: string | number | Long.Long) => number;
-                            divide: (divisor: string | number | Long.Long) => Long.Long;
-                            div: (divisor: string | number | Long.Long) => Long.Long;
-                            equals: (other: string | number | Long.Long) => boolean;
-                            eq: (other: string | number | Long.Long) => boolean;
-                            getHighBits: () => number;
-                            getHighBitsUnsigned: () => number;
-                            getLowBits: () => number;
-                            getLowBitsUnsigned: () => number;
-                            getNumBitsAbs: () => number;
-                            greaterThan: (other: string | number | Long.Long) => boolean;
-                            gt: (other: string | number | Long.Long) => boolean;
-                            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-                            gte: (other: string | number | Long.Long) => boolean;
-                            isEven: () => boolean;
-                            isNegative: () => boolean;
-                            isOdd: () => boolean;
-                            isPositive: () => boolean;
-                            isZero: () => boolean;
-                            lessThan: (other: string | number | Long.Long) => boolean;
-                            lt: (other: string | number | Long.Long) => boolean;
-                            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-                            lte: (other: string | number | Long.Long) => boolean;
-                            modulo: (other: string | number | Long.Long) => Long.Long;
-                            mod: (other: string | number | Long.Long) => Long.Long;
-                            multiply: (multiplier: string | number | Long.Long) => Long.Long;
-                            mul: (multiplier: string | number | Long.Long) => Long.Long;
-                            negate: () => Long.Long;
-                            neg: () => Long.Long;
-                            not: () => Long.Long;
-                            notEquals: (other: string | number | Long.Long) => boolean;
-                            neq: (other: string | number | Long.Long) => boolean;
-                            or: (other: string | number | Long.Long) => Long.Long;
-                            shiftLeft: (numBits: number | Long.Long) => Long.Long;
-                            shl: (numBits: number | Long.Long) => Long.Long;
-                            shiftRight: (numBits: number | Long.Long) => Long.Long;
-                            shr: (numBits: number | Long.Long) => Long.Long;
-                            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-                            shru: (numBits: number | Long.Long) => Long.Long;
-                            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-                            sub: (subtrahend: string | number | Long.Long) => Long.Long;
-                            toInt: () => number;
-                            toNumber: () => number;
-                            toBytes: (le?: boolean | undefined) => number[];
-                            toBytesLE: () => number[];
-                            toBytesBE: () => number[];
-                            toSigned: () => Long.Long;
-                            toString: (radix?: number | undefined) => string;
-                            toUnsigned: () => Long.Long;
-                            xor: (other: string | number | Long.Long) => Long.Long;
-                        } & Record<Exclude<keyof I["state"]["maintainerStates"][number]["incorrectVotes"]["trueCountCache"]["cumulativeValue"][number], keyof Long.Long>, never>))[] & Record<Exclude<keyof I["state"]["maintainerStates"][number]["incorrectVotes"]["trueCountCache"]["cumulativeValue"], keyof (string | number | Long.Long)[]>, never>) | undefined;
-                        index?: number | undefined;
-                        maxSize?: number | undefined;
-                    } & Record<Exclude<keyof I["state"]["maintainerStates"][number]["incorrectVotes"]["trueCountCache"], keyof import("../../utils/v1beta1/bitmap").CircularBuffer>, never>) | undefined;
-                } & Record<Exclude<keyof I["state"]["maintainerStates"][number]["incorrectVotes"], "trueCountCache">, never>) | undefined;
-                chain?: string | undefined;
-            } & Record<Exclude<keyof I["state"]["maintainerStates"][number], keyof import("../../../axelar/nexus/v1beta1/types").MaintainerState>, never>)[] & Record<Exclude<keyof I["state"]["maintainerStates"], keyof {
-                address?: Uint8Array | undefined;
-                missingVotes?: {
-                    trueCountCache?: {
-                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
-                        index?: number | undefined;
-                        maxSize?: number | undefined;
-                    } | undefined;
-                } | undefined;
-                incorrectVotes?: {
-                    trueCountCache?: {
-                        cumulativeValue?: (string | number | Long.Long)[] | undefined;
-                        index?: number | undefined;
-                        maxSize?: number | undefined;
-                    } | undefined;
-                } | undefined;
-                chain?: string | undefined;
-            }[]>, never>) | undefined;
-        } & Record<Exclude<keyof I["state"], keyof ChainState>, never>) | undefined;
-    } & Record<Exclude<keyof I, "state">, never>>(object: I): ChainStateResponse;
+    create<I extends Exact<DeepPartial<ChainStateResponse>, I>>(base?: I): ChainStateResponse;
+    fromPartial<I extends Exact<DeepPartial<ChainStateResponse>, I>>(object: I): ChainStateResponse;
 };
 export declare const ChainsByAssetRequest: {
+    $type: "axelar.nexus.v1beta1.ChainsByAssetRequest";
     encode(message: ChainsByAssetRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ChainsByAssetRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): ChainsByAssetRequest;
     fromJSON(object: any): ChainsByAssetRequest;
     toJSON(message: ChainsByAssetRequest): unknown;
-    fromPartial<I extends {
-        asset?: string | undefined;
-    } & {
-        asset?: string | undefined;
-    } & Record<Exclude<keyof I, "asset">, never>>(object: I): ChainsByAssetRequest;
+    create<I extends Exact<DeepPartial<ChainsByAssetRequest>, I>>(base?: I): ChainsByAssetRequest;
+    fromPartial<I extends Exact<DeepPartial<ChainsByAssetRequest>, I>>(object: I): ChainsByAssetRequest;
 };
 export declare const ChainsByAssetResponse: {
+    $type: "axelar.nexus.v1beta1.ChainsByAssetResponse";
     encode(message: ChainsByAssetResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ChainsByAssetResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): ChainsByAssetResponse;
     fromJSON(object: any): ChainsByAssetResponse;
     toJSON(message: ChainsByAssetResponse): unknown;
-    fromPartial<I extends {
-        chains?: string[] | undefined;
-    } & {
-        chains?: (string[] & string[] & Record<Exclude<keyof I["chains"], keyof string[]>, never>) | undefined;
-    } & Record<Exclude<keyof I, "chains">, never>>(object: I): ChainsByAssetResponse;
+    create<I extends Exact<DeepPartial<ChainsByAssetResponse>, I>>(base?: I): ChainsByAssetResponse;
+    fromPartial<I extends Exact<DeepPartial<ChainsByAssetResponse>, I>>(object: I): ChainsByAssetResponse;
 };
 export declare const RecipientAddressRequest: {
+    $type: "axelar.nexus.v1beta1.RecipientAddressRequest";
     encode(message: RecipientAddressRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): RecipientAddressRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): RecipientAddressRequest;
     fromJSON(object: any): RecipientAddressRequest;
     toJSON(message: RecipientAddressRequest): unknown;
-    fromPartial<I extends {
-        depositAddr?: string | undefined;
-        depositChain?: string | undefined;
-    } & {
-        depositAddr?: string | undefined;
-        depositChain?: string | undefined;
-    } & Record<Exclude<keyof I, keyof RecipientAddressRequest>, never>>(object: I): RecipientAddressRequest;
+    create<I extends Exact<DeepPartial<RecipientAddressRequest>, I>>(base?: I): RecipientAddressRequest;
+    fromPartial<I extends Exact<DeepPartial<RecipientAddressRequest>, I>>(object: I): RecipientAddressRequest;
 };
 export declare const RecipientAddressResponse: {
+    $type: "axelar.nexus.v1beta1.RecipientAddressResponse";
     encode(message: RecipientAddressResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): RecipientAddressResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): RecipientAddressResponse;
     fromJSON(object: any): RecipientAddressResponse;
     toJSON(message: RecipientAddressResponse): unknown;
-    fromPartial<I extends {
-        recipientAddr?: string | undefined;
-        recipientChain?: string | undefined;
-    } & {
-        recipientAddr?: string | undefined;
-        recipientChain?: string | undefined;
-    } & Record<Exclude<keyof I, keyof RecipientAddressResponse>, never>>(object: I): RecipientAddressResponse;
+    create<I extends Exact<DeepPartial<RecipientAddressResponse>, I>>(base?: I): RecipientAddressResponse;
+    fromPartial<I extends Exact<DeepPartial<RecipientAddressResponse>, I>>(object: I): RecipientAddressResponse;
 };
 export declare const TransferRateLimitRequest: {
+    $type: "axelar.nexus.v1beta1.TransferRateLimitRequest";
     encode(message: TransferRateLimitRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): TransferRateLimitRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): TransferRateLimitRequest;
     fromJSON(object: any): TransferRateLimitRequest;
     toJSON(message: TransferRateLimitRequest): unknown;
-    fromPartial<I extends {
-        chain?: string | undefined;
-        asset?: string | undefined;
-    } & {
-        chain?: string | undefined;
-        asset?: string | undefined;
-    } & Record<Exclude<keyof I, keyof TransferRateLimitRequest>, never>>(object: I): TransferRateLimitRequest;
+    create<I extends Exact<DeepPartial<TransferRateLimitRequest>, I>>(base?: I): TransferRateLimitRequest;
+    fromPartial<I extends Exact<DeepPartial<TransferRateLimitRequest>, I>>(object: I): TransferRateLimitRequest;
 };
 export declare const TransferRateLimitResponse: {
+    $type: "axelar.nexus.v1beta1.TransferRateLimitResponse";
     encode(message: TransferRateLimitResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): TransferRateLimitResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): TransferRateLimitResponse;
     fromJSON(object: any): TransferRateLimitResponse;
     toJSON(message: TransferRateLimitResponse): unknown;
-    fromPartial<I extends {
-        transferRateLimit?: {
-            limit?: Uint8Array | undefined;
-            window?: {
-                seconds?: string | number | Long.Long | undefined;
-                nanos?: number | undefined;
-            } | undefined;
-            incoming?: Uint8Array | undefined;
-            outgoing?: Uint8Array | undefined;
-            timeLeft?: {
-                seconds?: string | number | Long.Long | undefined;
-                nanos?: number | undefined;
-            } | undefined;
-            from?: Uint8Array | undefined;
-            to?: Uint8Array | undefined;
-        } | undefined;
-    } & {
-        transferRateLimit?: ({
-            limit?: Uint8Array | undefined;
-            window?: {
-                seconds?: string | number | Long.Long | undefined;
-                nanos?: number | undefined;
-            } | undefined;
-            incoming?: Uint8Array | undefined;
-            outgoing?: Uint8Array | undefined;
-            timeLeft?: {
-                seconds?: string | number | Long.Long | undefined;
-                nanos?: number | undefined;
-            } | undefined;
-            from?: Uint8Array | undefined;
-            to?: Uint8Array | undefined;
-        } & {
-            limit?: Uint8Array | undefined;
-            window?: ({
-                seconds?: string | number | Long.Long | undefined;
-                nanos?: number | undefined;
-            } & {
-                seconds?: string | number | (Long.Long & {
-                    high: number;
-                    low: number;
-                    unsigned: boolean;
-                    add: (addend: string | number | Long.Long) => Long.Long;
-                    and: (other: string | number | Long.Long) => Long.Long;
-                    compare: (other: string | number | Long.Long) => number;
-                    comp: (other: string | number | Long.Long) => number;
-                    divide: (divisor: string | number | Long.Long) => Long.Long;
-                    div: (divisor: string | number | Long.Long) => Long.Long;
-                    equals: (other: string | number | Long.Long) => boolean;
-                    eq: (other: string | number | Long.Long) => boolean;
-                    getHighBits: () => number;
-                    getHighBitsUnsigned: () => number;
-                    getLowBits: () => number;
-                    getLowBitsUnsigned: () => number;
-                    getNumBitsAbs: () => number;
-                    greaterThan: (other: string | number | Long.Long) => boolean;
-                    gt: (other: string | number | Long.Long) => boolean;
-                    greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-                    gte: (other: string | number | Long.Long) => boolean;
-                    isEven: () => boolean;
-                    isNegative: () => boolean;
-                    isOdd: () => boolean;
-                    isPositive: () => boolean;
-                    isZero: () => boolean;
-                    lessThan: (other: string | number | Long.Long) => boolean;
-                    lt: (other: string | number | Long.Long) => boolean;
-                    lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-                    lte: (other: string | number | Long.Long) => boolean;
-                    modulo: (other: string | number | Long.Long) => Long.Long;
-                    mod: (other: string | number | Long.Long) => Long.Long;
-                    multiply: (multiplier: string | number | Long.Long) => Long.Long;
-                    mul: (multiplier: string | number | Long.Long) => Long.Long;
-                    negate: () => Long.Long;
-                    neg: () => Long.Long;
-                    not: () => Long.Long;
-                    notEquals: (other: string | number | Long.Long) => boolean;
-                    neq: (other: string | number | Long.Long) => boolean;
-                    or: (other: string | number | Long.Long) => Long.Long;
-                    shiftLeft: (numBits: number | Long.Long) => Long.Long;
-                    shl: (numBits: number | Long.Long) => Long.Long;
-                    shiftRight: (numBits: number | Long.Long) => Long.Long;
-                    shr: (numBits: number | Long.Long) => Long.Long;
-                    shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-                    shru: (numBits: number | Long.Long) => Long.Long;
-                    subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-                    sub: (subtrahend: string | number | Long.Long) => Long.Long;
-                    toInt: () => number;
-                    toNumber: () => number;
-                    toBytes: (le?: boolean | undefined) => number[];
-                    toBytesLE: () => number[];
-                    toBytesBE: () => number[];
-                    toSigned: () => Long.Long;
-                    toString: (radix?: number | undefined) => string;
-                    toUnsigned: () => Long.Long;
-                    xor: (other: string | number | Long.Long) => Long.Long;
-                } & Record<Exclude<keyof I["transferRateLimit"]["window"]["seconds"], keyof Long.Long>, never>) | undefined;
-                nanos?: number | undefined;
-            } & Record<Exclude<keyof I["transferRateLimit"]["window"], keyof Duration>, never>) | undefined;
-            incoming?: Uint8Array | undefined;
-            outgoing?: Uint8Array | undefined;
-            timeLeft?: ({
-                seconds?: string | number | Long.Long | undefined;
-                nanos?: number | undefined;
-            } & {
-                seconds?: string | number | (Long.Long & {
-                    high: number;
-                    low: number;
-                    unsigned: boolean;
-                    add: (addend: string | number | Long.Long) => Long.Long;
-                    and: (other: string | number | Long.Long) => Long.Long;
-                    compare: (other: string | number | Long.Long) => number;
-                    comp: (other: string | number | Long.Long) => number;
-                    divide: (divisor: string | number | Long.Long) => Long.Long;
-                    div: (divisor: string | number | Long.Long) => Long.Long;
-                    equals: (other: string | number | Long.Long) => boolean;
-                    eq: (other: string | number | Long.Long) => boolean;
-                    getHighBits: () => number;
-                    getHighBitsUnsigned: () => number;
-                    getLowBits: () => number;
-                    getLowBitsUnsigned: () => number;
-                    getNumBitsAbs: () => number;
-                    greaterThan: (other: string | number | Long.Long) => boolean;
-                    gt: (other: string | number | Long.Long) => boolean;
-                    greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-                    gte: (other: string | number | Long.Long) => boolean;
-                    isEven: () => boolean;
-                    isNegative: () => boolean;
-                    isOdd: () => boolean;
-                    isPositive: () => boolean;
-                    isZero: () => boolean;
-                    lessThan: (other: string | number | Long.Long) => boolean;
-                    lt: (other: string | number | Long.Long) => boolean;
-                    lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-                    lte: (other: string | number | Long.Long) => boolean;
-                    modulo: (other: string | number | Long.Long) => Long.Long;
-                    mod: (other: string | number | Long.Long) => Long.Long;
-                    multiply: (multiplier: string | number | Long.Long) => Long.Long;
-                    mul: (multiplier: string | number | Long.Long) => Long.Long;
-                    negate: () => Long.Long;
-                    neg: () => Long.Long;
-                    not: () => Long.Long;
-                    notEquals: (other: string | number | Long.Long) => boolean;
-                    neq: (other: string | number | Long.Long) => boolean;
-                    or: (other: string | number | Long.Long) => Long.Long;
-                    shiftLeft: (numBits: number | Long.Long) => Long.Long;
-                    shl: (numBits: number | Long.Long) => Long.Long;
-                    shiftRight: (numBits: number | Long.Long) => Long.Long;
-                    shr: (numBits: number | Long.Long) => Long.Long;
-                    shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-                    shru: (numBits: number | Long.Long) => Long.Long;
-                    subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-                    sub: (subtrahend: string | number | Long.Long) => Long.Long;
-                    toInt: () => number;
-                    toNumber: () => number;
-                    toBytes: (le?: boolean | undefined) => number[];
-                    toBytesLE: () => number[];
-                    toBytesBE: () => number[];
-                    toSigned: () => Long.Long;
-                    toString: (radix?: number | undefined) => string;
-                    toUnsigned: () => Long.Long;
-                    xor: (other: string | number | Long.Long) => Long.Long;
-                } & Record<Exclude<keyof I["transferRateLimit"]["timeLeft"]["seconds"], keyof Long.Long>, never>) | undefined;
-                nanos?: number | undefined;
-            } & Record<Exclude<keyof I["transferRateLimit"]["timeLeft"], keyof Duration>, never>) | undefined;
-            from?: Uint8Array | undefined;
-            to?: Uint8Array | undefined;
-        } & Record<Exclude<keyof I["transferRateLimit"], keyof TransferRateLimit>, never>) | undefined;
-    } & Record<Exclude<keyof I, "transferRateLimit">, never>>(object: I): TransferRateLimitResponse;
+    create<I extends Exact<DeepPartial<TransferRateLimitResponse>, I>>(base?: I): TransferRateLimitResponse;
+    fromPartial<I extends Exact<DeepPartial<TransferRateLimitResponse>, I>>(object: I): TransferRateLimitResponse;
 };
 export declare const TransferRateLimit: {
+    $type: "axelar.nexus.v1beta1.TransferRateLimit";
     encode(message: TransferRateLimit, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): TransferRateLimit;
+    decode(input: _m0.Reader | Uint8Array, length?: number): TransferRateLimit;
     fromJSON(object: any): TransferRateLimit;
     toJSON(message: TransferRateLimit): unknown;
-    fromPartial<I extends {
-        limit?: Uint8Array | undefined;
-        window?: {
-            seconds?: string | number | Long.Long | undefined;
-            nanos?: number | undefined;
-        } | undefined;
-        incoming?: Uint8Array | undefined;
-        outgoing?: Uint8Array | undefined;
-        timeLeft?: {
-            seconds?: string | number | Long.Long | undefined;
-            nanos?: number | undefined;
-        } | undefined;
-        from?: Uint8Array | undefined;
-        to?: Uint8Array | undefined;
-    } & {
-        limit?: Uint8Array | undefined;
-        window?: ({
-            seconds?: string | number | Long.Long | undefined;
-            nanos?: number | undefined;
-        } & {
-            seconds?: string | number | (Long.Long & {
-                high: number;
-                low: number;
-                unsigned: boolean;
-                add: (addend: string | number | Long.Long) => Long.Long;
-                and: (other: string | number | Long.Long) => Long.Long;
-                compare: (other: string | number | Long.Long) => number;
-                comp: (other: string | number | Long.Long) => number;
-                divide: (divisor: string | number | Long.Long) => Long.Long;
-                div: (divisor: string | number | Long.Long) => Long.Long;
-                equals: (other: string | number | Long.Long) => boolean;
-                eq: (other: string | number | Long.Long) => boolean;
-                getHighBits: () => number;
-                getHighBitsUnsigned: () => number;
-                getLowBits: () => number;
-                getLowBitsUnsigned: () => number;
-                getNumBitsAbs: () => number;
-                greaterThan: (other: string | number | Long.Long) => boolean;
-                gt: (other: string | number | Long.Long) => boolean;
-                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-                gte: (other: string | number | Long.Long) => boolean;
-                isEven: () => boolean;
-                isNegative: () => boolean;
-                isOdd: () => boolean;
-                isPositive: () => boolean;
-                isZero: () => boolean;
-                lessThan: (other: string | number | Long.Long) => boolean;
-                lt: (other: string | number | Long.Long) => boolean;
-                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-                lte: (other: string | number | Long.Long) => boolean;
-                modulo: (other: string | number | Long.Long) => Long.Long;
-                mod: (other: string | number | Long.Long) => Long.Long;
-                multiply: (multiplier: string | number | Long.Long) => Long.Long;
-                mul: (multiplier: string | number | Long.Long) => Long.Long;
-                negate: () => Long.Long;
-                neg: () => Long.Long;
-                not: () => Long.Long;
-                notEquals: (other: string | number | Long.Long) => boolean;
-                neq: (other: string | number | Long.Long) => boolean;
-                or: (other: string | number | Long.Long) => Long.Long;
-                shiftLeft: (numBits: number | Long.Long) => Long.Long;
-                shl: (numBits: number | Long.Long) => Long.Long;
-                shiftRight: (numBits: number | Long.Long) => Long.Long;
-                shr: (numBits: number | Long.Long) => Long.Long;
-                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-                shru: (numBits: number | Long.Long) => Long.Long;
-                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-                sub: (subtrahend: string | number | Long.Long) => Long.Long;
-                toInt: () => number;
-                toNumber: () => number;
-                toBytes: (le?: boolean | undefined) => number[];
-                toBytesLE: () => number[];
-                toBytesBE: () => number[];
-                toSigned: () => Long.Long;
-                toString: (radix?: number | undefined) => string;
-                toUnsigned: () => Long.Long;
-                xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["window"]["seconds"], keyof Long.Long>, never>) | undefined;
-            nanos?: number | undefined;
-        } & Record<Exclude<keyof I["window"], keyof Duration>, never>) | undefined;
-        incoming?: Uint8Array | undefined;
-        outgoing?: Uint8Array | undefined;
-        timeLeft?: ({
-            seconds?: string | number | Long.Long | undefined;
-            nanos?: number | undefined;
-        } & {
-            seconds?: string | number | (Long.Long & {
-                high: number;
-                low: number;
-                unsigned: boolean;
-                add: (addend: string | number | Long.Long) => Long.Long;
-                and: (other: string | number | Long.Long) => Long.Long;
-                compare: (other: string | number | Long.Long) => number;
-                comp: (other: string | number | Long.Long) => number;
-                divide: (divisor: string | number | Long.Long) => Long.Long;
-                div: (divisor: string | number | Long.Long) => Long.Long;
-                equals: (other: string | number | Long.Long) => boolean;
-                eq: (other: string | number | Long.Long) => boolean;
-                getHighBits: () => number;
-                getHighBitsUnsigned: () => number;
-                getLowBits: () => number;
-                getLowBitsUnsigned: () => number;
-                getNumBitsAbs: () => number;
-                greaterThan: (other: string | number | Long.Long) => boolean;
-                gt: (other: string | number | Long.Long) => boolean;
-                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-                gte: (other: string | number | Long.Long) => boolean;
-                isEven: () => boolean;
-                isNegative: () => boolean;
-                isOdd: () => boolean;
-                isPositive: () => boolean;
-                isZero: () => boolean;
-                lessThan: (other: string | number | Long.Long) => boolean;
-                lt: (other: string | number | Long.Long) => boolean;
-                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-                lte: (other: string | number | Long.Long) => boolean;
-                modulo: (other: string | number | Long.Long) => Long.Long;
-                mod: (other: string | number | Long.Long) => Long.Long;
-                multiply: (multiplier: string | number | Long.Long) => Long.Long;
-                mul: (multiplier: string | number | Long.Long) => Long.Long;
-                negate: () => Long.Long;
-                neg: () => Long.Long;
-                not: () => Long.Long;
-                notEquals: (other: string | number | Long.Long) => boolean;
-                neq: (other: string | number | Long.Long) => boolean;
-                or: (other: string | number | Long.Long) => Long.Long;
-                shiftLeft: (numBits: number | Long.Long) => Long.Long;
-                shl: (numBits: number | Long.Long) => Long.Long;
-                shiftRight: (numBits: number | Long.Long) => Long.Long;
-                shr: (numBits: number | Long.Long) => Long.Long;
-                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-                shru: (numBits: number | Long.Long) => Long.Long;
-                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-                sub: (subtrahend: string | number | Long.Long) => Long.Long;
-                toInt: () => number;
-                toNumber: () => number;
-                toBytes: (le?: boolean | undefined) => number[];
-                toBytesLE: () => number[];
-                toBytesBE: () => number[];
-                toSigned: () => Long.Long;
-                toString: (radix?: number | undefined) => string;
-                toUnsigned: () => Long.Long;
-                xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["timeLeft"]["seconds"], keyof Long.Long>, never>) | undefined;
-            nanos?: number | undefined;
-        } & Record<Exclude<keyof I["timeLeft"], keyof Duration>, never>) | undefined;
-        from?: Uint8Array | undefined;
-        to?: Uint8Array | undefined;
-    } & Record<Exclude<keyof I, keyof TransferRateLimit>, never>>(object: I): TransferRateLimit;
+    create<I extends Exact<DeepPartial<TransferRateLimit>, I>>(base?: I): TransferRateLimit;
+    fromPartial<I extends Exact<DeepPartial<TransferRateLimit>, I>>(object: I): TransferRateLimit;
 };
 export declare const MessageRequest: {
+    $type: "axelar.nexus.v1beta1.MessageRequest";
     encode(message: MessageRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MessageRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MessageRequest;
     fromJSON(object: any): MessageRequest;
     toJSON(message: MessageRequest): unknown;
-    fromPartial<I extends {
-        id?: string | undefined;
-    } & {
-        id?: string | undefined;
-    } & Record<Exclude<keyof I, "id">, never>>(object: I): MessageRequest;
+    create<I extends Exact<DeepPartial<MessageRequest>, I>>(base?: I): MessageRequest;
+    fromPartial<I extends Exact<DeepPartial<MessageRequest>, I>>(object: I): MessageRequest;
 };
 export declare const MessageResponse: {
+    $type: "axelar.nexus.v1beta1.MessageResponse";
     encode(message: MessageResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MessageResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MessageResponse;
     fromJSON(object: any): MessageResponse;
     toJSON(message: MessageResponse): unknown;
-    fromPartial<I extends {
-        message?: {
-            id?: string | undefined;
-            sender?: {
-                chain?: {
-                    name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
-                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
-                    module?: string | undefined;
-                } | undefined;
-                address?: string | undefined;
-            } | undefined;
-            recipient?: {
-                chain?: {
-                    name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
-                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
-                    module?: string | undefined;
-                } | undefined;
-                address?: string | undefined;
-            } | undefined;
-            payloadHash?: Uint8Array | undefined;
-            status?: import("../../../axelar/nexus/exported/v1beta1/types").GeneralMessage_Status | undefined;
-            asset?: {
-                denom?: string | undefined;
-                amount?: string | undefined;
-            } | undefined;
-            sourceTxId?: Uint8Array | undefined;
-            sourceTxIndex?: string | number | Long.Long | undefined;
-        } | undefined;
-    } & {
-        message?: ({
-            id?: string | undefined;
-            sender?: {
-                chain?: {
-                    name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
-                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
-                    module?: string | undefined;
-                } | undefined;
-                address?: string | undefined;
-            } | undefined;
-            recipient?: {
-                chain?: {
-                    name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
-                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
-                    module?: string | undefined;
-                } | undefined;
-                address?: string | undefined;
-            } | undefined;
-            payloadHash?: Uint8Array | undefined;
-            status?: import("../../../axelar/nexus/exported/v1beta1/types").GeneralMessage_Status | undefined;
-            asset?: {
-                denom?: string | undefined;
-                amount?: string | undefined;
-            } | undefined;
-            sourceTxId?: Uint8Array | undefined;
-            sourceTxIndex?: string | number | Long.Long | undefined;
-        } & {
-            id?: string | undefined;
-            sender?: ({
-                chain?: {
-                    name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
-                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
-                    module?: string | undefined;
-                } | undefined;
-                address?: string | undefined;
-            } & {
-                chain?: ({
-                    name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
-                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
-                    module?: string | undefined;
-                } & {
-                    name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
-                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
-                    module?: string | undefined;
-                } & Record<Exclude<keyof I["message"]["sender"]["chain"], keyof import("../../../axelar/nexus/exported/v1beta1/types").Chain>, never>) | undefined;
-                address?: string | undefined;
-            } & Record<Exclude<keyof I["message"]["sender"], keyof import("../../../axelar/nexus/exported/v1beta1/types").CrossChainAddress>, never>) | undefined;
-            recipient?: ({
-                chain?: {
-                    name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
-                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
-                    module?: string | undefined;
-                } | undefined;
-                address?: string | undefined;
-            } & {
-                chain?: ({
-                    name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
-                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
-                    module?: string | undefined;
-                } & {
-                    name?: string | undefined;
-                    supportsForeignAssets?: boolean | undefined;
-                    keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
-                    module?: string | undefined;
-                } & Record<Exclude<keyof I["message"]["recipient"]["chain"], keyof import("../../../axelar/nexus/exported/v1beta1/types").Chain>, never>) | undefined;
-                address?: string | undefined;
-            } & Record<Exclude<keyof I["message"]["recipient"], keyof import("../../../axelar/nexus/exported/v1beta1/types").CrossChainAddress>, never>) | undefined;
-            payloadHash?: Uint8Array | undefined;
-            status?: import("../../../axelar/nexus/exported/v1beta1/types").GeneralMessage_Status | undefined;
-            asset?: ({
-                denom?: string | undefined;
-                amount?: string | undefined;
-            } & {
-                denom?: string | undefined;
-                amount?: string | undefined;
-            } & Record<Exclude<keyof I["message"]["asset"], keyof Coin>, never>) | undefined;
-            sourceTxId?: Uint8Array | undefined;
-            sourceTxIndex?: string | number | (Long.Long & {
-                high: number;
-                low: number;
-                unsigned: boolean;
-                add: (addend: string | number | Long.Long) => Long.Long;
-                and: (other: string | number | Long.Long) => Long.Long;
-                compare: (other: string | number | Long.Long) => number;
-                comp: (other: string | number | Long.Long) => number;
-                divide: (divisor: string | number | Long.Long) => Long.Long;
-                div: (divisor: string | number | Long.Long) => Long.Long;
-                equals: (other: string | number | Long.Long) => boolean;
-                eq: (other: string | number | Long.Long) => boolean;
-                getHighBits: () => number;
-                getHighBitsUnsigned: () => number;
-                getLowBits: () => number;
-                getLowBitsUnsigned: () => number;
-                getNumBitsAbs: () => number;
-                greaterThan: (other: string | number | Long.Long) => boolean;
-                gt: (other: string | number | Long.Long) => boolean;
-                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-                gte: (other: string | number | Long.Long) => boolean;
-                isEven: () => boolean;
-                isNegative: () => boolean;
-                isOdd: () => boolean;
-                isPositive: () => boolean;
-                isZero: () => boolean;
-                lessThan: (other: string | number | Long.Long) => boolean;
-                lt: (other: string | number | Long.Long) => boolean;
-                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-                lte: (other: string | number | Long.Long) => boolean;
-                modulo: (other: string | number | Long.Long) => Long.Long;
-                mod: (other: string | number | Long.Long) => Long.Long;
-                multiply: (multiplier: string | number | Long.Long) => Long.Long;
-                mul: (multiplier: string | number | Long.Long) => Long.Long;
-                negate: () => Long.Long;
-                neg: () => Long.Long;
-                not: () => Long.Long;
-                notEquals: (other: string | number | Long.Long) => boolean;
-                neq: (other: string | number | Long.Long) => boolean;
-                or: (other: string | number | Long.Long) => Long.Long;
-                shiftLeft: (numBits: number | Long.Long) => Long.Long;
-                shl: (numBits: number | Long.Long) => Long.Long;
-                shiftRight: (numBits: number | Long.Long) => Long.Long;
-                shr: (numBits: number | Long.Long) => Long.Long;
-                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-                shru: (numBits: number | Long.Long) => Long.Long;
-                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-                sub: (subtrahend: string | number | Long.Long) => Long.Long;
-                toInt: () => number;
-                toNumber: () => number;
-                toBytes: (le?: boolean | undefined) => number[];
-                toBytesLE: () => number[];
-                toBytesBE: () => number[];
-                toSigned: () => Long.Long;
-                toString: (radix?: number | undefined) => string;
-                toUnsigned: () => Long.Long;
-                xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["message"]["sourceTxIndex"], keyof Long.Long>, never>) | undefined;
-        } & Record<Exclude<keyof I["message"], keyof GeneralMessage>, never>) | undefined;
-    } & Record<Exclude<keyof I, "message">, never>>(object: I): MessageResponse;
+    create<I extends Exact<DeepPartial<MessageResponse>, I>>(base?: I): MessageResponse;
+    fromPartial<I extends Exact<DeepPartial<MessageResponse>, I>>(object: I): MessageResponse;
 };
 export declare const ParamsRequest: {
+    $type: "axelar.nexus.v1beta1.ParamsRequest";
     encode(_: ParamsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ParamsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): ParamsRequest;
     fromJSON(_: any): ParamsRequest;
     toJSON(_: ParamsRequest): unknown;
-    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): ParamsRequest;
+    create<I extends Exact<DeepPartial<ParamsRequest>, I>>(base?: I): ParamsRequest;
+    fromPartial<I extends Exact<DeepPartial<ParamsRequest>, I>>(_: I): ParamsRequest;
 };
 export declare const ParamsResponse: {
+    $type: "axelar.nexus.v1beta1.ParamsResponse";
     encode(message: ParamsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ParamsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): ParamsResponse;
     fromJSON(object: any): ParamsResponse;
     toJSON(message: ParamsResponse): unknown;
-    fromPartial<I extends {
-        params?: {
-            chainActivationThreshold?: {
-                numerator?: string | number | Long.Long | undefined;
-                denominator?: string | number | Long.Long | undefined;
-            } | undefined;
-            chainMaintainerMissingVoteThreshold?: {
-                numerator?: string | number | Long.Long | undefined;
-                denominator?: string | number | Long.Long | undefined;
-            } | undefined;
-            chainMaintainerIncorrectVoteThreshold?: {
-                numerator?: string | number | Long.Long | undefined;
-                denominator?: string | number | Long.Long | undefined;
-            } | undefined;
-            chainMaintainerCheckWindow?: number | undefined;
-            gateway?: Uint8Array | undefined;
-            endBlockerLimit?: string | number | Long.Long | undefined;
-        } | undefined;
-    } & {
-        params?: ({
-            chainActivationThreshold?: {
-                numerator?: string | number | Long.Long | undefined;
-                denominator?: string | number | Long.Long | undefined;
-            } | undefined;
-            chainMaintainerMissingVoteThreshold?: {
-                numerator?: string | number | Long.Long | undefined;
-                denominator?: string | number | Long.Long | undefined;
-            } | undefined;
-            chainMaintainerIncorrectVoteThreshold?: {
-                numerator?: string | number | Long.Long | undefined;
-                denominator?: string | number | Long.Long | undefined;
-            } | undefined;
-            chainMaintainerCheckWindow?: number | undefined;
-            gateway?: Uint8Array | undefined;
-            endBlockerLimit?: string | number | Long.Long | undefined;
-        } & {
-            chainActivationThreshold?: ({
-                numerator?: string | number | Long.Long | undefined;
-                denominator?: string | number | Long.Long | undefined;
-            } & {
-                numerator?: string | number | (Long.Long & {
-                    high: number;
-                    low: number;
-                    unsigned: boolean;
-                    add: (addend: string | number | Long.Long) => Long.Long;
-                    and: (other: string | number | Long.Long) => Long.Long;
-                    compare: (other: string | number | Long.Long) => number;
-                    comp: (other: string | number | Long.Long) => number;
-                    divide: (divisor: string | number | Long.Long) => Long.Long;
-                    div: (divisor: string | number | Long.Long) => Long.Long;
-                    equals: (other: string | number | Long.Long) => boolean;
-                    eq: (other: string | number | Long.Long) => boolean;
-                    getHighBits: () => number;
-                    getHighBitsUnsigned: () => number;
-                    getLowBits: () => number;
-                    getLowBitsUnsigned: () => number;
-                    getNumBitsAbs: () => number;
-                    greaterThan: (other: string | number | Long.Long) => boolean;
-                    gt: (other: string | number | Long.Long) => boolean;
-                    greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-                    gte: (other: string | number | Long.Long) => boolean;
-                    isEven: () => boolean;
-                    isNegative: () => boolean;
-                    isOdd: () => boolean;
-                    isPositive: () => boolean;
-                    isZero: () => boolean;
-                    lessThan: (other: string | number | Long.Long) => boolean;
-                    lt: (other: string | number | Long.Long) => boolean;
-                    lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-                    lte: (other: string | number | Long.Long) => boolean;
-                    modulo: (other: string | number | Long.Long) => Long.Long;
-                    mod: (other: string | number | Long.Long) => Long.Long;
-                    multiply: (multiplier: string | number | Long.Long) => Long.Long;
-                    mul: (multiplier: string | number | Long.Long) => Long.Long;
-                    negate: () => Long.Long;
-                    neg: () => Long.Long;
-                    not: () => Long.Long;
-                    notEquals: (other: string | number | Long.Long) => boolean;
-                    neq: (other: string | number | Long.Long) => boolean;
-                    or: (other: string | number | Long.Long) => Long.Long;
-                    shiftLeft: (numBits: number | Long.Long) => Long.Long;
-                    shl: (numBits: number | Long.Long) => Long.Long;
-                    shiftRight: (numBits: number | Long.Long) => Long.Long;
-                    shr: (numBits: number | Long.Long) => Long.Long;
-                    shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-                    shru: (numBits: number | Long.Long) => Long.Long;
-                    subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-                    sub: (subtrahend: string | number | Long.Long) => Long.Long;
-                    toInt: () => number;
-                    toNumber: () => number;
-                    toBytes: (le?: boolean | undefined) => number[];
-                    toBytesLE: () => number[];
-                    toBytesBE: () => number[];
-                    toSigned: () => Long.Long;
-                    toString: (radix?: number | undefined) => string;
-                    toUnsigned: () => Long.Long;
-                    xor: (other: string | number | Long.Long) => Long.Long;
-                } & Record<Exclude<keyof I["params"]["chainActivationThreshold"]["numerator"], keyof Long.Long>, never>) | undefined;
-                denominator?: string | number | (Long.Long & {
-                    high: number;
-                    low: number;
-                    unsigned: boolean;
-                    add: (addend: string | number | Long.Long) => Long.Long;
-                    and: (other: string | number | Long.Long) => Long.Long;
-                    compare: (other: string | number | Long.Long) => number;
-                    comp: (other: string | number | Long.Long) => number;
-                    divide: (divisor: string | number | Long.Long) => Long.Long;
-                    div: (divisor: string | number | Long.Long) => Long.Long;
-                    equals: (other: string | number | Long.Long) => boolean;
-                    eq: (other: string | number | Long.Long) => boolean;
-                    getHighBits: () => number;
-                    getHighBitsUnsigned: () => number;
-                    getLowBits: () => number;
-                    getLowBitsUnsigned: () => number;
-                    getNumBitsAbs: () => number;
-                    greaterThan: (other: string | number | Long.Long) => boolean;
-                    gt: (other: string | number | Long.Long) => boolean;
-                    greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-                    gte: (other: string | number | Long.Long) => boolean;
-                    isEven: () => boolean;
-                    isNegative: () => boolean;
-                    isOdd: () => boolean;
-                    isPositive: () => boolean;
-                    isZero: () => boolean;
-                    lessThan: (other: string | number | Long.Long) => boolean;
-                    lt: (other: string | number | Long.Long) => boolean;
-                    lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-                    lte: (other: string | number | Long.Long) => boolean;
-                    modulo: (other: string | number | Long.Long) => Long.Long;
-                    mod: (other: string | number | Long.Long) => Long.Long;
-                    multiply: (multiplier: string | number | Long.Long) => Long.Long;
-                    mul: (multiplier: string | number | Long.Long) => Long.Long;
-                    negate: () => Long.Long;
-                    neg: () => Long.Long;
-                    not: () => Long.Long;
-                    notEquals: (other: string | number | Long.Long) => boolean;
-                    neq: (other: string | number | Long.Long) => boolean;
-                    or: (other: string | number | Long.Long) => Long.Long;
-                    shiftLeft: (numBits: number | Long.Long) => Long.Long;
-                    shl: (numBits: number | Long.Long) => Long.Long;
-                    shiftRight: (numBits: number | Long.Long) => Long.Long;
-                    shr: (numBits: number | Long.Long) => Long.Long;
-                    shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-                    shru: (numBits: number | Long.Long) => Long.Long;
-                    subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-                    sub: (subtrahend: string | number | Long.Long) => Long.Long;
-                    toInt: () => number;
-                    toNumber: () => number;
-                    toBytes: (le?: boolean | undefined) => number[];
-                    toBytesLE: () => number[];
-                    toBytesBE: () => number[];
-                    toSigned: () => Long.Long;
-                    toString: (radix?: number | undefined) => string;
-                    toUnsigned: () => Long.Long;
-                    xor: (other: string | number | Long.Long) => Long.Long;
-                } & Record<Exclude<keyof I["params"]["chainActivationThreshold"]["denominator"], keyof Long.Long>, never>) | undefined;
-            } & Record<Exclude<keyof I["params"]["chainActivationThreshold"], keyof import("../../utils/v1beta1/threshold").Threshold>, never>) | undefined;
-            chainMaintainerMissingVoteThreshold?: ({
-                numerator?: string | number | Long.Long | undefined;
-                denominator?: string | number | Long.Long | undefined;
-            } & {
-                numerator?: string | number | (Long.Long & {
-                    high: number;
-                    low: number;
-                    unsigned: boolean;
-                    add: (addend: string | number | Long.Long) => Long.Long;
-                    and: (other: string | number | Long.Long) => Long.Long;
-                    compare: (other: string | number | Long.Long) => number;
-                    comp: (other: string | number | Long.Long) => number;
-                    divide: (divisor: string | number | Long.Long) => Long.Long;
-                    div: (divisor: string | number | Long.Long) => Long.Long;
-                    equals: (other: string | number | Long.Long) => boolean;
-                    eq: (other: string | number | Long.Long) => boolean;
-                    getHighBits: () => number;
-                    getHighBitsUnsigned: () => number;
-                    getLowBits: () => number;
-                    getLowBitsUnsigned: () => number;
-                    getNumBitsAbs: () => number;
-                    greaterThan: (other: string | number | Long.Long) => boolean;
-                    gt: (other: string | number | Long.Long) => boolean;
-                    greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-                    gte: (other: string | number | Long.Long) => boolean;
-                    isEven: () => boolean;
-                    isNegative: () => boolean;
-                    isOdd: () => boolean;
-                    isPositive: () => boolean;
-                    isZero: () => boolean;
-                    lessThan: (other: string | number | Long.Long) => boolean;
-                    lt: (other: string | number | Long.Long) => boolean;
-                    lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-                    lte: (other: string | number | Long.Long) => boolean;
-                    modulo: (other: string | number | Long.Long) => Long.Long;
-                    mod: (other: string | number | Long.Long) => Long.Long;
-                    multiply: (multiplier: string | number | Long.Long) => Long.Long;
-                    mul: (multiplier: string | number | Long.Long) => Long.Long;
-                    negate: () => Long.Long;
-                    neg: () => Long.Long;
-                    not: () => Long.Long;
-                    notEquals: (other: string | number | Long.Long) => boolean;
-                    neq: (other: string | number | Long.Long) => boolean;
-                    or: (other: string | number | Long.Long) => Long.Long;
-                    shiftLeft: (numBits: number | Long.Long) => Long.Long;
-                    shl: (numBits: number | Long.Long) => Long.Long;
-                    shiftRight: (numBits: number | Long.Long) => Long.Long;
-                    shr: (numBits: number | Long.Long) => Long.Long;
-                    shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-                    shru: (numBits: number | Long.Long) => Long.Long;
-                    subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-                    sub: (subtrahend: string | number | Long.Long) => Long.Long;
-                    toInt: () => number;
-                    toNumber: () => number;
-                    toBytes: (le?: boolean | undefined) => number[];
-                    toBytesLE: () => number[];
-                    toBytesBE: () => number[];
-                    toSigned: () => Long.Long;
-                    toString: (radix?: number | undefined) => string;
-                    toUnsigned: () => Long.Long;
-                    xor: (other: string | number | Long.Long) => Long.Long;
-                } & Record<Exclude<keyof I["params"]["chainMaintainerMissingVoteThreshold"]["numerator"], keyof Long.Long>, never>) | undefined;
-                denominator?: string | number | (Long.Long & {
-                    high: number;
-                    low: number;
-                    unsigned: boolean;
-                    add: (addend: string | number | Long.Long) => Long.Long;
-                    and: (other: string | number | Long.Long) => Long.Long;
-                    compare: (other: string | number | Long.Long) => number;
-                    comp: (other: string | number | Long.Long) => number;
-                    divide: (divisor: string | number | Long.Long) => Long.Long;
-                    div: (divisor: string | number | Long.Long) => Long.Long;
-                    equals: (other: string | number | Long.Long) => boolean;
-                    eq: (other: string | number | Long.Long) => boolean;
-                    getHighBits: () => number;
-                    getHighBitsUnsigned: () => number;
-                    getLowBits: () => number;
-                    getLowBitsUnsigned: () => number;
-                    getNumBitsAbs: () => number;
-                    greaterThan: (other: string | number | Long.Long) => boolean;
-                    gt: (other: string | number | Long.Long) => boolean;
-                    greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-                    gte: (other: string | number | Long.Long) => boolean;
-                    isEven: () => boolean;
-                    isNegative: () => boolean;
-                    isOdd: () => boolean;
-                    isPositive: () => boolean;
-                    isZero: () => boolean;
-                    lessThan: (other: string | number | Long.Long) => boolean;
-                    lt: (other: string | number | Long.Long) => boolean;
-                    lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-                    lte: (other: string | number | Long.Long) => boolean;
-                    modulo: (other: string | number | Long.Long) => Long.Long;
-                    mod: (other: string | number | Long.Long) => Long.Long;
-                    multiply: (multiplier: string | number | Long.Long) => Long.Long;
-                    mul: (multiplier: string | number | Long.Long) => Long.Long;
-                    negate: () => Long.Long;
-                    neg: () => Long.Long;
-                    not: () => Long.Long;
-                    notEquals: (other: string | number | Long.Long) => boolean;
-                    neq: (other: string | number | Long.Long) => boolean;
-                    or: (other: string | number | Long.Long) => Long.Long;
-                    shiftLeft: (numBits: number | Long.Long) => Long.Long;
-                    shl: (numBits: number | Long.Long) => Long.Long;
-                    shiftRight: (numBits: number | Long.Long) => Long.Long;
-                    shr: (numBits: number | Long.Long) => Long.Long;
-                    shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-                    shru: (numBits: number | Long.Long) => Long.Long;
-                    subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-                    sub: (subtrahend: string | number | Long.Long) => Long.Long;
-                    toInt: () => number;
-                    toNumber: () => number;
-                    toBytes: (le?: boolean | undefined) => number[];
-                    toBytesLE: () => number[];
-                    toBytesBE: () => number[];
-                    toSigned: () => Long.Long;
-                    toString: (radix?: number | undefined) => string;
-                    toUnsigned: () => Long.Long;
-                    xor: (other: string | number | Long.Long) => Long.Long;
-                } & Record<Exclude<keyof I["params"]["chainMaintainerMissingVoteThreshold"]["denominator"], keyof Long.Long>, never>) | undefined;
-            } & Record<Exclude<keyof I["params"]["chainMaintainerMissingVoteThreshold"], keyof import("../../utils/v1beta1/threshold").Threshold>, never>) | undefined;
-            chainMaintainerIncorrectVoteThreshold?: ({
-                numerator?: string | number | Long.Long | undefined;
-                denominator?: string | number | Long.Long | undefined;
-            } & {
-                numerator?: string | number | (Long.Long & {
-                    high: number;
-                    low: number;
-                    unsigned: boolean;
-                    add: (addend: string | number | Long.Long) => Long.Long;
-                    and: (other: string | number | Long.Long) => Long.Long;
-                    compare: (other: string | number | Long.Long) => number;
-                    comp: (other: string | number | Long.Long) => number;
-                    divide: (divisor: string | number | Long.Long) => Long.Long;
-                    div: (divisor: string | number | Long.Long) => Long.Long;
-                    equals: (other: string | number | Long.Long) => boolean;
-                    eq: (other: string | number | Long.Long) => boolean;
-                    getHighBits: () => number;
-                    getHighBitsUnsigned: () => number;
-                    getLowBits: () => number;
-                    getLowBitsUnsigned: () => number;
-                    getNumBitsAbs: () => number;
-                    greaterThan: (other: string | number | Long.Long) => boolean;
-                    gt: (other: string | number | Long.Long) => boolean;
-                    greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-                    gte: (other: string | number | Long.Long) => boolean;
-                    isEven: () => boolean;
-                    isNegative: () => boolean;
-                    isOdd: () => boolean;
-                    isPositive: () => boolean;
-                    isZero: () => boolean;
-                    lessThan: (other: string | number | Long.Long) => boolean;
-                    lt: (other: string | number | Long.Long) => boolean;
-                    lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-                    lte: (other: string | number | Long.Long) => boolean;
-                    modulo: (other: string | number | Long.Long) => Long.Long;
-                    mod: (other: string | number | Long.Long) => Long.Long;
-                    multiply: (multiplier: string | number | Long.Long) => Long.Long;
-                    mul: (multiplier: string | number | Long.Long) => Long.Long;
-                    negate: () => Long.Long;
-                    neg: () => Long.Long;
-                    not: () => Long.Long;
-                    notEquals: (other: string | number | Long.Long) => boolean;
-                    neq: (other: string | number | Long.Long) => boolean;
-                    or: (other: string | number | Long.Long) => Long.Long;
-                    shiftLeft: (numBits: number | Long.Long) => Long.Long;
-                    shl: (numBits: number | Long.Long) => Long.Long;
-                    shiftRight: (numBits: number | Long.Long) => Long.Long;
-                    shr: (numBits: number | Long.Long) => Long.Long;
-                    shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-                    shru: (numBits: number | Long.Long) => Long.Long;
-                    subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-                    sub: (subtrahend: string | number | Long.Long) => Long.Long;
-                    toInt: () => number;
-                    toNumber: () => number;
-                    toBytes: (le?: boolean | undefined) => number[];
-                    toBytesLE: () => number[];
-                    toBytesBE: () => number[];
-                    toSigned: () => Long.Long;
-                    toString: (radix?: number | undefined) => string;
-                    toUnsigned: () => Long.Long;
-                    xor: (other: string | number | Long.Long) => Long.Long;
-                } & Record<Exclude<keyof I["params"]["chainMaintainerIncorrectVoteThreshold"]["numerator"], keyof Long.Long>, never>) | undefined;
-                denominator?: string | number | (Long.Long & {
-                    high: number;
-                    low: number;
-                    unsigned: boolean;
-                    add: (addend: string | number | Long.Long) => Long.Long;
-                    and: (other: string | number | Long.Long) => Long.Long;
-                    compare: (other: string | number | Long.Long) => number;
-                    comp: (other: string | number | Long.Long) => number;
-                    divide: (divisor: string | number | Long.Long) => Long.Long;
-                    div: (divisor: string | number | Long.Long) => Long.Long;
-                    equals: (other: string | number | Long.Long) => boolean;
-                    eq: (other: string | number | Long.Long) => boolean;
-                    getHighBits: () => number;
-                    getHighBitsUnsigned: () => number;
-                    getLowBits: () => number;
-                    getLowBitsUnsigned: () => number;
-                    getNumBitsAbs: () => number;
-                    greaterThan: (other: string | number | Long.Long) => boolean;
-                    gt: (other: string | number | Long.Long) => boolean;
-                    greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-                    gte: (other: string | number | Long.Long) => boolean;
-                    isEven: () => boolean;
-                    isNegative: () => boolean;
-                    isOdd: () => boolean;
-                    isPositive: () => boolean;
-                    isZero: () => boolean;
-                    lessThan: (other: string | number | Long.Long) => boolean;
-                    lt: (other: string | number | Long.Long) => boolean;
-                    lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-                    lte: (other: string | number | Long.Long) => boolean;
-                    modulo: (other: string | number | Long.Long) => Long.Long;
-                    mod: (other: string | number | Long.Long) => Long.Long;
-                    multiply: (multiplier: string | number | Long.Long) => Long.Long;
-                    mul: (multiplier: string | number | Long.Long) => Long.Long;
-                    negate: () => Long.Long;
-                    neg: () => Long.Long;
-                    not: () => Long.Long;
-                    notEquals: (other: string | number | Long.Long) => boolean;
-                    neq: (other: string | number | Long.Long) => boolean;
-                    or: (other: string | number | Long.Long) => Long.Long;
-                    shiftLeft: (numBits: number | Long.Long) => Long.Long;
-                    shl: (numBits: number | Long.Long) => Long.Long;
-                    shiftRight: (numBits: number | Long.Long) => Long.Long;
-                    shr: (numBits: number | Long.Long) => Long.Long;
-                    shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-                    shru: (numBits: number | Long.Long) => Long.Long;
-                    subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-                    sub: (subtrahend: string | number | Long.Long) => Long.Long;
-                    toInt: () => number;
-                    toNumber: () => number;
-                    toBytes: (le?: boolean | undefined) => number[];
-                    toBytesLE: () => number[];
-                    toBytesBE: () => number[];
-                    toSigned: () => Long.Long;
-                    toString: (radix?: number | undefined) => string;
-                    toUnsigned: () => Long.Long;
-                    xor: (other: string | number | Long.Long) => Long.Long;
-                } & Record<Exclude<keyof I["params"]["chainMaintainerIncorrectVoteThreshold"]["denominator"], keyof Long.Long>, never>) | undefined;
-            } & Record<Exclude<keyof I["params"]["chainMaintainerIncorrectVoteThreshold"], keyof import("../../utils/v1beta1/threshold").Threshold>, never>) | undefined;
-            chainMaintainerCheckWindow?: number | undefined;
-            gateway?: Uint8Array | undefined;
-            endBlockerLimit?: string | number | (Long.Long & {
-                high: number;
-                low: number;
-                unsigned: boolean;
-                add: (addend: string | number | Long.Long) => Long.Long;
-                and: (other: string | number | Long.Long) => Long.Long;
-                compare: (other: string | number | Long.Long) => number;
-                comp: (other: string | number | Long.Long) => number;
-                divide: (divisor: string | number | Long.Long) => Long.Long;
-                div: (divisor: string | number | Long.Long) => Long.Long;
-                equals: (other: string | number | Long.Long) => boolean;
-                eq: (other: string | number | Long.Long) => boolean;
-                getHighBits: () => number;
-                getHighBitsUnsigned: () => number;
-                getLowBits: () => number;
-                getLowBitsUnsigned: () => number;
-                getNumBitsAbs: () => number;
-                greaterThan: (other: string | number | Long.Long) => boolean;
-                gt: (other: string | number | Long.Long) => boolean;
-                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-                gte: (other: string | number | Long.Long) => boolean;
-                isEven: () => boolean;
-                isNegative: () => boolean;
-                isOdd: () => boolean;
-                isPositive: () => boolean;
-                isZero: () => boolean;
-                lessThan: (other: string | number | Long.Long) => boolean;
-                lt: (other: string | number | Long.Long) => boolean;
-                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-                lte: (other: string | number | Long.Long) => boolean;
-                modulo: (other: string | number | Long.Long) => Long.Long;
-                mod: (other: string | number | Long.Long) => Long.Long;
-                multiply: (multiplier: string | number | Long.Long) => Long.Long;
-                mul: (multiplier: string | number | Long.Long) => Long.Long;
-                negate: () => Long.Long;
-                neg: () => Long.Long;
-                not: () => Long.Long;
-                notEquals: (other: string | number | Long.Long) => boolean;
-                neq: (other: string | number | Long.Long) => boolean;
-                or: (other: string | number | Long.Long) => Long.Long;
-                shiftLeft: (numBits: number | Long.Long) => Long.Long;
-                shl: (numBits: number | Long.Long) => Long.Long;
-                shiftRight: (numBits: number | Long.Long) => Long.Long;
-                shr: (numBits: number | Long.Long) => Long.Long;
-                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-                shru: (numBits: number | Long.Long) => Long.Long;
-                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-                sub: (subtrahend: string | number | Long.Long) => Long.Long;
-                toInt: () => number;
-                toNumber: () => number;
-                toBytes: (le?: boolean | undefined) => number[];
-                toBytesLE: () => number[];
-                toBytesBE: () => number[];
-                toSigned: () => Long.Long;
-                toString: (radix?: number | undefined) => string;
-                toUnsigned: () => Long.Long;
-                xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["params"]["endBlockerLimit"], keyof Long.Long>, never>) | undefined;
-        } & Record<Exclude<keyof I["params"], keyof Params>, never>) | undefined;
-    } & Record<Exclude<keyof I, "params">, never>>(object: I): ParamsResponse;
+    create<I extends Exact<DeepPartial<ParamsResponse>, I>>(base?: I): ParamsResponse;
+    fromPartial<I extends Exact<DeepPartial<ParamsResponse>, I>>(object: I): ParamsResponse;
 };
-declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
-    [K in keyof T]?: DeepPartial<T[K]>;
+export declare const LinkDepositEnabledRequest: {
+    $type: "axelar.nexus.v1beta1.LinkDepositEnabledRequest";
+    encode(_: LinkDepositEnabledRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): LinkDepositEnabledRequest;
+    fromJSON(_: any): LinkDepositEnabledRequest;
+    toJSON(_: LinkDepositEnabledRequest): unknown;
+    create<I extends Exact<DeepPartial<LinkDepositEnabledRequest>, I>>(base?: I): LinkDepositEnabledRequest;
+    fromPartial<I extends Exact<DeepPartial<LinkDepositEnabledRequest>, I>>(_: I): LinkDepositEnabledRequest;
+};
+export declare const LinkDepositEnabledResponse: {
+    $type: "axelar.nexus.v1beta1.LinkDepositEnabledResponse";
+    encode(message: LinkDepositEnabledResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): LinkDepositEnabledResponse;
+    fromJSON(object: any): LinkDepositEnabledResponse;
+    toJSON(message: LinkDepositEnabledResponse): unknown;
+    create<I extends Exact<DeepPartial<LinkDepositEnabledResponse>, I>>(base?: I): LinkDepositEnabledResponse;
+    fromPartial<I extends Exact<DeepPartial<LinkDepositEnabledResponse>, I>>(object: I): LinkDepositEnabledResponse;
+};
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+    [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]>;
 } : Partial<T>;
-declare type KeysOfUnion<T> = T extends T ? keyof T : never;
-export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
-} & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
+} & {
+    [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never;
+};
 export {};

@@ -1,271 +1,247 @@
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
+import _m0 from "protobufjs/minimal";
+import { Params } from "./params";
 export declare const protobufPackage = "axelar.multisig.v1beta1";
 export interface StartKeygenRequest {
+    $type: "axelar.multisig.v1beta1.StartKeygenRequest";
+    sender: string;
+    keyId: string;
     /**
-     * Deprecated: This is the original "sender" field, but was originally declared as a string,
-     * rather than a byte array.
+     * DEPRECATED: This field is deprecated but must remain to ensure backward
+     * compatibility. Removing this field would break decoding of historical
+     * transactions. DO NOT use in new code.
      *
      * @deprecated
      */
-    senderStr: string;
-    keyId: string;
-    /** New "sender" field, using the appropriate type */
-    sender: Uint8Array;
+    senderDeprecated: Buffer;
 }
 export interface StartKeygenResponse {
+    $type: "axelar.multisig.v1beta1.StartKeygenResponse";
 }
 export interface SubmitPubKeyRequest {
+    $type: "axelar.multisig.v1beta1.SubmitPubKeyRequest";
+    sender: string;
+    keyId: string;
+    pubKey: Buffer;
+    signature: Buffer;
     /**
-     * Deprecated: This is the original "sender" field, but was originally declared as a string,
-     * rather than a byte array.
+     * DEPRECATED: This field is deprecated but must remain to ensure backward
+     * compatibility. Removing this field would break decoding of historical
+     * transactions. DO NOT use in new code.
      *
      * @deprecated
      */
-    senderStr: string;
-    keyId: string;
-    pubKey: Uint8Array;
-    signature: Uint8Array;
-    /** New "sender" field, using the appropriate type */
-    sender: Uint8Array;
+    senderDeprecated: Buffer;
 }
 export interface SubmitPubKeyResponse {
+    $type: "axelar.multisig.v1beta1.SubmitPubKeyResponse";
 }
 export interface SubmitSignatureRequest {
+    $type: "axelar.multisig.v1beta1.SubmitSignatureRequest";
+    sender: string;
+    sigId: Long;
+    signature: Buffer;
     /**
-     * Deprecated: This is the original "sender" field, but was originally declared as a string,
-     * rather than a byte array.
+     * DEPRECATED: This field is deprecated but must remain to ensure backward
+     * compatibility. Removing this field would break decoding of historical
+     * transactions. DO NOT use in new code.
      *
      * @deprecated
      */
-    senderStr: string;
-    sigId: Long;
-    signature: Uint8Array;
-    /** New "sender" field, using the appropriate type */
-    sender: Uint8Array;
+    senderDeprecated: Buffer;
 }
 export interface SubmitSignatureResponse {
+    $type: "axelar.multisig.v1beta1.SubmitSignatureResponse";
 }
 export interface RotateKeyRequest {
+    $type: "axelar.multisig.v1beta1.RotateKeyRequest";
+    sender: string;
+    chain: string;
+    keyId: string;
     /**
-     * Deprecated: This is the original "sender" field, but was originally declared as a string,
-     * rather than a byte array.
+     * DEPRECATED: This field is deprecated but must remain to ensure backward
+     * compatibility. Removing this field would break decoding of historical
+     * transactions. DO NOT use in new code.
      *
      * @deprecated
      */
-    senderStr: string;
-    chain: string;
-    keyId: string;
-    /** New "sender" field, using the appropriate type */
-    sender: Uint8Array;
+    senderDeprecated: Buffer;
 }
 export interface RotateKeyResponse {
+    $type: "axelar.multisig.v1beta1.RotateKeyResponse";
 }
 export interface KeygenOptOutRequest {
-    sender: Uint8Array;
+    $type: "axelar.multisig.v1beta1.KeygenOptOutRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward
+     * compatibility. Removing this field would break decoding of historical
+     * transactions. DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
+    sender: string;
 }
 export interface KeygenOptOutResponse {
+    $type: "axelar.multisig.v1beta1.KeygenOptOutResponse";
 }
 export interface KeygenOptInRequest {
-    sender: Uint8Array;
+    $type: "axelar.multisig.v1beta1.KeygenOptInRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward
+     * compatibility. Removing this field would break decoding of historical
+     * transactions. DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
+    sender: string;
 }
 export interface KeygenOptInResponse {
+    $type: "axelar.multisig.v1beta1.KeygenOptInResponse";
+}
+export interface UpdateParamsRequest {
+    $type: "axelar.multisig.v1beta1.UpdateParamsRequest";
+    authority: string;
+    params?: Params | undefined;
+}
+export interface UpdateParamsResponse {
+    $type: "axelar.multisig.v1beta1.UpdateParamsResponse";
 }
 export declare const StartKeygenRequest: {
+    $type: "axelar.multisig.v1beta1.StartKeygenRequest";
     encode(message: StartKeygenRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): StartKeygenRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): StartKeygenRequest;
     fromJSON(object: any): StartKeygenRequest;
     toJSON(message: StartKeygenRequest): unknown;
-    fromPartial<I extends {
-        senderStr?: string | undefined;
-        keyId?: string | undefined;
-        sender?: Uint8Array | undefined;
-    } & {
-        senderStr?: string | undefined;
-        keyId?: string | undefined;
-        sender?: Uint8Array | undefined;
-    } & Record<Exclude<keyof I, keyof StartKeygenRequest>, never>>(object: I): StartKeygenRequest;
+    create<I extends Exact<DeepPartial<StartKeygenRequest>, I>>(base?: I): StartKeygenRequest;
+    fromPartial<I extends Exact<DeepPartial<StartKeygenRequest>, I>>(object: I): StartKeygenRequest;
 };
 export declare const StartKeygenResponse: {
+    $type: "axelar.multisig.v1beta1.StartKeygenResponse";
     encode(_: StartKeygenResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): StartKeygenResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): StartKeygenResponse;
     fromJSON(_: any): StartKeygenResponse;
     toJSON(_: StartKeygenResponse): unknown;
-    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): StartKeygenResponse;
+    create<I extends Exact<DeepPartial<StartKeygenResponse>, I>>(base?: I): StartKeygenResponse;
+    fromPartial<I extends Exact<DeepPartial<StartKeygenResponse>, I>>(_: I): StartKeygenResponse;
 };
 export declare const SubmitPubKeyRequest: {
+    $type: "axelar.multisig.v1beta1.SubmitPubKeyRequest";
     encode(message: SubmitPubKeyRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): SubmitPubKeyRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): SubmitPubKeyRequest;
     fromJSON(object: any): SubmitPubKeyRequest;
     toJSON(message: SubmitPubKeyRequest): unknown;
-    fromPartial<I extends {
-        senderStr?: string | undefined;
-        keyId?: string | undefined;
-        pubKey?: Uint8Array | undefined;
-        signature?: Uint8Array | undefined;
-        sender?: Uint8Array | undefined;
-    } & {
-        senderStr?: string | undefined;
-        keyId?: string | undefined;
-        pubKey?: Uint8Array | undefined;
-        signature?: Uint8Array | undefined;
-        sender?: Uint8Array | undefined;
-    } & Record<Exclude<keyof I, keyof SubmitPubKeyRequest>, never>>(object: I): SubmitPubKeyRequest;
+    create<I extends Exact<DeepPartial<SubmitPubKeyRequest>, I>>(base?: I): SubmitPubKeyRequest;
+    fromPartial<I extends Exact<DeepPartial<SubmitPubKeyRequest>, I>>(object: I): SubmitPubKeyRequest;
 };
 export declare const SubmitPubKeyResponse: {
+    $type: "axelar.multisig.v1beta1.SubmitPubKeyResponse";
     encode(_: SubmitPubKeyResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): SubmitPubKeyResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): SubmitPubKeyResponse;
     fromJSON(_: any): SubmitPubKeyResponse;
     toJSON(_: SubmitPubKeyResponse): unknown;
-    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): SubmitPubKeyResponse;
+    create<I extends Exact<DeepPartial<SubmitPubKeyResponse>, I>>(base?: I): SubmitPubKeyResponse;
+    fromPartial<I extends Exact<DeepPartial<SubmitPubKeyResponse>, I>>(_: I): SubmitPubKeyResponse;
 };
 export declare const SubmitSignatureRequest: {
+    $type: "axelar.multisig.v1beta1.SubmitSignatureRequest";
     encode(message: SubmitSignatureRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): SubmitSignatureRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): SubmitSignatureRequest;
     fromJSON(object: any): SubmitSignatureRequest;
     toJSON(message: SubmitSignatureRequest): unknown;
-    fromPartial<I extends {
-        senderStr?: string | undefined;
-        sigId?: string | number | Long.Long | undefined;
-        signature?: Uint8Array | undefined;
-        sender?: Uint8Array | undefined;
-    } & {
-        senderStr?: string | undefined;
-        sigId?: string | number | (Long.Long & {
-            high: number;
-            low: number;
-            unsigned: boolean;
-            add: (addend: string | number | Long.Long) => Long.Long;
-            and: (other: string | number | Long.Long) => Long.Long;
-            compare: (other: string | number | Long.Long) => number;
-            comp: (other: string | number | Long.Long) => number;
-            divide: (divisor: string | number | Long.Long) => Long.Long;
-            div: (divisor: string | number | Long.Long) => Long.Long;
-            equals: (other: string | number | Long.Long) => boolean;
-            eq: (other: string | number | Long.Long) => boolean;
-            getHighBits: () => number;
-            getHighBitsUnsigned: () => number;
-            getLowBits: () => number;
-            getLowBitsUnsigned: () => number;
-            getNumBitsAbs: () => number;
-            greaterThan: (other: string | number | Long.Long) => boolean;
-            gt: (other: string | number | Long.Long) => boolean;
-            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-            gte: (other: string | number | Long.Long) => boolean;
-            isEven: () => boolean;
-            isNegative: () => boolean;
-            isOdd: () => boolean;
-            isPositive: () => boolean;
-            isZero: () => boolean;
-            lessThan: (other: string | number | Long.Long) => boolean;
-            lt: (other: string | number | Long.Long) => boolean;
-            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-            lte: (other: string | number | Long.Long) => boolean;
-            modulo: (other: string | number | Long.Long) => Long.Long;
-            mod: (other: string | number | Long.Long) => Long.Long;
-            multiply: (multiplier: string | number | Long.Long) => Long.Long;
-            mul: (multiplier: string | number | Long.Long) => Long.Long;
-            negate: () => Long.Long;
-            neg: () => Long.Long;
-            not: () => Long.Long;
-            notEquals: (other: string | number | Long.Long) => boolean;
-            neq: (other: string | number | Long.Long) => boolean;
-            or: (other: string | number | Long.Long) => Long.Long;
-            shiftLeft: (numBits: number | Long.Long) => Long.Long;
-            shl: (numBits: number | Long.Long) => Long.Long;
-            shiftRight: (numBits: number | Long.Long) => Long.Long;
-            shr: (numBits: number | Long.Long) => Long.Long;
-            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-            shru: (numBits: number | Long.Long) => Long.Long;
-            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-            sub: (subtrahend: string | number | Long.Long) => Long.Long;
-            toInt: () => number;
-            toNumber: () => number;
-            toBytes: (le?: boolean | undefined) => number[];
-            toBytesLE: () => number[];
-            toBytesBE: () => number[];
-            toSigned: () => Long.Long;
-            toString: (radix?: number | undefined) => string;
-            toUnsigned: () => Long.Long;
-            xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["sigId"], keyof Long.Long>, never>) | undefined;
-        signature?: Uint8Array | undefined;
-        sender?: Uint8Array | undefined;
-    } & Record<Exclude<keyof I, keyof SubmitSignatureRequest>, never>>(object: I): SubmitSignatureRequest;
+    create<I extends Exact<DeepPartial<SubmitSignatureRequest>, I>>(base?: I): SubmitSignatureRequest;
+    fromPartial<I extends Exact<DeepPartial<SubmitSignatureRequest>, I>>(object: I): SubmitSignatureRequest;
 };
 export declare const SubmitSignatureResponse: {
+    $type: "axelar.multisig.v1beta1.SubmitSignatureResponse";
     encode(_: SubmitSignatureResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): SubmitSignatureResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): SubmitSignatureResponse;
     fromJSON(_: any): SubmitSignatureResponse;
     toJSON(_: SubmitSignatureResponse): unknown;
-    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): SubmitSignatureResponse;
+    create<I extends Exact<DeepPartial<SubmitSignatureResponse>, I>>(base?: I): SubmitSignatureResponse;
+    fromPartial<I extends Exact<DeepPartial<SubmitSignatureResponse>, I>>(_: I): SubmitSignatureResponse;
 };
 export declare const RotateKeyRequest: {
+    $type: "axelar.multisig.v1beta1.RotateKeyRequest";
     encode(message: RotateKeyRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): RotateKeyRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): RotateKeyRequest;
     fromJSON(object: any): RotateKeyRequest;
     toJSON(message: RotateKeyRequest): unknown;
-    fromPartial<I extends {
-        senderStr?: string | undefined;
-        chain?: string | undefined;
-        keyId?: string | undefined;
-        sender?: Uint8Array | undefined;
-    } & {
-        senderStr?: string | undefined;
-        chain?: string | undefined;
-        keyId?: string | undefined;
-        sender?: Uint8Array | undefined;
-    } & Record<Exclude<keyof I, keyof RotateKeyRequest>, never>>(object: I): RotateKeyRequest;
+    create<I extends Exact<DeepPartial<RotateKeyRequest>, I>>(base?: I): RotateKeyRequest;
+    fromPartial<I extends Exact<DeepPartial<RotateKeyRequest>, I>>(object: I): RotateKeyRequest;
 };
 export declare const RotateKeyResponse: {
+    $type: "axelar.multisig.v1beta1.RotateKeyResponse";
     encode(_: RotateKeyResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): RotateKeyResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): RotateKeyResponse;
     fromJSON(_: any): RotateKeyResponse;
     toJSON(_: RotateKeyResponse): unknown;
-    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): RotateKeyResponse;
+    create<I extends Exact<DeepPartial<RotateKeyResponse>, I>>(base?: I): RotateKeyResponse;
+    fromPartial<I extends Exact<DeepPartial<RotateKeyResponse>, I>>(_: I): RotateKeyResponse;
 };
 export declare const KeygenOptOutRequest: {
+    $type: "axelar.multisig.v1beta1.KeygenOptOutRequest";
     encode(message: KeygenOptOutRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): KeygenOptOutRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): KeygenOptOutRequest;
     fromJSON(object: any): KeygenOptOutRequest;
     toJSON(message: KeygenOptOutRequest): unknown;
-    fromPartial<I extends {
-        sender?: Uint8Array | undefined;
-    } & {
-        sender?: Uint8Array | undefined;
-    } & Record<Exclude<keyof I, "sender">, never>>(object: I): KeygenOptOutRequest;
+    create<I extends Exact<DeepPartial<KeygenOptOutRequest>, I>>(base?: I): KeygenOptOutRequest;
+    fromPartial<I extends Exact<DeepPartial<KeygenOptOutRequest>, I>>(object: I): KeygenOptOutRequest;
 };
 export declare const KeygenOptOutResponse: {
+    $type: "axelar.multisig.v1beta1.KeygenOptOutResponse";
     encode(_: KeygenOptOutResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): KeygenOptOutResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): KeygenOptOutResponse;
     fromJSON(_: any): KeygenOptOutResponse;
     toJSON(_: KeygenOptOutResponse): unknown;
-    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): KeygenOptOutResponse;
+    create<I extends Exact<DeepPartial<KeygenOptOutResponse>, I>>(base?: I): KeygenOptOutResponse;
+    fromPartial<I extends Exact<DeepPartial<KeygenOptOutResponse>, I>>(_: I): KeygenOptOutResponse;
 };
 export declare const KeygenOptInRequest: {
+    $type: "axelar.multisig.v1beta1.KeygenOptInRequest";
     encode(message: KeygenOptInRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): KeygenOptInRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): KeygenOptInRequest;
     fromJSON(object: any): KeygenOptInRequest;
     toJSON(message: KeygenOptInRequest): unknown;
-    fromPartial<I extends {
-        sender?: Uint8Array | undefined;
-    } & {
-        sender?: Uint8Array | undefined;
-    } & Record<Exclude<keyof I, "sender">, never>>(object: I): KeygenOptInRequest;
+    create<I extends Exact<DeepPartial<KeygenOptInRequest>, I>>(base?: I): KeygenOptInRequest;
+    fromPartial<I extends Exact<DeepPartial<KeygenOptInRequest>, I>>(object: I): KeygenOptInRequest;
 };
 export declare const KeygenOptInResponse: {
+    $type: "axelar.multisig.v1beta1.KeygenOptInResponse";
     encode(_: KeygenOptInResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): KeygenOptInResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): KeygenOptInResponse;
     fromJSON(_: any): KeygenOptInResponse;
     toJSON(_: KeygenOptInResponse): unknown;
-    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): KeygenOptInResponse;
+    create<I extends Exact<DeepPartial<KeygenOptInResponse>, I>>(base?: I): KeygenOptInResponse;
+    fromPartial<I extends Exact<DeepPartial<KeygenOptInResponse>, I>>(_: I): KeygenOptInResponse;
 };
-declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
-    [K in keyof T]?: DeepPartial<T[K]>;
+export declare const UpdateParamsRequest: {
+    $type: "axelar.multisig.v1beta1.UpdateParamsRequest";
+    encode(message: UpdateParamsRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): UpdateParamsRequest;
+    fromJSON(object: any): UpdateParamsRequest;
+    toJSON(message: UpdateParamsRequest): unknown;
+    create<I extends Exact<DeepPartial<UpdateParamsRequest>, I>>(base?: I): UpdateParamsRequest;
+    fromPartial<I extends Exact<DeepPartial<UpdateParamsRequest>, I>>(object: I): UpdateParamsRequest;
+};
+export declare const UpdateParamsResponse: {
+    $type: "axelar.multisig.v1beta1.UpdateParamsResponse";
+    encode(_: UpdateParamsResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): UpdateParamsResponse;
+    fromJSON(_: any): UpdateParamsResponse;
+    toJSON(_: UpdateParamsResponse): unknown;
+    create<I extends Exact<DeepPartial<UpdateParamsResponse>, I>>(base?: I): UpdateParamsResponse;
+    fromPartial<I extends Exact<DeepPartial<UpdateParamsResponse>, I>>(_: I): UpdateParamsResponse;
+};
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+    [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]>;
 } : Partial<T>;
-declare type KeysOfUnion<T> = T extends T ? keyof T : never;
-export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
-} & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
+} & {
+    [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never;
+};
 export {};

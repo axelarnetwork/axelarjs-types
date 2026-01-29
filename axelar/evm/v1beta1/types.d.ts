@@ -1,5 +1,5 @@
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
+import _m0 from "protobufjs/minimal";
 import { Any } from "../../../google/protobuf/any";
 export declare const protobufPackage = "axelar.evm.v1beta1";
 export declare enum Status {
@@ -44,6 +44,21 @@ export declare enum SigType {
 }
 export declare function sigTypeFromJSON(object: any): SigType;
 export declare function sigTypeToJSON(object: SigType): string;
+/**
+ * DEPRECATED: Removed in v0.20, reinstated in v1.3 for backward compatibility.
+ * This enum must remain to allow decoding of historical transactions.
+ * DO NOT use in new code.
+ *
+ * @deprecated
+ */
+export declare enum TransferKeyType {
+    TRANSFER_KEY_TYPE_UNSPECIFIED = 0,
+    TRANSFER_KEY_TYPE_OWNERSHIP = 1,
+    TRANSFER_KEY_TYPE_OPERATORSHIP = 2,
+    UNRECOGNIZED = -1
+}
+export declare function transferKeyTypeFromJSON(object: any): TransferKeyType;
+export declare function transferKeyTypeToJSON(object: TransferKeyType): string;
 export declare enum DepositStatus {
     DEPOSIT_STATUS_UNSPECIFIED = 0,
     DEPOSIT_STATUS_PENDING = 1,
@@ -54,12 +69,14 @@ export declare enum DepositStatus {
 export declare function depositStatusFromJSON(object: any): DepositStatus;
 export declare function depositStatusToJSON(object: DepositStatus): string;
 export interface VoteEvents {
+    $type: "axelar.evm.v1beta1.VoteEvents";
     chain: string;
     events: Event[];
 }
 export interface Event {
+    $type: "axelar.evm.v1beta1.Event";
     chain: string;
-    txId: Uint8Array;
+    txId: Buffer;
     index: Long;
     status: Event_Status;
     tokenSent?: EventTokenSent | undefined;
@@ -81,1075 +98,363 @@ export declare enum Event_Status {
 export declare function event_StatusFromJSON(object: any): Event_Status;
 export declare function event_StatusToJSON(object: Event_Status): string;
 export interface EventTokenSent {
-    sender: Uint8Array;
+    $type: "axelar.evm.v1beta1.EventTokenSent";
+    sender: Buffer;
     destinationChain: string;
     destinationAddress: string;
     symbol: string;
-    amount: Uint8Array;
+    amount: Buffer;
 }
 export interface EventContractCall {
-    sender: Uint8Array;
+    $type: "axelar.evm.v1beta1.EventContractCall";
+    sender: Buffer;
     destinationChain: string;
     contractAddress: string;
-    payloadHash: Uint8Array;
+    payloadHash: Buffer;
 }
 export interface EventContractCallWithToken {
-    sender: Uint8Array;
+    $type: "axelar.evm.v1beta1.EventContractCallWithToken";
+    sender: Buffer;
     destinationChain: string;
     contractAddress: string;
-    payloadHash: Uint8Array;
+    payloadHash: Buffer;
     symbol: string;
-    amount: Uint8Array;
+    amount: Buffer;
 }
 export interface EventTransfer {
-    to: Uint8Array;
-    amount: Uint8Array;
+    $type: "axelar.evm.v1beta1.EventTransfer";
+    to: Buffer;
+    amount: Buffer;
 }
 export interface EventTokenDeployed {
+    $type: "axelar.evm.v1beta1.EventTokenDeployed";
     symbol: string;
-    tokenAddress: Uint8Array;
+    tokenAddress: Buffer;
 }
 /** @deprecated */
 export interface EventMultisigOwnershipTransferred {
-    preOwners: Uint8Array[];
-    prevThreshold: Uint8Array;
-    newOwners: Uint8Array[];
-    newThreshold: Uint8Array;
+    $type: "axelar.evm.v1beta1.EventMultisigOwnershipTransferred";
+    preOwners: Buffer[];
+    prevThreshold: Buffer;
+    newOwners: Buffer[];
+    newThreshold: Buffer;
 }
 export interface EventMultisigOperatorshipTransferred {
-    newOperators: Uint8Array[];
-    newThreshold: Uint8Array;
-    newWeights: Uint8Array[];
+    $type: "axelar.evm.v1beta1.EventMultisigOperatorshipTransferred";
+    newOperators: Buffer[];
+    newThreshold: Buffer;
+    newWeights: Buffer[];
 }
 /** NetworkInfo describes information about a network */
 export interface NetworkInfo {
+    $type: "axelar.evm.v1beta1.NetworkInfo";
     name: string;
-    id: Uint8Array;
+    id: Buffer;
 }
 /**
  * BurnerInfo describes information required to burn token at an burner address
  * that is deposited by an user
  */
 export interface BurnerInfo {
-    burnerAddress: Uint8Array;
-    tokenAddress: Uint8Array;
+    $type: "axelar.evm.v1beta1.BurnerInfo";
+    burnerAddress: Buffer;
+    tokenAddress: Buffer;
     destinationChain: string;
     symbol: string;
     asset: string;
-    salt: Uint8Array;
+    salt: Buffer;
 }
 /** ERC20Deposit contains information for an ERC20 deposit */
 export interface ERC20Deposit {
-    txId: Uint8Array;
-    amount: Uint8Array;
+    $type: "axelar.evm.v1beta1.ERC20Deposit";
+    txId: Buffer;
+    amount: Buffer;
     asset: string;
     destinationChain: string;
-    burnerAddress: Uint8Array;
+    burnerAddress: Buffer;
     logIndex: Long;
 }
 /** ERC20TokenMetadata describes information about an ERC20 token */
 export interface ERC20TokenMetadata {
+    $type: "axelar.evm.v1beta1.ERC20TokenMetadata";
     asset: string;
-    chainId: Uint8Array;
-    details?: TokenDetails;
+    chainId: Buffer;
+    details?: TokenDetails | undefined;
     tokenAddress: string;
     txHash: string;
     status: Status;
     isExternal: boolean;
-    burnerCode: Uint8Array;
+    burnerCode: Buffer;
 }
 export interface TransactionMetadata {
-    rawTx: Uint8Array;
-    pubKey: Uint8Array;
+    $type: "axelar.evm.v1beta1.TransactionMetadata";
+    rawTx: Buffer;
+    pubKey: Buffer;
 }
 export interface Command {
-    id: Uint8Array;
+    $type: "axelar.evm.v1beta1.Command";
+    id: Buffer;
     /** @deprecated */
     command: string;
-    params: Uint8Array;
+    params: Buffer;
     keyId: string;
     maxGasCost: number;
     type: CommandType;
 }
 export interface CommandBatchMetadata {
-    id: Uint8Array;
-    commandIds: Uint8Array[];
-    data: Uint8Array;
-    sigHash: Uint8Array;
+    $type: "axelar.evm.v1beta1.CommandBatchMetadata";
+    id: Buffer;
+    commandIds: Buffer[];
+    data: Buffer;
+    sigHash: Buffer;
     status: BatchedCommandsStatus;
     keyId: string;
-    prevBatchedCommandsId: Uint8Array;
-    signature?: Any;
+    prevBatchedCommandsId: Buffer;
+    signature?: Any | undefined;
 }
 /**
  * SigMetadata stores necessary information for external apps to map signature
  * results to evm relay transaction types
  */
 export interface SigMetadata {
+    $type: "axelar.evm.v1beta1.SigMetadata";
     type: SigType;
     chain: string;
-    commandBatchId: Uint8Array;
+    commandBatchId: Buffer;
 }
 /** TransferKey contains information for a transfer operatorship */
 export interface TransferKey {
-    txId: Uint8Array;
+    $type: "axelar.evm.v1beta1.TransferKey";
+    txId: Buffer;
     nextKeyId: string;
 }
 export interface Asset {
+    $type: "axelar.evm.v1beta1.Asset";
     chain: string;
     name: string;
 }
 export interface TokenDetails {
+    $type: "axelar.evm.v1beta1.TokenDetails";
     tokenName: string;
     symbol: string;
     decimals: number;
-    capacity: Uint8Array;
+    capacity: Buffer;
 }
 export interface Gateway {
-    address: Uint8Array;
+    $type: "axelar.evm.v1beta1.Gateway";
+    address: Buffer;
 }
 export interface PollMetadata {
+    $type: "axelar.evm.v1beta1.PollMetadata";
     chain: string;
-    txId: Uint8Array;
+    txId: Buffer;
 }
 export declare const VoteEvents: {
+    $type: "axelar.evm.v1beta1.VoteEvents";
     encode(message: VoteEvents, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): VoteEvents;
+    decode(input: _m0.Reader | Uint8Array, length?: number): VoteEvents;
     fromJSON(object: any): VoteEvents;
     toJSON(message: VoteEvents): unknown;
-    fromPartial<I extends {
-        chain?: string | undefined;
-        events?: {
-            chain?: string | undefined;
-            txId?: Uint8Array | undefined;
-            index?: string | number | Long.Long | undefined;
-            status?: Event_Status | undefined;
-            tokenSent?: {
-                sender?: Uint8Array | undefined;
-                destinationChain?: string | undefined;
-                destinationAddress?: string | undefined;
-                symbol?: string | undefined;
-                amount?: Uint8Array | undefined;
-            } | undefined;
-            contractCall?: {
-                sender?: Uint8Array | undefined;
-                destinationChain?: string | undefined;
-                contractAddress?: string | undefined;
-                payloadHash?: Uint8Array | undefined;
-            } | undefined;
-            contractCallWithToken?: {
-                sender?: Uint8Array | undefined;
-                destinationChain?: string | undefined;
-                contractAddress?: string | undefined;
-                payloadHash?: Uint8Array | undefined;
-                symbol?: string | undefined;
-                amount?: Uint8Array | undefined;
-            } | undefined;
-            transfer?: {
-                to?: Uint8Array | undefined;
-                amount?: Uint8Array | undefined;
-            } | undefined;
-            tokenDeployed?: {
-                symbol?: string | undefined;
-                tokenAddress?: Uint8Array | undefined;
-            } | undefined;
-            multisigOwnershipTransferred?: {
-                preOwners?: Uint8Array[] | undefined;
-                prevThreshold?: Uint8Array | undefined;
-                newOwners?: Uint8Array[] | undefined;
-                newThreshold?: Uint8Array | undefined;
-            } | undefined;
-            multisigOperatorshipTransferred?: {
-                newOperators?: Uint8Array[] | undefined;
-                newThreshold?: Uint8Array | undefined;
-                newWeights?: Uint8Array[] | undefined;
-            } | undefined;
-        }[] | undefined;
-    } & {
-        chain?: string | undefined;
-        events?: ({
-            chain?: string | undefined;
-            txId?: Uint8Array | undefined;
-            index?: string | number | Long.Long | undefined;
-            status?: Event_Status | undefined;
-            tokenSent?: {
-                sender?: Uint8Array | undefined;
-                destinationChain?: string | undefined;
-                destinationAddress?: string | undefined;
-                symbol?: string | undefined;
-                amount?: Uint8Array | undefined;
-            } | undefined;
-            contractCall?: {
-                sender?: Uint8Array | undefined;
-                destinationChain?: string | undefined;
-                contractAddress?: string | undefined;
-                payloadHash?: Uint8Array | undefined;
-            } | undefined;
-            contractCallWithToken?: {
-                sender?: Uint8Array | undefined;
-                destinationChain?: string | undefined;
-                contractAddress?: string | undefined;
-                payloadHash?: Uint8Array | undefined;
-                symbol?: string | undefined;
-                amount?: Uint8Array | undefined;
-            } | undefined;
-            transfer?: {
-                to?: Uint8Array | undefined;
-                amount?: Uint8Array | undefined;
-            } | undefined;
-            tokenDeployed?: {
-                symbol?: string | undefined;
-                tokenAddress?: Uint8Array | undefined;
-            } | undefined;
-            multisigOwnershipTransferred?: {
-                preOwners?: Uint8Array[] | undefined;
-                prevThreshold?: Uint8Array | undefined;
-                newOwners?: Uint8Array[] | undefined;
-                newThreshold?: Uint8Array | undefined;
-            } | undefined;
-            multisigOperatorshipTransferred?: {
-                newOperators?: Uint8Array[] | undefined;
-                newThreshold?: Uint8Array | undefined;
-                newWeights?: Uint8Array[] | undefined;
-            } | undefined;
-        }[] & ({
-            chain?: string | undefined;
-            txId?: Uint8Array | undefined;
-            index?: string | number | Long.Long | undefined;
-            status?: Event_Status | undefined;
-            tokenSent?: {
-                sender?: Uint8Array | undefined;
-                destinationChain?: string | undefined;
-                destinationAddress?: string | undefined;
-                symbol?: string | undefined;
-                amount?: Uint8Array | undefined;
-            } | undefined;
-            contractCall?: {
-                sender?: Uint8Array | undefined;
-                destinationChain?: string | undefined;
-                contractAddress?: string | undefined;
-                payloadHash?: Uint8Array | undefined;
-            } | undefined;
-            contractCallWithToken?: {
-                sender?: Uint8Array | undefined;
-                destinationChain?: string | undefined;
-                contractAddress?: string | undefined;
-                payloadHash?: Uint8Array | undefined;
-                symbol?: string | undefined;
-                amount?: Uint8Array | undefined;
-            } | undefined;
-            transfer?: {
-                to?: Uint8Array | undefined;
-                amount?: Uint8Array | undefined;
-            } | undefined;
-            tokenDeployed?: {
-                symbol?: string | undefined;
-                tokenAddress?: Uint8Array | undefined;
-            } | undefined;
-            multisigOwnershipTransferred?: {
-                preOwners?: Uint8Array[] | undefined;
-                prevThreshold?: Uint8Array | undefined;
-                newOwners?: Uint8Array[] | undefined;
-                newThreshold?: Uint8Array | undefined;
-            } | undefined;
-            multisigOperatorshipTransferred?: {
-                newOperators?: Uint8Array[] | undefined;
-                newThreshold?: Uint8Array | undefined;
-                newWeights?: Uint8Array[] | undefined;
-            } | undefined;
-        } & {
-            chain?: string | undefined;
-            txId?: Uint8Array | undefined;
-            index?: string | number | (Long.Long & {
-                high: number;
-                low: number;
-                unsigned: boolean;
-                add: (addend: string | number | Long.Long) => Long.Long;
-                and: (other: string | number | Long.Long) => Long.Long;
-                compare: (other: string | number | Long.Long) => number;
-                comp: (other: string | number | Long.Long) => number;
-                divide: (divisor: string | number | Long.Long) => Long.Long;
-                div: (divisor: string | number | Long.Long) => Long.Long;
-                equals: (other: string | number | Long.Long) => boolean;
-                eq: (other: string | number | Long.Long) => boolean;
-                getHighBits: () => number;
-                getHighBitsUnsigned: () => number;
-                getLowBits: () => number;
-                getLowBitsUnsigned: () => number;
-                getNumBitsAbs: () => number;
-                greaterThan: (other: string | number | Long.Long) => boolean;
-                gt: (other: string | number | Long.Long) => boolean;
-                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-                gte: (other: string | number | Long.Long) => boolean;
-                isEven: () => boolean;
-                isNegative: () => boolean;
-                isOdd: () => boolean;
-                isPositive: () => boolean;
-                isZero: () => boolean;
-                lessThan: (other: string | number | Long.Long) => boolean;
-                lt: (other: string | number | Long.Long) => boolean;
-                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-                lte: (other: string | number | Long.Long) => boolean;
-                modulo: (other: string | number | Long.Long) => Long.Long;
-                mod: (other: string | number | Long.Long) => Long.Long;
-                multiply: (multiplier: string | number | Long.Long) => Long.Long;
-                mul: (multiplier: string | number | Long.Long) => Long.Long;
-                negate: () => Long.Long;
-                neg: () => Long.Long;
-                not: () => Long.Long;
-                notEquals: (other: string | number | Long.Long) => boolean;
-                neq: (other: string | number | Long.Long) => boolean;
-                or: (other: string | number | Long.Long) => Long.Long;
-                shiftLeft: (numBits: number | Long.Long) => Long.Long;
-                shl: (numBits: number | Long.Long) => Long.Long;
-                shiftRight: (numBits: number | Long.Long) => Long.Long;
-                shr: (numBits: number | Long.Long) => Long.Long;
-                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-                shru: (numBits: number | Long.Long) => Long.Long;
-                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-                sub: (subtrahend: string | number | Long.Long) => Long.Long;
-                toInt: () => number;
-                toNumber: () => number;
-                toBytes: (le?: boolean | undefined) => number[];
-                toBytesLE: () => number[];
-                toBytesBE: () => number[];
-                toSigned: () => Long.Long;
-                toString: (radix?: number | undefined) => string;
-                toUnsigned: () => Long.Long;
-                xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["events"][number]["index"], keyof Long.Long>, never>) | undefined;
-            status?: Event_Status | undefined;
-            tokenSent?: ({
-                sender?: Uint8Array | undefined;
-                destinationChain?: string | undefined;
-                destinationAddress?: string | undefined;
-                symbol?: string | undefined;
-                amount?: Uint8Array | undefined;
-            } & {
-                sender?: Uint8Array | undefined;
-                destinationChain?: string | undefined;
-                destinationAddress?: string | undefined;
-                symbol?: string | undefined;
-                amount?: Uint8Array | undefined;
-            } & Record<Exclude<keyof I["events"][number]["tokenSent"], keyof EventTokenSent>, never>) | undefined;
-            contractCall?: ({
-                sender?: Uint8Array | undefined;
-                destinationChain?: string | undefined;
-                contractAddress?: string | undefined;
-                payloadHash?: Uint8Array | undefined;
-            } & {
-                sender?: Uint8Array | undefined;
-                destinationChain?: string | undefined;
-                contractAddress?: string | undefined;
-                payloadHash?: Uint8Array | undefined;
-            } & Record<Exclude<keyof I["events"][number]["contractCall"], keyof EventContractCall>, never>) | undefined;
-            contractCallWithToken?: ({
-                sender?: Uint8Array | undefined;
-                destinationChain?: string | undefined;
-                contractAddress?: string | undefined;
-                payloadHash?: Uint8Array | undefined;
-                symbol?: string | undefined;
-                amount?: Uint8Array | undefined;
-            } & {
-                sender?: Uint8Array | undefined;
-                destinationChain?: string | undefined;
-                contractAddress?: string | undefined;
-                payloadHash?: Uint8Array | undefined;
-                symbol?: string | undefined;
-                amount?: Uint8Array | undefined;
-            } & Record<Exclude<keyof I["events"][number]["contractCallWithToken"], keyof EventContractCallWithToken>, never>) | undefined;
-            transfer?: ({
-                to?: Uint8Array | undefined;
-                amount?: Uint8Array | undefined;
-            } & {
-                to?: Uint8Array | undefined;
-                amount?: Uint8Array | undefined;
-            } & Record<Exclude<keyof I["events"][number]["transfer"], keyof EventTransfer>, never>) | undefined;
-            tokenDeployed?: ({
-                symbol?: string | undefined;
-                tokenAddress?: Uint8Array | undefined;
-            } & {
-                symbol?: string | undefined;
-                tokenAddress?: Uint8Array | undefined;
-            } & Record<Exclude<keyof I["events"][number]["tokenDeployed"], keyof EventTokenDeployed>, never>) | undefined;
-            multisigOwnershipTransferred?: ({
-                preOwners?: Uint8Array[] | undefined;
-                prevThreshold?: Uint8Array | undefined;
-                newOwners?: Uint8Array[] | undefined;
-                newThreshold?: Uint8Array | undefined;
-            } & {
-                preOwners?: (Uint8Array[] & Uint8Array[] & Record<Exclude<keyof I["events"][number]["multisigOwnershipTransferred"]["preOwners"], keyof Uint8Array[]>, never>) | undefined;
-                prevThreshold?: Uint8Array | undefined;
-                newOwners?: (Uint8Array[] & Uint8Array[] & Record<Exclude<keyof I["events"][number]["multisigOwnershipTransferred"]["newOwners"], keyof Uint8Array[]>, never>) | undefined;
-                newThreshold?: Uint8Array | undefined;
-            } & Record<Exclude<keyof I["events"][number]["multisigOwnershipTransferred"], keyof EventMultisigOwnershipTransferred>, never>) | undefined;
-            multisigOperatorshipTransferred?: ({
-                newOperators?: Uint8Array[] | undefined;
-                newThreshold?: Uint8Array | undefined;
-                newWeights?: Uint8Array[] | undefined;
-            } & {
-                newOperators?: (Uint8Array[] & Uint8Array[] & Record<Exclude<keyof I["events"][number]["multisigOperatorshipTransferred"]["newOperators"], keyof Uint8Array[]>, never>) | undefined;
-                newThreshold?: Uint8Array | undefined;
-                newWeights?: (Uint8Array[] & Uint8Array[] & Record<Exclude<keyof I["events"][number]["multisigOperatorshipTransferred"]["newWeights"], keyof Uint8Array[]>, never>) | undefined;
-            } & Record<Exclude<keyof I["events"][number]["multisigOperatorshipTransferred"], keyof EventMultisigOperatorshipTransferred>, never>) | undefined;
-        } & Record<Exclude<keyof I["events"][number], keyof Event>, never>)[] & Record<Exclude<keyof I["events"], keyof {
-            chain?: string | undefined;
-            txId?: Uint8Array | undefined;
-            index?: string | number | Long.Long | undefined;
-            status?: Event_Status | undefined;
-            tokenSent?: {
-                sender?: Uint8Array | undefined;
-                destinationChain?: string | undefined;
-                destinationAddress?: string | undefined;
-                symbol?: string | undefined;
-                amount?: Uint8Array | undefined;
-            } | undefined;
-            contractCall?: {
-                sender?: Uint8Array | undefined;
-                destinationChain?: string | undefined;
-                contractAddress?: string | undefined;
-                payloadHash?: Uint8Array | undefined;
-            } | undefined;
-            contractCallWithToken?: {
-                sender?: Uint8Array | undefined;
-                destinationChain?: string | undefined;
-                contractAddress?: string | undefined;
-                payloadHash?: Uint8Array | undefined;
-                symbol?: string | undefined;
-                amount?: Uint8Array | undefined;
-            } | undefined;
-            transfer?: {
-                to?: Uint8Array | undefined;
-                amount?: Uint8Array | undefined;
-            } | undefined;
-            tokenDeployed?: {
-                symbol?: string | undefined;
-                tokenAddress?: Uint8Array | undefined;
-            } | undefined;
-            multisigOwnershipTransferred?: {
-                preOwners?: Uint8Array[] | undefined;
-                prevThreshold?: Uint8Array | undefined;
-                newOwners?: Uint8Array[] | undefined;
-                newThreshold?: Uint8Array | undefined;
-            } | undefined;
-            multisigOperatorshipTransferred?: {
-                newOperators?: Uint8Array[] | undefined;
-                newThreshold?: Uint8Array | undefined;
-                newWeights?: Uint8Array[] | undefined;
-            } | undefined;
-        }[]>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof VoteEvents>, never>>(object: I): VoteEvents;
+    create<I extends Exact<DeepPartial<VoteEvents>, I>>(base?: I): VoteEvents;
+    fromPartial<I extends Exact<DeepPartial<VoteEvents>, I>>(object: I): VoteEvents;
 };
 export declare const Event: {
+    $type: "axelar.evm.v1beta1.Event";
     encode(message: Event, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Event;
+    decode(input: _m0.Reader | Uint8Array, length?: number): Event;
     fromJSON(object: any): Event;
     toJSON(message: Event): unknown;
-    fromPartial<I extends {
-        chain?: string | undefined;
-        txId?: Uint8Array | undefined;
-        index?: string | number | Long.Long | undefined;
-        status?: Event_Status | undefined;
-        tokenSent?: {
-            sender?: Uint8Array | undefined;
-            destinationChain?: string | undefined;
-            destinationAddress?: string | undefined;
-            symbol?: string | undefined;
-            amount?: Uint8Array | undefined;
-        } | undefined;
-        contractCall?: {
-            sender?: Uint8Array | undefined;
-            destinationChain?: string | undefined;
-            contractAddress?: string | undefined;
-            payloadHash?: Uint8Array | undefined;
-        } | undefined;
-        contractCallWithToken?: {
-            sender?: Uint8Array | undefined;
-            destinationChain?: string | undefined;
-            contractAddress?: string | undefined;
-            payloadHash?: Uint8Array | undefined;
-            symbol?: string | undefined;
-            amount?: Uint8Array | undefined;
-        } | undefined;
-        transfer?: {
-            to?: Uint8Array | undefined;
-            amount?: Uint8Array | undefined;
-        } | undefined;
-        tokenDeployed?: {
-            symbol?: string | undefined;
-            tokenAddress?: Uint8Array | undefined;
-        } | undefined;
-        multisigOwnershipTransferred?: {
-            preOwners?: Uint8Array[] | undefined;
-            prevThreshold?: Uint8Array | undefined;
-            newOwners?: Uint8Array[] | undefined;
-            newThreshold?: Uint8Array | undefined;
-        } | undefined;
-        multisigOperatorshipTransferred?: {
-            newOperators?: Uint8Array[] | undefined;
-            newThreshold?: Uint8Array | undefined;
-            newWeights?: Uint8Array[] | undefined;
-        } | undefined;
-    } & {
-        chain?: string | undefined;
-        txId?: Uint8Array | undefined;
-        index?: string | number | (Long.Long & {
-            high: number;
-            low: number;
-            unsigned: boolean;
-            add: (addend: string | number | Long.Long) => Long.Long;
-            and: (other: string | number | Long.Long) => Long.Long;
-            compare: (other: string | number | Long.Long) => number;
-            comp: (other: string | number | Long.Long) => number;
-            divide: (divisor: string | number | Long.Long) => Long.Long;
-            div: (divisor: string | number | Long.Long) => Long.Long;
-            equals: (other: string | number | Long.Long) => boolean;
-            eq: (other: string | number | Long.Long) => boolean;
-            getHighBits: () => number;
-            getHighBitsUnsigned: () => number;
-            getLowBits: () => number;
-            getLowBitsUnsigned: () => number;
-            getNumBitsAbs: () => number;
-            greaterThan: (other: string | number | Long.Long) => boolean;
-            gt: (other: string | number | Long.Long) => boolean;
-            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-            gte: (other: string | number | Long.Long) => boolean;
-            isEven: () => boolean;
-            isNegative: () => boolean;
-            isOdd: () => boolean;
-            isPositive: () => boolean;
-            isZero: () => boolean;
-            lessThan: (other: string | number | Long.Long) => boolean;
-            lt: (other: string | number | Long.Long) => boolean;
-            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-            lte: (other: string | number | Long.Long) => boolean;
-            modulo: (other: string | number | Long.Long) => Long.Long;
-            mod: (other: string | number | Long.Long) => Long.Long;
-            multiply: (multiplier: string | number | Long.Long) => Long.Long;
-            mul: (multiplier: string | number | Long.Long) => Long.Long;
-            negate: () => Long.Long;
-            neg: () => Long.Long;
-            not: () => Long.Long;
-            notEquals: (other: string | number | Long.Long) => boolean;
-            neq: (other: string | number | Long.Long) => boolean;
-            or: (other: string | number | Long.Long) => Long.Long;
-            shiftLeft: (numBits: number | Long.Long) => Long.Long;
-            shl: (numBits: number | Long.Long) => Long.Long;
-            shiftRight: (numBits: number | Long.Long) => Long.Long;
-            shr: (numBits: number | Long.Long) => Long.Long;
-            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-            shru: (numBits: number | Long.Long) => Long.Long;
-            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-            sub: (subtrahend: string | number | Long.Long) => Long.Long;
-            toInt: () => number;
-            toNumber: () => number;
-            toBytes: (le?: boolean | undefined) => number[];
-            toBytesLE: () => number[];
-            toBytesBE: () => number[];
-            toSigned: () => Long.Long;
-            toString: (radix?: number | undefined) => string;
-            toUnsigned: () => Long.Long;
-            xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["index"], keyof Long.Long>, never>) | undefined;
-        status?: Event_Status | undefined;
-        tokenSent?: ({
-            sender?: Uint8Array | undefined;
-            destinationChain?: string | undefined;
-            destinationAddress?: string | undefined;
-            symbol?: string | undefined;
-            amount?: Uint8Array | undefined;
-        } & {
-            sender?: Uint8Array | undefined;
-            destinationChain?: string | undefined;
-            destinationAddress?: string | undefined;
-            symbol?: string | undefined;
-            amount?: Uint8Array | undefined;
-        } & Record<Exclude<keyof I["tokenSent"], keyof EventTokenSent>, never>) | undefined;
-        contractCall?: ({
-            sender?: Uint8Array | undefined;
-            destinationChain?: string | undefined;
-            contractAddress?: string | undefined;
-            payloadHash?: Uint8Array | undefined;
-        } & {
-            sender?: Uint8Array | undefined;
-            destinationChain?: string | undefined;
-            contractAddress?: string | undefined;
-            payloadHash?: Uint8Array | undefined;
-        } & Record<Exclude<keyof I["contractCall"], keyof EventContractCall>, never>) | undefined;
-        contractCallWithToken?: ({
-            sender?: Uint8Array | undefined;
-            destinationChain?: string | undefined;
-            contractAddress?: string | undefined;
-            payloadHash?: Uint8Array | undefined;
-            symbol?: string | undefined;
-            amount?: Uint8Array | undefined;
-        } & {
-            sender?: Uint8Array | undefined;
-            destinationChain?: string | undefined;
-            contractAddress?: string | undefined;
-            payloadHash?: Uint8Array | undefined;
-            symbol?: string | undefined;
-            amount?: Uint8Array | undefined;
-        } & Record<Exclude<keyof I["contractCallWithToken"], keyof EventContractCallWithToken>, never>) | undefined;
-        transfer?: ({
-            to?: Uint8Array | undefined;
-            amount?: Uint8Array | undefined;
-        } & {
-            to?: Uint8Array | undefined;
-            amount?: Uint8Array | undefined;
-        } & Record<Exclude<keyof I["transfer"], keyof EventTransfer>, never>) | undefined;
-        tokenDeployed?: ({
-            symbol?: string | undefined;
-            tokenAddress?: Uint8Array | undefined;
-        } & {
-            symbol?: string | undefined;
-            tokenAddress?: Uint8Array | undefined;
-        } & Record<Exclude<keyof I["tokenDeployed"], keyof EventTokenDeployed>, never>) | undefined;
-        multisigOwnershipTransferred?: ({
-            preOwners?: Uint8Array[] | undefined;
-            prevThreshold?: Uint8Array | undefined;
-            newOwners?: Uint8Array[] | undefined;
-            newThreshold?: Uint8Array | undefined;
-        } & {
-            preOwners?: (Uint8Array[] & Uint8Array[] & Record<Exclude<keyof I["multisigOwnershipTransferred"]["preOwners"], keyof Uint8Array[]>, never>) | undefined;
-            prevThreshold?: Uint8Array | undefined;
-            newOwners?: (Uint8Array[] & Uint8Array[] & Record<Exclude<keyof I["multisigOwnershipTransferred"]["newOwners"], keyof Uint8Array[]>, never>) | undefined;
-            newThreshold?: Uint8Array | undefined;
-        } & Record<Exclude<keyof I["multisigOwnershipTransferred"], keyof EventMultisigOwnershipTransferred>, never>) | undefined;
-        multisigOperatorshipTransferred?: ({
-            newOperators?: Uint8Array[] | undefined;
-            newThreshold?: Uint8Array | undefined;
-            newWeights?: Uint8Array[] | undefined;
-        } & {
-            newOperators?: (Uint8Array[] & Uint8Array[] & Record<Exclude<keyof I["multisigOperatorshipTransferred"]["newOperators"], keyof Uint8Array[]>, never>) | undefined;
-            newThreshold?: Uint8Array | undefined;
-            newWeights?: (Uint8Array[] & Uint8Array[] & Record<Exclude<keyof I["multisigOperatorshipTransferred"]["newWeights"], keyof Uint8Array[]>, never>) | undefined;
-        } & Record<Exclude<keyof I["multisigOperatorshipTransferred"], keyof EventMultisigOperatorshipTransferred>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof Event>, never>>(object: I): Event;
+    create<I extends Exact<DeepPartial<Event>, I>>(base?: I): Event;
+    fromPartial<I extends Exact<DeepPartial<Event>, I>>(object: I): Event;
 };
 export declare const EventTokenSent: {
+    $type: "axelar.evm.v1beta1.EventTokenSent";
     encode(message: EventTokenSent, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): EventTokenSent;
+    decode(input: _m0.Reader | Uint8Array, length?: number): EventTokenSent;
     fromJSON(object: any): EventTokenSent;
     toJSON(message: EventTokenSent): unknown;
-    fromPartial<I extends {
-        sender?: Uint8Array | undefined;
-        destinationChain?: string | undefined;
-        destinationAddress?: string | undefined;
-        symbol?: string | undefined;
-        amount?: Uint8Array | undefined;
-    } & {
-        sender?: Uint8Array | undefined;
-        destinationChain?: string | undefined;
-        destinationAddress?: string | undefined;
-        symbol?: string | undefined;
-        amount?: Uint8Array | undefined;
-    } & Record<Exclude<keyof I, keyof EventTokenSent>, never>>(object: I): EventTokenSent;
+    create<I extends Exact<DeepPartial<EventTokenSent>, I>>(base?: I): EventTokenSent;
+    fromPartial<I extends Exact<DeepPartial<EventTokenSent>, I>>(object: I): EventTokenSent;
 };
 export declare const EventContractCall: {
+    $type: "axelar.evm.v1beta1.EventContractCall";
     encode(message: EventContractCall, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): EventContractCall;
+    decode(input: _m0.Reader | Uint8Array, length?: number): EventContractCall;
     fromJSON(object: any): EventContractCall;
     toJSON(message: EventContractCall): unknown;
-    fromPartial<I extends {
-        sender?: Uint8Array | undefined;
-        destinationChain?: string | undefined;
-        contractAddress?: string | undefined;
-        payloadHash?: Uint8Array | undefined;
-    } & {
-        sender?: Uint8Array | undefined;
-        destinationChain?: string | undefined;
-        contractAddress?: string | undefined;
-        payloadHash?: Uint8Array | undefined;
-    } & Record<Exclude<keyof I, keyof EventContractCall>, never>>(object: I): EventContractCall;
+    create<I extends Exact<DeepPartial<EventContractCall>, I>>(base?: I): EventContractCall;
+    fromPartial<I extends Exact<DeepPartial<EventContractCall>, I>>(object: I): EventContractCall;
 };
 export declare const EventContractCallWithToken: {
+    $type: "axelar.evm.v1beta1.EventContractCallWithToken";
     encode(message: EventContractCallWithToken, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): EventContractCallWithToken;
+    decode(input: _m0.Reader | Uint8Array, length?: number): EventContractCallWithToken;
     fromJSON(object: any): EventContractCallWithToken;
     toJSON(message: EventContractCallWithToken): unknown;
-    fromPartial<I extends {
-        sender?: Uint8Array | undefined;
-        destinationChain?: string | undefined;
-        contractAddress?: string | undefined;
-        payloadHash?: Uint8Array | undefined;
-        symbol?: string | undefined;
-        amount?: Uint8Array | undefined;
-    } & {
-        sender?: Uint8Array | undefined;
-        destinationChain?: string | undefined;
-        contractAddress?: string | undefined;
-        payloadHash?: Uint8Array | undefined;
-        symbol?: string | undefined;
-        amount?: Uint8Array | undefined;
-    } & Record<Exclude<keyof I, keyof EventContractCallWithToken>, never>>(object: I): EventContractCallWithToken;
+    create<I extends Exact<DeepPartial<EventContractCallWithToken>, I>>(base?: I): EventContractCallWithToken;
+    fromPartial<I extends Exact<DeepPartial<EventContractCallWithToken>, I>>(object: I): EventContractCallWithToken;
 };
 export declare const EventTransfer: {
+    $type: "axelar.evm.v1beta1.EventTransfer";
     encode(message: EventTransfer, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): EventTransfer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): EventTransfer;
     fromJSON(object: any): EventTransfer;
     toJSON(message: EventTransfer): unknown;
-    fromPartial<I extends {
-        to?: Uint8Array | undefined;
-        amount?: Uint8Array | undefined;
-    } & {
-        to?: Uint8Array | undefined;
-        amount?: Uint8Array | undefined;
-    } & Record<Exclude<keyof I, keyof EventTransfer>, never>>(object: I): EventTransfer;
+    create<I extends Exact<DeepPartial<EventTransfer>, I>>(base?: I): EventTransfer;
+    fromPartial<I extends Exact<DeepPartial<EventTransfer>, I>>(object: I): EventTransfer;
 };
 export declare const EventTokenDeployed: {
+    $type: "axelar.evm.v1beta1.EventTokenDeployed";
     encode(message: EventTokenDeployed, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): EventTokenDeployed;
+    decode(input: _m0.Reader | Uint8Array, length?: number): EventTokenDeployed;
     fromJSON(object: any): EventTokenDeployed;
     toJSON(message: EventTokenDeployed): unknown;
-    fromPartial<I extends {
-        symbol?: string | undefined;
-        tokenAddress?: Uint8Array | undefined;
-    } & {
-        symbol?: string | undefined;
-        tokenAddress?: Uint8Array | undefined;
-    } & Record<Exclude<keyof I, keyof EventTokenDeployed>, never>>(object: I): EventTokenDeployed;
+    create<I extends Exact<DeepPartial<EventTokenDeployed>, I>>(base?: I): EventTokenDeployed;
+    fromPartial<I extends Exact<DeepPartial<EventTokenDeployed>, I>>(object: I): EventTokenDeployed;
 };
 export declare const EventMultisigOwnershipTransferred: {
+    $type: "axelar.evm.v1beta1.EventMultisigOwnershipTransferred";
     encode(message: EventMultisigOwnershipTransferred, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): EventMultisigOwnershipTransferred;
+    decode(input: _m0.Reader | Uint8Array, length?: number): EventMultisigOwnershipTransferred;
     fromJSON(object: any): EventMultisigOwnershipTransferred;
     toJSON(message: EventMultisigOwnershipTransferred): unknown;
-    fromPartial<I extends {
-        preOwners?: Uint8Array[] | undefined;
-        prevThreshold?: Uint8Array | undefined;
-        newOwners?: Uint8Array[] | undefined;
-        newThreshold?: Uint8Array | undefined;
-    } & {
-        preOwners?: (Uint8Array[] & Uint8Array[] & Record<Exclude<keyof I["preOwners"], keyof Uint8Array[]>, never>) | undefined;
-        prevThreshold?: Uint8Array | undefined;
-        newOwners?: (Uint8Array[] & Uint8Array[] & Record<Exclude<keyof I["newOwners"], keyof Uint8Array[]>, never>) | undefined;
-        newThreshold?: Uint8Array | undefined;
-    } & Record<Exclude<keyof I, keyof EventMultisigOwnershipTransferred>, never>>(object: I): EventMultisigOwnershipTransferred;
+    create<I extends Exact<DeepPartial<EventMultisigOwnershipTransferred>, I>>(base?: I): EventMultisigOwnershipTransferred;
+    fromPartial<I extends Exact<DeepPartial<EventMultisigOwnershipTransferred>, I>>(object: I): EventMultisigOwnershipTransferred;
 };
 export declare const EventMultisigOperatorshipTransferred: {
+    $type: "axelar.evm.v1beta1.EventMultisigOperatorshipTransferred";
     encode(message: EventMultisigOperatorshipTransferred, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): EventMultisigOperatorshipTransferred;
+    decode(input: _m0.Reader | Uint8Array, length?: number): EventMultisigOperatorshipTransferred;
     fromJSON(object: any): EventMultisigOperatorshipTransferred;
     toJSON(message: EventMultisigOperatorshipTransferred): unknown;
-    fromPartial<I extends {
-        newOperators?: Uint8Array[] | undefined;
-        newThreshold?: Uint8Array | undefined;
-        newWeights?: Uint8Array[] | undefined;
-    } & {
-        newOperators?: (Uint8Array[] & Uint8Array[] & Record<Exclude<keyof I["newOperators"], keyof Uint8Array[]>, never>) | undefined;
-        newThreshold?: Uint8Array | undefined;
-        newWeights?: (Uint8Array[] & Uint8Array[] & Record<Exclude<keyof I["newWeights"], keyof Uint8Array[]>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof EventMultisigOperatorshipTransferred>, never>>(object: I): EventMultisigOperatorshipTransferred;
+    create<I extends Exact<DeepPartial<EventMultisigOperatorshipTransferred>, I>>(base?: I): EventMultisigOperatorshipTransferred;
+    fromPartial<I extends Exact<DeepPartial<EventMultisigOperatorshipTransferred>, I>>(object: I): EventMultisigOperatorshipTransferred;
 };
 export declare const NetworkInfo: {
+    $type: "axelar.evm.v1beta1.NetworkInfo";
     encode(message: NetworkInfo, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): NetworkInfo;
+    decode(input: _m0.Reader | Uint8Array, length?: number): NetworkInfo;
     fromJSON(object: any): NetworkInfo;
     toJSON(message: NetworkInfo): unknown;
-    fromPartial<I extends {
-        name?: string | undefined;
-        id?: Uint8Array | undefined;
-    } & {
-        name?: string | undefined;
-        id?: Uint8Array | undefined;
-    } & Record<Exclude<keyof I, keyof NetworkInfo>, never>>(object: I): NetworkInfo;
+    create<I extends Exact<DeepPartial<NetworkInfo>, I>>(base?: I): NetworkInfo;
+    fromPartial<I extends Exact<DeepPartial<NetworkInfo>, I>>(object: I): NetworkInfo;
 };
 export declare const BurnerInfo: {
+    $type: "axelar.evm.v1beta1.BurnerInfo";
     encode(message: BurnerInfo, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): BurnerInfo;
+    decode(input: _m0.Reader | Uint8Array, length?: number): BurnerInfo;
     fromJSON(object: any): BurnerInfo;
     toJSON(message: BurnerInfo): unknown;
-    fromPartial<I extends {
-        burnerAddress?: Uint8Array | undefined;
-        tokenAddress?: Uint8Array | undefined;
-        destinationChain?: string | undefined;
-        symbol?: string | undefined;
-        asset?: string | undefined;
-        salt?: Uint8Array | undefined;
-    } & {
-        burnerAddress?: Uint8Array | undefined;
-        tokenAddress?: Uint8Array | undefined;
-        destinationChain?: string | undefined;
-        symbol?: string | undefined;
-        asset?: string | undefined;
-        salt?: Uint8Array | undefined;
-    } & Record<Exclude<keyof I, keyof BurnerInfo>, never>>(object: I): BurnerInfo;
+    create<I extends Exact<DeepPartial<BurnerInfo>, I>>(base?: I): BurnerInfo;
+    fromPartial<I extends Exact<DeepPartial<BurnerInfo>, I>>(object: I): BurnerInfo;
 };
 export declare const ERC20Deposit: {
+    $type: "axelar.evm.v1beta1.ERC20Deposit";
     encode(message: ERC20Deposit, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ERC20Deposit;
+    decode(input: _m0.Reader | Uint8Array, length?: number): ERC20Deposit;
     fromJSON(object: any): ERC20Deposit;
     toJSON(message: ERC20Deposit): unknown;
-    fromPartial<I extends {
-        txId?: Uint8Array | undefined;
-        amount?: Uint8Array | undefined;
-        asset?: string | undefined;
-        destinationChain?: string | undefined;
-        burnerAddress?: Uint8Array | undefined;
-        logIndex?: string | number | Long.Long | undefined;
-    } & {
-        txId?: Uint8Array | undefined;
-        amount?: Uint8Array | undefined;
-        asset?: string | undefined;
-        destinationChain?: string | undefined;
-        burnerAddress?: Uint8Array | undefined;
-        logIndex?: string | number | (Long.Long & {
-            high: number;
-            low: number;
-            unsigned: boolean;
-            add: (addend: string | number | Long.Long) => Long.Long;
-            and: (other: string | number | Long.Long) => Long.Long;
-            compare: (other: string | number | Long.Long) => number;
-            comp: (other: string | number | Long.Long) => number;
-            divide: (divisor: string | number | Long.Long) => Long.Long;
-            div: (divisor: string | number | Long.Long) => Long.Long;
-            equals: (other: string | number | Long.Long) => boolean;
-            eq: (other: string | number | Long.Long) => boolean;
-            getHighBits: () => number;
-            getHighBitsUnsigned: () => number;
-            getLowBits: () => number;
-            getLowBitsUnsigned: () => number;
-            getNumBitsAbs: () => number;
-            greaterThan: (other: string | number | Long.Long) => boolean;
-            gt: (other: string | number | Long.Long) => boolean;
-            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-            gte: (other: string | number | Long.Long) => boolean;
-            isEven: () => boolean;
-            isNegative: () => boolean;
-            isOdd: () => boolean;
-            isPositive: () => boolean;
-            isZero: () => boolean;
-            lessThan: (other: string | number | Long.Long) => boolean;
-            lt: (other: string | number | Long.Long) => boolean;
-            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-            lte: (other: string | number | Long.Long) => boolean;
-            modulo: (other: string | number | Long.Long) => Long.Long;
-            mod: (other: string | number | Long.Long) => Long.Long;
-            multiply: (multiplier: string | number | Long.Long) => Long.Long;
-            mul: (multiplier: string | number | Long.Long) => Long.Long;
-            negate: () => Long.Long;
-            neg: () => Long.Long;
-            not: () => Long.Long;
-            notEquals: (other: string | number | Long.Long) => boolean;
-            neq: (other: string | number | Long.Long) => boolean;
-            or: (other: string | number | Long.Long) => Long.Long;
-            shiftLeft: (numBits: number | Long.Long) => Long.Long;
-            shl: (numBits: number | Long.Long) => Long.Long;
-            shiftRight: (numBits: number | Long.Long) => Long.Long;
-            shr: (numBits: number | Long.Long) => Long.Long;
-            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-            shru: (numBits: number | Long.Long) => Long.Long;
-            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-            sub: (subtrahend: string | number | Long.Long) => Long.Long;
-            toInt: () => number;
-            toNumber: () => number;
-            toBytes: (le?: boolean | undefined) => number[];
-            toBytesLE: () => number[];
-            toBytesBE: () => number[];
-            toSigned: () => Long.Long;
-            toString: (radix?: number | undefined) => string;
-            toUnsigned: () => Long.Long;
-            xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["logIndex"], keyof Long.Long>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof ERC20Deposit>, never>>(object: I): ERC20Deposit;
+    create<I extends Exact<DeepPartial<ERC20Deposit>, I>>(base?: I): ERC20Deposit;
+    fromPartial<I extends Exact<DeepPartial<ERC20Deposit>, I>>(object: I): ERC20Deposit;
 };
 export declare const ERC20TokenMetadata: {
+    $type: "axelar.evm.v1beta1.ERC20TokenMetadata";
     encode(message: ERC20TokenMetadata, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ERC20TokenMetadata;
+    decode(input: _m0.Reader | Uint8Array, length?: number): ERC20TokenMetadata;
     fromJSON(object: any): ERC20TokenMetadata;
     toJSON(message: ERC20TokenMetadata): unknown;
-    fromPartial<I extends {
-        asset?: string | undefined;
-        chainId?: Uint8Array | undefined;
-        details?: {
-            tokenName?: string | undefined;
-            symbol?: string | undefined;
-            decimals?: number | undefined;
-            capacity?: Uint8Array | undefined;
-        } | undefined;
-        tokenAddress?: string | undefined;
-        txHash?: string | undefined;
-        status?: Status | undefined;
-        isExternal?: boolean | undefined;
-        burnerCode?: Uint8Array | undefined;
-    } & {
-        asset?: string | undefined;
-        chainId?: Uint8Array | undefined;
-        details?: ({
-            tokenName?: string | undefined;
-            symbol?: string | undefined;
-            decimals?: number | undefined;
-            capacity?: Uint8Array | undefined;
-        } & {
-            tokenName?: string | undefined;
-            symbol?: string | undefined;
-            decimals?: number | undefined;
-            capacity?: Uint8Array | undefined;
-        } & Record<Exclude<keyof I["details"], keyof TokenDetails>, never>) | undefined;
-        tokenAddress?: string | undefined;
-        txHash?: string | undefined;
-        status?: Status | undefined;
-        isExternal?: boolean | undefined;
-        burnerCode?: Uint8Array | undefined;
-    } & Record<Exclude<keyof I, keyof ERC20TokenMetadata>, never>>(object: I): ERC20TokenMetadata;
+    create<I extends Exact<DeepPartial<ERC20TokenMetadata>, I>>(base?: I): ERC20TokenMetadata;
+    fromPartial<I extends Exact<DeepPartial<ERC20TokenMetadata>, I>>(object: I): ERC20TokenMetadata;
 };
 export declare const TransactionMetadata: {
+    $type: "axelar.evm.v1beta1.TransactionMetadata";
     encode(message: TransactionMetadata, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): TransactionMetadata;
+    decode(input: _m0.Reader | Uint8Array, length?: number): TransactionMetadata;
     fromJSON(object: any): TransactionMetadata;
     toJSON(message: TransactionMetadata): unknown;
-    fromPartial<I extends {
-        rawTx?: Uint8Array | undefined;
-        pubKey?: Uint8Array | undefined;
-    } & {
-        rawTx?: Uint8Array | undefined;
-        pubKey?: Uint8Array | undefined;
-    } & Record<Exclude<keyof I, keyof TransactionMetadata>, never>>(object: I): TransactionMetadata;
+    create<I extends Exact<DeepPartial<TransactionMetadata>, I>>(base?: I): TransactionMetadata;
+    fromPartial<I extends Exact<DeepPartial<TransactionMetadata>, I>>(object: I): TransactionMetadata;
 };
 export declare const Command: {
+    $type: "axelar.evm.v1beta1.Command";
     encode(message: Command, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Command;
+    decode(input: _m0.Reader | Uint8Array, length?: number): Command;
     fromJSON(object: any): Command;
     toJSON(message: Command): unknown;
-    fromPartial<I extends {
-        id?: Uint8Array | undefined;
-        command?: string | undefined;
-        params?: Uint8Array | undefined;
-        keyId?: string | undefined;
-        maxGasCost?: number | undefined;
-        type?: CommandType | undefined;
-    } & {
-        id?: Uint8Array | undefined;
-        command?: string | undefined;
-        params?: Uint8Array | undefined;
-        keyId?: string | undefined;
-        maxGasCost?: number | undefined;
-        type?: CommandType | undefined;
-    } & Record<Exclude<keyof I, keyof Command>, never>>(object: I): Command;
+    create<I extends Exact<DeepPartial<Command>, I>>(base?: I): Command;
+    fromPartial<I extends Exact<DeepPartial<Command>, I>>(object: I): Command;
 };
 export declare const CommandBatchMetadata: {
+    $type: "axelar.evm.v1beta1.CommandBatchMetadata";
     encode(message: CommandBatchMetadata, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): CommandBatchMetadata;
+    decode(input: _m0.Reader | Uint8Array, length?: number): CommandBatchMetadata;
     fromJSON(object: any): CommandBatchMetadata;
     toJSON(message: CommandBatchMetadata): unknown;
-    fromPartial<I extends {
-        id?: Uint8Array | undefined;
-        commandIds?: Uint8Array[] | undefined;
-        data?: Uint8Array | undefined;
-        sigHash?: Uint8Array | undefined;
-        status?: BatchedCommandsStatus | undefined;
-        keyId?: string | undefined;
-        prevBatchedCommandsId?: Uint8Array | undefined;
-        signature?: {
-            typeUrl?: string | undefined;
-            value?: Uint8Array | undefined;
-        } | undefined;
-    } & {
-        id?: Uint8Array | undefined;
-        commandIds?: (Uint8Array[] & Uint8Array[] & Record<Exclude<keyof I["commandIds"], keyof Uint8Array[]>, never>) | undefined;
-        data?: Uint8Array | undefined;
-        sigHash?: Uint8Array | undefined;
-        status?: BatchedCommandsStatus | undefined;
-        keyId?: string | undefined;
-        prevBatchedCommandsId?: Uint8Array | undefined;
-        signature?: ({
-            typeUrl?: string | undefined;
-            value?: Uint8Array | undefined;
-        } & {
-            typeUrl?: string | undefined;
-            value?: Uint8Array | undefined;
-        } & Record<Exclude<keyof I["signature"], keyof Any>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof CommandBatchMetadata>, never>>(object: I): CommandBatchMetadata;
+    create<I extends Exact<DeepPartial<CommandBatchMetadata>, I>>(base?: I): CommandBatchMetadata;
+    fromPartial<I extends Exact<DeepPartial<CommandBatchMetadata>, I>>(object: I): CommandBatchMetadata;
 };
 export declare const SigMetadata: {
+    $type: "axelar.evm.v1beta1.SigMetadata";
     encode(message: SigMetadata, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): SigMetadata;
+    decode(input: _m0.Reader | Uint8Array, length?: number): SigMetadata;
     fromJSON(object: any): SigMetadata;
     toJSON(message: SigMetadata): unknown;
-    fromPartial<I extends {
-        type?: SigType | undefined;
-        chain?: string | undefined;
-        commandBatchId?: Uint8Array | undefined;
-    } & {
-        type?: SigType | undefined;
-        chain?: string | undefined;
-        commandBatchId?: Uint8Array | undefined;
-    } & Record<Exclude<keyof I, keyof SigMetadata>, never>>(object: I): SigMetadata;
+    create<I extends Exact<DeepPartial<SigMetadata>, I>>(base?: I): SigMetadata;
+    fromPartial<I extends Exact<DeepPartial<SigMetadata>, I>>(object: I): SigMetadata;
 };
 export declare const TransferKey: {
+    $type: "axelar.evm.v1beta1.TransferKey";
     encode(message: TransferKey, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): TransferKey;
+    decode(input: _m0.Reader | Uint8Array, length?: number): TransferKey;
     fromJSON(object: any): TransferKey;
     toJSON(message: TransferKey): unknown;
-    fromPartial<I extends {
-        txId?: Uint8Array | undefined;
-        nextKeyId?: string | undefined;
-    } & {
-        txId?: Uint8Array | undefined;
-        nextKeyId?: string | undefined;
-    } & Record<Exclude<keyof I, keyof TransferKey>, never>>(object: I): TransferKey;
+    create<I extends Exact<DeepPartial<TransferKey>, I>>(base?: I): TransferKey;
+    fromPartial<I extends Exact<DeepPartial<TransferKey>, I>>(object: I): TransferKey;
 };
 export declare const Asset: {
+    $type: "axelar.evm.v1beta1.Asset";
     encode(message: Asset, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Asset;
+    decode(input: _m0.Reader | Uint8Array, length?: number): Asset;
     fromJSON(object: any): Asset;
     toJSON(message: Asset): unknown;
-    fromPartial<I extends {
-        chain?: string | undefined;
-        name?: string | undefined;
-    } & {
-        chain?: string | undefined;
-        name?: string | undefined;
-    } & Record<Exclude<keyof I, keyof Asset>, never>>(object: I): Asset;
+    create<I extends Exact<DeepPartial<Asset>, I>>(base?: I): Asset;
+    fromPartial<I extends Exact<DeepPartial<Asset>, I>>(object: I): Asset;
 };
 export declare const TokenDetails: {
+    $type: "axelar.evm.v1beta1.TokenDetails";
     encode(message: TokenDetails, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): TokenDetails;
+    decode(input: _m0.Reader | Uint8Array, length?: number): TokenDetails;
     fromJSON(object: any): TokenDetails;
     toJSON(message: TokenDetails): unknown;
-    fromPartial<I extends {
-        tokenName?: string | undefined;
-        symbol?: string | undefined;
-        decimals?: number | undefined;
-        capacity?: Uint8Array | undefined;
-    } & {
-        tokenName?: string | undefined;
-        symbol?: string | undefined;
-        decimals?: number | undefined;
-        capacity?: Uint8Array | undefined;
-    } & Record<Exclude<keyof I, keyof TokenDetails>, never>>(object: I): TokenDetails;
+    create<I extends Exact<DeepPartial<TokenDetails>, I>>(base?: I): TokenDetails;
+    fromPartial<I extends Exact<DeepPartial<TokenDetails>, I>>(object: I): TokenDetails;
 };
 export declare const Gateway: {
+    $type: "axelar.evm.v1beta1.Gateway";
     encode(message: Gateway, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Gateway;
+    decode(input: _m0.Reader | Uint8Array, length?: number): Gateway;
     fromJSON(object: any): Gateway;
     toJSON(message: Gateway): unknown;
-    fromPartial<I extends {
-        address?: Uint8Array | undefined;
-    } & {
-        address?: Uint8Array | undefined;
-    } & Record<Exclude<keyof I, "address">, never>>(object: I): Gateway;
+    create<I extends Exact<DeepPartial<Gateway>, I>>(base?: I): Gateway;
+    fromPartial<I extends Exact<DeepPartial<Gateway>, I>>(object: I): Gateway;
 };
 export declare const PollMetadata: {
+    $type: "axelar.evm.v1beta1.PollMetadata";
     encode(message: PollMetadata, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): PollMetadata;
+    decode(input: _m0.Reader | Uint8Array, length?: number): PollMetadata;
     fromJSON(object: any): PollMetadata;
     toJSON(message: PollMetadata): unknown;
-    fromPartial<I extends {
-        chain?: string | undefined;
-        txId?: Uint8Array | undefined;
-    } & {
-        chain?: string | undefined;
-        txId?: Uint8Array | undefined;
-    } & Record<Exclude<keyof I, keyof PollMetadata>, never>>(object: I): PollMetadata;
+    create<I extends Exact<DeepPartial<PollMetadata>, I>>(base?: I): PollMetadata;
+    fromPartial<I extends Exact<DeepPartial<PollMetadata>, I>>(object: I): PollMetadata;
 };
-declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
-    [K in keyof T]?: DeepPartial<T[K]>;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+    [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]>;
 } : Partial<T>;
-declare type KeysOfUnion<T> = T extends T ? keyof T : never;
-export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
-} & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
+} & {
+    [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never;
+};
 export {};

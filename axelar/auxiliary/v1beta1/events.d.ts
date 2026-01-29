@@ -1,29 +1,28 @@
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
+import _m0 from "protobufjs/minimal";
 export declare const protobufPackage = "axelar.auxiliary.v1beta1";
 export interface BatchedMessageFailed {
+    $type: "axelar.auxiliary.v1beta1.BatchedMessageFailed";
     index: number;
     error: string;
 }
 export declare const BatchedMessageFailed: {
+    $type: "axelar.auxiliary.v1beta1.BatchedMessageFailed";
     encode(message: BatchedMessageFailed, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): BatchedMessageFailed;
+    decode(input: _m0.Reader | Uint8Array, length?: number): BatchedMessageFailed;
     fromJSON(object: any): BatchedMessageFailed;
     toJSON(message: BatchedMessageFailed): unknown;
-    fromPartial<I extends {
-        index?: number | undefined;
-        error?: string | undefined;
-    } & {
-        index?: number | undefined;
-        error?: string | undefined;
-    } & Record<Exclude<keyof I, keyof BatchedMessageFailed>, never>>(object: I): BatchedMessageFailed;
+    create<I extends Exact<DeepPartial<BatchedMessageFailed>, I>>(base?: I): BatchedMessageFailed;
+    fromPartial<I extends Exact<DeepPartial<BatchedMessageFailed>, I>>(object: I): BatchedMessageFailed;
 };
-declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
-    [K in keyof T]?: DeepPartial<T[K]>;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+    [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]>;
 } : Partial<T>;
-declare type KeysOfUnion<T> = T extends T ? keyof T : never;
-export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
-} & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
+} & {
+    [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never;
+};
 export {};

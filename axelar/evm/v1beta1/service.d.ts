@@ -1,5 +1,5 @@
-import { SetGatewayResponse, ConfirmGatewayTxResponse, ConfirmGatewayTxsResponse, LinkResponse, ConfirmTokenResponse, ConfirmDepositResponse, ConfirmTransferKeyResponse, CreateDeployTokenResponse, CreateBurnTokensResponse, CreatePendingTransfersResponse, CreateTransferOperatorshipResponse, SignCommandsResponse, AddChainResponse, RetryFailedEventResponse, SetGatewayRequest, ConfirmGatewayTxRequest, ConfirmGatewayTxsRequest, LinkRequest, ConfirmTokenRequest, ConfirmDepositRequest, ConfirmTransferKeyRequest, CreateDeployTokenRequest, CreateBurnTokensRequest, CreatePendingTransfersRequest, CreateTransferOperatorshipRequest, SignCommandsRequest, AddChainRequest, RetryFailedEventRequest } from "../../../axelar/evm/v1beta1/tx";
-import { BatchedCommandsResponse, BurnerInfoResponse, ConfirmationHeightResponse, DepositStateResponse, PendingCommandsResponse, ChainsResponse, CommandResponse, KeyAddressResponse, GatewayAddressResponse, BytecodeResponse, EventResponse, ERC20TokensResponse, TokenInfoResponse, ParamsResponse, BatchedCommandsRequest, BurnerInfoRequest, ConfirmationHeightRequest, DepositStateRequest, PendingCommandsRequest, ChainsRequest, CommandRequest, KeyAddressRequest, GatewayAddressRequest, BytecodeRequest, EventRequest, ERC20TokensRequest, TokenInfoRequest, ParamsRequest } from "../../../axelar/evm/v1beta1/query";
+import { BatchedCommandsRequest, BatchedCommandsResponse, BurnerInfoRequest, BurnerInfoResponse, BytecodeRequest, BytecodeResponse, ChainsRequest, ChainsResponse, CommandRequest, CommandResponse, ConfirmationHeightRequest, ConfirmationHeightResponse, DepositStateRequest, DepositStateResponse, ERC20TokensRequest, ERC20TokensResponse, EventRequest, EventResponse, GatewayAddressRequest, GatewayAddressResponse, KeyAddressRequest, KeyAddressResponse, ParamsRequest, ParamsResponse, PendingCommandsRequest, PendingCommandsResponse, TokenInfoRequest, TokenInfoResponse } from "./query";
+import { AddChainRequest, AddChainResponse, ConfirmDepositRequest, ConfirmDepositResponse, ConfirmGatewayTxRequest, ConfirmGatewayTxResponse, ConfirmGatewayTxsRequest, ConfirmGatewayTxsResponse, ConfirmTokenRequest, ConfirmTokenResponse, ConfirmTransferKeyRequest, ConfirmTransferKeyResponse, CreateBurnTokensRequest, CreateBurnTokensResponse, CreateDeployTokenRequest, CreateDeployTokenResponse, CreatePendingTransfersRequest, CreatePendingTransfersResponse, CreateTransferOperatorshipRequest, CreateTransferOperatorshipResponse, LinkRequest, LinkResponse, RetryFailedEventRequest, RetryFailedEventResponse, SetGatewayRequest, SetGatewayResponse, SignCommandsRequest, SignCommandsResponse, UpdateParamsRequest, UpdateParamsResponse } from "./tx";
 export declare const protobufPackage = "axelar.evm.v1beta1";
 /** Msg defines the evm Msg service. */
 export interface MsgService {
@@ -18,10 +18,15 @@ export interface MsgService {
     SignCommands(request: SignCommandsRequest): Promise<SignCommandsResponse>;
     AddChain(request: AddChainRequest): Promise<AddChainResponse>;
     RetryFailedEvent(request: RetryFailedEventRequest): Promise<RetryFailedEventResponse>;
+    UpdateParams(request: UpdateParamsRequest): Promise<UpdateParamsResponse>;
 }
+export declare const MsgServiceServiceName = "axelar.evm.v1beta1.MsgService";
 export declare class MsgServiceClientImpl implements MsgService {
     private readonly rpc;
-    constructor(rpc: Rpc);
+    private readonly service;
+    constructor(rpc: Rpc, opts?: {
+        service?: string;
+    });
     SetGateway(request: SetGatewayRequest): Promise<SetGatewayResponse>;
     ConfirmGatewayTx(request: ConfirmGatewayTxRequest): Promise<ConfirmGatewayTxResponse>;
     ConfirmGatewayTxs(request: ConfirmGatewayTxsRequest): Promise<ConfirmGatewayTxsResponse>;
@@ -36,6 +41,7 @@ export declare class MsgServiceClientImpl implements MsgService {
     SignCommands(request: SignCommandsRequest): Promise<SignCommandsResponse>;
     AddChain(request: AddChainRequest): Promise<AddChainResponse>;
     RetryFailedEvent(request: RetryFailedEventRequest): Promise<RetryFailedEventResponse>;
+    UpdateParams(request: UpdateParamsRequest): Promise<UpdateParamsResponse>;
 }
 /** QueryService defines the gRPC querier service. */
 export interface QueryService {
@@ -81,9 +87,13 @@ export interface QueryService {
     TokenInfo(request: TokenInfoRequest): Promise<TokenInfoResponse>;
     Params(request: ParamsRequest): Promise<ParamsResponse>;
 }
+export declare const QueryServiceServiceName = "axelar.evm.v1beta1.QueryService";
 export declare class QueryServiceClientImpl implements QueryService {
     private readonly rpc;
-    constructor(rpc: Rpc);
+    private readonly service;
+    constructor(rpc: Rpc, opts?: {
+        service?: string;
+    });
     BatchedCommands(request: BatchedCommandsRequest): Promise<BatchedCommandsResponse>;
     BurnerInfo(request: BurnerInfoRequest): Promise<BurnerInfoResponse>;
     ConfirmationHeight(request: ConfirmationHeightRequest): Promise<ConfirmationHeightResponse>;

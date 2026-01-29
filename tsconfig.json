@@ -4,7 +4,11 @@
     "declaration": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "lib": ["es2018"],
+    "lib": [
+      "es2018",
+      "dom"
+    ],
+    "types": ["node"],
     "module": "commonjs",
     "moduleResolution": "node",
     "newLine": "LF",
@@ -20,7 +24,10 @@
     "rootDir": "src",
     "sourceMap": true,
     "strict": true,
-    "target": "es2018"
+    "target": "es2018",
+    "skipLibCheck": true
   },
-  "include": ["src/**/*"]
+  "include": [
+    "src/**/*"
+  ]
 }

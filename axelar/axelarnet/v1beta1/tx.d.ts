@@ -1,38 +1,86 @@
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
-import { Chain, Asset } from "../../../axelar/nexus/exported/v1beta1/types";
+import _m0 from "protobufjs/minimal";
+import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import { Duration } from "../../../google/protobuf/duration";
-import { Fee } from "../../../axelar/axelarnet/v1beta1/types";
+import { Asset, Chain } from "../../nexus/exported/v1beta1/types";
+import { Params } from "./params";
+import { Fee } from "./types";
 export declare const protobufPackage = "axelar.axelarnet.v1beta1";
 /**
  * MsgLink represents a message to link a cross-chain address to an Axelar
  * address
  */
 export interface LinkRequest {
-    sender: Uint8Array;
+    $type: "axelar.axelarnet.v1beta1.LinkRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward
+     * compatibility. Removing this field would break decoding of historical
+     * transactions. DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     recipientAddr: string;
     recipientChain: string;
     asset: string;
+    sender: string;
 }
 export interface LinkResponse {
+    $type: "axelar.axelarnet.v1beta1.LinkResponse";
     depositAddr: string;
 }
 /** MsgConfirmDeposit represents a deposit confirmation message */
 export interface ConfirmDepositRequest {
-    sender: Uint8Array;
-    depositAddress: Uint8Array;
+    $type: "axelar.axelarnet.v1beta1.ConfirmDepositRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward
+     * compatibility. Removing this field would break decoding of historical
+     * transactions. DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
+    /**
+     * DEPRECATED: Removed in v0.14, reinstated in v1.3 for backward
+     * compatibility. This field must remain to allow decoding of historical
+     * transactions. DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    txIdDeprecated: Buffer;
+    /**
+     * DEPRECATED: Removed in v0.15, reinstated in v1.3 for backward
+     * compatibility. This field must remain to allow decoding of historical
+     * transactions. DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    tokenDeprecated?: Coin | undefined;
+    depositAddress: Buffer;
     denom: string;
+    sender: string;
 }
 export interface ConfirmDepositResponse {
+    $type: "axelar.axelarnet.v1beta1.ConfirmDepositResponse";
 }
 /**
  * MsgExecutePendingTransfers represents a message to trigger transfer all
  * pending transfers
  */
 export interface ExecutePendingTransfersRequest {
-    sender: Uint8Array;
+    $type: "axelar.axelarnet.v1beta1.ExecutePendingTransfersRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward
+     * compatibility. Removing this field would break decoding of historical
+     * transactions. DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
+    sender: string;
 }
 export interface ExecutePendingTransfersResponse {
+    $type: "axelar.axelarnet.v1beta1.ExecutePendingTransfersResponse";
 }
 /**
  * MSgRegisterIBCPath represents a message to register an IBC tracing path for
@@ -41,25 +89,51 @@ export interface ExecutePendingTransfersResponse {
  * @deprecated
  */
 export interface RegisterIBCPathRequest {
-    sender: Uint8Array;
+    $type: "axelar.axelarnet.v1beta1.RegisterIBCPathRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward
+     * compatibility. Removing this field would break decoding of historical
+     * transactions. DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     chain: string;
     path: string;
+    sender: string;
 }
 export interface RegisterIBCPathResponse {
+    $type: "axelar.axelarnet.v1beta1.RegisterIBCPathResponse";
 }
 /**
  * MsgAddCosmosBasedChain represents a message to register a cosmos based chain
  * to nexus
  */
 export interface AddCosmosBasedChainRequest {
-    sender: Uint8Array;
+    $type: "axelar.axelarnet.v1beta1.AddCosmosBasedChainRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward
+     * compatibility. Removing this field would break decoding of historical
+     * transactions. DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     /**
      * chain was deprecated in v0.27
      *
      * @deprecated
      */
-    chain?: Chain;
+    chain?: Chain | undefined;
     addrPrefix: string;
+    /**
+     * DEPRECATED: Removed in v0.15, reinstated in v1.3 for backward
+     * compatibility. This field must remain to allow decoding of historical
+     * transactions. DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    minAmountDeprecated: Buffer;
     /**
      * native_assets was deprecated in v0.27
      *
@@ -69,512 +143,360 @@ export interface AddCosmosBasedChainRequest {
     /** TODO: Rename this to `chain` after v1beta1 -> v1 version bump */
     cosmosChain: string;
     ibcPath: string;
+    sender: string;
 }
 export interface AddCosmosBasedChainResponse {
+    $type: "axelar.axelarnet.v1beta1.AddCosmosBasedChainResponse";
 }
 /**
  * RegisterAssetRequest represents a message to register an asset to a cosmos
  * based chain
  */
 export interface RegisterAssetRequest {
-    sender: Uint8Array;
+    $type: "axelar.axelarnet.v1beta1.RegisterAssetRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward
+     * compatibility. Removing this field would break decoding of historical
+     * transactions. DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     chain: string;
-    asset?: Asset;
-    limit: Uint8Array;
-    window?: Duration;
+    asset?: Asset | undefined;
+    limit: Buffer;
+    window?: Duration | undefined;
+    sender: string;
 }
 export interface RegisterAssetResponse {
+    $type: "axelar.axelarnet.v1beta1.RegisterAssetResponse";
 }
 /**
  * RouteIBCTransfersRequest represents a message to route pending transfers to
  * cosmos based chains
  */
 export interface RouteIBCTransfersRequest {
-    sender: Uint8Array;
+    $type: "axelar.axelarnet.v1beta1.RouteIBCTransfersRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward
+     * compatibility. Removing this field would break decoding of historical
+     * transactions. DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
+    sender: string;
 }
 export interface RouteIBCTransfersResponse {
+    $type: "axelar.axelarnet.v1beta1.RouteIBCTransfersResponse";
 }
 /**
  * RegisterFeeCollectorRequest represents a message to register axelarnet fee
  * collector account
  */
 export interface RegisterFeeCollectorRequest {
-    sender: Uint8Array;
-    feeCollector: Uint8Array;
+    $type: "axelar.axelarnet.v1beta1.RegisterFeeCollectorRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward
+     * compatibility. Removing this field would break decoding of historical
+     * transactions. DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
+    feeCollector: Buffer;
+    sender: string;
 }
 export interface RegisterFeeCollectorResponse {
+    $type: "axelar.axelarnet.v1beta1.RegisterFeeCollectorResponse";
 }
 export interface RetryIBCTransferRequest {
-    sender: Uint8Array;
+    $type: "axelar.axelarnet.v1beta1.RetryIBCTransferRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward
+     * compatibility. Removing this field would break decoding of historical
+     * transactions. DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     /** @deprecated */
     chain: string;
     id: Long;
+    sender: string;
 }
 export interface RetryIBCTransferResponse {
+    $type: "axelar.axelarnet.v1beta1.RetryIBCTransferResponse";
 }
 export interface RouteMessageRequest {
-    sender: Uint8Array;
+    $type: "axelar.axelarnet.v1beta1.RouteMessageRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward
+     * compatibility. Removing this field would break decoding of historical
+     * transactions. DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     id: string;
-    payload: Uint8Array;
-    feegranter: Uint8Array;
+    payload: Buffer;
+    feegranter: Buffer;
+    sender: string;
 }
 export interface RouteMessageResponse {
+    $type: "axelar.axelarnet.v1beta1.RouteMessageResponse";
 }
 export interface CallContractRequest {
-    sender: Uint8Array;
+    $type: "axelar.axelarnet.v1beta1.CallContractRequest";
+    /**
+     * DEPRECATED: This field is deprecated but must remain to ensure backward
+     * compatibility. Removing this field would break decoding of historical
+     * transactions. DO NOT use in new code.
+     *
+     * @deprecated
+     */
+    senderDeprecated: Buffer;
     chain: string;
     contractAddress: string;
-    payload: Uint8Array;
-    fee?: Fee;
+    payload: Buffer;
+    fee?: Fee | undefined;
+    sender: string;
 }
 export interface CallContractResponse {
+    $type: "axelar.axelarnet.v1beta1.CallContractResponse";
+}
+export interface UpdateParamsRequest {
+    $type: "axelar.axelarnet.v1beta1.UpdateParamsRequest";
+    authority: string;
+    params?: Params | undefined;
+}
+export interface UpdateParamsResponse {
+    $type: "axelar.axelarnet.v1beta1.UpdateParamsResponse";
 }
 export declare const LinkRequest: {
+    $type: "axelar.axelarnet.v1beta1.LinkRequest";
     encode(message: LinkRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): LinkRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): LinkRequest;
     fromJSON(object: any): LinkRequest;
     toJSON(message: LinkRequest): unknown;
-    fromPartial<I extends {
-        sender?: Uint8Array | undefined;
-        recipientAddr?: string | undefined;
-        recipientChain?: string | undefined;
-        asset?: string | undefined;
-    } & {
-        sender?: Uint8Array | undefined;
-        recipientAddr?: string | undefined;
-        recipientChain?: string | undefined;
-        asset?: string | undefined;
-    } & Record<Exclude<keyof I, keyof LinkRequest>, never>>(object: I): LinkRequest;
+    create<I extends Exact<DeepPartial<LinkRequest>, I>>(base?: I): LinkRequest;
+    fromPartial<I extends Exact<DeepPartial<LinkRequest>, I>>(object: I): LinkRequest;
 };
 export declare const LinkResponse: {
+    $type: "axelar.axelarnet.v1beta1.LinkResponse";
     encode(message: LinkResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): LinkResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): LinkResponse;
     fromJSON(object: any): LinkResponse;
     toJSON(message: LinkResponse): unknown;
-    fromPartial<I extends {
-        depositAddr?: string | undefined;
-    } & {
-        depositAddr?: string | undefined;
-    } & Record<Exclude<keyof I, "depositAddr">, never>>(object: I): LinkResponse;
+    create<I extends Exact<DeepPartial<LinkResponse>, I>>(base?: I): LinkResponse;
+    fromPartial<I extends Exact<DeepPartial<LinkResponse>, I>>(object: I): LinkResponse;
 };
 export declare const ConfirmDepositRequest: {
+    $type: "axelar.axelarnet.v1beta1.ConfirmDepositRequest";
     encode(message: ConfirmDepositRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ConfirmDepositRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): ConfirmDepositRequest;
     fromJSON(object: any): ConfirmDepositRequest;
     toJSON(message: ConfirmDepositRequest): unknown;
-    fromPartial<I extends {
-        sender?: Uint8Array | undefined;
-        depositAddress?: Uint8Array | undefined;
-        denom?: string | undefined;
-    } & {
-        sender?: Uint8Array | undefined;
-        depositAddress?: Uint8Array | undefined;
-        denom?: string | undefined;
-    } & Record<Exclude<keyof I, keyof ConfirmDepositRequest>, never>>(object: I): ConfirmDepositRequest;
+    create<I extends Exact<DeepPartial<ConfirmDepositRequest>, I>>(base?: I): ConfirmDepositRequest;
+    fromPartial<I extends Exact<DeepPartial<ConfirmDepositRequest>, I>>(object: I): ConfirmDepositRequest;
 };
 export declare const ConfirmDepositResponse: {
+    $type: "axelar.axelarnet.v1beta1.ConfirmDepositResponse";
     encode(_: ConfirmDepositResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ConfirmDepositResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): ConfirmDepositResponse;
     fromJSON(_: any): ConfirmDepositResponse;
     toJSON(_: ConfirmDepositResponse): unknown;
-    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): ConfirmDepositResponse;
+    create<I extends Exact<DeepPartial<ConfirmDepositResponse>, I>>(base?: I): ConfirmDepositResponse;
+    fromPartial<I extends Exact<DeepPartial<ConfirmDepositResponse>, I>>(_: I): ConfirmDepositResponse;
 };
 export declare const ExecutePendingTransfersRequest: {
+    $type: "axelar.axelarnet.v1beta1.ExecutePendingTransfersRequest";
     encode(message: ExecutePendingTransfersRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ExecutePendingTransfersRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): ExecutePendingTransfersRequest;
     fromJSON(object: any): ExecutePendingTransfersRequest;
     toJSON(message: ExecutePendingTransfersRequest): unknown;
-    fromPartial<I extends {
-        sender?: Uint8Array | undefined;
-    } & {
-        sender?: Uint8Array | undefined;
-    } & Record<Exclude<keyof I, "sender">, never>>(object: I): ExecutePendingTransfersRequest;
+    create<I extends Exact<DeepPartial<ExecutePendingTransfersRequest>, I>>(base?: I): ExecutePendingTransfersRequest;
+    fromPartial<I extends Exact<DeepPartial<ExecutePendingTransfersRequest>, I>>(object: I): ExecutePendingTransfersRequest;
 };
 export declare const ExecutePendingTransfersResponse: {
+    $type: "axelar.axelarnet.v1beta1.ExecutePendingTransfersResponse";
     encode(_: ExecutePendingTransfersResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ExecutePendingTransfersResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): ExecutePendingTransfersResponse;
     fromJSON(_: any): ExecutePendingTransfersResponse;
     toJSON(_: ExecutePendingTransfersResponse): unknown;
-    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): ExecutePendingTransfersResponse;
+    create<I extends Exact<DeepPartial<ExecutePendingTransfersResponse>, I>>(base?: I): ExecutePendingTransfersResponse;
+    fromPartial<I extends Exact<DeepPartial<ExecutePendingTransfersResponse>, I>>(_: I): ExecutePendingTransfersResponse;
 };
 export declare const RegisterIBCPathRequest: {
+    $type: "axelar.axelarnet.v1beta1.RegisterIBCPathRequest";
     encode(message: RegisterIBCPathRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): RegisterIBCPathRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): RegisterIBCPathRequest;
     fromJSON(object: any): RegisterIBCPathRequest;
     toJSON(message: RegisterIBCPathRequest): unknown;
-    fromPartial<I extends {
-        sender?: Uint8Array | undefined;
-        chain?: string | undefined;
-        path?: string | undefined;
-    } & {
-        sender?: Uint8Array | undefined;
-        chain?: string | undefined;
-        path?: string | undefined;
-    } & Record<Exclude<keyof I, keyof RegisterIBCPathRequest>, never>>(object: I): RegisterIBCPathRequest;
+    create<I extends Exact<DeepPartial<RegisterIBCPathRequest>, I>>(base?: I): RegisterIBCPathRequest;
+    fromPartial<I extends Exact<DeepPartial<RegisterIBCPathRequest>, I>>(object: I): RegisterIBCPathRequest;
 };
 export declare const RegisterIBCPathResponse: {
+    $type: "axelar.axelarnet.v1beta1.RegisterIBCPathResponse";
     encode(_: RegisterIBCPathResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): RegisterIBCPathResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): RegisterIBCPathResponse;
     fromJSON(_: any): RegisterIBCPathResponse;
     toJSON(_: RegisterIBCPathResponse): unknown;
-    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): RegisterIBCPathResponse;
+    create<I extends Exact<DeepPartial<RegisterIBCPathResponse>, I>>(base?: I): RegisterIBCPathResponse;
+    fromPartial<I extends Exact<DeepPartial<RegisterIBCPathResponse>, I>>(_: I): RegisterIBCPathResponse;
 };
 export declare const AddCosmosBasedChainRequest: {
+    $type: "axelar.axelarnet.v1beta1.AddCosmosBasedChainRequest";
     encode(message: AddCosmosBasedChainRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AddCosmosBasedChainRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): AddCosmosBasedChainRequest;
     fromJSON(object: any): AddCosmosBasedChainRequest;
     toJSON(message: AddCosmosBasedChainRequest): unknown;
-    fromPartial<I extends {
-        sender?: Uint8Array | undefined;
-        chain?: {
-            name?: string | undefined;
-            supportsForeignAssets?: boolean | undefined;
-            keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
-            module?: string | undefined;
-        } | undefined;
-        addrPrefix?: string | undefined;
-        nativeAssets?: {
-            denom?: string | undefined;
-            isNativeAsset?: boolean | undefined;
-        }[] | undefined;
-        cosmosChain?: string | undefined;
-        ibcPath?: string | undefined;
-    } & {
-        sender?: Uint8Array | undefined;
-        chain?: ({
-            name?: string | undefined;
-            supportsForeignAssets?: boolean | undefined;
-            keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
-            module?: string | undefined;
-        } & {
-            name?: string | undefined;
-            supportsForeignAssets?: boolean | undefined;
-            keyType?: import("../../tss/exported/v1beta1/types").KeyType | undefined;
-            module?: string | undefined;
-        } & Record<Exclude<keyof I["chain"], keyof Chain>, never>) | undefined;
-        addrPrefix?: string | undefined;
-        nativeAssets?: ({
-            denom?: string | undefined;
-            isNativeAsset?: boolean | undefined;
-        }[] & ({
-            denom?: string | undefined;
-            isNativeAsset?: boolean | undefined;
-        } & {
-            denom?: string | undefined;
-            isNativeAsset?: boolean | undefined;
-        } & Record<Exclude<keyof I["nativeAssets"][number], keyof Asset>, never>)[] & Record<Exclude<keyof I["nativeAssets"], keyof {
-            denom?: string | undefined;
-            isNativeAsset?: boolean | undefined;
-        }[]>, never>) | undefined;
-        cosmosChain?: string | undefined;
-        ibcPath?: string | undefined;
-    } & Record<Exclude<keyof I, keyof AddCosmosBasedChainRequest>, never>>(object: I): AddCosmosBasedChainRequest;
+    create<I extends Exact<DeepPartial<AddCosmosBasedChainRequest>, I>>(base?: I): AddCosmosBasedChainRequest;
+    fromPartial<I extends Exact<DeepPartial<AddCosmosBasedChainRequest>, I>>(object: I): AddCosmosBasedChainRequest;
 };
 export declare const AddCosmosBasedChainResponse: {
+    $type: "axelar.axelarnet.v1beta1.AddCosmosBasedChainResponse";
     encode(_: AddCosmosBasedChainResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AddCosmosBasedChainResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): AddCosmosBasedChainResponse;
     fromJSON(_: any): AddCosmosBasedChainResponse;
     toJSON(_: AddCosmosBasedChainResponse): unknown;
-    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): AddCosmosBasedChainResponse;
+    create<I extends Exact<DeepPartial<AddCosmosBasedChainResponse>, I>>(base?: I): AddCosmosBasedChainResponse;
+    fromPartial<I extends Exact<DeepPartial<AddCosmosBasedChainResponse>, I>>(_: I): AddCosmosBasedChainResponse;
 };
 export declare const RegisterAssetRequest: {
+    $type: "axelar.axelarnet.v1beta1.RegisterAssetRequest";
     encode(message: RegisterAssetRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): RegisterAssetRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): RegisterAssetRequest;
     fromJSON(object: any): RegisterAssetRequest;
     toJSON(message: RegisterAssetRequest): unknown;
-    fromPartial<I extends {
-        sender?: Uint8Array | undefined;
-        chain?: string | undefined;
-        asset?: {
-            denom?: string | undefined;
-            isNativeAsset?: boolean | undefined;
-        } | undefined;
-        limit?: Uint8Array | undefined;
-        window?: {
-            seconds?: string | number | Long.Long | undefined;
-            nanos?: number | undefined;
-        } | undefined;
-    } & {
-        sender?: Uint8Array | undefined;
-        chain?: string | undefined;
-        asset?: ({
-            denom?: string | undefined;
-            isNativeAsset?: boolean | undefined;
-        } & {
-            denom?: string | undefined;
-            isNativeAsset?: boolean | undefined;
-        } & Record<Exclude<keyof I["asset"], keyof Asset>, never>) | undefined;
-        limit?: Uint8Array | undefined;
-        window?: ({
-            seconds?: string | number | Long.Long | undefined;
-            nanos?: number | undefined;
-        } & {
-            seconds?: string | number | (Long.Long & {
-                high: number;
-                low: number;
-                unsigned: boolean;
-                add: (addend: string | number | Long.Long) => Long.Long;
-                and: (other: string | number | Long.Long) => Long.Long;
-                compare: (other: string | number | Long.Long) => number;
-                comp: (other: string | number | Long.Long) => number;
-                divide: (divisor: string | number | Long.Long) => Long.Long;
-                div: (divisor: string | number | Long.Long) => Long.Long;
-                equals: (other: string | number | Long.Long) => boolean;
-                eq: (other: string | number | Long.Long) => boolean;
-                getHighBits: () => number;
-                getHighBitsUnsigned: () => number;
-                getLowBits: () => number;
-                getLowBitsUnsigned: () => number;
-                getNumBitsAbs: () => number;
-                greaterThan: (other: string | number | Long.Long) => boolean;
-                gt: (other: string | number | Long.Long) => boolean;
-                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-                gte: (other: string | number | Long.Long) => boolean;
-                isEven: () => boolean;
-                isNegative: () => boolean;
-                isOdd: () => boolean;
-                isPositive: () => boolean;
-                isZero: () => boolean;
-                lessThan: (other: string | number | Long.Long) => boolean;
-                lt: (other: string | number | Long.Long) => boolean;
-                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-                lte: (other: string | number | Long.Long) => boolean;
-                modulo: (other: string | number | Long.Long) => Long.Long;
-                mod: (other: string | number | Long.Long) => Long.Long;
-                multiply: (multiplier: string | number | Long.Long) => Long.Long;
-                mul: (multiplier: string | number | Long.Long) => Long.Long;
-                negate: () => Long.Long;
-                neg: () => Long.Long;
-                not: () => Long.Long;
-                notEquals: (other: string | number | Long.Long) => boolean;
-                neq: (other: string | number | Long.Long) => boolean;
-                or: (other: string | number | Long.Long) => Long.Long;
-                shiftLeft: (numBits: number | Long.Long) => Long.Long;
-                shl: (numBits: number | Long.Long) => Long.Long;
-                shiftRight: (numBits: number | Long.Long) => Long.Long;
-                shr: (numBits: number | Long.Long) => Long.Long;
-                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-                shru: (numBits: number | Long.Long) => Long.Long;
-                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-                sub: (subtrahend: string | number | Long.Long) => Long.Long;
-                toInt: () => number;
-                toNumber: () => number;
-                toBytes: (le?: boolean | undefined) => number[];
-                toBytesLE: () => number[];
-                toBytesBE: () => number[];
-                toSigned: () => Long.Long;
-                toString: (radix?: number | undefined) => string;
-                toUnsigned: () => Long.Long;
-                xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["window"]["seconds"], keyof Long.Long>, never>) | undefined;
-            nanos?: number | undefined;
-        } & Record<Exclude<keyof I["window"], keyof Duration>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof RegisterAssetRequest>, never>>(object: I): RegisterAssetRequest;
+    create<I extends Exact<DeepPartial<RegisterAssetRequest>, I>>(base?: I): RegisterAssetRequest;
+    fromPartial<I extends Exact<DeepPartial<RegisterAssetRequest>, I>>(object: I): RegisterAssetRequest;
 };
 export declare const RegisterAssetResponse: {
+    $type: "axelar.axelarnet.v1beta1.RegisterAssetResponse";
     encode(_: RegisterAssetResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): RegisterAssetResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): RegisterAssetResponse;
     fromJSON(_: any): RegisterAssetResponse;
     toJSON(_: RegisterAssetResponse): unknown;
-    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): RegisterAssetResponse;
+    create<I extends Exact<DeepPartial<RegisterAssetResponse>, I>>(base?: I): RegisterAssetResponse;
+    fromPartial<I extends Exact<DeepPartial<RegisterAssetResponse>, I>>(_: I): RegisterAssetResponse;
 };
 export declare const RouteIBCTransfersRequest: {
+    $type: "axelar.axelarnet.v1beta1.RouteIBCTransfersRequest";
     encode(message: RouteIBCTransfersRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): RouteIBCTransfersRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): RouteIBCTransfersRequest;
     fromJSON(object: any): RouteIBCTransfersRequest;
     toJSON(message: RouteIBCTransfersRequest): unknown;
-    fromPartial<I extends {
-        sender?: Uint8Array | undefined;
-    } & {
-        sender?: Uint8Array | undefined;
-    } & Record<Exclude<keyof I, "sender">, never>>(object: I): RouteIBCTransfersRequest;
+    create<I extends Exact<DeepPartial<RouteIBCTransfersRequest>, I>>(base?: I): RouteIBCTransfersRequest;
+    fromPartial<I extends Exact<DeepPartial<RouteIBCTransfersRequest>, I>>(object: I): RouteIBCTransfersRequest;
 };
 export declare const RouteIBCTransfersResponse: {
+    $type: "axelar.axelarnet.v1beta1.RouteIBCTransfersResponse";
     encode(_: RouteIBCTransfersResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): RouteIBCTransfersResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): RouteIBCTransfersResponse;
     fromJSON(_: any): RouteIBCTransfersResponse;
     toJSON(_: RouteIBCTransfersResponse): unknown;
-    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): RouteIBCTransfersResponse;
+    create<I extends Exact<DeepPartial<RouteIBCTransfersResponse>, I>>(base?: I): RouteIBCTransfersResponse;
+    fromPartial<I extends Exact<DeepPartial<RouteIBCTransfersResponse>, I>>(_: I): RouteIBCTransfersResponse;
 };
 export declare const RegisterFeeCollectorRequest: {
+    $type: "axelar.axelarnet.v1beta1.RegisterFeeCollectorRequest";
     encode(message: RegisterFeeCollectorRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): RegisterFeeCollectorRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): RegisterFeeCollectorRequest;
     fromJSON(object: any): RegisterFeeCollectorRequest;
     toJSON(message: RegisterFeeCollectorRequest): unknown;
-    fromPartial<I extends {
-        sender?: Uint8Array | undefined;
-        feeCollector?: Uint8Array | undefined;
-    } & {
-        sender?: Uint8Array | undefined;
-        feeCollector?: Uint8Array | undefined;
-    } & Record<Exclude<keyof I, keyof RegisterFeeCollectorRequest>, never>>(object: I): RegisterFeeCollectorRequest;
+    create<I extends Exact<DeepPartial<RegisterFeeCollectorRequest>, I>>(base?: I): RegisterFeeCollectorRequest;
+    fromPartial<I extends Exact<DeepPartial<RegisterFeeCollectorRequest>, I>>(object: I): RegisterFeeCollectorRequest;
 };
 export declare const RegisterFeeCollectorResponse: {
+    $type: "axelar.axelarnet.v1beta1.RegisterFeeCollectorResponse";
     encode(_: RegisterFeeCollectorResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): RegisterFeeCollectorResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): RegisterFeeCollectorResponse;
     fromJSON(_: any): RegisterFeeCollectorResponse;
     toJSON(_: RegisterFeeCollectorResponse): unknown;
-    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): RegisterFeeCollectorResponse;
+    create<I extends Exact<DeepPartial<RegisterFeeCollectorResponse>, I>>(base?: I): RegisterFeeCollectorResponse;
+    fromPartial<I extends Exact<DeepPartial<RegisterFeeCollectorResponse>, I>>(_: I): RegisterFeeCollectorResponse;
 };
 export declare const RetryIBCTransferRequest: {
+    $type: "axelar.axelarnet.v1beta1.RetryIBCTransferRequest";
     encode(message: RetryIBCTransferRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): RetryIBCTransferRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): RetryIBCTransferRequest;
     fromJSON(object: any): RetryIBCTransferRequest;
     toJSON(message: RetryIBCTransferRequest): unknown;
-    fromPartial<I extends {
-        sender?: Uint8Array | undefined;
-        chain?: string | undefined;
-        id?: string | number | Long.Long | undefined;
-    } & {
-        sender?: Uint8Array | undefined;
-        chain?: string | undefined;
-        id?: string | number | (Long.Long & {
-            high: number;
-            low: number;
-            unsigned: boolean;
-            add: (addend: string | number | Long.Long) => Long.Long;
-            and: (other: string | number | Long.Long) => Long.Long;
-            compare: (other: string | number | Long.Long) => number;
-            comp: (other: string | number | Long.Long) => number;
-            divide: (divisor: string | number | Long.Long) => Long.Long;
-            div: (divisor: string | number | Long.Long) => Long.Long;
-            equals: (other: string | number | Long.Long) => boolean;
-            eq: (other: string | number | Long.Long) => boolean;
-            getHighBits: () => number;
-            getHighBitsUnsigned: () => number;
-            getLowBits: () => number;
-            getLowBitsUnsigned: () => number;
-            getNumBitsAbs: () => number;
-            greaterThan: (other: string | number | Long.Long) => boolean;
-            gt: (other: string | number | Long.Long) => boolean;
-            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-            gte: (other: string | number | Long.Long) => boolean;
-            isEven: () => boolean;
-            isNegative: () => boolean;
-            isOdd: () => boolean;
-            isPositive: () => boolean;
-            isZero: () => boolean;
-            lessThan: (other: string | number | Long.Long) => boolean;
-            lt: (other: string | number | Long.Long) => boolean;
-            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-            lte: (other: string | number | Long.Long) => boolean;
-            modulo: (other: string | number | Long.Long) => Long.Long;
-            mod: (other: string | number | Long.Long) => Long.Long;
-            multiply: (multiplier: string | number | Long.Long) => Long.Long;
-            mul: (multiplier: string | number | Long.Long) => Long.Long;
-            negate: () => Long.Long;
-            neg: () => Long.Long;
-            not: () => Long.Long;
-            notEquals: (other: string | number | Long.Long) => boolean;
-            neq: (other: string | number | Long.Long) => boolean;
-            or: (other: string | number | Long.Long) => Long.Long;
-            shiftLeft: (numBits: number | Long.Long) => Long.Long;
-            shl: (numBits: number | Long.Long) => Long.Long;
-            shiftRight: (numBits: number | Long.Long) => Long.Long;
-            shr: (numBits: number | Long.Long) => Long.Long;
-            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-            shru: (numBits: number | Long.Long) => Long.Long;
-            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-            sub: (subtrahend: string | number | Long.Long) => Long.Long;
-            toInt: () => number;
-            toNumber: () => number;
-            toBytes: (le?: boolean | undefined) => number[];
-            toBytesLE: () => number[];
-            toBytesBE: () => number[];
-            toSigned: () => Long.Long;
-            toString: (radix?: number | undefined) => string;
-            toUnsigned: () => Long.Long;
-            xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["id"], keyof Long.Long>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof RetryIBCTransferRequest>, never>>(object: I): RetryIBCTransferRequest;
+    create<I extends Exact<DeepPartial<RetryIBCTransferRequest>, I>>(base?: I): RetryIBCTransferRequest;
+    fromPartial<I extends Exact<DeepPartial<RetryIBCTransferRequest>, I>>(object: I): RetryIBCTransferRequest;
 };
 export declare const RetryIBCTransferResponse: {
+    $type: "axelar.axelarnet.v1beta1.RetryIBCTransferResponse";
     encode(_: RetryIBCTransferResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): RetryIBCTransferResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): RetryIBCTransferResponse;
     fromJSON(_: any): RetryIBCTransferResponse;
     toJSON(_: RetryIBCTransferResponse): unknown;
-    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): RetryIBCTransferResponse;
+    create<I extends Exact<DeepPartial<RetryIBCTransferResponse>, I>>(base?: I): RetryIBCTransferResponse;
+    fromPartial<I extends Exact<DeepPartial<RetryIBCTransferResponse>, I>>(_: I): RetryIBCTransferResponse;
 };
 export declare const RouteMessageRequest: {
+    $type: "axelar.axelarnet.v1beta1.RouteMessageRequest";
     encode(message: RouteMessageRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): RouteMessageRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): RouteMessageRequest;
     fromJSON(object: any): RouteMessageRequest;
     toJSON(message: RouteMessageRequest): unknown;
-    fromPartial<I extends {
-        sender?: Uint8Array | undefined;
-        id?: string | undefined;
-        payload?: Uint8Array | undefined;
-        feegranter?: Uint8Array | undefined;
-    } & {
-        sender?: Uint8Array | undefined;
-        id?: string | undefined;
-        payload?: Uint8Array | undefined;
-        feegranter?: Uint8Array | undefined;
-    } & Record<Exclude<keyof I, keyof RouteMessageRequest>, never>>(object: I): RouteMessageRequest;
+    create<I extends Exact<DeepPartial<RouteMessageRequest>, I>>(base?: I): RouteMessageRequest;
+    fromPartial<I extends Exact<DeepPartial<RouteMessageRequest>, I>>(object: I): RouteMessageRequest;
 };
 export declare const RouteMessageResponse: {
+    $type: "axelar.axelarnet.v1beta1.RouteMessageResponse";
     encode(_: RouteMessageResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): RouteMessageResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): RouteMessageResponse;
     fromJSON(_: any): RouteMessageResponse;
     toJSON(_: RouteMessageResponse): unknown;
-    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): RouteMessageResponse;
+    create<I extends Exact<DeepPartial<RouteMessageResponse>, I>>(base?: I): RouteMessageResponse;
+    fromPartial<I extends Exact<DeepPartial<RouteMessageResponse>, I>>(_: I): RouteMessageResponse;
 };
 export declare const CallContractRequest: {
+    $type: "axelar.axelarnet.v1beta1.CallContractRequest";
     encode(message: CallContractRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): CallContractRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): CallContractRequest;
     fromJSON(object: any): CallContractRequest;
     toJSON(message: CallContractRequest): unknown;
-    fromPartial<I extends {
-        sender?: Uint8Array | undefined;
-        chain?: string | undefined;
-        contractAddress?: string | undefined;
-        payload?: Uint8Array | undefined;
-        fee?: {
-            amount?: {
-                denom?: string | undefined;
-                amount?: string | undefined;
-            } | undefined;
-            recipient?: Uint8Array | undefined;
-            refundRecipient?: Uint8Array | undefined;
-        } | undefined;
-    } & {
-        sender?: Uint8Array | undefined;
-        chain?: string | undefined;
-        contractAddress?: string | undefined;
-        payload?: Uint8Array | undefined;
-        fee?: ({
-            amount?: {
-                denom?: string | undefined;
-                amount?: string | undefined;
-            } | undefined;
-            recipient?: Uint8Array | undefined;
-            refundRecipient?: Uint8Array | undefined;
-        } & {
-            amount?: ({
-                denom?: string | undefined;
-                amount?: string | undefined;
-            } & {
-                denom?: string | undefined;
-                amount?: string | undefined;
-            } & Record<Exclude<keyof I["fee"]["amount"], keyof import("../../../cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
-            recipient?: Uint8Array | undefined;
-            refundRecipient?: Uint8Array | undefined;
-        } & Record<Exclude<keyof I["fee"], keyof Fee>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof CallContractRequest>, never>>(object: I): CallContractRequest;
+    create<I extends Exact<DeepPartial<CallContractRequest>, I>>(base?: I): CallContractRequest;
+    fromPartial<I extends Exact<DeepPartial<CallContractRequest>, I>>(object: I): CallContractRequest;
 };
 export declare const CallContractResponse: {
+    $type: "axelar.axelarnet.v1beta1.CallContractResponse";
     encode(_: CallContractResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): CallContractResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): CallContractResponse;
     fromJSON(_: any): CallContractResponse;
     toJSON(_: CallContractResponse): unknown;
-    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): CallContractResponse;
+    create<I extends Exact<DeepPartial<CallContractResponse>, I>>(base?: I): CallContractResponse;
+    fromPartial<I extends Exact<DeepPartial<CallContractResponse>, I>>(_: I): CallContractResponse;
 };
-declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
-    [K in keyof T]?: DeepPartial<T[K]>;
+export declare const UpdateParamsRequest: {
+    $type: "axelar.axelarnet.v1beta1.UpdateParamsRequest";
+    encode(message: UpdateParamsRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): UpdateParamsRequest;
+    fromJSON(object: any): UpdateParamsRequest;
+    toJSON(message: UpdateParamsRequest): unknown;
+    create<I extends Exact<DeepPartial<UpdateParamsRequest>, I>>(base?: I): UpdateParamsRequest;
+    fromPartial<I extends Exact<DeepPartial<UpdateParamsRequest>, I>>(object: I): UpdateParamsRequest;
+};
+export declare const UpdateParamsResponse: {
+    $type: "axelar.axelarnet.v1beta1.UpdateParamsResponse";
+    encode(_: UpdateParamsResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): UpdateParamsResponse;
+    fromJSON(_: any): UpdateParamsResponse;
+    toJSON(_: UpdateParamsResponse): unknown;
+    create<I extends Exact<DeepPartial<UpdateParamsResponse>, I>>(base?: I): UpdateParamsResponse;
+    fromPartial<I extends Exact<DeepPartial<UpdateParamsResponse>, I>>(_: I): UpdateParamsResponse;
+};
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+    [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]>;
 } : Partial<T>;
-declare type KeysOfUnion<T> = T extends T ? keyof T : never;
-export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
-} & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
+} & {
+    [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never;
+};
 export {};

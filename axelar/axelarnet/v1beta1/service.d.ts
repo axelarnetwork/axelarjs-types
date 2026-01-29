@@ -1,5 +1,5 @@
-import { LinkResponse, ConfirmDepositResponse, ExecutePendingTransfersResponse, AddCosmosBasedChainResponse, RegisterAssetResponse, RouteIBCTransfersResponse, RegisterFeeCollectorResponse, RetryIBCTransferResponse, RouteMessageResponse, CallContractResponse, LinkRequest, ConfirmDepositRequest, ExecutePendingTransfersRequest, AddCosmosBasedChainRequest, RegisterAssetRequest, RouteIBCTransfersRequest, RegisterFeeCollectorRequest, RetryIBCTransferRequest, RouteMessageRequest, CallContractRequest } from "../../../axelar/axelarnet/v1beta1/tx";
-import { PendingIBCTransferCountResponse, ParamsResponse, IBCPathResponse, ChainByIBCPathResponse, PendingIBCTransferCountRequest, ParamsRequest, IBCPathRequest, ChainByIBCPathRequest } from "../../../axelar/axelarnet/v1beta1/query";
+import { ChainByIBCPathRequest, ChainByIBCPathResponse, IBCPathRequest, IBCPathResponse, ParamsRequest, ParamsResponse, PendingIBCTransferCountRequest, PendingIBCTransferCountResponse } from "./query";
+import { AddCosmosBasedChainRequest, AddCosmosBasedChainResponse, CallContractRequest, CallContractResponse, ConfirmDepositRequest, ConfirmDepositResponse, ExecutePendingTransfersRequest, ExecutePendingTransfersResponse, LinkRequest, LinkResponse, RegisterAssetRequest, RegisterAssetResponse, RegisterFeeCollectorRequest, RegisterFeeCollectorResponse, RetryIBCTransferRequest, RetryIBCTransferResponse, RouteIBCTransfersRequest, RouteIBCTransfersResponse, RouteMessageRequest, RouteMessageResponse, UpdateParamsRequest, UpdateParamsResponse } from "./tx";
 export declare const protobufPackage = "axelar.axelarnet.v1beta1";
 /** Msg defines the axelarnet Msg service. */
 export interface MsgService {
@@ -13,10 +13,15 @@ export interface MsgService {
     RetryIBCTransfer(request: RetryIBCTransferRequest): Promise<RetryIBCTransferResponse>;
     RouteMessage(request: RouteMessageRequest): Promise<RouteMessageResponse>;
     CallContract(request: CallContractRequest): Promise<CallContractResponse>;
+    UpdateParams(request: UpdateParamsRequest): Promise<UpdateParamsResponse>;
 }
+export declare const MsgServiceServiceName = "axelar.axelarnet.v1beta1.MsgService";
 export declare class MsgServiceClientImpl implements MsgService {
     private readonly rpc;
-    constructor(rpc: Rpc);
+    private readonly service;
+    constructor(rpc: Rpc, opts?: {
+        service?: string;
+    });
     Link(request: LinkRequest): Promise<LinkResponse>;
     ConfirmDeposit(request: ConfirmDepositRequest): Promise<ConfirmDepositResponse>;
     ExecutePendingTransfers(request: ExecutePendingTransfersRequest): Promise<ExecutePendingTransfersResponse>;
@@ -27,6 +32,7 @@ export declare class MsgServiceClientImpl implements MsgService {
     RetryIBCTransfer(request: RetryIBCTransferRequest): Promise<RetryIBCTransferResponse>;
     RouteMessage(request: RouteMessageRequest): Promise<RouteMessageResponse>;
     CallContract(request: CallContractRequest): Promise<CallContractResponse>;
+    UpdateParams(request: UpdateParamsRequest): Promise<UpdateParamsResponse>;
 }
 /** QueryService defines the gRPC querier service. */
 export interface QueryService {
@@ -36,9 +42,13 @@ export interface QueryService {
     IBCPath(request: IBCPathRequest): Promise<IBCPathResponse>;
     ChainByIBCPath(request: ChainByIBCPathRequest): Promise<ChainByIBCPathResponse>;
 }
+export declare const QueryServiceServiceName = "axelar.axelarnet.v1beta1.QueryService";
 export declare class QueryServiceClientImpl implements QueryService {
     private readonly rpc;
-    constructor(rpc: Rpc);
+    private readonly service;
+    constructor(rpc: Rpc, opts?: {
+        service?: string;
+    });
     PendingIBCTransferCount(request: PendingIBCTransferCountRequest): Promise<PendingIBCTransferCountResponse>;
     Params(request: ParamsRequest): Promise<ParamsResponse>;
     IBCPath(request: IBCPathRequest): Promise<IBCPathResponse>;

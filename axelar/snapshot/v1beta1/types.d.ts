@@ -1,32 +1,29 @@
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
+import _m0 from "protobufjs/minimal";
 export declare const protobufPackage = "axelar.snapshot.v1beta1";
 export interface ProxiedValidator {
-    validator: Uint8Array;
-    proxy: Uint8Array;
+    $type: "axelar.snapshot.v1beta1.ProxiedValidator";
+    validator: Buffer;
+    proxy: Buffer;
     active: boolean;
 }
 export declare const ProxiedValidator: {
+    $type: "axelar.snapshot.v1beta1.ProxiedValidator";
     encode(message: ProxiedValidator, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ProxiedValidator;
+    decode(input: _m0.Reader | Uint8Array, length?: number): ProxiedValidator;
     fromJSON(object: any): ProxiedValidator;
     toJSON(message: ProxiedValidator): unknown;
-    fromPartial<I extends {
-        validator?: Uint8Array | undefined;
-        proxy?: Uint8Array | undefined;
-        active?: boolean | undefined;
-    } & {
-        validator?: Uint8Array | undefined;
-        proxy?: Uint8Array | undefined;
-        active?: boolean | undefined;
-    } & Record<Exclude<keyof I, keyof ProxiedValidator>, never>>(object: I): ProxiedValidator;
+    create<I extends Exact<DeepPartial<ProxiedValidator>, I>>(base?: I): ProxiedValidator;
+    fromPartial<I extends Exact<DeepPartial<ProxiedValidator>, I>>(object: I): ProxiedValidator;
 };
-declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
-    [K in keyof T]?: DeepPartial<T[K]>;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+    [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]>;
 } : Partial<T>;
-declare type KeysOfUnion<T> = T extends T ? keyof T : never;
-export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
-} & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
+} & {
+    [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never;
+};
 export {};

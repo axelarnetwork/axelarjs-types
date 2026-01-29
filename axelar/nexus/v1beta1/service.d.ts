@@ -1,5 +1,5 @@
-import { RegisterChainMaintainerResponse, DeregisterChainMaintainerResponse, ActivateChainResponse, DeactivateChainResponse, RegisterAssetFeeResponse, SetTransferRateLimitResponse, RegisterChainMaintainerRequest, DeregisterChainMaintainerRequest, ActivateChainRequest, DeactivateChainRequest, RegisterAssetFeeRequest, SetTransferRateLimitRequest } from "../../../axelar/nexus/v1beta1/tx";
-import { LatestDepositAddressResponse, TransfersForChainResponse, FeeInfoResponse, TransferFeeResponse, ChainsResponse, AssetsResponse, ChainStateResponse, ChainsByAssetResponse, RecipientAddressResponse, ChainMaintainersResponse, TransferRateLimitResponse, MessageResponse, ParamsResponse, LatestDepositAddressRequest, TransfersForChainRequest, FeeInfoRequest, TransferFeeRequest, ChainsRequest, AssetsRequest, ChainStateRequest, ChainsByAssetRequest, RecipientAddressRequest, ChainMaintainersRequest, TransferRateLimitRequest, MessageRequest, ParamsRequest } from "../../../axelar/nexus/v1beta1/query";
+import { AssetsRequest, AssetsResponse, ChainMaintainersRequest, ChainMaintainersResponse, ChainsByAssetRequest, ChainsByAssetResponse, ChainsRequest, ChainsResponse, ChainStateRequest, ChainStateResponse, FeeInfoRequest, FeeInfoResponse, LatestDepositAddressRequest, LatestDepositAddressResponse, LinkDepositEnabledRequest, LinkDepositEnabledResponse, MessageRequest, MessageResponse, ParamsRequest, ParamsResponse, RecipientAddressRequest, RecipientAddressResponse, TransferFeeRequest, TransferFeeResponse, TransferRateLimitRequest, TransferRateLimitResponse, TransfersForChainRequest, TransfersForChainResponse } from "./query";
+import { ActivateChainRequest, ActivateChainResponse, DeactivateChainRequest, DeactivateChainResponse, DeregisterChainMaintainerRequest, DeregisterChainMaintainerResponse, DisableLinkDepositRequest, DisableLinkDepositResponse, EnableLinkDepositRequest, EnableLinkDepositResponse, RegisterAssetFeeRequest, RegisterAssetFeeResponse, RegisterChainMaintainerRequest, RegisterChainMaintainerResponse, SetTransferRateLimitRequest, SetTransferRateLimitResponse, UpdateParamsRequest, UpdateParamsResponse } from "./tx";
 export declare const protobufPackage = "axelar.nexus.v1beta1";
 /** Msg defines the nexus Msg service. */
 export interface MsgService {
@@ -9,16 +9,26 @@ export interface MsgService {
     DeactivateChain(request: DeactivateChainRequest): Promise<DeactivateChainResponse>;
     RegisterAssetFee(request: RegisterAssetFeeRequest): Promise<RegisterAssetFeeResponse>;
     SetTransferRateLimit(request: SetTransferRateLimitRequest): Promise<SetTransferRateLimitResponse>;
+    EnableLinkDeposit(request: EnableLinkDepositRequest): Promise<EnableLinkDepositResponse>;
+    DisableLinkDeposit(request: DisableLinkDepositRequest): Promise<DisableLinkDepositResponse>;
+    UpdateParams(request: UpdateParamsRequest): Promise<UpdateParamsResponse>;
 }
+export declare const MsgServiceServiceName = "axelar.nexus.v1beta1.MsgService";
 export declare class MsgServiceClientImpl implements MsgService {
     private readonly rpc;
-    constructor(rpc: Rpc);
+    private readonly service;
+    constructor(rpc: Rpc, opts?: {
+        service?: string;
+    });
     RegisterChainMaintainer(request: RegisterChainMaintainerRequest): Promise<RegisterChainMaintainerResponse>;
     DeregisterChainMaintainer(request: DeregisterChainMaintainerRequest): Promise<DeregisterChainMaintainerResponse>;
     ActivateChain(request: ActivateChainRequest): Promise<ActivateChainResponse>;
     DeactivateChain(request: DeactivateChainRequest): Promise<DeactivateChainResponse>;
     RegisterAssetFee(request: RegisterAssetFeeRequest): Promise<RegisterAssetFeeResponse>;
     SetTransferRateLimit(request: SetTransferRateLimitRequest): Promise<SetTransferRateLimitResponse>;
+    EnableLinkDeposit(request: EnableLinkDepositRequest): Promise<EnableLinkDepositResponse>;
+    DisableLinkDeposit(request: DisableLinkDepositRequest): Promise<DisableLinkDepositResponse>;
+    UpdateParams(request: UpdateParamsRequest): Promise<UpdateParamsResponse>;
 }
 /** QueryService defines the gRPC querier service. */
 export interface QueryService {
@@ -52,10 +62,15 @@ export interface QueryService {
     TransferRateLimit(request: TransferRateLimitRequest): Promise<TransferRateLimitResponse>;
     Message(request: MessageRequest): Promise<MessageResponse>;
     Params(request: ParamsRequest): Promise<ParamsResponse>;
+    LinkDepositEnabled(request: LinkDepositEnabledRequest): Promise<LinkDepositEnabledResponse>;
 }
+export declare const QueryServiceServiceName = "axelar.nexus.v1beta1.QueryService";
 export declare class QueryServiceClientImpl implements QueryService {
     private readonly rpc;
-    constructor(rpc: Rpc);
+    private readonly service;
+    constructor(rpc: Rpc, opts?: {
+        service?: string;
+    });
     LatestDepositAddress(request: LatestDepositAddressRequest): Promise<LatestDepositAddressResponse>;
     TransfersForChain(request: TransfersForChainRequest): Promise<TransfersForChainResponse>;
     FeeInfo(request: FeeInfoRequest): Promise<FeeInfoResponse>;
@@ -69,6 +84,7 @@ export declare class QueryServiceClientImpl implements QueryService {
     TransferRateLimit(request: TransferRateLimitRequest): Promise<TransferRateLimitResponse>;
     Message(request: MessageRequest): Promise<MessageResponse>;
     Params(request: ParamsRequest): Promise<ParamsResponse>;
+    LinkDepositEnabled(request: LinkDepositEnabledRequest): Promise<LinkDepositEnabledResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

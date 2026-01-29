@@ -1,229 +1,41 @@
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
-import { Params } from "../../../axelar/vote/v1beta1/params";
+import _m0 from "protobufjs/minimal";
+import { Params } from "./params";
 export declare const protobufPackage = "axelar.vote.v1beta1";
 /** ParamsRequest represents a message that queries the params */
 export interface ParamsRequest {
+    $type: "axelar.vote.v1beta1.ParamsRequest";
 }
 export interface ParamsResponse {
-    params?: Params;
+    $type: "axelar.vote.v1beta1.ParamsResponse";
+    params?: Params | undefined;
 }
 export declare const ParamsRequest: {
+    $type: "axelar.vote.v1beta1.ParamsRequest";
     encode(_: ParamsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ParamsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): ParamsRequest;
     fromJSON(_: any): ParamsRequest;
     toJSON(_: ParamsRequest): unknown;
-    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): ParamsRequest;
+    create<I extends Exact<DeepPartial<ParamsRequest>, I>>(base?: I): ParamsRequest;
+    fromPartial<I extends Exact<DeepPartial<ParamsRequest>, I>>(_: I): ParamsRequest;
 };
 export declare const ParamsResponse: {
+    $type: "axelar.vote.v1beta1.ParamsResponse";
     encode(message: ParamsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ParamsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): ParamsResponse;
     fromJSON(object: any): ParamsResponse;
     toJSON(message: ParamsResponse): unknown;
-    fromPartial<I extends {
-        params?: {
-            defaultVotingThreshold?: {
-                numerator?: string | number | Long.Long | undefined;
-                denominator?: string | number | Long.Long | undefined;
-            } | undefined;
-            endBlockerLimit?: string | number | Long.Long | undefined;
-        } | undefined;
-    } & {
-        params?: ({
-            defaultVotingThreshold?: {
-                numerator?: string | number | Long.Long | undefined;
-                denominator?: string | number | Long.Long | undefined;
-            } | undefined;
-            endBlockerLimit?: string | number | Long.Long | undefined;
-        } & {
-            defaultVotingThreshold?: ({
-                numerator?: string | number | Long.Long | undefined;
-                denominator?: string | number | Long.Long | undefined;
-            } & {
-                numerator?: string | number | (Long.Long & {
-                    high: number;
-                    low: number;
-                    unsigned: boolean;
-                    add: (addend: string | number | Long.Long) => Long.Long;
-                    and: (other: string | number | Long.Long) => Long.Long;
-                    compare: (other: string | number | Long.Long) => number;
-                    comp: (other: string | number | Long.Long) => number;
-                    divide: (divisor: string | number | Long.Long) => Long.Long;
-                    div: (divisor: string | number | Long.Long) => Long.Long;
-                    equals: (other: string | number | Long.Long) => boolean;
-                    eq: (other: string | number | Long.Long) => boolean;
-                    getHighBits: () => number;
-                    getHighBitsUnsigned: () => number;
-                    getLowBits: () => number;
-                    getLowBitsUnsigned: () => number;
-                    getNumBitsAbs: () => number;
-                    greaterThan: (other: string | number | Long.Long) => boolean;
-                    gt: (other: string | number | Long.Long) => boolean;
-                    greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-                    gte: (other: string | number | Long.Long) => boolean;
-                    isEven: () => boolean;
-                    isNegative: () => boolean;
-                    isOdd: () => boolean;
-                    isPositive: () => boolean;
-                    isZero: () => boolean;
-                    lessThan: (other: string | number | Long.Long) => boolean;
-                    lt: (other: string | number | Long.Long) => boolean;
-                    lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-                    lte: (other: string | number | Long.Long) => boolean;
-                    modulo: (other: string | number | Long.Long) => Long.Long;
-                    mod: (other: string | number | Long.Long) => Long.Long;
-                    multiply: (multiplier: string | number | Long.Long) => Long.Long;
-                    mul: (multiplier: string | number | Long.Long) => Long.Long;
-                    negate: () => Long.Long;
-                    neg: () => Long.Long;
-                    not: () => Long.Long;
-                    notEquals: (other: string | number | Long.Long) => boolean;
-                    neq: (other: string | number | Long.Long) => boolean;
-                    or: (other: string | number | Long.Long) => Long.Long;
-                    shiftLeft: (numBits: number | Long.Long) => Long.Long;
-                    shl: (numBits: number | Long.Long) => Long.Long;
-                    shiftRight: (numBits: number | Long.Long) => Long.Long;
-                    shr: (numBits: number | Long.Long) => Long.Long;
-                    shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-                    shru: (numBits: number | Long.Long) => Long.Long;
-                    subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-                    sub: (subtrahend: string | number | Long.Long) => Long.Long;
-                    toInt: () => number;
-                    toNumber: () => number;
-                    toBytes: (le?: boolean | undefined) => number[];
-                    toBytesLE: () => number[];
-                    toBytesBE: () => number[];
-                    toSigned: () => Long.Long;
-                    toString: (radix?: number | undefined) => string;
-                    toUnsigned: () => Long.Long;
-                    xor: (other: string | number | Long.Long) => Long.Long;
-                } & Record<Exclude<keyof I["params"]["defaultVotingThreshold"]["numerator"], keyof Long.Long>, never>) | undefined;
-                denominator?: string | number | (Long.Long & {
-                    high: number;
-                    low: number;
-                    unsigned: boolean;
-                    add: (addend: string | number | Long.Long) => Long.Long;
-                    and: (other: string | number | Long.Long) => Long.Long;
-                    compare: (other: string | number | Long.Long) => number;
-                    comp: (other: string | number | Long.Long) => number;
-                    divide: (divisor: string | number | Long.Long) => Long.Long;
-                    div: (divisor: string | number | Long.Long) => Long.Long;
-                    equals: (other: string | number | Long.Long) => boolean;
-                    eq: (other: string | number | Long.Long) => boolean;
-                    getHighBits: () => number;
-                    getHighBitsUnsigned: () => number;
-                    getLowBits: () => number;
-                    getLowBitsUnsigned: () => number;
-                    getNumBitsAbs: () => number;
-                    greaterThan: (other: string | number | Long.Long) => boolean;
-                    gt: (other: string | number | Long.Long) => boolean;
-                    greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-                    gte: (other: string | number | Long.Long) => boolean;
-                    isEven: () => boolean;
-                    isNegative: () => boolean;
-                    isOdd: () => boolean;
-                    isPositive: () => boolean;
-                    isZero: () => boolean;
-                    lessThan: (other: string | number | Long.Long) => boolean;
-                    lt: (other: string | number | Long.Long) => boolean;
-                    lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-                    lte: (other: string | number | Long.Long) => boolean;
-                    modulo: (other: string | number | Long.Long) => Long.Long;
-                    mod: (other: string | number | Long.Long) => Long.Long;
-                    multiply: (multiplier: string | number | Long.Long) => Long.Long;
-                    mul: (multiplier: string | number | Long.Long) => Long.Long;
-                    negate: () => Long.Long;
-                    neg: () => Long.Long;
-                    not: () => Long.Long;
-                    notEquals: (other: string | number | Long.Long) => boolean;
-                    neq: (other: string | number | Long.Long) => boolean;
-                    or: (other: string | number | Long.Long) => Long.Long;
-                    shiftLeft: (numBits: number | Long.Long) => Long.Long;
-                    shl: (numBits: number | Long.Long) => Long.Long;
-                    shiftRight: (numBits: number | Long.Long) => Long.Long;
-                    shr: (numBits: number | Long.Long) => Long.Long;
-                    shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-                    shru: (numBits: number | Long.Long) => Long.Long;
-                    subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-                    sub: (subtrahend: string | number | Long.Long) => Long.Long;
-                    toInt: () => number;
-                    toNumber: () => number;
-                    toBytes: (le?: boolean | undefined) => number[];
-                    toBytesLE: () => number[];
-                    toBytesBE: () => number[];
-                    toSigned: () => Long.Long;
-                    toString: (radix?: number | undefined) => string;
-                    toUnsigned: () => Long.Long;
-                    xor: (other: string | number | Long.Long) => Long.Long;
-                } & Record<Exclude<keyof I["params"]["defaultVotingThreshold"]["denominator"], keyof Long.Long>, never>) | undefined;
-            } & Record<Exclude<keyof I["params"]["defaultVotingThreshold"], keyof import("../../utils/v1beta1/threshold").Threshold>, never>) | undefined;
-            endBlockerLimit?: string | number | (Long.Long & {
-                high: number;
-                low: number;
-                unsigned: boolean;
-                add: (addend: string | number | Long.Long) => Long.Long;
-                and: (other: string | number | Long.Long) => Long.Long;
-                compare: (other: string | number | Long.Long) => number;
-                comp: (other: string | number | Long.Long) => number;
-                divide: (divisor: string | number | Long.Long) => Long.Long;
-                div: (divisor: string | number | Long.Long) => Long.Long;
-                equals: (other: string | number | Long.Long) => boolean;
-                eq: (other: string | number | Long.Long) => boolean;
-                getHighBits: () => number;
-                getHighBitsUnsigned: () => number;
-                getLowBits: () => number;
-                getLowBitsUnsigned: () => number;
-                getNumBitsAbs: () => number;
-                greaterThan: (other: string | number | Long.Long) => boolean;
-                gt: (other: string | number | Long.Long) => boolean;
-                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-                gte: (other: string | number | Long.Long) => boolean;
-                isEven: () => boolean;
-                isNegative: () => boolean;
-                isOdd: () => boolean;
-                isPositive: () => boolean;
-                isZero: () => boolean;
-                lessThan: (other: string | number | Long.Long) => boolean;
-                lt: (other: string | number | Long.Long) => boolean;
-                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-                lte: (other: string | number | Long.Long) => boolean;
-                modulo: (other: string | number | Long.Long) => Long.Long;
-                mod: (other: string | number | Long.Long) => Long.Long;
-                multiply: (multiplier: string | number | Long.Long) => Long.Long;
-                mul: (multiplier: string | number | Long.Long) => Long.Long;
-                negate: () => Long.Long;
-                neg: () => Long.Long;
-                not: () => Long.Long;
-                notEquals: (other: string | number | Long.Long) => boolean;
-                neq: (other: string | number | Long.Long) => boolean;
-                or: (other: string | number | Long.Long) => Long.Long;
-                shiftLeft: (numBits: number | Long.Long) => Long.Long;
-                shl: (numBits: number | Long.Long) => Long.Long;
-                shiftRight: (numBits: number | Long.Long) => Long.Long;
-                shr: (numBits: number | Long.Long) => Long.Long;
-                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-                shru: (numBits: number | Long.Long) => Long.Long;
-                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-                sub: (subtrahend: string | number | Long.Long) => Long.Long;
-                toInt: () => number;
-                toNumber: () => number;
-                toBytes: (le?: boolean | undefined) => number[];
-                toBytesLE: () => number[];
-                toBytesBE: () => number[];
-                toSigned: () => Long.Long;
-                toString: (radix?: number | undefined) => string;
-                toUnsigned: () => Long.Long;
-                xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["params"]["endBlockerLimit"], keyof Long.Long>, never>) | undefined;
-        } & Record<Exclude<keyof I["params"], keyof Params>, never>) | undefined;
-    } & Record<Exclude<keyof I, "params">, never>>(object: I): ParamsResponse;
+    create<I extends Exact<DeepPartial<ParamsResponse>, I>>(base?: I): ParamsResponse;
+    fromPartial<I extends Exact<DeepPartial<ParamsResponse>, I>>(object: I): ParamsResponse;
 };
-declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
-    [K in keyof T]?: DeepPartial<T[K]>;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+    [K in Exclude<keyof T, "$type">]?: DeepPartial<T[K]>;
 } : Partial<T>;
-declare type KeysOfUnion<T> = T extends T ? keyof T : never;
-export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
-} & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
+} & {
+    [K in Exclude<keyof I, KeysOfUnion<P> | "$type">]: never;
+};
 export {};

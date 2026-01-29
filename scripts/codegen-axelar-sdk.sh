@@ -2,7 +2,7 @@
 set -o errexit -o nounset -o pipefail
 command -v shellcheck >/dev/null && shellcheck "$0"
 
-TS_PROTO_OPTS="esModuleInterop=true,forceLong=long,useOptionals=messages,useDate=false"
+TS_PROTO_OPTS="esModuleInterop=true,forceLong=long,useOptionals=messages,useDate=false,env=node,globalThisPolyfill=true,outputTypeRegistry=true"
 
 OUT_DIR="./src"
 AXELAR_SDK_DIR="./axelar-core/proto"

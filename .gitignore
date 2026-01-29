@@ -19,6 +19,9 @@
 /google/
 /ibc/
 /tendermint/
+/typeRegistry.js
+/typeRegistry.d.ts
+/typeRegistry.js.map
 
 # IDEs
 .vscode/
